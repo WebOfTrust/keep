@@ -1,2 +1,15 @@
-  on:
-  jobs:
+name: Keep
+
+on: [ push ]
+jobs:
+  echo:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+      - uses: actions/setup-node@v2
+        with:
+          node-version: '14'
+          cache: 'yarn'
+      - run: yarn install
+      - run: echo "Test"
+
