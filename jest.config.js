@@ -4,8 +4,10 @@
  */
 
 module.exports = {
+  testMatch: ['<rootDir>/src/app/**/*.spec.js'],
   testEnvironment: 'jsdom',
   setupFilesAfterEnv: ['./jest.setup.js'],
+  modulePaths: ['<rootDir>/src/app/'],
   globals: {
     NODE_ENV: 'test',
   },
