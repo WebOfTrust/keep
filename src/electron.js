@@ -27,7 +27,7 @@ const createWindow = () => {
 
   // let executablePath = path.join(app.getPath('exe'), '../', 'ward.exe');
   // let ward = spawn(`${executablePath}`);
-  let ward = spawn('ls', ['-lh', '/home/jordan/Projects/keep']);
+  let ward = spawn('ls', ['-lh', '/']);
   ward.stdout.on('data', (data) => {
     let buffer = Buffer.from(data);
     console.log('out:', buffer.toString());

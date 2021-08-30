@@ -42,6 +42,6 @@ Start application
 
 ## Packaging
 
-https://www.electronforge.io/
+https://www.electron.build/
 
 ## Distribution
