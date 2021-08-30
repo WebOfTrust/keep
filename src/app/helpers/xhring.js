@@ -5,7 +5,7 @@ class xhring {
     return m
       .request({
         method: 'POST',
-        url: process.env.CONTROLLER_URL + '/credential/issue',
+        url: 'http://localhost:5623/credential/issue',
         body: body,
       })
       .catch(function (e) {
@@ -17,7 +17,7 @@ class xhring {
     return m
       .request({
         method: 'POST',
-        url: process.env.CONTROLLER_URL + '/exn/cmd/credential/issue',
+        url: 'http://localhost:5623/exn/cmd/credential/issue',
         headers: {
           'CESR-DATE': date,
           'CESR-ATTACHMENT': attachment,

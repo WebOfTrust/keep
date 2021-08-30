@@ -32,7 +32,7 @@ function Revoke() {
     // TODO: Move to helpers/xhring
     m.request({
       method: 'POST',
-      url: process.env.CONTROLLER_URL + '/credential/revoke',
+      url: 'http://localhost:5623/credential/revoke',
       body: { said: cred.i },
     })
       .then((res) => {

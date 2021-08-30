@@ -27,9 +27,7 @@ let sniff = (raw) => {
 function Mailbox() {
   // let messages = mockMessages;
   let messages = [];
-  let source = new EventSource(
-    process.env.CONTROLLER_URL + '/req/mbx?s=0&i=E4Zq5dxbnWKq5K-Bssn4g_qhBbSwNSI2MH4QYnkEUFDM'
-  );
+  let source = new EventSource('http://localhost:5623/req/mbx?s=0&i=E4Zq5dxbnWKq5K-Bssn4g_qhBbSwNSI2MH4QYnkEUFDM');
   let cardOptions = {
     elevation: 1,
     fluid: true,
