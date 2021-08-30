@@ -13,6 +13,11 @@ function createWindow() {
     width: 800,
     height: 600,
     webPreferences: {
+      // TODO: enabling nodeIntegration and disabling contextIsolation is not recommended
+      // but is needed to use node in the renderer process.
+      // Review if there is a better way of enabling specific needed node functionality with
+      // preload scripts:
+      // https://www.electronjs.org/docs/latest/tutorial/process-model
       nodeIntegration: true,
       contextIsolation: false,
     },
