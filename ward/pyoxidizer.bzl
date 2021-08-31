@@ -12,24 +12,23 @@ def make_exe():
     python_config.module_search_paths = ["$ORIGIN/lib"]
     python_config.filesystem_importer = True
     python_config.sys_frozen = True
-    python_config.run_module = "keri.demo.demo_bob"
-#    python_config.run_module = "keri.app.cli.commands.agent.bootstrap"
+
+    #    python_config.run_module = "keri.demo.demo_bob"
+    python_config.run_module = "keri.app.cli.commands.agent.bootstrap"
 
     exe = dist.to_python_executable(
-        name="ward",
-        packaging_policy=policy,
-        config=python_config,
+        name = "ward",
+        packaging_policy = policy,
+        config = python_config,
     )
-    for resource in exe.read_virtualenv(path="./venv"):
+    for resource in exe.read_virtualenv(path = "./venv"):
         resource.add_location = "filesystem-relative:lib"
         exe.add_python_resource(resource)
 
     return exe
 
-
 def make_embedded_resources(exe):
     return exe.to_embedded_resources()
-
 
 def make_install(exe):
     # Create an object that represents our installed application file layout.
@@ -39,7 +38,6 @@ def make_install(exe):
     files.add_python_resource(".", exe)
 
     return files
-
 
 def make_msi(exe):
     # See the full docs for more. But this will convert your Python executable
@@ -53,9 +51,8 @@ def make_msi(exe):
         # The version of your application.
         "0.1.0",
         # The author/manufacturer of your application.
-        "Kevin Griffin"
+        "Kevin Griffin",
     )
-
 
 # Dynamically enable automatic code signing.
 def register_code_signers():
@@ -64,39 +61,38 @@ def register_code_signers():
     if not VARS.get("ENABLE_CODE_SIGNING"):
         return
 
-    # Use a code signing certificate in a .pfx/.p12 file, prompting the
-    # user for its path and password to open.
-    # pfx_path = prompt_input("path to code signing certificate file")
-    # pfx_password = prompt_password(
-    #     "password for code signing certificate file",
-    #     confirm = True
-    # )
-    # signer = code_signer_from_pfx_file(pfx_path, pfx_password)
+# Use a code signing certificate in a .pfx/.p12 file, prompting the
+# user for its path and password to open.
+# pfx_path = prompt_input("path to code signing certificate file")
+# pfx_password = prompt_password(
+#     "password for code signing certificate file",
+#     confirm = True
+# )
+# signer = code_signer_from_pfx_file(pfx_path, pfx_password)
 
-    # Use a code signing certificate in the Windows certificate store, specified
-    # by its SHA-1 thumbprint. (This allows you to use YubiKeys and other
-    # hardware tokens if they speak to the Windows certificate APIs.)
-    # sha1_thumbprint = prompt_input(
-    #     "SHA-1 thumbprint of code signing certificate in Windows store"
-    # )
-    # signer = code_signer_from_windows_store_sha1_thumbprint(sha1_thumbprint)
+# Use a code signing certificate in the Windows certificate store, specified
+# by its SHA-1 thumbprint. (This allows you to use YubiKeys and other
+# hardware tokens if they speak to the Windows certificate APIs.)
+# sha1_thumbprint = prompt_input(
+#     "SHA-1 thumbprint of code signing certificate in Windows store"
+# )
+# signer = code_signer_from_windows_store_sha1_thumbprint(sha1_thumbprint)
 
-    # Choose a code signing certificate automatically from the Windows
-    # certificate store.
-    # signer = code_signer_from_windows_store_auto()
+# Choose a code signing certificate automatically from the Windows
+# certificate store.
+# signer = code_signer_from_windows_store_auto()
 
-    # Activate your signer so it gets called automatically.
-    # signer.activate()
-
+# Activate your signer so it gets called automatically.
+# signer.activate()
 
 # Call our function to set up automatic code signers.
 register_code_signers()
 
 # Tell PyOxidizer about the build targets defined above.
 register_target("exe", make_exe)
-register_target("resources", make_embedded_resources, depends=["exe"], default_build_script=True)
-register_target("install", make_install, depends=["exe"], default=True)
-register_target("msi_installer", make_msi, depends=["exe"])
+register_target("resources", make_embedded_resources, depends = ["exe"], default_build_script = True)
+register_target("install", make_install, depends = ["exe"], default = True)
+register_target("msi_installer", make_msi, depends = ["exe"])
 
 # Resolve whatever targets the invoker of this configuration file is requesting
 # be resolved.
