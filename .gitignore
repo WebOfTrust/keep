@@ -90,6 +90,7 @@ out/
 
 .idea
 ward/build
+ward/dist
 ward/venv
 build
 dist
