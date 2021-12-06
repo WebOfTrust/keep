@@ -1,0 +1,23 @@
+altgraph==0.17.2
+attrs==21.2.0
+blake3==0.2.1
+cbor2==5.4.2
+click==8.0.3
+daemonocle==1.2.3
+falcon==3.0.1
+-e git+ssh://git@github.com/ioflo/hio.git@7893ef110b51c8cb7b7fbb0d88098040b418dec0#egg=hio
+hjson==3.0.2
+jsonschema==4.2.1
+-e git+ssh://git@github.com/WebOfTrust/keripy.git@40a29a8a1043f2fb3a58845ea0d4d1d1ed87a2bf#egg=keri
+lmdb==1.2.1
+macholib==1.15.2
+msgpack==1.0.2
+multicommand==0.1.1
+multidict==5.2.0
+netifaces==0.11.0
+orderedset==2.0.3
+psutil==5.8.0
+pyinstaller==4.7
+pyinstaller-hooks-contrib==2021.3
+pyrsistent==0.18.0
+-e git+ssh://git@github.com/WebOfTrust/pysodium.git@8f5386f2e9a463f1f2c386134a8f15dabedd1cf5#egg=pysodium
