@@ -8,7 +8,6 @@ Electron based application for managing KERI identifiers.
 
 Electron app wrapping a python app that serves the API and UI.
 
-
 ### Install dev dependencies
 
 ```shell
