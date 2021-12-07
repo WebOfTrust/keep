@@ -28,18 +28,30 @@ jobs:
           cd ward
           pip install -r requirements.txt
           pyinstaller ward.spec --onefile --clean --noconfirm
-      - name: Create artifact
-        uses: montudor/action-zip@v0.1.0
+
+      - name: debug
+        run: |
+          echo `pwd`
+
+      - uses: papeloto/action-zip@v1
         with:
-          args: zip -r asset/ward-${{ steps.vars.outputs.tag }}-${{matrix.os}}.zip ./ward/dist/ward
+          files: dist/ward/
+          dest: ward-${{ steps.vars.outputs.tag }}-${{matrix.os}}.zip    
+
+      # - name: Create artifact
+      #   uses: montudor/action-zip@v0.1.0
+      #   with:
+      #     args: zip -r asset/ward-${{ steps.vars.outputs.tag }}-${{matrix.os}}.zip ./ward/dist/ward
+
       - name: Upload artifact
         uses: actions/upload-artifact@v2
         with:
           name: ward-${{ steps.vars.outputs.tag }}-${{matrix.os}}.zip
-          path: asset/ward-${{ steps.vars.outputs.tag }}-${{matrix.os}}.zip
+          path: ward-${{ steps.vars.outputs.tag }}-${{matrix.os}}.zip
+
       - name: Upload to release
         uses: JasonEtco/upload-to-release@master
         with:
-          args: asset/ward-${{ steps.vars.outputs.tag }}-${{matrix.os}}.zip application/zip
+          args: ward-${{ steps.vars.outputs.tag }}-${{matrix.os}}.zip application/zip
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
