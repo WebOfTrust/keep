@@ -19,9 +19,9 @@ jobs:
         uses: actions/setup-python@v2
         with:
           python-version: 3.9.8
-#
-#      - name: pyinstaller dependencies
-#      - run: |
-#          cd ward
-#          pip install -r requriements.txt
-#          pyinstaller ward.spec --onefile --clean --noconfirm
+
+      - name: pyinstaller dependencies
+      - run: |
+          cd ward
+          pip install -r requriements.txt
+          pyinstaller ward.spec --onefile --clean --noconfirm
