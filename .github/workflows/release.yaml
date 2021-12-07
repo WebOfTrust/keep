@@ -35,7 +35,7 @@ jobs:
 
       - uses: papeloto/action-zip@v1
         with:
-          files: dist/ward/
+          files: ward/dist/ward/
           dest: ward-${{ steps.vars.outputs.tag }}-${{matrix.os}}.zip    
 
       # - name: Create artifact
