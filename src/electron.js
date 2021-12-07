@@ -23,14 +23,14 @@ function createWindow() {
     },
   });
 
-  win.loadFile('src/app/index.html');
+  win.loadURL('http://localhost:5623');
   spawnChildProcess();
 }
 
 function spawnChildProcess() {
   // let executablePath = path.join(app.getPath('exe'), '../', 'ward.exe');
   // let ward = spawn(`${executablePath}`);
-  let ward = spawn('./ward/dist/start/start');
+  let ward = spawn('./ward/dist/ward/ward');
   ward.stdout.on('data', (data) => {
     let buffer = Buffer.from(data);
     console.log('out:', buffer.toString());

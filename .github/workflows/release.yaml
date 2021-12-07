@@ -1,0 +1,35 @@
+name: Release
+on:
+  release:
+    types: [published]
+jobs:
+  release:
+    name: Upload Release Asset
+    runs-on: ${{ matrix.os }}
+    strategy:
+      fail-fast: false
+      matrix:
+        os: [ macos-latest, ubuntu-latest ]
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v2
+      - name: Build project
+        run: |
+          cd ward
+          pip install -r requriements.txt
+          pyinstaller ward.spec --onefile --clean --noconfirm
+      - name: Create artifact
+        uses: montudor/action-zip@v0.1.0
+        with:
+          args: zip -r asset/ward-${{matrix.os}}.zip ./ward/dist/ward
+      - name: Upload artifact
+        uses: actions/upload-artifact@v2
+        with:
+          name: ward-${{matrix.os}}.zip
+          path: asset/ward-${{matrix.os}}.zip
+      - name: Upload to release
+        uses: JasonEtco/upload-to-release@master
+        with:
+          args: asset/ward-${{matrix.os}}.zip application/zip
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
