@@ -2,33 +2,14 @@
 
 Electron based application for managing KERI identifiers.
 
+![example workflow](https://github.com/WebOfTrust/keep/actions/workflows/build.yaml/badge.svg)
+
 ## Architecture
 
-Bundled KERI application with exposed HTTP server wrapped in [pyoxidizer](https://pyoxidizer.readthedocs.io/) producing
-OS specific executables. Electron "client" application running and invoking KERI "server"
+Electron app wrapping a python app that serves the API and UI.
 
-## Development
-
-Create new venv and install keri
-
-```shell
-❯ cd ward
-❯ python3 -m venv venv
-❯ source venv/bin/activate
-❯ pip install keri
-❯ pyoxidizer run
-```
-
-Will start `keri_bob` for now.
 
 ### Install dev dependencies
-
-You'll need [Rust](https://www.rust-lang.org/learn/get-started) installed.
-
-```shell
-❯ python3 -m pip install pyoxidizer
-❯ cargo install pyoxidizer
-```
 
 ```shell
 ❯ yarn install

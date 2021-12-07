@@ -1,15 +1,27 @@
-name: Keep
+name: Build
 
-on: [ push ]
+on:
+  push:
+    branches:
+      - '*'
 jobs:
-  echo:
-    runs-on: ubuntu-latest
+  build:
+    runs-on: ${{ matrix.os }}
+    strategy:
+      fail-fast: false
+      matrix:
+        os: [ macos-latest, ubuntu-latest ]
+
     steps:
       - uses: actions/checkout@v2
-      - uses: actions/setup-node@v2
-        with:
-          node-version: '14'
-          cache: 'yarn'
-      - run: yarn install
-      - run: echo "Test"
 
+      - name: Set up Python 3.9.8
+        uses: actions/setup-python@v2
+        with:
+          python-version: 3.9.8
+
+      - name: pyinstaller dependencies
+        run: |
+          cd ward
+          pip install -r requirements.txt
+          pyinstaller ward.spec --onefile --clean --noconfirm

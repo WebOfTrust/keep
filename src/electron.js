@@ -10,8 +10,8 @@ if (require('electron-squirrel-startup')) {
 
 function createWindow() {
   const win = new BrowserWindow({
-    width: 800,
-    height: 600,
+    width: 1440,
+    height: 1024,
     webPreferences: {
       // TODO: enabling nodeIntegration and disabling contextIsolation is not recommended
       // but is needed to use node in the renderer process.
@@ -23,14 +23,14 @@ function createWindow() {
     },
   });
 
-  win.loadFile('src/app/index.html');
+  win.loadURL('http://localhost:5623');
   spawnChildProcess();
 }
 
 function spawnChildProcess() {
   // let executablePath = path.join(app.getPath('exe'), '../', 'ward.exe');
   // let ward = spawn(`${executablePath}`);
-  let ward = spawn('ls', ['-lh', '/']);
+  let ward = spawn('./ward/dist/ward/ward');
   ward.stdout.on('data', (data) => {
     let buffer = Buffer.from(data);
     console.log('out:', buffer.toString());
