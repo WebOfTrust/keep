@@ -12,14 +12,17 @@ jobs:
       matrix:
         os: [ macos-latest, ubuntu-latest ]
     steps:
-      - uses: actions/checkout@v2
-
       - name: Set up Python 3.9.8
         uses: actions/setup-python@v2
         with:
           python-version: 3.9.8
 
+<<<<<<< HEAD
       - name: pyinstaller dependencies
+=======
+      - uses: actions/checkout@v2
+        name: pyinstaller dependencies
+>>>>>>> 5a92213 (release workflow)
         run: |
           cd ward
           pip install -r requirements.txt
