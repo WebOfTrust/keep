@@ -12,6 +12,11 @@ jobs:
       matrix:
         os: [ macos-latest, ubuntu-latest ]
     steps:
+      - name: Set up Python 3.9.8
+        uses: actions/setup-python@v2
+        with:
+          python-version: 3.9.8
+
       - name: Set tag
         id: vars
         run: echo ::set-output name=tag::${GITHUB_REF#refs/*/}
