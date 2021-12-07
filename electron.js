@@ -10,8 +10,8 @@ if (require('electron-squirrel-startup')) {
 
 function createWindow() {
   const win = new BrowserWindow({
-    width: 1024,
-    height: 768,
+    width: 1440,
+    height: 1024,
     webPreferences: {
       // TODO: enabling nodeIntegration and disabling contextIsolation is not recommended
       // but is needed to use node in the renderer process.
@@ -22,7 +22,8 @@ function createWindow() {
       contextIsolation: false,
     },
   });
-  win.loadFile('ward/build-ui/index.html');
+
+  win.loadURL('http://localhost:5623');
   spawnChildProcess();
 }
 
