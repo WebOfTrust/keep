@@ -5,7 +5,7 @@ on:
       - '*'
 jobs:
   release:
-    name: Upload Release Asset
+    name: Release ${{ matrix.os }}
     runs-on: ${{ matrix.os }}
     strategy:
       fail-fast: false
@@ -29,32 +29,13 @@ jobs:
           pip install -r requirements.txt
           pyinstaller ward.spec --onefile --clean --noconfirm
 
-      - name: debug
-        run: |
-          echo `pwd`
-
       - uses: papeloto/action-zip@v1
         with:
           files: ward/dist/ward/
           dest: ward-${{ steps.vars.outputs.tag }}-${{matrix.os}}.zip    
-
-      # - name: Create artifact
-      #   uses: montudor/action-zip@v0.1.0
-      #   with:
-      #     args: zip -r asset/ward-${{ steps.vars.outputs.tag }}-${{matrix.os}}.zip ./ward/dist/ward
 
       - uses: ncipollo/release-action@v1
         with:
           artifacts: "ward-${{ steps.vars.outputs.tag }}-${{matrix.os}}.zip"
           token: ${{ secrets.GITHUB_TOKEN }}
           allowUpdates: True
-
-      # - name: Upload artifact
-      #   uses: actions/upload-artifact@v2
-      #   with:
-      #     name: ward-${{ steps.vars.outputs.tag }}-${{matrix.os}}.zip
-      #     path: ward-${{ steps.vars.outputs.tag }}-${{matrix.os}}.zip
-
-      # - name: Release
-      #   uses: softprops/action-gh-release@v1
-      #   if: startsWith(github.ref, 'refs/tags/')
