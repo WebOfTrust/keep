@@ -47,6 +47,7 @@ jobs:
         with:
           artifacts: "ward-${{ steps.vars.outputs.tag }}-${{matrix.os}}.zip"
           token: ${{ secrets.GITHUB_TOKEN }}
+          allowUpdates: True
 
       # - name: Upload artifact
       #   uses: actions/upload-artifact@v2
