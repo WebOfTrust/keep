@@ -21,6 +21,11 @@ a:link {
   margin: 1rem 0;
 }
 
+.label {
+  color: $light-text;
+  display: block;
+}
+
 // To get a consistent space at the top of each page, which requires adding this class to a div,
 // h1, or other element on every page, but which allows the flexibity to have a fixed nav
 

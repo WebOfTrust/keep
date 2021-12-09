@@ -43,26 +43,24 @@ class StyleGuide {
           <Button label="Text" />
           <Button outlined label="Outlined" />
           <Button raised label="Raised" />
-          <Button raised iconLeading="search" label="Icon Leading" />
-          <Button raised iconTrailing="search" label="Icon Trailing" />
-          <Button ripple={false} raised label="No Ripple" />
-          <Button class="button__gray" raised label="Gray" />
+          <Button iconLeading="search" label="Icon Leading" />
+          <Button iconTrailing="search" label="Icon Trailing" />
+          <Button ripple={false} label="No Ripple" />
+          <Button class="button__gray" label="Gray" />
           <h3>Icon Button</h3>
           <IconButton icon="search" />
           <IconButton icon="visibility" ripple={false} />
           <h3>Text Field</h3>
           <TextField filled label="Filled" placeholder="Placeholder" />
           <TextField outlined label="Outlined" placeholder="Placeholder" />
-          <br />
-          <label>No Label</label>
-          <br />
+          <label class="label">No Label</label>
           <TextField filled placeholder="Placeholder" />
           <TextField outlined placeholder="Placeholder" />
-          <br />
-          <label>Disabled</label>
-          <br />
+          <label class="label">Disabled</label>
           <TextField filled disabled placeholder="Placeholder" />
           <TextField outlined disabled placeholder="Placeholder" />
+          <label class="label">Fluid</label>
+          <TextField fluid outlined label="Label" placeholder="Placeholder" />
           <h3>Text Area</h3>
           <TextField textarea filled placeholder="Placeholder" />
           <TextField textarea outlined placeholder="Placeholder" />
