@@ -9,6 +9,7 @@ class TextField {
     this.optionDefaults = {
       filled: false,
       outlined: false,
+      fluid: false,
       textarea: false,
       rows: 4,
       cols: 40,
@@ -55,7 +56,11 @@ class TextField {
   view(vnode) {
     return (
       <>
-        <label id={this.randomId} class={this.textfieldClass} style={this.options.style}>
+        <label
+          id={this.randomId}
+          class={this.textfieldClass}
+          style={{ width: this.options.fluid ? '100%' : 'auto', ...this.options.style }}
+        >
           <span class="mdc-text-field__ripple"></span>
           {this.options.filled && this.options.label && !this.options.textarea && (
             <>
