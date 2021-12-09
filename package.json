@@ -9,15 +9,15 @@
   },
   "license": "MIT",
   "scripts": {
-    "start": "parcel src/index.html",
-    "build": "parcel build src/index.html",
+    "start": "parcel veu/src/index.html",
+    "build": "parcel build veu/src/index.html",
     "electron": "electron-forge start",
     "package": "electron-forge package",
     "make": "electron-forge make",
     "test": "NODE_ENV=test jest",
     "test:watch": "NODE_ENV=test jest --watch",
-    "lint": "eslint src/",
-    "format": "prettier --write 'src/**/*.{js,html,jsx,json,scss,css,md}'",
+    "lint": "eslint veu/src/",
+    "format": "prettier --write 'veu/src/**/*.{js,html,jsx,json,scss,css,md}'",
     "nuke": "rm -rf .parcel-cache/ dist/ node_modules/"
   },
   "config": {
