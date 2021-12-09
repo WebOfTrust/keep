@@ -1,0 +1,105 @@
+/* TYPOGRAPHY (imported into app.js)
+---------------------------------------- */
+@import 'mixins';
+@import 'variables';
+
+// General typographic rules
+html,
+body {
+  @include sans;
+  @include normal;
+  color: $default-text;
+  font-size: 100%; // 16px in most browsers.
+}
+
+.error {
+  @include bold;
+  color: $red;
+  font-size: 1rem;
+  margin: 0.5rem 0 0;
+}
+
+.hint {
+  margin-top: 0.5rem;
+}
+
+.font {
+  &-weight {
+    &--light {
+      @include light;
+    }
+    &--normal {
+      @include normal;
+    }
+    &--medium {
+      @include medium;
+    }
+    &--bold {
+      @include bold;
+    }
+  }
+  &-color {
+    &--light {
+      color: $light-text;
+    }
+    &--green {
+      color: $green;
+    }
+  }
+  &-size {
+    &--16 {
+      font-size: 16px;
+    }
+
+    &--20 {
+      font-size: 20px;
+    }
+
+    &--24 {
+      font-size: 24px;
+    }
+
+    &--32 {
+      font-size: 32px;
+    }
+
+    &--48 {
+      font-size: 48px;
+    }
+
+    &--56 {
+      font-size: 56px;
+    }
+  }
+}
+
+.text {
+  // Alignments
+  &--center {
+    text-align: center;
+  }
+
+  &--right {
+    text-align: right;
+  }
+
+  &--left {
+    text-align: left;
+  }
+
+  // Transformations
+  &--capitalize {
+    text-transform: capitalize;
+  }
+
+  &--lowercase {
+    text-transform: lowercase;
+  }
+
+  &--uppercase {
+    text-transform: uppercase;
+  }
+}
+
+// Icon fonts
+$font-path: '../assets/fonts';

@@ -1,0 +1,65 @@
+// Theme
+@use '@material/theme/index' with (
+  $primary: $blue,
+  $on-primary: #ffffff
+);
+
+@use '@material/typography/index' as typography with (
+  $font-family: unquote('Mulish, Helvetica, Arial, sans-serif')
+);
+
+// Button
+@use '@material/button/styles' as buttonStyles;
+@use '@material/button/index' as button;
+
+// IconButton
+@use '@material/icon-button/styles' as iconButtonStyles;
+@use '@material/icon-button/mixins' as iconButton;
+
+// TextField
+@use '@material/floating-label/mdc-floating-label';
+@use '@material/line-ripple/mdc-line-ripple';
+@use '@material/notched-outline/mdc-notched-outline';
+@use '@material/textfield/mixins' as textfield;
+
+// Select
+@use '@material/list/mdc-list';
+@use '@material/menu-surface/mdc-menu-surface';
+@use '@material/menu/mdc-menu';
+@use '@material/select/styles';
+
+// CircularProgress
+@use '@material/circular-progress/mdc-circular-progress';
+
+@include iconButton.core-styles;
+@include textfield.core-styles;
+
+.material-icons.md-18 {
+  font-size: 18px;
+}
+.material-icons.md-24 {
+  font-size: 24px;
+}
+.material-icons.md-36 {
+  font-size: 36px;
+}
+.material-icons.md-48 {
+  font-size: 48px;
+}
+
+.button {
+  &__gray {
+    @include button.ink-color($default-text);
+    @include button.icon-color($default-text);
+    @include button.container-fill-color($gray-lter);
+    @include button.outline-color($gray-lter);
+  }
+
+  &__big {
+    @include button.height(3.5rem);
+  }
+
+  &__extraPadding {
+    @include button.horizontal-padding(4rem);
+  }
+}

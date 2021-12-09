@@ -1,0 +1,125 @@
+@import '../../../scss/variables';
+
+.modal {
+  background-color: $gray-dker;
+  background-color: rgba($gray-dker, 0.7);
+  height: 100%;
+  left: 0;
+  padding: 3rem;
+  position: fixed;
+  top: 0;
+  width: 100%;
+  z-index: 101;
+
+  &--backdropDisabled {
+    background-color: transparent;
+  }
+
+  &__content {
+    background-color: #ffffff;
+    border-radius: 4px;
+    box-shadow: 0 3px 9px 0 rgba(0, 0, 0, 0.5);
+    margin: 0 auto;
+    max-height: 100%;
+    max-width: 1440px;
+    min-height: 50px;
+    min-width: 280px;
+    overflow: auto;
+    padding: 24px;
+    position: relative;
+    z-index: 60;
+  }
+
+  &__close {
+    cursor: pointer;
+    position: absolute;
+    right: 0;
+    top: 0;
+    z-index: 100;
+  }
+}
+
+@media screen and (max-width: 840px) {
+  .modal {
+    padding: 2rem;
+  }
+}
+
+@media screen and (max-width: 600px) {
+  .modal {
+    padding: 1rem 0;
+
+    &__content {
+      margin: 0 1rem;
+      width: auto !important;
+    }
+  }
+}
+
+@keyframes scaleIn {
+  from {
+    opacity: 0;
+    transform: scale(0.9);
+  }
+
+  to {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+
+@keyframes slideInTop {
+  0% {
+    transform: translateY(-100vh);
+  }
+
+  70% {
+    transform: translateY(5vh);
+  }
+
+  100% {
+    transform: translateY(0);
+  }
+}
+
+@keyframes slideInBottom {
+  0% {
+    transform: translateY(100vh);
+  }
+
+  70% {
+    transform: translateY(-5vh);
+  }
+
+  100% {
+    transform: translateY(0);
+  }
+}
+
+@keyframes slideInLeft {
+  0% {
+    transform: translateX(-100vw);
+  }
+
+  70% {
+    transform: translateX(5vw);
+  }
+
+  100% {
+    transform: translateX(0);
+  }
+}
+
+@keyframes slideInRight {
+  0% {
+    transform: translateX(100vw);
+  }
+
+  70% {
+    transform: translateX(-5vw);
+  }
+
+  100% {
+    transform: translateX(0);
+  }
+}

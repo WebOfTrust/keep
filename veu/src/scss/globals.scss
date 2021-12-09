@@ -1,0 +1,113 @@
+/* GLOBALS (imported into app.js, right after defaults and typography)
+---------------------------------------- */
+@import 'mixins';
+@import 'variables';
+
+a,
+a:visited,
+a:link {
+  color: $blue;
+  transition: color 0.4s ease;
+
+  &:active,
+  &:hover {
+    color: darken($blue, 10%);
+  }
+}
+
+.divider {
+  border: none;
+  border-bottom: 1px solid $border;
+  margin: 1rem 0;
+}
+
+// To get a consistent space at the top of each page, which requires adding this class to a div,
+// h1, or other element on every page, but which allows the flexibity to have a fixed nav
+
+.headspace {
+  margin-top: 5rem;
+}
+
+.flex {
+  display: flex;
+
+  &-align-center {
+    align-items: center;
+  }
+
+  &-align-end {
+    align-items: flex-end;
+  }
+
+  &-justify-between {
+    justify-content: space-between;
+  }
+
+  &-justify-around {
+    justify-content: space-around;
+  }
+
+  &-justify-end {
+    justify-content: flex-end;
+  }
+
+  &-justify-center {
+    justify-content: center;
+  }
+
+  &-row {
+    flex-direction: row;
+  }
+
+  &-column {
+    flex-direction: column;
+  }
+
+  &-1 {
+    flex: 1;
+  }
+
+  &-2 {
+    flex: 2;
+  }
+
+  &-3 {
+    flex: 3;
+  }
+
+  &-4 {
+    flex: 4;
+  }
+
+  &-5 {
+    flex: 5;
+  }
+
+  &-6 {
+    flex: 6;
+  }
+
+  &-7 {
+    flex: 7;
+  }
+
+  &-8 {
+    flex: 8;
+  }
+
+  &-9 {
+    flex: 9;
+  }
+
+  &-10 {
+    flex: 10;
+  }
+
+  &-11 {
+    flex: 11;
+  }
+
+  &-12 {
+    flex: 12;
+  }
+}
