@@ -73,11 +73,11 @@ class CreatePasscode {
             </>
           }
         />
-        <Container class="headspace flex flex-align-center">
+        <Container class="headspace flex">
           <div class="flex-2">
             <img src={createYourPasscode} />
           </div>
-          <div class="flex-3" style="padding: 1rem">
+          <div class="flex-3" style="padding: 0 1rem">
             <h1>Create a Passcode</h1>
             <p class="font-color--light">
               Generate your passcode here to encrypt your desktop software and then copy into the following screen. Make

@@ -28,6 +28,7 @@ class EnterPasscode {
             <div class="flex flex-align-center">
               <TextField
                 filled
+                fluid
                 label="Passcode"
                 oninput={(e) => {
                   this.passcode = e.target.value;
