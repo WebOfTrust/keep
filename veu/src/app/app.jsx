@@ -1,7 +1,7 @@
 import m from 'mithril';
 
-import { Nav, ToastOutlet } from './components';
-import { ConfigureIdentifier, CreatePasscode, EnterPasscode, Error, StyleGuide, Tutorial } from './views';
+import { AuthedNav, ToastOutlet, UnauthedNav } from './components';
+import { ConfigureIdentifier, CreatePasscode, EnterPasscode, Error, QARDashboard, StyleGuide, Tutorial } from './views';
 
 import '../scss/defaults.scss';
 import '../scss/typography.scss';
@@ -9,12 +9,24 @@ import '../scss/globals.scss';
 
 let root = document.body;
 
-const MainLayout = {
+const UnauthedLayout = {
   view: (vnode) => {
     return (
       <>
         <ToastOutlet />
-        <Nav />
+        <UnauthedNav />
+        {vnode.children}
+      </>
+    );
+  },
+};
+
+const AuthedLayout = {
+  view: (vnode) => {
+    return (
+      <>
+        <ToastOutlet />
+        <AuthedNav />
         {vnode.children}
       </>
     );
@@ -30,9 +42,9 @@ m.route(root, '/tutorial/', {
     },
     view: () => {
       return (
-        <MainLayout>
+        <UnauthedLayout>
           <Tutorial />
-        </MainLayout>
+        </UnauthedLayout>
       );
     },
   },
@@ -42,9 +54,9 @@ m.route(root, '/tutorial/', {
     },
     view: () => {
       return (
-        <MainLayout>
+        <UnauthedLayout>
           <CreatePasscode />
-        </MainLayout>
+        </UnauthedLayout>
       );
     },
   },
@@ -54,9 +66,9 @@ m.route(root, '/tutorial/', {
     },
     view: () => {
       return (
-        <MainLayout>
+        <UnauthedLayout>
           <EnterPasscode />
-        </MainLayout>
+        </UnauthedLayout>
       );
     },
   },
@@ -66,9 +78,21 @@ m.route(root, '/tutorial/', {
     },
     view: () => {
       return (
-        <MainLayout>
+        <UnauthedLayout>
           <ConfigureIdentifier />
-        </MainLayout>
+        </UnauthedLayout>
+      );
+    },
+  },
+  '/dashboard': {
+    oninit: () => {
+      document.title = documentTitle + ' | QAR Dashboard';
+    },
+    view: () => {
+      return (
+        <AuthedLayout>
+          <QARDashboard />
+        </AuthedLayout>
       );
     },
   },
@@ -78,9 +102,9 @@ m.route(root, '/tutorial/', {
     },
     view: () => {
       return (
-        <MainLayout>
+        <UnauthedLayout>
           <StyleGuide />
-        </MainLayout>
+        </UnauthedLayout>
       );
     },
   },
@@ -90,9 +114,9 @@ m.route(root, '/tutorial/', {
     },
     view: () => {
       return (
-        <MainLayout>
+        <UnauthedLayout>
           <Error />
-        </MainLayout>
+        </UnauthedLayout>
       );
     },
   },

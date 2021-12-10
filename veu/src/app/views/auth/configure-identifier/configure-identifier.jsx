@@ -48,7 +48,7 @@ class ConfigureIdentifier {
                 raised
                 label="Continue"
                 onclick={() => {
-                  m.route.set('/');
+                  m.route.set('/dashboard');
                 }}
               />
             </div>
