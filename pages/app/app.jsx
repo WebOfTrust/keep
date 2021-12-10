@@ -22,7 +22,6 @@ const PagesLayout = {
   },
 };
 
-m.route.prefix = '';
 m.route(root, '/keep/', {
   '/keep': {
     view: () => {
