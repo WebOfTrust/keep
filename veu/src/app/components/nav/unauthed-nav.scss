@@ -1,7 +1,7 @@
 @import '../../../scss/variables';
 @import '../../../scss/mixins';
 
-.nav {
+.unauthedNav {
   background-color: $blue-006;
 
   &__content {
@@ -36,7 +36,7 @@
 }
 
 @media screen and (max-width: 680px) {
-  .nav {
+  .unauthedNav {
     &__link {
       font-size: 14px;
 

@@ -11,15 +11,15 @@ class UnauthedNav {
 
   view() {
     return (
-      <div class="nav">
+      <div class="unauthedNav">
         <Container>
-          <div class="nav__content">
-            <h2 class="nav__title">
-              <m.route.Link class="nav__link" href="/">
+          <div class="unauthedNav__content">
+            <h2 class="unauthedNav__title">
+              <m.route.Link class="unauthedNav__link" href="/">
                 vLEI Ecosystem
               </m.route.Link>
             </h2>
-            <div class="nav__spacer"></div>
+            <div class="unauthedNav__spacer"></div>
           </div>
         </Container>
       </div>

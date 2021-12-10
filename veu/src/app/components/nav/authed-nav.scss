@@ -1,7 +1,9 @@
+@use '@material/ripple/mixins' as ripple;
+
 @import '../../../scss/variables';
 @import '../../../scss/mixins';
 
-.nav {
+.authedNav {
   background-color: white;
   border-bottom: 1px solid $border;
   &__content {
@@ -35,6 +37,9 @@
   }
 
   &__notifications {
+    // @include ripple.surface;
+    // @include ripple.radius-bounded;
+    // @include ripple.states;
     align-items: center;
     border: 2px solid $default-text;
     border-radius: 30px;
@@ -51,7 +56,7 @@
 }
 
 @media screen and (max-width: 680px) {
-  .nav {
+  .authedNav {
     &__link {
       font-size: 14px;
 
