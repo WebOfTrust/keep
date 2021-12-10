@@ -33,7 +33,7 @@ const AuthedLayout = {
   },
 };
 
-const documentTitle = 'vLEI Ecosystem';
+const documentTitle = 'KEEP';
 m.route.prefix = '';
 m.route(root, '/tutorial/', {
   '/tutorial': {

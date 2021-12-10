@@ -1,8 +1,8 @@
-# veu
+# KEEP
 
-vLEI Ecosystem User Interface
+KEEP User Interface
 
-![veu tests](https://github.com/WebOfTrust/keep/actions/workflows/test.yaml/badge.svg)
+![keep tests](https://github.com/WebOfTrust/keep/actions/workflows/test.yaml/badge.svg)
 
 ## Setup
 

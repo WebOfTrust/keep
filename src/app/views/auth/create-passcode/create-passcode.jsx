@@ -45,12 +45,12 @@ class CreatePasscode {
             this.savePassModalOpen = false;
           }}
           style={{ width: '680px' }}
-          header={<h1>Wait! Did you save your passcode?</h1>}
+          header={<h1 class="font-weight--medium">Wait! Did you save your passcode?</h1>}
           content={
             <>
               <div class="flex flex-align-center flex-justify-center">
                 <img style={{ marginRight: '2rem' }} src={wait} />
-                <h3 class="font-color--light" style={{ maxWidth: '280px' }}>
+                <h3 class="font-weight--light font-color--light" style={{ maxWidth: '280px' }}>
                   If you forget your passcode, you lose access to your wallet. Make sure that you store it someplace
                   safe.
                 </h3>
@@ -92,7 +92,7 @@ class CreatePasscode {
                 }}
               >
                 <span>{this.passcode}</span>
-                <i class="fas fa-copy"></i>
+                <span class="material-icons">content_copy</span>
               </div>
               <Button
                 raised

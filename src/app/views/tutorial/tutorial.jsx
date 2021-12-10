@@ -3,7 +3,7 @@ import './tutorial.scss';
 import addNewContacts from '../../../assets/img/add-new-contacts.png';
 import configureIdentifier from '../../../assets/img/configure-identifier.png';
 import createYourPasscode from '../../../assets/img/create-your-passcode.png';
-import requestCredentials from '../../../assets/img/request-credentials.png';
+import verifyCredentials from '../../../assets/img/verify-credentials.png';
 
 import m from 'mithril';
 
@@ -13,23 +13,23 @@ class Tutorial {
     this.steps = [
       {
         header: `Create Your Passcode`,
-        subheader: `Getting started is easy, first we need to secure your new software with a passcode. Then you can add and verify connections, request and receive credentials, and store contact information for later use.`,
+        subheader: `Getting started is easy, first we need to secure your new software with a passcode. `,
         image: createYourPasscode,
       },
       {
-        header: `Secure Your Software`,
+        header: `Establish an Identifier`,
         subheader: `Create an identifier that is yours going forward that you can utilize to connect with and verify others.`,
         image: configureIdentifier,
       },
       {
-        header: `Add New Contacts`,
-        subheader: `Add new contacts after obtaining their contact card. Verify your contacts over a short zoom call.`,
+        header: `Verify Connections`,
+        subheader: `Add connections after obtaining their contact card. Verify your contacts over a short zoom call.`,
         image: addNewContacts,
       },
       {
-        header: `Request Credentials`,
-        subheader: `After diligence has been completed, you can provide your contact card to request new credentials.`,
-        image: requestCredentials,
+        header: `Receive Credentials`,
+        subheader: `Store and manage credentials in your digital wallet.`,
+        image: verifyCredentials,
       },
     ];
     this.stepSelectedIdx = 0;
@@ -65,7 +65,7 @@ class Tutorial {
       <>
         <Container>
           <div class="headspace text--center">
-            <h1>Welcome to the vLEI Ecosystem</h1>
+            <h1>Welcome to KEEP</h1>
             <p class="font-color--light">
               Getting started is easy, after the sign-up process, you can add and verify connections, request your own
               credentials and store contact information for later use.
@@ -75,7 +75,7 @@ class Tutorial {
             <div class="headspace tutorial">
               <div class="tutorial__info">
                 <h1>{this.stepSelected.header}</h1>
-                <h3 class="font-color--light">{this.stepSelected.subheader}</h3>
+                <h3 class="font-weight--normal font-color--light">{this.stepSelected.subheader}</h3>
                 <Steps
                   count={this.steps.length}
                   selected={this.stepSelectedIdx}

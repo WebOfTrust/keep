@@ -3,6 +3,7 @@ import { MDCRipple } from '@material/ripple';
 import Container from '../container/container.jsx';
 import IconButton from '../icon-button/icon-button.jsx';
 import './authed-nav.scss';
+import keepLogo from '../../../assets/img/logo/keep.png';
 
 class AuthedNav {
   constructor() {
@@ -26,7 +27,7 @@ class AuthedNav {
           <div class="authedNav__content">
             <h2 class="authedNav__title">
               <m.route.Link class="authedNav__link" href="/">
-                vLEI Ecosystem
+                <img src={keepLogo} />
               </m.route.Link>
             </h2>
             <div class="authedNav__spacer"></div>

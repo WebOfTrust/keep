@@ -6,7 +6,8 @@
   display: flex;
 
   .passcode {
-    background-color: $gray-lt;
+    background-color: white;
+    border: 1px solid $border;
     border-radius: 4px;
     cursor: pointer;
     padding: 1rem 3rem 1rem 1rem;
@@ -14,10 +15,10 @@
     position: relative;
     flex: 1;
 
-    .fa-copy {
+    .material-icons {
       position: absolute;
       right: 16px;
-      top: 16px;
+      top: 14px;
     }
   }
 }

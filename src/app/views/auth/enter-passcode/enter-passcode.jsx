@@ -15,11 +15,11 @@ class EnterPasscode {
   view() {
     return (
       <>
-        <Container class="headspace flex flex-align-center">
+        <Container class="headspace flex">
           <div class="flex-2">
             <img src={passcodeImg} />
           </div>
-          <div class="flex-3" style="padding: 1rem">
+          <div class="flex-3" style="padding: 0 1rem">
             <h1>Please enter your passcode.</h1>
             <p class="font-color--light">
               You can find your 22-character passcode by referring back to your storage spot (1Password, Last Pass, Safe
