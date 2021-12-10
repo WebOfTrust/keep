@@ -441,65 +441,6 @@
     margin-left: 1rem;
   }
 }
-/* MIXINS
----------------------------------------- */
-/* VARIABLES
----------------------------------------- */
-.passcodeInput {
-  align-items: center;
-  display: flex;
-}
-.passcodeInput .passcode {
-  background-color: #dee2e6;
-  border-radius: 4px;
-  cursor: pointer;
-  padding: 1rem 3rem 1rem 1rem;
-  margin-right: 1rem;
-  position: relative;
-  flex: 1;
-}
-.passcodeInput .passcode .fa-copy {
-  position: absolute;
-  right: 16px;
-  top: 16px;
-}
-/* MIXINS
----------------------------------------- */
-/* VARIABLES
----------------------------------------- */
-.tutorial {
-  align-items: center;
-  display: flex;
-  justify-content: space-around;
-}
-.tutorial__info {
-  align-items: center;
-  display: flex;
-  flex: 1;
-  flex-direction: column;
-  text-align: center;
-  max-width: 22rem;
-  min-width: 18rem;
-}
-.tutorial__image__container {
-  align-items: center;
-  display: flex;
-  flex: 1;
-  flex-direction: row;
-  justify-content: center;
-  max-height: 440px;
-  max-width: 540px;
-}
-
-@media screen and (max-width: 768px) {
-  .tutorial {
-    flex-direction: column;
-  }
-  .tutorial__info {
-    margin-right: 0;
-    margin-bottom: 5rem;
-  }
-}
 @charset "UTF-8";
 /* DEFAULTS (imported into app.js)
 ---------------------------------------- */
@@ -10476,4 +10417,4 @@ a:link:hover {
 .flex-12 {
   flex: 12;
 }
-/*# sourceMappingURL=index.3acdcd62.css.map */
+/*# sourceMappingURL=index.096bcb4b.css.map */

@@ -140,12 +140,12 @@
       this[globalName] = mainExports;
     }
   }
-})({"in7zv":[function(require,module,exports) {
+})({"4w6mE":[function(require,module,exports) {
 var HMR_HOST = null;
 var HMR_PORT = null;
 var HMR_SECURE = false;
 var HMR_ENV_HASH = "4a236f9275d0a351";
-module.bundle.HMR_BUNDLE_ID = "2f1390648296a1a5";
+module.bundle.HMR_BUNDLE_ID = "cff8fabf323cfff2";
 "use strict";
 function _createForOfIteratorHelper(o, allowArrayLike) {
     var it;
@@ -458,88 +458,39 @@ function hmrAcceptRun(bundle, id) {
     acceptedAssets[id] = true;
 }
 
-},{}],"jKoH9":[function(require,module,exports) {
+},{}],"aCPO5":[function(require,module,exports) {
 var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
 var _mithril = require("mithril");
 var _mithrilDefault = parcelHelpers.interopDefault(_mithril);
-var _components = require("./components");
-var _views = require("./views");
-var _defaultsScss = require("../scss/defaults.scss");
-var _typographyScss = require("../scss/typography.scss");
-var _globalsScss = require("../scss/globals.scss");
+var _components = require("../../src/app/components");
+var _downloadJsx = require("./download.jsx");
+var _downloadJsxDefault = parcelHelpers.interopDefault(_downloadJsx);
+var _splashJsx = require("./splash.jsx");
+var _splashJsxDefault = parcelHelpers.interopDefault(_splashJsx);
+var _defaultsScss = require("../../src/scss/defaults.scss");
+var _typographyScss = require("../../src/scss/typography.scss");
+var _globalsScss = require("../../src/scss/globals.scss");
 let root = document.body;
-const UnauthedLayout = {
+const PagesLayout = {
     view: (vnode)=>{
-        return _mithrilDefault.default('[', null, _mithrilDefault.default(_components.ToastOutlet, null), _mithrilDefault.default(_components.UnauthedNav, null), vnode.children);
+        return _mithrilDefault.default('[', null, _mithrilDefault.default(_components.UnauthedNav, null), vnode.children);
     }
 };
-const AuthedLayout = {
-    view: (vnode)=>{
-        return _mithrilDefault.default('[', null, _mithrilDefault.default(_components.ToastOutlet, null), _mithrilDefault.default(_components.AuthedNav, null), vnode.children);
-    }
-};
-const documentTitle = 'vLEI Ecosystem';
 _mithrilDefault.default.route.prefix = '';
-_mithrilDefault.default.route(root, '/tutorial/', {
-    '/tutorial': {
-        oninit: ()=>{
-            document.title = documentTitle + ' | Tutorial';
-        },
+_mithrilDefault.default.route(root, '/', {
+    '/': {
         view: ()=>{
-            return _mithrilDefault.default(UnauthedLayout, null, _mithrilDefault.default(_views.Tutorial, null));
+            return _mithrilDefault.default(PagesLayout, null, _mithrilDefault.default(_splashJsxDefault.default, null));
         }
     },
-    '/auth/create-passcode': {
-        oninit: ()=>{
-            document.title = documentTitle + ' | Create Passcode';
-        },
+    '/download': {
         view: ()=>{
-            return _mithrilDefault.default(UnauthedLayout, null, _mithrilDefault.default(_views.CreatePasscode, null));
-        }
-    },
-    '/auth/enter-passcode': {
-        oninit: ()=>{
-            document.title = documentTitle + ' | Enter Passcode';
-        },
-        view: ()=>{
-            return _mithrilDefault.default(UnauthedLayout, null, _mithrilDefault.default(_views.EnterPasscode, null));
-        }
-    },
-    '/auth/configure-identifier': {
-        oninit: ()=>{
-            document.title = documentTitle + ' | Configure Identifier';
-        },
-        view: ()=>{
-            return _mithrilDefault.default(UnauthedLayout, null, _mithrilDefault.default(_views.ConfigureIdentifier, null));
-        }
-    },
-    '/dashboard': {
-        oninit: ()=>{
-            document.title = documentTitle + ' | QAR Dashboard';
-        },
-        view: ()=>{
-            return _mithrilDefault.default(AuthedLayout, null, _mithrilDefault.default(_views.QARDashboard, null));
-        }
-    },
-    '/style-guide': {
-        oninit: ()=>{
-            document.title = documentTitle + ' | Style Guide';
-        },
-        view: ()=>{
-            return _mithrilDefault.default(UnauthedLayout, null, _mithrilDefault.default(_views.StyleGuide, null));
-        }
-    },
-    '/:404': {
-        oninit: ()=>{
-            document.title = documentTitle + ' | Error';
-        },
-        view: ()=>{
-            return _mithrilDefault.default(UnauthedLayout, null, _mithrilDefault.default(_views.Error, null));
+            return _mithrilDefault.default(PagesLayout, null, _mithrilDefault.default(_downloadJsxDefault.default, null));
         }
     }
 });
 
-},{"mithril":"a7UJj","./components":"h8DOh","./views":"70x71","../scss/defaults.scss":"bryrU","../scss/typography.scss":"8ZQcx","../scss/globals.scss":"5ZgLC","@parcel/transformer-js/src/esmodule-helpers.js":"ciiiV"}],"a7UJj":[function(require,module,exports) {
+},{"mithril":"a7UJj","../../src/app/components":"h8DOh","./download.jsx":"8usp0","./splash.jsx":"g78wu","../../src/scss/defaults.scss":"bryrU","../../src/scss/typography.scss":"8ZQcx","../../src/scss/globals.scss":"5ZgLC","@parcel/transformer-js/src/esmodule-helpers.js":"ciiiV"}],"a7UJj":[function(require,module,exports) {
 "use strict";
 var hyperscript = require("./hyperscript");
 var request = require("./request");
@@ -16490,724 +16441,39 @@ class UnauthedNav {
 }
 module.exports = UnauthedNav;
 
-},{"mithril":"a7UJj","../container/container.jsx":"gLTp9","./unauthed-nav.scss":"5Jeg9","@parcel/transformer-js/src/esmodule-helpers.js":"ciiiV"}],"5Jeg9":[function() {},{}],"70x71":[function(require,module,exports) {
-var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
-// Auth
-var _configureIdentifierJsx = require("./auth/configure-identifier/configure-identifier.jsx");
-var _configureIdentifierJsxDefault = parcelHelpers.interopDefault(_configureIdentifierJsx);
-var _createPasscodeJsx = require("./auth/create-passcode/create-passcode.jsx");
-var _createPasscodeJsxDefault = parcelHelpers.interopDefault(_createPasscodeJsx);
-var _enterPasscodeJsx = require("./auth/enter-passcode/enter-passcode.jsx"); // Tutorial
-var _enterPasscodeJsxDefault = parcelHelpers.interopDefault(_enterPasscodeJsx);
-var _tutorialJsx = require("./tutorial/tutorial.jsx"); // Other
-var _tutorialJsxDefault = parcelHelpers.interopDefault(_tutorialJsx);
-var _errorJsx = require("./error/error.jsx");
-var _errorJsxDefault = parcelHelpers.interopDefault(_errorJsx);
-var _qarDashboard = require("./qar-dashboard/qar-dashboard");
-var _qarDashboardDefault = parcelHelpers.interopDefault(_qarDashboard);
-var _styleGuideJsx = require("./style-guide/style-guide.jsx");
-var _styleGuideJsxDefault = parcelHelpers.interopDefault(_styleGuideJsx);
-module.exports = {
-    ConfigureIdentifier: // Auth
-    _configureIdentifierJsxDefault.default,
-    CreatePasscode: _createPasscodeJsxDefault.default,
-    EnterPasscode: _enterPasscodeJsxDefault.default,
-    Tutorial: // Tutorial
-    _tutorialJsxDefault.default,
-    Error: // Other
-    _errorJsxDefault.default,
-    QARDashboard: _qarDashboardDefault.default,
-    StyleGuide: _styleGuideJsxDefault.default
-};
-
-},{"./auth/configure-identifier/configure-identifier.jsx":"lOECi","./auth/create-passcode/create-passcode.jsx":"eQMXV","./auth/enter-passcode/enter-passcode.jsx":"4S5Ms","./tutorial/tutorial.jsx":"6YqIq","./error/error.jsx":"2O6iQ","./qar-dashboard/qar-dashboard":"a0kH9","./style-guide/style-guide.jsx":"aU1bL","@parcel/transformer-js/src/esmodule-helpers.js":"ciiiV"}],"lOECi":[function(require,module,exports) {
+},{"mithril":"a7UJj","../container/container.jsx":"gLTp9","./unauthed-nav.scss":"5Jeg9","@parcel/transformer-js/src/esmodule-helpers.js":"ciiiV"}],"5Jeg9":[function() {},{}],"8usp0":[function(require,module,exports) {
 var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
 var _mithril = require("mithril");
 var _mithrilDefault = parcelHelpers.interopDefault(_mithril);
-var _components = require("../../../components");
-var _modals = require("../../../modals");
-var _configureIdentifierPng = require("../../../../assets/img/configure-identifier.png");
-var _configureIdentifierPngDefault = parcelHelpers.interopDefault(_configureIdentifierPng);
-class ConfigureIdentifier {
-    constructor(){
-        this.showAdvanced = false;
-        this.showConfigureWitnesses = false;
-    }
-    toggleAdvanced() {
-        this.showAdvanced = !this.showAdvanced;
-    }
-    openConfigureWitnesses() {
-        this.showConfigureWitnesses = true;
-    }
+var _components = require("../../src/app/components");
+class Download {
     view() {
-        return _mithrilDefault.default('[', null, _mithrilDefault.default(_modals.ConfigureWitnesses, {
-            isOpen: this.showConfigureWitnesses,
-            onClose: ()=>{
-                this.showConfigureWitnesses = false;
-            }
-        }), _mithrilDefault.default(_components.Container, {
-            class: "headspace flex"
-        }, _mithrilDefault.default("div", {
-            class: "flex-2"
-        }, _mithrilDefault.default("img", {
-            src: _configureIdentifierPngDefault.default
-        })), _mithrilDefault.default("div", {
-            class: "flex-3",
-            style: "padding: 0 1rem"
-        }, _mithrilDefault.default("h1", null, "Configure Identifier"), _mithrilDefault.default("label", {
-            class: "label"
-        }, "Witnesses"), _mithrilDefault.default(_components.TextField, {
-            fluid: true,
-            filled: true,
-            placeholder: "GLEIF Witness Network"
-        }), _mithrilDefault.default("div", {
-            class: "flex flex-justify-between",
-            style: {
-                marginTop: '2rem'
-            }
-        }, _mithrilDefault.default(_components.Button, {
-            class: "button__gray",
+        return _mithrilDefault.default('[', null, _mithrilDefault.default(_components.Container, null, _mithrilDefault.default(_components.Button, {
             raised: true,
-            iconTrailing: this.showAdvanced ? 'arrow_drop_up' : 'arrow_drop_down',
-            label: "Advanced Options",
-            onclick: ()=>{
-                this.toggleAdvanced();
-            }
-        }), _mithrilDefault.default(_components.Button, {
-            raised: true,
-            label: "Continue",
-            onclick: ()=>{
-                _mithrilDefault.default.route.set('/dashboard');
-            }
-        })), this.showAdvanced && _mithrilDefault.default('[', null, _mithrilDefault.default("div", {
-            class: "flex flex-align-center",
-            style: {
-                marginTop: '2rem'
-            }
-        }, _mithrilDefault.default("label", {
-            class: "label flex-1"
-        }, "Add/Edit Witnesses"), _mithrilDefault.default(_components.Button, {
-            class: "flex-1 button__gray",
-            raised: true,
-            label: "Add/Edit",
-            onclick: ()=>{
-                this.openConfigureWitnesses();
-            }
-        })), _mithrilDefault.default("div", {
-            class: "flex flex-align-center",
-            style: {
-                marginTop: '1rem'
-            }
-        }, _mithrilDefault.default("label", {
-            class: "label flex-1"
-        }, "Incepting Signing Threshold"), _mithrilDefault.default(_components.Select, {
-            class: "flex-1"
-        })), _mithrilDefault.default("div", {
-            class: "flex flex-align-center",
-            style: {
-                marginTop: '1rem'
-            }
-        }, _mithrilDefault.default("label", {
-            class: "label flex-1"
-        }, "Incepting Key Count"), _mithrilDefault.default(_components.Select, {
-            class: "flex-1"
-        })), _mithrilDefault.default("div", {
-            class: "flex flex-align-center",
-            style: {
-                marginTop: '1rem'
-            }
-        }, _mithrilDefault.default("label", {
-            class: "label flex-1"
-        }, "Next Signing Threshold"), _mithrilDefault.default(_components.Select, {
-            class: "flex-1"
-        })), _mithrilDefault.default("div", {
-            class: "flex flex-align-center",
-            style: {
-                marginTop: '1rem'
-            }
-        }, _mithrilDefault.default("label", {
-            class: "label flex-1"
-        }, "Next Key Count"), _mithrilDefault.default(_components.Select, {
-            class: "flex-1"
-        })), _mithrilDefault.default("div", {
-            class: "flex flex-align-center",
-            style: {
-                marginTop: '1rem'
-            }
-        }, _mithrilDefault.default("label", {
-            class: "label flex-1"
-        }, "Witness Threshold"), _mithrilDefault.default(_components.Select, {
-            class: "flex-1"
-        })), _mithrilDefault.default("div", {
-            class: "flex flex-align-center",
-            style: {
-                marginTop: '1rem'
-            }
-        }, _mithrilDefault.default("label", {
-            class: "label flex-1"
-        }, "Witness Address"), _mithrilDefault.default(_components.TextField, {
-            filled: true,
-            initialValue: "HTTPS",
-            class: "flex-1"
-        }))))));
+            label: "Download Software"
+        })));
     }
 }
-module.exports = ConfigureIdentifier;
+module.exports = Download;
 
-},{"mithril":"a7UJj","../../../components":"h8DOh","../../../modals":"9YEzS","../../../../assets/img/configure-identifier.png":"1pJnT","@parcel/transformer-js/src/esmodule-helpers.js":"ciiiV"}],"9YEzS":[function(require,module,exports) {
-var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
-var _configureWitnesses = require("./configure-witnesses/configure-witnesses");
-var _configureWitnessesDefault = parcelHelpers.interopDefault(_configureWitnesses);
-module.exports = {
-    ConfigureWitnesses: _configureWitnessesDefault.default
-};
-
-},{"./configure-witnesses/configure-witnesses":"hYRap","@parcel/transformer-js/src/esmodule-helpers.js":"ciiiV"}],"hYRap":[function(require,module,exports) {
+},{"mithril":"a7UJj","../../src/app/components":"h8DOh","@parcel/transformer-js/src/esmodule-helpers.js":"ciiiV"}],"g78wu":[function(require,module,exports) {
 var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
 var _mithril = require("mithril");
 var _mithrilDefault = parcelHelpers.interopDefault(_mithril);
-var _components = require("../../components");
-class ConfigureWitnesses {
-    view(vnode) {
-        return _mithrilDefault.default('[', null, _mithrilDefault.default(_components.Modal, {
-            isOpen: vnode.attrs.isOpen,
-            onClose: vnode.attrs.onClose,
-            style: {
-                width: '680px'
-            },
-            header: _mithrilDefault.default("h1", null, "Add/Edit Witnesses"),
-            content: _mithrilDefault.default('[', null, _mithrilDefault.default(_components.TextField, {
-                fluid: true,
-                filled: true,
-                style: {
-                    marginBottom: '1rem'
-                }
-            }), _mithrilDefault.default(_components.TextField, {
-                fluid: true,
-                filled: true,
-                style: {
-                    marginBottom: '1rem'
-                }
-            }), _mithrilDefault.default(_components.TextField, {
-                fluid: true,
-                filled: true,
-                style: {
-                    marginBottom: '1rem'
-                }
-            }), _mithrilDefault.default(_components.Button, {
-                raised: true,
-                label: "Add More"
-            }))
-        }));
-    }
-}
-module.exports = ConfigureWitnesses;
-
-},{"mithril":"a7UJj","../../components":"h8DOh","@parcel/transformer-js/src/esmodule-helpers.js":"ciiiV"}],"1pJnT":[function(require,module,exports) {
-module.exports = require('./helpers/bundle-url').getBundleURL('42Ane') + "configure-identifier.8edbb8c6.png" + "?" + Date.now();
-
-},{"./helpers/bundle-url":"chiK4"}],"chiK4":[function(require,module,exports) {
-"use strict";
-var bundleURL = {
-};
-function getBundleURLCached(id) {
-    var value = bundleURL[id];
-    if (!value) {
-        value = getBundleURL();
-        bundleURL[id] = value;
-    }
-    return value;
-}
-function getBundleURL() {
-    try {
-        throw new Error();
-    } catch (err) {
-        var matches = ('' + err.stack).match(/(https?|file|ftp):\/\/[^)\n]+/g);
-        if (matches) // The first two stack frames will be this function and getBundleURLCached.
-        // Use the 3rd one, which will be a runtime in the original bundle.
-        return getBaseURL(matches[2]);
-    }
-    return '/';
-}
-function getBaseURL(url) {
-    return ('' + url).replace(/^((?:https?|file|ftp):\/\/.+)\/[^/]+$/, '$1') + '/';
-} // TODO: Replace uses with `new URL(url).origin` when ie11 is no longer supported.
-function getOrigin(url) {
-    var matches = ('' + url).match(/(https?|file|ftp):\/\/[^/]+/);
-    if (!matches) throw new Error('Origin not found');
-    return matches[0];
-}
-exports.getBundleURL = getBundleURLCached;
-exports.getBaseURL = getBaseURL;
-exports.getOrigin = getOrigin;
-
-},{}],"eQMXV":[function(require,module,exports) {
-var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
-var _mithril = require("mithril");
-var _mithrilDefault = parcelHelpers.interopDefault(_mithril);
-var _components = require("../../../components");
-var _createPasscodeScss = require("./create-passcode.scss");
-var _createYourPasscodePng = require("../../../../assets/img/create-your-passcode.png");
-var _createYourPasscodePngDefault = parcelHelpers.interopDefault(_createYourPasscodePng);
-var _waitPng = require("../../../../assets/img/wait.png");
-var _waitPngDefault = parcelHelpers.interopDefault(_waitPng);
-class CreatePasscode {
-    constructor(){
-        this.passcode = '';
-        this.copied = false;
-        this.savePassModalOpen = false;
-        this.generateNewPasscode();
-    }
-    copyPasscode() {
-        this.copied = false;
-        navigator.clipboard.writeText(this.passcode).then(()=>{
-            this.copied = true;
-            _mithrilDefault.default.redraw();
-        }, ()=>{
-            this.copied = false;
-            _mithrilDefault.default.redraw();
-        });
-    }
-    generateNewPasscode() {
-        this.copied = false;
-        let characters = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';
-        let result = '';
-        for(let i = 0; i < 22; i++)result += characters.charAt(Math.floor(Math.random() * characters.length));
-        this.passcode = result;
-    }
+var _components = require("../../src/app/components");
+class Splash {
     view() {
-        return _mithrilDefault.default('[', null, _mithrilDefault.default(_components.Modal, {
-            isOpen: this.savePassModalOpen,
-            onClose: ()=>{
-                this.savePassModalOpen = false;
-            },
-            style: {
-                width: '680px'
-            },
-            header: _mithrilDefault.default("h1", null, "Wait! Did you save your passcode?"),
-            content: _mithrilDefault.default('[', null, _mithrilDefault.default("div", {
-                class: "flex flex-align-center flex-justify-center"
-            }, _mithrilDefault.default("img", {
-                style: {
-                    marginRight: '2rem'
-                },
-                src: _waitPngDefault.default
-            }), _mithrilDefault.default("h3", {
-                class: "font-color--light",
-                style: {
-                    maxWidth: '280px'
-                }
-            }, "If you forget your passcode, you lose access to your wallet. Make sure that you store it someplace safe."))),
-            footer: _mithrilDefault.default('[', null, _mithrilDefault.default("div", {
-                class: "flex flex-justify-center",
-                style: {
-                    marginTop: '2rem'
-                }
-            }, _mithrilDefault.default(_components.Button, {
-                raised: true,
-                class: "button__big button__extraPadding",
-                label: "I Saved My Passcode",
-                onclick: ()=>{
-                    this.savePassModalOpen = false;
-                    _mithrilDefault.default.route.set('/auth/enter-passcode');
-                }
-            })))
-        }), _mithrilDefault.default(_components.Container, {
-            class: "headspace flex"
-        }, _mithrilDefault.default("div", {
-            class: "flex-2"
-        }, _mithrilDefault.default("img", {
-            src: _createYourPasscodePngDefault.default
-        })), _mithrilDefault.default("div", {
-            class: "flex-3",
-            style: "padding: 0 1rem"
-        }, _mithrilDefault.default("h1", null, "Create a Passcode"), _mithrilDefault.default("p", {
-            class: "font-color--light"
-        }, "Generate your passcode here to encrypt your desktop software and then copy into the following screen. Make sure to store your password somewhere safe: either in 1Password, Last Pass, a comparable app, or printed and in a safe deposit box."), _mithrilDefault.default("div", {
-            class: "passcodeInput"
-        }, _mithrilDefault.default("div", {
-            class: "passcode",
-            onclick: ()=>{
-                this.copyPasscode();
-            }
-        }, _mithrilDefault.default("span", null, this.passcode), _mithrilDefault.default("i", {
-            class: "fas fa-copy"
-        })), _mithrilDefault.default(_components.Button, {
-            raised: true,
-            ripple: true,
-            class: "button__gray",
-            label: "Generate New",
-            onclick: ()=>{
-                this.generateNewPasscode();
-            }
-        })), this.copied ? _mithrilDefault.default("p", {
-            class: "font-color--green font-weight--medium"
-        }, "Passcode is copied!") : null, _mithrilDefault.default("div", {
-            class: "flex flex-justify-end",
-            style: {
-                marginTop: '2rem'
-            }
-        }, _mithrilDefault.default(_components.Button, {
-            raised: true,
-            label: "Continue",
-            onclick: ()=>{
-                this.savePassModalOpen = true;
-            }
-        })))));
-    }
-}
-module.exports = CreatePasscode;
-
-},{"mithril":"a7UJj","../../../components":"h8DOh","./create-passcode.scss":"aa61J","../../../../assets/img/create-your-passcode.png":"6Yrh3","../../../../assets/img/wait.png":"kBl0k","@parcel/transformer-js/src/esmodule-helpers.js":"ciiiV"}],"aa61J":[function() {},{}],"6Yrh3":[function(require,module,exports) {
-module.exports = require('./helpers/bundle-url').getBundleURL('42Ane') + "create-your-passcode.dd7b7cb4.png" + "?" + Date.now();
-
-},{"./helpers/bundle-url":"chiK4"}],"kBl0k":[function(require,module,exports) {
-module.exports = require('./helpers/bundle-url').getBundleURL('42Ane') + "wait.bc7a0998.png" + "?" + Date.now();
-
-},{"./helpers/bundle-url":"chiK4"}],"4S5Ms":[function(require,module,exports) {
-var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
-var _mithril = require("mithril");
-var _mithrilDefault = parcelHelpers.interopDefault(_mithril);
-var _components = require("../../../components");
-var _passcodePng = require("../../../../assets/img/passcode.png");
-var _passcodePngDefault = parcelHelpers.interopDefault(_passcodePng);
-class EnterPasscode {
-    constructor(){
-        this.passcode = '';
-    }
-    continueDisabled() {
-        let passcodeValid = /^[a-zA-Z0-9]{22}$/.test(this.passcode);
-        return !passcodeValid;
-    }
-    view() {
-        return _mithrilDefault.default('[', null, _mithrilDefault.default(_components.Container, {
-            class: "headspace flex flex-align-center"
-        }, _mithrilDefault.default("div", {
-            class: "flex-2"
-        }, _mithrilDefault.default("img", {
-            src: _passcodePngDefault.default
-        })), _mithrilDefault.default("div", {
-            class: "flex-3",
-            style: "padding: 1rem"
-        }, _mithrilDefault.default("h1", null, "Please enter your passcode."), _mithrilDefault.default("p", {
-            class: "font-color--light"
-        }, "You can find your 22-character passcode by referring back to your storage spot (1Password, Last Pass, Safe Deposit Box) and entering it into the box below."), _mithrilDefault.default("div", {
-            class: "flex flex-align-center"
-        }, _mithrilDefault.default(_components.TextField, {
-            filled: true,
-            fluid: true,
-            label: "Passcode",
-            oninput: (e)=>{
-                this.passcode = e.target.value;
-            },
-            pattern: '^[a-zA-Z0-9]{22}$',
-            placeholder: "xxxxx-xxxx-xxxxx-xxxx-xxxx"
-        }), _mithrilDefault.default(_components.Button, {
-            raised: true,
-            label: "Continue",
-            style: {
-                marginLeft: '1rem'
-            },
-            onclick: ()=>{
-                _mithrilDefault.default.route.set('/auth/configure-identifier');
-            }
-        })))));
-    }
-}
-module.exports = EnterPasscode;
-
-},{"mithril":"a7UJj","../../../components":"h8DOh","../../../../assets/img/passcode.png":"h4IAz","@parcel/transformer-js/src/esmodule-helpers.js":"ciiiV"}],"h4IAz":[function(require,module,exports) {
-module.exports = require('./helpers/bundle-url').getBundleURL('42Ane') + "passcode.cbd8f8d6.png" + "?" + Date.now();
-
-},{"./helpers/bundle-url":"chiK4"}],"6YqIq":[function(require,module,exports) {
-var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
-var _components = require("../../components");
-var _tutorialScss = require("./tutorial.scss");
-var _addNewContactsPng = require("../../../assets/img/add-new-contacts.png");
-var _addNewContactsPngDefault = parcelHelpers.interopDefault(_addNewContactsPng);
-var _configureIdentifierPng = require("../../../assets/img/configure-identifier.png");
-var _configureIdentifierPngDefault = parcelHelpers.interopDefault(_configureIdentifierPng);
-var _createYourPasscodePng = require("../../../assets/img/create-your-passcode.png");
-var _createYourPasscodePngDefault = parcelHelpers.interopDefault(_createYourPasscodePng);
-var _requestCredentialsPng = require("../../../assets/img/request-credentials.png");
-var _requestCredentialsPngDefault = parcelHelpers.interopDefault(_requestCredentialsPng);
-var _mithril = require("mithril");
-var _mithrilDefault = parcelHelpers.interopDefault(_mithril);
-class Tutorial {
-    constructor(){
-        this.secondsPerStep = 5;
-        this.steps = [
-            {
-                header: `Create Your Passcode`,
-                subheader: `Getting started is easy, first we need to secure your new software with a passcode. Then you can add and verify connections, request and receive credentials, and store contact information for later use.`,
-                image: _createYourPasscodePngDefault.default
-            },
-            {
-                header: `Secure Your Software`,
-                subheader: `Create an identifier that is yours going forward that you can utilize to connect with and verify others.`,
-                image: _configureIdentifierPngDefault.default
-            },
-            {
-                header: `Add New Contacts`,
-                subheader: `Add new contacts after obtaining their contact card. Verify your contacts over a short zoom call.`,
-                image: _addNewContactsPngDefault.default
-            },
-            {
-                header: `Request Credentials`,
-                subheader: `After diligence has been completed, you can provide your contact card to request new credentials.`,
-                image: _requestCredentialsPngDefault.default
-            }
-        ];
-        this.stepSelectedIdx = 0;
-        this.stepSelected = this.steps[0];
-    }
-    oninit() {
-        this.startTimer();
-    }
-    onremove() {
-        this.stopTimer();
-    }
-    startTimer() {
-        this.interval = setInterval(()=>{
-            if (this.stepSelectedIdx >= 3) this.stepSelectedIdx = 0;
-            else this.stepSelectedIdx++;
-            this.stepSelected = this.steps[this.stepSelectedIdx];
-            _mithrilDefault.default.redraw();
-        }, 1000 * this.secondsPerStep);
-    }
-    stopTimer() {
-        clearInterval(this.interval);
-    }
-    view() {
-        return _mithrilDefault.default('[', null, _mithrilDefault.default(_components.Container, null, _mithrilDefault.default("div", {
-            class: "headspace text--center"
-        }, _mithrilDefault.default("h1", null, "Welcome to the vLEI Ecosystem"), _mithrilDefault.default("p", {
-            class: "font-color--light"
-        }, "Getting started is easy, after the sign-up process, you can add and verify connections, request your own credentials and store contact information for later use.")), this.stepSelected && _mithrilDefault.default("div", {
-            class: "headspace tutorial"
-        }, _mithrilDefault.default("div", {
-            class: "tutorial__info"
-        }, _mithrilDefault.default("h1", null, this.stepSelected.header), _mithrilDefault.default("h3", {
-            class: "font-color--light"
-        }, this.stepSelected.subheader), _mithrilDefault.default(_components.Steps, {
-            count: this.steps.length,
-            selected: this.stepSelectedIdx,
-            selectedChange: (idx)=>{
-                this.stepSelectedIdx = idx;
-                this.stepSelected = this.steps[this.stepSelectedIdx]; // Restart the timer
-                this.stopTimer();
-                this.startTimer();
-            },
-            style: {
-                marginBottom: '1rem'
-            }
-        }), _mithrilDefault.default(_components.Button, {
-            ripple: true,
+        return _mithrilDefault.default('[', null, _mithrilDefault.default(_components.Container, null, _mithrilDefault.default(_components.Button, {
             raised: true,
             label: "Get Started",
             onclick: ()=>{
-                _mithrilDefault.default.route.set('/auth/create-passcode');
+                _mithrilDefault.default.route.set('/download');
             }
-        })), _mithrilDefault.default("div", {
-            class: "tutorial__image__container"
-        }, _mithrilDefault.default("img", {
-            class: "tutorial__image",
-            src: this.stepSelected.image
-        })))));
+        })));
     }
 }
-module.exports = Tutorial;
+module.exports = Splash;
 
-},{"../../components":"h8DOh","./tutorial.scss":"gCsqS","../../../assets/img/add-new-contacts.png":"hN0dw","../../../assets/img/configure-identifier.png":"1pJnT","../../../assets/img/create-your-passcode.png":"6Yrh3","../../../assets/img/request-credentials.png":"97jz4","mithril":"a7UJj","@parcel/transformer-js/src/esmodule-helpers.js":"ciiiV"}],"gCsqS":[function() {},{}],"hN0dw":[function(require,module,exports) {
-module.exports = require('./helpers/bundle-url').getBundleURL('42Ane') + "add-new-contacts.ad53a849.png" + "?" + Date.now();
+},{"mithril":"a7UJj","../../src/app/components":"h8DOh","@parcel/transformer-js/src/esmodule-helpers.js":"ciiiV"}],"bryrU":[function() {},{}],"8ZQcx":[function() {},{}],"5ZgLC":[function() {},{}]},["4w6mE","aCPO5"], "aCPO5", "parcelRequire29f5")
 
-},{"./helpers/bundle-url":"chiK4"}],"97jz4":[function(require,module,exports) {
-module.exports = require('./helpers/bundle-url').getBundleURL('42Ane') + "request-credentials.8cdf563a.png" + "?" + Date.now();
-
-},{"./helpers/bundle-url":"chiK4"}],"2O6iQ":[function(require,module,exports) {
-var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
-var _mithril = require("mithril");
-var _mithrilDefault = parcelHelpers.interopDefault(_mithril);
-var _components = require("../../components");
-class Error {
-    constructor(){
-        this.remainingSeconds = 5;
-        this.interval = null;
-    }
-    oninit() {
-        this.countdown();
-    }
-    onremove() {
-        clearInterval(this.interval);
-    }
-    countdown() {
-        this.interval = setInterval(()=>{
-            this.remainingSeconds--;
-            if (this.remainingSeconds === 0) {
-                clearInterval(this.interval);
-                this.redirect();
-            }
-            _mithrilDefault.default.redraw();
-        }, 1000);
-    }
-    redirect() {
-        _mithrilDefault.default.route.set('/');
-    }
-    view() {
-        return _mithrilDefault.default(_components.Container, null, _mithrilDefault.default("h3", {
-            class: "headspace"
-        }, "Sorry! Page Not Found"), _mithrilDefault.default("h4", null, "You will be redirected to the home page in ", this.remainingSeconds, " seconds"));
-    }
-}
-module.exports = Error;
-
-},{"mithril":"a7UJj","../../components":"h8DOh","@parcel/transformer-js/src/esmodule-helpers.js":"ciiiV"}],"a0kH9":[function(require,module,exports) {
-var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
-var _mithril = require("mithril");
-var _mithrilDefault = parcelHelpers.interopDefault(_mithril);
-var _components = require("../../components");
-class QARDashboard {
-    view() {
-        return _mithrilDefault.default('[', null, _mithrilDefault.default(_components.Container, null));
-    }
-}
-module.exports = QARDashboard;
-
-},{"mithril":"a7UJj","../../components":"h8DOh","@parcel/transformer-js/src/esmodule-helpers.js":"ciiiV"}],"aU1bL":[function(require,module,exports) {
-var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
-var _mithril = require("mithril");
-var _mithrilDefault = parcelHelpers.interopDefault(_mithril);
-var _moment = require("moment");
-var _momentDefault = parcelHelpers.interopDefault(_moment);
-var _components = require("../../components");
-var _modals = require("../../modals");
-var _services = require("../../services");
-class StyleGuide {
-    constructor(){
-        this.modalOpen = false;
-        this.dateRangeStart = _momentDefault.default();
-        this.dateRangeEnd = _momentDefault.default();
-    }
-    view() {
-        return _mithrilDefault.default('[', null, _mithrilDefault.default(_components.Modal, {
-            style: {
-                animation: '0.4s slideInTop',
-                width: '320px'
-            },
-            isOpen: this.modalOpen,
-            onClose: ()=>{
-                this.modalOpen = false;
-            },
-            header: _mithrilDefault.default("h1", null, "Header"),
-            content: _mithrilDefault.default("p", null, "Content"),
-            footer: _mithrilDefault.default("p", null, "Footer")
-        }), _mithrilDefault.default(_components.Container, null, _mithrilDefault.default(_components.Card, {
-            class: "headspace"
-        }, _mithrilDefault.default("h1", null, "Styles & Examples"), _mithrilDefault.default("h3", null, "Button"), _mithrilDefault.default(_components.Button, {
-            label: "Text"
-        }), _mithrilDefault.default(_components.Button, {
-            outlined: true,
-            label: "Outlined"
-        }), _mithrilDefault.default(_components.Button, {
-            raised: true,
-            label: "Raised"
-        }), _mithrilDefault.default(_components.Button, {
-            iconLeading: "search",
-            label: "Icon Leading"
-        }), _mithrilDefault.default(_components.Button, {
-            iconTrailing: "search",
-            label: "Icon Trailing"
-        }), _mithrilDefault.default(_components.Button, {
-            ripple: false,
-            label: "No Ripple"
-        }), _mithrilDefault.default(_components.Button, {
-            class: "button__gray",
-            label: "Gray"
-        }), _mithrilDefault.default("h3", null, "Icon Button"), _mithrilDefault.default(_components.IconButton, {
-            icon: "search"
-        }), _mithrilDefault.default(_components.IconButton, {
-            icon: "visibility",
-            ripple: false
-        }), _mithrilDefault.default("h3", null, "Text Field"), _mithrilDefault.default(_components.TextField, {
-            filled: true,
-            label: "Filled",
-            placeholder: "Placeholder"
-        }), _mithrilDefault.default(_components.TextField, {
-            outlined: true,
-            label: "Outlined",
-            placeholder: "Placeholder"
-        }), _mithrilDefault.default("label", {
-            class: "label"
-        }, "No Label"), _mithrilDefault.default(_components.TextField, {
-            filled: true,
-            placeholder: "Placeholder"
-        }), _mithrilDefault.default(_components.TextField, {
-            outlined: true,
-            placeholder: "Placeholder"
-        }), _mithrilDefault.default("label", {
-            class: "label"
-        }, "Disabled"), _mithrilDefault.default(_components.TextField, {
-            filled: true,
-            disabled: true,
-            placeholder: "Placeholder"
-        }), _mithrilDefault.default(_components.TextField, {
-            outlined: true,
-            disabled: true,
-            placeholder: "Placeholder"
-        }), _mithrilDefault.default("label", {
-            class: "label"
-        }, "Fluid"), _mithrilDefault.default(_components.TextField, {
-            fluid: true,
-            outlined: true,
-            label: "Label",
-            placeholder: "Placeholder"
-        }), _mithrilDefault.default("h3", null, "Text Area"), _mithrilDefault.default(_components.TextField, {
-            textarea: true,
-            filled: true,
-            placeholder: "Placeholder"
-        }), _mithrilDefault.default(_components.TextField, {
-            textarea: true,
-            outlined: true,
-            placeholder: "Placeholder"
-        }), _mithrilDefault.default("h3", null, "Select"), _mithrilDefault.default(_components.Select, null), _mithrilDefault.default("h3", null, "Modal"), _mithrilDefault.default(_components.Button, {
-            raised: true,
-            label: "Open Modal",
-            onclick: ()=>{
-                this.modalOpen = true;
-            }
-        }), _mithrilDefault.default("h3", null, "Date Range"), _mithrilDefault.default(_components.DateRange, {
-            startDate: this.dateRangeStart,
-            startDateChange: (date)=>{
-                this.dateRangeStart = date;
-            },
-            endDate: this.dateRangeEnd,
-            endDateChange: (date)=>{
-                this.dateRangeEnd = date;
-            }
-        }), _mithrilDefault.default("h3", null, "Breadcrumb"), _mithrilDefault.default(_components.Breadcrumb, {
-            items: [
-                {
-                    href: '/',
-                    text: 'Home'
-                },
-                {
-                    href: null,
-                    text: 'Style Guide'
-                }
-            ]
-        }), _mithrilDefault.default("h3", null, "Spinner"), _mithrilDefault.default(_components.Spinner, null), _mithrilDefault.default("h3", null, "Typography"), _mithrilDefault.default("h1", null, "h1"), _mithrilDefault.default("h2", null, "h2"), _mithrilDefault.default("h3", null, "h3"), _mithrilDefault.default("h4", null, "h4"), _mithrilDefault.default("h5", null, "h5"), _mithrilDefault.default("h6", null, "h6"), _mithrilDefault.default("p", null, "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum."), _mithrilDefault.default("p", {
-            class: "error"
-        }, "I'm an error."), _mithrilDefault.default("h3", null, "Links"), _mithrilDefault.default("ul", null, _mithrilDefault.default("li", null, _mithrilDefault.default(_mithrilDefault.default.route.Link, {
-            href: "/tutorial"
-        }, "Tutorial")), _mithrilDefault.default("li", null, _mithrilDefault.default(_mithrilDefault.default.route.Link, {
-            href: "/error"
-        }, "Error")), _mithrilDefault.default("li", null, _mithrilDefault.default(_mithrilDefault.default.route.Link, {
-            href: "/style-guide"
-        }, "Style Guide"))))));
-    }
-}
-module.exports = StyleGuide;
-
-},{"mithril":"a7UJj","moment":"1RrsF","../../components":"h8DOh","../../modals":"9YEzS","../../services":"5OF80","@parcel/transformer-js/src/esmodule-helpers.js":"ciiiV"}],"bryrU":[function() {},{}],"8ZQcx":[function() {},{}],"5ZgLC":[function() {},{}]},["in7zv","jKoH9"], "jKoH9", "parcelRequire29f5")
-
-//# sourceMappingURL=index.8296a1a5.js.map
+//# sourceMappingURL=index.323cfff2.js.map
