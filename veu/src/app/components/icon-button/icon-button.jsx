@@ -8,7 +8,7 @@ class IconButton {
     this.buttonClass = `material-icons mdc-icon-button`;
     this.optionDefaults = {
       icon: '',
-      ariaLabel: '',
+      title: null,
       ripple: true,
       onclick: null,
     };
@@ -35,7 +35,8 @@ class IconButton {
         id={this.randomId}
         class={this.buttonClass}
         onclick={this.options.onclick}
-        aria-label={this.options.ariaLabel}
+        aria-label={this.options.title}
+        title={this.options.title}
       >
         <div class="mdc-icon-button__ripple"></div>
         {this.options.icon}
