@@ -22,7 +22,7 @@ const PagesLayout = {
   },
 };
 
-m.route(root, '/keep/', {
+m.route(root, '/', {
   '/keep': {
     view: () => {
       return (
@@ -32,7 +32,7 @@ m.route(root, '/keep/', {
       );
     },
   },
-  '/keep/download': {
+  '/download': {
     view: () => {
       return (
         <PagesLayout>
