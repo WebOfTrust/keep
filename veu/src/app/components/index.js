@@ -1,6 +1,7 @@
 import AuthedNav from './nav/authed-nav.jsx';
 import Button from './button/button.jsx';
 import Breadcrumb from './breadcrumb/breadcrumb.jsx';
+import Card from './card/card.jsx';
 import Container from './container/container.jsx';
 import DatePicker from './date-picker/date-picker.jsx';
 import DateRange from './date-range/date-range.jsx';
@@ -18,6 +19,7 @@ module.exports = {
   AuthedNav,
   Button,
   Breadcrumb,
+  Card,
   Container,
   DatePicker,
   DateRange,
