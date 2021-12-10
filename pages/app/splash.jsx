@@ -10,7 +10,7 @@ class Splash {
             raised
             label="Get Started"
             onclick={() => {
-              m.route.set('/download');
+              m.route.set('/keep/download');
             }}
           />
         </Container>

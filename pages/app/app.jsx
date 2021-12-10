@@ -23,8 +23,8 @@ const PagesLayout = {
 };
 
 m.route.prefix = '';
-m.route(root, '/', {
-  '/': {
+m.route(root, '/keep/', {
+  '/keep': {
     view: () => {
       return (
         <PagesLayout>
@@ -33,7 +33,7 @@ m.route(root, '/', {
       );
     },
   },
-  '/download': {
+  '/keep/download': {
     view: () => {
       return (
         <PagesLayout>
