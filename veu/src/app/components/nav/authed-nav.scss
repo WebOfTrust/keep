@@ -1,0 +1,63 @@
+@import '../../../scss/variables';
+@import '../../../scss/mixins';
+
+.nav {
+  background-color: white;
+  border-bottom: 1px solid $border;
+  &__content {
+    align-items: center;
+    display: flex;
+    flex-direction: row;
+    height: 5.5rem;
+    justify-content: space-between;
+  }
+
+  &__spacer {
+    flex: 1;
+  }
+
+  &__title {
+    @include lato;
+    @include bold;
+    line-height: 1.33;
+    letter-spacing: 0.2px;
+    margin: 0;
+  }
+
+  &__link {
+    @include bold;
+    margin: 0;
+    text-decoration: none;
+
+    &:not(:first-of-type) {
+      margin-left: 2rem;
+    }
+  }
+
+  &__notifications {
+    align-items: center;
+    border: 2px solid $default-text;
+    border-radius: 30px;
+    cursor: pointer;
+    display: flex;
+    padding: 0.5rem 1rem;
+    margin-right: 1rem;
+
+    &__count {
+      @include bold;
+      margin-right: 0.5rem;
+    }
+  }
+}
+
+@media screen and (max-width: 680px) {
+  .nav {
+    &__link {
+      font-size: 14px;
+
+      &:not(:first-of-type) {
+        margin-left: 1rem;
+      }
+    }
+  }
+}

@@ -1,8 +1,9 @@
 import m from 'mithril';
 import Container from '../container/container.jsx';
-import './nav.scss';
+import IconButton from '../icon-button/icon-button.jsx';
+import './authed-nav.scss';
 
-class Nav {
+class AuthedNav {
   constructor() {}
 
   oninit() {}
@@ -20,6 +21,11 @@ class Nav {
               </m.route.Link>
             </h2>
             <div class="nav__spacer"></div>
+            <div class="nav__notifications">
+              <span class="nav__notifications__count">1</span>
+              <span class="material-icons">notifications</span>
+            </div>
+            <IconButton icon="settings" />
           </div>
         </Container>
       </div>
@@ -27,4 +33,4 @@ class Nav {
   }
 }
 
-module.exports = Nav;
+module.exports = AuthedNav;
