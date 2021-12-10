@@ -55,7 +55,7 @@ class ConfigureIdentifier {
             {this.showAdvanced && (
               <>
                 <div class="flex flex-align-center" style={{ marginTop: '2rem' }}>
-                  <label class="label flex-1">Add/Edit Witnesses</label>
+                  <label class="label clearMargin flex-1">Add/Edit Witnesses</label>
                   <Button
                     class="flex-1 button__gray"
                     raised
@@ -66,27 +66,27 @@ class ConfigureIdentifier {
                   />
                 </div>
                 <div class="flex flex-align-center" style={{ marginTop: '1rem' }}>
-                  <label class="label flex-1">Incepting Signing Threshold</label>
+                  <label class="label clearMargin flex-1">Incepting Signing Threshold</label>
                   <Select class="flex-1" />
                 </div>
                 <div class="flex flex-align-center" style={{ marginTop: '1rem' }}>
-                  <label class="label flex-1">Incepting Key Count</label>
+                  <label class="label clearMargin flex-1">Incepting Key Count</label>
                   <Select class="flex-1" />
                 </div>
                 <div class="flex flex-align-center" style={{ marginTop: '1rem' }}>
-                  <label class="label flex-1">Next Signing Threshold</label>
+                  <label class="label clearMargin flex-1">Next Signing Threshold</label>
                   <Select class="flex-1" />
                 </div>
                 <div class="flex flex-align-center" style={{ marginTop: '1rem' }}>
-                  <label class="label flex-1">Next Key Count</label>
+                  <label class="label clearMargin flex-1">Next Key Count</label>
                   <Select class="flex-1" />
                 </div>
                 <div class="flex flex-align-center" style={{ marginTop: '1rem' }}>
-                  <label class="label flex-1">Witness Threshold</label>
+                  <label class="label clearMargin flex-1">Witness Threshold</label>
                   <Select class="flex-1" />
                 </div>
                 <div class="flex flex-align-center" style={{ marginTop: '1rem' }}>
-                  <label class="label flex-1">Witness Address</label>
+                  <label class="label clearMargin flex-1">Witness Address</label>
                   <TextField filled initialValue="HTTPS" class="flex-1" />
                 </div>
               </>

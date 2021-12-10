@@ -1,7 +1,7 @@
 import m from 'mithril';
 
 import { AuthedNav, ToastOutlet, UnauthedNav } from './components';
-import { ConfigureIdentifier, CreatePasscode, EnterPasscode, Error, QARDashboard, StyleGuide, Tutorial } from './views';
+import { ConfigureIdentifier, CreatePasscode, EnterPasscode, Error, QARDashboard, Tutorial } from './views';
 
 import '../scss/defaults.scss';
 import '../scss/typography.scss';
@@ -93,18 +93,6 @@ m.route(root, '/tutorial/', {
         <AuthedLayout>
           <QARDashboard />
         </AuthedLayout>
-      );
-    },
-  },
-  '/style-guide': {
-    oninit: () => {
-      document.title = documentTitle + ' | Style Guide';
-    },
-    view: () => {
-      return (
-        <UnauthedLayout>
-          <StyleGuide />
-        </UnauthedLayout>
       );
     },
   },

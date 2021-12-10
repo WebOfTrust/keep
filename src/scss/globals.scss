@@ -24,6 +24,11 @@ a:link {
 .label {
   color: $light-text;
   display: block;
+  margin-bottom: 1rem;
+}
+
+.clearMargin {
+  margin: 0;
 }
 
 // To get a consistent space at the top of each page, which requires adding this class to a div,
