@@ -23,7 +23,7 @@ const PagesLayout = {
 };
 
 m.route(root, '/', {
-  '/keep': {
+  '/': {
     view: () => {
       return (
         <PagesLayout>
