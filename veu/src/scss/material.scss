@@ -12,15 +12,15 @@
 @use '@material/button/styles' as buttonStyles;
 @use '@material/button/index' as button;
 
+// Card
+@use '@material/card/index' as card;
+
+// CircularProgress
+@use '@material/circular-progress/mdc-circular-progress';
+
 // IconButton
 @use '@material/icon-button/styles' as iconButtonStyles;
 @use '@material/icon-button/mixins' as iconButton;
-
-// TextField
-@use '@material/floating-label/mdc-floating-label';
-@use '@material/line-ripple/mdc-line-ripple';
-@use '@material/notched-outline/mdc-notched-outline';
-@use '@material/textfield/mixins' as textfield;
 
 // Select
 @use '@material/list/mdc-list';
@@ -28,9 +28,15 @@
 @use '@material/menu/mdc-menu';
 @use '@material/select/styles';
 
-// CircularProgress
-@use '@material/circular-progress/mdc-circular-progress';
+// TextField
+@use '@material/floating-label/mdc-floating-label';
+@use '@material/line-ripple/mdc-line-ripple';
+@use '@material/notched-outline/mdc-notched-outline';
+@use '@material/textfield/mixins' as textfield;
 
+@use '@material/tooltip/styles' as tooltipStyles;
+
+@include card.core-styles;
 @include iconButton.core-styles;
 @include textfield.core-styles;
 
