@@ -8,7 +8,7 @@ a = Analysis(['src/ward.py'],
              pathex=[],
              binaries=[],
              datas=[
-                ('src/kiwi', 'ui')
+                ('../src/', 'ui')
              ],
              hiddenimports=[
                 'falcon.app_helpers',
@@ -61,3 +61,16 @@ coll = COLLECT(exe,
                upx=True,
                upx_exclude=[],
                name='ward')
+
+app = BUNDLE(coll,
+            name='Keep.app',
+            icon='resources/keep.icns',
+            bundle_identifier='org.gleif.keep',
+            version='0.0.1',
+            info_plist={
+               'CFBundleName': 'Keep',
+               'CFBundleDisplayName': 'Keep',
+               'NSRequiresAquaSystemAppearance': 'No',
+               'NSHighResolutionCapable': 'True',
+            },
+)
