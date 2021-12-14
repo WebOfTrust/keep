@@ -1,5 +1,5 @@
 import m from 'mithril';
-import { Button, Container, Select, TextField } from '../../../components';
+import { Button, Container, IconButton, TextField } from '../../../components';
 import { ConfigureWitnesses } from '../../../modals';
 import configureIdentifier from '../../../../assets/img/configure-identifier.png';
 
@@ -26,7 +26,7 @@ class ConfigureIdentifier {
             this.showConfigureWitnesses = false;
           }}
         />
-        <Container class="headspace flex">
+        <Container class="headspace flex" style={{ marginBottom: '5rem' }}>
           <div class="flex-2">
             <img src={configureIdentifier} />
           </div>
@@ -55,9 +55,9 @@ class ConfigureIdentifier {
             {this.showAdvanced && (
               <>
                 <div class="flex flex-align-center" style={{ marginTop: '2rem' }}>
-                  <label class="label clearMargin flex-1">Add/Edit Witnesses</label>
+                  <label class="bold-label clearMargin flex-1">Add/Edit Witnesses</label>
                   <Button
-                    class="flex-1 button__gray"
+                    class="button__gray"
                     raised
                     label="Add/Edit"
                     onclick={() => {
@@ -66,28 +66,48 @@ class ConfigureIdentifier {
                   />
                 </div>
                 <div class="flex flex-align-center" style={{ marginTop: '1rem' }}>
-                  <label class="label clearMargin flex-1">Incepting Signing Threshold</label>
-                  <Select class="flex-1" />
+                  <label class="bold-label clearMargin flex-1">Incepting Signing Threshold</label>
+                  <div class="flex flex-align-center">
+                    <IconButton icon="remove" />
+                    <span style={{ margin: '0 1rem' }}>1</span>
+                    <IconButton icon="add" />
+                  </div>
                 </div>
                 <div class="flex flex-align-center" style={{ marginTop: '1rem' }}>
-                  <label class="label clearMargin flex-1">Incepting Key Count</label>
-                  <Select class="flex-1" />
+                  <label class="bold-label clearMargin flex-1">Incepting Key Count</label>
+                  <div class="flex flex-align-center">
+                    <IconButton icon="remove" />
+                    <span style={{ margin: '0 1rem' }}>1</span>
+                    <IconButton icon="add" />
+                  </div>
                 </div>
                 <div class="flex flex-align-center" style={{ marginTop: '1rem' }}>
-                  <label class="label clearMargin flex-1">Next Signing Threshold</label>
-                  <Select class="flex-1" />
+                  <label class="bold-label clearMargin flex-1">Next Signing Threshold</label>
+                  <div class="flex flex-align-center">
+                    <IconButton icon="remove" />
+                    <span style={{ margin: '0 1rem' }}>1</span>
+                    <IconButton icon="add" />
+                  </div>
                 </div>
                 <div class="flex flex-align-center" style={{ marginTop: '1rem' }}>
-                  <label class="label clearMargin flex-1">Next Key Count</label>
-                  <Select class="flex-1" />
+                  <label class="bold-label clearMargin flex-1">Next Key Count</label>
+                  <div class="flex flex-align-center">
+                    <IconButton icon="remove" />
+                    <span style={{ margin: '0 1rem' }}>1</span>
+                    <IconButton icon="add" />
+                  </div>
                 </div>
                 <div class="flex flex-align-center" style={{ marginTop: '1rem' }}>
-                  <label class="label clearMargin flex-1">Witness Threshold</label>
-                  <Select class="flex-1" />
+                  <label class="bold-label clearMargin flex-1">Witness Threshold</label>
+                  <div class="flex flex-align-center">
+                    <IconButton icon="remove" />
+                    <span style={{ margin: '0 1rem' }}>1</span>
+                    <IconButton icon="add" />
+                  </div>
                 </div>
                 <div class="flex flex-align-center" style={{ marginTop: '1rem' }}>
-                  <label class="label clearMargin flex-1">Witness Address</label>
-                  <TextField filled initialValue="HTTPS" class="flex-1" />
+                  <label class="bold-label clearMargin flex-1">Witness Address</label>
+                  <TextField filled initialValue="HTTPS" />
                 </div>
               </>
             )}

@@ -97,7 +97,7 @@ class CreatePasscode {
               <Button
                 raised
                 ripple
-                class="button__gray"
+                class="button__gray button__big"
                 label="Generate New"
                 onclick={() => {
                   this.generateNewPasscode();
@@ -112,6 +112,7 @@ class CreatePasscode {
             <div class="flex flex-justify-end" style={{ marginTop: '2rem' }}>
               <Button
                 raised
+                class="button__big"
                 label="Continue"
                 onclick={() => {
                   this.savePassModalOpen = true;

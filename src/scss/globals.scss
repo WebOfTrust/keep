@@ -27,6 +27,11 @@ a:link {
   margin-bottom: 1rem;
 }
 
+.bold-label {
+  @include medium;
+  color: black;
+}
+
 .clearMargin {
   margin: 0;
 }

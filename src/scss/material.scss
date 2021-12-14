@@ -18,6 +18,9 @@
 // CircularProgress
 @use '@material/circular-progress/mdc-circular-progress';
 
+// Chip
+@use '@material/chips/styles' as chipStyles;
+
 // IconButton
 @use '@material/icon-button/styles' as iconButtonStyles;
 @use '@material/icon-button/mixins' as iconButton;
@@ -62,7 +65,8 @@
   }
 
   &__big {
-    @include button.height(3.5rem);
+    @include button.height(3rem);
+    @include button.horizontal-padding(3rem);
   }
 
   &__extraPadding {

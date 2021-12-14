@@ -4,7 +4,11 @@ class Container {
   constructor() {}
 
   view(vnode) {
-    return <div class={'container' + (vnode.attrs.class ? ` ${vnode.attrs.class}` : '')}>{vnode.children}</div>;
+    return (
+      <div class={'container' + (vnode.attrs.class ? ` ${vnode.attrs.class}` : '')} style={vnode.attrs.style}>
+        {vnode.children}
+      </div>
+    );
   }
 }
 
