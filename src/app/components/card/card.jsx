@@ -28,7 +28,7 @@ class Card {
       <>
         <div class={this.cardClass} style={{ padding: this.options.padding }}>
           <div class="mdc-card__content">{vnode.children}</div>
-          <div class="mdc-card__actions">
+          {/*<div class="mdc-card__actions">
             <div class="mdc-card__action-buttons">
               <Button class="mdc-card__action mdc-card__action--button" label="Action 1" />
               <Button class="mdc-card__action mdc-card__action--button" label="Action 2" />
@@ -37,7 +37,7 @@ class Card {
           <div class="mdc-card__action-icons">
             <IconButton class="mdc-card__action mdc-card__action--icon" icon="share" title="Share" />
             <IconButton class="mdc-card__action mdc-card__action--icon" icon="more_vert" title="More Options" />
-          </div>
+          </div>*/}
         </div>
       </>
     );

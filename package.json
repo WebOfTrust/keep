@@ -8,21 +8,27 @@
   },
   "homepage": "https://weboftrust.github.io/keep",
   "license": "MIT",
+  "main": "electron.js",
   "scripts": {
-    "start": "parcel src/index.html",
-    "build": "parcel build src/index.html",
-    "electron": "electron-forge start",
+    "start": "parcel src/index.html --cache-dir ward/.parcel-cache-dev --dist-dir ward/build-ui-dev",
+    "rm-build": "rm -rf ward/.parcel-cache ward/build-ui ward/.parcel-cache-dev ward/build-ui-dev",
+    "build": "yarn run rm-build; parcel build src/index.html --cache-dir ward/.parcel-cache --dist-dir ward/build-ui --public-url ./",
+    "electron": "yarn run build; electron-forge start",
     "package": "electron-forge package",
     "make": "electron-forge make",
-    "pages:start": "parcel pages/index.html --cache-dir .parcel-cache-pages --dist-dir distPages/",
-    "pages:build": "parcel build pages/index.html --cache-dir .parcel-cache-pages --dist-dir distPages/ --public-url ./",
+    "pages:start": "parcel pages/index.html",
+    "pages:rm-build": "rm -rf .parcel-cache dist",
+    "pages:build": "yarn run pages:rm-build; parcel build pages/index.html --public-url ./",
     "prepages:deploy": "yarn run pages:build",
-    "pages:deploy": "gh-pages -d distPages",
+    "pages:deploy": "gh-pages -d dist",
     "test": "NODE_ENV=test jest",
     "test:watch": "NODE_ENV=test jest --watch",
     "lint": "eslint src/",
     "format": "prettier --write 'src/**/*.{js,html,jsx,json,scss,css,md}'",
-    "nuke": "rm -rf .parcel-cache/ dist/ node_modules/"
+    "nuke": "rm -rf node_modules/; yarn run rm-build; yarn run pages:rm-build"
+  },
+  "targets": {
+    "main": false
   },
   "config": {
     "forge": {
@@ -66,6 +72,7 @@
     "@babel/preset-env": "^7.16.4",
     "@electron-forge/cli": "^6.0.0-beta.60",
     "@electron-forge/maker-deb": "^6.0.0-beta.60",
+    "@electron-forge/maker-dmg": "^6.0.0-beta.61",
     "@electron-forge/maker-rpm": "^6.0.0-beta.60",
     "@electron-forge/maker-squirrel": "^6.0.0-beta.60",
     "@electron-forge/maker-zip": "^6.0.0-beta.60",

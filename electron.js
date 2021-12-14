@@ -12,18 +12,8 @@ function createWindow() {
   const win = new BrowserWindow({
     width: 1440,
     height: 1024,
-    webPreferences: {
-      // TODO: enabling nodeIntegration and disabling contextIsolation is not recommended
-      // but is needed to use node in the renderer process.
-      // Review if there is a better way of enabling specific needed node functionality with
-      // preload scripts:
-      // https://www.electronjs.org/docs/latest/tutorial/process-model
-      nodeIntegration: true,
-      contextIsolation: false,
-    },
   });
-
-  win.loadURL('http://localhost:1234');
+  win.loadFile('ward/build-ui/index.html');
   spawnChildProcess();
 }
 

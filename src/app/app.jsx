@@ -34,7 +34,6 @@ const AuthedLayout = {
 };
 
 const documentTitle = 'KEEP';
-m.route.prefix = '';
 m.route(root, '/tutorial/', {
   '/tutorial': {
     oninit: () => {

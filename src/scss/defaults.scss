@@ -14,56 +14,6 @@ body {
   box-sizing: border-box;
 }
 
-// remove default styling for ul
-
-// ul {
-//   list-style: none;
-//   margin: 0;
-//   padding: 0;
-// }
-
-// remove shadow and outline on focus
-
-// input[type='name'],
-// input[type='email'],
-// input[type='text'],
-// input[type='tel'],
-// input[type='submit'],
-// input[type='number'],
-// input[type='password'],
-// input[type='url'],
-// textarea,
-// button,
-// a,
-// select {
-//   &:focus {
-//     box-shadow: 0, 0, 0, transparent;
-//     outline: none !important;
-//     text-decoration: none;
-//   }
-// }
-//
-// input:focus:invalid:focus,
-// textarea:focus:invalid:focus,
-// select:focus:invalid:focus {
-//   box-shadow: 0, 0, 0, transparent;
-//   outline: none;
-// }
-
-// add button cursor styles
-
-// button,
-// input[type='submit'],
-// input[type='button'] {
-//   cursor: pointer;
-// }
-//
-// button:disabled,
-// input[type='submit']:disabled,
-// input[type='button']:disabled {
-//   cursor: not-allowed;
-// }
-
 // images can't be wider than their containers
 
 img,

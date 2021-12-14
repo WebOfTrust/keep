@@ -21,7 +21,6 @@ class Spinner {
           class="mdc-circular-progress mdc-circular-progress--indeterminate"
           style="width:48px;height:48px;"
           role="progressbar"
-          aria-label="Example Progress Bar"
           aria-valuemin="0"
           aria-valuemax="1"
         >
