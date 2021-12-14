@@ -13,7 +13,7 @@
     "start": "parcel src/index.html --cache-dir ward/.parcel-cache-dev --dist-dir ward/build-ui-dev",
     "rm-build": "rm -rf ward/.parcel-cache ward/build-ui ward/.parcel-cache-dev ward/build-ui-dev",
     "build": "yarn run rm-build; parcel build src/index.html --cache-dir ward/.parcel-cache --dist-dir ward/build-ui --public-url ./",
-    "electron": "yarn run build; electron-forge start",
+    "electron": "electron-forge start",
     "package": "electron-forge package",
     "make": "electron-forge make",
     "pages:start": "parcel pages/index.html",
