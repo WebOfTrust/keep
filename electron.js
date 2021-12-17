@@ -23,7 +23,7 @@ function createWindow() {
     },
   });
 
-  win.loadURL('http://localhost:5623');
+  win.loadURL('http://localhost:5678');
   spawnChildProcess();
 }
 
