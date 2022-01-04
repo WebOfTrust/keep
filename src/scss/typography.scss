@@ -12,6 +12,27 @@ body {
   font-size: 100%; // 16px in most browsers.
 }
 
+h1 {
+  @include bold;
+  font-size: 32px;
+  line-height: 40px;
+  letter-spacing: 0.1px;
+
+  &.lg {
+    @include bold;
+    font-size: 44px;
+    line-height: 56px;
+    letter-spacing: 0.2px;
+  }
+}
+
+h4 {
+  @include bold;
+  font-size: 16px;
+  line-height: 20px;
+  letter-spacing: 0.1px;
+}
+
 .error {
   @include bold;
   color: $red;

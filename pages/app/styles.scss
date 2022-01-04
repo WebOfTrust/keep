@@ -1,0 +1,22 @@
+@import '../../src/scss/variables';
+
+.splash {
+  &__header {
+    background-color: $blue-006;
+    padding: 8rem 0 3.5rem 0;
+
+    &__container {
+      margin: 0 auto;
+      max-width: 730px;
+      text-align: center;
+    }
+
+    h1 {
+      margin: 0;
+    }
+
+    p {
+      margin: 2rem 0;
+    }
+  }
+}

@@ -9,6 +9,7 @@ class Card {
       class: null,
       outlined: false,
       padding: '16px',
+      style: {},
     };
     this.options = null;
   }
@@ -21,12 +22,16 @@ class Card {
     if (this.options.class) {
       this.cardClass += ` ${this.options.class}`;
     }
+    this.options.style = Object.assign({}, this.options.style, {
+      padding: this.options.padding,
+    });
+    console.log(this.options.style);
   }
 
   view(vnode) {
     return (
       <>
-        <div class={this.cardClass} style={{ padding: this.options.padding }}>
+        <div class={this.cardClass} style={this.options.style}>
           <div class="mdc-card__content">{vnode.children}</div>
           {/*<div class="mdc-card__actions">
             <div class="mdc-card__action-buttons">

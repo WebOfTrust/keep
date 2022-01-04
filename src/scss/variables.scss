@@ -4,18 +4,26 @@
 // colors
 
 // NOTE: Search project-wide to see where colors are used before deleting them.
-$gray-dker: #212529;
-$gray-dk: #495057;
-$gray: #adb5bd;
-$gray-lt: #dee2e6;
-$gray-lter: #f1f3f5;
+$french-blue: #3c64b1;
+$battleship-grey: #737b7d;
+$charcoal-grey: #373f41;
+$light-blue-grey: #dee8f5;
+$duck-egg-blue: #f3f5fd;
+$black-4: rgba(0, 0, 0, 0.04);
+$black: #000;
 
-$default-text: #373f41;
-$light-text: #737b7d;
-$border: #e2e5e6;
+$gray-dker: $charcoal-grey;
+$gray-dk: $battleship-grey;
+$gray: #c4c4c4;
+$gray-lt: #dee2e6;
+$gray-lter: #f4f5f4;
+
+$default-text: $gray-dker;
+$light-text: $gray-dk;
+$border: $gray-dk;
 
 $red: #c92a2a;
-$blue: #3c64b1;
+$blue: $french-blue;
 $blue-006: rgba($blue, 0.06);
 $green: #2b8a3e;
 $yellow: #fcc419;

@@ -10,6 +10,7 @@ class IconButton {
       icon: '',
       title: null,
       ripple: true,
+      class: null,
       onclick: null,
     };
     this.options = null;
@@ -18,6 +19,9 @@ class IconButton {
 
   oninit(vnode) {
     this.options = Object.assign({}, this.optionDefaults, vnode.attrs);
+    if (this.options.class) {
+      this.buttonClass += ` ${this.options.class}`;
+    }
   }
 
   oncreate(vnode) {

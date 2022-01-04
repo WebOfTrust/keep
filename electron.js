@@ -10,8 +10,8 @@ if (require('electron-squirrel-startup')) {
 
 function createWindow() {
   const win = new BrowserWindow({
-    width: 1440,
-    height: 1024,
+    width: 1024,
+    height: 768,
   });
   win.loadFile('ward/build-ui/index.html');
   spawnChildProcess();

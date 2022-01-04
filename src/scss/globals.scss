@@ -36,6 +36,12 @@ a:link {
   margin: 0;
 }
 
+.card {
+  &--fluid {
+    width: 100%;
+  }
+}
+
 // To get a consistent space at the top of each page, which requires adding this class to a div,
 // h1, or other element on every page, but which allows the flexibity to have a fixed nav
 

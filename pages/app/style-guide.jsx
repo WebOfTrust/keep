@@ -95,6 +95,7 @@ class StyleGuide {
             <h3>Spinner</h3>
             <Spinner />
             <h3>Typography</h3>
+            <h1 class="lg">h1.lg</h1>
             <h1>h1</h1>
             <h2>h2</h2>
             <h3>h3</h3>

@@ -9,6 +9,7 @@ import StyleGuide from './style-guide.jsx';
 import '../../src/scss/defaults.scss';
 import '../../src/scss/typography.scss';
 import '../../src/scss/globals.scss';
+import './styles.scss';
 
 let root = document.body;
 
