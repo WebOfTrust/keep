@@ -25,7 +25,6 @@ class Card {
     this.options.style = Object.assign({}, this.options.style, {
       padding: this.options.padding,
     });
-    console.log(this.options.style);
   }
 
   view(vnode) {
