@@ -1,7 +1,10 @@
+import logging
 import os.path
 import sys
 
+from hio.help import ogling
 from keri.app.cli.commands import bootstrap
+
 
 def main():
     # check for habbery
@@ -16,8 +19,22 @@ def main():
 
     __launch()
 
+
 def __launch():
-    bootstrap.launch(path=os.path.join(sys._MEIPASS, 'ui'))
+    packaged = getattr(sys, 'frozen', False) and getattr(sys, 'MEIPASS', '')
+
+    # disable syslog in hio if on windows
+    ogler = None
+    if sys.platform == 'win32':
+        ogler = ogling.Ogler(name="keep", level=logging.DEBUG, clear=True, syslogged=False, filed=packaged,
+                             consoled=(not packaged))
+
+    path = os.path.join(sys._MEIPASS, 'ui') if packaged else "../ui"
+
+    if packaged and sys._MEIPASS == '':
+        print("darn")
+
+    bootstrap.launch(path=path)
 
 
 if __name__ == '__main__':
