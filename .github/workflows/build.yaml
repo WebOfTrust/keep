@@ -17,13 +17,14 @@ jobs:
         with:
           python-version: 3.9.8
 
-      - name: Checkout
-        uses: actions/checkout@v2
+      - uses: actions/checkout@v2
 
-      - name: build ui
+      - uses: actions/setup-node@v2
         with:
           node-version: '14'
           cache: 'yarn'
+
+      - name: build ui
         run: |
           yarn install
           npm run build
