@@ -20,7 +20,7 @@ class ConfigureWitnesses {
               <Button raised label="Add More" />
             </>
           }
-        ></Modal>
+        />
       </>
     );
   }
