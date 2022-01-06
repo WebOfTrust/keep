@@ -20,6 +20,14 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v2
 
+      - name: build ui
+        with:
+          node-version: '14'
+          cache: 'yarn'
+        run: |
+          yarn install
+          npm run build
+
       - name: package python
         run: |
           cd ward
