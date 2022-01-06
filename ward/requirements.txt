@@ -8,7 +8,7 @@ falcon==3.0.1
 hio @ git+https://github.com/m00sey/hio.git@6d13aa19337771ade60e9198abef63173225cda1
 hjson==3.0.2
 jsonschema==4.2.1
--e git+ssh://git@github.com/WebOfTrust/keripy.git@62fb0fe325d03a9b79de50b07cca3f721fc9c8a0#egg=keri
+keri @ git+https://github.com/WebOfTrust/keripy.git@2a0ce9128de50d89fb954fffac266d5d47b18db1
 lmdb==1.2.1
 macholib==1.15.2
 msgpack==1.0.2
