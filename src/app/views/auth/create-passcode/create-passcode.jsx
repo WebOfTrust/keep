@@ -1,8 +1,9 @@
 import m from 'mithril';
-import { Button, Container, IconButton, Modal } from '../../../components';
+import { Button, Container, Modal } from '../../../components';
 import './create-passcode.scss';
 import createYourPasscode from '../../../../assets/img/create-your-passcode.png';
 import wait from '../../../../assets/img/wait.png';
+import { API } from '../../../services';
 
 class CreatePasscode {
   constructor() {
@@ -33,6 +34,7 @@ class CreatePasscode {
     for (let i = 0; i < 22; i++) {
       result += characters.charAt(Math.floor(Math.random() * characters.length));
     }
+    console.log(API.Passcode.create())
     this.passcode = result;
   }
 

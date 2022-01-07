@@ -4,7 +4,7 @@
 block_cipher = None
 
 
-a = Analysis(['src/ward.py'],
+a = Analysis(['ward/main.py'],
              pathex=[],
              binaries=[],
              datas=[
