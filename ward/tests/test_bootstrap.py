@@ -4,7 +4,7 @@ import falcon
 from falcon import testing
 import pytest
 
-from ward.bootstrap import Ward
+from ward.main import Ward
 
 
 @pytest.fixture()
@@ -18,7 +18,8 @@ def test_base_ward_initialization():
     ward = Ward()
 
     assert ward.packaged is False
-    assert ward.uiPath is None
+    assert ward.uiPath == ''
+    assert ward.headDir == ''
     assert ward.ogler is None
     assert ward.re is not None
     assert ward.app is not None
