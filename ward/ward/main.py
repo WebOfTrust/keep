@@ -1,5 +1,5 @@
 # -*- encoding: utf-8 -*-
-from ward.ward.bootstrap import Ward
+from bootstrap import Ward
 
 
 def main():
