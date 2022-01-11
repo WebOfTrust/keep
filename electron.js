@@ -10,17 +10,16 @@ if (require('electron-squirrel-startup')) {
 
 function createWindow() {
   const win = new BrowserWindow({
-    width: 1024,
-    height: 768,
+    width: 1440,
+    height: 1024,
   });
-  win.loadFile('ward/build-ui/index.html');
+
+  win.loadURL('http://localhost:5678');
   spawnChildProcess();
 }
 
 function spawnChildProcess() {
-  // let executablePath = path.join(app.getPath('exe'), '../', 'ward.exe');
-  // let ward = spawn(`${executablePath}`);
-  let ward = spawn('../ward/dist/ward/ward');
+  let ward = spawn('./ward/dist/ward/ward');
   ward.stdout.on('data', (data) => {
     let buffer = Buffer.from(data);
     console.log('out:', buffer.toString());

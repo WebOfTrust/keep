@@ -88,13 +88,15 @@ class Endpoint {
     if (id) {
       return `${process.env.API_HOST}/${this.endpoint}/${id}/`;
     } else {
-      return `${process.env.API_HOST}/${this.endpoint}/`;
+      return `${process.env.API_HOST}/${this.endpoint}`;
     }
   }
 }
 
 class API {
   static Users = new Endpoint('users');
+  static Passcode = new Endpoint('passcode');
+  static Habery = new Endpoint('habery');
 }
 
 module.exports = API;

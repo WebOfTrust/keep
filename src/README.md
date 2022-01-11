@@ -1,9 +1,3 @@
-# KEEP
-
-KEEP User Interface
-
-![keep tests](https://github.com/WebOfTrust/keep/actions/workflows/test.yaml/badge.svg)
-
 ## Setup
 
 ### Install

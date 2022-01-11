@@ -7,7 +7,7 @@
     "email": "griffin.kev@gmail.com"
   },
   "homepage": "https://weboftrust.github.io/keep",
-  "license": "MIT",
+  "license": "Apache-2.0",
   "main": "electron.js",
   "scripts": {
     "start": "parcel src/index.html --cache-dir ward/.parcel-cache-dev --dist-dir ward/build-ui-dev",
