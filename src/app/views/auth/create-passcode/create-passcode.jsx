@@ -29,13 +29,16 @@ class CreatePasscode {
 
   generateNewPasscode() {
     this.copied = false;
-    let characters = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';
-    let result = '';
-    for (let i = 0; i < 22; i++) {
-      result += characters.charAt(Math.floor(Math.random() * characters.length));
-    }
-    console.log(API.Passcode.create())
-    this.passcode = result;
+
+    API.Passcode.create()
+      .then((resp) => {
+        console.log(resp);
+        this.passcode = resp;
+      })
+      .catch((err) => {
+        // do something
+        console.log(err);
+      });
   }
 
   view() {
@@ -106,12 +109,12 @@ class CreatePasscode {
                 }}
               />
             </div>
-            {this.copied ? <p class="font-color--green font-weight--medium">Passcode is copied!</p> : null}
+            <p class="font-color--green font-weight--medium">{this.copied ? 'Passcode copied!' : <br />}</p>
             {/*<div class="flex flex-justify-between" style={{ marginTop: '2rem' }}>
               <Button label="Use 1Password" />
               <Button label="Use Last Pass" />
             </div>*/}
-            <div class="flex flex-justify-end" style={{ marginTop: '2rem' }}>
+            <div class="flex flex-justify-end">
               <Button
                 raised
                 class="button__big"

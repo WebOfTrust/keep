@@ -1,6 +1,7 @@
 import m from 'mithril';
 import { Button, Container, TextField } from '../../../components';
 import passcodeImg from '../../../../assets/img/passcode.png';
+import { API } from '../../../services';
 
 class EnterPasscode {
   constructor() {
@@ -34,7 +35,7 @@ class EnterPasscode {
                   this.passcode = e.target.value;
                 }}
                 pattern={'^[a-zA-Z0-9]{22}$'}
-                placeholder="xxxxx-xxxx-xxxxx-xxxx-xxxx"
+                placeholder="xxxxxxxxxxxxxxxxxxxxxx"
               />
               <Button
                 raised
@@ -44,7 +45,14 @@ class EnterPasscode {
                   marginLeft: '1rem',
                 }}
                 onclick={() => {
-                  m.route.set('/auth/configure-identifier');
+                  API.Habery.create(JSON.stringify({ passcode: this.passcode }))
+                    .then(() => {
+                      m.route.set('/auth/configure-identifier');
+                    })
+                    .catch((err) => {
+                      // do something
+                      console.log(err);
+                    });
                 }}
               />
             </div>

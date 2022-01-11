@@ -1,4 +1,4 @@
-import API from './api.jsx';
+import API from './api.js';
 import Toaster from './toaster.jsx';
 import UUID from './uuid.jsx';
 
