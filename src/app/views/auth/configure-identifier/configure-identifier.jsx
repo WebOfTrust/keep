@@ -36,7 +36,7 @@ class ConfigureIdentifier {
             <TextField fluid filled placeholder="GLEIF Witness Network" />
             <div class="flex flex-justify-between" style={{ marginTop: '2rem' }}>
               <Button
-                class="button__gray"
+                class="button--gray"
                 raised
                 iconTrailing={this.showAdvanced ? 'arrow_drop_up' : 'arrow_drop_down'}
                 label="Advanced Options"
@@ -55,9 +55,9 @@ class ConfigureIdentifier {
             {this.showAdvanced && (
               <>
                 <div class="flex flex-align-center" style={{ marginTop: '2rem' }}>
-                  <label class="bold-label clearMargin flex-1">Add/Edit Witnesses</label>
+                  <label class="bold-label clear-margin flex-1">Add/Edit Witnesses</label>
                   <Button
-                    class="button__gray"
+                    class="button--gray"
                     raised
                     label="Add/Edit"
                     onclick={() => {
@@ -66,7 +66,7 @@ class ConfigureIdentifier {
                   />
                 </div>
                 <div class="flex flex-align-center" style={{ marginTop: '1rem' }}>
-                  <label class="bold-label clearMargin flex-1">Incepting Signing Threshold</label>
+                  <label class="bold-label clear-margin flex-1">Incepting Signing Threshold</label>
                   <div class="flex flex-align-center">
                     <IconButton icon="remove" />
                     <span style={{ margin: '0 1rem' }}>1</span>
@@ -74,7 +74,7 @@ class ConfigureIdentifier {
                   </div>
                 </div>
                 <div class="flex flex-align-center" style={{ marginTop: '1rem' }}>
-                  <label class="bold-label clearMargin flex-1">Incepting Key Count</label>
+                  <label class="bold-label clear-margin flex-1">Incepting Key Count</label>
                   <div class="flex flex-align-center">
                     <IconButton icon="remove" />
                     <span style={{ margin: '0 1rem' }}>1</span>
@@ -82,7 +82,7 @@ class ConfigureIdentifier {
                   </div>
                 </div>
                 <div class="flex flex-align-center" style={{ marginTop: '1rem' }}>
-                  <label class="bold-label clearMargin flex-1">Next Signing Threshold</label>
+                  <label class="bold-label clear-margin flex-1">Next Signing Threshold</label>
                   <div class="flex flex-align-center">
                     <IconButton icon="remove" />
                     <span style={{ margin: '0 1rem' }}>1</span>
@@ -90,7 +90,7 @@ class ConfigureIdentifier {
                   </div>
                 </div>
                 <div class="flex flex-align-center" style={{ marginTop: '1rem' }}>
-                  <label class="bold-label clearMargin flex-1">Next Key Count</label>
+                  <label class="bold-label clear-margin flex-1">Next Key Count</label>
                   <div class="flex flex-align-center">
                     <IconButton icon="remove" />
                     <span style={{ margin: '0 1rem' }}>1</span>
@@ -98,7 +98,7 @@ class ConfigureIdentifier {
                   </div>
                 </div>
                 <div class="flex flex-align-center" style={{ marginTop: '1rem' }}>
-                  <label class="bold-label clearMargin flex-1">Witness Threshold</label>
+                  <label class="bold-label clear-margin flex-1">Witness Threshold</label>
                   <div class="flex flex-align-center">
                     <IconButton icon="remove" />
                     <span style={{ margin: '0 1rem' }}>1</span>
@@ -106,7 +106,7 @@ class ConfigureIdentifier {
                   </div>
                 </div>
                 <div class="flex flex-align-center" style={{ marginTop: '1rem' }}>
-                  <label class="bold-label clearMargin flex-1">Witness Address</label>
+                  <label class="bold-label clear-margin flex-1">Witness Address</label>
                   <TextField filled initialValue="HTTPS" />
                 </div>
               </>

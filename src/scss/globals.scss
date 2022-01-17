@@ -32,13 +32,19 @@ a:link {
   color: black;
 }
 
-.clearMargin {
+.clear-margin {
   margin: 0;
 }
 
 .card {
   &--fluid {
     width: 100%;
+  }
+  &--hover {
+    &:hover {
+      background-color: $blue-006;
+      cursor: pointer;
+    }
   }
 }
 

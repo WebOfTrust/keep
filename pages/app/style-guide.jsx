@@ -46,7 +46,7 @@ class StyleGuide {
             <Button iconLeading="search" label="Icon Leading" />
             <Button iconTrailing="search" label="Icon Trailing" />
             <Button ripple={false} label="No Ripple" />
-            <Button class="button__gray" label="Gray" />
+            <Button class="button--gray" label="Gray" />
             <h3>Icon Button</h3>
             <IconButton icon="search" />
             <IconButton icon="visibility" ripple={false} />

@@ -39,7 +39,7 @@ class EnterPasscode {
               />
               <Button
                 raised
-                class="button__big"
+                class="button--big"
                 label="Continue"
                 style={{
                   marginLeft: '1rem',

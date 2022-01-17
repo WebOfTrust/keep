@@ -91,7 +91,7 @@ class Tutorial {
                 <Button
                   ripple
                   raised
-                  class="button__big"
+                  class="button--big"
                   label="Get Started"
                   onclick={() => {
                     m.route.set('/auth/create-passcode');

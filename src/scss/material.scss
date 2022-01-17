@@ -69,19 +69,19 @@
 }
 
 .button {
-  &__gray {
+  &--gray {
     @include button.ink-color($default-text);
     @include button.icon-color($default-text);
     @include button.container-fill-color($gray-lter);
     @include button.outline-color($gray-lter);
   }
 
-  &__big {
+  &--big {
     @include button.height(3rem);
     @include button.horizontal-padding(3rem);
   }
 
-  &__extraPadding {
+  &--extra-padding {
     @include button.horizontal-padding(4rem);
   }
 }
