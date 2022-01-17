@@ -2,36 +2,34 @@ import m from 'mithril';
 import { MDCSelect } from '@material/select';
 
 class Select {
-  constructor() {
-    this.mdcInstance = null;
-  }
+  constructor() {}
 
-  oncreate() {
+  oncreate(vnode) {
     try {
       this.select = new MDCSelect(document.querySelector('.mdc-select'));
+      // Set initial value if passed in attrs
+      if (vnode.attrs.initialSelection) {
+        this.select.value = vnode.attrs.initialSelection;
+      }
+      // Set up value change listener
       this.select.listen('MDCSelect:change', () => {
-        // alert(`Selected option at index ${this.select.selectedIndex} with value "${this.select.value}"`);
+        vnode.attrs.selectedChange(this.select.value);
+        m.redraw();
       });
-    } catch (e) {}
+    } catch (e) {
+      console.log(e);
+    }
   }
 
-  view() {
+  view(vnode) {
     return (
       <>
-        <div class="mdc-select mdc-select--filled demo-width-class">
-          <div
-            class="mdc-select__anchor"
-            role="button"
-            aria-haspopup="listbox"
-            aria-expanded="false"
-            aria-labelledby="demo-label demo-selected-text"
-          >
+        <div class="mdc-select mdc-select--filled">
+          <div class="mdc-select__anchor" role="button">
             <span class="mdc-select__ripple"></span>
-            <span id="demo-label" class="mdc-floating-label">
-              Pick a Food Group
-            </span>
+            <span class="mdc-floating-label">{vnode.attrs.label}</span>
             <span class="mdc-select__selected-text-container">
-              <span id="demo-selected-text" class="mdc-select__selected-text"></span>
+              <span class="mdc-select__selected-text"></span>
             </span>
             <span class="mdc-select__dropdown-icon">
               <svg class="mdc-select__dropdown-icon-graphic" viewBox="7 10 10 5" focusable="false">
@@ -51,35 +49,18 @@ class Select {
             </span>
             <span class="mdc-line-ripple"></span>
           </div>
-
           <div class="mdc-select__menu mdc-menu mdc-menu-surface mdc-menu-surface--fullwidth">
-            <ul class="mdc-deprecated-list" role="listbox" aria-label="Food picker listbox">
-              <li
-                class="mdc-deprecated-list-item mdc-deprecated-list-item--selected"
-                aria-selected="true"
-                data-value=""
-                role="option"
-              >
-                <span class="mdc-deprecated-list-item__ripple"></span>
-              </li>
-              <li class="mdc-deprecated-list-item" aria-selected="false" data-value="grains" role="option">
-                <span class="mdc-deprecated-list-item__ripple"></span>
-                <span class="mdc-deprecated-list-item__text">Bread, Cereal, Rice, and Pasta</span>
-              </li>
-              <li
-                class="mdc-deprecated-list-item mdc-deprecated-list-item--disabled"
-                aria-selected="false"
-                data-value="vegetables"
-                aria-disabled="true"
-                role="option"
-              >
-                <span class="mdc-deprecated-list-item__ripple"></span>
-                <span class="mdc-deprecated-list-item__text">Vegetables</span>
-              </li>
-              <li class="mdc-deprecated-list-item" aria-selected="false" data-value="fruit" role="option">
-                <span class="mdc-deprecated-list-item__ripple"></span>
-                <span class="mdc-deprecated-list-item__text">Fruit</span>
-              </li>
+            <ul class="mdc-deprecated-list" role="listbox">
+              {vnode.attrs.options.map((option) => {
+                return (
+                  <>
+                    <li class="mdc-deprecated-list-item" data-value={option.value} role="option">
+                      <span class="mdc-deprecated-list-item__ripple"></span>
+                      <span class="mdc-deprecated-list-item__text">{option.label}</span>
+                    </li>
+                  </>
+                );
+              })}
             </ul>
           </div>
         </div>
