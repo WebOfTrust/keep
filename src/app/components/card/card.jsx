@@ -10,6 +10,7 @@ class Card {
       outlined: false,
       padding: '16px',
       style: {},
+      onclick: null,
     };
     this.options = null;
   }
@@ -30,7 +31,7 @@ class Card {
   view(vnode) {
     return (
       <>
-        <div class={this.cardClass} style={this.options.style}>
+        <div class={this.cardClass} style={this.options.style} onclick={this.options.onclick}>
           <div class="mdc-card__content">{vnode.children}</div>
           {/*<div class="mdc-card__actions">
             <div class="mdc-card__action-buttons">
