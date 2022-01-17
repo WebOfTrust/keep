@@ -1,5 +1,3 @@
-@use '@material/ripple/mixins' as ripple;
-
 @import '../../../scss/variables';
 @import '../../../scss/mixins';
 
@@ -32,24 +30,6 @@
 
     &:not(:first-of-type) {
       margin-left: 2rem;
-    }
-  }
-
-  &__notifications {
-    // @include ripple.surface;
-    // @include ripple.radius-bounded;
-    // @include ripple.states;
-    align-items: center;
-    border: 2px solid $default-text;
-    border-radius: 30px;
-    cursor: pointer;
-    display: flex;
-    padding: 0.5rem 1rem;
-    margin-right: 1rem;
-
-    &__count {
-      @include bold;
-      margin-right: 0.5rem;
     }
   }
 }
