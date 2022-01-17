@@ -94,7 +94,6 @@ class Endpoint {
 }
 
 class API {
-  static Users = new Endpoint('users');
   static Passcode = new Endpoint('passcode');
   static Habery = new Endpoint('habery');
 }
