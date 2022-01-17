@@ -8,7 +8,7 @@ import Tutorial from './tutorial/tutorial.jsx';
 
 // Other
 import Error from './error/error.jsx';
-import QARDashboard from './qar-dashboard/qar-dashboard';
+import Dashboard from './dashboard/dashboard';
 
 module.exports = {
   // Auth
@@ -21,5 +21,5 @@ module.exports = {
 
   // Other
   Error,
-  QARDashboard,
+  Dashboard,
 };

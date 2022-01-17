@@ -1,7 +1,7 @@
 import m from 'mithril';
 
 import { AuthedNav, ToastOutlet, UnauthedNav } from './components';
-import { ConfigureIdentifier, CreatePasscode, EnterPasscode, Error, QARDashboard, Tutorial } from './views';
+import { ConfigureIdentifier, CreatePasscode, Dashboard, EnterPasscode, Error, Tutorial } from './views';
 
 import '../scss/defaults.scss';
 import '../scss/typography.scss';
@@ -85,12 +85,12 @@ m.route(root, '/tutorial/', {
   },
   '/dashboard': {
     oninit: () => {
-      document.title = documentTitle + ' | QAR Dashboard';
+      document.title = documentTitle + ' | Dashboard';
     },
     view: () => {
       return (
         <AuthedLayout>
-          <QARDashboard />
+          <Dashboard />
         </AuthedLayout>
       );
     },

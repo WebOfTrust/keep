@@ -1,10 +1,10 @@
 import m from 'mithril';
 import mq from 'mithril-query';
-import QARDashboard from './qar-dashboard';
+import Dashboard from './dashboard';
 
-describe('QARDashboard component', () => {
+describe('Dashboard component', () => {
   it('Should create', () => {
-    let out = mq(m(QARDashboard));
+    let out = mq(m(Dashboard));
     expect(out).toBeTruthy();
   });
 });
