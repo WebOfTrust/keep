@@ -1,7 +1,8 @@
 import m from 'mithril';
 import { Button, Card, Container, IconButton, Select } from '../../components';
-import GARIssueQVIvLEICredential from '../../../../tasks/gar/issue-qvi-vlei-credential/issue-qvi-vlei-credential';
 import CreateYourGleifAID from '../../../../tasks/gar/create-your-gleif-aid/create-your-gleif-aid';
+import IntroToYourRole from '../../../../tasks/gar/intro-to-your-role/intro-to-your-role';
+import GARIssueQVIvLEICredential from '../../../../tasks/gar/issue-qvi-vlei-credential/issue-qvi-vlei-credential';
 import './dashboard.scss';
 import addNewContacts from '../../../assets/img/add-new-contacts.png';
 import createIdentifier from '../../../assets/img/create-identifier.png';
@@ -29,25 +30,42 @@ class Dashboard {
         {
           imgSrc: createIdentifier,
           label: 'Create Your GLEIF AID',
-          component: <CreateYourGleifAID />,
+          component: {
+            view: () => {
+              return <CreateYourGleifAID />;
+            },
+          },
         },
       ],
       'intro-to-role': [
         {
           imgSrc: createIdentifier,
           label: 'Intro to Your Role',
-          component: (
-            <>
-              <h3>TODO</h3>
-            </>
-          ),
+          component: {
+            view: () => {
+              return <IntroToYourRole />;
+            },
+          },
         },
       ],
       'oobi': [
         {
           imgSrc: addNewContacts,
           label: 'Identity Authentication of the QAR',
-          component: <GARIssueQVIvLEICredential />,
+          component: {
+            view: () => {
+              return <GARIssueQVIvLEICredential />;
+            },
+          },
+        },
+        {
+          imgSrc: addNewContacts,
+          label: 'Identity Authentication of the QAR',
+          component: {
+            view: () => {
+              return <GARIssueQVIvLEICredential />;
+            },
+          },
         },
       ],
     };
@@ -56,6 +74,11 @@ class Dashboard {
 
   changeFlow(e) {
     this.flowSelected = e;
+    this.taskSelected = null;
+  }
+
+  changeTask(task) {
+    this.taskSelected = task;
   }
 
   view() {
@@ -96,14 +119,14 @@ class Dashboard {
                       this.changeFlow(e);
                     }}
                   />
-                  {this.tasks[this.flowSelected].map((task) => {
+                  {this.tasks[this.flowSelected].map((task, i) => {
                     return (
                       <Card
                         class="card--fluid card--hover"
                         padding="1.5rem"
                         style={{ marginBottom: '2.5rem' }}
                         onclick={() => {
-                          this.taskSelected = task;
+                          this.changeTask(this.tasks[this.flowSelected][i]);
                         }}
                       >
                         <div class="flex flex-align-center">
@@ -123,7 +146,7 @@ class Dashboard {
                 <Card class="card--fluid" style={{ position: 'relative' }} padding="4rem">
                   <IconButton class="close-icon" icon="close" />
                   {this.taskSelected ? (
-                    this.taskSelected.component
+                    <this.taskSelected.component />
                   ) : (
                     <>
                       <h3>About Your Tasks</h3>

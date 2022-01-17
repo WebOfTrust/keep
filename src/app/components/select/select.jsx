@@ -51,16 +51,17 @@ class Select {
           </div>
           <div class="mdc-select__menu mdc-menu mdc-menu-surface mdc-menu-surface--fullwidth">
             <ul class="mdc-deprecated-list" role="listbox">
-              {vnode.attrs.options.map((option) => {
-                return (
-                  <>
-                    <li class="mdc-deprecated-list-item" data-value={option.value} role="option">
-                      <span class="mdc-deprecated-list-item__ripple"></span>
-                      <span class="mdc-deprecated-list-item__text">{option.label}</span>
-                    </li>
-                  </>
-                );
-              })}
+              {vnode.attrs.options &&
+                vnode.attrs.options.map((option) => {
+                  return (
+                    <>
+                      <li class="mdc-deprecated-list-item" data-value={option.value} role="option">
+                        <span class="mdc-deprecated-list-item__ripple"></span>
+                        <span class="mdc-deprecated-list-item__text">{option.label}</span>
+                      </li>
+                    </>
+                  );
+                })}
             </ul>
           </div>
         </div>
