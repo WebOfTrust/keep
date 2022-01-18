@@ -103,9 +103,9 @@ class Dashboard {
               <div class="nav-rail-item-text">My Credentials</div>
             </div>
           </div>
-          <Container class="headspace">
-            <div class="flex flex-justify-between">
-              <div class="flex-1" style={{ marginRight: '3rem' }}>
+          <Container class="headspace" style={{ padding: '0 4rem' }}>
+            <div class="flex flex-justify-between" >
+              <div class="flex-1" style={{ marginRight: '4rem' }}>
                 <Card class="card--fluid" padding="1.5rem">
                   <div class="flex flex-align-center flex-justify-between">
                     <h1>Tasks</h1>
