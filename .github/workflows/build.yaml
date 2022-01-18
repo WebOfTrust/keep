@@ -10,7 +10,7 @@ jobs:
     strategy:
       fail-fast: false
       matrix:
-        os: [ macos-latest, ubuntu-latest ]
+        os: [macos-latest, ubuntu-latest]
     steps:
       - name: Set up Python 3.9.8
         uses: actions/setup-python@v2
@@ -27,7 +27,8 @@ jobs:
       - name: build ui
         run: |
           yarn install
-          npm run build
+          yarn build:gar
+          yarn build:gar
 
       - name: package python
         run: |
