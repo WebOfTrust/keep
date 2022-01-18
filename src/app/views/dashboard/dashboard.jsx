@@ -1,12 +1,7 @@
 import m from 'mithril';
 import { Button, Card, Container, IconButton, Select } from '../../components';
-import CreateYourGleifAID from '../../../../tasks/gar/create-your-gleif-aid/create-your-gleif-aid';
-import IntroToYourRole from '../../../../tasks/gar/intro-to-your-role/intro-to-your-role';
-import GARIssueQVIvLEICredential from '../../../../tasks/gar/issue-qvi-vlei-credential/issue-qvi-vlei-credential';
+import tasks from '../../../../tasks';
 import './dashboard.scss';
-import addNewContacts from '../../../assets/img/add-new-contacts.png';
-import createIdentifier from '../../../assets/img/create-identifier.png';
-import verifyCredentials from '../../../assets/img/verify-credentials.png';
 
 class Dashboard {
   constructor() {
@@ -25,50 +20,7 @@ class Dashboard {
       },
     ];
     this.flowSelected = 'create-identifier';
-    this.tasks = {
-      'create-identifier': [
-        {
-          imgSrc: createIdentifier,
-          label: 'Create Your GLEIF AID',
-          component: {
-            view: () => {
-              return <CreateYourGleifAID />;
-            },
-          },
-        },
-      ],
-      'intro-to-role': [
-        {
-          imgSrc: createIdentifier,
-          label: 'Intro to Your Role',
-          component: {
-            view: () => {
-              return <IntroToYourRole />;
-            },
-          },
-        },
-      ],
-      'oobi': [
-        {
-          imgSrc: addNewContacts,
-          label: 'Identity Authentication of the QAR',
-          component: {
-            view: () => {
-              return <GARIssueQVIvLEICredential />;
-            },
-          },
-        },
-        {
-          imgSrc: addNewContacts,
-          label: 'Identity Authentication of the QAR',
-          component: {
-            view: () => {
-              return <GARIssueQVIvLEICredential />;
-            },
-          },
-        },
-      ],
-    };
+    this.tasks = tasks;
     this.taskSelected = null;
   }
 
