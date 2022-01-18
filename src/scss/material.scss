@@ -75,7 +75,12 @@
     @include button.container-fill-color($gray-lter);
     @include button.outline-color($gray-lter);
   }
-
+  &--gray-dk {
+    @include button.ink-color(white);
+    @include button.icon-color($default-text);
+    @include button.container-fill-color($gray-dk);
+    @include button.outline-color($gray-dk);
+  }
   &--big {
     @include button.height(3rem);
     @include button.horizontal-padding(3rem);
@@ -84,4 +89,10 @@
   &--extra-padding {
     @include button.horizontal-padding(4rem);
   }
+  &--no-transform {
+    .mdc-button__label {
+      text-transform: none;
+    }
+  }
+
 }

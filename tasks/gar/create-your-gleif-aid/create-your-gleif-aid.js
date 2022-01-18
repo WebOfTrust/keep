@@ -1,6 +1,13 @@
 import m from 'mithril';
-import { Button, Card } from '../../../src/app/components';
-import createIdentifier from '../../../src/assets/img/create-identifier.png'
+import { Button, Card, TextField } from '../../../src/app/components';
+import createIdentifier from '../../../src/assets/img/create-identifier.png';
+import configureIdentifier from '../../../src/assets/img/configure-identifier.png'
+import approveRequest from '../../../src/assets/img/approve-request.png';
+import uploadImage from '../../../src/assets/img/upload-image.png';
+import githubLogo from '../../../src/assets/img/github-logo.png';
+import liOne from '../../../src/assets/img/li-one.png';
+import liTwo from '../../../src/assets/img/li-two.png';
+import liThree from '../../../src/assets/img/li-three.png';
 class CreateYourGleifAID {
   constructor() {
     this.step = 0;
@@ -11,7 +18,7 @@ class CreateYourGleifAID {
           Welcome to your <u>GAR</u> Software
         </h3>
         <img src={createIdentifier}
-          style={{ width: '70%', margin: '4rem 0 0 2rem' }}
+          style={{ width: '70%', margin: '3rem 0 0 2rem' }}
         />
         <p class='font-color--battleship'
           style={{ letterSpacing: '.15px', lineHeight: '1.38', marginTop: '4rem', marginBottom: '4rem' }}
@@ -24,13 +31,13 @@ class CreateYourGleifAID {
           tutorial by selecting the “skip” button.
         </p>
         <div class="flex flex-justify-between">
-          <Button class="button--gray button--big" raised label="Skip" />
+          <Button class="button--gray-dk button--big button--no-transform" raised label="Skip" />
           <Button
-            class="button--big"
+            class="button--big button--no-transform"
             raised
             label="Continue"
             onclick={() => {
-              this.steps++;
+              this.step++;
             }}
           />
         </div>
@@ -43,7 +50,7 @@ class CreateYourGleifAID {
           style={{ width: '70%', margin: '4rem 0 0 2rem' }}
         />
         <p class='font-color--battleship'
-          style={{ letterSpacing: '.15px', lineHeight: '1.38', marginTop: '4rem', marginBottom: '4rem' }}
+          style={{ letterSpacing: '.15px', lineHeight: '1.38', marginTop: '4rem', marginBottom: '5rem' }}
         >
           In order to provide authorization, you will first have to create your own GLEIF Delegated AID within the software and GLEIF will verify you as an authorized representative (GAR) to act on their behalf.
 
@@ -52,10 +59,11 @@ class CreateYourGleifAID {
           <br />
 
         </p>
+
         <div class="flex flex-justify-between">
-          <Button class="button--gray button--big" raised label="Skip" />
+          <Button class="button--gray-dk button--big button--no-transform" raised label="Skip" />
           <Button
-            class="button--big"
+            class="button--big button--no-transform"
             raised
             label="Continue"
             onclick={() => {
@@ -64,10 +72,155 @@ class CreateYourGleifAID {
             }}
           />
         </div>
-      </>
+      </>,
+      <>
+        <h3>
+          Steps to Create Your <u>GLEIF AID</u>
+        </h3>
+        <img src={approveRequest}
+          style={{ width: '50%', margin: '4rem 0 0 2rem' }}
+        />
+        <p class='font-color--battleship'
+          style={{ letterSpacing: '.15px', lineHeight: '1.38', marginTop: '4rem', marginBottom: '4rem' }}
+        >
+          <ul class='flex flex-column'>
+            <li style={{ listStyleImage: `url(${liOne})`, margin: '0 0 2rem 0', }}>
+              Configure your AID
+            </li>
+            <li style={{ listStyleImage: `url(${liTwo})`, margin: '0 0 2rem 0' }}>
+              Create and Alias
+            </li>
+            <li style={{ listStyleImage: `url(${liThree})`, margin: '0 0 2rem 0' }}>
+              Select a photo for your Alias
+            </li>
+          </ul>
 
+
+
+
+        </p>
+        <div class="flex flex-justify-between">
+          <Button class="button--gray-dk button--big button--no-transform" raised label="Skip" />
+          <Button
+            class="button--big button--no-transform"
+            raised
+            label="Continue"
+            onclick={() => {
+              this.step++;
+
+            }}
+          />
+        </div>
+      </>,
+      <>
+        <h3>
+          Create Your Alias
+        </h3>
+        <img src={configureIdentifier}
+          style={{ width: '40%', margin: '1.5rem 0 0 6rem' }}
+        />
+        <p class='font-color--battleship'
+          style={{ letterSpacing: '.15px', lineHeight: '1.38', marginTop: '2rem', marginBottom: '2rem' }}
+        >
+          The alias should be an easy to remember name for your GLEIF Delegated AID as a member of the GLEIF Root AID signing group (e.g. My Qualified vLEI Authorized Representative Identifier).
+          <br />
+          <br />
+          What would you like your alias to be?
+
+
+        </p>
+        <TextField outlined label="Outlined" style={{ height: '3rem', width: '100%', margin: '0 0 4rem 0' }} />
+        <div class="flex flex-justify-between">
+          <Button class="button--gray-dk button--big button--no-transform" raised label="Go Back"
+            onclick={() => {
+              this.step = 2
+            }}
+          />
+          <Button
+            class="button--big button--no-transform"
+            raised
+            label="Continue"
+            onclick={() => {
+              this.step++;
+
+            }}
+          />
+        </div>
+      </>,
+      <>
+        <img src={uploadImage}
+          style={{ width: '40%', margin: '4rem 0 0 2rem' }}
+        />
+        <h3>
+          Select a Photo for the Alias
+        </h3>
+
+        <p class='font-color--battleship'
+          style={{ letterSpacing: '.15px', lineHeight: '1.38', margin: '2rem 0 2rem 0' }}
+        >
+          If you would like your alias to have a photo instead of the default icon, please upload a photo.
+        </p>
+        <input type="file" style={{ letterSpacing: '.15px', lineHeight: '1.38', marginTop: '4rem', marginBottom: '8rem' }} />
+        <div class="flex flex-justify-between">
+          <Button class="button--gray-dk button--big button--no-transform" raised label="Skip" />
+          <Button
+            class="button--big button--no-transform"
+            raised
+            label="Continue"
+            onclick={() => {
+              this.step++;
+
+            }}
+          />
+        </div>
+      </>,
+
+      <>
+        <h3>
+          Review and Confirm
+        </h3>
+        <div class="flex flex-justify-between" style={{ alignItems: 'baseline' }}>
+          <p class='font-color--battleship'
+            style={{ letterSpacing: '.15px', lineHeight: '1.38', marginTop: '2rem', marginBottom: '2.5rem' }}
+          >
+            Alias:
+          </p>
+          <Button class="button--gray button--small button--no-transform" raised label="Edit" style={{ padding: '0 2rem 0 2rem', height: '2rem' }} />
+        </div>
+        <TextField outlined label="Outlined" style={{ height: '3rem', width: '100%' }} />
+        <div class="flex flex-justify-between" style={{ alignItems: 'baseline' }}>
+          <p class='font-color--battleship'
+            style={{ letterSpacing: '.15px', lineHeight: '1.38', marginTop: '2rem', marginBottom: '2.5rem' }}
+          >
+            Witnesses:
+          </p>
+          <Button class="button--gray button--small button--no-transform" raised label="Edit" style={{ padding: '0 2rem 0 2rem', height: '2rem' }} />
+        </div>
+        <TextField outlined label="Outlined" style={{ height: '3rem', width: '100%' }} />
+        <div class="flex flex-justify-between" style={{ alignItems: 'baseline' }}>
+          <p class='font-color--battleship'
+            style={{ letterSpacing: '.15px', lineHeight: '1.38', marginTop: '2rem', marginBottom: '2.5rem' }}
+          >
+            Alias Photo:
+          </p>
+          <Button class="button--gray button--small button--no-transform" raised label="Edit" style={{ padding: '0 2rem 0 2rem', height: '2rem' }} />
+        </div>
+
+        <img src={githubLogo}
+          style={{ width: '20%', margin: '0 0 0 0' }}
+        />
+        <div class="flex flex-justify-end">
+
+          <Button
+            class="button--big button--no-transform"
+            raised
+            label="Continue"
+
+          />
+        </div>
+      </>,
     ];
-    console.log(this.steps, this.step)
+
   }
 
 
