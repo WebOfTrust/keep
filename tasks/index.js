@@ -1,3 +1,3 @@
-import * as tasks from './gar';
+import tasks from './gar';
 
 module.exports = tasks;
