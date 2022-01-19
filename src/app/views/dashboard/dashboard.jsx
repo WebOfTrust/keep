@@ -7,6 +7,10 @@ class Dashboard {
   constructor() {
     this.flowOptions = [
       {
+        label: 'Create Your Passcode',
+        value: 'create-passcode',
+      },
+      {
         label: 'Create Identifier',
         value: 'create-identifier',
       },
@@ -19,7 +23,7 @@ class Dashboard {
         value: 'oobi',
       },
     ];
-    this.flowSelected = 'create-identifier';
+    this.flowSelected = 'create-passcode';
     this.tasks = tasks;
     this.taskSelected = null;
   }
@@ -56,12 +60,12 @@ class Dashboard {
             </div>
           </div>
           <Container class="headspace" style={{ padding: '0 4rem' }}>
-            <div class="flex flex-justify-between" >
+            <div class="flex flex-justify-between">
               <div class="flex-1" style={{ marginRight: '4rem' }}>
                 <Card class="card--fluid" padding="1.5rem">
                   <div class="flex flex-align-center flex-justify-between">
                     <h1>Tasks</h1>
-                    <Button raised iconLeading="add" label="New Task" />
+                    {/*<Button raised iconLeading="add" label="New Task" />*/}
                   </div>
                   <Select
                     label="Flow"
@@ -99,7 +103,11 @@ class Dashboard {
                   {/*need to make height of this card change once the user hits continue active*/}
                   <IconButton class="close-icon" icon="close" />
                   {this.taskSelected ? (
-                    <this.taskSelected.component />
+                    <this.taskSelected.component
+                      end={() => {
+                        this.taskSelected = null;
+                      }}
+                    />
                   ) : (
                     <>
                       <h3>About Your Tasks</h3>

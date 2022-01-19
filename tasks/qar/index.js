@@ -3,17 +3,18 @@ import addNewContacts from '../../src/assets/img/add-new-contacts.png';
 
 // TODO: Tasks for QAR, right now this just helps test building for qar vs gar
 const tasks = {
-  'create-identifier': [
+  'create-passcode': [
     {
       imgSrc: addNewContacts,
-      label: 'Something here',
+      label: 'A QAR Task',
       component: {
         view: () => {
-          return <h3>Wow different tasks for QAR and GAR wooo</h3>;
+          return <h3>Tasks are different for QAR vs GAR</h3>;
         },
       },
     },
   ],
+  'create-identifier': [],
   'intro-to-role': [],
   'oobi': [],
 };
