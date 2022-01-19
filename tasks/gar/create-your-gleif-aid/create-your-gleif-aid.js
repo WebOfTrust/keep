@@ -78,12 +78,12 @@ class CreateYourGleifAID {
           Steps to Create Your <u>GLEIF AID</u>
         </h3>
         <img src={approveRequest}
-          style={{ width: '50%', margin: '4rem 0 0 2rem' }}
+          style={{ width: '60%', margin: '4rem 0 0 4rem' }}
         />
         <p class='font-color--battleship'
-          style={{ letterSpacing: '.15px', lineHeight: '1.38', marginTop: '4rem', marginBottom: '4rem' }}
+          style={{ letterSpacing: '.15px', lineHeight: '1.38', margin: '4rem, 0 4rem 0' }}
         >
-          <ul class='flex flex-column'>
+          {/* <ul class='flex flex-column' style={{ listStylePosition: 'inside' }}>
             <li style={{ listStyleImage: `url(${liOne})`, margin: '0 0 2rem 0', }}>
               Configure your AID
             </li>
@@ -93,7 +93,32 @@ class CreateYourGleifAID {
             <li style={{ listStyleImage: `url(${liThree})`, margin: '0 0 2rem 0' }}>
               Select a photo for your Alias
             </li>
-          </ul>
+          </ul> */}
+          <div class='flex flex-column' >
+            <div class='flex' style={{ alignItems: 'center', margin: '0 0 0 2rem' }}>
+              <img src={liOne} style={{ margin: '1rem 10px 1rem 0', }} />
+              <p class='font-color--battleship'
+                style={{ letterSpacing: '.15px', lineHeight: '1.38', margin: '4rem, 0 4rem 0' }}>
+                Configure your AID
+              </p>
+            </div>
+
+
+            <div class='flex' style={{ alignItems: 'center', margin: '0 0 0 2rem' }} >
+              <img src={liTwo} style={{ margin: '1rem 10px 1rem 0', }} />
+              <p class='font-color--battleship'
+                style={{ letterSpacing: '.15px', lineHeight: '1.38', margin: '4rem, 0 4rem 0' }}>
+                Create Your Alias
+              </p>
+            </div>
+            <div class='flex' style={{ alignItems: 'center', margin: '0 0 0 2rem' }}>
+              <img src={liThree} style={{ margin: '1rem 10px 1rem 0', }} />
+              <p class='font-color--battleship'
+                style={{ letterSpacing: '.15px', lineHeight: '1.38', margin: '4rem, 0 4rem 0' }}>
+                Select a photo for your Alias
+              </p>
+            </div>
+          </div>
 
 
 
@@ -149,7 +174,7 @@ class CreateYourGleifAID {
       </>,
       <>
         <img src={uploadImage}
-          style={{ width: '40%', margin: '4rem 0 0 2rem' }}
+          style={{ width: '50%', margin: '4rem 0 0 0' }}
         />
         <h3>
           Select a Photo for the Alias
