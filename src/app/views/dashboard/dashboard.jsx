@@ -44,19 +44,19 @@ class Dashboard {
           <div class="nav-rail">
             <div class="nav-rail-item">
               <i class="material-icons md-48">dashboard</i>
-              <div class="nav-rail-item-text">Dashboard</div>
+              {/*<div class="nav-rail-item-text">Dashboard</div>*/}
             </div>
             <div class="nav-rail-item">
               <i class="material-icons md-48">assignment</i>
-              <div class="nav-rail-item-text">My Tasks</div>
+              {/*<div class="nav-rail-item-text">My Tasks</div>*/}
             </div>
             <div class="nav-rail-item">
               <span class="material-icons md-48">people</span>
-              <div class="nav-rail-item-text">My Contacts</div>
+              {/*<div class="nav-rail-item-text">My Contacts</div>*/}
             </div>
             <div class="nav-rail-item">
               <i class="material-icons md-48">lock</i>
-              <div class="nav-rail-item-text">My Credentials</div>
+              {/*<div class="nav-rail-item-text">My Credentials</div>*/}
             </div>
           </div>
           <Container class="headspace" style={{ padding: '0 4rem' }}>
