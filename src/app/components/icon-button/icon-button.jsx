@@ -10,6 +10,7 @@ class IconButton {
       onclick: null,
       ripple: true,
       title: null,
+      style: null,
     };
     this.options = null;
     this.mdcRipple = null;
@@ -52,6 +53,7 @@ class IconButton {
         onclick={this.options.onclick}
         aria-label={this.options.title}
         title={this.options.title}
+        style={this.options.style}
       >
         <div class="mdc-icon-button__ripple"></div>
         {this.options.icon}
