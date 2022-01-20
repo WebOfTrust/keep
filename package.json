@@ -27,7 +27,7 @@
     "test": "NODE_ENV=test jest",
     "test:watch": "NODE_ENV=test jest --watch",
     "lint": "eslint src/",
-    "format": "prettier --write 'src/**/*.{js,html,jsx,json,scss,css,md}'",
+    "format": "prettier --write src/**/*.{js,html,jsx,json,scss,css,md}",
     "nuke": "rm -rf node_modules/; yarn rm-build; yarn pages:rm-build"
   },
   "targets": {
