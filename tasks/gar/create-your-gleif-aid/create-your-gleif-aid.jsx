@@ -26,11 +26,18 @@ class CreateYourGleifAID {
           and also as a storage place for all of your credentials.
           <br />
           <br />
-          The first step will be to create your Delegated AID, then you will receive a short tutorial, You may skip the
+          The first step will be to create your Delegated AID, then you will receive a short tutorial, you may skip the
           tutorial by selecting the “skip” button.
         </p>
         <div class="flex flex-justify-between">
-          <Button class="button--gray-dk button--big button--no-transform" raised label="Skip" />
+          <Button
+            class="button--gray-dk button--big button--no-transform"
+            raised
+            label="Skip"
+            onclick={() => {
+              this.step = 3;
+            }}
+          />
           <Button
             class="button--big button--no-transform"
             raised
@@ -56,7 +63,14 @@ class CreateYourGleifAID {
           <br />
         </p>
         <div class="flex flex-justify-between">
-          <Button class="button--gray-dk button--big button--no-transform" raised label="Skip" />
+          <Button
+            class="button--gray-dk button--big button--no-transform"
+            raised
+            label="Skip"
+            onclick={() => {
+              this.step = 3;
+            }}
+          />
           <Button
             class="button--big button--no-transform"
             raised
@@ -118,7 +132,14 @@ class CreateYourGleifAID {
           </div>
         </p>
         <div class="flex flex-justify-between">
-          <Button class="button--gray-dk button--big button--no-transform" raised label="Skip" />
+          <Button
+            class="button--gray-dk button--big button--no-transform"
+            raised
+            label="Skip"
+            onclick={() => {
+              this.step = 3;
+            }}
+          />
           <Button
             class="button--big button--no-transform"
             raised
@@ -149,7 +170,7 @@ class CreateYourGleifAID {
             raised
             label="Go Back"
             onclick={() => {
-              this.step = 2;
+              this.step--;
             }}
           />
           <Button
@@ -176,7 +197,14 @@ class CreateYourGleifAID {
           style={{ letterSpacing: '.15px', lineHeight: '1.38', marginTop: '4rem', marginBottom: '8rem' }}
         />
         <div class="flex flex-justify-between">
-          <Button class="button--gray-dk button--big button--no-transform" raised label="Skip" />
+          <Button
+            class="button--gray-dk button--big button--no-transform"
+            raised
+            label="Go Back"
+            onclick={() => {
+              this.step--;
+            }}
+          />
           <Button
             class="button--big button--no-transform"
             raised
@@ -201,10 +229,13 @@ class CreateYourGleifAID {
             raised
             label="Edit"
             style={{ padding: '0 2rem 0 2rem', height: '2rem' }}
+            onclick={() => {
+              this.step = 3;
+            }}
           />
         </div>
         <TextField outlined style={{ height: '3rem', width: '100%' }} />
-        <div class="flex flex-justify-between" style={{ alignItems: 'baseline' }}>
+        {/*<div class="flex flex-justify-between" style={{ alignItems: 'baseline' }}>
           <p
             class="font-color--battleship"
             style={{ letterSpacing: '.15px', lineHeight: '1.38', marginTop: '2rem', marginBottom: '2.5rem' }}
@@ -218,7 +249,7 @@ class CreateYourGleifAID {
             style={{ padding: '0 2rem 0 2rem', height: '2rem' }}
           />
         </div>
-        <TextField outlined style={{ height: '3rem', width: '100%' }} />
+        <TextField outlined style={{ height: '3rem', width: '100%' }} />*/}
         <div class="flex flex-justify-between" style={{ alignItems: 'baseline' }}>
           <p
             class="font-color--battleship"
