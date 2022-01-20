@@ -10,6 +10,8 @@ class TextField {
       disabled: false,
       filled: false,
       fluid: false,
+      iconLeading: null,
+      iconTrailing: null,
       label: null,
       maxlength: null,
       minlength: null,
@@ -19,8 +21,6 @@ class TextField {
       rows: 4,
       style: null,
       textarea: false,
-      // iconLeading: null,
-      // iconTrailing: null,
     };
     this.options = null;
   }
@@ -41,6 +41,9 @@ class TextField {
     }
     if (this.options.disabled) {
       this.textfieldClass += ' mdc-text-field--disabled';
+    }
+    if (this.options.iconLeading) {
+      this.textfieldClass += ' mdc-text-field--with-leading-icon';
     }
     if (this.options.class) {
       this.textfieldClass += ` ${this.options.class}`;
@@ -87,6 +90,16 @@ class TextField {
               </span>
             </>
           )}
+          {this.options.iconLeading && (
+            <i
+              class="material-icons mdc-text-field__icon mdc-text-field__icon--leading"
+              tabindex={this.options.iconLeading.onclick ? '0' : null}
+              role={this.options.iconLeading.onclick ? 'button' : null}
+              onclick={this.options.iconLeading.onclick}
+            >
+              {this.options.iconLeading.icon}
+            </i>
+          )}
           {this.options.textarea ? (
             <span class="mdc-text-field__resizer">
               <textarea
@@ -119,6 +132,16 @@ class TextField {
                 }
               }}
             />
+          )}
+          {this.options.iconTrailing && (
+            <i
+              class="material-icons mdc-text-field__icon mdc-text-field__icon--leading"
+              tabindex={this.options.iconTrailing.onclick ? '0' : null}
+              role={this.options.iconTrailing.onclick ? 'button' : null}
+              onclick={this.options.iconTrailing.onclick}
+            >
+              {this.options.iconTrailing.icon}
+            </i>
           )}
           {this.options.filled && <span class="mdc-line-ripple"></span>}
         </label>
