@@ -21,6 +21,7 @@ class TextField {
       rows: 4,
       style: null,
       textarea: false,
+      type: 'text',
     };
     this.options = null;
   }
@@ -120,7 +121,7 @@ class TextField {
           ) : (
             <input
               class="mdc-text-field__input"
-              type="text"
+              type={this.options.type}
               placeholder={this.options.placeholder}
               pattern={this.options.pattern}
               minlength={this.options.minlength}
