@@ -142,7 +142,7 @@ class CreateYourGleifAID {
           <br />
           What would you like your alias to be?
         </p>
-        <TextField outlined label="Outlined" style={{ height: '3rem', width: '100%', margin: '0 0 4rem 0' }} />
+        <TextField outlined style={{ height: '3rem', width: '100%', margin: '0 0 4rem 0' }} />
         <div class="flex flex-justify-between">
           <Button
             class="button--gray-dk button--big button--no-transform"
@@ -203,7 +203,7 @@ class CreateYourGleifAID {
             style={{ padding: '0 2rem 0 2rem', height: '2rem' }}
           />
         </div>
-        <TextField outlined label="Outlined" style={{ height: '3rem', width: '100%' }} />
+        <TextField outlined style={{ height: '3rem', width: '100%' }} />
         <div class="flex flex-justify-between" style={{ alignItems: 'baseline' }}>
           <p
             class="font-color--battleship"
@@ -218,7 +218,7 @@ class CreateYourGleifAID {
             style={{ padding: '0 2rem 0 2rem', height: '2rem' }}
           />
         </div>
-        <TextField outlined label="Outlined" style={{ height: '3rem', width: '100%' }} />
+        <TextField outlined style={{ height: '3rem', width: '100%' }} />
         <div class="flex flex-justify-between" style={{ alignItems: 'baseline' }}>
           <p
             class="font-color--battleship"

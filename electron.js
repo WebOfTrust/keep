@@ -23,7 +23,7 @@ function createWindow() {
 }
 
 function spawnChildProcess() {
-  ward = spawn('./ward/dist-qar/ward/ward');
+  ward = spawn('./ward/dist/ward/ward');
   ward.stdout.on('data', (data) => {
     let buffer = Buffer.from(data);
     console.log('out:', buffer.toString());
