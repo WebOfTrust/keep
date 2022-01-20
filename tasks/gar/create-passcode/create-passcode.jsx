@@ -4,7 +4,6 @@ import { API } from '../../../src/app/services';
 import createYourPasscode from '../../../src/assets/img/create-your-passcode.png';
 import passcodeImg from '../../../src/assets/img/passcode.png';
 import wait from '../../../src/assets/img/wait.png';
-import './create-passcode.scss';
 
 class WelcomeToKEEP {
   view(vnode) {
@@ -56,6 +55,7 @@ class GeneratePasscode {
     API.Passcode.create()
       .then((resp) => {
         this.passcode = resp;
+        console.log(this.passcode);
       })
       .catch((err) => {
         console.log(err);
@@ -110,15 +110,17 @@ class GeneratePasscode {
           Generate your passcode here or in your password management app such as 1Password or Last Pass to encrypt your
           desktop software and then copy into the following screen.
         </p>
-        <div
-          class="passcode"
-          onclick={() => {
-            this.copyPasscode();
+        <TextField
+          outlined
+          fluid
+          placeholder="xxxx-xxxxx-xxxxx-xxxx-xxxxx"
+          iconTrailing={{
+            icon: 'content_copy',
+            onclick: () => {
+              this.copyPasscode();
+            },
           }}
-        >
-          <span>{this.passcode}</span>
-          <span class="material-icons">content_copy</span>
-        </div>
+        />
         <div class="flex flex-justify-between" style={{ margin: '1rem 0 5.5rem' }}>
           <p class="font-color--green font-weight--medium">{this.copied ? 'Passcode copied!' : <br />}</p>
           <Button
@@ -154,6 +156,7 @@ class GeneratePasscode {
 class EnterPasscode {
   constructor() {
     this.passcode = '';
+    this.showPasscode = false;
   }
 
   view(vnode) {
@@ -171,22 +174,28 @@ class EnterPasscode {
           outlined
           fluid
           pattern={'^[a-zA-Z0-9]{22}$'}
-          minlength="22"
           maxlength="22"
+          iconTrailing={{
+            icon: this.showPasscode ? 'visibility_off' : 'visibility',
+            onclick: () => {
+              this.showPasscode = !this.showPasscode;
+            },
+          }}
           oninput={(e) => {
             this.passcode = e.target.value;
           }}
+          type={this.showPasscode ? 'text' : 'password'}
         />
         <div class="flex flex-justify-between" style={{ marginTop: '9rem' }}>
           <Button
             raised
-            class="button-no-transform button--gray-dk button--big"
+            class="button--no-transform button--gray-dk button--big"
             label="Go Back"
             onclick={vnode.attrs.back}
           />
           <Button
             raised
-            class="button-no-transform button--big"
+            class="button--no-transform button--big"
             label="Continue"
             onclick={() => {
               API.Habery.create(JSON.stringify({ passcode: this.passcode }))

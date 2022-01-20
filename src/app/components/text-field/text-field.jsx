@@ -1,6 +1,8 @@
 import m from 'mithril';
 import { MDCTextField } from '@material/textfield';
 
+// TODO: Needs a way to "data-bind" the value passed in vnode attrs
+
 class TextField {
   constructor() {
     this.textfieldClass = 'mdc-text-field';
@@ -18,6 +20,7 @@ class TextField {
       oninput: null,
       outlined: false,
       pattern: null,
+      placeholder: '',
       rows: 4,
       style: null,
       textarea: false,
@@ -55,6 +58,11 @@ class TextField {
     try {
       this.mdcInstance = new MDCTextField(vnode.dom);
     } catch (e) {}
+  }
+
+  onupdate(vnode) {
+    // TODO: This isn't quite working as expected, somewhat works
+    this.options = Object.assign({}, this.optionDefaults, vnode.attrs);
   }
 
   view(vnode) {

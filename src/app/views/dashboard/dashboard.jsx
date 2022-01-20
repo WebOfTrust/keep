@@ -117,7 +117,7 @@ class Dashboard {
                   ) : (
                     <>
                       <h3>About Your Tasks</h3>
-                      <p>
+                      <p class="font-color--battleship" style={{ lineHeight: '1.38', letterSpacing: '0.3px' }}>
                         This section is designed to help you navigate Keep and learn how to complete tasks required for
                         your role. Click on one of the tasks on the left and this panel will provide more information.
                         <br />
@@ -125,7 +125,7 @@ class Dashboard {
                         If you are already familiar with the software, feel free to select the “Dismiss” button.
                       </p>
                       <div class="flex flex-justify-end">
-                        <Button raised class="button--extra-padding" label="Dismiss" />
+                        <Button class="button--no-transform button--big" raised label="Dismiss" />
                       </div>
                     </>
                   )}
