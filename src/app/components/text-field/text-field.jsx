@@ -25,12 +25,17 @@ class TextField {
       style: null,
       textarea: false,
       type: 'text',
+      value: '',
     };
     this.options = null;
   }
 
-  oninit(vnode) {
+  assignOptions(vnode) {
     this.options = Object.assign({}, this.optionDefaults, vnode.attrs);
+  }
+
+  setClass() {
+    this.textfieldClass = 'mdc-text-field';
     if (this.options.filled) {
       this.textfieldClass += ' mdc-text-field--filled';
     }
@@ -54,15 +59,20 @@ class TextField {
     }
   }
 
+  oninit(vnode) {
+    this.assignOptions(vnode);
+    this.setClass();
+  }
+
   oncreate(vnode) {
     try {
       this.mdcInstance = new MDCTextField(vnode.dom);
     } catch (e) {}
   }
 
-  onupdate(vnode) {
-    // TODO: This isn't quite working as expected, somewhat works
-    this.options = Object.assign({}, this.optionDefaults, vnode.attrs);
+  onbeforeupdate(vnode) {
+    this.assignOptions(vnode);
+    this.setClass();
   }
 
   view(vnode) {
@@ -115,26 +125,30 @@ class TextField {
                 class="mdc-text-field__input"
                 rows={this.options.rows}
                 cols={this.options.cols}
-                placeholder={this.options.placeholder}
                 pattern={this.options.pattern}
+                minlength={this.options.minlength}
                 maxlength={this.options.maxlength}
                 disabled={this.options.disabled}
+                placeholder={this.options.placeholder}
                 oninput={(e) => {
                   if (this.options.oninput) {
                     this.options.oninput(e);
                   }
                 }}
-              ></textarea>
+              >
+                {this.options.value}
+              </textarea>
             </span>
           ) : (
             <input
               class="mdc-text-field__input"
               type={this.options.type}
-              placeholder={this.options.placeholder}
               pattern={this.options.pattern}
               minlength={this.options.minlength}
               maxlength={this.options.maxlength}
+              placeholder={this.options.placeholder}
               disabled={this.options.disabled}
+              value={this.options.value}
               oninput={(e) => {
                 if (this.options.oninput) {
                   this.options.oninput(e);

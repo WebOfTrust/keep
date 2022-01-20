@@ -13,17 +13,31 @@ class Card {
     this.options = null;
   }
 
-  oninit(vnode) {
+  assignOptions(vnode) {
     this.options = Object.assign({}, this.optionDefaults, vnode.attrs);
+    this.options.style = Object.assign({}, this.options.style, {
+      padding: this.options.padding,
+    });
+  }
+
+  setClass() {
+    this.cardClass = 'mdc-card';
     if (this.options.outlined) {
       this.cardClass += ' mdc-card--outlined';
     }
     if (this.options.class) {
       this.cardClass += ` ${this.options.class}`;
     }
-    this.options.style = Object.assign({}, this.options.style, {
-      padding: this.options.padding,
-    });
+  }
+
+  oninit(vnode) {
+    this.assignOptions(vnode);
+    this.setClass();
+  }
+
+  onbeforeupdate(vnode) {
+    this.assignOptions(vnode);
+    this.setClass();
   }
 
   view(vnode) {

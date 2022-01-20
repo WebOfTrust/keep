@@ -3,7 +3,7 @@ import { MDCRipple } from '@material/ripple';
 
 class Button {
   constructor() {
-    this.buttonClass = `mdc-button`;
+    this.buttonClass = 'mdc-button';
     this.optionDefaults = {
       class: null,
       disabled: false,
@@ -20,24 +20,12 @@ class Button {
     this.mdcRipple = null;
   }
 
-  oninit(vnode) {
-    this.update(vnode);
-  }
-
-  oncreate(vnode) {
-    if (this.options.ripple) {
-      try {
-        this.mdcRipple = new MDCRipple(vnode.dom);
-      } catch (e) {}
-    }
-  }
-
-  onupdate(vnode) {
-    this.update(vnode);
-  }
-
-  update(vnode) {
+  assignOptions(vnode) {
     this.options = Object.assign({}, this.optionDefaults, vnode.attrs);
+  }
+
+  setClass() {
+    this.buttonClass = 'mdc-button';
     if (this.options.raised) {
       this.buttonClass += ' mdc-button--raised';
     }
@@ -53,6 +41,24 @@ class Button {
     if (this.options.class) {
       this.buttonClass += ` ${this.options.class}`;
     }
+  }
+
+  oninit(vnode) {
+    this.assignOptions(vnode);
+    this.setClass();
+  }
+
+  oncreate(vnode) {
+    if (this.options.ripple) {
+      try {
+        this.mdcRipple = new MDCRipple(vnode.dom);
+      } catch (e) {}
+    }
+  }
+
+  onbeforeupdate(vnode) {
+    this.assignOptions(vnode);
+    this.setClass();
   }
 
   view(vnode) {

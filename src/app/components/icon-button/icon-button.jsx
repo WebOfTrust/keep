@@ -15,11 +15,20 @@ class IconButton {
     this.mdcRipple = null;
   }
 
-  oninit(vnode) {
+  assignOptions(vnode) {
     this.options = Object.assign({}, this.optionDefaults, vnode.attrs);
+  }
+
+  setClass() {
+    this.buttonClass = `material-icons mdc-icon-button`;
     if (this.options.class) {
       this.buttonClass += ` ${this.options.class}`;
     }
+  }
+
+  oninit(vnode) {
+    this.assignOptions(vnode);
+    this.setClass();
   }
 
   oncreate(vnode) {
@@ -29,6 +38,11 @@ class IconButton {
         this.mdcRipple.unbounded = true;
       } catch (e) {}
     }
+  }
+
+  onbeforeupdate(vnode) {
+    this.assignOptions(vnode);
+    this.setClass();
   }
 
   view(vnode) {

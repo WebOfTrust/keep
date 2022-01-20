@@ -71,14 +71,7 @@ class IntroToYourRole {
         </p>
         <div class="flex flex-justify-between">
           <Button class="button--gray-dk button--big button--no-transform" raised label="Skip" />
-          <Button
-            class="button--big button--no-transform"
-            raised
-            label="Continue"
-            onclick={() => {
-              this.step++;
-            }}
-          />
+          <Button class="button--big button--no-transform" raised label="Continue" onclick={vnode.attrs.end} />
         </div>
       </>,
     ];

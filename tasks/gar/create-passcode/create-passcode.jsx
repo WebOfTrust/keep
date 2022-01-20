@@ -113,7 +113,13 @@ class GeneratePasscode {
         <TextField
           outlined
           fluid
+          maxlength="22"
+          pattern={'^[a-zA-Z0-9]{22}$'}
           placeholder="xxxx-xxxxx-xxxxx-xxxx-xxxxx"
+          value={this.passcode}
+          oninput={(e) => {
+            this.passcode = e.target.value;
+          }}
           iconTrailing={{
             icon: 'content_copy',
             onclick: () => {
@@ -173,18 +179,19 @@ class EnterPasscode {
         <TextField
           outlined
           fluid
-          pattern={'^[a-zA-Z0-9]{22}$'}
+          type={this.showPasscode ? 'text' : 'password'}
           maxlength="22"
+          pattern={'^[a-zA-Z0-9]{22}$'}
+          value={this.passcode}
+          oninput={(e) => {
+            this.passcode = e.target.value;
+          }}
           iconTrailing={{
-            icon: this.showPasscode ? 'visibility_off' : 'visibility',
+            icon: this.showPasscode ? 'visibility' : 'visibility_off',
             onclick: () => {
               this.showPasscode = !this.showPasscode;
             },
           }}
-          oninput={(e) => {
-            this.passcode = e.target.value;
-          }}
-          type={this.showPasscode ? 'text' : 'password'}
         />
         <div class="flex flex-justify-between" style={{ marginTop: '9rem' }}>
           <Button
