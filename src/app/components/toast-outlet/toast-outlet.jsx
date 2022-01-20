@@ -4,8 +4,6 @@ import { Toaster } from '../../services';
 import './toast-outlet.scss';
 
 class ToastOutlet {
-  constructor() {}
-
   close(toast) {
     Toaster.remove(toast.id);
   }

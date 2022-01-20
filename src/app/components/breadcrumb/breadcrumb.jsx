@@ -2,8 +2,6 @@ import m from 'mithril';
 import './breadcrumb.scss';
 
 class Breadcrumb {
-  constructor() {}
-
   view(vnode) {
     return (
       <ul class="breadcrumb" style={vnode.attrs.style}>

@@ -1,6 +1,6 @@
 import m from 'mithril';
 import mq from 'mithril-query';
-import AuthedNav from './authed-nav';
+import AuthedNav from './authed-nav.jsx';
 
 describe('AuthedNav component', () => {
   it('Should create', () => {

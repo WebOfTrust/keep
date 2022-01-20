@@ -2,8 +2,6 @@ import m from 'mithril';
 import { MDCSelect } from '@material/select';
 
 class Select {
-  constructor() {}
-
   oncreate(vnode) {
     try {
       this.select = new MDCSelect(vnode.dom);

@@ -2,8 +2,6 @@ import m from 'mithril';
 import './steps.scss';
 
 class Steps {
-  constructor() {}
-
   view(vnode) {
     return (
       <>

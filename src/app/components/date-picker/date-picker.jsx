@@ -1,6 +1,6 @@
 import m from 'mithril';
-import IconButton from '../icon-button/icon-button.jsx';
 import moment from 'moment';
+import IconButton from '../icon-button/icon-button.jsx';
 import './date-picker.scss';
 
 class DatePicker {

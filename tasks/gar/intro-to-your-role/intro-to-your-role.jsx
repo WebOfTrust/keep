@@ -1,8 +1,6 @@
 import m from 'mithril';
 
 class IntroToYourRole {
-  constructor() {}
-
   view() {
     return (
       <>

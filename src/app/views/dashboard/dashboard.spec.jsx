@@ -1,6 +1,6 @@
 import m from 'mithril';
 import mq from 'mithril-query';
-import Dashboard from './dashboard';
+import Dashboard from './dashboard.jsx';
 
 describe('Dashboard component', () => {
   it('Should create', () => {

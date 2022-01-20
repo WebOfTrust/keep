@@ -3,8 +3,6 @@ import IconButton from '../icon-button/icon-button.jsx';
 import './modal.scss';
 
 class Modal {
-  constructor() {}
-
   close(vnode) {
     if (vnode.attrs.onClose) {
       vnode.attrs.onClose();

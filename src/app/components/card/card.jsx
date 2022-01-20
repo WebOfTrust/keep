@@ -1,6 +1,4 @@
 import m from 'mithril';
-import Button from '../button/button.jsx';
-import IconButton from '../icon-button/icon-button.jsx';
 
 class Card {
   constructor() {

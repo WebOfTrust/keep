@@ -1,12 +1,10 @@
 import m from 'mithril';
 import Container from '../container/container.jsx';
 import IconButton from '../icon-button/icon-button.jsx';
-import './authed-nav.scss';
 import keepLogo from '../../../assets/img/logo/keep.png';
+import './authed-nav.scss';
 
 class AuthedNav {
-  constructor() {}
-
   view() {
     return (
       <div class="authedNav">

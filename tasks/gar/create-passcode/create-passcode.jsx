@@ -7,8 +7,6 @@ import wait from '../../../src/assets/img/wait.png';
 import './create-passcode.scss';
 
 class WelcomeToKEEP {
-  constructor() {}
-
   view(vnode) {
     return (
       <>
@@ -154,7 +152,9 @@ class GeneratePasscode {
 }
 
 class EnterPasscode {
-  constructor() {}
+  constructor() {
+    this.passcode = '';
+  }
 
   view(vnode) {
     return (
@@ -170,11 +170,12 @@ class EnterPasscode {
         <TextField
           outlined
           fluid
+          pattern={'^[a-zA-Z0-9]{22}$'}
+          minlength="22"
+          maxlength="22"
           oninput={(e) => {
             this.passcode = e.target.value;
           }}
-          pattern={'^[a-zA-Z0-9]{22}$'}
-          placeholder="xxxxxxxxxxxxxxxxxxxxxx"
         />
         <div class="flex flex-justify-between" style={{ marginTop: '9rem' }}>
           <Button
@@ -191,7 +192,6 @@ class EnterPasscode {
               API.Habery.create(JSON.stringify({ passcode: this.passcode }))
                 .then(vnode.attrs.continue)
                 .catch((err) => {
-                  // do something
                   console.log(err);
                 });
             }}

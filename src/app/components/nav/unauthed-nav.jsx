@@ -1,15 +1,9 @@
 import m from 'mithril';
 import Container from '../container/container.jsx';
-import './unauthed-nav.scss';
 import keepLogo from '../../../assets/img/logo/keep.png';
+import './unauthed-nav.scss';
 
 class UnauthedNav {
-  constructor() {}
-
-  oninit() {}
-
-  onremove() {}
-
   view() {
     return (
       <div class="unauthedNav">

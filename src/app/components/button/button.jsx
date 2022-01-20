@@ -5,16 +5,16 @@ class Button {
   constructor() {
     this.buttonClass = `mdc-button`;
     this.optionDefaults = {
+      class: null,
+      disabled: false,
+      iconLeading: null,
+      iconTrailing: null,
+      label: '',
+      onclick: null,
       outlined: false,
       raised: false,
       ripple: true,
-      class: null,
       style: null,
-      label: '',
-      iconLeading: null,
-      iconTrailing: null,
-      disabled: false,
-      onclick: null,
     };
     this.options = null;
     this.mdcRipple = null;

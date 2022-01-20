@@ -2,8 +2,6 @@ import m from 'mithril';
 import './popover.scss';
 
 class Popover {
-  constructor() {}
-
   close(vnode) {
     vnode.attrs.onClose();
   }

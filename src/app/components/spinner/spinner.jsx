@@ -2,8 +2,6 @@ import m from 'mithril';
 import { MDCCircularProgress } from '@material/circular-progress';
 
 class Spinner {
-  constructor() {}
-
   oncreate(vnode) {
     try {
       this.mdcInstance = new MDCCircularProgress(vnode.dom);

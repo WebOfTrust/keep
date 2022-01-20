@@ -1,6 +1,6 @@
 import m from 'mithril';
 import mq from 'mithril-query';
-import ToastOutlet from './toast-outlet';
+import ToastOutlet from './toast-outlet.jsx';
 
 describe('ToastOutlet component', () => {
   it('Should create', () => {

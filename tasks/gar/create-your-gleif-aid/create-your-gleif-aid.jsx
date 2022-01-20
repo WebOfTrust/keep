@@ -8,10 +8,10 @@ import githubLogo from '../../../src/assets/img/github-logo.png';
 import liOne from '../../../src/assets/img/li-one.png';
 import liTwo from '../../../src/assets/img/li-two.png';
 import liThree from '../../../src/assets/img/li-three.png';
+
 class CreateYourGleifAID {
   constructor(vnode) {
     this.step = 0;
-
     this.steps = [
       <>
         <h3>
@@ -55,7 +55,6 @@ class CreateYourGleifAID {
           <br />
           <br />
         </p>
-
         <div class="flex flex-justify-between">
           <Button class="button--gray-dk button--big button--no-transform" raised label="Skip" />
           <Button
@@ -98,7 +97,6 @@ class CreateYourGleifAID {
                 Configure your AID
               </p>
             </div>
-
             <div class="flex" style={{ alignItems: 'center', margin: '0 0 0 2rem' }}>
               <img src={liTwo} style={{ margin: '1rem 10px 1rem 0' }} />
               <p
@@ -167,7 +165,6 @@ class CreateYourGleifAID {
       <>
         <img src={uploadImage} style={{ width: '50%', margin: '4rem 0 0 0' }} />
         <h3>Select a Photo for the Alias</h3>
-
         <p
           class="font-color--battleship"
           style={{ letterSpacing: '.15px', lineHeight: '1.38', margin: '2rem 0 2rem 0' }}
@@ -190,7 +187,6 @@ class CreateYourGleifAID {
           />
         </div>
       </>,
-
       <>
         <h3>Review and Confirm</h3>
         <div class="flex flex-justify-between" style={{ alignItems: 'baseline' }}>
@@ -237,7 +233,6 @@ class CreateYourGleifAID {
             style={{ padding: '0 2rem 0 2rem', height: '2rem' }}
           />
         </div>
-
         <img src={githubLogo} style={{ width: '20%', margin: '0 0 0 0' }} />
         <div class="flex flex-justify-end">
           <Button class="button--big button--no-transform" raised label="Continue" onclick={vnode.attrs.end} />

@@ -2,8 +2,6 @@ import m from 'mithril';
 import { Button } from '../../../src/app/components';
 
 class GARIssueQVIvLEICredential {
-  constructor() {}
-
   view() {
     return (
       <>

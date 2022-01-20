@@ -1,6 +1,6 @@
 import m from 'mithril';
 import mq from 'mithril-query';
-import Error from './error';
+import Error from './error.jsx';
 
 describe('Error component', () => {
   it('Should create', () => {

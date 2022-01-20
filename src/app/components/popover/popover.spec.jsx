@@ -1,6 +1,6 @@
 import m from 'mithril';
 import mq from 'mithril-query';
-import Popover from './popover';
+import Popover from './popover.jsx';
 
 describe('Popover component', () => {
   it('Should create', () => {

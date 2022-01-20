@@ -1,9 +1,7 @@
-import API from './api.js';
-import Toaster from './toaster.jsx';
-import UUID from './uuid.jsx';
+import API from './api';
+import Toaster from './toaster';
 
 module.exports = {
   API,
   Toaster,
-  UUID,
 };

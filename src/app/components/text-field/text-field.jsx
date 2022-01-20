@@ -5,20 +5,22 @@ class TextField {
   constructor() {
     this.textfieldClass = 'mdc-text-field';
     this.optionDefaults = {
-      filled: false,
-      outlined: false,
-      fluid: false,
-      textarea: false,
-      rows: 4,
       cols: 40,
       class: null,
-      style: null,
+      disabled: false,
+      filled: false,
+      fluid: false,
       label: null,
+      maxlength: null,
+      minlength: null,
+      oninput: null,
+      outlined: false,
       pattern: null,
+      rows: 4,
+      style: null,
+      textarea: false,
       // iconLeading: null,
       // iconTrailing: null,
-      disabled: false,
-      oninput: null,
     };
     this.options = null;
   }
@@ -93,6 +95,7 @@ class TextField {
                 cols={this.options.cols}
                 placeholder={this.options.placeholder}
                 pattern={this.options.pattern}
+                maxlength={this.options.maxlength}
                 disabled={this.options.disabled}
                 oninput={(e) => {
                   if (this.options.oninput) {
@@ -107,6 +110,8 @@ class TextField {
               type="text"
               placeholder={this.options.placeholder}
               pattern={this.options.pattern}
+              minlength={this.options.minlength}
+              maxlength={this.options.maxlength}
               disabled={this.options.disabled}
               oninput={(e) => {
                 if (this.options.oninput) {

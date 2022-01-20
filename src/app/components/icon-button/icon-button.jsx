@@ -5,11 +5,11 @@ class IconButton {
   constructor() {
     this.buttonClass = `material-icons mdc-icon-button`;
     this.optionDefaults = {
-      icon: '',
-      title: null,
-      ripple: true,
       class: null,
+      icon: '',
       onclick: null,
+      ripple: true,
+      title: null,
     };
     this.options = null;
     this.mdcRipple = null;

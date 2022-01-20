@@ -1,7 +1,7 @@
 import m from 'mithril';
 import mq from 'mithril-query';
 import moment from 'moment';
-import DateRange from './date-range';
+import DateRange from './date-range.jsx';
 
 describe('DateRange component', () => {
   it('Should create', () => {

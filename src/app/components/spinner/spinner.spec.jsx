@@ -1,6 +1,6 @@
 import m from 'mithril';
 import mq from 'mithril-query';
-import Spinner from './spinner';
+import Spinner from './spinner.jsx';
 
 describe('Spinner component', () => {
   it('Should create', () => {
