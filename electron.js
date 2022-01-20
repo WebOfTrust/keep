@@ -2,6 +2,8 @@ const { spawn } = require('child_process');
 const path = require('path');
 const { app, BrowserWindow } = require('electron');
 
+let ward = null;
+
 // Handle creating/removing shortcuts on Windows when installing/uninstalling.
 if (require('electron-squirrel-startup')) {
   // eslint-disable-line global-require
@@ -14,12 +16,14 @@ function createWindow() {
     height: 1024,
   });
 
-  win.loadURL('http://localhost:5678');
+  setTimeout(() => {
+    win.loadURL('http://localhost:5678');
+  }, 500);
   spawnChildProcess();
 }
 
 function spawnChildProcess() {
-  let ward = spawn('./ward/dist/ward/ward');
+  ward = spawn('./ward/dist-qar/ward/ward');
   ward.stdout.on('data', (data) => {
     let buffer = Buffer.from(data);
     console.log('out:', buffer.toString());
@@ -44,6 +48,7 @@ app.whenReady().then(() => {
 });
 
 app.on('window-all-closed', () => {
+  ward.kill();
   if (process.platform !== 'darwin') {
     app.quit();
   }
