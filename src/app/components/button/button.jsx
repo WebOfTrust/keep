@@ -1,10 +1,8 @@
 import m from 'mithril';
 import { MDCRipple } from '@material/ripple';
-import { UUID } from '../../services';
 
 class Button {
   constructor() {
-    this.randomId = 'u' + UUID.uuidv4().substring(0, 8);
     this.buttonClass = `mdc-button`;
     this.optionDefaults = {
       outlined: false,
@@ -29,7 +27,7 @@ class Button {
   oncreate(vnode) {
     if (this.options.ripple) {
       try {
-        this.mdcRipple = new MDCRipple(document.getElementById(this.randomId));
+        this.mdcRipple = new MDCRipple(vnode.dom);
       } catch (e) {}
     }
   }
@@ -60,7 +58,6 @@ class Button {
   view(vnode) {
     return (
       <button
-        id={this.randomId}
         class={this.buttonClass}
         style={this.options.style}
         disabled={this.options.disabled}

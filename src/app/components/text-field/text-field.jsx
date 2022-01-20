@@ -1,10 +1,8 @@
 import m from 'mithril';
 import { MDCTextField } from '@material/textfield';
-import { UUID } from '../../services';
 
 class TextField {
   constructor() {
-    this.randomId = 'u' + UUID.uuidv4().substring(0, 8);
     this.textfieldClass = 'mdc-text-field';
     this.optionDefaults = {
       filled: false,
@@ -47,9 +45,9 @@ class TextField {
     }
   }
 
-  oncreate() {
+  oncreate(vnode) {
     try {
-      this.mdcInstance = new MDCTextField(document.getElementById(this.randomId));
+      this.mdcInstance = new MDCTextField(vnode.dom);
     } catch (e) {}
   }
 
@@ -57,7 +55,6 @@ class TextField {
     return (
       <>
         <label
-          id={this.randomId}
           class={this.textfieldClass}
           style={{ width: this.options.fluid ? '100%' : 'auto', ...this.options.style }}
         >

@@ -6,7 +6,7 @@ class Select {
 
   oncreate(vnode) {
     try {
-      this.select = new MDCSelect(document.querySelector('.mdc-select'));
+      this.select = new MDCSelect(vnode.dom);
       // Set initial value if passed in attrs
       if (vnode.attrs.initialSelection) {
         this.select.value = vnode.attrs.initialSelection;

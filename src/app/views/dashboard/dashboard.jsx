@@ -101,7 +101,13 @@ class Dashboard {
               <div class="flex-1">
                 <Card class="card--fluid" style={{ position: 'relative' }} padding="4rem">
                   {/*need to make height of this card change once the user hits continue active*/}
-                  <IconButton class="close-icon" icon="close" />
+                  <IconButton
+                    class="close-icon"
+                    icon="close"
+                    onclick={() => {
+                      this.taskSelected = null;
+                    }}
+                  />
                   {this.taskSelected ? (
                     <this.taskSelected.component
                       end={() => {

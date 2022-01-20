@@ -1,15 +1,12 @@
 import m from 'mithril';
 import { MDCCircularProgress } from '@material/circular-progress';
-import { UUID } from '../../services';
 
 class Spinner {
-  constructor() {
-    this.randomId = 'u' + UUID.uuidv4().substring(0, 8);
-  }
+  constructor() {}
 
-  oncreate() {
+  oncreate(vnode) {
     try {
-      this.mdcInstance = new MDCCircularProgress(document.getElementById(this.randomId));
+      this.mdcInstance = new MDCCircularProgress(vnode.dom);
     } catch (e) {}
   }
 
@@ -17,7 +14,6 @@ class Spinner {
     return (
       <>
         <div
-          id={this.randomId}
           class="mdc-circular-progress mdc-circular-progress--indeterminate"
           style="width:48px;height:48px;"
           role="progressbar"
