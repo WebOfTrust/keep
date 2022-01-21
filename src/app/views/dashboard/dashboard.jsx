@@ -78,7 +78,7 @@ class Dashboard {
                   {this.tasks[this.flowSelected].map((task, i) => {
                     return (
                       <Card
-                        class={'card--fluid card--hover' + (this.taskSelected ? ' card--active' : '')}
+                        class={'card--fluid card--hover' + (task === this.taskSelected ? ' card--active' : '')}
                         padding="1.5rem"
                         style={{ marginBottom: '2.5rem' }}
                         onclick={() => {
