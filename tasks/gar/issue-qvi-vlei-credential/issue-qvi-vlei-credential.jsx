@@ -224,7 +224,7 @@ class GARIssueQVIvLEICredential {
             raised
             label="close"
             onclick={() => {
-              this.step++;
+              this.step = 0;
             }}
           />
         </div>
