@@ -1,9 +1,13 @@
 import m from 'mithril';
 import { Button, TextField } from '../../../src/app/components';
 import addNewContacts from '../../../src/assets/img/add-new-contacts.png';
+import responseMessage from '../../../src/assets/img/response-message.png';
+import uploadFile from '../../../src/assets/img/upload-file.png';
 import liOne from '../../../src/assets/img/li-one.png';
 import liTwo from '../../../src/assets/img/li-two.png';
 import liThree from '../../../src/assets/img/li-three.png';
+import liFour from '../../../src/assets/img/li-four.png';
+import liFive from '../../../src/assets/img/li-five.png';
 class GARIssueQVIvLEICredential {
   constructor(vnode) {
     this.step = 0;
@@ -22,7 +26,7 @@ class GARIssueQVIvLEICredential {
         </p>
         <h3>Steps to Authenticate QAR Identity</h3>
         <div class="flex flex-column">
-          <div class="flex" style={{ alignItems: 'center', margin: '0 0 0 2rem' }}>
+          <div class="flex" style={{ alignItems: 'center', margin: '0 0 0 0' }}>
             <img src={liOne} style={{ margin: '1rem 10px 1rem 0' }} />
             <p
               class="font-color--battleship"
@@ -31,7 +35,7 @@ class GARIssueQVIvLEICredential {
               Join a Video Call with a QAR
             </p>
           </div>
-          <div class="flex" style={{ alignItems: 'center', margin: '0 0 0 2rem' }}>
+          <div class="flex" style={{ alignItems: 'center', margin: '0 0 0 0' }}>
             <img src={liTwo} style={{ margin: '1rem 10px 1rem 0' }} />
             <p
               class="font-color--battleship"
@@ -40,7 +44,7 @@ class GARIssueQVIvLEICredential {
               Use an OOBI protocol to share your GLEIF Delegated AID with the QAR
             </p>
           </div>
-          <div class="flex" style={{ alignItems: 'center', margin: '0 0 0 2rem' }}>
+          <div class="flex" style={{ alignItems: 'center', margin: '0 0 0 0' }}>
             <img src={liThree} style={{ margin: '1rem 10px 1rem 0' }} />
             <p
               class="font-color--battleship"
@@ -49,8 +53,8 @@ class GARIssueQVIvLEICredential {
               Send a Challenge Response Message to the QAR.
             </p>
           </div>
-          <div class="flex" style={{ alignItems: 'center', margin: '0 0 0 2rem' }}>
-            <img src={liThree} style={{ margin: '1rem 10px 1rem 0' }} />
+          <div class="flex" style={{ alignItems: 'center', margin: '0 0 0 0' }}>
+            <img src={liFour} style={{ margin: '1rem 10px 1rem 0' }} />
             <p
               class="font-color--battleship"
               style={{ letterSpacing: '.15px', lineHeight: '1.38', margin: '4rem, 0 4rem 0' }}
@@ -58,8 +62,8 @@ class GARIssueQVIvLEICredential {
               QAR signs and returns Challenge Response Message.
             </p>
           </div>
-          <div class="flex" style={{ alignItems: 'center', margin: '0 0 0 2rem' }}>
-            <img src={liThree} style={{ margin: '1rem 10px 1rem 0' }} />
+          <div class="flex" style={{ alignItems: 'center', margin: '0 0 0 0' }}>
+            <img src={liFive} style={{ margin: '1rem 10px 1rem 0' }} />
             <p
               class="font-color--battleship"
               style={{ letterSpacing: '.15px', lineHeight: '1.38', margin: '4rem, 0 4rem 0' }}
@@ -69,8 +73,8 @@ class GARIssueQVIvLEICredential {
           </div>
         </div>
 
-        <div class="flex flex-justify-between">
-          <Button class="button--gray-dk button--big button--no-transform" raised label="Skip" />
+        <div class="flex flex-justify-end">
+          {/* <Button class="button--gray-dk button--big button--no-transform" raised label="Skip" /> */}
           <Button
             class="button--big button--no-transform"
             raised
@@ -94,7 +98,7 @@ class GARIssueQVIvLEICredential {
           <br />
         </p>
         <div class="flex flex-justify-between">
-          <Button class="button--gray-dk button--big button--no-transform" raised label="Skip" />
+          <Button class="button--gray-dk button--big button--no-transform" raised label="Go Back" />
           <Button
             class="button--big button--no-transform"
             raised
@@ -137,7 +141,7 @@ class GARIssueQVIvLEICredential {
         </div>
       </>,
       <>
-        <img src={addNewContacts} style={{ width: '40%', margin: '1.5rem 0 0 0' }} />
+        <img src={responseMessage} style={{ width: '50%', margin: '1.5rem 0 2rem 0' }} />
         <h3>Generate Challenge Response Message</h3>
         <p
           class="font-color--battleship"
@@ -168,7 +172,7 @@ class GARIssueQVIvLEICredential {
         </div>
       </>,
       <>
-        <img src={addNewContacts} style={{ width: '40%', margin: '1.5rem 0 0 0' }} />
+        <img src={responseMessage} style={{ width: '50%', margin: '1.5rem 0 2rem 0' }} />
         <h3>Copy Challenge Message</h3>
         <p
           class="font-color--battleship"
@@ -191,7 +195,7 @@ class GARIssueQVIvLEICredential {
           <Button
             class="button--big button--no-transform"
             raised
-            label="Generate"
+            label="Continue"
             onclick={() => {
               this.step++;
             }}
@@ -199,7 +203,7 @@ class GARIssueQVIvLEICredential {
         </div>
       </>,
       <>
-        <img src={addNewContacts} style={{ width: '40%', margin: '1.5rem 0 0 0' }} />
+        <img src={uploadFile} style={{ width: '60%', margin: '1.5rem 0 2rem 0' }} />
         <h3>Challenge Message in Progress</h3>
         <p
           class="font-color--battleship"

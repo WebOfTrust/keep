@@ -78,7 +78,7 @@ class Dashboard {
                   {this.tasks[this.flowSelected].map((task, i) => {
                     return (
                       <Card
-                        class="card--fluid card--hover"
+                        class={'card--fluid card--hover' + (this.taskSelected ? ' card--active' : '')}
                         padding="1.5rem"
                         style={{ marginBottom: '2.5rem' }}
                         onclick={() => {
@@ -99,8 +99,11 @@ class Dashboard {
                 </Card>
               </div>
               <div class="flex-1">
-                <Card class="card--fluid" style={{ position: 'relative' }} padding="4rem">
-                  {/*need to make height of this card change once the user hits continue active*/}
+                <Card
+                  class={'card--fluid' + (this.taskSelected ? ' card--active' : null)}
+                  style={{ position: 'relative' }}
+                  padding="4rem"
+                >
                   <IconButton
                     class="close-icon"
                     icon="close"
