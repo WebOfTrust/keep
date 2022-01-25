@@ -1,11 +1,16 @@
 import m from 'mithril';
 import Container from '../container/container.jsx';
 import IconButton from '../icon-button/icon-button.jsx';
+import Popover from '../popover/popover.jsx';
 import githubLogo from '../../../assets/img/github-logo.png';
 import keepLogo from '../../../assets/img/logo/keep.png';
 import './authed-nav.scss';
 
 class AuthedNav {
+  constructor() {
+    this.notificationsVisible = false;
+  }
+
   view() {
     return (
       <div class="authedNav">
@@ -17,7 +22,26 @@ class AuthedNav {
               </m.route.Link>
             </h2>
             <div class="authedNav__spacer"></div>
-            <IconButton icon="notifications" style={{ marginRight: '2rem' }} />
+            <div class="relative">
+              <IconButton
+                icon="notifications"
+                style={{ marginRight: '2rem' }}
+                onclick={(e) => {
+                  this.notificationsVisible = !this.notificationsVisible;
+                }}
+              />
+              <Popover
+                visible={this.notificationsVisible}
+                onClose={() => {
+                  this.notificationsVisible = false;
+                }}
+                style={{
+                  top: '88px',
+                }}
+              >
+                <h1>Popover</h1>
+              </Popover>
+            </div>
             <IconButton icon="settings" style={{ marginRight: '2rem' }} />
             <img src={githubLogo} style={{ height: '40px', width: '40px' }} />
           </div>
