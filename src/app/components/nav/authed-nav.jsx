@@ -39,7 +39,7 @@ class AuthedNav {
                   top: '88px',
                 }}
               >
-                <h1>Popover</h1>
+                <p>notification</p>
               </Popover>
             </div>
             <IconButton icon="settings" style={{ marginRight: '2rem' }} />

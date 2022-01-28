@@ -7,7 +7,7 @@ import addNewContacts from '../../src/assets/img/add-new-contacts.png';
 import createIdentifier from '../../src/assets/img/create-identifier.png';
 import createYourPasscode from '../../src/assets/img/create-your-passcode.png';
 import verifyCredentials from '../../src/assets/img/verify-credentials.png';
-
+import RevokeQviCredential from './revoke-qvi-credential/revoke-qvi-credential.jsx';
 const tasks = {
   'create-passcode': [
     {
@@ -49,6 +49,33 @@ const tasks = {
       component: {
         view: (vnode) => {
           return <GARIssueQVIvLEICredential end={vnode.attrs.end} />;
+        },
+      },
+    },
+    {
+      imgSrc: addNewContacts,
+      label: 'Issuance of a Qualified vLEI Issuer vLEI Credential',
+      component: {
+        view: (vnode) => {
+          return <GARIssueQVIvLEICredential end={vnode.attrs.end} />;
+        },
+      },
+    },
+    {
+      imgSrc: addNewContacts,
+      label: 'Triggered Manual Key Rotation',
+      component: {
+        view: (vnode) => {
+          return <GARIssueQVIvLEICredential end={vnode.attrs.end} />;
+        },
+      },
+    },
+    {
+      imgSrc: addNewContacts,
+      label: 'Revocation of QVI vLEI Credential by GLEIF',
+      component: {
+        view: (vnode) => {
+          return <RevokeQviCredential end={vnode.attrs.end} />;
         },
       },
     },

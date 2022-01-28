@@ -223,14 +223,7 @@ class GARIssueQVIvLEICredential {
               this.step--;
             }}
           />
-          <Button
-            class="button--big button--no-transform"
-            raised
-            label="close"
-            onclick={() => {
-              this.step = 0;
-            }}
-          />
+          <Button class="button--big button--no-transform" raised label="close" onclick={vnode.attrs.end} />
         </div>
       </>,
     ];
