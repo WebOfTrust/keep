@@ -4,10 +4,14 @@ import CreateYourGleifAID from './create-your-gleif-aid/create-your-gleif-aid.js
 import IntroToYourRole from './intro-to-your-role/intro-to-your-role.jsx';
 import GARIssueQVIvLEICredential from './issue-qvi-vlei-credential/issue-qvi-vlei-credential.jsx';
 import addNewContacts from '../../src/assets/img/add-new-contacts.png';
+import loanApproved from '../../src/assets/img/loan-approved.png';
+import declineRequest from '../../src/assets/img/decline-request.png';
 import createIdentifier from '../../src/assets/img/create-identifier.png';
 import createYourPasscode from '../../src/assets/img/create-your-passcode.png';
 import verifyCredentials from '../../src/assets/img/verify-credentials.png';
 import RevokeQviCredential from './revoke-qvi-credential/revoke-qvi-credential.jsx';
+import ManualKeyRotation from './manual-key-rotation/manual-key-rotation';
+
 const tasks = {
   'create-passcode': [
     {
@@ -53,7 +57,7 @@ const tasks = {
       },
     },
     {
-      imgSrc: addNewContacts,
+      imgSrc: loanApproved,
       label: 'Issuance of a Qualified vLEI Issuer vLEI Credential',
       component: {
         view: (vnode) => {
@@ -62,16 +66,16 @@ const tasks = {
       },
     },
     {
-      imgSrc: addNewContacts,
+      imgSrc: verifyCredentials,
       label: 'Triggered Manual Key Rotation',
       component: {
         view: (vnode) => {
-          return <GARIssueQVIvLEICredential end={vnode.attrs.end} />;
+          return <ManualKeyRotation end={vnode.attrs.end} />;
         },
       },
     },
     {
-      imgSrc: addNewContacts,
+      imgSrc: declineRequest,
       label: 'Revocation of QVI vLEI Credential by GLEIF',
       component: {
         view: (vnode) => {
