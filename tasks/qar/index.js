@@ -6,6 +6,7 @@ import createIdentifier from '../../src/assets/img/create-identifier.png';
 import createYourPasscode from '../../src/assets/img/create-your-passcode.png';
 import verifyCredentials from '../../src/assets/img/verify-credentials.png';
 
+import IntroToQARRole from './intro-you-the-qar-role/intro-to-the-qar-role';
 import IDAssuranceOfOOR from './identity-assurance-of-oor/identity-assurance-of-oor.jsx';
 import CreateQARID from './create-my-qar-id/create-my-qar-id.jsx';
 import QVIIdentityAssurance from './qvi-identity-assurance/qvi-identity-assurance';
@@ -26,18 +27,29 @@ const tasks = {
       },
     },
   ],
-  'create-identifier': [],
-  'intro-to-role': [],
-  'oobi': [
+  'create-identifier': [
     {
       imgSrc: createIdentifier,
-      label: 'Identity Assurance of OOR',
+      label: 'Create my QAR ID',
       component: {
         view: (vnode) => {
-          return <IDAssuranceOfOOR end={vnode.attrs.end} />;
+          return <CreateQARID end={vnode.attrs.end} />;
         },
       },
     },
+  ],
+  'intro-to-role': [
+    {
+      imgSrc: createIdentifier,
+      label: 'Intro to Your Role',
+      component: {
+        view: (vnode) => {
+          return <IntroToQARRole end={vnode.attrs.end} />;
+        },
+      },
+    },
+  ],
+  'oobi': [
     {
       imgSrc: verifyCredentials,
       label: 'Create my QAR ID',
@@ -49,7 +61,7 @@ const tasks = {
     },
     {
       imgSrc: addNewContacts,
-      label: 'QVI Identity Assurance',
+      label: 'Identity Authentication',
       component: {
         view: (vnode) => {
           return <QVIIdentityAssurance end={vnode.attrs.end} />;
@@ -58,25 +70,17 @@ const tasks = {
     },
     {
       imgSrc: loanApproved,
-      label: 'Issuance of a Qualified vLEI Issuer vLEI Credential',
+      label: 'Issue the OOR vLEI Credential',
       component: {
         view: (vnode) => {
           return <IssueOORvLEICredential end={vnode.attrs.end} />;
         },
       },
     },
+
     {
       imgSrc: declineRequest,
-      label: 'Triggered Manual Key Rotation',
-      component: {
-        view: (vnode) => {
-          return <TriggerManualKeyRotation end={vnode.attrs.end} />;
-        },
-      },
-    },
-    {
-      imgSrc: declineRequest,
-      label: 'Revocation of QVI vLEI Credential by GLEIF',
+      label: 'Revoke OOR vLEI Credential',
       component: {
         view: (vnode) => {
           return <RevokeQVIvLEICredential end={vnode.attrs.end} />;
