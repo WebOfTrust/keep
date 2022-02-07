@@ -19,7 +19,7 @@ const tasks = {
   'create-passcode': [
     {
       imgSrc: addNewContacts,
-      label: 'A QAR Task',
+      label: 'TODO : create passcode',
       component: {
         view: () => {
           return <h3>Tasks are different for QAR vs GAR</h3>;

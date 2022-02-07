@@ -3,13 +3,13 @@ import { Button, Card, TextField } from '../../../src/app/components';
 import approveRequest from '../../../src/assets/img/approve-request.png';
 import addNewContacts from '../../../src/assets/img/add-new-contacts.png';
 import verifyCredentials from '../../../src/assets/img/verify-credentials.png';
-class IntroToYourRole {
+class GracIntroToYourRole {
   constructor(vnode) {
     this.step = 0;
 
     this.steps = [
       <>
-        <h3>Intro to the GAR Role</h3>
+        <h3>Intro to the *GRAC* Role</h3>
         <img src={approveRequest} style={{ width: '60%', margin: '4rem 0 4rem 4rem' }} />
         <p
           class="font-color--battleship"
@@ -81,4 +81,4 @@ class IntroToYourRole {
   }
 }
 
-module.exports = IntroToYourRole;
+module.exports = GracIntroToYourRole;

@@ -1,24 +1,21 @@
 import m from 'mithril';
 import { Button, Card, TextField } from '../../../src/app/components';
-import approveRequest from '../../../src/assets/img/approve-request.png';
-import addNewContacts from '../../../src/assets/img/add-new-contacts.png';
-import verifyCredentials from '../../../src/assets/img/verify-credentials.png';
 import createIdentifier from '../../../src/assets/img/create-identifier.png';
+import configureIdentifier from '../../../src/assets/img/configure-identifier.png';
+import approveRequest from '../../../src/assets/img/approve-request.png';
+import uploadImage from '../../../src/assets/img/upload-image.png';
+import githubLogo from '../../../src/assets/img/github-logo.png';
 import liOne from '../../../src/assets/img/li-one.png';
 import liTwo from '../../../src/assets/img/li-two.png';
 import liThree from '../../../src/assets/img/li-three.png';
-import configureIdentifier from '../../../src/assets/img/configure-identifier.png';
-import uploadImage from '../../../src/assets/img/upload-image.png';
-import githubLogo from '../../../src/assets/img/github-logo.png';
 
-class CreateQARID {
+class CreateYourGleifAID {
   constructor(vnode) {
     this.step = 0;
-
     this.steps = [
       <>
         <h3>
-          Welcome to your <u>QAR</u> Software
+          Welcome to your <u>GRAC</u> Software
         </h3>
         <img src={createIdentifier} style={{ width: '70%', margin: '3rem 0 0 2rem' }} />
         <p
@@ -29,7 +26,7 @@ class CreateQARID {
           and also as a storage place for all of your credentials.
           <br />
           <br />
-          The first step will be to create your Delegated AID, then you will receive a short tutorial, You may skip the
+          The first step will be to create your Delegated AID, then you will receive a short tutorial, you may skip the
           tutorial by selecting the “skip” button.
         </p>
         <div class="flex flex-justify-between">
@@ -51,48 +48,59 @@ class CreateQARID {
           />
         </div>
       </>,
-      // <>
-      //   <h3>
-      //     Welcome to your <u>QVI AID</u>
-      //   </h3>
-      //   <img src={createIdentifier} style={{ width: '70%', margin: '3rem 0 0 2rem' }} />
-      //   <p
-      //     class="font-color--battleship"
-      //     style={{ letterSpacing: '.15px', lineHeight: '1.38', marginTop: '4rem', marginBottom: '4rem' }}
-      //   >
-      //     In order to provide authorization, you will first have to create your own AID within the software and GLEIF
-      //     will verify you as an authorized party to act on behalf of your QVI.
-      //     <br />
-      //     <br />
-      //   </p>
-      //   <div class="flex flex-justify-between">
-      //     <Button
-      //       class="button--gray-dk button--big button--no-transform"
-      //       raised
-      //       label="Skip"
-      //       onclick={() => {
-      //         this.step = 3;
-      //       }}
-      //     />
-      //     <Button
-      //       class="button--big button--no-transform"
-      //       raised
-      //       label="Continue"
-      //       onclick={() => {
-      //         this.step++;
-      //       }}
-      //     />
-      //   </div>
-      // </>,
       <>
         <h3>
-          Steps to Create Your <u>QAR AID</u>
+          Creating your <u>AID</u>
+        </h3>
+        <img src={createIdentifier} style={{ width: '70%', margin: '4rem 0 0 2rem' }} />
+        <p
+          class="font-color--battleship"
+          style={{ letterSpacing: '.15px', lineHeight: '1.38', marginTop: '4rem', marginBottom: '5rem' }}
+        >
+          In order to provide authorization, you will first have to create your own GLEIF Delegated AID within the
+          software and GLEIF will verify you as an authorized representative (GAR) to act on their behalf.
+          <br />
+          <br />
+        </p>
+        <div class="flex flex-justify-between">
+          <Button
+            class="button--gray-dk button--big button--no-transform"
+            raised
+            label="Skip"
+            onclick={() => {
+              this.step = 3;
+            }}
+          />
+          <Button
+            class="button--big button--no-transform"
+            raised
+            label="Continue"
+            onclick={() => {
+              this.step++;
+            }}
+          />
+        </div>
+      </>,
+      <>
+        <h3>
+          Steps to Create Your <u>GLEIF AID</u>
         </h3>
         <img src={approveRequest} style={{ width: '60%', margin: '4rem 0 0 4rem' }} />
         <p
           class="font-color--battleship"
           style={{ letterSpacing: '.15px', lineHeight: '1.38', margin: '4rem, 0 4rem 0' }}
         >
+          {/* <ul class='flex flex-column' style={{ listStylePosition: 'inside' }}>
+            <li style={{ listStyleImage: `url(${liOne})`, margin: '0 0 2rem 0', }}>
+              Configure your AID
+            </li>
+            <li style={{ listStyleImage: `url(${liTwo})`, margin: '0 0 2rem 0' }}>
+              Create and Alias
+            </li>
+            <li style={{ listStyleImage: `url(${liThree})`, margin: '0 0 2rem 0' }}>
+              Select a photo for your Alias
+            </li>
+          </ul> */}
           <div class="flex flex-column">
             <div class="flex" style={{ alignItems: 'center', margin: '0 0 0 2rem' }}>
               <img src={liOne} style={{ margin: '1rem 10px 1rem 0' }} />
@@ -149,8 +157,8 @@ class CreateQARID {
           class="font-color--battleship"
           style={{ letterSpacing: '.15px', lineHeight: '1.38', marginTop: '2rem', marginBottom: '2rem' }}
         >
-          The alias should be an easy to remember name for your AID as a Qualified Authorized Representative (e.g. My
-          Qualified vLEI Authorized Representative Identifier).
+          The alias should be an easy to remember name for your GLEIF Delegated AID as a member of the GLEIF Root AID
+          signing group (e.g. My Qualified vLEI Authorized Representative Identifier).
           <br />
           <br />
           What would you like your alias to be?
@@ -227,7 +235,7 @@ class CreateQARID {
           />
         </div>
         <TextField outlined style={{ height: '3rem', width: '100%' }} />
-        <div class="flex flex-justify-between" style={{ alignItems: 'baseline' }}>
+        {/*<div class="flex flex-justify-between" style={{ alignItems: 'baseline' }}>
           <p
             class="font-color--battleship"
             style={{ letterSpacing: '.15px', lineHeight: '1.38', marginTop: '2rem', marginBottom: '2.5rem' }}
@@ -241,7 +249,7 @@ class CreateQARID {
             style={{ padding: '0 2rem 0 2rem', height: '2rem' }}
           />
         </div>
-        <TextField outlined style={{ height: '3rem', width: '100%' }} />
+        <TextField outlined style={{ height: '3rem', width: '100%' }} />*/}
         <div class="flex flex-justify-between" style={{ alignItems: 'baseline' }}>
           <p
             class="font-color--battleship"
@@ -261,48 +269,6 @@ class CreateQARID {
           <Button class="button--big button--no-transform" raised label="Continue" onclick={vnode.attrs.end} />
         </div>
       </>,
-      <>
-        <h3>Complete Identity Assurance</h3>
-        <img src={addNewContacts} style={{ width: '50%', margin: '4rem 0 4rem 4rem' }} />
-        <p
-          class="font-color--battleship"
-          style={{ letterSpacing: '.15px', lineHeight: '1.38', margin: '4rem, 0 4rem 0' }}
-        >
-          Once you are authorized to act on behalf of GLEIF, you perform identity assurance of a person serving in the
-          role of QAR. A GAR and the QAR will complete a real-time OOBI session in which the GAR and the QAR are
-          present.
-          <br />
-          <br />
-        </p>
-        <div class="flex flex-justify-between">
-          <Button class="button--gray-dk button--big button--no-transform" raised label="Skip" />
-          <Button
-            class="button--big button--no-transform"
-            raised
-            label="Continue"
-            onclick={() => {
-              this.step++;
-            }}
-          />
-        </div>
-      </>,
-      <>
-        <h3>Grant Credentials</h3>
-        <img src={verifyCredentials} style={{ width: '60%', margin: '4rem 0 4rem 4rem' }} />
-        <p
-          class="font-color--battleship"
-          style={{ letterSpacing: '.15px', lineHeight: '1.38', margin: '4rem, 0 4rem 0' }}
-        >
-          The GAR approves the issuance of the QVI vLEI Credential and the QVI receives the credential in its credential
-          wallet. The QVI vLEI Credential may be added or revoked at any time.
-          <br />
-          <br />
-        </p>
-        <div class="flex flex-justify-between">
-          <Button class="button--gray-dk button--big button--no-transform" raised label="Skip" />
-          <Button class="button--big button--no-transform" raised label="Close" onclick={vnode.attrs.end} />
-        </div>
-      </>,
     ];
   }
 
@@ -311,4 +277,4 @@ class CreateQARID {
   }
 }
 
-module.exports = CreateQARID;
+module.exports = CreateYourGleifAID;

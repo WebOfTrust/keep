@@ -10,8 +10,8 @@ class WelcomeToKEEP {
     return (
       <>
         <h3>Welcome to KEEP</h3>
-        <div class="flex flex-justify-center" style={{ margin: '4.5rem 0' }}>
-          <img src={createYourPasscode} style={{ width: '192px' }} />
+        <div class="flex flex-justify-center" style={{ margin: '2rem 0' }}>
+          <img src={createYourPasscode} style={{ width: '50%' }} />
         </div>
         <p class="font-color--battleship" style={{ margin: '0 0 8rem 0', lineHeight: '1.38', letterSpacing: '0.15px' }}>
           To get started and enter the software, you will need to generate a passcode.
@@ -100,8 +100,8 @@ class GeneratePasscode {
           }
         />
         <h3>Generate Your Passcode</h3>
-        <div class="flex flex-justify-center" style={{ margin: '4.5rem 0' }}>
-          <img src={createYourPasscode} style={{ width: '192px' }} />
+        <div class="flex flex-justify-center" style={{ margin: '2rem 0' }}>
+          <img src={createYourPasscode} style={{ width: '50%' }} />
         </div>
         <p
           class="font-color--battleship"
