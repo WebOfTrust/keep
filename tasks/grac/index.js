@@ -7,6 +7,8 @@ import createYourPasscode from '../../src/assets/img/create-your-passcode.png';
 import verifyCredentials from '../../src/assets/img/verify-credentials.png';
 import CreateYourGleifAid from './grac-create-your-gleif-aid/grac-create-your-gleif-aid';
 import GracIntroToYourRole from './grac-intro-to-your-role/grac-intro-to-your-role';
+import JoinVideoCall from './join-video-call/join-video-call';
+import InitiateVideoCall from './initiate-video-call/inititate-video-call';
 const tasks = {
   'create-passcode': [
     {
@@ -43,11 +45,20 @@ const tasks = {
   ],
   'oobi': [
     {
-      imgSrc: verifyCredentials,
-      label: 'A QAR Task',
+      imgSrc: addNewContacts,
+      label: 'Initiate Video Call with GLEIF Controllers',
       component: {
-        view: () => {
-          return <h3>Tasks are different for QAR vs GAR</h3>;
+        view: (vnode) => {
+          return <InitiateVideoCall end={vnode.attrs.end} />;
+        },
+      },
+    },
+    {
+      imgSrc: addNewContacts,
+      label: 'Join Video Call with GLEIF Genesis Controllers',
+      component: {
+        view: (vnode) => {
+          return <JoinVideoCall end={vnode.attrs.end} />;
         },
       },
     },
