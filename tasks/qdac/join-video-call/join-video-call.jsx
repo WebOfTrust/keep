@@ -202,7 +202,7 @@ class JoinVideoCall {
           class="font-color--battleship"
           style={{ letterSpacing: '.15px', lineHeight: '1.38', marginTop: '2rem', marginBottom: '2rem' }}
         >
-          Enter the 12-word challenge message into the chat and send to the GAR.
+          Enter the 12-word challenge message into the chat and send to the QVI Genesis Controller via direct message.
           <br />
           <br />
         </p>
@@ -235,7 +235,8 @@ class JoinVideoCall {
           class="font-color--battleship"
           style={{ letterSpacing: '.15px', lineHeight: '1.38', marginTop: '2rem', marginBottom: '2rem' }}
         >
-          You will be notified when the GAR verifies your signature and approves the issuance of your vLEI Credentials.
+          You will be notified when the QVI Genesis Controller verifies your signature and you will resume on a Video
+          Call to configure the multi-sig set.
           <br />
           <br />
         </p>
