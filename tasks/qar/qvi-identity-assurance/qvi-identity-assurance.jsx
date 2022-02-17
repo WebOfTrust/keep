@@ -187,7 +187,9 @@ class QVIIdentityAssurance {
           <br />
           <br />
         </p>
-        <TextField outlined style={{ height: '5rem', width: '100%', margin: '0 0 4rem 0' }} />
+        <TextField
+          style={{ height: '5rem', width: '100%', margin: '0 0 4rem 0', backgroundColor: 'rgba(0, 0, 0, 0.04)' }}
+        />
         <div class="flex flex-justify-between">
           <Button
             class="button--gray-dk button--big button--no-transform"

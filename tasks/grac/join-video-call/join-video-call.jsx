@@ -4,6 +4,8 @@ import createIdentifier from '../../../src/assets/img/create-identifier.png';
 import configureIdentifier from '../../../src/assets/img/configure-identifier.png';
 import approveRequest from '../../../src/assets/img/approve-request.png';
 import uploadImage from '../../../src/assets/img/upload-image.png';
+import responseMessage from '../../../src/assets/img/response-message.png';
+import uploadFile from '../../../src/assets/img/upload-file.png';
 import addNewContacts from '../../../src/assets/img/add-new-contacts.png';
 import githubLogo from '../../../src/assets/img/github-logo.png';
 import liOne from '../../../src/assets/img/li-one.png';
@@ -122,7 +124,7 @@ class JoinVideoCall {
         </div>
       </>,
       <>
-        <img src={addNewContacts} style={{ width: '50%', margin: '4rem 0 0 0' }} />
+        <img src={addNewContacts} style={{ width: '50%', margin: '0 0 1rem 0' }} />
         <h3>
           Send OOBI to <u>GRACs</u>
         </h3>
@@ -134,9 +136,13 @@ class JoinVideoCall {
           Call.
         </p>
         <h3>AID:</h3>
-        <TextField outlined style={{ height: '3rem', width: '100%', margin: '0 0 4rem 0' }} />
+        <TextField
+          style={{ height: '3rem', width: '100%', margin: '0 0 1rem 0', backgroundColor: 'rgba(0, 0, 0, 0.04)' }}
+        />
         <h3>URL:</h3>
-        <TextField outlined style={{ height: '3rem', width: '100%', margin: '0 0 4rem 0' }} />
+        <TextField
+          style={{ height: '3rem', width: '100%', margin: '0 0 2rem 0', backgroundColor: 'rgba(0, 0, 0, 0.04)' }}
+        />
         <div class="flex flex-justify-between">
           <Button
             class="button--gray-dk button--big button--no-transform"
@@ -157,57 +163,83 @@ class JoinVideoCall {
         </div>
       </>,
       <>
-        <h3>Review and Confirm</h3>
-        <div class="flex flex-justify-between" style={{ alignItems: 'baseline' }}>
-          <p
-            class="font-color--battleship"
-            style={{ letterSpacing: '.15px', lineHeight: '1.38', marginTop: '2rem', marginBottom: '2.5rem' }}
-          >
-            Alias:
-          </p>
+        <img src={uploadFile} style={{ width: '60%', margin: '1.5rem 0 2rem 0' }} />
+        <h3>Identity Verification in Progress</h3>
+        <p
+          class="font-color--battleship"
+          style={{ letterSpacing: '.15px', lineHeight: '1.38', marginTop: '2rem', marginBottom: '2rem' }}
+        >
+          Remain in the Video Call. A Challenge Message will be generated and sent to you for verification purposes.
+          <br />
+          <br />
+        </p>
+
+        <div class="flex flex-justify-between">
           <Button
-            class="button--gray button--small button--no-transform"
+            class="button--gray-dk button--big button--no-transform"
             raised
-            label="Edit"
-            style={{ padding: '0 2rem 0 2rem', height: '2rem' }}
+            label="Go Back"
             onclick={() => {
-              this.step = 3;
+              this.step--;
+            }}
+          />
+          <Button
+            class="button--big button--no-transform"
+            raised
+            label="Continue"
+            onclick={() => {
+              this.step++;
             }}
           />
         </div>
-        <TextField outlined style={{ height: '3rem', width: '100%' }} />
-        {/*<div class="flex flex-justify-between" style={{ alignItems: 'baseline' }}>
-          <p
-            class="font-color--battleship"
-            style={{ letterSpacing: '.15px', lineHeight: '1.38', marginTop: '2rem', marginBottom: '2.5rem' }}
-          >
-            Witnesses:
-          </p>
+      </>,
+      <>
+        <img src={responseMessage} style={{ width: '50%', margin: '1.5rem 0 2rem 0' }} />
+        <h3>Send Challenge Message</h3>
+        <p
+          class="font-color--battleship"
+          style={{ letterSpacing: '.15px', lineHeight: '1.38', marginTop: '2rem', marginBottom: '2rem' }}
+        >
+          Enter the 12-word challenge message into the chat and send to the GAR.
+          <br />
+          <br />
+        </p>
+        <TextField
+          style={{ height: '5rem', width: '100%', margin: '0 0 4rem 0', backgroundColor: 'rgba(0, 0, 0, 0.04)' }}
+        />
+        <div class="flex flex-justify-between">
           <Button
-            class="button--gray button--small button--no-transform"
+            class="button--gray-dk button--big button--no-transform"
             raised
-            label="Edit"
-            style={{ padding: '0 2rem 0 2rem', height: '2rem' }}
+            label="Go Back"
+            onclick={() => {
+              this.step--;
+            }}
+          />
+          <Button
+            class="button--big button--no-transform"
+            raised
+            label="Continue"
+            onclick={() => {
+              this.step++;
+            }}
           />
         </div>
-        <TextField outlined style={{ height: '3rem', width: '100%' }} />*/}
-        <div class="flex flex-justify-between" style={{ alignItems: 'baseline' }}>
-          <p
-            class="font-color--battleship"
-            style={{ letterSpacing: '.15px', lineHeight: '1.38', marginTop: '2rem', marginBottom: '2.5rem' }}
-          >
-            Alias Photo:
-          </p>
-          <Button
-            class="button--gray button--small button--no-transform"
-            raised
-            label="Edit"
-            style={{ padding: '0 2rem 0 2rem', height: '2rem' }}
-          />
-        </div>
-        <img src={githubLogo} style={{ width: '20%', margin: '0 0 0 0' }} />
+      </>,
+      <>
+        <img src={uploadFile} style={{ width: '60%', margin: '1.5rem 0 2rem 0' }} />
+        <h3>Verification in Progress</h3>
+        <p
+          class="font-color--battleship"
+          style={{ letterSpacing: '.15px', lineHeight: '1.38', marginTop: '2rem', marginBottom: '2rem' }}
+        >
+          You will be notified when the GAR verifies your signature and approves the issuance of your vLEI Credentials.
+          <br />
+          <br />
+        </p>
+
         <div class="flex flex-justify-end">
-          <Button class="button--big button--no-transform" raised label="Continue" onclick={vnode.attrs.end} />
+          <Button class="button--big button--no-transform" raised label="close" onclick={vnode.attrs.end} />
         </div>
       </>,
     ];
