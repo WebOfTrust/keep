@@ -31,7 +31,7 @@ class JoinVideoCall {
           style={{ letterSpacing: '.15px', lineHeight: '1.38', margin: '4rem, 0 4rem 0' }}
         >
           <div class="flex flex-column">
-            <div class="flex" style={{ alignItems: 'center', margin: '0 0 0 2rem' }}>
+            <div class="flex" style={{ alignItems: 'center', margin: '0 0 0 0' }}>
               <img src={liOne} style={{ margin: '1rem 10px 1rem 0' }} />
               <p
                 class="font-color--battleship"
@@ -40,7 +40,7 @@ class JoinVideoCall {
                 Join a Video Call with all QVI Controllers.
               </p>
             </div>
-            <div class="flex" style={{ alignItems: 'center', margin: '0 0 0 2rem' }}>
+            <div class="flex" style={{ alignItems: 'center', margin: '0 0 0 0' }}>
               <img src={liTwo} style={{ margin: '1rem 10px 1rem 0' }} />
               <p
                 class="font-color--battleship"
@@ -49,7 +49,7 @@ class JoinVideoCall {
                 Use an OOBI protocol to share your QVI Delegated AID and service endpoints with the other Controllers.
               </p>
             </div>
-            <div class="flex" style={{ alignItems: 'center', margin: '0 0 0 2rem' }}>
+            <div class="flex" style={{ alignItems: 'center', margin: '0 0 0 0' }}>
               <img src={liThree} style={{ margin: '1rem 10px 1rem 0' }} />
               <p
                 class="font-color--battleship"
@@ -58,7 +58,7 @@ class JoinVideoCall {
                 Send a Challenge Message to the other Controllers.
               </p>
             </div>
-            <div class="flex" style={{ alignItems: 'center', margin: '0 0 0 2rem' }}>
+            <div class="flex" style={{ alignItems: 'center', margin: '0 0 0 0' }}>
               <img src={liFour} style={{ margin: '1rem 10px 1rem 0' }} />
               <p
                 class="font-color--battleship"
@@ -67,7 +67,7 @@ class JoinVideoCall {
                 QVI Controllers sign and return Challenge Message.
               </p>
             </div>
-            <div class="flex" style={{ alignItems: 'center', margin: '0 0 0 2rem' }}>
+            <div class="flex" style={{ alignItems: 'center', margin: '0 0 0 0' }}>
               <img src={liFive} style={{ margin: '1rem 10px 1rem 0' }} />
               <p
                 class="font-color--battleship"

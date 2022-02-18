@@ -7,7 +7,7 @@ import createYourPasscode from '../../src/assets/img/create-your-passcode.png';
 import verifyCredentials from '../../src/assets/img/verify-credentials.png';
 
 import IntroToQDACRole from './intro-to-your-qdac-role/intro-to-your-qdac-role';
-import CreateYourQviAid from './create-your-qvi-aid/create-your-qvi-aid';
+import CreateYourQdacAid from './create-your-qdac-aid/create-your-qdac-aid';
 import JoinVideoCall from './join-video-call/join-video-call';
 import InitiateVideoCall from './initiate-video-call/initiate-video-call';
 const tasks = {
@@ -25,10 +25,10 @@ const tasks = {
   'create-identifier': [
     {
       imgSrc: createIdentifier,
-      label: 'Create Your QVI AID',
+      label: 'Create Your QDAC AID',
       component: {
         view: (vnode) => {
-          return <CreateYourQviAid end={vnode.attrs.end} />;
+          return <CreateYourQdacAid end={vnode.attrs.end} />;
         },
       },
     },

@@ -11,7 +11,7 @@ import configureIdentifier from '../../../src/assets/img/configure-identifier.pn
 import uploadImage from '../../../src/assets/img/upload-image.png';
 import githubLogo from '../../../src/assets/img/github-logo.png';
 
-class CreateYourQviAid {
+class CreateYourQdacAid {
   constructor(vnode) {
     this.step = 0;
 
@@ -296,4 +296,4 @@ class CreateYourQviAid {
   }
 }
 
-module.exports = CreateYourQviAid;
+module.exports = CreateYourQdacAid;

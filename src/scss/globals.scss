@@ -42,12 +42,12 @@ a:link {
   }
   &--hover {
     &:hover {
-      background-color: $blue-006;
+      background-color: $active-blue;
       cursor: pointer;
     }
   }
   &--active {
-    background-color: $blue-006;
+    background-color: $active-blue;
   }
 }
 

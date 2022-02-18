@@ -2,7 +2,7 @@
 @import '../../../scss/variables';
 
 .dashboard {
-  background-color: $blue-006;
+  background-color: $background-blue;
   display: flex;
   min-height: calc(100vh - 88px);
 }
@@ -35,7 +35,7 @@
     }
 
     &:hover {
-      background-color: $blue-006;
+      background-color: $active-blue;
       cursor: pointer;
     }
   }
