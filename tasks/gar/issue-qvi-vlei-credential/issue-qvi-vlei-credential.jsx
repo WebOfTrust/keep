@@ -8,7 +8,7 @@ import liTwo from '../../../src/assets/img/li-two.png';
 import liThree from '../../../src/assets/img/li-three.png';
 import liFour from '../../../src/assets/img/li-four.png';
 import liFive from '../../../src/assets/img/li-five.png';
-import wait from '../../../src/assets/img/Wait.png';
+import wait from '../../../src/assets/img/wait.png';
 
 class ModalCheck {
   constructor() {

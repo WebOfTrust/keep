@@ -1,6 +1,6 @@
 import m from 'mithril';
-import { Button, Container, Modal, TextField } from '../../../src/app/components';
-import { API } from '../../../src/app/services';
+import { Button, Modal, TextField } from '../../../src/app/components';
+import { KERI } from '../../../src/app/services';
 import createYourPasscode from '../../../src/assets/img/create-your-passcode.png';
 import passcodeImg from '../../../src/assets/img/passcode.png';
 import wait from '../../../src/assets/img/wait.png';
@@ -33,7 +33,7 @@ class GeneratePasscode {
     this.passcode = '';
     this.copied = false;
     this.savePassModalOpen = false;
-    this.generateNewPasscode();
+    this.generatePasscode();
   }
 
   copyPasscode() {
@@ -50,11 +50,11 @@ class GeneratePasscode {
     );
   }
 
-  generateNewPasscode() {
+  generatePasscode() {
     this.copied = false;
-    API.Passcode.create()
+    KERI.generatePasscode()
       .then((resp) => {
-        this.passcode = resp;
+        this.passcode = resp.passcode;
         console.log(this.passcode);
       })
       .catch((err) => {
@@ -134,7 +134,7 @@ class GeneratePasscode {
             class="button--no-transform button--gray button--big"
             label="Generate New"
             onclick={() => {
-              this.generateNewPasscode();
+              this.generatePasscode();
             }}
           />
         </div>
@@ -163,6 +163,15 @@ class EnterPasscode {
   constructor() {
     this.passcode = '';
     this.showPasscode = false;
+  }
+
+  initializeAgent(vnode) {
+    const body = { name: 'test', passcode: this.passcode };
+    KERI.initializeAgent(body)
+      .then(vnode.attrs.continue)
+      .catch((err) => {
+        console.log(err);
+      });
   }
 
   view(vnode) {
@@ -205,11 +214,7 @@ class EnterPasscode {
             class="button--no-transform button--big"
             label="Continue"
             onclick={() => {
-              API.Habery.create(JSON.stringify({ passcode: this.passcode }))
-                .then(vnode.attrs.continue)
-                .catch((err) => {
-                  console.log(err);
-                });
+              this.initializeAgent(vnode);
             }}
           />
         </div>

@@ -41,7 +41,22 @@ class Endpoint {
     });
   }
 
-  update(id, body = {}, put = false) {
+  update(body = {}, put = true) {
+    let method = null;
+    if (put) {
+      method = 'PUT';
+    } else {
+      method = 'PATCH';
+    }
+    return m.request({
+      method,
+      url: this.createUrl(),
+      headers: this.getHeaders(),
+      body,
+    });
+  }
+
+  updateId(id, body = {}, put = true) {
     let method = null;
     if (put) {
       method = 'PUT';
@@ -94,8 +109,8 @@ class Endpoint {
 }
 
 class API {
-  static Passcode = new Endpoint('passcode');
-  static Habery = new Endpoint('habery');
+  static Boot = new Endpoint('boot');
+  static Code = new Endpoint('codes');
 }
 
 module.exports = API;
