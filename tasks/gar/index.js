@@ -11,7 +11,7 @@ import createYourPasscode from '../../src/assets/img/create-your-passcode.png';
 import verifyCredentials from '../../src/assets/img/verify-credentials.png';
 import RevokeQviCredential from './revoke-qvi-credential/revoke-qvi-credential.jsx';
 import ManualKeyRotation from './manual-key-rotation/manual-key-rotation';
-import LoginGar from './login-gar/login-gar';
+import Login from './login/login';
 
 const tasks = {
   'create-passcode': [
@@ -29,7 +29,7 @@ const tasks = {
       label: 'Enter Your Passcode',
       component: {
         view: (vnode) => {
-          return <LoginGar end={vnode.attrs.end} />;
+          return <Login end={vnode.attrs.end} />;
         },
       },
     },

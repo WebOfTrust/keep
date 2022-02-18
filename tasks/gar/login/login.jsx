@@ -1,12 +1,20 @@
 import m from 'mithril';
-import { Button, Container, Modal, TextField } from '../../../src/app/components';
-import { API } from '../../../src/app/services';
+import { Button, TextField } from '../../../src/app/components';
+import { KERI } from '../../../src/app/services';
 import passcodeImg from '../../../src/assets/img/passcode.png';
 
-class EnterPasscode {
+class Login {
   constructor() {
     this.passcode = '';
     this.showPasscode = false;
+  }
+
+  unlockAgent() {
+    KERI.unlockAgent('test', this.passcode)
+      .then(vnode.attrs.end)
+      .catch((err) => {
+        console.log(err);
+      });
   }
 
   view(vnode) {
@@ -23,8 +31,6 @@ class EnterPasscode {
           outlined
           fluid
           type={this.showPasscode ? 'text' : 'password'}
-          maxlength="22"
-          pattern={'^[a-zA-Z0-9]{22}$'}
           value={this.passcode}
           oninput={(e) => {
             this.passcode = e.target.value;
@@ -36,23 +42,13 @@ class EnterPasscode {
             },
           }}
         />
-        <div class="flex flex-justify-between" style={{ marginTop: '9rem' }}>
-          <Button
-            raised
-            class="button--no-transform button--gray-dk button--big"
-            label="Go Back"
-            onclick={vnode.attrs.back}
-          />
+        <div class="flex flex-justify-end" style={{ marginTop: '9rem' }}>
           <Button
             raised
             class="button--no-transform button--big"
-            label="Continue"
+            label="Login"
             onclick={() => {
-              API.Habery.create(JSON.stringify({ passcode: this.passcode }))
-                .then(vnode.attrs.continue)
-                .catch((err) => {
-                  console.log(err);
-                });
+              this.unlockAgent();
             }}
           />
         </div>
@@ -61,25 +57,4 @@ class EnterPasscode {
   }
 }
 
-class LoginGar {
-  constructor() {
-    this.currentState = 'enter-passcode';
-  }
-
-  view(vnode) {
-    return (
-      <>
-        {this.currentState === 'enter-passcode' && (
-          <EnterPasscode
-            back={() => {
-              this.currentState = 'create-passcode';
-            }}
-            continue={vnode.attrs.end}
-          />
-        )}
-      </>
-    );
-  }
-}
-
-module.exports = LoginGar;
+module.exports = Login;

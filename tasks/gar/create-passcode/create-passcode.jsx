@@ -113,8 +113,6 @@ class GeneratePasscode {
         <TextField
           outlined
           fluid
-          maxlength="22"
-          pattern={'^[a-zA-Z0-9]{22}$'}
           placeholder="xxxx-xxxxx-xxxxx-xxxx-xxxxx"
           value={this.passcode}
           oninput={(e) => {
@@ -166,8 +164,7 @@ class EnterPasscode {
   }
 
   initializeAgent(vnode) {
-    const body = { name: 'test', passcode: this.passcode };
-    KERI.initializeAgent(body)
+    KERI.initializeAgent('test', this.passcode)
       .then(vnode.attrs.continue)
       .catch((err) => {
         console.log(err);
@@ -189,8 +186,6 @@ class EnterPasscode {
           outlined
           fluid
           type={this.showPasscode ? 'text' : 'password'}
-          maxlength="22"
-          pattern={'^[a-zA-Z0-9]{22}$'}
           value={this.passcode}
           oninput={(e) => {
             this.passcode = e.target.value;
