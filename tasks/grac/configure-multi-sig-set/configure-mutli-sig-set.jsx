@@ -16,6 +16,39 @@ import liThree from '../../../src/assets/img/li-three.png';
 import liFour from '../../../src/assets/img/li-four.png';
 import liFive from '../../../src/assets/img/li-five.png';
 class ConfigureMultiSig {
+  tempConfigureArray = [
+    {
+      number: 1,
+      name: 'Jane Smith',
+      date: '1/3',
+    },
+    {
+      number: 2,
+      name: 'Michael Williams',
+      date: '1/3',
+    },
+    {
+      number: 3,
+      name: 'ZG4jvw9bTmVd5X92iKYmfT',
+      date: '1/3',
+    },
+    {
+      number: 4,
+      name: 'OG8jvw9bTmUd5J92iKYmfU',
+      date: '1/3',
+    },
+    {
+      number: 5,
+      name: 'Joe Roberts',
+      date: '1/7',
+    },
+    {
+      number: 6,
+      name: 'OG8jvw9bTmUd5J92iKYmfU',
+      date: '1/7',
+    },
+  ];
+
   constructor(vnode) {
     this.step = 0;
     this.steps = [
@@ -24,10 +57,7 @@ class ConfigureMultiSig {
         <h3>Configure Multi-Sig Set as GLEIF Genesis Controller</h3>
         <br />
 
-        <p
-          class="font-color--battleship"
-          style={{ letterSpacing: '.15px', lineHeight: '1.38', margin: '4rem, 0 4rem 0' }}
-        >
+        <p class="p-tag">
           If you are seeing this, it is because you have a sufficient number and correct combination of verified
           contacts to configure the multi-sig set. Make sure that all members of the multi-sig group are available for
           an OOBI exchange.
@@ -48,109 +78,44 @@ class ConfigureMultiSig {
       </>,
       <>
         <h3>Select Multi-Sig Group Members</h3>
-        <p
-          class="font-color--battleship"
-          style={{ letterSpacing: '.15px', lineHeight: '1.38', marginTop: '2rem', marginBottom: '2rem' }}
-        >
+        <p class="p-tag" style={{ margin: '2rem 0 2rem 0' }}>
           Please select in order the multi-sig group members you’d like to add. The order is determined by the multi-sig
           threshold.
         </p>
         <br />
 
-        {/* member scroll & select start */}
-        <div class="flex flex-column">
-          <div class="flex flex-justify-between " style={{ alignItems: 'center', margin: '0 0 1.5rem 2rem' }}>
-            <h4
-              class="font-color--battleship"
-              style={{ letterSpacing: '.15px', lineHeight: '1.38', margin: '0 0 0 0' }}
-            >
-              #1
-            </h4>
-            <div
-              class="flex flex-align-center"
-              style={{ width: '75%', backgroundColor: 'white', height: '40px', borderRadius: '3px' }}
-            >
-              <p
-                class="font-color--battleship"
-                style={{
-                  letterSpacing: '.15px',
-                  lineHeight: '1.38',
-                  margin: '0 0 0 1rem',
-                }}
+        <div style={{ height: '350px', overflowY: 'scroll', margin: '0 0 1rem 0' }}>
+          {this.tempConfigureArray.map((sig) => {
+            return (
+              <div
+                class="flex flex-justify-evenly "
+                style={{ alignItems: 'center', margin: '0 0 1.5rem 0', width: '100%' }}
               >
-                Jane Smith
-              </p>
-            </div>
-
-            <h4
-              class="font-color--battleship"
-              style={{ letterSpacing: '.15px', lineHeight: '1.38', margin: '0 0 0 0' }}
-            >
-              1/3
-            </h4>
-          </div>
-          <div class="flex flex-justify-between " style={{ alignItems: 'center', margin: '0 0 1.5rem 2rem' }}>
-            <h4
-              class="font-color--battleship"
-              style={{ letterSpacing: '.15px', lineHeight: '1.38', margin: '0 0 0 0' }}
-            >
-              #2
-            </h4>
-            <div
-              class="flex flex-align-center"
-              style={{ width: '75%', backgroundColor: 'white', height: '40px', borderRadius: '3px' }}
-            >
-              <p
-                class="font-color--battleship"
-                style={{
-                  letterSpacing: '.15px',
-                  lineHeight: '1.38',
-                  margin: '0 0 0 1rem',
-                }}
-              >
-                Michael Williams
-              </p>
-            </div>
-
-            <h4
-              class="font-color--battleship"
-              style={{ letterSpacing: '.15px', lineHeight: '1.38', margin: '0 0 0 0' }}
-            >
-              1/3
-            </h4>
-          </div>
-          <div class="flex flex-justify-between " style={{ alignItems: 'center', margin: '0 0 1.5rem 2rem' }}>
-            <h4
-              class="font-color--battleship"
-              style={{ letterSpacing: '.15px', lineHeight: '1.38', margin: '0 0 0 0' }}
-            >
-              #3
-            </h4>
-            <div
-              class="flex flex-align-center"
-              style={{ width: '75%', backgroundColor: 'white', height: '40px', borderRadius: '3px' }}
-            >
-              <p
-                class="font-color--battleship"
-                style={{
-                  letterSpacing: '.15px',
-                  lineHeight: '1.38',
-                  margin: '0 0 0 1rem',
-                }}
-              >
-                ZG4jvw9bTmVd5X92iKYmfT
-              </p>
-            </div>
-
-            <h4
-              class="font-color--battleship"
-              style={{ letterSpacing: '.15px', lineHeight: '1.38', margin: '0 0 0 0' }}
-            >
-              1/3
-            </h4>
-          </div>
+                <h4 class="p-tag" style={{ margin: '0 0 0 0' }}>
+                  {`#${sig.number}`}
+                </h4>
+                <div
+                  class="flex flex-align-center"
+                  style={{ width: '68%', backgroundColor: 'white', height: '40px', borderRadius: '3px' }}
+                >
+                  <p
+                    class="font-color--battleship"
+                    style={{
+                      letterSpacing: '.15px',
+                      lineHeight: '1.38',
+                      margin: '0 0 0 .5rem',
+                    }}
+                  >
+                    {sig.name}
+                  </p>
+                </div>
+                <h4 class="p-tag" style={{ margin: '0 0 0 0' }}>
+                  {sig.date}
+                </h4>
+              </div>
+            );
+          })}
         </div>
-        {/* member scroll & select end*/}
         <div class="flex flex-justify-between">
           <Button
             class="button--gray-dk button--big button--no-transform"
@@ -174,10 +139,7 @@ class ConfigureMultiSig {
       <>
         <img src={uploadFile} style={{ width: '50%', margin: '4rem 0 0 0' }} />
         <h3>Multi-Signature Verification in Progress</h3>
-        <p
-          class="font-color--battleship"
-          style={{ letterSpacing: '.15px', lineHeight: '1.38', margin: '2rem 0 2rem 0' }}
-        >
+        <p class="p-tag" style={{ margin: '2rem 0 2rem 0' }}>
           You will be notified when the GRACs verify that the Root AID witnesses their signature on the Root AID
           Inception Event.
         </p>
@@ -195,10 +157,7 @@ class ConfigureMultiSig {
       <>
         <h3>Accept OOBIs</h3>
         <div class="flex flex-justify-between" style={{ alignItems: 'baseline' }}>
-          <p
-            class="font-color--battleship"
-            style={{ letterSpacing: '.15px', lineHeight: '1.38', marginTop: '2rem', marginBottom: '2.5rem' }}
-          >
+          <p class="p-tag" style={{ margin: '2rem 0 2rem 0' }}>
             Enter AIDs, URLs and Aliases you received on the Video Call from the Controllers below:
           </p>
         </div>
@@ -251,10 +210,7 @@ class ConfigureMultiSig {
       <>
         <img src={responseMessage} style={{ width: '50%', margin: '1.5rem 0 2rem 0' }} />
         <h3>Generate Challenge Message</h3>
-        <p
-          class="font-color--battleship"
-          style={{ letterSpacing: '.15px', lineHeight: '1.38', marginTop: '2rem', marginBottom: '2rem' }}
-        >
+        <p class="p-tag" style={{ margin: '2rem 0 2rem 0' }}>
           The Challenge Response Message generated will be sent to all the GLEIF Controllers in the order you provided.
           <br />
           <br />
@@ -282,10 +238,7 @@ class ConfigureMultiSig {
       <>
         <img src={responseMessage} style={{ width: '50%', margin: '1.5rem 0 2rem 0' }} />
         <h3>Copy Challenge Message</h3>
-        <p
-          class="font-color--battleship"
-          style={{ letterSpacing: '.15px', lineHeight: '1.38', marginTop: '2rem', marginBottom: '2rem' }}
-        >
+        <p class="p-tag" style={{ margin: '2rem 0 2rem 0' }}>
           Generate a message for each controller then direct message each GLEIF Controller in the video call.
           <br />
           <br />
@@ -322,10 +275,7 @@ class ConfigureMultiSig {
       <>
         <img src={uploadFile} style={{ width: '60%', margin: '1.5rem 0 2rem 0' }} />
         <h3>Challenge Message in Progress</h3>
-        <p
-          class="font-color--battleship"
-          style={{ letterSpacing: '.15px', lineHeight: '1.38', marginTop: '2rem', marginBottom: '2rem' }}
-        >
+        <p class="p-tag" style={{ margin: '2rem 0 2rem 0' }}>
           You will be notified when the GRACs sign and return the Challenge Message, after which you may configure the
           multi-sig set as the GLEIF Genesis Controller.
           <br />

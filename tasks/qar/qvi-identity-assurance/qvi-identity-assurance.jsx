@@ -18,10 +18,7 @@ class QVIIdentityAssurance {
       <>
         <h3>QVI Identity Assurance</h3>
         {/* <img src={approveRequest} style={{ width: '60%', margin: '4rem 0 4rem 4rem' }} /> */}
-        <p
-          class="font-color--battleship"
-          style={{ letterSpacing: '.15px', lineHeight: '1.38', margin: '4rem, 0 4rem 0' }}
-        >
+        <p class="p-tag">
           This module will take you through the steps of how to complete the verification process and receive a QVI vLEI
           Credential.
           <br />
@@ -31,48 +28,23 @@ class QVIIdentityAssurance {
         <div class="flex flex-column">
           <div class="flex" style={{ alignItems: 'center', margin: '0 0 0 0' }}>
             <img src={liOne} style={{ margin: '1rem 10px 1rem 0' }} />
-            <p
-              class="font-color--battleship"
-              style={{ letterSpacing: '.15px', lineHeight: '1.38', margin: '4rem, 0 4rem 0' }}
-            >
-              Join a Video Call with a GAR
-            </p>
+            <p class="p-tag">Join a Video Call with a GAR</p>
           </div>
           <div class="flex" style={{ alignItems: 'center', margin: '0 0 0 0' }}>
             <img src={liTwo} style={{ margin: '1rem 10px 1rem 0' }} />
-            <p
-              class="font-color--battleship"
-              style={{ letterSpacing: '.15px', lineHeight: '1.38', margin: '4rem, 0 4rem 0' }}
-            >
-              Complete an OOBI exchange to obtain QVI AID information.
-            </p>
+            <p class="p-tag">Complete an OOBI exchange to obtain QVI AID information.</p>
           </div>
           <div class="flex" style={{ alignItems: 'center', margin: '0 0 0 0' }}>
             <img src={liThree} style={{ margin: '1rem 10px 1rem 0' }} />
-            <p
-              class="font-color--battleship"
-              style={{ letterSpacing: '.15px', lineHeight: '1.38', margin: '4rem, 0 4rem 0' }}
-            >
-              Receive a Challenge Message from the GAR.
-            </p>
+            <p class="p-tag">Receive a Challenge Message from the GAR.</p>
           </div>
           <div class="flex" style={{ alignItems: 'center', margin: '0 0 0 0' }}>
             <img src={liFour} style={{ margin: '1rem 10px 1rem 0' }} />
-            <p
-              class="font-color--battleship"
-              style={{ letterSpacing: '.15px', lineHeight: '1.38', margin: '4rem, 0 4rem 0' }}
-            >
-              Sign and return Challenge Message.
-            </p>
+            <p class="p-tag">Sign and return Challenge Message.</p>
           </div>
           <div class="flex" style={{ alignItems: 'center', margin: '0 0 0 0' }}>
             <img src={liFive} style={{ margin: '1rem 10px 1rem 0' }} />
-            <p
-              class="font-color--battleship"
-              style={{ letterSpacing: '.15px', lineHeight: '1.38', margin: '4rem, 0 4rem 0' }}
-            >
-              GAR will issue QAR credentials.
-            </p>
+            <p class="p-tag">GAR will issue QAR credentials.</p>
           </div>
         </div>
 
@@ -90,10 +62,7 @@ class QVIIdentityAssurance {
       </>,
       <>
         <h3>Join a Zoom Call with a GAR</h3>
-        <p
-          class="font-color--battleship"
-          style={{ letterSpacing: '.15px', lineHeight: '1.38', margin: '4rem, 0 4rem 0' }}
-        >
+        <p class="p-tag">
           In order to start the authentication process, you will need to complete an real-time OOBI session, sharing
           your text string on a Video Call so that you can provide your information.
           <br />
@@ -117,10 +86,7 @@ class QVIIdentityAssurance {
       <>
         <img src={addNewContacts} style={{ width: '40%', margin: '1.5rem 0 0 0' }} />
         <h3>Send OOBI to GAR</h3>
-        <p
-          class="font-color--battleship"
-          style={{ letterSpacing: '.15px', lineHeight: '1.38', marginTop: '2rem', marginBottom: '2rem' }}
-        >
+        <p class="p-tag" style={{ margin: '2rem 0 2rem 0' }}>
           Copy this OOBI to share your identifying information with the GAR, and paste it into the Video Call.
           <br />
           <br />
@@ -148,10 +114,7 @@ class QVIIdentityAssurance {
       <>
         <img src={uploadFile} style={{ width: '50%', margin: '1.5rem 0 2rem 0' }} />
         <h3>QVI Identity Verification in Progress</h3>
-        <p
-          class="font-color--battleship"
-          style={{ letterSpacing: '.15px', lineHeight: '1.38', marginTop: '2rem', marginBottom: '2rem' }}
-        >
+        <p class="p-tag" style={{ margin: '2rem 0 2rem 0' }}>
           Remain in the Video Call. A Challenge Message will be generated and sent to you for verification purposes.
           <br />
           <br />
@@ -179,10 +142,7 @@ class QVIIdentityAssurance {
       <>
         <img src={responseMessage} style={{ width: '50%', margin: '1.5rem 0 2rem 0' }} />
         <h3>Send Challenge Message</h3>
-        <p
-          class="font-color--battleship"
-          style={{ letterSpacing: '.15px', lineHeight: '1.38', marginTop: '2rem', marginBottom: '2rem' }}
-        >
+        <p class="p-tag" style={{ margin: '2rem 0 2rem 0' }}>
           Enter the 12-word challenge message into the chat and send to the GAR.
           <br />
           <br />
@@ -212,10 +172,7 @@ class QVIIdentityAssurance {
       <>
         <img src={uploadFile} style={{ width: '60%', margin: '1.5rem 0 2rem 0' }} />
         <h3>Verification in Progress</h3>
-        <p
-          class="font-color--battleship"
-          style={{ letterSpacing: '.15px', lineHeight: '1.38', marginTop: '2rem', marginBottom: '2rem' }}
-        >
+        <p class="p-tag" style={{ margin: '2rem 0 2rem 0' }}>
           You will be notified when the GAR verifies your signature and approves the issuance of your vLEI Credentials.
           <br />
           <br />

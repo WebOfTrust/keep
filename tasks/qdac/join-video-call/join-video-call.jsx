@@ -19,62 +19,31 @@ class JoinVideoCall {
     this.steps = [
       <>
         <h3>QVI AID Delegation Event</h3>
-        <p
-          class="font-color--battleship"
-          style={{ letterSpacing: '.15px', lineHeight: '1.38', margin: '4rem, 0 4rem 0' }}
-        >
-          This module will take you through the steps for QVI AID Delegation.
-        </p>
+        <p class="p-tag">This module will take you through the steps for QVI AID Delegation.</p>
         <h3>Steps to Create GLEIF Root AID</h3>
-        <p
-          class="font-color--battleship"
-          style={{ letterSpacing: '.15px', lineHeight: '1.38', margin: '4rem, 0 4rem 0' }}
-        >
+        <p class="p-tag">
           <div class="flex flex-column">
             <div class="flex" style={{ alignItems: 'center', margin: '0 0 0 0' }}>
               <img src={liOne} style={{ margin: '1rem 10px 1rem 0' }} />
-              <p
-                class="font-color--battleship"
-                style={{ letterSpacing: '.15px', lineHeight: '1.38', margin: '4rem, 0 4rem 0' }}
-              >
-                Join a Video Call with all QVI Controllers.
-              </p>
+              <p class="p-tag">Join a Video Call with all QVI Controllers.</p>
             </div>
             <div class="flex" style={{ alignItems: 'center', margin: '0 0 0 0' }}>
               <img src={liTwo} style={{ margin: '1rem 10px 1rem 0' }} />
-              <p
-                class="font-color--battleship"
-                style={{ letterSpacing: '.15px', lineHeight: '1.38', margin: '4rem, 0 4rem 0' }}
-              >
+              <p class="p-tag">
                 Use an OOBI protocol to share your QVI Delegated AID and service endpoints with the other Controllers.
               </p>
             </div>
             <div class="flex" style={{ alignItems: 'center', margin: '0 0 0 0' }}>
               <img src={liThree} style={{ margin: '1rem 10px 1rem 0' }} />
-              <p
-                class="font-color--battleship"
-                style={{ letterSpacing: '.15px', lineHeight: '1.38', margin: '4rem, 0 4rem 0' }}
-              >
-                Send a Challenge Message to the other Controllers.
-              </p>
+              <p class="p-tag">Send a Challenge Message to the other Controllers.</p>
             </div>
             <div class="flex" style={{ alignItems: 'center', margin: '0 0 0 0' }}>
               <img src={liFour} style={{ margin: '1rem 10px 1rem 0' }} />
-              <p
-                class="font-color--battleship"
-                style={{ letterSpacing: '.15px', lineHeight: '1.38', margin: '4rem, 0 4rem 0' }}
-              >
-                QVI Controllers sign and return Challenge Message.
-              </p>
+              <p class="p-tag">QVI Controllers sign and return Challenge Message.</p>
             </div>
             <div class="flex" style={{ alignItems: 'center', margin: '0 0 0 0' }}>
               <img src={liFive} style={{ margin: '1rem 10px 1rem 0' }} />
-              <p
-                class="font-color--battleship"
-                style={{ letterSpacing: '.15px', lineHeight: '1.38', margin: '4rem, 0 4rem 0' }}
-              >
-                Each GLEIF Controller must verify all signatures.
-              </p>
+              <p class="p-tag">Each GLEIF Controller must verify all signatures.</p>
             </div>
           </div>
         </p>
@@ -91,10 +60,7 @@ class JoinVideoCall {
       </>,
       <>
         <h3>Join a Video Call</h3>
-        <p
-          class="font-color--battleship"
-          style={{ letterSpacing: '.15px', lineHeight: '1.38', marginTop: '2rem', marginBottom: '2rem' }}
-        >
+        <p class="p-tag" style={{ margin: '2rem 0 2rem 0' }}>
           In order to start the authentication process, you will need to initiate an real-time OOBI session in which you
           and the other GRACs are present, You will accept all their text strings on a Video Call so that you can
           receive their identifying information.
@@ -130,10 +96,7 @@ class JoinVideoCall {
         <h3>
           Send OOBI to <u>GRACs</u>
         </h3>
-        <p
-          class="font-color--battleship"
-          style={{ letterSpacing: '.15px', lineHeight: '1.38', margin: '2rem 0 2rem 0' }}
-        >
+        <p class="p-tag" style={{ margin: '2rem 0 2rem 0' }}>
           Copy this OOBI (AID + URL) to share your identifying information with the GRACs, and paste it into the Video
           Call.
         </p>
@@ -167,10 +130,7 @@ class JoinVideoCall {
       <>
         <img src={uploadFile} style={{ width: '60%', margin: '1.5rem 0 2rem 0' }} />
         <h3>Identity Verification in Progress</h3>
-        <p
-          class="font-color--battleship"
-          style={{ letterSpacing: '.15px', lineHeight: '1.38', marginTop: '2rem', marginBottom: '2rem' }}
-        >
+        <p class="p-tag" style={{ margin: '2rem 0 2rem 0' }}>
           Remain in the Video Call. A Challenge Message will be generated and sent to you for verification purposes.
           <br />
           <br />
@@ -198,10 +158,7 @@ class JoinVideoCall {
       <>
         <img src={responseMessage} style={{ width: '50%', margin: '1.5rem 0 2rem 0' }} />
         <h3>Send Challenge Message</h3>
-        <p
-          class="font-color--battleship"
-          style={{ letterSpacing: '.15px', lineHeight: '1.38', marginTop: '2rem', marginBottom: '2rem' }}
-        >
+        <p class="p-tag" style={{ margin: '2rem 0 2rem 0' }}>
           Enter the 12-word challenge message into the chat and send to the QVI Genesis Controller via direct message.
           <br />
           <br />
@@ -231,10 +188,7 @@ class JoinVideoCall {
       <>
         <img src={uploadFile} style={{ width: '60%', margin: '1.5rem 0 2rem 0' }} />
         <h3>Verification in Progress</h3>
-        <p
-          class="font-color--battleship"
-          style={{ letterSpacing: '.15px', lineHeight: '1.38', marginTop: '2rem', marginBottom: '2rem' }}
-        >
+        <p class="p-tag" style={{ margin: '2rem 0 2rem 0' }}>
           You will be notified when the QVI Genesis Controller verifies your signature and you will resume on a Video
           Call to configure the multi-sig set.
           <br />

@@ -21,10 +21,7 @@ class CreateYourQdacAid {
           Welcome to your <u>QDAC</u> Software
         </h3>
         <img src={createIdentifier} style={{ width: '70%', margin: '3rem 0 0 2rem' }} />
-        <p
-          class="font-color--battleship"
-          style={{ letterSpacing: '.15px', lineHeight: '1.38', marginTop: '4rem', marginBottom: '4rem' }}
-        >
+        <p class="p-tag" style={{ margin: '4rem 0 4rem 0' }}>
           This software is designed to help you complete verification of authorized representatives on behalf of your
           QVI and also as a storage place for all of your credentials.
           <br />
@@ -56,10 +53,7 @@ class CreateYourQdacAid {
           Creating your <u>AID</u>
         </h3>
         <img src={createIdentifier} style={{ width: '70%', margin: '3rem 0 0 2rem' }} />
-        <p
-          class="font-color--battleship"
-          style={{ letterSpacing: '.15px', lineHeight: '1.38', marginTop: '4rem', marginBottom: '4rem' }}
-        >
+        <p class="p-tag" style={{ margin: '4rem 0 4rem 0' }}>
           In order to provide authorization, you will first have to create your own QVI Delegated AID within the
           software and the QDAGC will verify you as an authorized representative to act on your QVI’s behalf.
           <br />
@@ -89,37 +83,19 @@ class CreateYourQdacAid {
           Steps to Create Your <u>QDAC AID</u>
         </h3>
         <img src={approveRequest} style={{ width: '60%', margin: '4rem 0 0 4rem' }} />
-        <p
-          class="font-color--battleship"
-          style={{ letterSpacing: '.15px', lineHeight: '1.38', margin: '4rem, 0 4rem 0' }}
-        >
+        <p class="p-tag">
           <div class="flex flex-column">
             <div class="flex" style={{ alignItems: 'center', margin: '0 0 0 2rem' }}>
               <img src={liOne} style={{ margin: '1rem 10px 1rem 0' }} />
-              <p
-                class="font-color--battleship"
-                style={{ letterSpacing: '.15px', lineHeight: '1.38', margin: '4rem, 0 4rem 0' }}
-              >
-                Configure your AID
-              </p>
+              <p class="p-tag">Configure your AID</p>
             </div>
             <div class="flex" style={{ alignItems: 'center', margin: '0 0 0 2rem' }}>
               <img src={liTwo} style={{ margin: '1rem 10px 1rem 0' }} />
-              <p
-                class="font-color--battleship"
-                style={{ letterSpacing: '.15px', lineHeight: '1.38', margin: '4rem, 0 4rem 0' }}
-              >
-                Create Your Alias
-              </p>
+              <p class="p-tag">Create Your Alias</p>
             </div>
             <div class="flex" style={{ alignItems: 'center', margin: '0 0 0 2rem' }}>
               <img src={liThree} style={{ margin: '1rem 10px 1rem 0' }} />
-              <p
-                class="font-color--battleship"
-                style={{ letterSpacing: '.15px', lineHeight: '1.38', margin: '4rem, 0 4rem 0' }}
-              >
-                Select a photo for your Alias
-              </p>
+              <p class="p-tag">Select a photo for your Alias</p>
             </div>
           </div>
         </p>
@@ -145,10 +121,7 @@ class CreateYourQdacAid {
       <>
         <h3>Create Your Alias</h3>
         <img src={configureIdentifier} style={{ width: '40%', margin: '1.5rem 0 0 6rem' }} />
-        <p
-          class="font-color--battleship"
-          style={{ letterSpacing: '.15px', lineHeight: '1.38', marginTop: '2rem', marginBottom: '2rem' }}
-        >
+        <p class="p-tag" style={{ margin: '2rem 0 2rem 0' }}>
           The alias should be an easy to remember name for your QVI Delegated AID as a member of the QVI Delegated AID
           signing group (e.g. My Qualified vLEI Authorized Representative Identifier).
           <br />
@@ -178,10 +151,7 @@ class CreateYourQdacAid {
       <>
         <img src={uploadImage} style={{ width: '50%', margin: '4rem 0 0 0' }} />
         <h3>Select a Photo for the Alias</h3>
-        <p
-          class="font-color--battleship"
-          style={{ letterSpacing: '.15px', lineHeight: '1.38', margin: '2rem 0 2rem 0' }}
-        >
+        <p class="p-tag" style={{ margin: '2rem 0 2rem 0' }}>
           If you would like your alias to have a photo instead of the default icon, please upload a photo.
         </p>
         <input
@@ -210,10 +180,7 @@ class CreateYourQdacAid {
       <>
         <h3>Review and Confirm</h3>
         <div class="flex flex-justify-between" style={{ alignItems: 'baseline' }}>
-          <p
-            class="font-color--battleship"
-            style={{ letterSpacing: '.15px', lineHeight: '1.38', marginTop: '2rem', marginBottom: '2.5rem' }}
-          >
+          <p class="p-tag" style={{ margin: '2rem 0 2.5rem 0' }}>
             Alias:
           </p>
           <Button
@@ -228,10 +195,7 @@ class CreateYourQdacAid {
         </div>
         <TextField outlined style={{ height: '3rem', width: '100%' }} />
         <div class="flex flex-justify-between" style={{ alignItems: 'baseline' }}>
-          <p
-            class="font-color--battleship"
-            style={{ letterSpacing: '.15px', lineHeight: '1.38', marginTop: '2rem', marginBottom: '2.5rem' }}
-          >
+          <p class="p-tag" style={{ margin: '2rem 0 2.5rem 0' }}>
             Alias Photo:
           </p>
           <Button
@@ -249,10 +213,7 @@ class CreateYourQdacAid {
       <>
         <h3>Complete Identity Assurance</h3>
         <img src={addNewContacts} style={{ width: '50%', margin: '4rem 0 4rem 4rem' }} />
-        <p
-          class="font-color--battleship"
-          style={{ letterSpacing: '.15px', lineHeight: '1.38', margin: '4rem, 0 4rem 0' }}
-        >
+        <p class="p-tag">
           Once you are authorized to act on behalf of GLEIF, you perform identity assurance of a person serving in the
           role of QAR. A GAR and the QAR will complete a real-time OOBI session in which the GAR and the QAR are
           present.
@@ -274,10 +235,7 @@ class CreateYourQdacAid {
       <>
         <h3>Grant Credentials</h3>
         <img src={verifyCredentials} style={{ width: '60%', margin: '4rem 0 4rem 4rem' }} />
-        <p
-          class="font-color--battleship"
-          style={{ letterSpacing: '.15px', lineHeight: '1.38', margin: '4rem, 0 4rem 0' }}
-        >
+        <p class="p-tag">
           The GAR approves the issuance of the QVI vLEI Credential and the QVI receives the credential in its credential
           wallet. The QVI vLEI Credential may be added or revoked at any time.
           <br />

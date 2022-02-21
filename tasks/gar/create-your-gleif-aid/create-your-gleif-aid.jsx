@@ -18,10 +18,7 @@ class CreateYourGleifAID {
           Welcome to your <u>GAR</u> Software
         </h3>
         <img src={createIdentifier} style={{ width: '70%', margin: '3rem 0 0 2rem' }} />
-        <p
-          class="font-color--battleship"
-          style={{ letterSpacing: '.15px', lineHeight: '1.38', marginTop: '4rem', marginBottom: '4rem' }}
-        >
+        <p class="p-tag" style={{ marginTop: '4rem', marginBottom: '4rem' }}>
           This software is designed to help you complete verification of authorized representatives on behalf of GLEIF
           and also as a storage place for all of your credentials.
           <br />
@@ -53,10 +50,7 @@ class CreateYourGleifAID {
           Creating your <u>AID</u>
         </h3>
         <img src={createIdentifier} style={{ width: '70%', margin: '4rem 0 0 2rem' }} />
-        <p
-          class="font-color--battleship"
-          style={{ letterSpacing: '.15px', lineHeight: '1.38', marginTop: '4rem', marginBottom: '5rem' }}
-        >
+        <p class="p-tag" style={{ marginTop: '4rem', marginBottom: '5rem' }}>
           In order to provide authorization, you will first have to create your own GLEIF Delegated AID within the
           software and GLEIF will verify you as an authorized representative (GAR) to act on their behalf.
           <br />
@@ -86,10 +80,7 @@ class CreateYourGleifAID {
           Steps to Create Your <u>GLEIF AID</u>
         </h3>
         <img src={approveRequest} style={{ width: '60%', margin: '4rem 0 0 4rem' }} />
-        <p
-          class="font-color--battleship"
-          style={{ letterSpacing: '.15px', lineHeight: '1.38', margin: '4rem, 0 4rem 0' }}
-        >
+        <p class="p-tag" style={{ margin: '4rem, 0 4rem 0' }}>
           {/* <ul class='flex flex-column' style={{ listStylePosition: 'inside' }}>
             <li style={{ listStyleImage: `url(${liOne})`, margin: '0 0 2rem 0', }}>
               Configure your AID
@@ -104,28 +95,19 @@ class CreateYourGleifAID {
           <div class="flex flex-column">
             <div class="flex" style={{ alignItems: 'center', margin: '0 0 0 2rem' }}>
               <img src={liOne} style={{ margin: '1rem 10px 1rem 0' }} />
-              <p
-                class="font-color--battleship"
-                style={{ letterSpacing: '.15px', lineHeight: '1.38', margin: '4rem, 0 4rem 0' }}
-              >
+              <p class="p-tag" style={{ margin: '4rem, 0 4rem 0' }}>
                 Configure your AID
               </p>
             </div>
             <div class="flex" style={{ alignItems: 'center', margin: '0 0 0 2rem' }}>
               <img src={liTwo} style={{ margin: '1rem 10px 1rem 0' }} />
-              <p
-                class="font-color--battleship"
-                style={{ letterSpacing: '.15px', lineHeight: '1.38', margin: '4rem, 0 4rem 0' }}
-              >
+              <p class="p-tag" style={{ margin: '4rem, 0 4rem 0' }}>
                 Create Your Alias
               </p>
             </div>
             <div class="flex" style={{ alignItems: 'center', margin: '0 0 0 2rem' }}>
               <img src={liThree} style={{ margin: '1rem 10px 1rem 0' }} />
-              <p
-                class="font-color--battleship"
-                style={{ letterSpacing: '.15px', lineHeight: '1.38', margin: '4rem, 0 4rem 0' }}
-              >
+              <p class="p-tag" style={{ margin: '4rem, 0 4rem 0' }}>
                 Select a photo for your Alias
               </p>
             </div>
@@ -153,10 +135,7 @@ class CreateYourGleifAID {
       <>
         <h3>Create Your Alias</h3>
         <img src={configureIdentifier} style={{ width: '40%', margin: '1.5rem 0 0 6rem' }} />
-        <p
-          class="font-color--battleship"
-          style={{ letterSpacing: '.15px', lineHeight: '1.38', marginTop: '2rem', marginBottom: '2rem' }}
-        >
+        <p class="p-tag" style={{ marginTop: '2rem', marginBottom: '2rem' }}>
           The alias should be an easy to remember name for your GLEIF Delegated AID as a member of the GLEIF Root AID
           signing group (e.g. My Qualified vLEI Authorized Representative Identifier).
           <br />
@@ -186,10 +165,7 @@ class CreateYourGleifAID {
       <>
         <img src={uploadImage} style={{ width: '50%', margin: '4rem 0 0 0' }} />
         <h3>Select a Photo for the Alias</h3>
-        <p
-          class="font-color--battleship"
-          style={{ letterSpacing: '.15px', lineHeight: '1.38', margin: '2rem 0 2rem 0' }}
-        >
+        <p class="p-tag" style={{ margin: '2rem 0 2rem 0' }}>
           If you would like your alias to have a photo instead of the default icon, please upload a photo.
         </p>
         <input
@@ -218,10 +194,7 @@ class CreateYourGleifAID {
       <>
         <h3>Review and Confirm</h3>
         <div class="flex flex-justify-between" style={{ alignItems: 'baseline' }}>
-          <p
-            class="font-color--battleship"
-            style={{ letterSpacing: '.15px', lineHeight: '1.38', marginTop: '2rem', marginBottom: '2.5rem' }}
-          >
+          <p class="p-tag" style={{ marginTop: '2rem', marginBottom: '2.5rem' }}>
             Alias:
           </p>
           <Button
@@ -235,26 +208,8 @@ class CreateYourGleifAID {
           />
         </div>
         <TextField outlined style={{ height: '3rem', width: '100%' }} />
-        {/*<div class="flex flex-justify-between" style={{ alignItems: 'baseline' }}>
-          <p
-            class="font-color--battleship"
-            style={{ letterSpacing: '.15px', lineHeight: '1.38', marginTop: '2rem', marginBottom: '2.5rem' }}
-          >
-            Witnesses:
-          </p>
-          <Button
-            class="button--gray button--small button--no-transform"
-            raised
-            label="Edit"
-            style={{ padding: '0 2rem 0 2rem', height: '2rem' }}
-          />
-        </div>
-        <TextField outlined style={{ height: '3rem', width: '100%' }} />*/}
         <div class="flex flex-justify-between" style={{ alignItems: 'baseline' }}>
-          <p
-            class="font-color--battleship"
-            style={{ letterSpacing: '.15px', lineHeight: '1.38', marginTop: '2rem', marginBottom: '2.5rem' }}
-          >
+          <p class="p-tag" style={{ marginTop: '2rem', marginBottom: '2.5rem' }}>
             Alias Photo:
           </p>
           <Button

@@ -3,6 +3,9 @@
 @import 'mixins';
 @import 'variables';
 
+* {
+  @include scrollbar;
+}
 a,
 a:visited,
 a:link {
@@ -13,6 +16,12 @@ a:link {
   &:hover {
     color: darken($blue, 10%);
   }
+}
+
+.p-tag {
+  color: $battleship-grey;
+  letter-spacing: '.15px';
+  line-height: '1.38';
 }
 
 .divider {
@@ -71,6 +80,10 @@ a:link {
 
   &-justify-between {
     justify-content: space-between;
+  }
+
+  &-justify-evenly {
+    justify-content: space-evenly;
   }
 
   &-justify-around {

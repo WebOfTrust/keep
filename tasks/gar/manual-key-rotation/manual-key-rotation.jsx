@@ -40,10 +40,7 @@ class ManualKeyRotation {
 
         <h3 style={{ margin: '0 0 2rem 0 ' }}>Triggered Manual Key Rotation</h3>
 
-        <p
-          class="font-color--battleship"
-          style={{ letterSpacing: '.15px', lineHeight: '1.38', margin: '4rem, 0 4rem 0' }}
-        >
+        <p class="p-tag" style={{ margin: '4rem, 0 4rem 0' }}>
           A request for a key rotation has been sent from a QVI to GLEIF.
         </p>
         <p
@@ -94,10 +91,7 @@ class ManualKeyRotation {
         <img src={verifyCredentials} style={{ width: '50%', margin: '0 0 2rem 0' }} />
         <h3 style={{ margin: '0 0 2rem 0 ' }}>Triggered Manual Key Rotation</h3>
 
-        <p
-          class="font-color--battleship"
-          style={{ letterSpacing: '.15px', lineHeight: '1.38', margin: '4rem, 0 4rem 0' }}
-        >
+        <p class="p-tag" style={{ margin: '4rem, 0 4rem 0' }}>
           Before completing the manual key rotation, check with the QAR to determine if any credentials have been issued
           during the time between occurrence of potential or actual key compromise and the time that potential or actual
           key compromise has been realized.
@@ -130,10 +124,7 @@ class ManualKeyRotation {
 
         <h3 style={{ margin: '0 0 2rem 0 ' }}>Triggered Manual Key Rotation</h3>
 
-        <p
-          class="font-color--battleship"
-          style={{ letterSpacing: '.15px', lineHeight: '1.38', margin: '4rem, 0 4rem 0' }}
-        >
+        <p class="p-tag" style={{ margin: '4rem, 0 4rem 0' }}>
           Please manually approve the rotation request
         </p>
         <p

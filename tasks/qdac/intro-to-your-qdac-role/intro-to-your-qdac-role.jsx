@@ -13,10 +13,7 @@ class IntroToQDACRole {
           Intro to the <u>QDAC</u> Role
         </h3>
         <img src={approveRequest} style={{ width: '60%', margin: '4rem 0 4rem 4rem' }} />
-        <p
-          class="font-color--battleship"
-          style={{ letterSpacing: '.15px', lineHeight: '1.38', margin: '4rem, 0 4rem 0' }}
-        >
+        <p class="p-tag">
           You have now created your QVI Delegated AID! While you are waiting for your QVI credentials, here is a brief
           introduction to some of the tasks you can complete in your role.
           <br />
@@ -37,10 +34,7 @@ class IntroToQDACRole {
       <>
         <h3>Delegate Credentials</h3>
         <img src={addNewContacts} style={{ width: '50%', margin: '4rem 0 4rem 4rem' }} />
-        <p
-          class="font-color--battleship"
-          style={{ letterSpacing: '.15px', lineHeight: '1.38', margin: '4rem, 0 4rem 0' }}
-        >
+        <p class="p-tag">
           The QDAGC delegates GLEIF Delegated AIDs to QDACs (QVI Delegated AID Controllers). QDACs are able to delegate
           credentials to QVIs.
           <br />
@@ -61,10 +55,7 @@ class IntroToQDACRole {
       <>
         <h3>Perform Key Rotation</h3>
         <img src={verifyCredentials} style={{ width: '60%', margin: '4rem 0 4rem 4rem' }} />
-        <p
-          class="font-color--battleship"
-          style={{ letterSpacing: '.15px', lineHeight: '1.38', margin: '4rem, 0 4rem 0' }}
-        >
+        <p class="p-tag">
           The QDAGC performs key rotations to ensure the security of the credentials given to QDACs. If any security
           issues come up, the GDAC can always rotate keys so that they are new.
           <br />

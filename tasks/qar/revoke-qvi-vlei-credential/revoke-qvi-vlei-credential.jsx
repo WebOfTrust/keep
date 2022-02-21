@@ -11,10 +11,7 @@ class RevokeQVIvLEICredential {
       <>
         <h3>QAR TASK 6</h3>
         <img src={approveRequest} style={{ width: '60%', margin: '4rem 0 4rem 4rem' }} />
-        <p
-          class="font-color--battleship"
-          style={{ letterSpacing: '.15px', lineHeight: '1.38', margin: '4rem, 0 4rem 0' }}
-        >
+        <p class="p-tag">
           You have now created your GLEIF Delegated AID! While you are waiting for your GLEIF credentials, here is a
           brief introduction to some of the tasks you can complete in your role.
           <br />
@@ -35,10 +32,7 @@ class RevokeQVIvLEICredential {
       <>
         <h3>Complete Identity Assurance</h3>
         <img src={addNewContacts} style={{ width: '50%', margin: '4rem 0 4rem 4rem' }} />
-        <p
-          class="font-color--battleship"
-          style={{ letterSpacing: '.15px', lineHeight: '1.38', margin: '4rem, 0 4rem 0' }}
-        >
+        <p class="p-tag">
           Once you are authorized to act on behalf of GLEIF, you perform identity assurance of a person serving in the
           role of QAR. A GAR and the QAR will complete a real-time OOBI session in which the GAR and the QAR are
           present.
@@ -60,10 +54,7 @@ class RevokeQVIvLEICredential {
       <>
         <h3>Grant Credentials</h3>
         <img src={verifyCredentials} style={{ width: '60%', margin: '4rem 0 4rem 4rem' }} />
-        <p
-          class="font-color--battleship"
-          style={{ letterSpacing: '.15px', lineHeight: '1.38', margin: '4rem, 0 4rem 0' }}
-        >
+        <p class="p-tag">
           The GAR approves the issuance of the QVI vLEI Credential and the QVI receives the credential in its credential
           wallet. The QVI vLEI Credential may be added or revoked at any time.
           <br />
