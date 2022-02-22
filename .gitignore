@@ -100,3 +100,5 @@ build-ui-dev
 dist
 __pycache__
 .pytest_cache
+
+code.txt

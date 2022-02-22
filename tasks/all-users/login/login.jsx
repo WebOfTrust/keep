@@ -9,9 +9,11 @@ class Login {
     this.showPasscode = false;
   }
 
-  unlockAgent() {
+  unlockAgent(vnode) {
     KERI.unlockAgent('keep', this.passcode)
-      .then(vnode.attrs.end)
+      .then(() => {
+        vnode.attrs.end('create-identifier');
+      })
       .catch((err) => {
         console.log(err);
       });
@@ -48,7 +50,7 @@ class Login {
             class="button--no-transform button--big"
             label="Login"
             onclick={() => {
-              this.unlockAgent();
+              this.unlockAgent(vnode);
             }}
           />
         </div>

@@ -165,7 +165,13 @@ class EnterPasscode {
 
   initializeAgent(vnode) {
     KERI.initializeAgent('keep', this.passcode)
-      .then(vnode.attrs.continue)
+      .then(() => {
+        KERI.unlockAgent('keep', this.passcode)
+          .then(vnode.attrs.continue)
+          .catch((err) => {
+            console.log(err);
+          });
+      })
       .catch((err) => {
         console.log(err);
       });
@@ -248,7 +254,9 @@ class CreatePasscode {
             back={() => {
               this.currentState = 'create-passcode';
             }}
-            continue={vnode.attrs.end}
+            continue={() => {
+              vnode.attrs.end('create-identifier');
+            }}
           />
         )}
       </>
