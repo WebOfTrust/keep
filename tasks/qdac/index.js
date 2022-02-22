@@ -4,8 +4,9 @@ import loanApproved from '../../src/assets/img/loan-approved.png';
 import declineRequest from '../../src/assets/img/decline-request.png';
 import createIdentifier from '../../src/assets/img/create-identifier.png';
 import createYourPasscode from '../../src/assets/img/create-your-passcode.png';
+import CreatePasscode from './create-passcode/create-passcode';
 import verifyCredentials from '../../src/assets/img/verify-credentials.png';
-
+import MultiSigSet from './multi-sig-set/multi-sig-set';
 import IntroToQDACRole from './intro-to-your-qdac-role/intro-to-your-qdac-role';
 import CreateYourQdacAid from './create-your-qdac-aid/create-your-qdac-aid';
 import JoinVideoCall from './join-video-call/join-video-call';
@@ -14,10 +15,10 @@ const tasks = {
   'create-passcode': [
     {
       imgSrc: addNewContacts,
-      label: 'TODO : QDAC passcode',
+      label: 'Create Passcode',
       component: {
-        view: () => {
-          return <h3>Tasks are different for QAR vs GAR</h3>;
+        view: (vnode) => {
+          return <CreatePasscode end={vnode.attrs.end} />;
         },
       },
     },
@@ -65,10 +66,10 @@ const tasks = {
     },
     {
       imgSrc: addNewContacts,
-      label: 'Configure Multi-Sig Set as GLEIF Genesis Controller',
+      label: 'Multi Sig Set Temp Location',
       component: {
-        view: () => {
-          return <h3>Tasks are different for QAR vs GAR</h3>;
+        view: (vnode) => {
+          return <MultiSigSet end={vnode.attrs.end} />;
         },
       },
     },

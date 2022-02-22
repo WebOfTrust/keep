@@ -28,23 +28,23 @@ class QVIIdentityAssurance {
         <div class="flex flex-column">
           <div class="flex" style={{ alignItems: 'center', margin: '0 0 0 0' }}>
             <img src={liOne} style={{ margin: '1rem 10px 1rem 0' }} />
-            <p class="p-tag">Join a Video Call with a GAR</p>
+            <p class="p-tag-bold">Join a Video Call with a GAR</p>
           </div>
           <div class="flex" style={{ alignItems: 'center', margin: '0 0 0 0' }}>
             <img src={liTwo} style={{ margin: '1rem 10px 1rem 0' }} />
-            <p class="p-tag">Complete an OOBI exchange to obtain QVI AID information.</p>
+            <p class="p-tag-bold">Complete an OOBI exchange to obtain QVI AID information.</p>
           </div>
           <div class="flex" style={{ alignItems: 'center', margin: '0 0 0 0' }}>
             <img src={liThree} style={{ margin: '1rem 10px 1rem 0' }} />
-            <p class="p-tag">Receive a Challenge Message from the GAR.</p>
+            <p class="p-tag-bold">Receive a Challenge Message from the GAR.</p>
           </div>
           <div class="flex" style={{ alignItems: 'center', margin: '0 0 0 0' }}>
             <img src={liFour} style={{ margin: '1rem 10px 1rem 0' }} />
-            <p class="p-tag">Sign and return Challenge Message.</p>
+            <p class="p-tag-bold">Sign and return Challenge Message.</p>
           </div>
           <div class="flex" style={{ alignItems: 'center', margin: '0 0 0 0' }}>
             <img src={liFive} style={{ margin: '1rem 10px 1rem 0' }} />
-            <p class="p-tag">GAR will issue QAR credentials.</p>
+            <p class="p-tag-bold">GAR will issue QAR credentials.</p>
           </div>
         </div>
 

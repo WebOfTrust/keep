@@ -25,25 +25,25 @@ class JoinVideoCall {
           <div class="flex flex-column">
             <div class="flex" style={{ alignItems: 'center', margin: '0 0 0 0' }}>
               <img src={liOne} style={{ margin: '1rem 10px 1rem 0' }} />
-              <p class="p-tag">Join a Video Call with all QVI Controllers.</p>
+              <p class="p-tag-bold">Join a Video Call with all QVI Controllers.</p>
             </div>
             <div class="flex" style={{ alignItems: 'center', margin: '0 0 0 0' }}>
               <img src={liTwo} style={{ margin: '1rem 10px 1rem 0' }} />
-              <p class="p-tag">
+              <p class="p-tag-bold">
                 Use an OOBI protocol to share your QVI Delegated AID and service endpoints with the other Controllers.
               </p>
             </div>
             <div class="flex" style={{ alignItems: 'center', margin: '0 0 0 0' }}>
               <img src={liThree} style={{ margin: '1rem 10px 1rem 0' }} />
-              <p class="p-tag">Send a Challenge Message to the other Controllers.</p>
+              <p class="p-tag-bold">Send a Challenge Message to the other Controllers.</p>
             </div>
             <div class="flex" style={{ alignItems: 'center', margin: '0 0 0 0' }}>
               <img src={liFour} style={{ margin: '1rem 10px 1rem 0' }} />
-              <p class="p-tag">QVI Controllers sign and return Challenge Message.</p>
+              <p class="p-tag-bold">QVI Controllers sign and return Challenge Message.</p>
             </div>
             <div class="flex" style={{ alignItems: 'center', margin: '0 0 0 0' }}>
               <img src={liFive} style={{ margin: '1rem 10px 1rem 0' }} />
-              <p class="p-tag">Each GLEIF Controller must verify all signatures.</p>
+              <p class="p-tag-bold">Each Controller must verify all signatures.</p>
             </div>
           </div>
         </p>
@@ -94,10 +94,10 @@ class JoinVideoCall {
       <>
         <img src={addNewContacts} style={{ width: '50%', margin: '0 0 1rem 0' }} />
         <h3>
-          Send OOBI to <u>GRACs</u>
+          Send OOBI to <u>QDACs</u>
         </h3>
         <p class="p-tag" style={{ margin: '2rem 0 2rem 0' }}>
-          Copy this OOBI (AID + URL) to share your identifying information with the GRACs, and paste it into the Video
+          Copy this OOBI (AID + URL) to share your identifying information with the QDACs, and paste it into the Video
           Call.
         </p>
         <h3>AID:</h3>

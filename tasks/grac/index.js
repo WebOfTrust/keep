@@ -8,14 +8,15 @@ import InitiateVideoCall from './initiate-video-call/inititate-video-call';
 import ConfigureMultiSig from './configure-multi-sig-set/configure-mutli-sig-set';
 import ViewMultiSig from './view-multi-sig-set/view-multi-sig-set';
 import secureMessaging from '../../src/assets/img/secure-messaging.png';
+import CreatePasscode from './create-passcode/create-passcode';
 const tasks = {
   'create-passcode': [
     {
       imgSrc: addNewContacts,
-      label: 'TODO : grac passcode',
+      label: 'Create Passcode',
       component: {
-        view: () => {
-          return <h3>Tasks are different for QAR vs GAR</h3>;
+        view: (vnode) => {
+          return <CreatePasscode end={vnode.attrs.end} />;
         },
       },
     },

@@ -1,20 +1,11 @@
 import m from 'mithril';
 import { Button, Card, TextField } from '../../../src/app/components';
-import createIdentifier from '../../../src/assets/img/create-identifier.png';
-import configureIdentifier from '../../../src/assets/img/configure-identifier.png';
-import approveRequest from '../../../src/assets/img/approve-request.png';
-import uploadImage from '../../../src/assets/img/upload-image.png';
+
 import uploadFile from '../../../src/assets/img/upload-file.png';
-import projectPlanning from '../../../src/assets/img/project-planning.png';
-import addNewContacts from '../../../src/assets/img/add-new-contacts.png';
+
 import responseMessage from '../../../src/assets/img/response-message.png';
 import secureMessaging from '../../../src/assets/img/secure-messaging.png';
-import githubLogo from '../../../src/assets/img/github-logo.png';
-import liOne from '../../../src/assets/img/li-one.png';
-import liTwo from '../../../src/assets/img/li-two.png';
-import liThree from '../../../src/assets/img/li-three.png';
-import liFour from '../../../src/assets/img/li-four.png';
-import liFive from '../../../src/assets/img/li-five.png';
+
 class ConfigureMultiSig {
   tempConfigureArray = [
     {

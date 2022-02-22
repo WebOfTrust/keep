@@ -35,8 +35,8 @@ class IntroToQDACRole {
         <h3>Delegate Credentials</h3>
         <img src={addNewContacts} style={{ width: '50%', margin: '4rem 0 4rem 4rem' }} />
         <p class="p-tag">
-          The QDAGC delegates GLEIF Delegated AIDs to QDACs (QVI Delegated AID Controllers). QDACs are able to delegate
-          credentials to QVIs.
+          You have now created your QVI Delegated AID! While you are waiting for your QVI credentials, here is a brief
+          introduction to some of the tasks you can complete in your role.
           <br />
           <br />
         </p>

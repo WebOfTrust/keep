@@ -1,15 +1,16 @@
 import m from 'mithril';
-import CreatePasscode from './create-passcode/create-passcode.jsx';
-import CreateYourGleifAID from './create-your-gleif-aid/create-your-gleif-aid.jsx';
-import IntroToYourRole from './intro-to-your-role/intro-to-your-role.jsx';
-import GARIssueQVIvLEICredential from './issue-qvi-vlei-credential/issue-qvi-vlei-credential.jsx';
+import CreatePasscode from './create-passcode/create-passcode';
+import CreateYourGleifAID from './create-your-gleif-aid/create-your-gleif-aid';
+import IntroToYourRole from './intro-to-your-role/intro-to-your-role';
+import IdentiyAuthOfQar from './identity-auth-of-qar/identity-auth-of-qar';
+import IssuanceOfQvleiCred from './issue-qvi-vlei-credential/issue-qvi-vlei-credential';
 import addNewContacts from '../../src/assets/img/add-new-contacts.png';
 import loanApproved from '../../src/assets/img/loan-approved.png';
 import declineRequest from '../../src/assets/img/decline-request.png';
 import createIdentifier from '../../src/assets/img/create-identifier.png';
 import createYourPasscode from '../../src/assets/img/create-your-passcode.png';
 import verifyCredentials from '../../src/assets/img/verify-credentials.png';
-import RevokeQviCredential from './revoke-qvi-credential/revoke-qvi-credential.jsx';
+import RevokeQviCredential from './revoke-qvi-credential/revoke-qvi-credential';
 import ManualKeyRotation from './manual-key-rotation/manual-key-rotation';
 import Login from './login/login';
 
@@ -62,7 +63,7 @@ const tasks = {
       label: 'Identity Authentication of the QAR',
       component: {
         view: (vnode) => {
-          return <GARIssueQVIvLEICredential end={vnode.attrs.end} />;
+          return <IdentiyAuthOfQar end={vnode.attrs.end} />;
         },
       },
     },
@@ -71,7 +72,7 @@ const tasks = {
       label: 'Issuance of a Qualified vLEI Issuer vLEI Credential',
       component: {
         view: (vnode) => {
-          return <GARIssueQVIvLEICredential end={vnode.attrs.end} />;
+          return <IssuanceOfQvleiCred end={vnode.attrs.end} />;
         },
       },
     },

@@ -57,15 +57,15 @@ class CreateQARID {
           <div class="flex flex-column">
             <div class="flex" style={{ alignItems: 'center', margin: '0 0 0 2rem' }}>
               <img src={liOne} style={{ margin: '1rem 10px 1rem 0' }} />
-              <p class="p-tag">Configure your AID</p>
+              <p class="p-tag-bold">Configure your AID</p>
             </div>
             <div class="flex" style={{ alignItems: 'center', margin: '0 0 0 2rem' }}>
               <img src={liTwo} style={{ margin: '1rem 10px 1rem 0' }} />
-              <p class="p-tag">Create Your Alias</p>
+              <p class="p-tag-bold">Create Your Alias</p>
             </div>
             <div class="flex" style={{ alignItems: 'center', margin: '0 0 0 2rem' }}>
               <img src={liThree} style={{ margin: '1rem 10px 1rem 0' }} />
-              <p class="p-tag">Select a photo for your Alias</p>
+              <p class="p-tag-bold">Select a photo for your Alias</p>
             </div>
           </div>
         </p>

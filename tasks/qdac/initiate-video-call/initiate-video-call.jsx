@@ -1,14 +1,10 @@
 import m from 'mithril';
 import { Button, Card, TextField } from '../../../src/app/components';
-import createIdentifier from '../../../src/assets/img/create-identifier.png';
-import configureIdentifier from '../../../src/assets/img/configure-identifier.png';
-import approveRequest from '../../../src/assets/img/approve-request.png';
-import uploadImage from '../../../src/assets/img/upload-image.png';
 import uploadFile from '../../../src/assets/img/upload-file.png';
 import projectPlanning from '../../../src/assets/img/project-planning.png';
-import addNewContacts from '../../../src/assets/img/add-new-contacts.png';
+
 import responseMessage from '../../../src/assets/img/response-message.png';
-import githubLogo from '../../../src/assets/img/github-logo.png';
+
 import liOne from '../../../src/assets/img/li-one.png';
 import liTwo from '../../../src/assets/img/li-two.png';
 import liThree from '../../../src/assets/img/li-three.png';
@@ -26,25 +22,25 @@ class InitiateVideoCall {
           <div class="flex flex-column">
             <div class="flex" style={{ alignItems: 'center', margin: '0 0 0 0' }}>
               <img src={liOne} style={{ margin: '1rem 10px 1rem 0' }} />
-              <p class="p-tag">Initiate a Video Call with all GLEIF Controllers.</p>
+              <p class="p-tag-bold">Initiate a Video Call with all GLEIF Controllers.</p>
             </div>
             <div class="flex" style={{ alignItems: 'center', margin: '0 0 0 0' }}>
               <img src={liTwo} style={{ margin: '1rem 10px 1rem 0' }} />
-              <p class="p-tag">
+              <p class="p-tag-bold">
                 Use an OOBI protocol to share your GLEIF Delegated AID and service endpoints with the other Controllers.
               </p>
             </div>
             <div class="flex" style={{ alignItems: 'center', margin: '0 0 0 0' }}>
               <img src={liThree} style={{ margin: '1rem 10px 1rem 0' }} />
-              <p class="p-tag">Send a Challenge Message to the other Controllers.</p>
+              <p class="p-tag-bold">Send a Challenge Message to the other Controllers.</p>
             </div>
             <div class="flex" style={{ alignItems: 'center', margin: '0 0 0 0' }}>
               <img src={liFour} style={{ margin: '1rem 10px 1rem 0' }} />
-              <p class="p-tag">GLEIF Controllers sign and return Challenge Message.</p>
+              <p class="p-tag-bold">GLEIF Controllers sign and return Challenge Message.</p>
             </div>
             <div class="flex" style={{ alignItems: 'center', margin: '0 0 0 0' }}>
               <img src={liFive} style={{ margin: '1rem 10px 1rem 0' }} />
-              <p class="p-tag">Each Controller must verify all signatures.</p>
+              <p class="p-tag-bold">Each Controller must verify all signatures.</p>
             </div>
           </div>
         </p>

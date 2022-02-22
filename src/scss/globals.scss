@@ -22,6 +22,11 @@ a:link {
   color: $battleship-grey;
   letter-spacing: '.15px';
   line-height: '1.38';
+
+  &-bold {
+    font-weight: 600;
+    color: rgba(0, 0, 0, 0.87);
+  }
 }
 
 .divider {
