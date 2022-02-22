@@ -10,7 +10,7 @@ class Login {
   }
 
   unlockAgent() {
-    KERI.unlockAgent('test', this.passcode)
+    KERI.unlockAgent('keep', this.passcode)
       .then(vnode.attrs.end)
       .catch((err) => {
         console.log(err);

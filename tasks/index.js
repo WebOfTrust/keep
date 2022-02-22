@@ -1,3 +1,4 @@
-import tasks from './grac';
+import allUsersTasks from './all-users';
+import userTypeTasks from './qar';
 
-module.exports = tasks;
+module.exports = Object.assign({}, allUsersTasks, userTypeTasks);

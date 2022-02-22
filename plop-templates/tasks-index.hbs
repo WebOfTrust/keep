@@ -1,3 +1,4 @@
-import tasks from './{{type}}';
+import allUsersTasks from './all-users';
+import userTypeTasks from './{{type}}';
 
-module.exports = tasks;
+module.exports = Object.assign({}, allUsersTasks, userTypeTasks);

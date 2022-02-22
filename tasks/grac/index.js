@@ -1,26 +1,19 @@
 import m from 'mithril';
-import addNewContacts from '../../src/assets/img/add-new-contacts.png';
-import createIdentifier from '../../src/assets/img/create-identifier.png';
+
+// Tasks
 import CreateYourGleifAid from './grac-create-your-gleif-aid/grac-create-your-gleif-aid';
 import GracIntroToYourRole from './grac-intro-to-your-role/grac-intro-to-your-role';
 import JoinVideoCall from './join-video-call/join-video-call';
 import InitiateVideoCall from './initiate-video-call/inititate-video-call';
 import ConfigureMultiSig from './configure-multi-sig-set/configure-mutli-sig-set';
 import ViewMultiSig from './view-multi-sig-set/view-multi-sig-set';
+
+// Images
+import addNewContacts from '../../src/assets/img/add-new-contacts.png';
+import createIdentifier from '../../src/assets/img/create-identifier.png';
 import secureMessaging from '../../src/assets/img/secure-messaging.png';
-import CreatePasscode from './create-passcode/create-passcode';
+
 const tasks = {
-  'create-passcode': [
-    {
-      imgSrc: addNewContacts,
-      label: 'Create Passcode',
-      component: {
-        view: (vnode) => {
-          return <CreatePasscode end={vnode.attrs.end} />;
-        },
-      },
-    },
-  ],
   'create-identifier': [
     {
       imgSrc: createIdentifier,
