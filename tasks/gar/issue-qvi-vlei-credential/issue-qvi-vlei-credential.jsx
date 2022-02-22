@@ -58,7 +58,7 @@ class ModalCheck {
         />
         <h3>Identity Authentication of the QAR</h3>
         {/* <img src={approveRequest} style={{ width: '60%', margin: '4rem 0 4rem 4rem' }} /> */}
-        <p class="p-tag" style={{ margin: '4rem, 0 4rem 0' }}>
+        <p class="p-tag">
           This module will take you through the steps of how to authenticate QAR Identity. Below are the steps for how
           to complete the process:
           <br />
@@ -68,33 +68,23 @@ class ModalCheck {
         <div class="flex flex-column">
           <div class="flex" style={{ alignItems: 'center', margin: '0 0 0 0' }}>
             <img src={liOne} style={{ margin: '1rem 10px 1rem 0' }} />
-            <p class="p-tag" style={{ margin: '4rem, 0 4rem 0' }}>
-              Join a Video Call with a QAR
-            </p>
+            <p class="p-tag">Join a Video Call with a QAR</p>
           </div>
           <div class="flex" style={{ alignItems: 'center', margin: '0 0 0 0' }}>
             <img src={liTwo} style={{ margin: '1rem 10px 1rem 0' }} />
-            <p class="p-tag" style={{ margin: '4rem, 0 4rem 0' }}>
-              Use an OOBI protocol to share your GLEIF Delegated AID with the QAR
-            </p>
+            <p class="p-tag">Use an OOBI protocol to share your GLEIF Delegated AID with the QAR</p>
           </div>
           <div class="flex" style={{ alignItems: 'center', margin: '0 0 0 0' }}>
             <img src={liThree} style={{ margin: '1rem 10px 1rem 0' }} />
-            <p class="p-tag" style={{ margin: '4rem, 0 4rem 0' }}>
-              Send a Challenge Response Message to the QAR.
-            </p>
+            <p class="p-tag">Send a Challenge Response Message to the QAR.</p>
           </div>
           <div class="flex" style={{ alignItems: 'center', margin: '0 0 0 0' }}>
             <img src={liFour} style={{ margin: '1rem 10px 1rem 0' }} />
-            <p class="p-tag" style={{ margin: '4rem, 0 4rem 0' }}>
-              QAR signs and returns Challenge Response Message.
-            </p>
+            <p class="p-tag">QAR signs and returns Challenge Response Message.</p>
           </div>
           <div class="flex" style={{ alignItems: 'center', margin: '0 0 0 0' }}>
             <img src={liFive} style={{ margin: '1rem 10px 1rem 0' }} />
-            <p class="p-tag" style={{ margin: '4rem, 0 4rem 0' }}>
-              GAR verifies signature of the QAR.
-            </p>
+            <p class="p-tag">GAR verifies signature of the QAR.</p>
           </div>
         </div>
 
@@ -121,7 +111,7 @@ class IdentityAuth {
       <>
         <h3>Identity Authentication of the QAR</h3>
         {/* <img src={approveRequest} style={{ width: '60%', margin: '4rem 0 4rem 4rem' }} /> */}
-        <p class="p-tag" style={{ margin: '4rem, 0 4rem 0' }}>
+        <p class="p-tag">
           This module will take you through the steps of how to authenticate QAR Identity. Below are the steps for how
           to complete the process:
           <br />
@@ -131,33 +121,23 @@ class IdentityAuth {
         <div class="flex flex-column">
           <div class="flex" style={{ alignItems: 'center', margin: '0 0 0 0' }}>
             <img src={liOne} style={{ margin: '1rem 10px 1rem 0' }} />
-            <p class="p-tag" style={{ margin: '4rem, 0 4rem 0' }}>
-              Join a Video Call with a QAR
-            </p>
+            <p class="p-tag">Join a Video Call with a QAR</p>
           </div>
           <div class="flex" style={{ alignItems: 'center', margin: '0 0 0 0' }}>
             <img src={liTwo} style={{ margin: '1rem 10px 1rem 0' }} />
-            <p class="p-tag" style={{ margin: '4rem, 0 4rem 0' }}>
-              Use an OOBI protocol to share your GLEIF Delegated AID with the QAR
-            </p>
+            <p class="p-tag">Use an OOBI protocol to share your GLEIF Delegated AID with the QAR</p>
           </div>
           <div class="flex" style={{ alignItems: 'center', margin: '0 0 0 0' }}>
             <img src={liThree} style={{ margin: '1rem 10px 1rem 0' }} />
-            <p class="p-tag" style={{ margin: '4rem, 0 4rem 0' }}>
-              Send a Challenge Response Message to the QAR.
-            </p>
+            <p class="p-tag">Send a Challenge Response Message to the QAR.</p>
           </div>
           <div class="flex" style={{ alignItems: 'center', margin: '0 0 0 0' }}>
             <img src={liFour} style={{ margin: '1rem 10px 1rem 0' }} />
-            <p class="p-tag" style={{ margin: '4rem, 0 4rem 0' }}>
-              QAR signs and returns Challenge Response Message.
-            </p>
+            <p class="p-tag">QAR signs and returns Challenge Response Message.</p>
           </div>
           <div class="flex" style={{ alignItems: 'center', margin: '0 0 0 0' }}>
             <img src={liFive} style={{ margin: '1rem 10px 1rem 0' }} />
-            <p class="p-tag" style={{ margin: '4rem, 0 4rem 0' }}>
-              GAR verifies signature of the QAR.
-            </p>
+            <p class="p-tag">GAR verifies signature of the QAR.</p>
           </div>
         </div>
 
@@ -175,7 +155,7 @@ class IdentityAuth {
       </>,
       <>
         <h3>Join a Video Call with a QAR</h3>
-        <p class="p-tag" style={{ margin: '4rem, 0 4rem 0' }}>
+        <p class="p-tag">
           In order to start the authentication process, you will need to complete an real-time OOBI session in which you
           and the QAR are present, You will accept the QAR’s OOBI on a Video Call so that you can receive their
           identifying information.

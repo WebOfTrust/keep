@@ -43,6 +43,69 @@ class InitiateVideoCall {
       linkText: 'View',
     },
   ];
+
+  tempOOBIArray = [
+    {
+      AID: '',
+      URL: '',
+      Alias: '',
+    },
+    {
+      AID: '',
+      URL: '',
+      Alias: '',
+    },
+    {
+      AID: '',
+      URL: '',
+      Alias: '',
+    },
+    {
+      AID: '',
+      URL: '',
+      Alias: '',
+    },
+    {
+      AID: '',
+      URL: '',
+      Alias: '',
+    },
+    {
+      AID: '',
+      URL: '',
+      Alias: '',
+    },
+    {
+      AID: '',
+      URL: '',
+      Alias: '',
+    },
+    {
+      AID: '',
+      URL: '',
+      Alias: '',
+    },
+    {
+      AID: '',
+      URL: '',
+      Alias: '',
+    },
+    {
+      AID: '',
+      URL: '',
+      Alias: '',
+    },
+    {
+      AID: '',
+      URL: '',
+      Alias: '',
+    },
+    {
+      AID: '',
+      URL: '',
+      Alias: '',
+    },
+  ];
   constructor(vnode) {
     this.step = 0;
     this.steps = [
@@ -181,38 +244,26 @@ class InitiateVideoCall {
           </p>
         </div>
         <div style={{ height: '350px', overflowY: 'scroll', margin: '0 0 1rem 0' }}>
-          <Card class="card--fluid" style={{ margin: '0 0 1.5rem 0', height: '200px' }}>
-            <div class="flex flex-align-center flex-justify-between" style={{ flexDirection: 'column' }}>
-              <div class="flex flex-align-center flex-justify-between">
-                <h4>AID:</h4>
-                <TextField style={{ backgroundColor: 'rgba(0, 0, 0, 0.04)', height: '2rem', width: '80%' }} />
-              </div>
-              <div class="flex flex-align-center flex-justify-between">
-                <h4>URL:</h4>
-                <TextField style={{ backgroundColor: 'rgba(0, 0, 0, 0.04)', height: '2rem', width: '80%' }} />
-              </div>
-              <div class="flex flex-align-center flex-justify-between">
-                <h4>Alias:</h4>
-                <TextField style={{ backgroundColor: 'rgba(0, 0, 0, 0.04)', height: '2rem', width: '80%' }} />
-              </div>
-            </div>
-          </Card>
-          <Card class="card--fluid" style={{ margin: '0 0 1.5rem 0', height: '200px' }}>
-            <div class="flex flex-align-center flex-justify-between" style={{ flexDirection: 'column' }}>
-              <div class="flex flex-align-center flex-justify-between">
-                <h4>AID:</h4>
-                <TextField style={{ backgroundColor: 'rgba(0, 0, 0, 0.04)', height: '2rem', width: '80%' }} />
-              </div>
-              <div class="flex flex-align-center flex-justify-between">
-                <h4>URL:</h4>
-                <TextField style={{ backgroundColor: 'rgba(0, 0, 0, 0.04)', height: '2rem', width: '80%' }} />
-              </div>
-              <div class="flex flex-align-center flex-justify-between">
-                <h4>Alias:</h4>
-                <TextField style={{ backgroundColor: 'rgba(0, 0, 0, 0.04)', height: '2rem', width: '80%' }} />
-              </div>
-            </div>
-          </Card>
+          {this.tempOOBIArray.map((Controller) => {
+            return (
+              <Card class="card--fluid" style={{ margin: '0 0 1.5rem 0', height: '200px' }}>
+                <div class="flex flex-align-center flex-justify-between" style={{ flexDirection: 'column' }}>
+                  <div class="flex flex-align-center flex-justify-between">
+                    <h5>AID:</h5>
+                    <TextField style={{ backgroundColor: 'rgba(0, 0, 0, 0.04)', height: '2rem', width: '80%' }} />
+                  </div>
+                  <div class="flex flex-align-center flex-justify-between">
+                    <h5>URL:</h5>
+                    <TextField style={{ backgroundColor: 'rgba(0, 0, 0, 0.04)', height: '2rem', width: '80%' }} />
+                  </div>
+                  <div class="flex flex-align-center flex-justify-between">
+                    <h5>Alias:</h5>
+                    <TextField style={{ backgroundColor: 'rgba(0, 0, 0, 0.04)', height: '2rem', width: '80%' }} />
+                  </div>
+                </div>
+              </Card>
+            );
+          })}
         </div>
 
         <div class="flex flex-justify-end">

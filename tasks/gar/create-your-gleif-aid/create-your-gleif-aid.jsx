@@ -50,7 +50,7 @@ class CreateYourGleifAID {
           Creating your <u>AID</u>
         </h3>
         <img src={createIdentifier} style={{ width: '70%', margin: '4rem 0 0 2rem' }} />
-        <p class="p-tag" style={{ marginTop: '4rem', marginBottom: '5rem' }}>
+        <p class="p-tag" style={{ margin: '4rem 0 5rem 0' }}>
           In order to provide authorization, you will first have to create your own GLEIF Delegated AID within the
           software and GLEIF will verify you as an authorized representative (GAR) to act on their behalf.
           <br />
@@ -80,36 +80,19 @@ class CreateYourGleifAID {
           Steps to Create Your <u>GLEIF AID</u>
         </h3>
         <img src={approveRequest} style={{ width: '60%', margin: '4rem 0 0 4rem' }} />
-        <p class="p-tag" style={{ margin: '4rem, 0 4rem 0' }}>
-          {/* <ul class='flex flex-column' style={{ listStylePosition: 'inside' }}>
-            <li style={{ listStyleImage: `url(${liOne})`, margin: '0 0 2rem 0', }}>
-              Configure your AID
-            </li>
-            <li style={{ listStyleImage: `url(${liTwo})`, margin: '0 0 2rem 0' }}>
-              Create and Alias
-            </li>
-            <li style={{ listStyleImage: `url(${liThree})`, margin: '0 0 2rem 0' }}>
-              Select a photo for your Alias
-            </li>
-          </ul> */}
+        <p class="p-tag">
           <div class="flex flex-column">
             <div class="flex" style={{ alignItems: 'center', margin: '0 0 0 2rem' }}>
               <img src={liOne} style={{ margin: '1rem 10px 1rem 0' }} />
-              <p class="p-tag" style={{ margin: '4rem, 0 4rem 0' }}>
-                Configure your AID
-              </p>
+              <p class="p-tag">Configure your AID</p>
             </div>
             <div class="flex" style={{ alignItems: 'center', margin: '0 0 0 2rem' }}>
               <img src={liTwo} style={{ margin: '1rem 10px 1rem 0' }} />
-              <p class="p-tag" style={{ margin: '4rem, 0 4rem 0' }}>
-                Create Your Alias
-              </p>
+              <p class="p-tag">Create Your Alias</p>
             </div>
             <div class="flex" style={{ alignItems: 'center', margin: '0 0 0 2rem' }}>
               <img src={liThree} style={{ margin: '1rem 10px 1rem 0' }} />
-              <p class="p-tag" style={{ margin: '4rem, 0 4rem 0' }}>
-                Select a photo for your Alias
-              </p>
+              <p class="p-tag">Select a photo for your Alias</p>
             </div>
           </div>
         </p>

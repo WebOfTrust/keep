@@ -12,7 +12,7 @@ class RevokeQviCredential {
         <img src={declineRequest} style={{ width: '60%', margin: '0 0 2rem 0' }} />
         <h3>Revocation of QVI vLEI Credential</h3>
 
-        <p class="p-tag" style={{ margin: '4rem, 0 4rem 0' }}>
+        <p class="p-tag">
           This module will take you through the Revocation of a QVI vLEI Credential.
           <br />
           <br />
@@ -34,9 +34,7 @@ class RevokeQviCredential {
       <>
         <h3>Revocation of QVI vLEI Credential</h3>
 
-        <p class="p-tag" style={{ margin: '4rem, 0 4rem 0' }}>
-          Please select the organization credentials you would like to revoke.
-        </p>
+        <p class="p-tag">Please select the organization credentials you would like to revoke.</p>
         <TextField
           outlined
           style={{ height: '3rem', width: '100%', margin: '0 0 2rem 0', backgroundColor: 'rgba(0, 0, 0, 0.04)' }}
@@ -68,9 +66,7 @@ class RevokeQviCredential {
       <>
         <h3>Issue QVI vLEI Credentials</h3>
 
-        <p class="p-tag" style={{ margin: '4rem, 0 4rem 0' }}>
-          Contact
-        </p>
+        <p class="p-tag">Contact</p>
         <TextField
           outlined
           style={{
@@ -80,12 +76,7 @@ class RevokeQviCredential {
             backgroundColor: 'rgba(0, 0, 0, 0.04)',
           }}
         />
-        <p
-          class="font-color--battleship"
-          style={{ letterSpacing: '.15px', lineHeight: '1.7', margin: '4rem, 0 4rem 0', fontSize: '120%' }}
-        >
-          Credentials
-        </p>
+        <p class="p-tag">Credentials</p>
         <select
           style={{
             width: '100%',
@@ -114,7 +105,7 @@ class RevokeQviCredential {
         <img src={declineRequest} style={{ width: '60%', margin: '0 0 2rem 0' }} />
         <h3>Revocation of QVI vLEI Credential</h3>
 
-        <p class="p-tag" style={{ margin: '4rem, 0 4rem 0' }}>
+        <p class="p-tag">
           If so, GLEIF MUST update the list of QVIs and the TrustMark on gleif.org to reflect termination of the QVI,
           and all authorized parties will be notified. Would you like to continue?
           <br />
@@ -144,7 +135,7 @@ class RevokeQviCredential {
         <img src={declineRequest} style={{ width: '60%', margin: '0 0 2rem 0' }} />
         <h3>Credentials Revoked</h3>
 
-        <p class="p-tag" style={{ margin: '4rem, 0 4rem 0' }}>
+        <p class="p-tag">
           QVI Corp.’s credentials are now revoked and all authorized parties have been notified.
           <br />
           <br />

@@ -40,31 +40,15 @@ class ManualKeyRotation {
 
         <h3 style={{ margin: '0 0 2rem 0 ' }}>Triggered Manual Key Rotation</h3>
 
-        <p class="p-tag" style={{ margin: '4rem, 0 4rem 0' }}>
+        <p class="p-tag" style={{ margin: '0 0 2rem 0' }}>
           A request for a key rotation has been sent from a QVI to GLEIF.
         </p>
-        <p
-          class="font-color--battleship"
-          style={{ letterSpacing: '.15px', lineHeight: '1.7', margin: '4rem, 0 4rem 0', fontSize: '120%' }}
-        >
-          Contact
-        </p>
-        <p
-          class="font-color--battleship"
-          style={{ letterSpacing: '.15px', lineHeight: '1.38', margin: '4rem, 0 4rem 0', fontWeight: 'bold' }}
-        >
+        <p class="p-tag">Contact</p>
+        <p class="p-tag" style={{ margin: '0 0 2rem 0', fontWeight: 'bold' }}>
           Jane Smith
         </p>
-        <p
-          class="font-color--battleship"
-          style={{ letterSpacing: '.15px', lineHeight: '1.7', margin: '4rem, 0 4rem 0', fontSize: '120%' }}
-        >
-          Credentials
-        </p>
-        <p
-          class="font-color--battleship"
-          style={{ letterSpacing: '.15px', lineHeight: '1.38', margin: '4rem, 0 6rem 0', fontWeight: 'bold' }}
-        >
+        <p class="p-tag">Credentials</p>
+        <p class="p-tag" style={{ margin: '0 0 2rem 0', fontWeight: 'bold' }}>
           QAR for QVI Corp.
         </p>
         <br></br>
@@ -91,7 +75,7 @@ class ManualKeyRotation {
         <img src={verifyCredentials} style={{ width: '50%', margin: '0 0 2rem 0' }} />
         <h3 style={{ margin: '0 0 2rem 0 ' }}>Triggered Manual Key Rotation</h3>
 
-        <p class="p-tag" style={{ margin: '4rem, 0 4rem 0' }}>
+        <p class="p-tag">
           Before completing the manual key rotation, check with the QAR to determine if any credentials have been issued
           during the time between occurrence of potential or actual key compromise and the time that potential or actual
           key compromise has been realized.
@@ -116,7 +100,6 @@ class ManualKeyRotation {
               this.step++;
             }}
           />
-          {/* <Button class="button--big button--no-transform" raised label="Close" onclick={vnode.attrs.end} /> */}
         </div>
       </>,
       <>
@@ -124,31 +107,15 @@ class ManualKeyRotation {
 
         <h3 style={{ margin: '0 0 2rem 0 ' }}>Triggered Manual Key Rotation</h3>
 
-        <p class="p-tag" style={{ margin: '4rem, 0 4rem 0' }}>
-          Please manually approve the rotation request
+        <p class="p-tag" style={{ margin: '0 0 2rem 0' }}>
+          Please manually approve the rotation request.
         </p>
-        <p
-          class="font-color--battleship"
-          style={{ letterSpacing: '.15px', lineHeight: '1.7', margin: '4rem, 0 4rem 0', fontSize: '120%' }}
-        >
-          Contact
-        </p>
-        <p
-          class="font-color--battleship"
-          style={{ letterSpacing: '.15px', lineHeight: '1.38', margin: '4rem, 0 4rem 0', fontWeight: 'bold' }}
-        >
+        <p class="p-tag">Contact</p>
+        <p class="p-tag" style={{ margin: '0 0 2rem 0', fontWeight: 'bold' }}>
           Jane Smith
         </p>
-        <p
-          class="font-color--battleship"
-          style={{ letterSpacing: '.15px', lineHeight: '1.7', margin: '4rem, 0 4rem 0', fontSize: '120%' }}
-        >
-          Credentials
-        </p>
-        <p
-          class="font-color--battleship"
-          style={{ letterSpacing: '.15px', lineHeight: '1.38', margin: '4rem, 0 6rem 0', fontWeight: 'bold' }}
-        >
+        <p class="p-tag">Credentials</p>
+        <p class="p-tag" style={{ margin: '0 0 2rem 0', fontWeight: 'bold' }}>
           QAR for QVI Corp.
         </p>
         <br></br>
