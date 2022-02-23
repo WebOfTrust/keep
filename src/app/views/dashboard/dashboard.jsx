@@ -113,7 +113,7 @@ class Dashboard {
                   />
                   {this.taskSelected ? (
                     <this.taskSelected.component
-                      end={(nextFlow = null) => {
+                      end={(e, nextFlow = null) => {
                         if (nextFlow) {
                           this.changeFlow(nextFlow);
                           return;
