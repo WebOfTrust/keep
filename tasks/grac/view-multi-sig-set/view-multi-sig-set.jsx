@@ -2,7 +2,8 @@ import m from 'mithril';
 import { Button, Card, TextField } from '../../../src/app/components';
 
 import uploadFile from '../../../src/assets/img/upload-file.png';
-
+import redX from '../../../src/assets/img/red-x.svg';
+import greenCheckMark from '../../../src/assets/img/green-check-mark.svg';
 import responseMessage from '../../../src/assets/img/response-message.png';
 
 class ViewMultiSig {
@@ -37,11 +38,148 @@ class ViewMultiSig {
       name: 'OG8jvw9bTmUd5J92iKYmfU',
       signed: false,
     },
+    {
+      number: 7,
+      name: 'OG8jvw9bTmUd5J92iKYmfU',
+      signed: false,
+    },
+    {
+      number: 8,
+      name: 'OG8jvw9bTmUd5J92iKYmfU',
+      signed: false,
+    },
+  ];
+
+  eventLogArray = [
+    {
+      logNumber: 123,
+      date: '08/25/1996',
+      status: true,
+    },
+    {
+      logNumber: 124,
+      date: '08/25/1996',
+      status: false,
+    },
+    {
+      logNumber: 125,
+      date: '08/25/1996',
+      status: true,
+    },
+    {
+      logNumber: 126,
+      date: '08/25/1996',
+      status: false,
+    },
+    {
+      logNumber: 127,
+      date: '08/25/1996',
+      status: false,
+    },
+    {
+      logNumber: 128,
+      date: '08/25/1996',
+      status: true,
+    },
+    {
+      logNumber: 129,
+      date: '08/25/1996',
+      status: true,
+    },
+    {
+      logNumber: 130,
+      date: '08/25/1996',
+      status: false,
+    },
+    {
+      logNumber: 131,
+      date: '08/25/1996',
+      status: true,
+    },
+    {
+      logNumber: 132,
+      date: '08/25/1996',
+      status: true,
+    },
   ];
 
   constructor(vnode) {
     this.step = 0;
     this.steps = [
+      <>
+        <h3>Event Log</h3>
+        <TextField
+          placeholder="Search by date or event log number"
+          style={{
+            backgroundColor: 'rgba(0, 0, 0, 0.04)',
+            height: '3rem',
+            width: '100%',
+            borderRadius: '0px',
+            alignItems: 'center',
+          }}
+        />
+        <br></br>
+        <div class="flex flex-justify-between">
+          <p class="p-tag-bold" style={{ fontSize: '80%' }}>
+            Event Log Number
+          </p>
+          <p class="p-tag-bold" style={{ fontSize: '80%', marginRight: '5.2rem' }}>
+            Date
+          </p>
+          <p class="p-tag-bold" style={{ fontSize: '80%', marginRight: '2.8rem' }}>
+            Status
+          </p>
+        </div>
+        <div style={{ height: '350px', overflowY: 'scroll', margin: '0 0 2rem 0' }}>
+          {this.eventLogArray.map((event) => {
+            return (
+              <div
+                class="flex flex-justify-between divider"
+                style={{ alignItems: 'center', margin: '0', height: '40px', width: '100%' }}
+              >
+                <div class="flex flex-justify-between" style={{ width: '100%' }}>
+                  <p class="p-tag" style={{ fontSize: '80%' }}>
+                    <u
+                      onclick={() => {
+                        this.step++;
+                      }}
+                      style={{ cursor: 'pointer' }}
+                    >
+                      Event #{event.logNumber}
+                    </u>
+                  </p>
+                  <p class="p-tag" style={{ fontSize: '80%' }}>
+                    {event.date}
+                  </p>
+                  <div style={{ marginRight: '1rem' }}>
+                    {event.status ? (
+                      <p class="p-tag" style={{ fontSize: '80%' }}>
+                        Completed
+                      </p>
+                    ) : (
+                      <p class="p-tag" style={{ fontSize: '80%', color: '#aa3737' }}>
+                        Incomplete
+                      </p>
+                    )}
+                  </div>
+                </div>
+              </div>
+            );
+          })}
+        </div>
+        <div class="flex flex-justify-between">
+          <Button
+            class="button--gray-dk button--big button--no-transform"
+            raised
+            label="Go Back"
+            onclick={() => {
+              this.step--;
+            }}
+          />
+          <Button class="button--big button--no-transform" raised label="close" onclick={vnode.attrs.end} />
+        </div>
+      </>,
+
       <>
         <h3>Event #130</h3>
         <h4 class="p-tag" style={{ margin: '0 0 0 0' }}>
@@ -49,10 +187,10 @@ class ViewMultiSig {
         </h4>
 
         <div class="flex flex-justify-between">
-          <p class="p-tag" style={{ margin: '2rem 0 1rem 4rem' }}>
+          <p class="p-tag" style={{ margin: '2rem 0 1rem 4.5rem' }}>
             Name:
           </p>
-          <p class="p-tag" style={{ margin: '2rem 0 1rem 5rem' }}>
+          <p class="p-tag" style={{ margin: '2rem 1rem 1rem 0' }}>
             Signed?
           </p>
         </div>
@@ -68,16 +206,20 @@ class ViewMultiSig {
                 </h4>
                 <div
                   class="flex flex-align-center"
-                  style={{ width: '65%', backgroundColor: 'white', height: '40px', borderRadius: '3px' }}
+                  style={{ width: '55%', backgroundColor: 'white', height: '40px', borderRadius: '3px' }}
                 >
-                  <p class="p-tag" style={{ margin: '0 0 0 .5rem' }}>
+                  <p class="p-tag-bold" style={{ margin: '0 0 0 .5rem', fontSize: '80%' }}>
                     {sig.name}
                   </p>
                 </div>
 
-                <h4 class="p-tag" style={{ margin: '0 0 0 0' }}>
-                  {sig.signed ? <p>Y</p> : <p>N</p>}
-                </h4>
+                <div style={{ margin: '0 0 0 .5rem' }}>
+                  {sig.signed ? (
+                    <img src={greenCheckMark} style={{ width: '80%' }} />
+                  ) : (
+                    <img src={redX} style={{ width: '80%' }} />
+                  )}
+                </div>
               </div>
             );
           })}
@@ -134,15 +276,21 @@ class ViewMultiSig {
             <div class="flex flex-align-center flex-justify-between" style={{ flexDirection: 'column' }}>
               <div class="flex flex-align-center flex-justify-between">
                 <h4>AID:</h4>
-                <TextField style={{ backgroundColor: 'rgba(0, 0, 0, 0.04)', height: '2rem', width: '80%' }} />
+                <TextField
+                  style={{ backgroundColor: 'rgba(0, 0, 0, 0.04)', height: '2rem', width: '80%', borderRadius: '0' }}
+                />
               </div>
               <div class="flex flex-align-center flex-justify-between">
                 <h4>URL:</h4>
-                <TextField style={{ backgroundColor: 'rgba(0, 0, 0, 0.04)', height: '2rem', width: '80%' }} />
+                <TextField
+                  style={{ backgroundColor: 'rgba(0, 0, 0, 0.04)', height: '2rem', width: '80%', borderRadius: '0' }}
+                />
               </div>
               <div class="flex flex-align-center flex-justify-between">
                 <h4>Alias:</h4>
-                <TextField style={{ backgroundColor: 'rgba(0, 0, 0, 0.04)', height: '2rem', width: '80%' }} />
+                <TextField
+                  style={{ backgroundColor: 'rgba(0, 0, 0, 0.04)', height: '2rem', width: '80%', borderRadius: '0' }}
+                />
               </div>
             </div>
           </Card>
@@ -150,15 +298,21 @@ class ViewMultiSig {
             <div class="flex flex-align-center flex-justify-between" style={{ flexDirection: 'column' }}>
               <div class="flex flex-align-center flex-justify-between">
                 <h4>AID:</h4>
-                <TextField style={{ backgroundColor: 'rgba(0, 0, 0, 0.04)', height: '2rem', width: '80%' }} />
+                <TextField
+                  style={{ backgroundColor: 'rgba(0, 0, 0, 0.04)', height: '2rem', width: '80%', borderRadius: '0' }}
+                />
               </div>
               <div class="flex flex-align-center flex-justify-between">
                 <h4>URL:</h4>
-                <TextField style={{ backgroundColor: 'rgba(0, 0, 0, 0.04)', height: '2rem', width: '80%' }} />
+                <TextField
+                  style={{ backgroundColor: 'rgba(0, 0, 0, 0.04)', height: '2rem', width: '80%', borderRadius: '0' }}
+                />
               </div>
               <div class="flex flex-align-center flex-justify-between">
                 <h4>Alias:</h4>
-                <TextField style={{ backgroundColor: 'rgba(0, 0, 0, 0.04)', height: '2rem', width: '80%' }} />
+                <TextField
+                  style={{ backgroundColor: 'rgba(0, 0, 0, 0.04)', height: '2rem', width: '80%', borderRadius: '0' }}
+                />
               </div>
             </div>
           </Card>
@@ -173,6 +327,73 @@ class ViewMultiSig {
               this.step++;
             }}
           />
+        </div>
+      </>,
+
+      <>
+        <h3>Event Log</h3>
+        <TextField
+          placeholder="Search by date or event log number"
+          style={{
+            backgroundColor: 'rgba(0, 0, 0, 0.04)',
+            height: '3rem',
+            width: '100%',
+            borderRadius: '0px',
+            alignItems: 'center',
+          }}
+        />
+        <br></br>
+        <div class="flex flex-justify-between">
+          <p class="p-tag-bold" style={{ fontSize: '80%' }}>
+            Event Log Number
+          </p>
+          <p class="p-tag-bold" style={{ fontSize: '80%', marginRight: '5.2rem' }}>
+            Date
+          </p>
+          <p class="p-tag-bold" style={{ fontSize: '80%', marginRight: '2.8rem' }}>
+            Status
+          </p>
+        </div>
+        <div style={{ height: '350px', overflowY: 'scroll', margin: '0 0 2rem 0' }}>
+          {this.eventLogArray.map((event) => {
+            return (
+              <div
+                class="flex flex-justify-between divider"
+                style={{ alignItems: 'center', margin: '0', height: '40px', width: '100%' }}
+              >
+                <div class="flex flex-justify-between" style={{ width: '100%' }}>
+                  <p class="p-tag" style={{ fontSize: '80%' }}>
+                    <u>Event #{event.logNumber}</u>
+                  </p>
+                  <p class="p-tag" style={{ fontSize: '80%' }}>
+                    {event.date}
+                  </p>
+                  <div style={{ marginRight: '1rem' }}>
+                    {event.status ? (
+                      <p class="p-tag" style={{ fontSize: '80%' }}>
+                        Completed
+                      </p>
+                    ) : (
+                      <p class="p-tag" style={{ fontSize: '80%', color: '#aa3737' }}>
+                        Incomplete
+                      </p>
+                    )}
+                  </div>
+                </div>
+              </div>
+            );
+          })}
+        </div>
+        <div class="flex flex-justify-between">
+          <Button
+            class="button--gray-dk button--big button--no-transform"
+            raised
+            label="Go Back"
+            onclick={() => {
+              this.step--;
+            }}
+          />
+          <Button class="button--big button--no-transform" raised label="close" onclick={vnode.attrs.end} />
         </div>
       </>,
       <>
