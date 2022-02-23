@@ -204,7 +204,14 @@ class CreateYourGleifAID {
         </div>
         <img src={githubLogo} style={{ width: '20%', margin: '0 0 0 0' }} />
         <div class="flex flex-justify-end">
-          <Button class="button--big button--no-transform" raised label="Continue" onclick={vnode.attrs.end} />
+          <Button
+            class="button--big button--no-transform"
+            raised
+            label="Continue"
+            onclick={(e) => {
+              vnode.attrs.end(e, 'intro-to-role');
+            }}
+          />
         </div>
       </>,
     ];

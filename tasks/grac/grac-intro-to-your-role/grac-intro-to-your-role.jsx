@@ -61,7 +61,14 @@ class GracIntroToYourRole {
           <br />
         </p>
         <div class="flex flex-justify-end">
-          <Button class="button--big button--no-transform" raised label="Close" onclick={vnode.attrs.end} />
+          <Button
+            class="button--big button--no-transform"
+            raised
+            label="Close"
+            onclick={(e) => {
+              vnode.attrs.end(e, 'oobi');
+            }}
+          />
         </div>
       </>,
     ];

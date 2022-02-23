@@ -189,7 +189,14 @@ class CreateQARID {
         </div>
         <img src={githubLogo} style={{ width: '20%', margin: '0 0 0 0' }} />
         <div class="flex flex-justify-end">
-          <Button class="button--big button--no-transform" raised label="Continue" onclick={vnode.attrs.end} />
+          <Button
+            class="button--big button--no-transform"
+            raised
+            label="Continue"
+            onclick={() => {
+              this.step++;
+            }}
+          />
         </div>
       </>,
       <>
@@ -225,7 +232,14 @@ class CreateQARID {
         </p>
         <div class="flex flex-justify-between">
           <Button class="button--gray-dk button--big button--no-transform" raised label="Skip" />
-          <Button class="button--big button--no-transform" raised label="Close" onclick={vnode.attrs.end} />
+          <Button
+            class="button--big button--no-transform"
+            raised
+            label="Close"
+            onclick={(e) => {
+              vnode.attrs.end(e, 'intro-to-role');
+            }}
+          />
         </div>
       </>,
     ];
