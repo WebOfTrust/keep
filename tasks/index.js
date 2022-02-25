@@ -1,4 +1,4 @@
 import allUsersTasks from './all-users';
-import userTypeTasks from './grac';
+import userTypeTasks from './gar';
 
 module.exports = Object.assign({}, allUsersTasks, userTypeTasks);
