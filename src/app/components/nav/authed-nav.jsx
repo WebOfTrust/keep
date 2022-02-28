@@ -38,6 +38,7 @@ class AuthedNav {
                 style={{
                   top: '88px',
                 }}
+                padding={'16px'}
               >
                 <p>notification</p>
               </Popover>

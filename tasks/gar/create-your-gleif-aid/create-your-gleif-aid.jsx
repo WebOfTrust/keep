@@ -1,5 +1,6 @@
 import m from 'mithril';
-import { Button, Card, TextField } from '../../../src/app/components';
+import { Button, Popover, TextField } from '../../../src/app/components';
+import { KERI } from '../../../src/app/services';
 import createIdentifier from '../../../src/assets/img/create-identifier.png';
 import configureIdentifier from '../../../src/assets/img/configure-identifier.png';
 import approveRequest from '../../../src/assets/img/approve-request.png';
@@ -9,13 +10,42 @@ import liOne from '../../../src/assets/img/li-one.png';
 import liTwo from '../../../src/assets/img/li-two.png';
 import liThree from '../../../src/assets/img/li-three.png';
 
-class CreateYourGleifAID {
+class WelcomeToSoftware {
   constructor(vnode) {
-    this.step = 0;
-    this.steps = [
+    this.GARPopoverOpen = false;
+  }
+
+  view(vnode) {
+    return (
       <>
         <h3>
-          Welcome to your <u>GAR</u> Software
+          <span class="relative">
+            Welcome to your{' '}
+            <u
+              onmouseover={() => {
+                this.GARPopoverOpen = true;
+              }}
+            >
+              GAR
+            </u>{' '}
+            Software
+            <Popover
+              visible={this.GARPopoverOpen}
+              onClose={() => {
+                this.GARPopoverOpen = false;
+              }}
+              padding={'16px'}
+              style={{
+                backgroundColor: '#eaeaea',
+                fontSize: '14px',
+                top: '-100px',
+                right: '0',
+                width: '134px',
+              }}
+            >
+              GLEIF Authorized Representative
+            </Popover>
+          </span>
         </h3>
         <img src={createIdentifier} style={{ width: '70%', margin: '3rem 0 0 2rem' }} />
         <p class="p-tag" style={{ marginTop: '4rem', marginBottom: '4rem' }}>
@@ -32,22 +62,51 @@ class CreateYourGleifAID {
             raised
             label="Skip"
             onclick={() => {
-              this.step = 3;
+              // this.step = 3;
             }}
           />
-          <Button
-            class="button--big button--no-transform"
-            raised
-            label="Continue"
-            onclick={() => {
-              this.step++;
-            }}
-          />
+          <Button class="button--big button--no-transform" raised label="Continue" onclick={vnode.attrs.continue} />
         </div>
-      </>,
+      </>
+    );
+  }
+}
+
+class CreatingAID {
+  constructor() {
+    this.AIDPopoverOpen = false;
+  }
+
+  view(vnode) {
+    return (
       <>
         <h3>
-          Creating your <u>AID</u>
+          <span class="relative">
+            Creating your{' '}
+            <u
+              onmouseenter={() => {
+                this.AIDPopoverOpen = true;
+              }}
+            >
+              AID
+            </u>
+            <Popover
+              visible={this.AIDPopoverOpen}
+              onClose={() => {
+                this.AIDPopoverOpen = false;
+              }}
+              padding={'16px'}
+              style={{
+                backgroundColor: '#eaeaea',
+                fontSize: '14px',
+                top: '-100px',
+                right: '0',
+                width: '162px',
+              }}
+            >
+              AID is your identifier for your QVI software.
+            </Popover>
+          </span>
         </h3>
         <img src={createIdentifier} style={{ width: '70%', margin: '4rem 0 0 2rem' }} />
         <p class="p-tag" style={{ margin: '4rem 0 5rem 0' }}>
@@ -62,23 +121,21 @@ class CreateYourGleifAID {
             raised
             label="Skip"
             onclick={() => {
-              this.step = 3;
+              // this.step = 3;
             }}
           />
-          <Button
-            class="button--big button--no-transform"
-            raised
-            label="Continue"
-            onclick={() => {
-              this.step++;
-            }}
-          />
+          <Button class="button--big button--no-transform" raised label="Continue" onclick={vnode.attrs.continue} />
         </div>
-      </>,
+      </>
+    );
+  }
+}
+
+class StepsToCreate {
+  view(vnode) {
+    return (
       <>
-        <h3>
-          Steps to Create Your <u>GLEIF AID</u>
-        </h3>
+        <h3>Steps to Create Your GLEIF AID</h3>
         <img src={approveRequest} style={{ width: '60%', margin: '4rem 0 0 4rem' }} />
         <p class="p-tag">
           <div class="flex flex-column">
@@ -102,19 +159,19 @@ class CreateYourGleifAID {
             raised
             label="Skip"
             onclick={() => {
-              this.step = 3;
+              // this.step = 3;
             }}
           />
-          <Button
-            class="button--big button--no-transform"
-            raised
-            label="Continue"
-            onclick={() => {
-              this.step++;
-            }}
-          />
+          <Button class="button--big button--no-transform" raised label="Continue" onclick={vnode.attrs.continue} />
         </div>
-      </>,
+      </>
+    );
+  }
+}
+
+class CreateYourAlias {
+  view(vnode) {
+    return (
       <>
         <h3>Create Your Alias</h3>
         <img src={configureIdentifier} style={{ width: '40%', margin: '1.5rem 0 0 6rem' }} />
@@ -125,26 +182,33 @@ class CreateYourGleifAID {
           <br />
           What would you like your alias to be?
         </p>
-        <TextField outlined style={{ height: '3rem', width: '100%', margin: '0 0 4rem 0' }} />
+        <TextField
+          outlined
+          style={{ height: '3rem', width: '100%', margin: '0 0 4rem 0' }}
+          oninput={(e) => {
+            vnode.attrs.aliasChange(e.target.value);
+          }}
+          value={vnode.attrs.alias}
+        />
         <div class="flex flex-justify-between">
           <Button
             class="button--gray-dk button--big button--no-transform"
             raised
             label="Go Back"
             onclick={() => {
-              this.step--;
+              // this.step--;
             }}
           />
-          <Button
-            class="button--big button--no-transform"
-            raised
-            label="Continue"
-            onclick={() => {
-              this.step++;
-            }}
-          />
+          <Button class="button--big button--no-transform" raised label="Continue" onclick={vnode.attrs.continue} />
         </div>
-      </>,
+      </>
+    );
+  }
+}
+
+class SelectPhoto {
+  view(vnode) {
+    return (
       <>
         <img src={uploadImage} style={{ width: '50%', margin: '4rem 0 0 0' }} />
         <h3>Select a Photo for the Alias</h3>
@@ -154,6 +218,10 @@ class CreateYourGleifAID {
         <input
           type="file"
           style={{ letterSpacing: '.15px', lineHeight: '1.38', marginTop: '4rem', marginBottom: '8rem' }}
+          oninput={(e) => {
+            vnode.attrs.aliasPhotoChange(e.target);
+          }}
+          value={vnode.attrs.aliasPhoto ? vnode.attrs.aliasPhoto.value : ''}
         />
         <div class="flex flex-justify-between">
           <Button
@@ -161,19 +229,30 @@ class CreateYourGleifAID {
             raised
             label="Go Back"
             onclick={() => {
-              this.step--;
+              // this.step--;
             }}
           />
-          <Button
-            class="button--big button--no-transform"
-            raised
-            label="Continue"
-            onclick={() => {
-              this.step++;
-            }}
-          />
+          <Button class="button--big button--no-transform" raised label="Continue" onclick={vnode.attrs.continue} />
         </div>
-      </>,
+      </>
+    );
+  }
+}
+
+class ReviewAndConfirm {
+  createAID(vnode) {
+    const witnesses = [
+      'BGKVzj4ve0VSd8z_AmvhLg4lqcC_9WYX90k03q-R_Ydo',
+      'BuyRFMideczFZoapylLIyCjSdhtqVb31wZkRKvPfNqkw',
+      'Bgoq68HCmYNUDgOz4Skvlu306o_NY-NrYuKAVhk3Zh9c',
+    ];
+    KERI.createIdentifier(vnode.attrs.alias, witnesses).then(() => {
+      vnode.attrs.end(null, 'intro-to-role');
+    });
+  }
+
+  view(vnode) {
+    return (
       <>
         <h3>Review and Confirm</h3>
         <div class="flex flex-justify-between" style={{ alignItems: 'baseline' }}>
@@ -186,11 +265,11 @@ class CreateYourGleifAID {
             label="Edit"
             style={{ padding: '0 2rem 0 2rem', height: '2rem' }}
             onclick={() => {
-              this.step = 3;
+              // this.step = 3;
             }}
           />
         </div>
-        <TextField outlined style={{ height: '3rem', width: '100%' }} />
+        <TextField outlined style={{ height: '3rem', width: '100%' }} value={vnode.attrs.alias} />
         <div class="flex flex-justify-between" style={{ alignItems: 'baseline' }}>
           <p class="p-tag" style={{ marginTop: '2rem', marginBottom: '2.5rem' }}>
             Alias Photo:
@@ -202,23 +281,80 @@ class CreateYourGleifAID {
             style={{ padding: '0 2rem 0 2rem', height: '2rem' }}
           />
         </div>
-        <img src={githubLogo} style={{ width: '20%', margin: '0 0 0 0' }} />
+        <img src={vnode.attrs.aliasPhoto.files[0].name} style={{ width: '20%', margin: '0 0 0 0' }} />
         <div class="flex flex-justify-end">
           <Button
             class="button--big button--no-transform"
             raised
             label="Continue"
             onclick={(e) => {
-              vnode.attrs.end(e, 'intro-to-role');
+              this.createAID(vnode);
             }}
           />
         </div>
-      </>,
-    ];
+      </>
+    );
+  }
+}
+
+class CreateYourGleifAID {
+  constructor() {
+    this.currentState = 'welcome';
+    this.alias = '';
+    this.aliasPhoto = null;
   }
 
-  view() {
-    return <>{this.steps[this.step]}</>;
+  view(vnode) {
+    return (
+      <>
+        {this.currentState === 'welcome' && (
+          <WelcomeToSoftware
+            continue={() => {
+              this.currentState = 'creating-aid';
+            }}
+          />
+        )}
+        {this.currentState === 'creating-aid' && (
+          <CreatingAID
+            continue={() => {
+              this.currentState = 'steps-to-create';
+            }}
+          />
+        )}
+        {this.currentState === 'steps-to-create' && (
+          <StepsToCreate
+            continue={() => {
+              this.currentState = 'create-your-alias';
+            }}
+          />
+        )}
+        {this.currentState === 'create-your-alias' && (
+          <CreateYourAlias
+            alias={this.alias}
+            aliasChange={(value) => {
+              this.alias = value;
+            }}
+            continue={() => {
+              this.currentState = 'select-photo';
+            }}
+          />
+        )}
+        {this.currentState === 'select-photo' && (
+          <SelectPhoto
+            aliasPhoto={this.aliasPhoto}
+            aliasPhotoChange={(value) => {
+              this.aliasPhoto = value;
+            }}
+            continue={() => {
+              this.currentState = 'review-and-confirm';
+            }}
+          />
+        )}
+        {this.currentState === 'review-and-confirm' && (
+          <ReviewAndConfirm end={vnode.attrs.end} alias={this.alias} aliasPhoto={this.aliasPhoto} />
+        )}
+      </>
+    );
   }
 }
 

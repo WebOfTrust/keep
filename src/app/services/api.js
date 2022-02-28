@@ -111,6 +111,7 @@ class Endpoint {
 class API {
   static Boot = new Endpoint('boot');
   static Code = new Endpoint('codes');
+  static Identifier = new Endpoint('ids');
 }
 
 module.exports = API;
