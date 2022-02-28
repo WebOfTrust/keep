@@ -199,7 +199,13 @@ class CreateYourAlias {
               // this.step--;
             }}
           />
-          <Button class="button--big button--no-transform" raised label="Continue" onclick={vnode.attrs.continue} />
+          <Button
+            class="button--big button--no-transform"
+            raised
+            label="Continue"
+            disabled={vnode.attrs.alias.length === 0}
+            onclick={vnode.attrs.continue}
+          />
         </div>
       </>
     );
@@ -218,10 +224,7 @@ class SelectPhoto {
         <input
           type="file"
           style={{ letterSpacing: '.15px', lineHeight: '1.38', marginTop: '4rem', marginBottom: '8rem' }}
-          oninput={(e) => {
-            vnode.attrs.aliasPhotoChange(e.target);
-          }}
-          value={vnode.attrs.aliasPhoto ? vnode.attrs.aliasPhoto.value : ''}
+          onchange={vnode.attrs.aliasPhotoChange}
         />
         <div class="flex flex-justify-between">
           <Button
@@ -232,7 +235,13 @@ class SelectPhoto {
               // this.step--;
             }}
           />
-          <Button class="button--big button--no-transform" raised label="Continue" onclick={vnode.attrs.continue} />
+          <Button
+            class="button--big button--no-transform"
+            raised
+            label="Continue"
+            disabled={!vnode.attrs.aliasPhoto}
+            onclick={vnode.attrs.continue}
+          />
         </div>
       </>
     );
@@ -281,7 +290,7 @@ class ReviewAndConfirm {
             style={{ padding: '0 2rem 0 2rem', height: '2rem' }}
           />
         </div>
-        <img src={vnode.attrs.aliasPhoto.files[0].name} style={{ width: '20%', margin: '0 0 0 0' }} />
+        <img src={vnode.attrs.aliasPhoto} style={{ width: '20%', margin: '0 0 0 0' }} />
         <div class="flex flex-justify-end">
           <Button
             class="button--big button--no-transform"
@@ -342,8 +351,8 @@ class CreateYourGleifAID {
         {this.currentState === 'select-photo' && (
           <SelectPhoto
             aliasPhoto={this.aliasPhoto}
-            aliasPhotoChange={(value) => {
-              this.aliasPhoto = value;
+            aliasPhotoChange={(e) => {
+              this.aliasPhoto = URL.createObjectURL(e.target.files[0]);
             }}
             continue={() => {
               this.currentState = 'review-and-confirm';
