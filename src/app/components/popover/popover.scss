@@ -4,9 +4,8 @@
 .popover {
   @include sans;
   animation: scaleIn 0.4s;
-  background-color: white;
+  background-color: #eaeaea;
   border: 1px solid $border;
-  border-radius: 4px;
   box-shadow: 0 4px 21px 3px rgba(0, 0, 0, 0.11);
   color: $default-text;
   cursor: default;
