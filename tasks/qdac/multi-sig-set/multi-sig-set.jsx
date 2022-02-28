@@ -1,6 +1,6 @@
 import m from 'mithril';
 import { Button, Card, TextField, Select } from '../../../src/app/components';
-import secureMessaging from '../../../src/assets/img/secure-messaging.png ';
+import secureMessaging from '../../../src/assets/img/secure-messaging.png';
 import responseMessage from '../../../src/assets/img/response-message.png';
 import uploadFile from '../../../src/assets/img/upload-file.png';
 import addNewContacts from '../../../src/assets/img/add-new-contacts.png';
