@@ -42,7 +42,7 @@ const tasks = {
   'oobi': [
     {
       imgSrc: addNewContacts,
-      label: 'Initiate Video Call with GLEIF Controllers',
+      label: 'Initiate Video Call with QVI Controllers',
       component: {
         view: (vnode) => {
           return <InitiateVideoCall end={vnode.attrs.end} />;
@@ -51,7 +51,7 @@ const tasks = {
     },
     {
       imgSrc: addNewContacts,
-      label: 'Join Video Call with GLEIF Genesis Controllers',
+      label: 'Join Video Call with QVI Controllers',
       component: {
         view: (vnode) => {
           return <JoinVideoCall end={vnode.attrs.end} />;

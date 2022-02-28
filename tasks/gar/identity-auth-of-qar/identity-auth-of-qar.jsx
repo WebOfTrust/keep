@@ -177,7 +177,7 @@ class IdentityAuth {
       <>
         <img src={addNewContacts} style={{ width: '40%', margin: '1.5rem 0 0 0' }} />
         <h3>Accept OOBI</h3>
-        <p class="p-tag" style={{ margin: '2rem, 0 2rem 0' }}>
+        <p class="p-tag">
           Enter OOBI you received on the Video Call from the QAR below:
           <br />
           <br />
@@ -205,7 +205,7 @@ class IdentityAuth {
       <>
         <img src={responseMessage} style={{ width: '50%', margin: '1.5rem 0 2rem 0' }} />
         <h3>Generate Challenge Message</h3>
-        <p class="p-tag" style={{ margin: '2rem, 0 2rem 0' }}>
+        <p class="p-tag">
           The Challenge Response Message generated will be sent to the QVI for verification purposes.
           <br />
           <br />
@@ -233,7 +233,7 @@ class IdentityAuth {
       <>
         <img src={responseMessage} style={{ width: '50%', margin: '1.5rem 0 2rem 0' }} />
         <h3>Copy Challenge Message</h3>
-        <p class="p-tag" style={{ margin: '2rem, 0 2rem 0' }}>
+        <p class="p-tag">
           Copy the Challenge Message into the chat box while on the Video Call.
           <br />
           <br />
@@ -261,7 +261,7 @@ class IdentityAuth {
       <>
         <img src={uploadFile} style={{ width: '60%', margin: '1.5rem 0 2rem 0' }} />
         <h3>Challenge Message in Progress</h3>
-        <p class="p-tag" style={{ margin: '2rem, 0 2rem 0' }}>
+        <p class="p-tag">
           You will be notified when the QAR signs and returns the Challenge Message.
           <br />
           <br />
