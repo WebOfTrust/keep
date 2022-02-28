@@ -231,45 +231,6 @@ class MultiSigSet {
             <label for="noRadio">No</label>
           </div>
         </div>
-        {/* enter signers start */}
-        {/* <div>
-          <div class="flex flex-justify-between " style={{ margin: '0 0 1rem 0' }}>
-            <div
-              class="flex flex-align-center"
-              style={{ width: '80%', backgroundColor: 'white', height: '40px', borderRadius: '3px' }}
-            >
-              <p class="p-tag-bold" style={{ margin: '0 0 0 .5rem', fontSize: '80%' }}>
-                test
-              </p>
-            </div>
-            <div
-              class="flex flex-align-center"
-              style={{ width: '13%', backgroundColor: 'white', height: '40px', borderRadius: '3px' }}
-            >
-              <p class="p-tag-bold" style={{ margin: '0 0 0 .5rem', fontSize: '80%' }}>
-                1/4
-              </p>
-            </div>
-          </div>
-          <div class="flex flex-justify-between" style={{ margin: '0 0 1rem 0' }}>
-            <div
-              class="flex flex-align-center"
-              style={{ width: '80%', backgroundColor: 'white', height: '40px', borderRadius: '3px' }}
-            >
-              <p class="p-tag-bold" style={{ margin: '0 0 0 .5rem', fontSize: '80%' }}>
-                test
-              </p>
-            </div>
-            <div
-              class="flex flex-align-center"
-              style={{ width: '13%', backgroundColor: 'white', height: '40px', borderRadius: '3px' }}
-            >
-              <p class="p-tag-bold" style={{ margin: '0 0 0 .5rem', fontSize: '80%' }}>
-                1/4
-              </p>
-            </div>
-          </div>
-        </div> */}
         <div style={{ height: '350px', overflowY: 'scroll', margin: '0 0 2rem 0' }}>
           {this.tempMultiSigArray.map((signer) => {
             return (
