@@ -232,7 +232,7 @@ class MultiSigSet {
           </div>
         </div>
         {/* enter signers start */}
-        <div>
+        {/* <div>
           <div class="flex flex-justify-between " style={{ margin: '0 0 1rem 0' }}>
             <div
               class="flex flex-align-center"
@@ -269,6 +269,30 @@ class MultiSigSet {
               </p>
             </div>
           </div>
+        </div> */}
+        <div style={{ height: '350px', overflowY: 'scroll', margin: '0 0 2rem 0' }}>
+          {this.tempMultiSigArray.map((signer) => {
+            return (
+              <div class="flex flex-justify-between " style={{ margin: '0 0 1rem 0' }}>
+                <div
+                  class="flex flex-align-center"
+                  style={{ width: '80%', backgroundColor: 'white', height: '40px', borderRadius: '3px' }}
+                >
+                  <p class="p-tag-bold" style={{ margin: '0 0 0 .5rem', fontSize: '80%' }}>
+                    {signer.name}
+                  </p>
+                </div>
+                <div
+                  class="flex flex-align-center"
+                  style={{ width: '13%', backgroundColor: 'white', height: '40px', borderRadius: '3px' }}
+                >
+                  <p class="p-tag-bold" style={{ margin: '0 0 0 .5rem', fontSize: '80%' }}>
+                    {signer.weight}
+                  </p>
+                </div>
+              </div>
+            );
+          })}
         </div>
         {/* enter signers end */}
         <div class="flex flex-justify-between">
@@ -324,43 +348,19 @@ class MultiSigSet {
           </strong>
         </p>
         {/* enter signers start */}
-        <div>
-          <div class="flex flex-justify-between " style={{ margin: '0 0 1rem 0' }}>
-            <div
-              class="flex flex-align-center"
-              style={{ width: '80%', backgroundColor: 'white', height: '40px', borderRadius: '3px' }}
-            >
-              <p class="p-tag-bold" style={{ margin: '0 0 0 .5rem', fontSize: '80%' }}>
-                test
-              </p>
-            </div>
-            <div
-              class="flex flex-align-center"
-              style={{ width: '13%', backgroundColor: 'white', height: '40px', borderRadius: '3px' }}
-            >
-              <p class="p-tag-bold" style={{ margin: '0 0 0 .5rem', fontSize: '80%' }}>
-                1/4
-              </p>
-            </div>
-          </div>
-          <div class="flex flex-justify-between" style={{ margin: '0 0 1rem 0' }}>
-            <div
-              class="flex flex-align-center"
-              style={{ width: '80%', backgroundColor: 'white', height: '40px', borderRadius: '3px' }}
-            >
-              <p class="p-tag-bold" style={{ margin: '0 0 0 .5rem', fontSize: '80%' }}>
-                test
-              </p>
-            </div>
-            <div
-              class="flex flex-align-center"
-              style={{ width: '13%', backgroundColor: 'white', height: '40px', borderRadius: '3px' }}
-            >
-              <p class="p-tag-bold" style={{ margin: '0 0 0 .5rem', fontSize: '80%' }}>
-                1/4
-              </p>
-            </div>
-          </div>
+        <div style={{ height: '350px', overflowY: 'scroll', margin: '0 0 2rem 0' }}>
+          {this.tempMultiSigArray.map((signer) => {
+            return (
+              <div class="flex flex-justify-between " style={{ margin: '0 0 1rem 0' }}>
+                <div
+                  class="flex flex-align-center"
+                  style={{ width: '80%', backgroundColor: 'white', height: '40px', borderRadius: '3px' }}
+                >
+                  <p class="p-tag-bold" style={{ margin: '0 0 0 .5rem', fontSize: '80%' }}></p>
+                </div>
+              </div>
+            );
+          })}
         </div>
         {/* enter signers end */}
         <div class="flex flex-justify-between">
