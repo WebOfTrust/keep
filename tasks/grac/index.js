@@ -1,7 +1,7 @@
 import m from 'mithril';
 
 // Tasks
-import CreateYourGleifAid from './grac-create-your-gleif-aid/grac-create-your-gleif-aid';
+import CreateYourGleifAID from './create-your-gleif-aid/create-your-gleif-aid';
 import GracIntroToYourRole from './grac-intro-to-your-role/grac-intro-to-your-role';
 import JoinVideoCall from './join-video-call/join-video-call';
 import InitiateVideoCall from './initiate-video-call/inititate-video-call';
@@ -17,10 +17,10 @@ const tasks = {
   'create-identifier': [
     {
       imgSrc: createIdentifier,
-      label: 'Create Your Gleif Aid',
+      label: 'Create Your GLEIF AID',
       component: {
         view: (vnode) => {
-          return <CreateYourGleifAid end={vnode.attrs.end} />;
+          return <CreateYourGleifAID end={vnode.attrs.end} />;
         },
       },
     },

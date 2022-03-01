@@ -5,7 +5,6 @@ import createIdentifier from '../../../src/assets/img/create-identifier.png';
 import configureIdentifier from '../../../src/assets/img/configure-identifier.png';
 import approveRequest from '../../../src/assets/img/approve-request.png';
 import uploadImage from '../../../src/assets/img/upload-image.png';
-import githubLogo from '../../../src/assets/img/github-logo.png';
 import liOne from '../../../src/assets/img/li-one.png';
 import liTwo from '../../../src/assets/img/li-two.png';
 import liThree from '../../../src/assets/img/li-three.png';
@@ -61,9 +60,7 @@ class WelcomeToSoftware {
             class="button--gray-dk button--big button--no-transform"
             raised
             label="Skip"
-            onclick={() => {
-              // this.step = 3;
-            }}
+            onclick={vnode.attrs.skip}
           />
           <Button class="button--big button--no-transform" raised label="Continue" onclick={vnode.attrs.continue} />
         </div>
@@ -104,7 +101,7 @@ class CreatingAID {
                 width: '162px',
               }}
             >
-              AID is your identifier for your QVI software.
+              AID is your identifier for your GAR software.
             </Popover>
           </span>
         </h3>
@@ -120,9 +117,7 @@ class CreatingAID {
             class="button--gray-dk button--big button--no-transform"
             raised
             label="Skip"
-            onclick={() => {
-              // this.step = 3;
-            }}
+            onclick={vnode.attrs.skip}
           />
           <Button class="button--big button--no-transform" raised label="Continue" onclick={vnode.attrs.continue} />
         </div>
@@ -145,7 +140,7 @@ class StepsToCreate {
             </div>
             <div class="flex" style={{ alignItems: 'center', margin: '0 0 0 2rem' }}>
               <img src={liTwo} style={{ margin: '1rem 10px 1rem 0' }} />
-              <p class="p-tag-bold">Create Your Alias</p>
+              <p class="p-tag-bold">Create an Alias</p>
             </div>
             <div class="flex" style={{ alignItems: 'center', margin: '0 0 0 2rem' }}>
               <img src={liThree} style={{ margin: '1rem 10px 1rem 0' }} />
@@ -158,9 +153,7 @@ class StepsToCreate {
             class="button--gray-dk button--big button--no-transform"
             raised
             label="Skip"
-            onclick={() => {
-              // this.step = 3;
-            }}
+            onclick={vnode.attrs.skip}
           />
           <Button class="button--big button--no-transform" raised label="Continue" onclick={vnode.attrs.continue} />
         </div>
@@ -195,9 +188,7 @@ class CreateYourAlias {
             class="button--gray-dk button--big button--no-transform"
             raised
             label="Go Back"
-            onclick={() => {
-              // this.step--;
-            }}
+            onclick={vnode.attrs.back}
           />
           <Button
             class="button--big button--no-transform"
@@ -231,9 +222,7 @@ class SelectPhoto {
             class="button--gray-dk button--big button--no-transform"
             raised
             label="Go Back"
-            onclick={() => {
-              // this.step--;
-            }}
+            onclick={vnode.attrs.back}
           />
           <Button
             class="button--big button--no-transform"
@@ -274,7 +263,7 @@ class ReviewAndConfirm {
             label="Edit"
             style={{ padding: '0 2rem 0 2rem', height: '2rem' }}
             onclick={() => {
-              // this.step = 3;
+              vnode.attrs.switchTo('create-your-alias');
             }}
           />
         </div>
@@ -288,6 +277,9 @@ class ReviewAndConfirm {
             raised
             label="Edit"
             style={{ padding: '0 2rem 0 2rem', height: '2rem' }}
+            onclick={() => {
+              vnode.attrs.switchTo('select-photo');
+            }}
           />
         </div>
         <img src={vnode.attrs.aliasPhoto} style={{ width: '20%', margin: '0 0 0 0' }} />
@@ -318,6 +310,9 @@ class CreateYourGleifAID {
       <>
         {this.currentState === 'welcome' && (
           <WelcomeToSoftware
+            skip={() => {
+              this.currentState = 'create-your-alias';
+            }}
             continue={() => {
               this.currentState = 'creating-aid';
             }}
@@ -325,6 +320,9 @@ class CreateYourGleifAID {
         )}
         {this.currentState === 'creating-aid' && (
           <CreatingAID
+            skip={() => {
+              this.currentState = 'create-your-alias';
+            }}
             continue={() => {
               this.currentState = 'steps-to-create';
             }}
@@ -332,6 +330,9 @@ class CreateYourGleifAID {
         )}
         {this.currentState === 'steps-to-create' && (
           <StepsToCreate
+            skip={() => {
+              this.currentState = 'create-your-alias';
+            }}
             continue={() => {
               this.currentState = 'create-your-alias';
             }}
@@ -342,6 +343,9 @@ class CreateYourGleifAID {
             alias={this.alias}
             aliasChange={(value) => {
               this.alias = value;
+            }}
+            back={() => {
+              this.currentState = 'steps-to-create';
             }}
             continue={() => {
               this.currentState = 'select-photo';
@@ -354,13 +358,23 @@ class CreateYourGleifAID {
             aliasPhotoChange={(e) => {
               this.aliasPhoto = URL.createObjectURL(e.target.files[0]);
             }}
+            back={() => {
+              this.currentState = 'create-your-alias';
+            }}
             continue={() => {
               this.currentState = 'review-and-confirm';
             }}
           />
         )}
         {this.currentState === 'review-and-confirm' && (
-          <ReviewAndConfirm end={vnode.attrs.end} alias={this.alias} aliasPhoto={this.aliasPhoto} />
+          <ReviewAndConfirm
+            end={vnode.attrs.end}
+            alias={this.alias}
+            aliasPhoto={this.aliasPhoto}
+            switchTo={(state) => {
+              this.currentState = state;
+            }}
+          />
         )}
       </>
     );
