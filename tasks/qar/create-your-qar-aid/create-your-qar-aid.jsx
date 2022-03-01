@@ -11,7 +11,7 @@ import liThree from '../../../src/assets/img/li-three.png';
 
 class WelcomeToSoftware {
   constructor(vnode) {
-    this.GARPopoverOpen = false;
+    this.QVIPopoverOpen = false;
   }
 
   view(vnode) {
@@ -22,16 +22,16 @@ class WelcomeToSoftware {
             Welcome to your{' '}
             <u
               onmouseover={() => {
-                this.GARPopoverOpen = true;
+                this.QVIPopoverOpen = true;
               }}
             >
-              GAR
+              QVI
             </u>{' '}
             Software
             <Popover
-              visible={this.GARPopoverOpen}
+              visible={this.QVIPopoverOpen}
               onClose={() => {
-                this.GARPopoverOpen = false;
+                this.QVIPopoverOpen = false;
               }}
               padding={'16px'}
               style={{
@@ -42,7 +42,7 @@ class WelcomeToSoftware {
                 width: '134px',
               }}
             >
-              GLEIF Authorized Representative
+              Qualified vLEI Issuer
             </Popover>
           </span>
         </h3>
@@ -52,7 +52,7 @@ class WelcomeToSoftware {
           and also as a storage place for all of your credentials.
           <br />
           <br />
-          The first step will be to create your Delegated AID, then you will receive a short tutorial, you may skip the
+          The first step will be to create your Delegated AID, then you will receive a short tutorial, You may skip the
           tutorial by selecting the “skip” button.
         </p>
         <div class="flex flex-justify-between">
@@ -85,7 +85,7 @@ class CreatingAID {
                 this.AIDPopoverOpen = true;
               }}
             >
-              AID
+              QAR AID
             </u>
             <Popover
               visible={this.AIDPopoverOpen}
@@ -101,14 +101,16 @@ class CreatingAID {
                 width: '162px',
               }}
             >
-              AID is your identifier for your GAR software.
+              <u>QVI</u> is an acronym for Qualified vLEI Authorized Representative.
+              <br />
+              <u>AID</u> is your identifier for your QVI software.
             </Popover>
           </span>
         </h3>
         <img src={createIdentifier} style={{ width: '70%', margin: '4rem 0 0 2rem' }} />
         <p class="p-tag" style={{ margin: '4rem 0 5rem 0' }}>
-          In order to provide authorization, you will first have to create your own GLEIF Delegated AID within the
-          software and GLEIF will verify you as an authorized representative (GAR) to act on their behalf.
+          In order to provide authorization, you will first have to create your own AID within the software and GLEIF
+          will verify you as an authorized party to act on your QVI’s behalf.
           <br />
           <br />
         </p>
@@ -169,8 +171,8 @@ class CreateYourAlias {
         <h3>Create Your Alias</h3>
         <img src={configureIdentifier} style={{ width: '40%', margin: '1.5rem 0 0 6rem' }} />
         <p class="p-tag" style={{ marginTop: '2rem', marginBottom: '2rem' }}>
-          The alias should be an easy to remember name for your GLEIF Delegated AID as a member of the GLEIF Root AID
-          signing group (e.g. My Qualified vLEI Authorized Representative Identifier).
+          The alias should be an easy to remember name for your AID as a Qualified Authorized Representative (e.g. My
+          Qualified vLEI Authorized Representative Identifier).
           <br />
           <br />
           What would you like your alias to be?
@@ -298,7 +300,7 @@ class ReviewAndConfirm {
   }
 }
 
-class CreateYourGleifAID {
+class CreateYourQarAID {
   constructor() {
     this.currentState = 'welcome';
     this.alias = '';
@@ -381,4 +383,4 @@ class CreateYourGleifAID {
   }
 }
 
-module.exports = CreateYourGleifAID;
+module.exports = CreateYourQarAID;

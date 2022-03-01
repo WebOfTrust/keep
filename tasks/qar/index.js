@@ -3,7 +3,7 @@ import m from 'mithril';
 // Tasks
 import IntroToQARRole from './intro-you-the-qar-role/intro-to-the-qar-role';
 import IDAssuranceOfOOR from './identity-assurance-of-oor/identity-assurance-of-oor';
-import CreateQARID from './create-my-qar-id/create-my-qar-id';
+import CreateYourQarAID from './create-your-qar-aid/create-your-qar-aid';
 import QVIIdentityAssurance from './qvi-identity-assurance/qvi-identity-assurance';
 import IssueOORvLEICredential from './issue-oor-vlei-credential/issue-oor-vlei-credential';
 import TriggerManualKeyRotation from './trigger-manual-key-rotation/trigger-manual-key-rotation';
@@ -24,7 +24,7 @@ const tasks = {
       label: 'Create my QAR ID',
       component: {
         view: (vnode) => {
-          return <CreateQARID end={vnode.attrs.end} />;
+          return <CreateYourQarAID end={vnode.attrs.end} />;
         },
       },
     },
@@ -46,7 +46,7 @@ const tasks = {
       label: 'Create my QAR ID',
       component: {
         view: (vnode) => {
-          return <CreateQARID end={vnode.attrs.end} />;
+          return <CreateYourQarAID end={vnode.attrs.end} />;
         },
       },
     },

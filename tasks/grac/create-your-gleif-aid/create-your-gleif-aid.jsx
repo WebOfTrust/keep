@@ -11,7 +11,7 @@ import liThree from '../../../src/assets/img/li-three.png';
 
 class WelcomeToSoftware {
   constructor(vnode) {
-    this.GARPopoverOpen = false;
+    this.GRACPopoverOpen = false;
   }
 
   view(vnode) {
@@ -22,16 +22,16 @@ class WelcomeToSoftware {
             Welcome to your{' '}
             <u
               onmouseover={() => {
-                this.GARPopoverOpen = true;
+                this.GRACPopoverOpen = true;
               }}
             >
-              GAR
+              GRAC
             </u>{' '}
             Software
             <Popover
-              visible={this.GARPopoverOpen}
+              visible={this.GRACPopoverOpen}
               onClose={() => {
-                this.GARPopoverOpen = false;
+                this.GRACPopoverOpen = false;
               }}
               padding={'16px'}
               style={{
@@ -42,7 +42,7 @@ class WelcomeToSoftware {
                 width: '134px',
               }}
             >
-              GLEIF Authorized Representative
+              GLEIF Root AID Controller
             </Popover>
           </span>
         </h3>
@@ -52,7 +52,7 @@ class WelcomeToSoftware {
           and also as a storage place for all of your credentials.
           <br />
           <br />
-          The first step will be to create your Delegated AID, then you will receive a short tutorial, you may skip the
+          The first step will be to create your Delegated AID, then you will receive a short tutorial, You may skip the
           tutorial by selecting the “skip” button.
         </p>
         <div class="flex flex-justify-between">
@@ -101,7 +101,7 @@ class CreatingAID {
                 width: '162px',
               }}
             >
-              AID is your identifier for your GAR software.
+              AID is your identifier for your GRAC software.
             </Popover>
           </span>
         </h3>
