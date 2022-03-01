@@ -221,17 +221,35 @@ class MultiSigSet {
           ex. Each signer equals 1/3 of the group.
         </p>
         <div class="flex">
-          <div>
-            <input type="radio" id="yesRadio" name="signatureRadio" value="yes" checked></input>
+          <div style={{ margin: '1rem 1.5rem 1rem 0' }}>
+            <input
+              class="radioButtons"
+              type="radio"
+              id="yesRadio"
+              name="signatureRadio"
+              value="yes"
+              checked
+              style
+            ></input>
             <label for="yesRadio">Yes</label>
           </div>
 
-          <div>
-            <input type="radio" id="noRadio" name="signatureRadio" value="no"></input>
+          <div style={{ margin: '1rem 1.5rem 1rem 0' }}>
+            <input class="radioButtons" type="radio" id="noRadio" name="signatureRadio" value="no"></input>
             <label for="noRadio">No</label>
           </div>
         </div>
-        <div style={{ height: '350px', overflowY: 'scroll', margin: '0 0 2rem 0' }}>
+
+        <div class="flex flex-justify-between">
+          <p class="p-tag" style={{ fontSize: '80%' }}>
+            <strong>Enter Required Signers (in order):</strong>
+          </p>
+          <p class="p-tag" style={{ fontSize: '80%' }}>
+            <strong>Weight</strong>
+          </p>
+        </div>
+
+        <div style={{ height: '300px', overflowY: 'scroll', margin: '0 0 2rem 0' }}>
           {this.tempMultiSigArray.map((signer) => {
             return (
               <div class="flex flex-justify-between " style={{ margin: '0 0 1rem 0' }}>
@@ -282,13 +300,13 @@ class MultiSigSet {
           ex. Each signer equals 1/3 of the group.
         </p>
         <div class="flex">
-          <div>
-            <input type="radio" id="yesRadio" name="signatureRadio" value="yes"></input>
+          <div style={{ margin: '1rem 1.5rem 1rem 0' }}>
+            <input class="radioButtons" type="radio" id="yesRadio" name="signatureRadio" value="yes" style></input>
             <label for="yesRadio">Yes</label>
           </div>
 
-          <div>
-            <input type="radio" id="noRadio" name="signatureRadio" value="no" checked></input>
+          <div style={{ margin: '1rem 1.5rem 1rem 0' }}>
+            <input class="radioButtons" type="radio" id="noRadio" name="signatureRadio" value="no" checked></input>
             <label for="noRadio">No</label>
           </div>
         </div>
@@ -309,7 +327,7 @@ class MultiSigSet {
           </strong>
         </p>
         {/* enter signers start */}
-        <div style={{ height: '350px', overflowY: 'scroll', margin: '0 0 2rem 0' }}>
+        <div style={{ height: '275px', overflowY: 'scroll', margin: '0 0 2rem 0' }}>
           {this.tempMultiSigArray.map((signer) => {
             return (
               <div class="flex flex-justify-between " style={{ margin: '0 0 1rem 0' }}>
@@ -409,7 +427,7 @@ class MultiSigSet {
               <div class="flex flex-justify-between " style={{ margin: '0 0 1rem 0' }}>
                 <div
                   class="flex flex-align-center"
-                  style={{ width: '80%', backgroundColor: 'white', height: '40px', borderRadius: '3px' }}
+                  style={{ width: '70%', backgroundColor: 'white', height: '40px', borderRadius: '3px' }}
                 >
                   <p class="p-tag-bold" style={{ margin: '0 0 0 .5rem', fontSize: '80%' }}>
                     {signer.name}
@@ -417,7 +435,13 @@ class MultiSigSet {
                 </div>
                 <div
                   class="flex flex-align-center"
-                  style={{ width: '13%', backgroundColor: 'white', height: '40px', borderRadius: '3px' }}
+                  style={{
+                    width: '13%',
+                    backgroundColor: 'white',
+                    height: '40px',
+                    borderRadius: '3px',
+                    marginRight: '1.5rem',
+                  }}
                 >
                   <p class="p-tag-bold" style={{ margin: '0 0 0 .5rem', fontSize: '80%' }}>
                     {signer.weight}
@@ -483,7 +507,61 @@ class MultiSigSet {
           all members of the multi-sig group are available for an OOBI exchange.
         </p>
         <div class="flex flex-justify-end" style={{ margin: '4rem 0 0 0' }}>
-          <Button class="button--big button--no-transform" raised label="Close" onclick={vnode.attrs.end} />
+          <Button
+            class="button--big button--no-transform"
+            raised
+            label="Continue"
+            onclick={() => {
+              this.step++;
+            }}
+          />
+        </div>
+      </>,
+      <>
+        <h3>Select Multi-Sig Group Members</h3>
+        <p class="p-tag" style={{ margin: '2rem 0 2rem 0' }}>
+          Please select the multi-sig group members. Event will not validate unless the minimum signing threshold is
+          met. When weighted, the threshold is a sum of 1.
+        </p>
+
+        <TextField
+          style={{ backgroundColor: 'white', height: '3rem', margin: '0 0 2rem 0' }}
+          filled
+          fluid
+          placeholder="ACME Corp alias or AID"
+          oninput={(e) => {
+            this.passcode = e.target.value;
+          }}
+          iconTrailing={{
+            icon: 'search_icon',
+          }}
+        />
+
+        <TextField
+          style={{ backgroundColor: 'white', height: '3rem' }}
+          filled
+          fluid
+          placeholder="ACME Corp alias or AID"
+          // value={this.passcode}
+          oninput={(e) => {
+            this.passcode = e.target.value;
+          }}
+          iconTrailing={{
+            icon: 'content_copy',
+            // onclick: () => {
+            //   this.copyPasscode();
+            // },
+          }}
+        />
+        <div class="flex flex-justify-end" style={{ margin: '4rem 0 0 0' }}>
+          <Button
+            class="button--big button--no-transform"
+            raised
+            label="Continue"
+            onclick={() => {
+              this.step++;
+            }}
+          />
         </div>
       </>,
     ];

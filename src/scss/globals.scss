@@ -29,6 +29,13 @@ a:link {
   }
 }
 
+.radioButtons {
+  width: 1.15em;
+  height: 1.15em;
+  border: 0.15em solid currentColor;
+  border-radius: 50%;
+}
+
 .divider {
   border: none;
   border-bottom: 1px solid $border;
