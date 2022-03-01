@@ -480,7 +480,7 @@ class MultiSigSet {
           </div>
         </div>
 
-        <div class="flex flex-justify-between" style={{ margin: '4rem 0 0 0' }}>
+        <div class="flex flex-justify-between" style={{ margin: '2rem 0 0 0' }}>
           <Button
             class="button--gray-dk button--big button--no-transform"
             raised
@@ -523,36 +523,89 @@ class MultiSigSet {
           Please select the multi-sig group members. Event will not validate unless the minimum signing threshold is
           met. When weighted, the threshold is a sum of 1.
         </p>
+        {/* LONG TEXT BOXES TO MAP START */}
+        <div class="flex flex-justify-between">
+          <div>
+            <p class="p-tag-bold">#1</p>
+          </div>
+          <TextField
+            style={{ backgroundColor: 'white', height: '3rem', margin: '0 0 1.5rem 0', width: '75%' }}
+            filled
+            fluid
+            placeholder="ACME Corp alias or AID"
+            // oninput={(e) => {
+            //   this.passcode = e.target.value;
+            // }}
+            iconTrailing={{
+              icon: 'search',
+            }}
+          />
+          <div>
+            <p class="p-tag-bold">1/2</p>
+          </div>
+        </div>
+        <div class="flex flex-justify-between">
+          <div>
+            <p class="p-tag-bold">#1</p>
+          </div>
+          <TextField
+            style={{ backgroundColor: 'white', height: '3rem', margin: '0 0 1.5rem 0', width: '75%' }}
+            filled
+            fluid
+            placeholder="ACME Corp alias or AID"
+            // oninput={(e) => {
+            //   this.passcode = e.target.value;
+            // }}
+            iconTrailing={{
+              icon: 'search',
+            }}
+          />
+          <div>
+            <p class="p-tag-bold">1/2</p>
+          </div>
+        </div>
+        <div class="flex flex-justify-between">
+          <div>
+            <p class="p-tag-bold">#1</p>
+          </div>
+          <TextField
+            style={{ backgroundColor: 'white', height: '3rem', margin: '0 0 1.5rem 0', width: '75%' }}
+            filled
+            fluid
+            placeholder="ACME Corp alias or AID"
+            // oninput={(e) => {
+            //   this.passcode = e.target.value;
+            // }}
+            iconTrailing={{
+              icon: 'search',
+            }}
+          />
+          <div>
+            <p class="p-tag-bold">1/4</p>
+          </div>
+        </div>
+        <div class="flex flex-justify-between">
+          <div>
+            <p class="p-tag-bold">#1</p>
+          </div>
+          <TextField
+            style={{ backgroundColor: 'white', height: '3rem', margin: '0 0 1.5rem 0', width: '75%' }}
+            filled
+            fluid
+            placeholder="ACME Corp alias or AID"
+            // oninput={(e) => {
+            //   this.passcode = e.target.value;
+            // }}
+            iconTrailing={{
+              icon: 'search',
+            }}
+          />
+          <div>
+            <p class="p-tag-bold">1/4</p>
+          </div>
+        </div>
+        {/* LONG TEXT BOXES TO MAP ^^ END */}
 
-        <TextField
-          style={{ backgroundColor: 'white', height: '3rem', margin: '0 0 2rem 0' }}
-          filled
-          fluid
-          placeholder="ACME Corp alias or AID"
-          oninput={(e) => {
-            this.passcode = e.target.value;
-          }}
-          iconTrailing={{
-            icon: 'search_icon',
-          }}
-        />
-
-        <TextField
-          style={{ backgroundColor: 'white', height: '3rem' }}
-          filled
-          fluid
-          placeholder="ACME Corp alias or AID"
-          // value={this.passcode}
-          oninput={(e) => {
-            this.passcode = e.target.value;
-          }}
-          iconTrailing={{
-            icon: 'content_copy',
-            // onclick: () => {
-            //   this.copyPasscode();
-            // },
-          }}
-        />
         <div class="flex flex-justify-end" style={{ margin: '4rem 0 0 0' }}>
           <Button
             class="button--big button--no-transform"
@@ -563,6 +616,40 @@ class MultiSigSet {
             }}
           />
         </div>
+      </>,
+      <>
+        <img src={uploadFile} style={{ width: '50%' }} />
+        <h3>Multi-Signature Verification in Progress</h3>
+        <br></br>
+        <p class="p-tag">
+          You will be notified when the QDACs verify that the Root AID witnesses their signature on the Root AID
+          Inception Event.
+        </p>
+        <div class="flex flex-justify-end" style={{ margin: '4rem 0 0 0' }}>
+          <Button
+            class="button--big button--no-transform"
+            raised
+            label="Continue"
+            onclick={() => {
+              this.step++;
+            }}
+          />
+        </div>
+      </>,
+      <>
+        <h3>Event Log</h3>
+        <TextField
+          style={{ backgroundColor: 'var(--black-4)', height: '3rem', margin: '0 0 1.5rem 0' }}
+          filled
+          fluid
+          placeholder="ACME Corp alias or AID"
+          oninput={(e) => {
+            this.passcode = e.target.value;
+          }}
+          iconTrailing={{
+            icon: 'search',
+          }}
+        />
       </>,
     ];
   }
