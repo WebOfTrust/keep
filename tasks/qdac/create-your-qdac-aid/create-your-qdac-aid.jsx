@@ -1,24 +1,50 @@
 import m from 'mithril';
-import { Button, Card, TextField } from '../../../src/app/components';
-import approveRequest from '../../../src/assets/img/approve-request.png';
-import addNewContacts from '../../../src/assets/img/add-new-contacts.png';
-import verifyCredentials from '../../../src/assets/img/verify-credentials.png';
+import { Button, Popover, TextField } from '../../../src/app/components';
+import { KERI } from '../../../src/app/services';
 import createIdentifier from '../../../src/assets/img/create-identifier.png';
+import configureIdentifier from '../../../src/assets/img/configure-identifier.png';
+import approveRequest from '../../../src/assets/img/approve-request.png';
+import uploadImage from '../../../src/assets/img/upload-image.png';
 import liOne from '../../../src/assets/img/li-one.png';
 import liTwo from '../../../src/assets/img/li-two.png';
 import liThree from '../../../src/assets/img/li-three.png';
-import configureIdentifier from '../../../src/assets/img/configure-identifier.png';
-import uploadImage from '../../../src/assets/img/upload-image.png';
-import githubLogo from '../../../src/assets/img/github-logo.png';
 
-class CreateYourQdacAid {
+class WelcomeToSoftware {
   constructor(vnode) {
-    this.step = 0;
+    this.QDACPopoverOpen = false;
+  }
 
-    this.steps = [
+  view(vnode) {
+    return (
       <>
         <h3>
-          Welcome to your <u>QDAC</u> Software
+          <span class="relative">
+            Welcome to your{' '}
+            <u
+              onmouseover={() => {
+                this.QDACPopoverOpen = true;
+              }}
+            >
+              QDAC
+            </u>{' '}
+            Software
+            <Popover
+              visible={this.QDACPopoverOpen}
+              onClose={() => {
+                this.QDACPopoverOpen = false;
+              }}
+              padding={'16px'}
+              style={{
+                backgroundColor: '#eaeaea',
+                fontSize: '14px',
+                top: '-100px',
+                right: '0',
+                width: '134px',
+              }}
+            >
+              QVI Delegated AID Controller
+            </Popover>
+          </span>
         </h3>
         <img src={createIdentifier} style={{ width: '70%', margin: '3rem 0 0 2rem' }} />
         <p class="p-tag" style={{ margin: '4rem 0 4rem 0' }}>
@@ -34,23 +60,50 @@ class CreateYourQdacAid {
             class="button--gray-dk button--big button--no-transform"
             raised
             label="Skip"
-            onclick={() => {
-              this.step = 3;
-            }}
+            onclick={vnode.attrs.skip}
           />
-          <Button
-            class="button--big button--no-transform"
-            raised
-            label="Continue"
-            onclick={() => {
-              this.step++;
-            }}
-          />
+          <Button class="button--big button--no-transform" raised label="Continue" onclick={vnode.attrs.continue} />
         </div>
-      </>,
+      </>
+    );
+  }
+}
+
+class CreatingAID {
+  constructor() {
+    this.AIDPopoverOpen = false;
+  }
+
+  view(vnode) {
+    return (
       <>
         <h3>
-          Creating your <u>AID</u>
+          <span class="relative">
+            Creating your{' '}
+            <u
+              onmouseenter={() => {
+                this.AIDPopoverOpen = true;
+              }}
+            >
+              AID
+            </u>
+            <Popover
+              visible={this.AIDPopoverOpen}
+              onClose={() => {
+                this.AIDPopoverOpen = false;
+              }}
+              padding={'16px'}
+              style={{
+                backgroundColor: '#eaeaea',
+                fontSize: '14px',
+                top: '-100px',
+                right: '0',
+                width: '162px',
+              }}
+            >
+              AID is your identifier for your QDAC software.
+            </Popover>
+          </span>
         </h3>
         <img src={createIdentifier} style={{ width: '70%', margin: '3rem 0 0 2rem' }} />
         <p class="p-tag" style={{ margin: '4rem 0 4rem 0' }}>
@@ -64,24 +117,20 @@ class CreateYourQdacAid {
             class="button--gray-dk button--big button--no-transform"
             raised
             label="Skip"
-            onclick={() => {
-              this.step = 3;
-            }}
+            onclick={vnode.attrs.skip}
           />
-          <Button
-            class="button--big button--no-transform"
-            raised
-            label="Continue"
-            onclick={() => {
-              this.step++;
-            }}
-          />
+          <Button class="button--big button--no-transform" raised label="Continue" onclick={vnode.attrs.continue} />
         </div>
-      </>,
+      </>
+    );
+  }
+}
+
+class StepsToCreate {
+  view(vnode) {
+    return (
       <>
-        <h3>
-          Steps to Create Your <u>QDAC AID</u>
-        </h3>
+        <h3>Steps to Create Your QDAC AID</h3>
         <img src={approveRequest} style={{ width: '60%', margin: '4rem 0 0 4rem' }} />
         <p class="p-tag">
           <div class="flex flex-column">
@@ -91,7 +140,7 @@ class CreateYourQdacAid {
             </div>
             <div class="flex" style={{ alignItems: 'center', margin: '0 0 0 2rem' }}>
               <img src={liTwo} style={{ margin: '1rem 10px 1rem 0' }} />
-              <p class="p-tag-bold">Create Your Alias</p>
+              <p class="p-tag-bold">Create an Alias</p>
             </div>
             <div class="flex" style={{ alignItems: 'center', margin: '0 0 0 2rem' }}>
               <img src={liThree} style={{ margin: '1rem 10px 1rem 0' }} />
@@ -104,20 +153,18 @@ class CreateYourQdacAid {
             class="button--gray-dk button--big button--no-transform"
             raised
             label="Skip"
-            onclick={() => {
-              this.step = 3;
-            }}
+            onclick={vnode.attrs.skip}
           />
-          <Button
-            class="button--big button--no-transform"
-            raised
-            label="Continue"
-            onclick={() => {
-              this.step++;
-            }}
-          />
+          <Button class="button--big button--no-transform" raised label="Continue" onclick={vnode.attrs.continue} />
         </div>
-      </>,
+      </>
+    );
+  }
+}
+
+class CreateYourAlias {
+  view(vnode) {
+    return (
       <>
         <h3>Create Your Alias</h3>
         <img src={configureIdentifier} style={{ width: '40%', margin: '1.5rem 0 0 6rem' }} />
@@ -128,26 +175,37 @@ class CreateYourQdacAid {
           <br />
           What would you like your alias to be?
         </p>
-        <TextField outlined style={{ height: '3rem', width: '100%', margin: '0 0 4rem 0' }} />
+        <TextField
+          outlined
+          style={{ height: '3rem', width: '100%', margin: '0 0 4rem 0' }}
+          oninput={(e) => {
+            vnode.attrs.aliasChange(e.target.value);
+          }}
+          value={vnode.attrs.alias}
+        />
         <div class="flex flex-justify-between">
           <Button
             class="button--gray-dk button--big button--no-transform"
             raised
             label="Go Back"
-            onclick={() => {
-              this.step--;
-            }}
+            onclick={vnode.attrs.back}
           />
           <Button
             class="button--big button--no-transform"
             raised
             label="Continue"
-            onclick={() => {
-              this.step++;
-            }}
+            disabled={vnode.attrs.alias.length === 0}
+            onclick={vnode.attrs.continue}
           />
         </div>
-      </>,
+      </>
+    );
+  }
+}
+
+class SelectPhoto {
+  view(vnode) {
+    return (
       <>
         <img src={uploadImage} style={{ width: '50%', margin: '4rem 0 0 0' }} />
         <h3>Select a Photo for the Alias</h3>
@@ -157,26 +215,42 @@ class CreateYourQdacAid {
         <input
           type="file"
           style={{ letterSpacing: '.15px', lineHeight: '1.38', marginTop: '4rem', marginBottom: '8rem' }}
+          onchange={vnode.attrs.aliasPhotoChange}
         />
         <div class="flex flex-justify-between">
           <Button
             class="button--gray-dk button--big button--no-transform"
             raised
             label="Go Back"
-            onclick={() => {
-              this.step--;
-            }}
+            onclick={vnode.attrs.back}
           />
           <Button
             class="button--big button--no-transform"
             raised
             label="Continue"
-            onclick={() => {
-              this.step++;
-            }}
+            disabled={!vnode.attrs.aliasPhoto}
+            onclick={vnode.attrs.continue}
           />
         </div>
-      </>,
+      </>
+    );
+  }
+}
+
+class ReviewAndConfirm {
+  createAID(vnode) {
+    const witnesses = [
+      'BGKVzj4ve0VSd8z_AmvhLg4lqcC_9WYX90k03q-R_Ydo',
+      'BuyRFMideczFZoapylLIyCjSdhtqVb31wZkRKvPfNqkw',
+      'Bgoq68HCmYNUDgOz4Skvlu306o_NY-NrYuKAVhk3Zh9c',
+    ];
+    KERI.createIdentifier(vnode.attrs.alias, witnesses).then(() => {
+      vnode.attrs.end(null, 'intro-to-role');
+    });
+  }
+
+  view(vnode) {
+    return (
       <>
         <h3>Review and Confirm</h3>
         <div class="flex flex-justify-between" style={{ alignItems: 'baseline' }}>
@@ -189,11 +263,11 @@ class CreateYourQdacAid {
             label="Edit"
             style={{ padding: '0 2rem 0 2rem', height: '2rem' }}
             onclick={() => {
-              this.step = 3;
+              vnode.attrs.switchTo('create-your-alias');
             }}
           />
         </div>
-        <TextField outlined style={{ height: '3rem', width: '100%' }} />
+        <TextField outlined style={{ height: '3rem', width: '100%' }} value={vnode.attrs.alias} />
         <div class="flex flex-justify-between" style={{ alignItems: 'baseline' }}>
           <p class="p-tag" style={{ margin: '2rem 0 2.5rem 0' }}>
             Alias Photo:
@@ -203,62 +277,108 @@ class CreateYourQdacAid {
             raised
             label="Edit"
             style={{ padding: '0 2rem 0 2rem', height: '2rem' }}
+            onclick={() => {
+              vnode.attrs.switchTo('select-photo');
+            }}
           />
         </div>
-        <img src={githubLogo} style={{ width: '20%', margin: '0 0 0 0' }} />
+        <img src={vnode.attrs.aliasPhoto} style={{ width: '20%', margin: '0 0 0 0' }} />
         <div class="flex flex-justify-end">
-          <Button class="button--big button--no-transform" raised label="Continue" onclick={vnode.attrs.end} />
-        </div>
-      </>,
-      <>
-        <h3>Complete Identity Assurance</h3>
-        <img src={addNewContacts} style={{ width: '50%', margin: '4rem 0 4rem 4rem' }} />
-        <p class="p-tag">
-          Once you are authorized to act on behalf of GLEIF, you perform identity assurance of a person serving in the
-          role of QAR. A GAR and the QAR will complete a real-time OOBI session in which the GAR and the QAR are
-          present.
-          <br />
-          <br />
-        </p>
-        <div class="flex flex-justify-between">
-          <Button class="button--gray-dk button--big button--no-transform" raised label="Skip" />
           <Button
             class="button--big button--no-transform"
             raised
             label="Continue"
-            onclick={() => {
-              this.step++;
-            }}
-          />
-        </div>
-      </>,
-      <>
-        <h3>Grant Credentials</h3>
-        <img src={verifyCredentials} style={{ width: '60%', margin: '4rem 0 4rem 4rem' }} />
-        <p class="p-tag">
-          The GAR approves the issuance of the QVI vLEI Credential and the QVI receives the credential in its credential
-          wallet. The QVI vLEI Credential may be added or revoked at any time.
-          <br />
-          <br />
-        </p>
-        <div class="flex flex-justify-between">
-          <Button class="button--gray-dk button--big button--no-transform" raised label="Skip" />
-          <Button
-            class="button--big button--no-transform"
-            raised
-            label="Close"
             onclick={(e) => {
-              vnode.attrs.end(e, 'intro-to-role');
+              this.createAID(vnode);
             }}
           />
         </div>
-      </>,
-    ];
-  }
-
-  view() {
-    return <>{this.steps[this.step]}</>;
+      </>
+    );
   }
 }
 
-module.exports = CreateYourQdacAid;
+class CreateYourQdacAID {
+  constructor() {
+    this.currentState = 'welcome';
+    this.alias = '';
+    this.aliasPhoto = null;
+  }
+
+  view(vnode) {
+    return (
+      <>
+        {this.currentState === 'welcome' && (
+          <WelcomeToSoftware
+            skip={() => {
+              this.currentState = 'create-your-alias';
+            }}
+            continue={() => {
+              this.currentState = 'creating-aid';
+            }}
+          />
+        )}
+        {this.currentState === 'creating-aid' && (
+          <CreatingAID
+            skip={() => {
+              this.currentState = 'create-your-alias';
+            }}
+            continue={() => {
+              this.currentState = 'steps-to-create';
+            }}
+          />
+        )}
+        {this.currentState === 'steps-to-create' && (
+          <StepsToCreate
+            skip={() => {
+              this.currentState = 'create-your-alias';
+            }}
+            continue={() => {
+              this.currentState = 'create-your-alias';
+            }}
+          />
+        )}
+        {this.currentState === 'create-your-alias' && (
+          <CreateYourAlias
+            alias={this.alias}
+            aliasChange={(value) => {
+              this.alias = value;
+            }}
+            back={() => {
+              this.currentState = 'steps-to-create';
+            }}
+            continue={() => {
+              this.currentState = 'select-photo';
+            }}
+          />
+        )}
+        {this.currentState === 'select-photo' && (
+          <SelectPhoto
+            aliasPhoto={this.aliasPhoto}
+            aliasPhotoChange={(e) => {
+              this.aliasPhoto = URL.createObjectURL(e.target.files[0]);
+            }}
+            back={() => {
+              this.currentState = 'create-your-alias';
+            }}
+            continue={() => {
+              this.currentState = 'review-and-confirm';
+            }}
+          />
+        )}
+        {this.currentState === 'review-and-confirm' && (
+          <ReviewAndConfirm
+            end={vnode.attrs.end}
+            alias={this.alias}
+            aliasPhoto={this.aliasPhoto}
+            switchTo={(state) => {
+              this.currentState = state;
+            }}
+          />
+        )}
+      </>
+    );
+  }
+}
+
+module.exports = CreateYourQdacAID;
