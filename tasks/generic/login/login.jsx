@@ -23,10 +23,10 @@ class Login {
     return (
       <>
         <h3>Welcome Back</h3>
-        <div class="flex flex-justify-center" style={{ margin: '4.5rem 0' }}>
+        <div class="flex flex-justify-center" style={{ margin: '5rem 0' }}>
           <img src={passcodeImg} style={{ width: '192px' }} />
         </div>
-        <p class="font-color--battleship" style={{ margin: '0 0 3rem 0', lineHeight: '1.38', letterSpacing: '0.15px' }}>
+        <p class="p-tag" style={{ margin: '0 0 3rem 0' }}>
           Enter your 22 character passcode to login to the portal.
         </p>
         <TextField

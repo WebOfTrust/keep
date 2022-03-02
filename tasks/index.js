@@ -1,4 +1,3 @@
-import allUsersTasks from './all-users';
-import userTypeTasks from './qdac';
+import tasks from './qdac';
 
-module.exports = Object.assign({}, allUsersTasks, userTypeTasks);
+module.exports = tasks;

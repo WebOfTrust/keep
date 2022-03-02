@@ -10,10 +10,10 @@ class WelcomeToKEEP {
     return (
       <>
         <h3>Welcome to KEEP</h3>
-        <div class="flex flex-justify-center" style={{ margin: '2rem 0' }}>
-          <img src={createYourPasscode} style={{ width: '50%' }} />
+        <div class="flex flex-justify-center" style={{ margin: '4.5rem 0' }}>
+          <img src={createYourPasscode} style={{ width: '192px' }} />
         </div>
-        <p class="font-color--battleship" style={{ margin: '0 0 8rem 0', lineHeight: '1.38', letterSpacing: '0.15px' }}>
+        <p class="p-tag" style={{ margin: '0 0 8rem 0' }}>
           To get started and enter the software, you will need to generate a passcode.
           <br />
           <br />
@@ -100,13 +100,10 @@ class GeneratePasscode {
           }
         />
         <h3>Generate Your Passcode</h3>
-        <div class="flex flex-justify-center" style={{ margin: '2rem 0' }}>
-          <img src={createYourPasscode} style={{ width: '50%' }} />
+        <div class="flex flex-justify-center" style={{ margin: '4.5rem 0' }}>
+          <img src={createYourPasscode} style={{ width: '192px' }} />
         </div>
-        <p
-          class="font-color--battleship"
-          style={{ margin: '0 0 2.5rem 0', lineHeight: '1.38', letterSpacing: '0.15px' }}
-        >
+        <p class="p-tag" style={{ margin: '0 0 2.5rem 0' }}>
           Generate your passcode here or in your password management app such as 1Password or Last Pass to encrypt your
           desktop software and then copy into the following screen.
         </p>
@@ -125,7 +122,7 @@ class GeneratePasscode {
             },
           }}
         />
-        <div class="flex flex-justify-between" style={{ margin: '1rem 0 5.5rem' }}>
+        <div class="flex flex-justify-between" style={{ margin: '1rem 0 6rem' }}>
           <p class="font-color--green font-weight--medium">{this.copied ? 'Passcode copied!' : <br />}</p>
           <Button
             raised
@@ -169,11 +166,11 @@ class EnterPasscode {
         KERI.unlockAgent('keep', this.passcode)
           .then(vnode.attrs.continue)
           .catch((err) => {
-            console.log(err);
+            console.log('unlockAgent err: ', err);
           });
       })
       .catch((err) => {
-        console.log(err);
+        console.log('initializeAgent err: ', err);
       });
   }
 
@@ -181,10 +178,10 @@ class EnterPasscode {
     return (
       <>
         <h3>Please Enter Your Passcode</h3>
-        <div class="flex flex-justify-center" style={{ margin: '4.5rem 0' }}>
+        <div class="flex flex-justify-center" style={{ margin: '5rem 0' }}>
           <img src={passcodeImg} style={{ width: '192px' }} />
         </div>
-        <p class="font-color--battleship" style={{ margin: '0 0 3rem 0', lineHeight: '1.38', letterSpacing: '0.15px' }}>
+        <p class="p-tag" style={{ margin: '0 0 3rem 0' }}>
           You can find your 22-character passcode by referring back to your storage spot (1Password, Last Pass, Safe
           Deposit Box) and entering it into the box below.
         </p>
@@ -224,7 +221,7 @@ class EnterPasscode {
   }
 }
 
-class CreatePasscode {
+class CreateYourPasscode {
   constructor() {
     this.currentState = 'welcome';
   }
@@ -264,4 +261,4 @@ class CreatePasscode {
   }
 }
 
-module.exports = CreatePasscode;
+module.exports = CreateYourPasscode;
