@@ -12,6 +12,7 @@ import Select from './select/select.jsx';
 import Spinner from './spinner/spinner.jsx';
 import Steps from './steps/steps.jsx';
 import TextField from './text-field/text-field.jsx';
+import TextTooltip from './text-tooltip/text-tooltip.jsx';
 import ToastOutlet from './toast-outlet/toast-outlet.jsx';
 import UnauthedNav from './nav/unauthed-nav.jsx';
 
@@ -30,6 +31,7 @@ module.exports = {
   Spinner,
   Steps,
   TextField,
+  TextTooltip,
   ToastOutlet,
   UnauthedNav,
 };
