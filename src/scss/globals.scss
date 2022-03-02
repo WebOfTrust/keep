@@ -20,12 +20,41 @@ a:link {
 
 .p-tag {
   color: $battleship-grey;
-  letter-spacing: '.15px';
-  line-height: '1.38';
+  letter-spacing: 0.15px;
+  line-height: 1.38;
 
   &-bold {
     font-weight: 600;
     color: rgba(0, 0, 0, 0.87);
+  }
+}
+
+.styled-ol {
+  li {
+    @include medium;
+    color: rgba(0, 0, 0, 0.87);
+    counter-increment: li;
+    letter-spacing: 0.15px;
+    line-height: 64px;
+    position: relative;
+
+    &::marker {
+      content: '';
+      display: none;
+    }
+    &::before {
+      background-color: white;
+      border-radius: 50%;
+      box-shadow: 0 4px 4px rgba(black, 0.25);
+      content: counter(li) '.';
+      height: 30px;
+      left: -40px;
+      line-height: 30px;
+      position: absolute;
+      text-align: center;
+      top: 16px;
+      width: 30px;
+    }
   }
 }
 
