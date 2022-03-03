@@ -146,7 +146,7 @@ const tasks = {
       },
     },
   ],
-  'oobi': [
+  'main': [
     {
       imgSrc: addNewContacts,
       label: 'Initiate Video Call with GLEIF Controllers',

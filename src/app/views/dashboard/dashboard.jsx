@@ -19,8 +19,8 @@ class Dashboard {
         value: 'intro-to-role',
       },
       {
-        label: 'OOBI',
-        value: 'oobi',
+        label: 'Main',
+        value: 'main',
       },
     ];
     this.flowSelected = 'create-passcode';

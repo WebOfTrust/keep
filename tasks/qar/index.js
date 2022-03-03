@@ -151,7 +151,7 @@ const tasks = {
       },
     },
   ],
-  'oobi': [
+  'main': [
     {
       imgSrc: addNewContacts,
       label: 'Identity Authentication',

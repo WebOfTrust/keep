@@ -26,7 +26,7 @@ class IntroToYourRole {
             raised
             label="Skip"
             onclick={(e) => {
-              vnode.attrs.end(e, 'oobi');
+              vnode.attrs.end(e, 'main');
             }}
           />
           <Button
@@ -53,7 +53,7 @@ class IntroToYourRole {
                 raised
                 label="Skip"
                 onclick={(e) => {
-                  vnode.attrs.end(e, 'oobi');
+                  vnode.attrs.end(e, 'main');
                 }}
               />
               <Button
@@ -73,7 +73,7 @@ class IntroToYourRole {
 
   nextOrEnd(vnode) {
     if (this.step + 1 >= this.steps.length) {
-      vnode.attrs.end(null, 'oobi');
+      vnode.attrs.end(null, 'main');
       return;
     }
     this.step++;
