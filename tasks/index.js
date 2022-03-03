@@ -1,3 +1,3 @@
-import tasks from './qdac';
+import tasks from './generic';
 
 module.exports = tasks;
