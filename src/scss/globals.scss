@@ -35,24 +35,27 @@ a:link {
     color: rgba(0, 0, 0, 0.87);
     counter-increment: li;
     letter-spacing: 0.15px;
-    line-height: 64px;
+    line-height: 2;
+    margin-bottom: 1rem;
+    margin-left: 2rem;
     position: relative;
 
     &::marker {
       content: '';
       display: none;
     }
+
     &::before {
       background-color: white;
       border-radius: 50%;
       box-shadow: 0 4px 4px rgba(black, 0.25);
       content: counter(li) '.';
       height: 30px;
-      left: -40px;
+      left: -64px;
       line-height: 30px;
       position: absolute;
       text-align: center;
-      top: 16px;
+      top: 0px;
       width: 30px;
     }
   }
