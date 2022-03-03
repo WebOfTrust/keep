@@ -29,6 +29,35 @@ class KERI {
       },
     });
   }
+
+  static listIdentifiers() {
+    return m.request({
+      method: 'GET',
+      url: `${process.env.API_HOST}/ids`,
+    });
+  }
+
+  static getOOBI(alias, role) {
+    return m.request({
+      method: 'GET',
+      url: `${process.env.API_HOST}/oobi/${alias}`,
+      params: {
+        role,
+      },
+    });
+  }
+
+  static resolveOOBI(alias, rpy, url) {
+    // body should contain rpy and url
+    return m.request({
+      method: 'POST',
+      url: `${process.env.API_HOST}/oobi/${alias}`,
+      body: {
+        rpy,
+        url,
+      },
+    });
+  }
 }
 
 module.exports = KERI;

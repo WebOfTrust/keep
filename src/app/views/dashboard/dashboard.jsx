@@ -24,7 +24,12 @@ class Dashboard {
       },
     ];
     this.aboutDismissed = false;
-    this.flowSelected = 'create-passcode';
+    this.loggedIn = sessionStorage.getItem('loggedIn');
+    if (!this.loggedIn) {
+      this.flowSelected = 'create-passcode';
+    } else {
+      this.flowSelected = 'create-identifier';
+    }
     this.tasks = tasks;
     this.taskSelected = null;
   }
