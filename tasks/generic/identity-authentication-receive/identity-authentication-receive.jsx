@@ -49,7 +49,7 @@ class WaitModal {
 
 class StepsToAuthenticate {
   constructor() {
-    this.waitModalOpen = false;
+    this.waitModalOpen = true;
   }
 
   view(vnode) {

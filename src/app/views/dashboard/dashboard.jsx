@@ -23,6 +23,7 @@ class Dashboard {
         value: 'main',
       },
     ];
+    this.aboutDismissed = false;
     this.flowSelected = 'create-passcode';
     this.tasks = tasks;
     this.taskSelected = null;
@@ -99,44 +100,59 @@ class Dashboard {
                 </Card>
               </div>
               <div class="flex-1">
-                <Card
-                  class={'card--fluid' + (this.taskSelected ? ' card--active' : null)}
-                  style={{ position: 'relative' }}
-                  padding="4rem"
-                >
-                  <IconButton
-                    class="close-icon"
-                    icon="close"
-                    onclick={() => {
-                      this.taskSelected = null;
-                    }}
-                  />
-                  {this.taskSelected ? (
-                    <this.taskSelected.component
-                      end={(e, nextFlow = null) => {
-                        if (nextFlow) {
-                          this.changeFlow(nextFlow);
-                          return;
+                {(this.taskSelected || !this.aboutDismissed) && (
+                  <Card
+                    class={'card--fluid' + (this.taskSelected ? ' card--active' : null)}
+                    style={{ position: 'relative' }}
+                    padding="4rem"
+                  >
+                    <IconButton
+                      class="close-icon"
+                      icon="close"
+                      onclick={() => {
+                        if (this.taskSelected) {
+                          this.taskSelected = null;
+                        } else {
+                          this.aboutDismissed = true;
                         }
-                        this.taskSelected = null;
                       }}
                     />
-                  ) : (
-                    <>
-                      <h3>About Your Tasks</h3>
-                      <p class="font-color--battleship" style={{ lineHeight: '1.38', letterSpacing: '0.3px' }}>
-                        This section is designed to help you navigate Keep and learn how to complete tasks required for
-                        your role. Click on one of the tasks on the left and this panel will provide more information.
-                        <br />
-                        <br />
-                        If you are already familiar with the software, feel free to select the “Dismiss” button.
-                      </p>
-                      <div class="flex flex-justify-end">
-                        <Button class="button--no-transform button--big" raised label="Dismiss" />
-                      </div>
-                    </>
-                  )}
-                </Card>
+                    {this.taskSelected && (
+                      <this.taskSelected.component
+                        end={(e, nextFlow = null) => {
+                          if (nextFlow) {
+                            this.changeFlow(nextFlow);
+                            return;
+                          }
+                          this.taskSelected = null;
+                        }}
+                      />
+                    )}
+                    {!this.aboutDismissed && !this.taskSelected && (
+                      <>
+                        <h3>About Your Tasks</h3>
+                        <p class="font-color--battleship" style={{ lineHeight: '1.38', letterSpacing: '0.3px' }}>
+                          This section is designed to help you navigate Keep and learn how to complete tasks required
+                          for your role. Click on one of the tasks on the left and this panel will provide more
+                          information.
+                          <br />
+                          <br />
+                          If you are already familiar with the software, feel free to select the “Dismiss” button.
+                        </p>
+                        <div class="flex flex-justify-end">
+                          <Button
+                            class="button--no-transform button--big"
+                            raised
+                            label="Dismiss"
+                            onclick={() => {
+                              this.aboutDismissed = true;
+                            }}
+                          />
+                        </div>
+                      </>
+                    )}
+                  </Card>
+                )}
               </div>
             </div>
           </Container>
