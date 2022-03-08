@@ -13,7 +13,7 @@ class WelcomeToKEEP {
         <div class="flex flex-justify-center" style={{ margin: '4.5rem 0' }}>
           <img src={createYourPasscode} style={{ width: '192px' }} />
         </div>
-        <p class="p-tag" style={{ margin: '0 0 8rem 0' }}>
+        <p class="p-tag" style={{ margin: '2rem 0 2rem 0' }}>
           To get started and enter the software, you will need to generate a passcode.
           <br />
           <br />

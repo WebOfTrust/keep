@@ -1,3 +1,3 @@
-import tasks from './generic';
+import tasks from './avr';
 
 module.exports = tasks;
