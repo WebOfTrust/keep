@@ -1,5 +1,5 @@
 import m from 'mithril';
-import { Button, Card, Container, IconButton, Select } from '../../components';
+import { Button, Card, Container, IconButton, NavRail, Select } from '../../components';
 import tasks from '../../../../tasks';
 import './dashboard.scss';
 
@@ -47,24 +47,7 @@ class Dashboard {
     return (
       <>
         <div class="dashboard">
-          <div class="nav-rail">
-            <div class="nav-rail-item">
-              <i class="material-icons md-48">dashboard</i>
-              {/*<div class="nav-rail-item-text">Dashboard</div>*/}
-            </div>
-            <div class="nav-rail-item">
-              <i class="material-icons md-48">assignment</i>
-              {/*<div class="nav-rail-item-text">My Tasks</div>*/}
-            </div>
-            <div class="nav-rail-item">
-              <span class="material-icons md-48">people</span>
-              {/*<div class="nav-rail-item-text">My Contacts</div>*/}
-            </div>
-            <div class="nav-rail-item">
-              <i class="material-icons md-48">lock</i>
-              {/*<div class="nav-rail-item-text">My Credentials</div>*/}
-            </div>
-          </div>
+          <NavRail selected="dashboard"></NavRail>
           <Container class="headspace" style={{ padding: '0 4rem' }}>
             <div class="flex flex-justify-between">
               <div class="flex-1" style={{ marginRight: '4rem' }}>

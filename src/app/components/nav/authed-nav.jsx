@@ -43,8 +43,20 @@ class AuthedNav {
                 <p>notification</p>
               </Popover>
             </div>
-            <IconButton icon="settings" style={{ marginRight: '2rem' }} />
-            <img src={githubLogo} style={{ height: '40px', width: '40px' }} />
+            <IconButton
+              icon="settings"
+              style={{ marginRight: '2rem' }}
+              onclick={() => {
+                m.route.set('/settings');
+              }}
+            />
+            <img
+              src={githubLogo}
+              style={{ height: '40px', width: '40px' }}
+              onclick={() => {
+                m.route.set('/profile');
+              }}
+            />
           </div>
         </Container>
       </div>

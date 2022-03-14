@@ -1,14 +1,8 @@
 @import '../../../scss/mixins';
 @import '../../../scss/variables';
 
-.dashboard {
+.profile {
   background-color: $background-blue;
   display: flex;
   min-height: calc(100vh - 88px);
-}
-
-.close-icon {
-  position: absolute !important;
-  top: 1rem;
-  right: 1rem;
 }

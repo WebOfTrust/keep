@@ -1,11 +1,12 @@
 import m from 'mithril';
 
 import { AuthedNav, ToastOutlet, UnauthedNav } from './components';
-import { Dashboard, Error } from './views';
+import { Contacts, Dashboard, Error, Profile, Settings } from './views';
 
 import '../scss/defaults.scss';
 import '../scss/typography.scss';
 import '../scss/globals.scss';
+import '../scss/nav-rail.scss';
 
 let root = document.body;
 
@@ -43,6 +44,42 @@ m.route(root, '/dashboard', {
       return (
         <AuthedLayout>
           <Dashboard />
+        </AuthedLayout>
+      );
+    },
+  },
+  '/contacts': {
+    oninit: () => {
+      document.title = documentTitle + ' | Contacts';
+    },
+    view: () => {
+      return (
+        <AuthedLayout>
+          <Contacts />
+        </AuthedLayout>
+      );
+    },
+  },
+  '/profile': {
+    oninit: () => {
+      document.title = documentTitle + ' | Profile';
+    },
+    view: () => {
+      return (
+        <AuthedLayout>
+          <Profile />
+        </AuthedLayout>
+      );
+    },
+  },
+  '/settings': {
+    oninit: () => {
+      document.title = documentTitle + ' | Settings';
+    },
+    view: () => {
+      return (
+        <AuthedLayout>
+          <Settings />
         </AuthedLayout>
       );
     },

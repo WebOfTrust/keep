@@ -7,6 +7,7 @@ import DatePicker from './date-picker/date-picker.jsx';
 import DateRange from './date-range/date-range.jsx';
 import IconButton from './icon-button/icon-button.jsx';
 import Modal from './modal/modal.jsx';
+import NavRail from './nav-rail/nav-rail.jsx';
 import Popover from './popover/popover.jsx';
 import Select from './select/select.jsx';
 import Spinner from './spinner/spinner.jsx';
@@ -26,6 +27,7 @@ module.exports = {
   DateRange,
   IconButton,
   Modal,
+  NavRail,
   Popover,
   Select,
   Spinner,
