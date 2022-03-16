@@ -8,11 +8,13 @@ class ContactDetails {
     return (
       <>
         <h1>My Contacts</h1>
-        <div class="flex flex-justify-between">
+        <div class="flex flex-justify-between" style={{ margin: '2rem 0 2rem 0' }}>
           <img src={contact.displayPic} style={{ width: '40%', borderRadius: '50%' }} />
           <div>
-            <h3>{contact.name}</h3>
-            <h3>{contact.role}</h3>
+            <h4 style={{ color: '#3d63ae' }}>{contact.name}</h4>
+            <h4 style={{ color: '#737374' }}>
+              <u>{contact.role}</u>
+            </h4>
           </div>
         </div>
         <div class="flex flex-justify-between">
