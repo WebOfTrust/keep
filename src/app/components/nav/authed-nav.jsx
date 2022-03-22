@@ -52,7 +52,7 @@ class AuthedNav {
             />
             <img
               src={githubLogo}
-              style={{ height: '40px', width: '40px' }}
+              style={{ height: '40px', width: '40px', cursor: 'pointer' }}
               onclick={() => {
                 m.route.set('/profile');
               }}
