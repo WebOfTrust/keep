@@ -54,8 +54,8 @@ const tasks = {
               welcome={{
                 title: (
                   <>
-                    Welcome to your <TextTooltip label={<u>GAR</u>}>GLEIF Authorized Representative</TextTooltip>{' '}
-                    Software
+                    Welcome to your{' '}
+                    <TextTooltip label={<u>Internal GAR</u>}>GLEIF Authorized Representative</TextTooltip> Software
                   </>
                 ),
                 paragraph: (
