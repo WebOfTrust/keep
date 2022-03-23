@@ -151,7 +151,7 @@ const tasks = {
   'main': [
     {
       imgSrc: addNewContacts,
-      label: 'Identity Authentication of the QAR',
+      label: 'Identity Authentication',
       component: {
         view: (vnode) => {
           return <IdentiyAuthOfQar end={vnode.attrs.end} />;
@@ -160,7 +160,7 @@ const tasks = {
     },
     {
       imgSrc: loanApproved,
-      label: 'Issuance of a Qualified vLEI Issuer vLEI Credential',
+      label: 'Credential Issuance',
       component: {
         view: (vnode) => {
           return <IssuanceOfQvleiCred end={vnode.attrs.end} />;
@@ -178,7 +178,7 @@ const tasks = {
     },
     {
       imgSrc: declineRequest,
-      label: 'Revocation of QVI vLEI Credential by GLEIF',
+      label: 'Credential Revocation',
       component: {
         view: (vnode) => {
           return <RevokeQviCredential end={vnode.attrs.end} />;

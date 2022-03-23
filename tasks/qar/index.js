@@ -13,6 +13,7 @@ import Login from '../generic/login/login';
 import QVIIdentityAssurance from './qvi-identity-assurance/qvi-identity-assurance';
 import IssueOORvLEICredential from './issue-oor-vlei-credential/issue-oor-vlei-credential';
 import RevokeQVIvLEICredential from './revoke-qvi-vlei-credential/revoke-qvi-vlei-credential';
+import IdentityAuthOfQar from './identity-auth-of-qar/identity-auth-of-qar'
 
 // Images
 import addNewContacts from '../../src/assets/img/add-new-contacts.png';
@@ -157,22 +158,31 @@ const tasks = {
       label: 'Identity Authentication',
       component: {
         view: (vnode) => {
+          return <IdentityAuthOfQar end={vnode.attrs.end} />;
+        },
+      },
+    },
+    {
+      imgSrc: loanApproved,
+      label: 'Credential Issuance ',
+      component: {
+        view: (vnode) => {
           return <QVIIdentityAssurance end={vnode.attrs.end} />;
         },
       },
     },
     {
       imgSrc: loanApproved,
-      label: 'Issue the OOR vLEI Credential',
+      label: 'Triggered Manual Key Rotation',
       component: {
         view: (vnode) => {
-          return <IssueOORvLEICredential end={vnode.attrs.end} />;
+          return <IssueOORvLEICredential end={vnode.attrs.end} />
         },
       },
     },
     {
       imgSrc: declineRequest,
-      label: 'Revoke OOR vLEI Credential',
+      label: 'Credential Revocation',
       component: {
         view: (vnode) => {
           return <RevokeQVIvLEICredential end={vnode.attrs.end} />;

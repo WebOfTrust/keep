@@ -1,3 +1,3 @@
-import tasks from './avr';
+import tasks from './qar';
 
 module.exports = tasks;
