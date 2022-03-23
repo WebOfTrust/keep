@@ -110,33 +110,35 @@ const tasks = {
           return (
             <IntroToYourRole
               main={{
-                title: 'Intro to the GAR Role',
+                title: 'Intro to the Internal GAR Role',
                 paragraph: (
                   <>
-                    You have now created your GLEIF Delegated AID! While you are waiting for your GLEIF credentials,
-                    here is a brief introduction to some of the tasks you can complete in your role.
+                    You have now created your identifier! Before you start the a real time OOBI session with the other
+                    Internal GLEIF vLEI Authorized Representatives (GARs) and obtain your credentials, here is a brief
+                    introduction to some of the tasks you will be able to complete in your role.
                   </>
                 ),
               }}
               steps={[
                 {
-                  title: 'Complete Identity Assurance',
+                  title: 'Complete Identity Authentication',
                   image: addNewContacts,
                   paragraph: (
                     <>
-                      Once you are authorized to act on behalf of GLEIF, you perform identity assurance of a person
-                      serving in the role of QAR. A GAR and the QAR will complete a real-time OOBI session in which the
-                      GAR and the QAR are present.
+                      Once you are authorized to act on behalf of the Legal Entity, you complete identity authentication
+                      with a person serving in the role of Internal GAR. The set of Internal GARs will complete a
+                      real-time OOBI session in which the they all are present to accomplish this.
                     </>
                   ),
                 },
                 {
-                  title: 'Grant Credentials',
+                  title: 'Request Credentials',
                   image: verifyCredentials,
                   paragraph: (
                     <>
-                      The GAR approves the issuance of the QVI vLEI Credential and the QVI receives the credential in
-                      its credential wallet. The QVI vLEI Credential may be added or revoked at any time.
+                      Your credentials may be revoked at any time. As a control person for your legal entity, you also
+                      may request credentials for ECRs (Engagement Context Role Persons) and OORs (Official
+                      Organizational Role Representatives).
                     </>
                   ),
                 },
