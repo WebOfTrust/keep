@@ -59,7 +59,8 @@ class ModalCheck {
         <h3>Identity Authentication</h3>
         {/* <img src={approveRequest} style={{ width: '60%', margin: '4rem 0 4rem 4rem' }} /> */}
         <p class="p-tag">
-          This module will take you through the steps of how to authenticate the user's Identity. Below are the steps for the process:
+          This module will take you through the steps of how to authenticate the user's Identity. Below are the steps
+          for the process:
           <br />
           <br />
         </p>
@@ -108,10 +109,11 @@ class IdentityAuth {
     this.step = 0;
     this.steps = [
       <>
-             <h3>Identity Authentication</h3>
+        <h3>Identity Authentication</h3>
         {/* <img src={approveRequest} style={{ width: '60%', margin: '4rem 0 4rem 4rem' }} /> */}
         <p class="p-tag">
-          This module will take you through the steps of how to authenticate the user's Identity. Below are the steps for the process:
+          This module will take you through the steps of how to authenticate the user's Identity. Below are the steps
+          for the process:
           <br />
           <br />
         </p>
@@ -155,8 +157,8 @@ class IdentityAuth {
         <h3>Initiate a Video Call</h3>
         <p class="p-tag">
           In order to start the authentication process, you will need to complete an real-time OOBI session in which you
-          and the user you are verifying are present, You will accept their OOBI on a Video Call so that you can receive their
-          identifying information.
+          and the user you are verifying are present, You will accept their OOBI on a Video Call so that you can receive
+          their identifying information.
           <br />
           <br />
         </p>
@@ -174,19 +176,26 @@ class IdentityAuth {
       </>,
       <>
         <img src={addNewContacts} style={{ width: '40%', margin: '1.5rem 0 0 0' }} />
-        <h3>Accept <u>OOBI</u></h3>
+        <h3>
+          Accept <u>OOBI</u>
+        </h3>
         <p class="p-tag">
-          While on the Video Call, make sure to obtain the <strong>URL and AID.</strong>  When you have both, please press continue.
+          While on the Video Call, make sure to obtain the <strong>URL and AID.</strong> When you have both, please
+          press continue.
           <br />
           <br />
         </p>
         <h3>AID:</h3>
-        <TextField filled style={{ height: '3rem', width: '100%', margin: '0 0 4rem 0', backgroundColor: 'rgba(0, 0, 0, 0.04)' }}
-        iconTrailing={{icon: 'content_copy'}}
+        <TextField
+          filled
+          style={{ height: '3rem', width: '100%', margin: '0 0 4rem 0', backgroundColor: 'rgba(0, 0, 0, 0.04)' }}
+          iconTrailing={{ icon: 'content_copy' }}
         />
-         <h3>URL:</h3>
-        <TextField filled style={{ height: '3rem', width: '100%', margin: '0 0 4rem 0', backgroundColor: 'rgba(0, 0, 0, 0.04)' }}
-        iconTrailing={{icon: 'content_copy'}}
+        <h3>URL:</h3>
+        <TextField
+          filled
+          style={{ height: '3rem', width: '100%', margin: '0 0 4rem 0', backgroundColor: 'rgba(0, 0, 0, 0.04)' }}
+          iconTrailing={{ icon: 'content_copy' }}
         />
         <div class="flex flex-justify-between">
           <Button
