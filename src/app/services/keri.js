@@ -2,6 +2,8 @@ import m from 'mithril';
 import API from './api';
 
 class KERI {
+  static port = process.env.API_PORT;
+
   static generatePasscode() {
     return API.Code.read();
   }
@@ -23,7 +25,7 @@ class KERI {
   static createIdentifier(alias, witnesses) {
     return m.request({
       method: 'POST',
-      url: `${process.env.API_HOST}/ids/${alias}`,
+      url: `${process.env.API_HOST}:${this.port}/ids/${alias}`,
       body: {
         wits: witnesses,
       },
@@ -33,29 +35,34 @@ class KERI {
   static listIdentifiers() {
     return m.request({
       method: 'GET',
-      url: `${process.env.API_HOST}/ids`,
+      url: `${process.env.API_HOST}:${this.port}/ids`,
     });
   }
 
   static getOOBI(alias, role) {
     return m.request({
       method: 'GET',
-      url: `${process.env.API_HOST}/oobi/${alias}`,
+      url: `${process.env.API_HOST}:${this.port}/oobi/${alias}`,
       params: {
         role,
       },
     });
   }
 
-  static resolveOOBI(alias, rpy, url) {
-    // body should contain rpy and url
+  static resolveOOBI(alias, url) {
     return m.request({
       method: 'POST',
-      url: `${process.env.API_HOST}/oobi/${alias}`,
+      url: `${process.env.API_HOST}:${this.port}/oobi/${alias}`,
       body: {
-        rpy,
         url,
       },
+    });
+  }
+
+  static generateChallengeMessage(alias) {
+    return m.request({
+      method: 'GET',
+      url: `${process.env.API_HOST}:${this.port}/challenge/${alias}`,
     });
   }
 }

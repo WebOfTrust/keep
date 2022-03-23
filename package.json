@@ -11,6 +11,7 @@
   "main": "electron.js",
   "scripts": {
     "start": "parcel src/index.html --cache-dir ward/.parcel-cache-dev --dist-dir ward/build-ui-dev",
+    "start2": "parcel src/index.html --port 1334 --cache-dir ward/.parcel-cache-dev --dist-dir ward/build-ui-dev",
     "set-tasks:gar": "plop tasks-index 'gar' --force",
     "set-tasks:grac": "plop tasks-index 'grac' --force",
     "set-tasks:qar": "plop tasks-index 'qar' --force",

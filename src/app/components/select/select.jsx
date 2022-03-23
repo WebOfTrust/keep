@@ -22,7 +22,7 @@ class Select {
   view(vnode) {
     return (
       <>
-        <div class="mdc-select mdc-select--filled">
+        <div class="mdc-select mdc-select--filled" style={vnode.attrs.style ? vnode.attrs.style : {}}>
           <div class="mdc-select__anchor" role="button">
             <span class="mdc-select__ripple"></span>
             <span class="mdc-floating-label">{vnode.attrs.label}</span>
