@@ -3,7 +3,7 @@ import { Card, Container, IconButton, NavRail, Button } from '../../components';
 import EditWatchers from './edit-watchers/edit-watchers.jsx';
 import EditWitnesses from './edit-witnesses/edit-witnesses.jsx';
 import './settings.scss';
-import configureIdentifier from '../../../assets/img/configure-identifier.png'
+import configureIdentifier from '../../../assets/img/configure-identifier.png';
 class Settings {
   constructor() {
     this.currentState = null;
@@ -50,21 +50,24 @@ class Settings {
                 <Card class={'card--fluid'} style={{ position: 'relative' }} padding="4rem">
                   <IconButton class="close-icon" icon="close" />
                   {this.currentState === 'edit-witnesses' && <EditWitnesses />}
-                  {this.currentState === 'edit-watchers' && <EditWatchers />}    
-                  {this.currentState === null && 
-                  <>
-                  <img src={configureIdentifier} style={{ width: '50%' }} />
-                  <br></br>
-                  <h3>Enter Witness and Watcher URLs</h3>
-                  <br></br>
-                  <p class='p-tag'>Your URLs were set up at the start but can be edited at any time. Click on one of the buttons to the left to edit your Witness and Watcher URLs.</p>
-                  <br></br>
-                  
-                  <div class='flex flex-justify-end'>
-                    <Button class="button--big button--no-transform" raised label="Close" />
-                  </div>
-                  </>
-                  }              
+                  {this.currentState === 'edit-watchers' && <EditWatchers />}
+                  {this.currentState === null && (
+                    <>
+                      <img src={configureIdentifier} style={{ width: '50%' }} />
+                      <br></br>
+                      <h3>Enter Witness and Watcher URLs</h3>
+                      <br></br>
+                      <p class="p-tag">
+                        Your URLs were set up at the start but can be edited at any time. Click on one of the buttons to
+                        the left to edit your Witness and Watcher URLs.
+                      </p>
+                      <br></br>
+
+                      <div class="flex flex-justify-end">
+                        <Button class="button--big button--no-transform" raised label="Close" />
+                      </div>
+                    </>
+                  )}
                 </Card>
               </div>
             </div>
