@@ -1,5 +1,5 @@
 import m from 'mithril';
-import { Button, TextField, Modal } from '../../../src/app/components';
+import { Button, TextField, TextTooltip, Modal } from '../../../src/app/components';
 import { KERI } from '../../../src/app/services';
 import addNewContacts from '../../../src/assets/img/add-new-contacts.png';
 import responseMessage from '../../../src/assets/img/response-message.png';
@@ -64,16 +64,16 @@ class StepsToAuthenticate {
         />
         <h3>Identity Authentication</h3>
         <p class="p-tag">
-          This module will take you through the steps of how to authenticate an Identity. Below are the steps for how to
-          complete the process:
+          This module will take you through the steps of how to authenticate a user's identity. Below are the steps for
+          how to complete the process:
         </p>
-        <h3>Steps to Authenticate an Identity</h3>
+        <h3>Steps to Identity Authentication</h3>
         <ol class="styled-ol" style={{ margin: '2rem 0' }}>
-          <li>Both parties Join a Video Call</li>
-          <li>Use an OOBI protocol to accept an AID</li>
+          <li>Join a Video Call</li>
+          <li>Use an OOBI protocol to obtain the user's AID</li>
           <li>Send a Challenge Message</li>
-          <li>Other party signs and returns Challenge Message</li>
-          <li>Verify the signature of the other party</li>
+          <li>User signs and returns Challenge Message</li>
+          <li>You verify signature and issue credentials</li>
         </ol>
         <div class="flex flex-justify-end">
           {/* <Button class="button--gray-dk button--big button--no-transform" raised label="Skip" /> */}
@@ -88,11 +88,11 @@ class JoinVideoCall {
   view(vnode) {
     return (
       <>
-        <h3>Join a Video Call with the other party</h3>
+        <h3>Initiate a Video Call</h3>
         <p class="p-tag">
           In order to start the authentication process, you will need to complete an real-time OOBI session in which you
-          and the other party are present, You will accept their OOBI on a Video Call so that you can receive their
-          identifying information.
+          and the user you wish to verify are present, You will accept their OOBI on a Video Call so that you can
+          receive their identifying information.
         </p>
         <div class="flex flex-justify-between">
           <Button class="button--gray-dk button--big button--no-transform" raised label="Go Back" />
@@ -104,14 +104,16 @@ class JoinVideoCall {
 }
 
 class EnterOOBI {
-  constructor() {}
+  constructor() {
+    this.oobi = {
+      alias: '',
+      url: '',
+    };
+  }
 
-  oninit() {
-    KERI.listIdentifiers().then((identifiers) => {
-      console.log(identifiers);
-      KERI.getOOBI(identifiers[0].name, 'gar').then((oobi) => {
-        console.log(oobi);
-      });
+  resolveOOBI(vnode) {
+    KERI.resolveOOBI(this.oobi.alias, this.oobi.url).then(() => {
+      vnode.attrs.continue();
     });
   }
 
@@ -120,19 +122,45 @@ class EnterOOBI {
       <>
         <img src={addNewContacts} style={{ width: '40%', margin: '1.5rem 0 0 0' }} />
         <h3>
-          Accept <u>OOBI</u>
+          Accept{' '}
+          <TextTooltip label={<u>OOBI</u>}>
+            OOBI is an Out Of Band (meaning outside this software) interaction.
+          </TextTooltip>
         </h3>
         <p class="p-tag">
           While on the Video Call, make sure to obtain the other party's <b>URL and OOBI</b>. When you have both for
           each party, please press continue.
         </p>
-        <label>AID:</label>
-        <TextField outlined fluid style={{ margin: '0 0 2rem 0' }} />
+        <label>Alias:</label>
+        <TextField
+          outlined
+          fluid
+          style={{ margin: '0 0 2rem 0' }}
+          value={this.oobi.alias}
+          oninput={(e) => {
+            this.oobi.alias = e.target.value;
+          }}
+        />
         <label>URL:</label>
-        <TextField outlined fluid style={{ margin: '0 0 4rem 0' }} />
+        <TextField
+          outlined
+          fluid
+          style={{ margin: '0 0 4rem 0' }}
+          value={this.oobi.url}
+          oninput={(e) => {
+            this.oobi.url = e.target.value;
+          }}
+        />
         <div class="flex flex-justify-between">
           <Button class="button--gray-dk button--big button--no-transform" raised label="Go Back" />
-          <Button class="button--big button--no-transform" raised label="Continue" onclick={vnode.attrs.continue} />
+          <Button
+            class="button--big button--no-transform"
+            raised
+            label="Continue"
+            onclick={() => {
+              this.resolveOOBI(vnode);
+            }}
+          />
         </div>
       </>
     );
@@ -145,10 +173,10 @@ class GenerateChallengeMessage {
       <>
         <img src={responseMessage} style={{ width: '50%', margin: '1.5rem 0 2rem 0' }} />
         <h3>Generate Challenge Message</h3>
-        <p class="p-tag">The Challenge Message generated will be sent to the other party for verification purposes.</p>
+        <p class="p-tag">The Challenge Message generated will be sent for verification purposes.</p>
         <div class="flex flex-justify-between">
           <Button class="button--gray-dk button--big button--no-transform" raised label="Go Back" />
-          <Button class="button--big button--no-transform" raised label="Continue" onclick={vnode.attrs.continue} />
+          <Button class="button--big button--no-transform" raised label="Generate" onclick={vnode.attrs.continue} />
         </div>
       </>
     );
@@ -156,13 +184,24 @@ class GenerateChallengeMessage {
 }
 
 class CopyChallengeMessage {
+  constructor() {
+    this.challangeMessage = '';
+  }
+
+  oninit() {
+    KERI.generateChallengeMessage('qar aid').then((res) => {
+      console.log(res);
+      this.challangeMessage = res.words.join(' ');
+    });
+  }
+
   view(vnode) {
     return (
       <>
         <img src={responseMessage} style={{ width: '50%', margin: '1.5rem 0 2rem 0' }} />
         <h3>Copy Challenge Message</h3>
         <p class="p-tag">Copy the Challenge Message into the chat box while on the Video Call.</p>
-        <TextField outlined textarea fluid style={{ margin: '0 0 4rem 0' }} />
+        <TextField outlined textarea fluid style={{ margin: '0 0 4rem 0' }} value={this.challangeMessage} />
         <div class="flex flex-justify-between">
           <Button class="button--gray-dk button--big button--no-transform" raised label="Go Back" />
           <Button class="button--big button--no-transform" raised label="Continue" onclick={vnode.attrs.continue} />
@@ -178,7 +217,7 @@ class ChallengeMessageInProgress {
       <>
         <img src={uploadFile} style={{ width: '60%', margin: '1.5rem 0 2rem 0' }} />
         <h3>Challenge Message in Progress</h3>
-        <p class="p-tag">You will be notified when the other party signs and returns the Challenge Message.</p>
+        <p class="p-tag">You will be notified when the user signs and returns the Challenge Message.</p>
         <div class="flex flex-justify-between">
           <Button class="button--gray-dk button--big button--no-transform" raised label="Go Back" />
           <Button class="button--big button--no-transform" raised label="Close" onclick={vnode.attrs.end} />
@@ -190,8 +229,8 @@ class ChallengeMessageInProgress {
 
 class IdentityAuthenticationReceive {
   constructor() {
-    this.currentState = 'enter-oobi';
-    // this.currentState = 'steps-to-authenticate';
+    // this.currentState = 'enter-oobi';
+    this.currentState = 'steps-to-authenticate';
   }
 
   view(vnode) {
