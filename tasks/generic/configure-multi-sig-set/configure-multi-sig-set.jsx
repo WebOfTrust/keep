@@ -6,7 +6,7 @@ import uploadFile from '../../../src/assets/img/upload-file.png';
 import responseMessage from '../../../src/assets/img/response-message.png';
 import secureMessaging from '../../../src/assets/img/secure-messaging.png';
 
-class ConfigureMultiSig {
+class ConfigureMultiSigSet {
   tempConfigureArray = [
     {
       number: 1,
@@ -45,17 +45,12 @@ class ConfigureMultiSig {
     this.steps = [
       <>
         <img src={secureMessaging} style={{ width: '50%', margin: '4rem 0 1rem 0' }} />
-        <h3>Configure Multi-Sig Set as GLEIF Genesis Controller</h3>
-        <br />
-
+        <h3>Configure Multi-Sig Set</h3>
         <p class="p-tag">
           If you are seeing this, it is because you have a sufficient number and correct combination of verified
           contacts to configure the multi-sig set. Make sure that all members of the multi-sig group are available for
           an OOBI exchange.
         </p>
-        <br />
-        <br />
-
         <div class="flex flex-justify-end">
           <Button
             class="button--big button--no-transform"
@@ -70,11 +65,9 @@ class ConfigureMultiSig {
       <>
         <h3>Select Multi-Sig Group Members</h3>
         <p class="p-tag" style={{ margin: '2rem 0 2rem 0' }}>
-          Please select in order the multi-sig group members you’d like to add. The order is determined by the multi-sig
-          threshold.
+          Please select the multi-sig group members. Event will not validate unless the minimum signing threshold is
+          met. When weighted, the threshold is a sum of 1.
         </p>
-        <br />
-
         <div style={{ height: '350px', overflowY: 'scroll', margin: '0 0 1rem 0' }}>
           {this.tempConfigureArray.map((sig) => {
             return (
@@ -126,13 +119,11 @@ class ConfigureMultiSig {
           />
         </div>
       </>,
-
       <>
         <img src={uploadFile} style={{ width: '50%', margin: '4rem 0 0 0' }} />
         <h3>Multi-Signature Verification in Progress</h3>
         <p class="p-tag" style={{ margin: '2rem 0 2rem 0' }}>
-          You will be notified when the GRACs verify that the Root AID witnesses their signature on the Root AID
-          Inception Event.
+          You will be notified when the representatives provide their signature on the Inception Event.
         </p>
         <div class="flex flex-justify-end">
           <Button
@@ -293,4 +284,4 @@ class ConfigureMultiSig {
   }
 }
 
-module.exports = ConfigureMultiSig;
+module.exports = ConfigureMultiSigSet;

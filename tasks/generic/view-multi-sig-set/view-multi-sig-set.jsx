@@ -8,7 +8,7 @@ import redX from '../../../src/assets/img/red-x.svg';
 import greenCheckMark from '../../../src/assets/img/green-check-mark.svg';
 import toDoList from '../../../src/assets/img/to-do-list.png';
 import tempProfPic from '../../../src/assets/img/temp-prof-pic.jpg';
-class MultiSigSet {
+class ViewMultiSigSet {
   tempMultiSigArray = [
     {
       number: 1,
@@ -659,4 +659,4 @@ class MultiSigSet {
   }
 }
 
-module.exports = MultiSigSet;
+module.exports = ViewMultiSigSet;

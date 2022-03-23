@@ -1,9 +1,10 @@
 import m from 'mithril';
-import { Button, Card, TextField } from '../../../src/app/components';
+import { Button } from '../../../src/app/components';
 import approveRequest from '../../../src/assets/img/approve-request.png';
 import addNewContacts from '../../../src/assets/img/add-new-contacts.png';
 import verifyCredentials from '../../../src/assets/img/verify-credentials.png';
-class IssueOORvLEICredential {
+
+class ViewNewCredential {
   constructor(vnode) {
     this.step = 0;
 
@@ -73,4 +74,4 @@ class IssueOORvLEICredential {
   }
 }
 
-module.exports = IssueOORvLEICredential;
+module.exports = ViewNewCredential;

@@ -1,15 +1,16 @@
 import m from 'mithril';
-import { Button, Card, TextField } from '../../../src/app/components';
+import { Button } from '../../../src/app/components';
 import approveRequest from '../../../src/assets/img/approve-request.png';
 import addNewContacts from '../../../src/assets/img/add-new-contacts.png';
 import verifyCredentials from '../../../src/assets/img/verify-credentials.png';
-class IssueOORvLEICredential {
+
+class ManualKeyRotation {
   constructor(vnode) {
     this.step = 0;
 
     this.steps = [
       <>
-        <h3>QAR TASK 4</h3>
+        <h3>QAR TASK 5</h3>
         <img src={approveRequest} style={{ width: '60%', margin: '4rem 0 4rem 4rem' }} />
         <p class="p-tag">
           You have now created your GLEIF Delegated AID! While you are waiting for your GLEIF credentials, here is a
@@ -32,7 +33,7 @@ class IssueOORvLEICredential {
       <>
         <h3>Complete Identity Assurance</h3>
         <img src={addNewContacts} style={{ width: '50%', margin: '4rem 0 4rem 4rem' }} />
-        <p class="p-tag">
+        <p class="p-tag" style={{ margin: '2rem 0 2rem 0' }}>
           Once you are authorized to act on behalf of GLEIF, you perform identity assurance of a person serving in the
           role of QAR. A GAR and the QAR will complete a real-time OOBI session in which the GAR and the QAR are
           present.
@@ -73,4 +74,4 @@ class IssueOORvLEICredential {
   }
 }
 
-module.exports = IssueOORvLEICredential;
+module.exports = ManualKeyRotation;
