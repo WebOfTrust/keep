@@ -1,5 +1,6 @@
 import m from 'mithril';
 import { Button, Card, Container, IconButton, NavRail, Select } from '../../components';
+import { API, KERI } from '../../services';
 import tasks from '../../../../tasks';
 import './dashboard.scss';
 
@@ -32,11 +33,28 @@ class Dashboard {
     }
     this.tasks = tasks;
     this.taskSelected = null;
+    this.portOptions = [
+      {
+        label: '5623',
+        value: '5623',
+      },
+      {
+        label: '5723',
+        value: '5723',
+      },
+    ];
+    this.portSelected = process.env.API_PORT;
   }
 
   changeFlow(e) {
     this.flowSelected = e;
     this.taskSelected = null;
+  }
+
+  changePort(e) {
+    this.portSelected = e;
+    API.port = e;
+    KERI.port = e;
   }
 
   changeTask(task) {
@@ -54,7 +72,7 @@ class Dashboard {
                 <Card class="card--fluid" padding="1.5rem">
                   <div class="flex flex-align-center flex-justify-between">
                     <h1>Tasks</h1>
-                    {/*<Button raised iconLeading="add" label="New Task" />*/}
+                    {/* <Button raised iconLeading="add" label="New Task" /> */}
                   </div>
                   <Select
                     label="Flow"
@@ -62,6 +80,17 @@ class Dashboard {
                     initialSelection={this.flowSelected}
                     selectedChange={(e) => {
                       this.changeFlow(e);
+                    }}
+                    style={{
+                      marginRight: '1rem',
+                    }}
+                  />
+                  <Select
+                    label="Port"
+                    options={this.portOptions}
+                    initialSelection={this.portSelected}
+                    selectedChange={(e) => {
+                      this.changePort(e);
                     }}
                   />
                   {this.tasks[this.flowSelected].map((task, i) => {

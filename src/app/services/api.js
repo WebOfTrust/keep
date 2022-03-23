@@ -101,14 +101,15 @@ class Endpoint {
 
   createUrl(id = null) {
     if (id) {
-      return `${process.env.API_HOST}/${this.endpoint}/${id}/`;
+      return `${process.env.API_HOST}:${API.port}/${this.endpoint}/${id}/`;
     } else {
-      return `${process.env.API_HOST}/${this.endpoint}`;
+      return `${process.env.API_HOST}:${API.port}/${this.endpoint}`;
     }
   }
 }
 
 class API {
+  static port = process.env.API_PORT;
   static Boot = new Endpoint('boot');
   static Code = new Endpoint('codes');
   static Identifier = new Endpoint('ids');
