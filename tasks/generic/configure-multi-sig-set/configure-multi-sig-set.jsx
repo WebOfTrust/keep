@@ -284,7 +284,7 @@ class ChallengeMessageProgress {
   }
 }
 
-class ConfigureMultiSig {
+class ConfigureMultiSigSet {
   constructor() {
     this.currentState = 'configure-multi-start';
   }

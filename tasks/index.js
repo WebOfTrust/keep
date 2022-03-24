@@ -1,4 +1,4 @@
-import tasks from './grac';
+import tasks from './generic';
 
 module.exports = tasks;
 
