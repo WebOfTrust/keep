@@ -6,7 +6,32 @@ import uploadFile from '../../../src/assets/img/upload-file.png';
 import responseMessage from '../../../src/assets/img/response-message.png';
 import secureMessaging from '../../../src/assets/img/secure-messaging.png';
 
-class ConfigureMultiSigSet {
+class ConfigureSigGleif {
+  constructor(vnode) {}
+  view(vnode) {
+    return (
+      <>
+        <img src={secureMessaging} style={{ width: '50%', margin: '4rem 0 1rem 0' }} />
+        <h3>Configure Multi-Sig Set as GLEIF Genesis Controller</h3>
+        <br />
+
+        <p class="p-tag">
+          If you are seeing this, it is because you have a sufficient number and correct combination of verified
+          contacts to configure the multi-sig set. Make sure that all members of the multi-sig group are available for
+          an OOBI exchange.
+        </p>
+        <br />
+        <br />
+
+        <div class="flex flex-justify-end">
+          <Button class="button--big button--no-transform" raised label="Continue" onclick={vnode.attrs.continue} />
+        </div>
+      </>
+    );
+  }
+}
+
+class SelectMultiSigMembers {
   tempConfigureArray = [
     {
       number: 1,
@@ -39,29 +64,9 @@ class ConfigureMultiSigSet {
       date: '1/7',
     },
   ];
-
-  constructor(vnode) {
-    this.step = 0;
-    this.steps = [
-      <>
-        <img src={secureMessaging} style={{ width: '50%', margin: '4rem 0 1rem 0' }} />
-        <h3>Configure Multi-Sig Set</h3>
-        <p class="p-tag">
-          If you are seeing this, it is because you have a sufficient number and correct combination of verified
-          contacts to configure the multi-sig set. Make sure that all members of the multi-sig group are available for
-          an OOBI exchange.
-        </p>
-        <div class="flex flex-justify-end">
-          <Button
-            class="button--big button--no-transform"
-            raised
-            label="Continue"
-            onclick={() => {
-              this.step++;
-            }}
-          />
-        </div>
-      </>,
+  constructor(vnode) {}
+  view(vnode) {
+    return (
       <>
         <h3>Select Multi-Sig Group Members</h3>
         <p class="p-tag" style={{ margin: '2rem 0 2rem 0' }}>
@@ -105,20 +110,19 @@ class ConfigureMultiSigSet {
             class="button--gray-dk button--big button--no-transform"
             raised
             label="Go Back"
-            onclick={() => {
-              this.step--;
-            }}
+            onclick={vnode.attrs.back}
           />
-          <Button
-            class="button--big button--no-transform"
-            raised
-            label="Continue"
-            onclick={() => {
-              this.step++;
-            }}
-          />
+          <Button class="button--big button--no-transform" raised label="Continue" onclick={vnode.attrs.continue} />
         </div>
-      </>,
+      </>
+    );
+  }
+}
+
+class MultiSigVerProg {
+  constructor(vnode) {}
+  view(vnode) {
+    return (
       <>
         <img src={uploadFile} style={{ width: '50%', margin: '4rem 0 0 0' }} />
         <h3>Multi-Signature Verification in Progress</h3>
@@ -130,12 +134,17 @@ class ConfigureMultiSigSet {
             class="button--big button--no-transform"
             raised
             label="View Progress"
-            onclick={() => {
-              this.step++;
-            }}
+            onclick={vnode.attrs.continue}
           />
         </div>
-      </>,
+      </>
+    );
+  }
+}
+class AcceptingOOBIs {
+  constructor(vnode) {}
+  view(vnode) {
+    return (
       <>
         <h3>Accept OOBIs</h3>
         <div class="flex flex-justify-between" style={{ alignItems: 'baseline' }}>
@@ -179,16 +188,17 @@ class ConfigureMultiSigSet {
         </div>
 
         <div class="flex flex-justify-end">
-          <Button
-            class="button--big button--no-transform"
-            raised
-            label="Continue"
-            onclick={() => {
-              this.step++;
-            }}
-          />
+          <Button class="button--big button--no-transform" raised label="Continue" onclick={vnode.attrs.continue} />
         </div>
-      </>,
+      </>
+    );
+  }
+}
+
+class GenerateChallengeMessage {
+  constructor(vnode) {}
+  view(vnode) {
+    return (
       <>
         <img src={responseMessage} style={{ width: '50%', margin: '1.5rem 0 2rem 0' }} />
         <h3>Generate Challenge Message</h3>
@@ -203,20 +213,18 @@ class ConfigureMultiSigSet {
             class="button--gray-dk button--big button--no-transform"
             raised
             label="Go Back"
-            onclick={() => {
-              this.step--;
-            }}
+            onclick={vnode.attrs.back}
           />
-          <Button
-            class="button--big button--no-transform"
-            raised
-            label="Generate"
-            onclick={() => {
-              this.step++;
-            }}
-          />
+          <Button class="button--big button--no-transform" raised label="Generate" onclick={vnode.attrs.continue} />
         </div>
-      </>,
+      </>
+    );
+  }
+}
+class CopyChallengeMessage {
+  constructor(vnode) {}
+  view(vnode) {
+    return (
       <>
         <img src={responseMessage} style={{ width: '50%', margin: '1.5rem 0 2rem 0' }} />
         <h3>Copy Challenge Message</h3>
@@ -240,20 +248,18 @@ class ConfigureMultiSigSet {
             class="button--gray-dk button--big button--no-transform"
             raised
             label="Go Back"
-            onclick={() => {
-              this.step--;
-            }}
+            onclick={vnode.attrs.back}
           />
-          <Button
-            class="button--big button--no-transform"
-            raised
-            label="Continue"
-            onclick={() => {
-              this.step++;
-            }}
-          />
+          <Button class="button--big button--no-transform" raised label="Continue" onclick={vnode.attrs.continue} />
         </div>
-      </>,
+      </>
+    );
+  }
+}
+class ChallengeMessageProgress {
+  constructor(vnode) {}
+  view(vnode) {
+    return (
       <>
         <img src={uploadFile} style={{ width: '60%', margin: '1.5rem 0 2rem 0' }} />
         <h3>Challenge Message in Progress</h3>
@@ -269,18 +275,84 @@ class ConfigureMultiSigSet {
             class="button--gray-dk button--big button--no-transform"
             raised
             label="Go Back"
-            onclick={() => {
-              this.step--;
-            }}
+            onclick={vnode.attrs.back}
           />
           <Button class="button--big button--no-transform" raised label="close" onclick={vnode.attrs.end} />
         </div>
-      </>,
-    ];
+      </>
+    );
+  }
+}
+
+class ConfigureMultiSig {
+  constructor() {
+    this.currentState = 'configure-multi-start';
   }
 
-  view() {
-    return <>{this.steps[this.step]}</>;
+  view(vnode) {
+    return (
+      <>
+        {this.currentState === 'configure-multi-start' && (
+          <ConfigureSigGleif
+            continue={() => {
+              this.currentState = 'select-multi-members';
+            }}
+          />
+        )}
+        {this.currentState === 'select-multi-members' && (
+          <SelectMultiSigMembers
+            back={() => {
+              this.currentState = 'configure-multi-start';
+            }}
+            continue={() => {
+              this.currentState = 'multi-sig-ver';
+            }}
+          />
+        )}
+        {this.currentState === 'multi-sig-ver' && (
+          <MultiSigVerProg
+            continue={() => {
+              this.currentState = 'accept-oobis';
+            }}
+          />
+        )}
+        {this.currentState === 'accept-oobis' && (
+          <AcceptingOOBIs
+            continue={() => {
+              this.currentState = 'generate-challenge-message';
+            }}
+          />
+        )}
+        {this.currentState === 'generate-challenge-message' && (
+          <GenerateChallengeMessage
+            back={() => {
+              this.currentState = 'accept-oobis';
+            }}
+            continue={() => {
+              this.currentState = 'copy-challenge-message';
+            }}
+          />
+        )}
+        {this.currentState === 'copy-challenge-message' && (
+          <CopyChallengeMessage
+            back={() => {
+              this.currentState = 'generate-challenge-message';
+            }}
+            continue={() => {
+              this.currentState = 'challenge-message-progress';
+            }}
+          />
+        )}
+        {this.currentState === 'challenge-message-progress' && (
+          <ChallengeMessageProgress
+            back={() => {
+              this.currentState = 'copy-challenge-message';
+            }}
+            end={vnode.attrs.end}
+          />
+        )}
+      </>
+    );
   }
 }
 
