@@ -6,107 +6,69 @@ import redX from '../../../src/assets/img/red-x.svg';
 import greenCheckMark from '../../../src/assets/img/green-check-mark.svg';
 import responseMessage from '../../../src/assets/img/response-message.png';
 
-class ViewMultiSig {
-  tempMultiSigArray = [
-    {
-      number: 1,
-      name: 'Jane Smith',
-      signed: true,
-    },
-    {
-      number: 2,
-      name: 'Michael Williams',
-      signed: true,
-    },
-    {
-      number: 3,
-      name: 'ZG4jvw9bTmVd5X92iKYmfT',
-      signed: true,
-    },
-    {
-      number: 4,
-      name: 'OG8jvw9bTmUd5J92iKYmfU',
-      signed: true,
-    },
-    {
-      number: 5,
-      name: 'Joe Roberts',
-      signed: false,
-    },
-    {
-      number: 6,
-      name: 'OG8jvw9bTmUd5J92iKYmfU',
-      signed: false,
-    },
-    {
-      number: 7,
-      name: 'OG8jvw9bTmUd5J92iKYmfU',
-      signed: false,
-    },
-    {
-      number: 8,
-      name: 'OG8jvw9bTmUd5J92iKYmfU',
-      signed: false,
-    },
-  ];
 
-  eventLogArray = [
-    {
-      logNumber: 123,
-      date: '08/25/1996',
-      status: true,
-    },
-    {
-      logNumber: 124,
-      date: '08/25/1996',
-      status: false,
-    },
-    {
-      logNumber: 125,
-      date: '08/25/1996',
-      status: true,
-    },
-    {
-      logNumber: 126,
-      date: '08/25/1996',
-      status: false,
-    },
-    {
-      logNumber: 127,
-      date: '08/25/1996',
-      status: false,
-    },
-    {
-      logNumber: 128,
-      date: '08/25/1996',
-      status: true,
-    },
-    {
-      logNumber: 129,
-      date: '08/25/1996',
-      status: true,
-    },
-    {
-      logNumber: 130,
-      date: '08/25/1996',
-      status: false,
-    },
-    {
-      logNumber: 131,
-      date: '08/25/1996',
-      status: true,
-    },
-    {
-      logNumber: 132,
-      date: '08/25/1996',
-      status: true,
-    },
-  ];
 
-  constructor(vnode) {
-    this.step = 0;
-    this.steps = [
-      <>
+
+  
+  class EventLog {
+
+    eventLogArray = [
+      {
+        logNumber: 123,
+        date: '08/25/1996',
+        status: true,
+      },
+      {
+        logNumber: 124,
+        date: '08/25/1996',
+        status: false,
+      },
+      {
+        logNumber: 125,
+        date: '08/25/1996',
+        status: true,
+      },
+      {
+        logNumber: 126,
+        date: '08/25/1996',
+        status: false,
+      },
+      {
+        logNumber: 127,
+        date: '08/25/1996',
+        status: false,
+      },
+      {
+        logNumber: 128,
+        date: '08/25/1996',
+        status: true,
+      },
+      {
+        logNumber: 129,
+        date: '08/25/1996',
+        status: true,
+      },
+      {
+        logNumber: 130,
+        date: '08/25/1996',
+        status: false,
+      },
+      {
+        logNumber: 131,
+        date: '08/25/1996',
+        status: true,
+      },
+      {
+        logNumber: 132,
+        date: '08/25/1996',
+        status: true,
+      },
+    ];
+  
+    constructor(vnode) {}
+    view(vnode) {
+      return (
+        <>
         <h3>Event Log</h3>
         <TextField
           placeholder="Search by date or event log number"
@@ -140,9 +102,7 @@ class ViewMultiSig {
                 <div class="flex flex-justify-between" style={{ width: '100%' }}>
                   <p class="p-tag" style={{ fontSize: '80%' }}>
                     <u
-                      onclick={() => {
-                        this.step++;
-                      }}
+                      onclick={vnode.attrs.continue}
                       style={{ cursor: 'pointer' }}
                     >
                       Event #{event.logNumber}
@@ -172,15 +132,61 @@ class ViewMultiSig {
             class="button--gray-dk button--big button--no-transform"
             raised
             label="Go Back"
-            onclick={() => {
-              this.step--;
-            }}
+            onclick={vnode.attrs.back}
           />
           <Button class="button--big button--no-transform" raised label="close" onclick={vnode.attrs.end} />
         </div>
-      </>,
-
-      <>
+      </>
+      );
+    }
+  }
+  class EventDetails {
+    tempMultiSigArray = [
+      {
+        number: 1,
+        name: 'Jane Smith',
+        signed: true,
+      },
+      {
+        number: 2,
+        name: 'Michael Williams',
+        signed: true,
+      },
+      {
+        number: 3,
+        name: 'ZG4jvw9bTmVd5X92iKYmfT',
+        signed: true,
+      },
+      {
+        number: 4,
+        name: 'OG8jvw9bTmUd5J92iKYmfU',
+        signed: true,
+      },
+      {
+        number: 5,
+        name: 'Joe Roberts',
+        signed: false,
+      },
+      {
+        number: 6,
+        name: 'OG8jvw9bTmUd5J92iKYmfU',
+        signed: false,
+      },
+      {
+        number: 7,
+        name: 'OG8jvw9bTmUd5J92iKYmfU',
+        signed: false,
+      },
+      {
+        number: 8,
+        name: 'OG8jvw9bTmUd5J92iKYmfU',
+        signed: false,
+      },
+    ];
+    constructor(vnode) {}
+    view(vnode) {
+      return (
+<>
         <h3>Event #130</h3>
         <h4 class="p-tag" style={{ margin: '0 0 0 0' }}>
           Status: Multi-Sig Verification in Progress
@@ -224,29 +230,30 @@ class ViewMultiSig {
             );
           })}
         </div>
-
-        {/* member scroll & select end*/}
         <div class="flex flex-justify-between">
           <Button
             class="button--gray-dk button--big button--no-transform"
             raised
             label="Go Back"
-            onclick={() => {
-              this.step--;
-            }}
+            onclick={vnode.attrs.back}
           />
           <Button
             class="button--big button--no-transform"
             raised
             label="Continue"
-            onclick={() => {
-              this.step++;
-            }}
+            onclick={vnode.attrs.continue}
           />
         </div>
-      </>,
+      </>
 
-      <>
+      );
+    }
+  }
+  class MultiSigVerProg {
+    constructor(vnode) {}
+    view(vnode) {
+      return (
+        <>
         <img src={uploadFile} style={{ width: '50%', margin: '4rem 0 0 0' }} />
         <h3>Multi-Signature Verification in Progress</h3>
         <p class="p-tag" style={{ margin: '2rem 0 2rem 0' }}>
@@ -258,14 +265,19 @@ class ViewMultiSig {
             class="button--big button--no-transform"
             raised
             label="View Progress"
-            onclick={() => {
-              this.step++;
-            }}
+            onclick={vnode.attrs.continue}
           />
         </div>
-      </>,
-      <>
-        <h3>Accept OOBIs</h3>
+      </>
+      );
+    }
+  }
+  class AcceptingOOBIs {
+    constructor(vnode) {}
+    view(vnode) {
+      return (
+        <>
+           <h3>Accept OOBIs</h3>
         <div class="flex flex-justify-between" style={{ alignItems: 'baseline' }}>
           <p class="p-tag" style={{ margin: '2rem 0 2.5rem 0' }}>
             Enter AIDs, URLs and Aliases you received on the Video Call from the Controllers below:
@@ -317,20 +329,73 @@ class ViewMultiSig {
             </div>
           </Card>
         </div>
+  
+          <div class="flex flex-justify-end">
+            <Button class="button--big button--no-transform" raised label="Continue" onclick={vnode.attrs.continue} />
+          </div>
+        </>
+      );
+    }
+  }  
+  class SecondEventLog {
 
-        <div class="flex flex-justify-end">
-          <Button
-            class="button--big button--no-transform"
-            raised
-            label="Continue"
-            onclick={() => {
-              this.step++;
-            }}
-          />
-        </div>
-      </>,
-
-      <>
+    eventLogArray = [
+      {
+        logNumber: 123,
+        date: '08/25/1996',
+        status: true,
+      },
+      {
+        logNumber: 124,
+        date: '08/25/1996',
+        status: false,
+      },
+      {
+        logNumber: 125,
+        date: '08/25/1996',
+        status: true,
+      },
+      {
+        logNumber: 126,
+        date: '08/25/1996',
+        status: false,
+      },
+      {
+        logNumber: 127,
+        date: '08/25/1996',
+        status: false,
+      },
+      {
+        logNumber: 128,
+        date: '08/25/1996',
+        status: true,
+      },
+      {
+        logNumber: 129,
+        date: '08/25/1996',
+        status: true,
+      },
+      {
+        logNumber: 130,
+        date: '08/25/1996',
+        status: false,
+      },
+      {
+        logNumber: 131,
+        date: '08/25/1996',
+        status: true,
+      },
+      {
+        logNumber: 132,
+        date: '08/25/1996',
+        status: true,
+      },
+    ];
+  
+    constructor(vnode) {}
+    view(vnode) {
+      return (
+<>
         <h3>Event Log</h3>
         <TextField
           placeholder="Search by date or event log number"
@@ -389,9 +454,7 @@ class ViewMultiSig {
             class="button--gray-dk button--big button--no-transform"
             raised
             label="Go Back"
-            onclick={() => {
-              this.step--;
-            }}
+            onclick={vnode.attrs.back}
           />
           <Button class="button--big button--no-transform" raised label="close" onclick={vnode.attrs.end} />
         </div>
@@ -410,21 +473,25 @@ class ViewMultiSig {
             class="button--gray-dk button--big button--no-transform"
             raised
             label="Go Back"
-            onclick={() => {
-              this.step--;
-            }}
+            onclick={vnode.attrs.back}
           />
           <Button
             class="button--big button--no-transform"
             raised
             label="Generate"
-            onclick={() => {
-              this.step++;
-            }}
+            onclick={vnode.attrs.continue}
           />
         </div>
-      </>,
-      <>
+      </>
+
+      );
+    }
+  }
+  class CopyChallengeMessage {
+    constructor(vnode) {}
+    view(vnode) {
+      return (
+        <>
         <img src={responseMessage} style={{ width: '50%', margin: '1.5rem 0 2rem 0' }} />
         <h3>Copy Challenge Message</h3>
         <p class="p-tag" style={{ margin: '2rem 0 2rem 0' }}>
@@ -447,21 +514,24 @@ class ViewMultiSig {
             class="button--gray-dk button--big button--no-transform"
             raised
             label="Go Back"
-            onclick={() => {
-              this.step--;
-            }}
+            onclick={vnode.attrs.back}
           />
           <Button
             class="button--big button--no-transform"
             raised
             label="Continue"
-            onclick={() => {
-              this.step++;
-            }}
+            onclick={vnode.attrs.continue}
           />
         </div>
-      </>,
-      <>
+      </>
+      );
+    }
+  }
+  class ChallengeMessageProgress {
+    constructor(vnode) {}
+    view(vnode) {
+      return (
+        <>
         <img src={uploadFile} style={{ width: '60%', margin: '1.5rem 0 2rem 0' }} />
         <h3>Challenge Message in Progress</h3>
         <p class="p-tag" style={{ margin: '2rem 0 2rem 0' }}>
@@ -476,19 +546,51 @@ class ViewMultiSig {
             class="button--gray-dk button--big button--no-transform"
             raised
             label="Go Back"
-            onclick={() => {
-              this.step--;
-            }}
+            onclick={vnode.attrs.back}
           />
           <Button class="button--big button--no-transform" raised label="close" onclick={vnode.attrs.end} />
         </div>
-      </>,
-    ];
+      </>
+      );
+    }
   }
 
-  view() {
-    return <>{this.steps[this.step]}</>;
+ 
+    
+  
+class ViewMultiSigSet {
+  constructor() {
+    this.currentState = 'event-log';
   }
-}
+  view(vnode){
+    return(
+      <>
+      {this.currentState === 'event-log' && (
+        <EventLog 
+        continue={()=> {
+          this.currentState= 'event-details'
+        }}
+        />
+      )}
+      {this.currentState === 'event-details' && (
+        <EventDetails 
+        back={() => {
+          this.currentState = 'event-log'
+        }}
+        continue={() => {
+          this.currentState='multi-sig-ver'
+        }}
+        />
+      )}
+      {this.currentState === 'multi-sig-ver' && (
+        <MultiSigVerProg 
+        
+        />
+      )}
+      </>
+    )
+  }
+  
 
-module.exports = ViewMultiSig;
+
+module.exports = ViewMultiSigSet;
