@@ -13,10 +13,11 @@ import liTwo from '../../../src/assets/img/li-two.png';
 import liThree from '../../../src/assets/img/li-three.png';
 import liFour from '../../../src/assets/img/li-four.png';
 import liFive from '../../../src/assets/img/li-five.png';
-class JoinVideoCall {
-  constructor(vnode) {
-    this.step = 0;
-    this.steps = [
+
+class GleifGenesisEvent {
+  constructor(vnode) {}
+  view(vnode) {
+    return (
       <>
         <h3>GLEIF Genesis Event</h3>
         <p class="p-tag">This module will take you through the steps for GLEIF AID Genesis.</p>
@@ -48,16 +49,17 @@ class JoinVideoCall {
           </div>
         </p>
         <div class="flex flex-justify-end">
-          <Button
-            class="button--big button--no-transform"
-            raised
-            label="Continue"
-            onclick={() => {
-              this.step++;
-            }}
-          />
+          <Button class="button--big button--no-transform" raised label="Continue" onclick={vnode.attrs.continue} />
         </div>
-      </>,
+      </>
+    );
+  }
+}
+
+class VideoCall {
+  constructor(vnode) {}
+  view(vnode) {
+    return (
       <>
         <h3>Join a Video Call</h3>
         <p class="p-tag" style={{ margin: '2rem 0 2rem 0' }}>
@@ -75,20 +77,18 @@ class JoinVideoCall {
             class="button--gray-dk button--big button--no-transform"
             raised
             label="Go Back"
-            onclick={() => {
-              this.step--;
-            }}
+            onclick={vnode.attrs.back}
           />
-          <Button
-            class="button--big button--no-transform"
-            raised
-            label="Generate"
-            onclick={() => {
-              this.step++;
-            }}
-          />
+          <Button class="button--big button--no-transform" raised label="Generate" onclick={vnode.attrs.continue} />
         </div>
-      </>,
+      </>
+    );
+  }
+}
+class SendOobiToGracs {
+  constructor(vnode) {}
+  view(vnode) {
+    return (
       <>
         <img src={addNewContacts} style={{ width: '50%', margin: '0 0 1rem 0' }} />
         <h3>
@@ -111,20 +111,19 @@ class JoinVideoCall {
             class="button--gray-dk button--big button--no-transform"
             raised
             label="Go Back"
-            onclick={() => {
-              this.step--;
-            }}
+            onclick={vnode.attrs.back}
           />
-          <Button
-            class="button--big button--no-transform"
-            raised
-            label="Continue"
-            onclick={() => {
-              this.step++;
-            }}
-          />
+          <Button class="button--big button--no-transform" raised label="Continue" onclick={vnode.attrs.continue} />
         </div>
-      </>,
+      </>
+    );
+  }
+}
+
+class IdentityVerification {
+  constructor(vnode) {}
+  view(vnode) {
+    return (
       <>
         <img src={uploadFile} style={{ width: '60%', margin: '1.5rem 0 2rem 0' }} />
         <h3>Identity Verification in Progress</h3>
@@ -139,20 +138,19 @@ class JoinVideoCall {
             class="button--gray-dk button--big button--no-transform"
             raised
             label="Go Back"
-            onclick={() => {
-              this.step--;
-            }}
+            onclick={vnode.attrs.back}
           />
-          <Button
-            class="button--big button--no-transform"
-            raised
-            label="Continue"
-            onclick={() => {
-              this.step++;
-            }}
-          />
+          <Button class="button--big button--no-transform" raised label="Continue" onclick={vnode.attrs.continue} />
         </div>
-      </>,
+      </>
+    );
+  }
+}
+
+class SendChallengeMessage {
+  constructor(vnode) {}
+  view(vnode) {
+    return (
       <>
         <img src={responseMessage} style={{ width: '50%', margin: '1.5rem 0 2rem 0' }} />
         <h3>Send Challenge Message</h3>
@@ -169,20 +167,18 @@ class JoinVideoCall {
             class="button--gray-dk button--big button--no-transform"
             raised
             label="Go Back"
-            onclick={() => {
-              this.step--;
-            }}
+            onclick={vnode.attrs.back}
           />
-          <Button
-            class="button--big button--no-transform"
-            raised
-            label="Continue"
-            onclick={() => {
-              this.step++;
-            }}
-          />
+          <Button class="button--big button--no-transform" raised label="Continue" onclick={vnode.attrs.continue} />
         </div>
-      </>,
+      </>
+    );
+  }
+}
+class VerificationProgress {
+  constructor(vnode) {}
+  view(vnode) {
+    return (
       <>
         <img src={uploadFile} style={{ width: '60%', margin: '1.5rem 0 2rem 0' }} />
         <h3>Verification in Progress</h3>
@@ -195,12 +191,68 @@ class JoinVideoCall {
         <div class="flex flex-justify-end">
           <Button class="button--big button--no-transform" raised label="close" onclick={vnode.attrs.end} />
         </div>
-      </>,
-    ];
+      </>
+    );
   }
+}
 
-  view() {
-    return <>{this.steps[this.step]}</>;
+class JoinVideoCall {
+  constructor() {
+    this.currentState = 'gleif-genesis';
+  }
+  view(vnode) {
+    return (
+      <>
+        {this.currentState === 'gleif-genesis' && (
+          <GleifGenesisEvent
+            continue={() => {
+              this.currentState = 'video-call';
+            }}
+          />
+        )}
+        {this.currentState === 'video-call' && (
+          <VideoCall
+            back={() => {
+              this.currentState = 'gleif-genesis';
+            }}
+            continue={() => {
+              this.currentState = 'send-oobi';
+            }}
+          />
+        )}
+        {this.currentState === 'send-oobi' && (
+          <SendOobiToGracs
+            back={() => {
+              this.currentState = 'video-call';
+            }}
+            continue={() => {
+              this.currentState = 'identity-verification';
+            }}
+          />
+        )}
+        {this.currentState === 'identity-verification' && (
+          <IdentityVerification
+            back={() => {
+              this.currentState = 'send-oobi';
+            }}
+            continue={() => {
+              this.currentState = 'send-challenge-message';
+            }}
+          />
+        )}
+        {this.currentState === 'send-challenge-message' && (
+          <SendChallengeMessage
+            back={() => {
+              this.currentState = 'identity-verification';
+            }}
+            continue={() => {
+              this.currentState = 'verification-progress';
+            }}
+          />
+        )}
+        {this.currentState === 'verification-progress' && <VerificationProgress end={vnode.attrs.end} />}
+      </>
+    );
   }
 }
 
