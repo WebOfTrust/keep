@@ -558,7 +558,21 @@ class ViewMultiSigSet {
             }}
           />
         )}
-        {this.currentState === 'multi-sig-ver' && <MultiSigVerProg />}
+        {this.currentState === 'multi-sig-ver' && (
+          <MultiSigVerProg
+            continue={() => {
+              this.currentState = 'accepting-oobis';
+            }}
+          />
+        )}
+        {this.currentState === 'accepting-oobis' && (
+          <AcceptingOOBIs
+            continue={() => {
+              this.currentState = 'second-event-log';
+            }}
+          />
+        )}
+        {this.currentState === 'second-event-log' && <SecondEventLog />}
       </>
     );
   }
