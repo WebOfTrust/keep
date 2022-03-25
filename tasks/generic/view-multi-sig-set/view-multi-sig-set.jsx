@@ -572,7 +572,34 @@ class ViewMultiSigSet {
             }}
           />
         )}
-        {this.currentState === 'second-event-log' && <SecondEventLog />}
+        {this.currentState === 'second-event-log' && (
+          <SecondEventLog
+            back={() => {
+              this.currentState = 'accepting-oobis';
+            }}
+            continue={() => {
+              this.currentState = 'copy-challenge-message';
+            }}
+          />
+        )}
+        {this.currentState === 'copy-challenge-message' && (
+          <CopyChallengeMessage
+            back={() => {
+              this.currentState = 'second-event-log';
+            }}
+            continue={() => {
+              this.currentState = 'challenge-message-progress';
+            }}
+          />
+        )}
+        {this.currentState === 'challenge-message-progress' && (
+          <ChallengeMessageProgress
+            back={() => {
+              this.currentState = 'copy-challenge-message';
+            }}
+            end={vnode.attrs.end}
+          />
+        )}
       </>
     );
   }
