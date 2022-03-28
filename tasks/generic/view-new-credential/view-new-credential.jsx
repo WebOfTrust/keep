@@ -4,11 +4,10 @@ import approveRequest from '../../../src/assets/img/approve-request.png';
 import addNewContacts from '../../../src/assets/img/add-new-contacts.png';
 import verifyCredentials from '../../../src/assets/img/verify-credentials.png';
 
-class ViewNewCredential {
-  constructor(vnode) {
-    this.step = 0;
-
-    this.steps = [
+class TempClass {
+  constructor(vnode) {}
+  view(vnode) {
+    return (
       <>
         <h3>QAR TASK 4</h3>
         <img src={approveRequest} style={{ width: '60%', margin: '4rem 0 4rem 4rem' }} />
@@ -20,16 +19,16 @@ class ViewNewCredential {
         </p>
         <div class="flex flex-justify-between">
           <Button class="button--gray-dk button--big button--no-transform" raised label="Skip" />
-          <Button
-            class="button--big button--no-transform"
-            raised
-            label="Continue"
-            onclick={() => {
-              this.step++;
-            }}
-          />
+          <Button class="button--big button--no-transform" raised label="Continue" onclick={vnode.attrs.continue} />
         </div>
-      </>,
+      </>
+    );
+  }
+}
+class TempClass2 {
+  constructor(vnode) {}
+  view(vnode) {
+    return (
       <>
         <h3>Complete Identity Assurance</h3>
         <img src={addNewContacts} style={{ width: '50%', margin: '4rem 0 4rem 4rem' }} />
@@ -51,7 +50,14 @@ class ViewNewCredential {
             }}
           />
         </div>
-      </>,
+      </>
+    );
+  }
+}
+class TempClass3 {
+  constructor(vnode) {}
+  view(vnode) {
+    return (
       <>
         <h3>Grant Credentials</h3>
         <img src={verifyCredentials} style={{ width: '60%', margin: '4rem 0 4rem 4rem' }} />
@@ -65,12 +71,18 @@ class ViewNewCredential {
           <Button class="button--gray-dk button--big button--no-transform" raised label="Skip" />
           <Button class="button--big button--no-transform" raised label="Close" onclick={vnode.attrs.end} />
         </div>
-      </>,
-    ];
+      </>
+    );
+  }
+}
+
+class ConfigureMultiSigSet {
+  constructor() {
+    this.currentState = 'configure-multi-start';
   }
 
-  view() {
-    return <>{this.steps[this.step]}</>;
+  view(vnode) {
+    return <>{this.currentState === 'configure-multi-start' && <TempClass />}</>;
   }
 }
 
