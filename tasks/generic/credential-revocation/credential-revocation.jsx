@@ -1,12 +1,10 @@
 import m from 'mithril';
 import { Button, Card, TextField } from '../../../src/app/components';
 
-class CredentialRevocation {
-  constructor(vnode) {
-    this.select = false;
-    this.step = 0;
-
-    this.steps = [
+class RevokeRequest {
+  constructor(vnode) {}
+  view(vnode) {
+    return (
       <>
         <h3>Request Credential Revocation</h3>
         <p class="p-tag">Please select the contact and credentials you would like to revoke.</p>
@@ -34,17 +32,22 @@ class CredentialRevocation {
           </Card>
         </div>
         <div class="flex flex-justify-between">
-          <Button class="button--gray-dk button--big button--no-transform" raised label="Go Back" />
           <Button
-            class="button--big button--no-transform"
+            class="button--gray-dk button--big button--no-transform"
             raised
-            label="Continue"
-            onclick={() => {
-              this.step++;
-            }}
+            label="Go Back"
+            vnode={vnode.attrs.end}
           />
+          <Button class="button--big button--no-transform" raised label="Continue" onclick={vnode.attrs.continue} />
         </div>
-      </>,
+      </>
+    );
+  }
+}
+class ConfirmRevoke {
+  constructor(vnode) {}
+  view(vnode) {
+    return (
       <>
         <h3>Request Credential Revocation</h3>
         <p class="p-tag">On submission, a signed request has been sent to the requested user for their review. </p>
@@ -56,18 +59,22 @@ class CredentialRevocation {
           <br />
         </div>
         <div class="flex flex-justify-between">
-          <Button class="button--gray-dk button--big button--no-transform" raised label="Go Back" />
           <Button
-            class="button--big button--no-transform"
+            class="button--gray-dk button--big button--no-transform"
             raised
-            label="Submit"
-            onclick={() => {
-              this.step++;
-            }}
+            label="Go Back"
+            onclick={vnode.attrs.back}
           />
+          <Button class="button--big button--no-transform" raised label="Submit" onclick={vnode.attrs.continue} />
         </div>
-      </>,
-
+      </>
+    );
+  }
+}
+class RevokeSubmitted {
+  constructor(vnode) {}
+  view(vnode) {
+    return (
       <>
         <h3>Revocation Submitted!</h3>
         <p class="p-tag">You will be notified when the credential revocation is completed.</p>
@@ -80,12 +87,39 @@ class CredentialRevocation {
         <div class="flex flex-justify-end">
           <Button class="button--big button--no-transform" raised label="Close" onclick={vnode.attrs.end} />
         </div>
-      </>,
-    ];
+      </>
+    );
   }
+}
 
-  view() {
-    return <>{this.steps[this.step]}</>;
+class CredentialRevocation {
+  constructor() {
+    this.currentState = 'revoke-request';
+  }
+  view(vnode) {
+    return (
+      <>
+        {this.currentState === 'revoke-request' && (
+          <RevokeRequest
+            end={vnode.attrs.end}
+            continue={() => {
+              this.currentState = 'confirm-revoke';
+            }}
+          />
+        )}
+        {this.currentState === 'confirm-revoke' && (
+          <ConfirmRevoke
+            back={() => {
+              this.currentState = 'revoke-request';
+            }}
+            continue={() => {
+              this.currentState = 'revoke-submitted';
+            }}
+          />
+        )}
+        {this.currentState === 'revoke-submitted' && <RevokeSubmitted end={vnode.attrs.end} />}
+      </>
+    );
   }
 }
 
