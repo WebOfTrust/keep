@@ -127,3 +127,45 @@ h4 {
 
 // Icon fonts
 $font-path: '../assets/fonts';
+
+@font-face {
+  font-family: 'AvenirNext';
+  font-style: normal;
+  font-weight: 400;
+  src: url('../assets/fonts/avenir-next-lt-pro/AvenirNextLTPro-Regular.otf') format('truetype');
+}
+
+@font-face {
+  font-family: 'AvenirNext';
+  font-style: normal;
+  font-weight: normal;
+  src: url('../assets/fonts/avenir-next-lt-pro/AvenirNextLTPro-Regular.otf') format('truetype');
+}
+
+@font-face {
+  font-family: 'AvenirNext';
+  font-style: normal;
+  font-weight: 500;
+  src: url('../assets/fonts/avenir-next-lt-pro/AvenirNextLTPro-Demi.otf') format('truetype');
+}
+
+@font-face {
+  font-family: 'AvenirNext';
+  font-style: normal;
+  font-weight: 600;
+  src: url('../assets/fonts/avenir-next-lt-pro/AvenirNextLTPro-Demi.otf') format('truetype');
+}
+
+@font-face {
+  font-family: 'AvenirNext';
+  font-style: normal;
+  font-weight: bold;
+  src: url('../assets/fonts/avenir-next-lt-pro/AvenirNextLTPro-Bold.otf') format('truetype');
+}
+
+@font-face {
+  font-family: 'AvenirNext';
+  font-style: normal;
+  font-weight: 700;
+  src: url('../assets/fonts/avenir-next-lt-pro/AvenirNextLTPro-Bold.otf') format('truetype');
+}
