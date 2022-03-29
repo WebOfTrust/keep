@@ -1,6 +1,6 @@
 import m from 'mithril';
-import KERI from './keri';
-import Toaster from './toaster';
+// import KERI from './keri';
+// import Toaster from './toaster';
 
 class Mail {
   static MINSNIFFSIZE = 30;
