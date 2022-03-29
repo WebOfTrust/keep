@@ -12,7 +12,6 @@ class Login {
   unlockAgent(vnode) {
     KERI.unlockAgent(`keep${KERI.port}`, this.passcode)
       .then(() => {
-        sessionStorage.setItem('loggedIn', true);
         vnode.attrs.end(null, 'create-identifier');
       })
       .catch((err) => {

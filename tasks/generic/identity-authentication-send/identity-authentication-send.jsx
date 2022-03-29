@@ -135,6 +135,13 @@ class SendChallengeMessage {
     this.challengeMessage = '';
   }
 
+  signChallengeMessage(vnode) {
+    KERI.signChallengeMessage('qar aid', this.challengeMessage.split(' ')).then(() => {
+      console.log('challenge signed');
+      vnode.attrs.continue();
+    });
+  }
+
   view(vnode) {
     return (
       <>
@@ -143,10 +150,26 @@ class SendChallengeMessage {
         <p class="p-tag" style={{ margin: '2rem 0 2rem 0' }}>
           Enter the 12-word challenge message into the chat and send to the credential issuer.
         </p>
-        <TextField outlined textarea fluid style={{ margin: '0 0 4rem 0' }} />
+        <TextField
+          outlined
+          textarea
+          fluid
+          style={{ margin: '0 0 4rem 0' }}
+          value={this.challengeMessage}
+          oninput={(e) => {
+            this.challengeMessage = e.target.value;
+          }}
+        />
         <div class="flex flex-justify-between">
           <Button class="button--gray-dk button--big button--no-transform" raised label="Go Back" />
-          <Button class="button--big button--no-transform" raised label="Continue" onclick={vnode.attrs.continue} />
+          <Button
+            class="button--big button--no-transform"
+            raised
+            label="Continue"
+            onclick={() => {
+              this.signChallengeMessage(vnode);
+            }}
+          />
         </div>
       </>
     );

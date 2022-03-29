@@ -189,7 +189,7 @@ class CopyChallengeMessage {
   }
 
   oninit() {
-    KERI.generateChallengeMessage('qar aid').then((res) => {
+    KERI.generateChallengeMessage().then((res) => {
       console.log(res);
       this.challangeMessage = res.words.join(' ');
     });

@@ -244,10 +244,7 @@ class CreateYourPasscode {
             back={() => {
               this.currentState = 'create-passcode';
             }}
-            continue={() => {
-              sessionStorage.setItem('loggedIn', true);
-              vnode.attrs.end(null, 'create-identifier');
-            }}
+            continue={vnode.attrs.end}
           />
         )}
       </>

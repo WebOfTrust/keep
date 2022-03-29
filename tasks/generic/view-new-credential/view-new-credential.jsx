@@ -76,7 +76,7 @@ class TempClass3 {
   }
 }
 
-class ConfigureMultiSigSet {
+class ViewNewCredential {
   constructor() {
     this.currentState = 'configure-multi-start';
   }
