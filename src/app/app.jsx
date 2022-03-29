@@ -1,6 +1,7 @@
 import m from 'mithril';
 
 import { AuthedNav, ToastOutlet, UnauthedNav } from './components';
+import { Mail } from './services';
 import { Contacts, Dashboard, Error, Profile, Settings } from './views';
 
 import '../scss/defaults.scss';
@@ -9,6 +10,8 @@ import '../scss/globals.scss';
 import '../scss/nav-rail.scss';
 
 let root = document.body;
+
+Mail.initEventSource();
 
 const UnauthedLayout = {
   view: (vnode) => {

@@ -59,10 +59,20 @@ class KERI {
     });
   }
 
-  static generateChallengeMessage(alias) {
+  static generateChallengeMessage() {
     return m.request({
       method: 'GET',
+      url: `${process.env.API_HOST}:${this.port}/challenge`,
+    });
+  }
+
+  static signChallengeMessage(alias, words) {
+    return m.request({
+      method: 'POST',
       url: `${process.env.API_HOST}:${this.port}/challenge/${alias}`,
+      body: {
+        words,
+      },
     });
   }
 }

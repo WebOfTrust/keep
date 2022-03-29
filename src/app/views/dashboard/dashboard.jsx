@@ -1,6 +1,6 @@
 import m from 'mithril';
 import { Button, Card, Container, IconButton, NavRail, Select } from '../../components';
-import { API, KERI } from '../../services';
+import { API, KERI, Mail } from '../../services';
 import tasks from '../../../../tasks';
 import './dashboard.scss';
 
@@ -25,12 +25,7 @@ class Dashboard {
       },
     ];
     this.aboutDismissed = false;
-    this.loggedIn = sessionStorage.getItem('loggedIn');
-    if (!this.loggedIn) {
-      this.flowSelected = 'create-passcode';
-    } else {
-      this.flowSelected = 'create-identifier';
-    }
+    this.flowSelected = 'create-passcode';
     this.tasks = tasks;
     this.taskSelected = null;
     this.portOptions = [
@@ -55,6 +50,7 @@ class Dashboard {
     this.portSelected = e;
     API.port = e;
     KERI.port = e;
+    Mail.port = e;
   }
 
   changeTask(task) {
