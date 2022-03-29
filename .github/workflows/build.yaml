@@ -27,8 +27,7 @@ jobs:
       - name: build ui
         run: |
           yarn install
-          yarn build:gar
-          yarn build:gar
+          yarn build:generic
 
       - name: package python
         run: |
