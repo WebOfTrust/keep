@@ -3,73 +3,34 @@ import { Button } from '../../../src/app/components';
 import approveRequest from '../../../src/assets/img/approve-request.png';
 import addNewContacts from '../../../src/assets/img/add-new-contacts.png';
 import verifyCredentials from '../../../src/assets/img/verify-credentials.png';
-
-class TempClass {
+import githubLogo from '../../../src/assets/img/github-logo.png';
+class ViewCreds {
   constructor(vnode) {}
   view(vnode) {
     return (
       <>
-        <h3>QAR TASK 4</h3>
-        <img src={approveRequest} style={{ width: '60%', margin: '4rem 0 4rem 4rem' }} />
-        <p class="p-tag">
-          You have now created your GLEIF Delegated AID! While you are waiting for your GLEIF credentials, here is a
-          brief introduction to some of the tasks you can complete in your role.
-          <br />
-          <br />
-        </p>
+        <img src={approveRequest} style={{ width: '50%', margin: '2rem 0 2rem 0' }} />
+        <h3>View New Credentials</h3>
         <div class="flex flex-justify-between">
-          <Button class="button--gray-dk button--big button--no-transform" raised label="Skip" />
-          <Button class="button--big button--no-transform" raised label="Continue" onclick={vnode.attrs.continue} />
+          <img src={githubLogo} style={{ width: '30%', borderRadius: '50%' }} />
+          <div style={{ width: '60%' }}>
+            <p class="p-tag" style={{ fontSize: '120%' }}>
+              Ocotcat verified at 1:23pm on 12/7/21
+            </p>
+          </div>
         </div>
-      </>
-    );
-  }
-}
-class TempClass2 {
-  constructor(vnode) {}
-  view(vnode) {
-    return (
-      <>
-        <h3>Complete Identity Assurance</h3>
-        <img src={addNewContacts} style={{ width: '50%', margin: '4rem 0 4rem 4rem' }} />
         <p class="p-tag">
-          Once you are authorized to act on behalf of GLEIF, you perform identity assurance of a person serving in the
-          role of QAR. A GAR and the QAR will complete a real-time OOBI session in which the GAR and the QAR are
-          present.
+          Your credentials have been issued and are now in your credential wallet.
           <br />
           <br />
         </p>
-        <div class="flex flex-justify-between">
-          <Button class="button--gray-dk button--big button--no-transform" raised label="Skip" />
+        <div class="flex flex-justify-end">
           <Button
             class="button--big button--no-transform"
             raised
-            label="Continue"
-            onclick={() => {
-              this.step++;
-            }}
+            label="View Credentials"
+            onclick={vnode.attrs.continue}
           />
-        </div>
-      </>
-    );
-  }
-}
-class TempClass3 {
-  constructor(vnode) {}
-  view(vnode) {
-    return (
-      <>
-        <h3>Grant Credentials</h3>
-        <img src={verifyCredentials} style={{ width: '60%', margin: '4rem 0 4rem 4rem' }} />
-        <p class="p-tag">
-          The GAR approves the issuance of the QVI vLEI Credential and the QVI receives the credential in its credential
-          wallet. The QVI vLEI Credential may be added or revoked at any time.
-          <br />
-          <br />
-        </p>
-        <div class="flex flex-justify-between">
-          <Button class="button--gray-dk button--big button--no-transform" raised label="Skip" />
-          <Button class="button--big button--no-transform" raised label="Close" onclick={vnode.attrs.end} />
         </div>
       </>
     );
@@ -82,7 +43,7 @@ class ViewNewCredential {
   }
 
   view(vnode) {
-    return <>{this.currentState === 'configure-multi-start' && <TempClass />}</>;
+    return <>{this.currentState === 'configure-multi-start' && <ViewCreds />}</>;
   }
 }
 
