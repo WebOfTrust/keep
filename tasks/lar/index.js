@@ -46,11 +46,11 @@ const tasks = {
   ],
   'create-identifier': [
     {
-      imgSrc: createIdentifier,
-      label: 'Create my QAR ID',
+      imgSrc: verifyCredentials,
+      label: 'Create my AVR AID',
       component: {
         view: (vnode) => {
-          return '<CreateYourQarAID end={vnode.attrs.end} />';
+          return <CreateYourAvrAid end={vnode.attrs.end} />;
         },
       },
     },
@@ -61,43 +61,42 @@ const tasks = {
       label: 'Intro to Your Role',
       component: {
         view: (vnode) => {
-          return '<IntroToAVRRole end={vnode.attrs.end} />';
+          return <IntroToAVRRole end={vnode.attrs.end} />;
         },
       },
     },
   ],
   'main': [
     {
-      imgSrc: verifyCredentials,
-      label: 'Create my AVR AID',
-      component: {
-        view: (vnode) => {
-          return <CreateYourAvrAid end={vnode.attrs.end} />;
-        },
-      },
-    },
-    {
       imgSrc: addNewContacts,
       label: 'Identity Authentication',
       component: {
         view: (vnode) => {
-          return '<QVIIdentityAssurance end={vnode.attrs.end} />';
+          return <QVIIdentityAssurance end={vnode.attrs.end} />;
         },
       },
     },
     {
       imgSrc: loanApproved,
-      label: 'Issue the OOR vLEI Credential',
+      label: 'Credential Issuance',
       component: {
         view: (vnode) => {
           return <IssueOORvLEICredential end={vnode.attrs.end} />;
         },
       },
     },
-
+    {
+      imgSrc: verifyCredentials,
+      label: 'Triggered Manual Key Rotation',
+      component: {
+        view: (vnode) => {
+          return <TriggerManualKeyRotation end={vnode.attrs.end} />;
+        },
+      },
+    },
     {
       imgSrc: declineRequest,
-      label: 'Revoke OOR vLEI Credential',
+      label: 'Credential Revocation',
       component: {
         view: (vnode) => {
           return <RevokeAVRvLEICredential end={vnode.attrs.end} />;
