@@ -39,11 +39,11 @@ class ViewCreds {
 
 class ViewNewCredential {
   constructor() {
-    this.currentState = 'configure-multi-start';
+    this.currentState = 'view-new';
   }
 
   view(vnode) {
-    return <>{this.currentState === 'configure-multi-start' && <ViewCreds />}</>;
+    return <>{this.currentState === 'view-new' && <ViewCreds />}</>;
   }
 }
 

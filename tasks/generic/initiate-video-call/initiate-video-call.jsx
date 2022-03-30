@@ -1,5 +1,5 @@
 import m from 'mithril';
-import { Button, Card, TextField } from '../../../src/app/components';
+import { Button, Card, TextField, TextTooltip } from '../../../src/app/components';
 import createIdentifier from '../../../src/assets/img/create-identifier.png';
 import configureIdentifier from '../../../src/assets/img/configure-identifier.png';
 import approveRequest from '../../../src/assets/img/approve-request.png';
@@ -120,7 +120,10 @@ class AcceptOobis {
       <>
         <img src={uploadFile} style={{ width: '50%', margin: '0 0 0 0' }} />
         <h3>
-          Accept the <u>OOBIs</u>
+          Accept the{' '}
+          <TextTooltip label={<u>OOBI</u>}>
+            OOBI is an Out Of Band (meaning outside this software) interaction.
+          </TextTooltip>
         </h3>
         <p class="p-tag" style={{ margin: '2rem 0 2rem 0' }}>
           While on the Video Call, make sure to obtain each GLEIF Controller’s <strong>URL and OOBI.</strong> When you
@@ -206,7 +209,12 @@ class AcceptingTheOobis {
   view(vnode) {
     return (
       <>
-        <h3>Accept OOBIs</h3>
+        <h3>
+          Accept{' '}
+          <TextTooltip label={<u>OOBIs</u>}>
+            OOBI is an Out Of Band (meaning outside this software) interaction.
+          </TextTooltip>
+        </h3>
         <div class="flex flex-justify-between" style={{ alignItems: 'baseline' }}>
           <p class="p-tag" style={{ margin: '2rem 0 2rem 0' }}>
             Enter AIDs, URLs and Aliases you received on the Video Call from the Controllers below:
