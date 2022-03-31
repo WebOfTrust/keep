@@ -1,4 +1,4 @@
-import tasks from './generic';
+import tasks from './lar';
 
 module.exports = tasks;
 

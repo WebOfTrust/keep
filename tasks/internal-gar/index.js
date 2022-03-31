@@ -76,6 +76,24 @@ const tasks = {
     },
     {
       imgSrc: addNewContacts,
+      label: 'Configure Multi-Sig Set',
+      component: {
+        view: (vnode) => {
+          return <ConfigureMultiSigSet end={vnode.attrs.end} />;
+        },
+      },
+    },
+    {
+      imgSrc: addNewContacts,
+      label: 'View Multi-Sig Set',
+      component: {
+        view: (vnode) => {
+          return <ViewMultiSigSet end={vnode.attrs.end} />;
+        },
+      },
+    },
+    {
+      imgSrc: addNewContacts,
       label: 'Credential Issuance',
       component: {
         view: (vnode) => {

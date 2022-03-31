@@ -67,10 +67,19 @@ const tasks = {
   'main': [
     {
       imgSrc: addNewContacts,
-      label: 'Identity Authentication',
+      label: 'Identity Authentication (receive)',
       component: {
         view: (vnode) => {
           return <IdentityAuthenticationReceive end={vnode.attrs.end} />;
+        },
+      },
+    },
+    {
+      imgSrc: addNewContacts,
+      label: 'Identity Authentication (Send)',
+      component: {
+        view: (vnode) => {
+          return <IdentityAuthenticationSend end={vnode.attrs.end} />;
         },
       },
     },
@@ -80,6 +89,42 @@ const tasks = {
       component: {
         view: (vnode) => {
           return <CredentialIssuance end={vnode.attrs.end} />;
+        },
+      },
+    },
+    {
+      imgSrc: addNewContacts,
+      label: 'Initiate Video Call',
+      component: {
+        view: (vnode) => {
+          return <InitiateVideoCall end={vnode.attrs.end} />;
+        },
+      },
+    },
+    {
+      imgSrc: addNewContacts,
+      label: 'Join Video Call',
+      component: {
+        view: (vnode) => {
+          return <JoinVideoCall end={vnode.attrs.end} />;
+        },
+      },
+    },
+    {
+      imgSrc: addNewContacts,
+      label: 'View Multi-Sig Set',
+      component: {
+        view: (vnode) => {
+          return <ViewMultiSigSet end={vnode.attrs.end} />;
+        },
+      },
+    },
+    {
+      imgSrc: addNewContacts,
+      label: 'Configure Multi-Sig Set',
+      component: {
+        view: (vnode) => {
+          return <ConfigureMultiSigSet end={vnode.attrs.end} />;
         },
       },
     },

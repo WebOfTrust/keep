@@ -7,13 +7,16 @@ import IntroToYourRole from '../generic/intro-to-your-role/intro-to-your-role';
 import Login from '../generic/login/login';
 
 // Tasks
-import IntroToAVRRole from './intro-you-the-avr-role/intro-to-the-avr-role';
+// import IntroToAVRRole from './intro-you-the-avr-role/intro-to-the-avr-role';
 // import IDAssuranceOfOOR from './identity-assurance-of-oor/identity-assurance-of-oor';
-import CreateYourAvrAid from './create-your-avr-aid/create-your-avr-aid';
+// import CreateYourAvrAid from './create-your-avr-aid/create-your-avr-aid';
 // import QVIIdentityAssurance from './qvi-identity-assurance/qvi-identity-assurance';
-import IssueOORvLEICredential from './issue-oor-vlei-credential/issue-oor-vlei-credential';
-import TriggerManualKeyRotation from './trigger-manual-key-rotation/trigger-manual-key-rotation';
-import RevokeAVRvLEICredential from './revoke-avr-vlei-credential/revoke-avr-vlei-credential';
+// import IssueOORvLEICredential from './issue-oor-vlei-credential/issue-oor-vlei-credential';
+import CredentialIssuance from '../generic/credential-issuance/credential-issuance';
+// import TriggerManualKeyRotation from './trigger-manual-key-rotation/trigger-manual-key-rotation';
+import ManualKeyRotation from '../generic/manual-key-rotation/manual-key-rotation';
+import CredentialRevocation from '../generic/credential-revocation/credential-revocation';
+// import RevokeAVRvLEICredential from './revoke-avr-vlei-credential/revoke-avr-vlei-credential';
 
 // Images
 import addNewContacts from '../../src/assets/img/add-new-contacts.png';
@@ -50,7 +53,7 @@ const tasks = {
       label: 'Create my AVR AID',
       component: {
         view: (vnode) => {
-          return <CreateYourAvrAid end={vnode.attrs.end} />;
+          return <CreateYourAid end={vnode.attrs.end} />;
         },
       },
     },
@@ -81,16 +84,16 @@ const tasks = {
       label: 'Credential Issuance',
       component: {
         view: (vnode) => {
-          return <IssueOORvLEICredential end={vnode.attrs.end} />;
+          return <CredentialIssuance end={vnode.attrs.end} />;
         },
       },
     },
     {
       imgSrc: verifyCredentials,
-      label: 'Triggered Manual Key Rotation',
+      label: 'Manual Key Rotation (not yet triggered) ',
       component: {
         view: (vnode) => {
-          return <TriggerManualKeyRotation end={vnode.attrs.end} />;
+          return <ManualKeyRotation end={vnode.attrs.end} />;
         },
       },
     },
@@ -99,7 +102,7 @@ const tasks = {
       label: 'Credential Revocation',
       component: {
         view: (vnode) => {
-          return <RevokeAVRvLEICredential end={vnode.attrs.end} />;
+          return <CredentialRevocation end={vnode.attrs.end} />;
         },
       },
     },
