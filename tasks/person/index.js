@@ -15,7 +15,7 @@ import Login from '../generic/login/login';
 import ManualKeyRotation from '../generic/manual-key-rotation/manual-key-rotation';
 import ViewMultiSigSet from '../generic/view-multi-sig-set/view-multi-sig-set';
 import ViewNewCredential from '../generic/view-new-credential/view-new-credential';
-
+import VerifyCredentials from '../generic/verify-credentials/verify-credentials';
 // Images
 import addNewContacts from '../../src/assets/img/add-new-contacts.png';
 import createYourPasscode from '../../src/assets/img/create-your-passcode.png';
@@ -90,6 +90,15 @@ const tasks = {
       component: {
         view: (vnode) => {
           return <CredentialIssuance end={vnode.attrs.end} />;
+        },
+      },
+    },
+    {
+      imgSrc: addNewContacts,
+      label: 'Verify Credentials',
+      component: {
+        view: (vnode) => {
+          return <VerifyCredentials end={vnode.attrs.end} />;
         },
       },
     },

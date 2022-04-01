@@ -1,4 +1,4 @@
-import tasks from './root-gar';
+import tasks from './person';
 
 module.exports = tasks;
 
