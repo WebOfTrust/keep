@@ -1,4 +1,4 @@
-import tasks from './lar';
+import tasks from './internal-gar';
 
 module.exports = tasks;
 

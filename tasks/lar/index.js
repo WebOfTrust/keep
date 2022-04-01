@@ -5,7 +5,12 @@ import CreateYourPasscode from '../generic/create-your-passcode/create-your-pass
 import CreateYourAID from '../generic/create-your-aid/create-your-aid';
 import IntroToYourRole from '../generic/intro-to-your-role/intro-to-your-role';
 import Login from '../generic/login/login';
-
+import JoinVideoCall from '../generic/join-video-call/join-video-call';
+import InitiateVideoCall from '../generic/initiate-video-call/initiate-video-call';
+import IdentityAuthenticationReceive from '../generic/identity-authentication-receive/identity-authentication-receive';
+import IdentityAuthenticationSend from '../generic/identity-authentication-send/identity-authentication-send';
+import ViewMultiSigSet from '../generic/view-multi-sig-set/view-multi-sig-set';
+import ConfigureMultiSigSet from '../generic/configure-multi-sig-set/configure-multi-sig-set';
 // Tasks
 // import IntroToAVRRole from './intro-you-the-avr-role/intro-to-the-avr-role';
 // import IDAssuranceOfOOR from './identity-assurance-of-oor/identity-assurance-of-oor';
@@ -64,7 +69,7 @@ const tasks = {
       label: 'Intro to Your Role',
       component: {
         view: (vnode) => {
-          return <IntroToAVRRole end={vnode.attrs.end} />;
+          return <IntroToYourRole end={vnode.attrs.end} />;
         },
       },
     },
@@ -72,10 +77,55 @@ const tasks = {
   'main': [
     {
       imgSrc: addNewContacts,
-      label: 'Identity Authentication',
+      label: 'Identity Authentication (receive)',
       component: {
         view: (vnode) => {
-          return <QVIIdentityAssurance end={vnode.attrs.end} />;
+          return <IdentityAuthenticationReceive end={vnode.attrs.end} />;
+        },
+      },
+    },
+    {
+      imgSrc: addNewContacts,
+      label: 'Identity Authentication (Send)',
+      component: {
+        view: (vnode) => {
+          return <IdentityAuthenticationSend end={vnode.attrs.end} />;
+        },
+      },
+    },
+    {
+      imgSrc: addNewContacts,
+      label: 'Initiate Video Call',
+      component: {
+        view: (vnode) => {
+          return <InitiateVideoCall end={vnode.attrs.end} />;
+        },
+      },
+    },
+    {
+      imgSrc: addNewContacts,
+      label: 'Join Video Call',
+      component: {
+        view: (vnode) => {
+          return <JoinVideoCall end={vnode.attrs.end} />;
+        },
+      },
+    },
+    {
+      imgSrc: addNewContacts,
+      label: 'View Multi-Sig Set',
+      component: {
+        view: (vnode) => {
+          return <ViewMultiSigSet end={vnode.attrs.end} />;
+        },
+      },
+    },
+    {
+      imgSrc: addNewContacts,
+      label: 'Configure Multi-Sig Set',
+      component: {
+        view: (vnode) => {
+          return <ConfigureMultiSigSet end={vnode.attrs.end} />;
         },
       },
     },

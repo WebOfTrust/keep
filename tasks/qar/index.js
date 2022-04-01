@@ -9,11 +9,26 @@ import CreateYourAID from '../generic/create-your-aid/create-your-aid';
 import IntroToYourRole from '../generic/intro-to-your-role/intro-to-your-role';
 import Login from '../generic/login/login';
 
+import ConfigureMultiSigSet from '../generic/configure-multi-sig-set/configure-multi-sig-set';
+
+// import CreatePasscode from '../generic/create-your-passcode/create-your-passcode';
+import CredentialIssuance from '../generic/credential-issuance/credential-issuance';
+import CredentialRevocation from '../generic/credential-revocation/credential-revocation';
+import IdentityAuthenticationReceive from '../generic/identity-authentication-receive/identity-authentication-receive';
+import IdentityAuthenticationSend from '../generic/identity-authentication-send/identity-authentication-send';
+import InitiateVideoCall from '../generic/initiate-video-call/initiate-video-call';
+
+import JoinVideoCall from '../generic/join-video-call/join-video-call';
+
+import ManualKeyRotation from '../generic/manual-key-rotation/manual-key-rotation';
+import ViewMultiSigSet from '../generic/view-multi-sig-set/view-multi-sig-set';
+import ViewNewCredential from '../generic/view-new-credential/view-new-credential';
+
 // Tasks
-import QVIIdentityAssurance from './qvi-identity-assurance/qvi-identity-assurance';
-import IssueOORvLEICredential from './issue-oor-vlei-credential/issue-oor-vlei-credential';
-import RevokeQVIvLEICredential from './revoke-qvi-vlei-credential/revoke-qvi-vlei-credential';
-import IdentityAuthOfQar from './identity-auth-of-qar/identity-auth-of-qar'
+// import QVIIdentityAssurance from './qvi-identity-assurance/qvi-identity-assurance';
+// import IssueOORvLEICredential from './issue-oor-vlei-credential/issue-oor-vlei-credential';
+// import RevokeQVIvLEICredential from './revoke-qvi-vlei-credential/revoke-qvi-vlei-credential';
+// import IdentityAuthOfQar from './identity-auth-of-qar/identity-auth-of-qar'
 
 // Images
 import addNewContacts from '../../src/assets/img/add-new-contacts.png';
@@ -155,37 +170,82 @@ const tasks = {
   'main': [
     {
       imgSrc: addNewContacts,
-      label: 'Identity Authentication',
+      label: 'Identity Authentication (receive)',
       component: {
         view: (vnode) => {
-          return <IdentityAuthOfQar end={vnode.attrs.end} />;
+          return <IdentityAuthenticationReceive end={vnode.attrs.end} />;
         },
       },
     },
     {
-      imgSrc: loanApproved,
-      label: 'Credential Issuance ',
+      imgSrc: addNewContacts,
+      label: 'Identity Authentication (Send)',
       component: {
         view: (vnode) => {
-          return <QVIIdentityAssurance end={vnode.attrs.end} />;
+          return <IdentityAuthenticationSend end={vnode.attrs.end} />;
         },
       },
     },
     {
-      imgSrc: loanApproved,
+      imgSrc: addNewContacts,
+      label: 'Credential Issuance',
+      component: {
+        view: (vnode) => {
+          return <CredentialIssuance end={vnode.attrs.end} />;
+        },
+      },
+    },
+    {
+      imgSrc: addNewContacts,
+      label: 'Initiate Video Call',
+      component: {
+        view: (vnode) => {
+          return <InitiateVideoCall end={vnode.attrs.end} />;
+        },
+      },
+    },
+    {
+      imgSrc: addNewContacts,
+      label: 'Join Video Call',
+      component: {
+        view: (vnode) => {
+          return <JoinVideoCall end={vnode.attrs.end} />;
+        },
+      },
+    },
+    {
+      imgSrc: addNewContacts,
+      label: 'View Multi-Sig Set',
+      component: {
+        view: (vnode) => {
+          return <ViewMultiSigSet end={vnode.attrs.end} />;
+        },
+      },
+    },
+    {
+      imgSrc: addNewContacts,
+      label: 'Configure Multi-Sig Set',
+      component: {
+        view: (vnode) => {
+          return <ConfigureMultiSigSet end={vnode.attrs.end} />;
+        },
+      },
+    },
+    {
+      imgSrc: addNewContacts,
       label: 'Triggered Manual Key Rotation',
       component: {
         view: (vnode) => {
-          return <IssueOORvLEICredential end={vnode.attrs.end} />
+          return <ManualKeyRotation end={vnode.attrs.end} />;
         },
       },
     },
     {
-      imgSrc: declineRequest,
+      imgSrc: addNewContacts,
       label: 'Credential Revocation',
       component: {
         view: (vnode) => {
-          return <RevokeQVIvLEICredential end={vnode.attrs.end} />;
+          return <CredentialRevocation end={vnode.attrs.end} />;
         },
       },
     },
