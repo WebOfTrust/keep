@@ -65,6 +65,7 @@ const tasks = {
     },
   ],
   'main': [
+    // verify credentials
     {
       imgSrc: addNewContacts,
       label: 'Identity Authentication (receive)',

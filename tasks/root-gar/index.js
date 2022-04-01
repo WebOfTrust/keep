@@ -3,17 +3,20 @@ import m from 'mithril';
 // Components
 import { TextTooltip } from '../../src/app/components';
 
-// Generic Tasks
-import CreateYourPasscode from '../generic/create-your-passcode/create-your-passcode';
+import ConfigureMultiSigSet from '../generic/configure-multi-sig-set/configure-multi-sig-set';
 import CreateYourAID from '../generic/create-your-aid/create-your-aid';
+import CreatePasscode from '../generic/create-your-passcode/create-your-passcode';
+import CredentialIssuance from '../generic/credential-issuance/credential-issuance';
+import CredentialRevocation from '../generic/credential-revocation/credential-revocation';
+import IdentityAuthenticationReceive from '../generic/identity-authentication-receive/identity-authentication-receive';
+import IdentityAuthenticationSend from '../generic/identity-authentication-send/identity-authentication-send';
+import InitiateVideoCall from '../generic/initiate-video-call/initiate-video-call';
 import IntroToYourRole from '../generic/intro-to-your-role/intro-to-your-role';
+import JoinVideoCall from '../generic/join-video-call/join-video-call';
 import Login from '../generic/login/login';
-
-// Tasks
-import JoinVideoCall from './join-video-call/join-video-call';
-import InitiateVideoCall from './initiate-video-call/inititate-video-call';
-import ConfigureMultiSig from './configure-multi-sig-set/configure-mutli-sig-set';
-import ViewMultiSig from './view-multi-sig-set/view-multi-sig-set';
+import ManualKeyRotation from '../generic/manual-key-rotation/manual-key-rotation';
+import ViewMultiSigSet from '../generic/view-multi-sig-set/view-multi-sig-set';
+import ViewNewCredential from '../generic/view-new-credential/view-new-credential';
 
 // Images
 import addNewContacts from '../../src/assets/img/add-new-contacts.png';
@@ -149,7 +152,34 @@ const tasks = {
   'main': [
     {
       imgSrc: addNewContacts,
-      label: 'Initiate Video Call with GLEIF Controllers',
+      label: 'Identity Authentication (receive)',
+      component: {
+        view: (vnode) => {
+          return <IdentityAuthenticationReceive end={vnode.attrs.end} />;
+        },
+      },
+    },
+    {
+      imgSrc: addNewContacts,
+      label: 'Identity Authentication (Send)',
+      component: {
+        view: (vnode) => {
+          return <IdentityAuthenticationSend end={vnode.attrs.end} />;
+        },
+      },
+    },
+    {
+      imgSrc: addNewContacts,
+      label: 'Credential Issuance',
+      component: {
+        view: (vnode) => {
+          return <CredentialIssuance end={vnode.attrs.end} />;
+        },
+      },
+    },
+    {
+      imgSrc: addNewContacts,
+      label: 'Initiate Video Call',
       component: {
         view: (vnode) => {
           return <InitiateVideoCall end={vnode.attrs.end} />;
@@ -158,7 +188,7 @@ const tasks = {
     },
     {
       imgSrc: addNewContacts,
-      label: 'Join Video Call with GLEIF Genesis Controllers',
+      label: 'Join Video Call',
       component: {
         view: (vnode) => {
           return <JoinVideoCall end={vnode.attrs.end} />;
@@ -166,20 +196,38 @@ const tasks = {
       },
     },
     {
-      imgSrc: secureMessaging,
-      label: 'Configure Multi-Sig Set as GLEIF Genesis Controller',
+      imgSrc: addNewContacts,
+      label: 'View Multi-Sig Set',
       component: {
         view: (vnode) => {
-          return <ConfigureMultiSig end={vnode.attrs.end} />;
+          return <ViewMultiSigSet end={vnode.attrs.end} />;
         },
       },
     },
     {
       imgSrc: addNewContacts,
-      label: 'View Multi-Sig Verification Event Logs',
+      label: 'Configure Multi-Sig Set',
       component: {
         view: (vnode) => {
-          return <ViewMultiSig end={vnode.attrs.end} />;
+          return <ConfigureMultiSigSet end={vnode.attrs.end} />;
+        },
+      },
+    },
+    {
+      imgSrc: addNewContacts,
+      label: 'Triggered Manual Key Rotation',
+      component: {
+        view: (vnode) => {
+          return <ManualKeyRotation end={vnode.attrs.end} />;
+        },
+      },
+    },
+    {
+      imgSrc: addNewContacts,
+      label: 'Credential Revocation',
+      component: {
+        view: (vnode) => {
+          return <CredentialRevocation end={vnode.attrs.end} />;
         },
       },
     },
