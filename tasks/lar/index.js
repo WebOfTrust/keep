@@ -22,15 +22,17 @@ import CredentialIssuance from '../generic/credential-issuance/credential-issuan
 import ManualKeyRotation from '../generic/manual-key-rotation/manual-key-rotation';
 import CredentialRevocation from '../generic/credential-revocation/credential-revocation';
 // import RevokeAVRvLEICredential from './revoke-avr-vlei-credential/revoke-avr-vlei-credential';
-
+import VerifyCredentials from '../generic/verify-credentials/verify-credentials';
 // Images
 import addNewContacts from '../../src/assets/img/add-new-contacts.png';
-import loanApproved from '../../src/assets/img/loan-approved.png';
-import declineRequest from '../../src/assets/img/decline-request.png';
+import projectPlanning from '../../src/assets/img/project-planning.png';
 import createIdentifier from '../../src/assets/img/create-identifier.png';
-import createYourPasscode from '../../src/assets/img/create-your-passcode.png';
+import secureMessaging from '../../src/assets/img/secure-messaging.png';
+import uploadFile from '../../src/assets/img/upload-file.png';
 import verifyCredentials from '../../src/assets/img/verify-credentials.png';
-
+import declineRequest from '../../src/assets/img/decline-request.png';
+import calendar from '../../src/assets/img/calendar.png';
+import loanApproved from '../../src/assets/img/loan-approved.png';
 const tasks = {
   'create-passcode': [
     {
@@ -94,7 +96,7 @@ const tasks = {
       },
     },
     {
-      imgSrc: addNewContacts,
+      imgSrc: projectPlanning,
       label: 'Initiate Video Call',
       component: {
         view: (vnode) => {
@@ -112,7 +114,7 @@ const tasks = {
       },
     },
     {
-      imgSrc: addNewContacts,
+      imgSrc: calendar,
       label: 'View Multi-Sig Set',
       component: {
         view: (vnode) => {
@@ -135,6 +137,15 @@ const tasks = {
       component: {
         view: (vnode) => {
           return <CredentialIssuance end={vnode.attrs.end} />;
+        },
+      },
+    },
+    {
+      imgSrc: uploadFile,
+      label: 'Presentation Request',
+      component: {
+        view: (vnode) => {
+          return <VerifyCredentials end={vnode.attrs.end} />;
         },
       },
     },

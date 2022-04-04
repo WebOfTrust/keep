@@ -15,11 +15,17 @@ import Login from '../generic/login/login';
 import ManualKeyRotation from '../generic/manual-key-rotation/manual-key-rotation';
 import ViewMultiSigSet from '../generic/view-multi-sig-set/view-multi-sig-set';
 import ViewNewCredential from '../generic/view-new-credential/view-new-credential';
-
+import VerifyCredentials from '../generic/verify-credentials/verify-credentials';
 // Images
 import addNewContacts from '../../src/assets/img/add-new-contacts.png';
-import createYourPasscode from '../../src/assets/img/create-your-passcode.png';
+import projectPlanning from '../../src/assets/img/project-planning.png';
 import createIdentifier from '../../src/assets/img/create-identifier.png';
+import secureMessaging from '../../src/assets/img/secure-messaging.png';
+import uploadFile from '../../src/assets/img/upload-file.png';
+import verifyCredentials from '../../src/assets/img/verify-credentials.png';
+import declineRequest from '../../src/assets/img/decline-request.png';
+import calendar from '../../src/assets/img/calendar.png';
+import loanApproved from '../../src/assets/img/loan-approved.png';
 
 const tasks = {
   'create-passcode': [
@@ -84,7 +90,7 @@ const tasks = {
       },
     },
     {
-      imgSrc: addNewContacts,
+      imgSrc: loanApproved,
       label: 'Credential Issuance',
       component: {
         view: (vnode) => {
@@ -93,7 +99,7 @@ const tasks = {
       },
     },
     {
-      imgSrc: addNewContacts,
+      imgSrc: projectPlanning,
       label: 'Initiate Video Call',
       component: {
         view: (vnode) => {
@@ -111,7 +117,7 @@ const tasks = {
       },
     },
     {
-      imgSrc: addNewContacts,
+      imgSrc: calendar,
       label: 'View Multi-Sig Set',
       component: {
         view: (vnode) => {
@@ -120,7 +126,7 @@ const tasks = {
       },
     },
     {
-      imgSrc: addNewContacts,
+      imgSrc: secureMessaging,
       label: 'Configure Multi-Sig Set',
       component: {
         view: (vnode) => {
@@ -129,7 +135,16 @@ const tasks = {
       },
     },
     {
-      imgSrc: addNewContacts,
+      imgSrc: uploadFile,
+      label: 'Presentation Request',
+      component: {
+        view: (vnode) => {
+          return <VerifyCredentials end={vnode.attrs.end} />;
+        },
+      },
+    },
+    {
+      imgSrc: verifyCredentials,
       label: 'Triggered Manual Key Rotation',
       component: {
         view: (vnode) => {
@@ -138,7 +153,7 @@ const tasks = {
       },
     },
     {
-      imgSrc: addNewContacts,
+      imgSrc: declineRequest,
       label: 'Credential Revocation',
       component: {
         view: (vnode) => {
