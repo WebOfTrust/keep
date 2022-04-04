@@ -16,6 +16,7 @@ class OpeningVerify {
         <p class="p-tag" style={{ margin: '2rem 0 2rem 0' }}>
           Credentials demonstrate that the authorized person has the authority to transact on behalf of a business.
           <br></br>
+          <br></br>
           To get started, are you looking to verify an existing contact’s credentials, or a new contact?
         </p>
         <div class="flex flex-justify-between">
@@ -107,26 +108,31 @@ class AcceptOOBI {
           </TextTooltip>
         </h3>
         <p class="p-tag" style={{ margin: '2rem 0 2rem 0' }}>
-          While on the Video Call, make sure to obtain the the URL and AID. When you have both please press continue.
+          While on the Video Call, make sure to obtain the the <strong>URL and AID</strong>. When you have both please
+          press continue.
         </p>
-        <label>AID:</label>
+        <label>
+          <strong>AID:</strong>
+        </label>
         <TextField
           outlined
           fluid
           iconTrailing={{
             icon: 'content_copy',
           }}
-          style={{ margin: '0 0 4rem 0' }}
+          style={{ margin: '0 0 4rem 0', backgroundColor: 'rgba(0, 0, 0, 0.04)' }}
           value={this.oobi.alias}
         />
-        <label>URL:</label>
+        <label>
+          <strong>URL:</strong>
+        </label>
         <TextField
           outlined
           fluid
           iconTrailing={{
             icon: 'content_copy',
           }}
-          style={{ margin: '0 0 4rem 0' }}
+          style={{ margin: '0 0 4rem 0', backgroundColor: 'rgba(0, 0, 0, 0.04)' }}
           value={this.oobi.url}
         />
         <div class="flex flex-justify-between">
@@ -192,7 +198,7 @@ class PasteChallengeMessage {
           outlined
           textarea
           fluid
-          style={{ margin: '0 0 4rem 0' }}
+          style={{ margin: '0 0 4rem 0', backgroundColor: 'rgba(0, 0, 0, 0.04)' }}
           value={this.challengeMessage}
           oninput={(e) => {
             this.challengeMessage = e.target.value;
