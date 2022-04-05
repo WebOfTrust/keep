@@ -18,6 +18,7 @@ import ViewNewCredential from '../generic/view-new-credential/view-new-credentia
 import VerifyCredentials from '../generic/verify-credentials/verify-credentials';
 // Images
 import addNewContacts from '../../src/assets/img/add-new-contacts.png';
+import createYourPasscode from '../../src/assets/img/create-your-passcode.png';
 import projectPlanning from '../../src/assets/img/project-planning.png';
 import createIdentifier from '../../src/assets/img/create-identifier.png';
 import secureMessaging from '../../src/assets/img/secure-messaging.png';
