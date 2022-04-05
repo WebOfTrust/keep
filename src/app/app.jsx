@@ -1,7 +1,7 @@
 import m from 'mithril';
 
-import { AuthedNav, ToastOutlet, UnauthedNav } from './components';
-import { Mail } from './services';
+import { Nav, ToastOutlet } from './components';
+import { Auth, Mail } from './services';
 import { Contacts, Dashboard, Error, Profile, Settings } from './views';
 
 import '../scss/defaults.scss';
@@ -11,26 +11,16 @@ import '../scss/nav-rail.scss';
 
 let root = document.body;
 
-Mail.initEventSource();
+if (Auth.isLoggedIn()) {
+  Mail.initEventSource();
+}
 
-const UnauthedLayout = {
+const MainLayout = {
   view: (vnode) => {
     return (
       <>
         <ToastOutlet />
-        <UnauthedNav />
-        {vnode.children}
-      </>
-    );
-  },
-};
-
-const AuthedLayout = {
-  view: (vnode) => {
-    return (
-      <>
-        <ToastOutlet />
-        <AuthedNav />
+        <Nav />
         {vnode.children}
       </>
     );
@@ -45,9 +35,9 @@ m.route(root, '/dashboard', {
     },
     view: () => {
       return (
-        <AuthedLayout>
+        <MainLayout>
           <Dashboard />
-        </AuthedLayout>
+        </MainLayout>
       );
     },
   },
@@ -57,9 +47,9 @@ m.route(root, '/dashboard', {
     },
     view: () => {
       return (
-        <AuthedLayout>
+        <MainLayout>
           <Contacts />
-        </AuthedLayout>
+        </MainLayout>
       );
     },
   },
@@ -69,9 +59,9 @@ m.route(root, '/dashboard', {
     },
     view: () => {
       return (
-        <AuthedLayout>
+        <MainLayout>
           <Profile />
-        </AuthedLayout>
+        </MainLayout>
       );
     },
   },
@@ -81,9 +71,9 @@ m.route(root, '/dashboard', {
     },
     view: () => {
       return (
-        <AuthedLayout>
+        <MainLayout>
           <Settings />
-        </AuthedLayout>
+        </MainLayout>
       );
     },
   },
@@ -93,9 +83,9 @@ m.route(root, '/dashboard', {
     },
     view: () => {
       return (
-        <UnauthedLayout>
+        <MainLayout>
           <Error />
-        </UnauthedLayout>
+        </MainLayout>
       );
     },
   },

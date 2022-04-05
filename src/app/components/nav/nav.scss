@@ -1,9 +1,8 @@
 @import '../../../scss/variables';
 @import '../../../scss/mixins';
 
-.unauthedNav {
-  background-color: $active-blue;
-
+.nav {
+  background-color: white;
   &__content {
     align-items: center;
     display: flex;
@@ -36,7 +35,7 @@
 }
 
 @media screen and (max-width: 680px) {
-  .unauthedNav {
+  .nav {
     &__link {
       font-size: 14px;
 

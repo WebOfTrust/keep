@@ -1,10 +1,10 @@
 import m from 'mithril';
 import mq from 'mithril-query';
-import UnauthedNav from './unauthed-nav.jsx';
+import Nav from './nav.jsx';
 
-describe('UnauthedNav component', () => {
+describe('Nav component', () => {
   it('Should create', () => {
-    let out = mq(m(UnauthedNav));
+    let out = mq(m(Nav));
     expect(out).toBeTruthy();
   });
 });

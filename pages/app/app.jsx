@@ -1,6 +1,6 @@
 import m from 'mithril';
 
-import { UnauthedNav } from '../../src/app/components';
+import { Nav } from '../../src/app/components';
 
 import Download from './download.jsx';
 import Splash from './splash.jsx';
@@ -17,7 +17,7 @@ const PagesLayout = {
   view: (vnode) => {
     return (
       <>
-        <UnauthedNav />
+        <Nav />
         {vnode.children}
       </>
     );
