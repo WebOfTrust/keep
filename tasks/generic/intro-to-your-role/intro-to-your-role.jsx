@@ -26,7 +26,7 @@ class IntroToYourRole {
             raised
             label="Skip"
             onclick={(e) => {
-              vnode.attrs.end(e, 'main');
+              vnode.attrs.end();
             }}
           />
           <Button
@@ -53,7 +53,7 @@ class IntroToYourRole {
                 raised
                 label="Skip"
                 onclick={(e) => {
-                  vnode.attrs.end(e, 'main');
+                  vnode.attrs.end();
                 }}
               />
               <Button
@@ -73,7 +73,8 @@ class IntroToYourRole {
 
   nextOrEnd(vnode) {
     if (this.step + 1 >= this.steps.length) {
-      vnode.attrs.end(null, 'main');
+      sessionStorage.setItem('seenIntro', true);
+      vnode.attrs.end();
       return;
     }
     this.step++;

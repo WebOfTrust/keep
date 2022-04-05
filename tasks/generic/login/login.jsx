@@ -1,6 +1,6 @@
 import m from 'mithril';
 import { Button, TextField } from '../../../src/app/components';
-import { KERI } from '../../../src/app/services';
+import { Auth } from '../../../src/app/services';
 import passcodeImg from '../../../src/assets/img/passcode.png';
 
 class Login {
@@ -9,10 +9,10 @@ class Login {
     this.showPasscode = false;
   }
 
-  unlockAgent(vnode) {
-    KERI.unlockAgent(`keep${KERI.port}`, this.passcode)
+  login(vnode) {
+    Auth.login(this.passcode)
       .then(() => {
-        vnode.attrs.end(null, 'create-identifier');
+        vnode.attrs.end();
       })
       .catch((err) => {
         console.log(err);
@@ -50,7 +50,7 @@ class Login {
             class="button--no-transform button--big"
             label="Login"
             onclick={() => {
-              this.unlockAgent(vnode);
+              this.login(vnode);
             }}
           />
         </div>
