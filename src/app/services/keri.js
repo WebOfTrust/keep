@@ -1,26 +1,42 @@
 import m from 'mithril';
-import API from './api';
 
 class KERI {
   static port = process.env.API_PORT;
 
+  // CODES
+
   static generatePasscode() {
-    return API.Code.read();
+    return m.request({
+      method: 'GET',
+      url: `${process.env.API_HOST}:${this.port}/codes`,
+    });
   }
 
+  // BOOT
+
   static initializeAgent(name, passcode) {
-    return API.Boot.create({
-      name,
-      passcode,
+    return m.request({
+      method: 'POST',
+      url: `${process.env.API_HOST}:${this.port}/boot`,
+      body: {
+        name,
+        passcode,
+      },
     });
   }
 
   static unlockAgent(name, passcode) {
-    return API.Boot.update({
-      name,
-      passcode,
+    return m.request({
+      method: 'PUT',
+      url: `${process.env.API_HOST}:${this.port}/boot`,
+      body: {
+        name,
+        passcode,
+      },
     });
   }
+
+  // IDENTIFIERS
 
   static createIdentifier(alias, witnesses) {
     return m.request({
@@ -38,6 +54,8 @@ class KERI {
       url: `${process.env.API_HOST}:${this.port}/ids`,
     });
   }
+
+  // OOBI
 
   static getOOBI(alias, role) {
     return m.request({
@@ -59,6 +77,8 @@ class KERI {
     });
   }
 
+  // CHALLENGE/RESPONSE
+
   static generateChallengeMessage() {
     return m.request({
       method: 'GET',
@@ -71,6 +91,7 @@ class KERI {
       method: 'POST',
       url: `${process.env.API_HOST}:${this.port}/challenge/${alias}`,
       body: {
+        recipient: 'EA_rorjo4GvyObfp3D8dR_4lNmJ3tPYl5m0bRRQIaFLE', // TODO
         words,
       },
     });

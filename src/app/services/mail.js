@@ -1,6 +1,6 @@
 import m from 'mithril';
 // import KERI from './keri';
-// import Toaster from './toaster';
+import Toaster from './toaster';
 
 class Mail {
   static MINSNIFFSIZE = 30;
@@ -71,32 +71,37 @@ class Mail {
 
   static challengeHandler = (e) => {
     console.log('challenge', e);
+    Toaster.success(`challenge: ${e}`);
     m.redraw();
   };
 
   static multisigHandler = (e) => {
     console.log('multisig', e);
+    Toaster.success(`multisig: ${e}`);
     m.redraw();
   };
 
   static receiptHandler = (e) => {
     console.log('receipt', e);
+    Toaster.success(`receipt: ${e}`);
     m.redraw();
   };
 
   static replayHandler = (e) => {
     console.log('replay', e);
+    Toaster.success(`replay: ${e}`);
     m.redraw();
   };
 
   static replyHandler = (e) => {
     console.log('reply', e);
+    Toaster.success(`reply: ${e}`);
     m.redraw();
   };
 
   static initEventSource = () => {
     this.source = new EventSource(
-      `http://localhost:${this.port}/mbx?i=E59KmDbpjK0tRf9Rmc7OlueZVz7LB94DdD3cjQVvPcng&topics=%2Fchallenge%3D0&topics=%2Fmultisig%3D0&topics=%2Freceipt%3D0&topics=%2Freplay%3D0&topics=%2Freply%3D0`
+      `${process.env.API_HOST}:${this.port}/mbx?pre=E59KmDbpjK0tRf9Rmc7OlueZVz7LB94DdD3cjQVvPcng&topics=%2Fchallenge%3D0&topics=%2Fmultisig%3D0&topics=%2Freceipt%3D0&topics=%2Freplay%3D0&topics=%2Freply%3D0`
     );
     this.source.addEventListener('/challenge', this.challengeHandler, false);
     this.source.addEventListener('/multisig', this.multisigHandler, false);
@@ -174,8 +179,10 @@ class Mail {
 
   static set port(port) {
     this._port = port;
-    this.closeEventSource();
-    this.initEventSource();
+    if (this.source) {
+      this.closeEventSource();
+      this.initEventSource();
+    }
   }
 }
 

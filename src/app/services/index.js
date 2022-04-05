@@ -1,10 +1,10 @@
-import API from './api';
+import Auth from './auth';
 import KERI from './keri';
 import Mail from './mail';
 import Toaster from './toaster';
 
 module.exports = {
-  API,
+  Auth,
   KERI,
   Mail,
   Toaster,
