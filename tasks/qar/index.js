@@ -14,8 +14,8 @@ import ConfigureMultiSigSet from '../generic/configure-multi-sig-set/configure-m
 // import CreatePasscode from '../generic/create-your-passcode/create-your-passcode';
 import CredentialIssuance from '../generic/credential-issuance/credential-issuance';
 import CredentialRevocation from '../generic/credential-revocation/credential-revocation';
+import IdentityAuthenticationIssue from '../generic/identity-authentication-issue/identity-authentication-issue';
 import IdentityAuthenticationReceive from '../generic/identity-authentication-receive/identity-authentication-receive';
-import IdentityAuthenticationSend from '../generic/identity-authentication-send/identity-authentication-send';
 import InitiateVideoCall from '../generic/initiate-video-call/initiate-video-call';
 
 import JoinVideoCall from '../generic/join-video-call/join-video-call';
@@ -173,19 +173,19 @@ const tasks = {
   'main': [
     {
       imgSrc: addNewContacts,
-      label: 'Identity Authentication (receive)',
+      label: 'Identity Authentication (Issue)',
       component: {
         view: (vnode) => {
-          return <IdentityAuthenticationReceive end={vnode.attrs.end} />;
+          return <IdentityAuthenticationIssue end={vnode.attrs.end} />;
         },
       },
     },
     {
       imgSrc: addNewContacts,
-      label: 'Identity Authentication (Send)',
+      label: 'Identity Authentication (Receive)',
       component: {
         view: (vnode) => {
-          return <IdentityAuthenticationSend end={vnode.attrs.end} />;
+          return <IdentityAuthenticationReceive end={vnode.attrs.end} />;
         },
       },
     },

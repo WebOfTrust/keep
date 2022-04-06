@@ -7,8 +7,8 @@ import IntroToYourRole from '../generic/intro-to-your-role/intro-to-your-role';
 import Login from '../generic/login/login';
 import JoinVideoCall from '../generic/join-video-call/join-video-call';
 import InitiateVideoCall from '../generic/initiate-video-call/initiate-video-call';
+import IdentityAuthenticationIssue from '../generic/identity-authentication-issue/identity-authentication-issue';
 import IdentityAuthenticationReceive from '../generic/identity-authentication-receive/identity-authentication-receive';
-import IdentityAuthenticationSend from '../generic/identity-authentication-send/identity-authentication-send';
 import ViewMultiSigSet from '../generic/view-multi-sig-set/view-multi-sig-set';
 import ConfigureMultiSigSet from '../generic/configure-multi-sig-set/configure-multi-sig-set';
 // Tasks
@@ -79,19 +79,19 @@ const tasks = {
   'main': [
     {
       imgSrc: addNewContacts,
-      label: 'Identity Authentication (receive)',
+      label: 'Identity Authentication (Issue)',
       component: {
         view: (vnode) => {
-          return <IdentityAuthenticationReceive end={vnode.attrs.end} />;
+          return <IdentityAuthenticationIssue end={vnode.attrs.end} />;
         },
       },
     },
     {
       imgSrc: addNewContacts,
-      label: 'Identity Authentication (Send)',
+      label: 'Identity Authentication (Receive)',
       component: {
         view: (vnode) => {
-          return <IdentityAuthenticationSend end={vnode.attrs.end} />;
+          return <IdentityAuthenticationReceive end={vnode.attrs.end} />;
         },
       },
     },
