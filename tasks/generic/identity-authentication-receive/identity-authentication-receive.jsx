@@ -103,7 +103,7 @@ class JoinVideoCall {
   }
 }
 
-class EnterOOBI {
+class ResolveOOBI {
   constructor() {
     this.oobi = {
       alias: '',
@@ -167,6 +167,78 @@ class EnterOOBI {
   }
 }
 
+class SendOOBI {
+  constructor() {
+    this.oobi = {
+      alias: '',
+      url: '',
+    };
+  }
+
+  oninit() {
+    KERI.listIdentifiers().then((identifiers) => {
+      this.oobi.alias = identifiers[0].name;
+      KERI.getOOBI(identifiers[0].name, 'witness').then((oobi) => {
+        this.oobi.url = oobi.oobis[0];
+      });
+    });
+  }
+
+  view(vnode) {
+    return (
+      <>
+        <img src={addNewContacts} style={{ width: '40%', margin: '1.5rem 0 0 0' }} />
+        <h3>Send OOBI to QAR</h3>
+        <p class="p-tag" style={{ margin: '2rem 0 2rem 0' }}>
+          Copy this OOBI (AID + URL) to share your identifying information and paste it into the Video Call.
+        </p>
+        <label>Alias:</label>
+        <TextField
+          outlined
+          fluid
+          iconTrailing={{
+            icon: 'content_copy',
+          }}
+          style={{ margin: '0 0 4rem 0' }}
+          value={this.oobi.alias}
+        />
+        <label>URL:</label>
+        <TextField
+          outlined
+          fluid
+          iconTrailing={{
+            icon: 'content_copy',
+          }}
+          style={{ margin: '0 0 4rem 0' }}
+          value={this.oobi.url}
+        />
+        <div class="flex flex-justify-between">
+          <Button class="button--gray-dk button--big button--no-transform" raised label="Go Back" />
+          <Button class="button--big button--no-transform" raised label="Continue" onclick={vnode.attrs.continue} />
+        </div>
+      </>
+    );
+  }
+}
+
+// class IdentityVerificationInProgress {
+//   view(vnode) {
+//     return (
+//       <>
+//         <img src={uploadFile} style={{ width: '50%', margin: '1.5rem 0 2rem 0' }} />
+//         <h3>GAR Identity Verification in Progress</h3>
+//         <p class="p-tag" style={{ margin: '2rem 0 2rem 0' }}>
+//           Remain in the Video Call until the QAR has resolved your OOBI.
+//         </p>
+//         <div class="flex flex-justify-between">
+//           <Button class="button--gray-dk button--big button--no-transform" raised label="Go Back" />
+//           <Button class="button--big button--no-transform" raised label="Continue" onclick={vnode.attrs.continue} />
+//         </div>
+//       </>
+//     );
+//   }
+// }
+
 class GenerateChallengeMessage {
   view(vnode) {
     return (
@@ -211,25 +283,72 @@ class CopyChallengeMessage {
   }
 }
 
-class ChallengeMessageInProgress {
+class SignChallengeMessage {
+  constructor() {
+    this.challengeMessage = '';
+  }
+
+  signChallengeMessage(vnode) {
+    KERI.getContacts().then((contacts) => {
+      KERI.signChallengeMessage('extgar aid', contacts[0].id, this.challengeMessage.split(' ')).then(() => {
+        console.log('challenge signed');
+        vnode.attrs.continue();
+      });
+    });
+  }
+
   view(vnode) {
     return (
       <>
-        <img src={uploadFile} style={{ width: '60%', margin: '1.5rem 0 2rem 0' }} />
-        <h3>Challenge Message in Progress</h3>
-        <p class="p-tag">You will be notified when the user signs and returns the Challenge Message.</p>
+        <img src={responseMessage} style={{ width: '50%', margin: '1.5rem 0 2rem 0' }} />
+        <h3>Send Challenge Message</h3>
+        <p class="p-tag" style={{ margin: '2rem 0 2rem 0' }}>
+          Enter the 12-word challenge message into the chat and send to the credential issuer.
+        </p>
+        <TextField
+          outlined
+          textarea
+          fluid
+          style={{ margin: '0 0 4rem 0' }}
+          value={this.challengeMessage}
+          oninput={(e) => {
+            this.challengeMessage = e.target.value;
+          }}
+        />
         <div class="flex flex-justify-between">
           <Button class="button--gray-dk button--big button--no-transform" raised label="Go Back" />
-          <Button class="button--big button--no-transform" raised label="Close" onclick={vnode.attrs.end} />
+          <Button
+            class="button--big button--no-transform"
+            raised
+            label="Continue"
+            onclick={() => {
+              this.signChallengeMessage(vnode);
+            }}
+          />
         </div>
       </>
     );
   }
 }
 
+// class ChallengeMessageInProgress {
+//   view(vnode) {
+//     return (
+//       <>
+//         <img src={uploadFile} style={{ width: '60%', margin: '1.5rem 0 2rem 0' }} />
+//         <h3>Challenge Message in Progress</h3>
+//         <p class="p-tag">You will be notified when the user signs and returns the Challenge Message.</p>
+//         <div class="flex flex-justify-between">
+//           <Button class="button--gray-dk button--big button--no-transform" raised label="Go Back" />
+//           <Button class="button--big button--no-transform" raised label="Close" onclick={vnode.attrs.end} />
+//         </div>
+//       </>
+//     );
+//   }
+// }
+
 class IdentityAuthenticationReceive {
   constructor() {
-    // this.currentState = 'enter-oobi';
     this.currentState = 'steps-to-authenticate';
   }
 
@@ -246,17 +365,32 @@ class IdentityAuthenticationReceive {
         {this.currentState === 'join-video-call' && (
           <JoinVideoCall
             continue={() => {
-              this.currentState = 'enter-oobi';
+              this.currentState = 'resolve-oobi';
             }}
           />
         )}
-        {this.currentState === 'enter-oobi' && (
-          <EnterOOBI
+        {this.currentState === 'resolve-oobi' && (
+          <ResolveOOBI
+            continue={() => {
+              this.currentState = 'send-oobi';
+            }}
+          />
+        )}
+        {this.currentState === 'send-oobi' && (
+          <SendOOBI
+            continue={() => {
+              this.currentState = 'generate-challenge-message';
+              // this.currentState = 'identity-verification';
+            }}
+          />
+        )}
+        {/* {this.currentState === 'identity-verification' && (
+          <IdentityVerificationInProgress
             continue={() => {
               this.currentState = 'generate-challenge-message';
             }}
           />
-        )}
+        )} */}
         {this.currentState === 'generate-challenge-message' && (
           <GenerateChallengeMessage
             continue={() => {
@@ -267,11 +401,19 @@ class IdentityAuthenticationReceive {
         {this.currentState === 'copy-challenge-message' && (
           <CopyChallengeMessage
             continue={() => {
-              this.currentState = 'challenge-message-in-process';
+              this.currentState = 'sign-challenge-message';
             }}
           />
         )}
-        {this.currentState === 'challenge-message-in-process' && <ChallengeMessageInProgress end={vnode.attrs.end} />}
+        {this.currentState === 'sign-challenge-message' && (
+          <SignChallengeMessage
+            continue={() => {
+              vnode.attrs.end();
+              // this.currentState = 'challenge-message-in-process';
+            }}
+          />
+        )}
+        {/* {this.currentState === 'challenge-message-in-process' && <ChallengeMessageInProgress end={vnode.attrs.end} />} */}
       </>
     );
   }
