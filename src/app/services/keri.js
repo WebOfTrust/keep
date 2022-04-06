@@ -86,14 +86,30 @@ class KERI {
     });
   }
 
-  static signChallengeMessage(alias, words) {
+  static signChallengeMessage(alias, recipient, words) {
     return m.request({
       method: 'POST',
       url: `${process.env.API_HOST}:${this.port}/challenge/${alias}`,
       body: {
-        recipient: 'EA_rorjo4GvyObfp3D8dR_4lNmJ3tPYl5m0bRRQIaFLE', // TODO
+        recipient,
         words,
       },
+    });
+  }
+
+  // CONTACTS
+
+  static getContacts() {
+    return m.request({
+      method: 'GET',
+      url: `${process.env.API_HOST}:${this.port}/contacts`,
+    });
+  }
+
+  static getContact(prefix) {
+    return m.request({
+      method: 'GET',
+      url: `${process.env.API_HOST}:${this.port}/contacts/${prefix}`,
     });
   }
 }

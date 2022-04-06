@@ -1,10 +1,12 @@
 import m from 'mithril';
 import { Card, Container, IconButton, NavRail, TextField, Button } from '../../components';
+import { KERI } from '../../services';
 import './contacts.scss';
 import ContactList from './contact-list/contact-list';
 import ContactDetails from './contact-details/contact-details';
 import contactGroup from '../../../assets/img/contact-group.png';
 import tempProfPic from '../../../assets/img/temp-prof-pic.jpg';
+
 class Contacts {
   tempContactArray = [
     {
@@ -108,9 +110,14 @@ class Contacts {
       role: 'External GAR',
     },
   ];
+
   constructor() {
     this.activeContact = 0;
+    KERI.getContacts().then((contacts) => {
+      console.log(contacts);
+    });
   }
+
   setContact = (id) => {
     this.activeContact = id;
     console.log(this.activeContact);
