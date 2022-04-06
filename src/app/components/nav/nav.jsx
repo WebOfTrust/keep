@@ -1,5 +1,5 @@
 import m from 'mithril';
-import { Auth } from '../../services';
+import { Auth, Notify } from '../../services';
 import Container from '../container/container.jsx';
 import IconButton from '../icon-button/icon-button.jsx';
 import Popover from '../popover/popover.jsx';
@@ -43,7 +43,12 @@ class Nav {
                     }}
                     padding={'16px'}
                   >
-                    <p>notification</p>
+                    {Notify.notifications.map((notification) => {
+                      if (notification.type === 'challenge') {
+                        return <p>New Verified Contact</p>;
+                      }
+                      return <p>notification</p>;
+                    })}
                   </Popover>
                 </div>
                 <IconButton

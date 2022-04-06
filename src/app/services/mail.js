@@ -1,4 +1,5 @@
 import m from 'mithril';
+import Notify from './notify';
 // import KERI from './keri';
 import Toaster from './toaster';
 
@@ -70,8 +71,12 @@ class Mail {
   // };
 
   static challengeHandler = (e) => {
-    console.log('challenge', e);
-    Toaster.success(`challenge: ${e}`);
+    let data = JSON.parse(e.data);
+    console.log(data);
+    Notify.push({
+      type: 'challenge',
+      data,
+    });
     m.redraw();
   };
 
