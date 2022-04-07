@@ -1,4 +1,6 @@
 import m from 'mithril';
+//Variables
+import ExternalGarVariables from './variables';
 
 // Tasks
 import ConfigureMultiSigSet from '../generic/configure-multi-sig-set/configure-multi-sig-set';
@@ -45,10 +47,18 @@ const tasks = {
   'create-identifier': [
     {
       imgSrc: createIdentifier,
-      label: 'Create Your AID',
+      label: 'Create Your Gleif AID',
       component: {
         view: (vnode) => {
-          return <CreateYourAID end={vnode.attrs.end} />;
+          return (
+            <CreateYourAID
+              welcome={ExternalGarVariables.createYourAid.welcome}
+              creatingAID={ExternalGarVariables.createYourAid.CreateYourAID}
+              stepsToCreate={ExternalGarVariables.createYourAid.stepsToCreate}
+              createYourAlias={ExternalGarVariables.createYourAid.createYourAlias}
+              end={vnode.attrs.end}
+            />
+          );
         },
       },
     },
@@ -59,7 +69,13 @@ const tasks = {
       label: 'Intro to Your Role',
       component: {
         view: (vnode) => {
-          return <IntroToYourRole end={vnode.attrs.end} />;
+          return (
+            <IntroToYourRole
+              main={ExternalGarVariables.introToYourRole.main}
+              steps={ExternalGarVariables.introToYourRole.steps}
+              end={vnode.attrs.end}
+            />
+          );
         },
       },
     },

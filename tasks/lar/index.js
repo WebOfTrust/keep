@@ -1,4 +1,6 @@
 import m from 'mithril';
+// Variables
+import LarVariables from './variables';
 
 // Generic Tasks
 import CreateYourPasscode from '../generic/create-your-passcode/create-your-passcode';
@@ -60,7 +62,15 @@ const tasks = {
       label: 'Create my AVR AID',
       component: {
         view: (vnode) => {
-          return <CreateYourAid end={vnode.attrs.end} />;
+          return (
+            <CreateYourAid
+              welcome={LarVariables.createYourAid.welcome}
+              creatingAID={LarVariables.createYourAid.CreateYourAID}
+              stepsToCreate={LarVariables.createYourAid.stepsToCreate}
+              createYourAlias={LarVariables.createYourAid.createYourAlias}
+              end={vnode.attrs.end}
+            />
+          );
         },
       },
     },
@@ -71,7 +81,13 @@ const tasks = {
       label: 'Intro to Your Role',
       component: {
         view: (vnode) => {
-          return <IntroToYourRole end={vnode.attrs.end} />;
+          return (
+            <IntroToYourRole
+              main={LarVariables.introToYourRole.main}
+              steps={LarVariables.introToYourRole.steps}
+              end={vnode.attrs.end}
+            />
+          );
         },
       },
     },

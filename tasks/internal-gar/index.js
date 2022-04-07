@@ -1,4 +1,6 @@
 import m from 'mithril';
+// Variables
+import InternalGarVariables from './variables';
 
 // Tasks
 import ConfigureMultiSigSet from '../generic/configure-multi-sig-set/configure-multi-sig-set';
@@ -55,7 +57,15 @@ const tasks = {
       label: 'Create Your AID',
       component: {
         view: (vnode) => {
-          return <CreateYourAID end={vnode.attrs.end} />;
+          return (
+            <CreateYourAID
+              welcome={InternalGarVariables.createYourAid.welcome}
+              creatingAID={InternalGarVariables.createYourAid.CreateYourAID}
+              stepsToCreate={InternalGarVariables.createYourAid.stepsToCreate}
+              createYourAlias={InternalGarVariables.createYourAid.createYourAlias}
+              end={vnode.attrs.end}
+            />
+          );
         },
       },
     },
@@ -66,7 +76,13 @@ const tasks = {
       label: 'Intro to Your Role',
       component: {
         view: (vnode) => {
-          return <IntroToYourRole end={vnode.attrs.end} />;
+          return (
+            <IntroToYourRole
+              main={InternalGarVariables.introToYourRole.main}
+              steps={InternalGarVariables.introToYourRole.steps}
+              end={vnode.attrs.end}
+            />
+          );
         },
       },
     },
