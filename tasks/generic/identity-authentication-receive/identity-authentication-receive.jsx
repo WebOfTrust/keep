@@ -246,10 +246,12 @@ class SignChallengeMessage {
   }
 
   signChallengeMessage(vnode) {
-    KERI.getContacts().then((contacts) => {
-      KERI.signChallengeMessage('qar aid', contacts[0].id, this.challengeMessage.split(' ')).then(() => {
-        console.log('challenge signed');
-        vnode.attrs.continue();
+    KERI.listIdentifiers().then((identifiers) => {
+      KERI.getContacts().then((contacts) => {
+        KERI.signChallengeMessage(identifiers[0].name, contacts[0].id, this.challengeMessage.split(' ')).then(() => {
+          console.log('challenge signed');
+          vnode.attrs.continue();
+        });
       });
     });
   }
