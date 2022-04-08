@@ -1,5 +1,6 @@
 import m from 'mithril';
 import { Button, Card, TextField, TextTooltip } from '../../../src/app/components';
+import { KERI } from '../../../src/app/services';
 import createIdentifier from '../../../src/assets/img/create-identifier.png';
 import configureIdentifier from '../../../src/assets/img/configure-identifier.png';
 import approveRequest from '../../../src/assets/img/approve-request.png';
@@ -89,7 +90,22 @@ class StartVideoCall {
 }
 
 class SendOOBI {
-  constructor(vnode) {}
+  constructor(vnode) {
+    this.oobi = {
+      alias: '',
+      url: '',
+    };
+  }
+
+  oninit() {
+    KERI.listIdentifiers().then((identifiers) => {
+      this.oobi.alias = identifiers[0].name;
+      KERI.getOOBI(identifiers[0].name, 'witness').then((oobi) => {
+        this.oobi.url = oobi.oobis[0];
+      });
+    });
+  }
+
   view(vnode) {
     return (
       <>
@@ -98,13 +114,19 @@ class SendOOBI {
         <p class="p-tag" style={{ margin: '2rem 0 2rem 0' }}>
           Copy this OOBI (AID + URL) to share your identifying information, and paste it into the Video Call.
         </p>
-        <h3>AID:</h3>
+        <h3>Alias:</h3>
         <TextField
-          style={{ height: '3rem', width: '100%', margin: '0 0 1rem 0', backgroundColor: 'rgba(0, 0, 0, 0.04)' }}
+          outlined
+          fluid
+          style={{ margin: '0 0 1rem 0', backgroundColor: 'rgba(0, 0, 0, 0.04)' }}
+          value={this.oobi.alias}
         />
         <h3>URL:</h3>
         <TextField
+          outlined
+          fluid
           style={{ height: '3rem', width: '100%', margin: '0 0 2rem 0', backgroundColor: 'rgba(0, 0, 0, 0.04)' }}
+          value={this.oobi.url}
         />
         <div class="flex flex-justify-between">
           <Button
@@ -120,7 +142,7 @@ class SendOOBI {
   }
 }
 
-class AcceptOobis {
+class AcceptOOBIs {
   constructor(vnode) {}
   view(vnode) {
     return (
@@ -167,52 +189,8 @@ class EnterOOBIs {
       URL: '',
       Alias: '',
     },
-    {
-      AID: '',
-      URL: '',
-      Alias: '',
-    },
-    {
-      AID: '',
-      URL: '',
-      Alias: '',
-    },
-    {
-      AID: '',
-      URL: '',
-      Alias: '',
-    },
-    {
-      AID: '',
-      URL: '',
-      Alias: '',
-    },
-    {
-      AID: '',
-      URL: '',
-      Alias: '',
-    },
-    {
-      AID: '',
-      URL: '',
-      Alias: '',
-    },
-    {
-      AID: '',
-      URL: '',
-      Alias: '',
-    },
-    {
-      AID: '',
-      URL: '',
-      Alias: '',
-    },
-    {
-      AID: '',
-      URL: '',
-      Alias: '',
-    },
   ];
+
   constructor(vnode) {}
   view(vnode) {
     return (
@@ -444,7 +422,7 @@ class InitiateVideoCall {
           />
         )}
         {this.currentState === 'accept-oobi' && (
-          <AcceptOobis
+          <AcceptOOBIs
             back={() => {
               this.currentState = 'start-video-call';
             }}
