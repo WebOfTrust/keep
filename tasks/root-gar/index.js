@@ -7,7 +7,7 @@ import { TextTooltip } from '../../src/app/components';
 
 import ConfigureMultiSigSet from '../generic/configure-multi-sig-set/configure-multi-sig-set';
 import CreateYourAID from '../generic/create-your-aid/create-your-aid';
-import CreatePasscode from '../generic/create-your-passcode/create-your-passcode';
+import CreateYourPasscode from '../generic/create-your-passcode/create-your-passcode';
 import CredentialIssuance from '../generic/credential-issuance/credential-issuance';
 import CredentialRevocation from '../generic/credential-revocation/credential-revocation';
 import IdentityAuthenticationIssue from '../generic/identity-authentication-issue/identity-authentication-issue';

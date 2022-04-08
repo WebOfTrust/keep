@@ -240,6 +240,23 @@ class CopyChallengeMessage {
   }
 }
 
+class VerificationInProgress {
+  view(vnode) {
+    return (
+      <>
+        <img src={uploadFile} style={{ width: '60%', margin: '1.5rem 0 2rem 0' }} />
+        <h3>Verification in Progress</h3>
+        <p class="p-tag" style={{ margin: '2rem 0 2rem 0' }}>
+          You will be notified when your signature is verified and approved, and credentials are issued.
+        </p>
+        <div class="flex flex-justify-end">
+          <Button class="button--big button--no-transform" raised label="Close" onclick={vnode.attrs.continue} />
+        </div>
+      </>
+    );
+  }
+}
+
 class SignChallengeMessage {
   constructor() {
     this.challengeMessage = '';
@@ -249,8 +266,7 @@ class SignChallengeMessage {
     KERI.listIdentifiers().then((identifiers) => {
       KERI.getContacts().then((contacts) => {
         KERI.signChallengeMessage(identifiers[0].name, contacts[0].id, this.challengeMessage.split(' ')).then(() => {
-          console.log('challenge signed');
-          vnode.attrs.continue();
+          vnode.attrs.end();
         });
       });
     });
@@ -279,28 +295,11 @@ class SignChallengeMessage {
           <Button
             class="button--big button--no-transform"
             raised
-            label="Continue"
+            label="Close"
             onclick={() => {
               this.signChallengeMessage(vnode);
             }}
           />
-        </div>
-      </>
-    );
-  }
-}
-
-class VerificationInProgress {
-  view(vnode) {
-    return (
-      <>
-        <img src={uploadFile} style={{ width: '60%', margin: '1.5rem 0 2rem 0' }} />
-        <h3>Verification in Progress</h3>
-        <p class="p-tag" style={{ margin: '2rem 0 2rem 0' }}>
-          You will be notified when your signature is verified and approved, and credentials are issued.
-        </p>
-        <div class="flex flex-justify-end">
-          <Button class="button--big button--no-transform" raised label="Close" onclick={vnode.attrs.end} />
         </div>
       </>
     );
@@ -337,17 +336,17 @@ class IdentityAuthenticationReceive {
             }}
           />
         )}
-        {this.currentState === 'resolve-oobi' && (
-          <ResolveOOBI
-            continue={() => {
-              this.currentState = 'identity-verification';
-            }}
-          />
-        )}
         {this.currentState === 'identity-verification' && (
           <IdentityVerificationInProgress
             continue={() => {
               this.currentState = 'generate-challenge-message';
+            }}
+          />
+        )}
+        {this.currentState === 'resolve-oobi' && (
+          <ResolveOOBI
+            continue={() => {
+              this.currentState = 'identity-verification';
             }}
           />
         )}
@@ -361,18 +360,18 @@ class IdentityAuthenticationReceive {
         {this.currentState === 'copy-challenge-message' && (
           <CopyChallengeMessage
             continue={() => {
-              this.currentState = 'sign-challenge-message';
+              this.currentState = 'verification';
             }}
           />
         )}
-        {this.currentState === 'sign-challenge-message' && (
-          <SignChallengeMessage
+        {this.currentState === 'verification' && (
+          <VerificationInProgress
             continue={() => {
               this.currentState = 'verification';
             }}
           />
         )}
-        {this.currentState === 'verification' && <VerificationInProgress end={vnode.attrs.end} />}
+        {this.currentState === 'sign-challenge-message' && <SignChallengeMessage end={vnode.attrs.end} />}
       </>
     );
   }
