@@ -1,9 +1,53 @@
 import m from 'mithril';
-import { Button } from '../../../src/app/components';
+import { Button, TextField } from '../../../src/app/components';
 import approveRequest from '../../../src/assets/img/approve-request.png';
 import githubLogo from '../../../src/assets/img/github-logo.png';
 
-class CredentialIssuance {
+class IssueCreds {
+  constructor(vnode) {}
+
+  view(vnode) {
+    return (
+      <>
+        <h3>Issue Credentials</h3>
+        <p class="p-tag">Contact</p>
+        <TextField
+          filled
+          fluid
+          placeholder="Jane Smith"
+          iconTrailing={{
+            icon: 'search',
+          }}
+        />
+        <p class="p-tag">Credentials</p>
+        <TextField
+          filled
+          fluid
+          placeholder="QAR for QVI Corp."
+          iconTrailing={{
+            icon: 'arrow_drop_down',
+          }}
+        />
+
+        <br />
+        <br />
+        <br />
+        <div class="flex flex-justify-between">
+          <Button
+            raised
+            class="button--no-transform button--gray-dk button--big"
+            label="Go Back"
+            onclick={vnode.attrs.back}
+          />
+          <Button class="button--big button--no-transform" raised label="Submit" onclick={vnode.attrs.continue} />
+        </div>
+      </>
+    );
+  }
+}
+
+class CredsAreIssued {
+  constructor(vnode) {}
   view(vnode) {
     return (
       <>
@@ -21,6 +65,26 @@ class CredentialIssuance {
         <div class="flex flex-justify-end">
           <Button class="button--big button--no-transform" raised label="Close" onclick={vnode.attrs.end} />
         </div>
+      </>
+    );
+  }
+}
+
+class CredentialIssuance {
+  constructor() {
+    this.currentState = 'issue-creds';
+  }
+  view(vnode) {
+    return (
+      <>
+        {this.currentState === 'issue-creds' && (
+          <IssueCreds
+            continue={() => {
+              this.currentState = 'creds-issued';
+            }}
+          />
+        )}
+        {this.currentState === 'creds-issued' && <CredsAreIssued end={vnode.attrs.end} />}
       </>
     );
   }
