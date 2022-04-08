@@ -8,11 +8,6 @@ import responseMessage from '../../../src/assets/img/response-message.png';
 import uploadFile from '../../../src/assets/img/upload-file.png';
 import addNewContacts from '../../../src/assets/img/add-new-contacts.png';
 import githubLogo from '../../../src/assets/img/github-logo.png';
-import liOne from '../../../src/assets/img/li-one.png';
-import liTwo from '../../../src/assets/img/li-two.png';
-import liThree from '../../../src/assets/img/li-three.png';
-import liFour from '../../../src/assets/img/li-four.png';
-import liFive from '../../../src/assets/img/li-five.png';
 
 class DelegatingAIDs {
   constructor(vnode) {}

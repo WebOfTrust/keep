@@ -23,7 +23,7 @@ class DelegatingAIDs {
           <div class="flex flex-column">
             <ol class="styled-ol" style={{ margin: '2rem 0' }}>
               <li>Initiate a Video Call</li>
-              <li>Use an OOBI protocol to share your AID and service endpoints.</li>
+              <li>Send your OOBI over video call and receive the other user's OOBI.</li>
               <li>Send a Challenge Message</li>
               <li>You will sign and return Challenge Message.</li>
               <li>Once you have signed, you must verify signatures of all participants.</li>
@@ -88,6 +88,38 @@ class StartVideoCall {
   }
 }
 
+class SendOOBI {
+  constructor(vnode) {}
+  view(vnode) {
+    return (
+      <>
+        <img src={addNewContacts} style={{ width: '50%', margin: '0 0 1rem 0' }} />
+        <h3>Send OOBI</h3>
+        <p class="p-tag" style={{ margin: '2rem 0 2rem 0' }}>
+          Copy this OOBI (AID + URL) to share your identifying information, and paste it into the Video Call.
+        </p>
+        <h3>AID:</h3>
+        <TextField
+          style={{ height: '3rem', width: '100%', margin: '0 0 1rem 0', backgroundColor: 'rgba(0, 0, 0, 0.04)' }}
+        />
+        <h3>URL:</h3>
+        <TextField
+          style={{ height: '3rem', width: '100%', margin: '0 0 2rem 0', backgroundColor: 'rgba(0, 0, 0, 0.04)' }}
+        />
+        <div class="flex flex-justify-between">
+          <Button
+            class="button--gray-dk button--big button--no-transform"
+            raised
+            label="Go Back"
+            onclick={vnode.attrs.back}
+          />
+          <Button class="button--big button--no-transform" raised label="Continue" onclick={vnode.attrs.continue} />
+        </div>
+      </>
+    );
+  }
+}
+
 class AcceptOobis {
   constructor(vnode) {}
   view(vnode) {
@@ -96,8 +128,8 @@ class AcceptOobis {
         <img src={uploadFile} style={{ width: '50%', margin: '0 0 0 0' }} />
         <h3>
           Accept the{' '}
-          <TextTooltip label={<u>OOBI</u>}>
-            OOBI is an Out Of Band (meaning outside this software) interaction.
+          <TextTooltip label={<u>OOBIs</u>}>
+            OOBI is an out of band (meaning outside this software) interaction.
           </TextTooltip>
         </h3>
         <p class="p-tag" style={{ margin: '2rem 0 2rem 0' }}>
@@ -118,7 +150,7 @@ class AcceptOobis {
   }
 }
 
-class AcceptingTheOobis {
+class EnterOOBIs {
   tempOOBIArray = [
     {
       AID: '',
@@ -192,7 +224,7 @@ class AcceptingTheOobis {
           </p>
         </div>
         <div style={{ height: '350px', overflowY: 'scroll', margin: '0 0 1rem 0' }}>
-          {this.tempOOBIArray.map((Controller) => {
+          {this.tempOOBIArray.map(() => {
             return (
               <Card class="card--fluid" style={{ margin: '0 0 1.5rem 0', height: '200px' }}>
                 <div class="flex flex-align-center flex-justify-between" style={{ flexDirection: 'column' }}>
@@ -257,7 +289,7 @@ class CopyChallenge {
           <br />
           <br />
           <strong>
-            Important! Don’t use a challenge message from another session, it should be unique to this session taking
+            Important! Don't use a challenge message from another session, it should be unique to this session taking
             place today.
           </strong>
         </p>
@@ -278,7 +310,8 @@ class CopyChallenge {
     );
   }
 }
-class ChallengeProgress {
+
+class WaitingForSignatures {
   constructor(vnode) {}
   view(vnode) {
     return (
@@ -396,6 +429,16 @@ class InitiateVideoCall {
               this.currentState = 'video-call';
             }}
             continue={() => {
+              this.currentState = 'send-oobi';
+            }}
+          />
+        )}
+        {this.currentState === 'send-oobi' && (
+          <SendOOBI
+            back={() => {
+              this.currentState = 'start-video-call';
+            }}
+            continue={() => {
               this.currentState = 'accept-oobi';
             }}
           />
@@ -406,12 +449,12 @@ class InitiateVideoCall {
               this.currentState = 'start-video-call';
             }}
             continue={() => {
-              this.currentState = 'accepting-oobis';
+              this.currentState = 'enter-oobis';
             }}
           />
         )}
-        {this.currentState === 'accepting-oobis' && (
-          <AcceptingTheOobis
+        {this.currentState === 'enter-oobis' && (
+          <EnterOOBIs
             back={() => {
               this.currentState = 'accept-oobi';
             }}
@@ -423,7 +466,7 @@ class InitiateVideoCall {
         {this.currentState === 'generate-challenge' && (
           <GenerateChallenge
             back={() => {
-              this.currentState = 'accepting-oobis';
+              this.currentState = 'enter-oobis';
             }}
             continue={() => {
               this.currentState = 'copy-challenge';
@@ -436,12 +479,12 @@ class InitiateVideoCall {
               this.currentState = 'generate-challenge';
             }}
             continue={() => {
-              this.currentState = 'challenge-progress';
+              this.currentState = 'waiting-for-signatures';
             }}
           />
         )}
-        {this.currentState === 'challenge-progress' && (
-          <ChallengeProgress
+        {this.currentState === 'waiting-for-signatures' && (
+          <WaitingForSignatures
             back={() => {
               this.currentState = 'copy-challenge';
             }}
@@ -453,7 +496,7 @@ class InitiateVideoCall {
         {this.currentState === 'notifications' && (
           <Notifications
             back={() => {
-              this.currentState = 'challenge-progress';
+              this.currentState = 'waiting-for-signatures';
             }}
             end={vnode.attrs.end}
           />
