@@ -1,5 +1,5 @@
 import m from 'mithril';
-import { Button, Card, TextField } from '../../../src/app/components';
+import { Button, Card, TextField, TextTooltip } from '../../../src/app/components';
 import createIdentifier from '../../../src/assets/img/create-identifier.png';
 import configureIdentifier from '../../../src/assets/img/configure-identifier.png';
 import approveRequest from '../../../src/assets/img/approve-request.png';
@@ -14,38 +14,23 @@ import liThree from '../../../src/assets/img/li-three.png';
 import liFour from '../../../src/assets/img/li-four.png';
 import liFive from '../../../src/assets/img/li-five.png';
 
-class GleifGenesisEvent {
+class DelegatingAIDs {
   constructor(vnode) {}
   view(vnode) {
     return (
       <>
-        <h3>GLEIF Genesis Event</h3>
-        <p class="p-tag">This module will take you through the steps for GLEIF AID Genesis.</p>
-        <h3>Steps to Create GLEIF Root AID</h3>
+        <h3>Delegating AIDs</h3>
+        <p class="p-tag">This module will take you through the steps for AID Delegation. </p>
+        <h3>Steps to AID Delegation</h3>
         <p class="p-tag">
           <div class="flex flex-column">
-            <div class="flex" style={{ alignItems: 'center', margin: '0 0 0 0' }}>
-              <img src={liOne} style={{ margin: '1rem 10px 1rem 0' }} />
-              <p class="p-tag-bold">Join a Video Call with all GLEIF Controllers.</p>
-            </div>
-            <div class="flex" style={{ alignItems: 'center', margin: '0 0 0 0' }}>
-              <img src={liTwo} style={{ margin: '1rem 10px 1rem 0' }} />
-              <p class="p-tag-bold">
-                Use an OOBI protocol to share your GLEIF Delegated AID and service endpoints with the other Controllers.
-              </p>
-            </div>
-            <div class="flex" style={{ alignItems: 'center', margin: '0 0 0 0' }}>
-              <img src={liThree} style={{ margin: '1rem 10px 1rem 0' }} />
-              <p class="p-tag-bold">Send a Challenge Response Message to the other Controllers.</p>
-            </div>
-            <div class="flex" style={{ alignItems: 'center', margin: '0 0 0 0' }}>
-              <img src={liFour} style={{ margin: '1rem 10px 1rem 0' }} />
-              <p class="p-tag-bold">GLEIF Controllers sign and return Challenge Message.</p>
-            </div>
-            <div class="flex" style={{ alignItems: 'center', margin: '0 0 0 0' }}>
-              <img src={liFive} style={{ margin: '1rem 10px 1rem 0' }} />
-              <p class="p-tag-bold">Each GLEIF Controller must verify all signatures.</p>
-            </div>
+            <ol class="styled-ol" style={{ margin: '2rem 0' }}>
+              <li>Initiate a Video Call</li>
+              <li>Use an OOBI protocol to share your AID and service endpoints with the Initiator.</li>
+              <li>Send a Challenge Message</li>
+              <li>You will sign and return Challenge Message.</li>
+              <li>Once you have signed, you must verify all signatures.</li>
+            </ol>
           </div>
         </p>
         <div class="flex flex-justify-end">
@@ -63,15 +48,21 @@ class VideoCall {
       <>
         <h3>Join a Video Call</h3>
         <p class="p-tag" style={{ margin: '2rem 0 2rem 0' }}>
-          In order to start the authentication process, you will need to initiate an real-time OOBI session in which you
-          and the other GRACs are present, You will accept all their text strings on a Video Call so that you can
-          receive their identifying information.
-          <br />
-          <br />
+          In order to start the authentication process, you will need to initiate an real-time OOBI session in which
+          everyone is present, You will accept all their AID and URL on a Video Call so that you can receive their
+          identifying information.
         </p>
-        <h3>Generate OOBI</h3>
-        <br />
-        <br />
+        <h3>
+          <TextTooltip
+            label={
+              <b>
+                Generate <u>OOBI</u>
+              </b>
+            }
+          >
+            <b>OOBI</b> is an Out Of Band Introduction that connects an AID with a service endpoint URL.
+          </TextTooltip>
+        </h3>
         <div class="flex flex-justify-between">
           <Button
             class="button--gray-dk button--big button--no-transform"
@@ -85,18 +76,16 @@ class VideoCall {
     );
   }
 }
-class SendOobiToGracs {
+
+class SendOOBI {
   constructor(vnode) {}
   view(vnode) {
     return (
       <>
         <img src={addNewContacts} style={{ width: '50%', margin: '0 0 1rem 0' }} />
-        <h3>
-          Send OOBI to <u>GRACs</u>
-        </h3>
+        <h3>Send OOBI</h3>
         <p class="p-tag" style={{ margin: '2rem 0 2rem 0' }}>
-          Copy this OOBI (AID + URL) to share your identifying information with the GRACs, and paste it into the Video
-          Call.
+          Copy this OOBI (AID + URL) to share your identifying information, and paste it into the Video Call.
         </p>
         <h3>AID:</h3>
         <TextField
@@ -128,9 +117,8 @@ class IdentityVerification {
         <img src={uploadFile} style={{ width: '60%', margin: '1.5rem 0 2rem 0' }} />
         <h3>Identity Verification in Progress</h3>
         <p class="p-tag" style={{ margin: '2rem 0 2rem 0' }}>
-          Remain in the Video Call. A Challenge Message will be generated and sent to you for verification purposes.
-          <br />
-          <br />
+          Remain in the Video Call. The initiator will generate a challenge message and send it to you in this portal so
+          that you may send it back for verification purposes.
         </p>
 
         <div class="flex flex-justify-between">
@@ -153,11 +141,9 @@ class SendChallengeMessage {
     return (
       <>
         <img src={responseMessage} style={{ width: '50%', margin: '1.5rem 0 2rem 0' }} />
-        <h3>Send Challenge Message</h3>
+        <h3>Paste Challenge Message Below</h3>
         <p class="p-tag" style={{ margin: '2rem 0 2rem 0' }}>
-          Enter the 12-word challenge message into the chat and send to the GAR.
-          <br />
-          <br />
+          Enter the 12-word challenge message into the chat and send to the initiator via direct message.
         </p>
         <TextField
           style={{ height: '5rem', width: '100%', margin: '0 0 4rem 0', backgroundColor: 'rgba(0, 0, 0, 0.04)' }}
@@ -175,19 +161,18 @@ class SendChallengeMessage {
     );
   }
 }
+
 class VerificationProgress {
   constructor(vnode) {}
   view(vnode) {
     return (
       <>
         <img src={uploadFile} style={{ width: '60%', margin: '1.5rem 0 2rem 0' }} />
-        <h3>Verification in Progress</h3>
+        <h3>Your Verification is Under Review</h3>
         <p class="p-tag" style={{ margin: '2rem 0 2rem 0' }}>
-          You will be notified when the GAR verifies your signature and approves the issuance of your vLEI Credentials.
-          <br />
-          <br />
+          You will be notified when your signature is verified and you will resume on a Video Call to configure the
+          multi-sig set.
         </p>
-
         <div class="flex flex-justify-end">
           <Button class="button--big button--no-transform" raised label="close" onclick={vnode.attrs.end} />
         </div>
@@ -198,13 +183,13 @@ class VerificationProgress {
 
 class JoinVideoCall {
   constructor() {
-    this.currentState = 'gleif-genesis';
+    this.currentState = 'delegating-aids';
   }
   view(vnode) {
     return (
       <>
-        {this.currentState === 'gleif-genesis' && (
-          <GleifGenesisEvent
+        {this.currentState === 'delegating-aids' && (
+          <DelegatingAIDs
             continue={() => {
               this.currentState = 'video-call';
             }}
@@ -213,7 +198,7 @@ class JoinVideoCall {
         {this.currentState === 'video-call' && (
           <VideoCall
             back={() => {
-              this.currentState = 'gleif-genesis';
+              this.currentState = 'delegating-aids';
             }}
             continue={() => {
               this.currentState = 'send-oobi';
@@ -221,7 +206,7 @@ class JoinVideoCall {
           />
         )}
         {this.currentState === 'send-oobi' && (
-          <SendOobiToGracs
+          <SendOOBI
             back={() => {
               this.currentState = 'video-call';
             }}
