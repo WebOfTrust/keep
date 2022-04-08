@@ -9,47 +9,25 @@ import projectPlanning from '../../../src/assets/img/project-planning.png';
 import addNewContacts from '../../../src/assets/img/add-new-contacts.png';
 import responseMessage from '../../../src/assets/img/response-message.png';
 import githubLogo from '../../../src/assets/img/github-logo.png';
-import liOne from '../../../src/assets/img/li-one.png';
-import liTwo from '../../../src/assets/img/li-two.png';
-import liThree from '../../../src/assets/img/li-three.png';
-import liFour from '../../../src/assets/img/li-four.png';
-import liFive from '../../../src/assets/img/li-five.png';
 import tempProfPic from '../../../src/assets/img/temp-prof-pic.jpg';
 
-class GenesisEvent {
+class DelegatingAIDs {
   constructor(vnode) {}
   view(vnode) {
     return (
       <>
-        <h3>GLEIF Genesis Event</h3>
-        <p class="p-tag">This module will take you through the steps for GLEIF AID Genesis.</p>
-        <h3>Steps to Create GLEIF Root AID</h3>
+        <h3>Delegating AIDs</h3>
+        <p class="p-tag">This module will take you through the steps for AID Delegation.</p>
+        <h3>Steps to AID Delegation</h3>
         <p class="p-tag">
           <div class="flex flex-column">
-            <div class="flex" style={{ alignItems: 'center', margin: '0 0 0 0' }}>
-              <img src={liOne} style={{ margin: '1rem 10px 1rem 0' }} />
-              <p class="p-tag-bold" style={{ margin: '0 0 0  0' }}>
-                Initiate a Video Call with all GLEIF Controllers.
-              </p>
-            </div>
-            <div class="flex" style={{ alignItems: 'center', margin: '0 0 0 0' }}>
-              <img src={liTwo} style={{ margin: '1rem 10px 1rem 0' }} />
-              <p class="p-tag-bold">
-                Use an OOBI protocol to share your GLEIF Delegated AID and service endpoints with the other Controllers.
-              </p>
-            </div>
-            <div class="flex" style={{ alignItems: 'center', margin: '0 0 0 0' }}>
-              <img src={liThree} style={{ margin: '1rem 10px 1rem 0' }} />
-              <p class="p-tag-bold">Send a Challenge Message to the other Controllers.</p>
-            </div>
-            <div class="flex" style={{ alignItems: 'center', margin: '0 0 0 0' }}>
-              <img src={liFour} style={{ margin: '1rem 10px 1rem 0' }} />
-              <p class="p-tag-bold">GLEIF Controllers sign and return Challenge Message.</p>
-            </div>
-            <div class="flex" style={{ alignItems: 'center', margin: '0 0 0 0' }}>
-              <img src={liFive} style={{ margin: '1rem 10px 1rem 0' }} />
-              <p class="p-tag-bold">Each Controller must verify all signatures.</p>
-            </div>
+            <ol class="styled-ol" style={{ margin: '2rem 0' }}>
+              <li>Initiate a Video Call</li>
+              <li>Use an OOBI protocol to share your AID and service endpoints.</li>
+              <li>Send a Challenge Message</li>
+              <li>You will sign and return Challenge Message.</li>
+              <li>Once you have signed, you must verify signatures of all participants.</li>
+            </ol>
           </div>
         </p>
         <div class="flex flex-justify-end">
@@ -59,6 +37,7 @@ class GenesisEvent {
     );
   }
 }
+
 class VideoCall {
   constructor(vnode) {}
   view(vnode) {
@@ -67,10 +46,8 @@ class VideoCall {
         <h3>Initiate a Video Call</h3>
         <p class="p-tag" style={{ margin: '2rem 0 2rem 0' }}>
           In order to start the authentication process, you will need to initiate an real-time Out of Band Interaction
-          (OOBI) session in which you and the other GRACs (GLEIF Root AID Controllers) are present, You will accept all
-          their text strings on a Video Call so that you can receive their identifying information.
-          <br />
-          <br />
+          (OOBI) session in which you and the other users are present, You will accept all their OOBIs (URL + AID) on a
+          Video Call so that you can receive their identifying information.
         </p>
         <div class="flex flex-justify-between">
           <Button
@@ -94,10 +71,8 @@ class StartVideoCall {
         <img src={projectPlanning} style={{ width: '50%', margin: '0 0 0 0' }} />
         <h3>Initiate Video Call</h3>
         <p class="p-tag" style={{ margin: '2rem 0 2rem 0' }}>
-          Prior to Initiating the Video Call, make sure that you have all GRACs ready to attend, either in person or
-          over Video Call.
-          <br />
-          <br />
+          Prior to Initiating the Video Call, make sure that you have everyone in the signing group ready to attend,
+          either in person or over Video Call.
         </p>
         <div class="flex flex-justify-between">
           <Button
@@ -126,8 +101,8 @@ class AcceptOobis {
           </TextTooltip>
         </h3>
         <p class="p-tag" style={{ margin: '2rem 0 2rem 0' }}>
-          While on the Video Call, make sure to obtain each GLEIF Controller’s <strong>URL and OOBI.</strong> When you
-          have both for each party, please press continue.
+          While on the Video Call, make sure to obtain each participant's <strong>URL and OOBI.</strong>. When you have
+          both for everyone, please press continue.
         </p>
         <div class="flex flex-justify-between">
           <Button
@@ -142,6 +117,7 @@ class AcceptOobis {
     );
   }
 }
+
 class AcceptingTheOobis {
   tempOOBIArray = [
     {
@@ -209,15 +185,10 @@ class AcceptingTheOobis {
   view(vnode) {
     return (
       <>
-        <h3>
-          Accept{' '}
-          <TextTooltip label={<u>OOBIs</u>}>
-            OOBI is an Out Of Band (meaning outside this software) interaction.
-          </TextTooltip>
-        </h3>
+        <h3>Enter OOBIs</h3>
         <div class="flex flex-justify-between" style={{ alignItems: 'baseline' }}>
           <p class="p-tag" style={{ margin: '2rem 0 2rem 0' }}>
-            Enter AIDs, URLs and Aliases you received on the Video Call from the Controllers below:
+            Enter AIDs, URLs and Aliases you received on the Video Call from all participants below:
           </p>
         </div>
         <div style={{ height: '350px', overflowY: 'scroll', margin: '0 0 1rem 0' }}>
@@ -256,13 +227,10 @@ class GenerateChallenge {
     return (
       <>
         <img src={responseMessage} style={{ width: '50%', margin: '1.5rem 0 2rem 0' }} />
-        <h3>Generate Challenge Message</h3>
+        <h3>Generate and Send Challenge Message</h3>
         <p class="p-tag" style={{ margin: '2rem 0 2rem 0' }}>
-          The Challenge Response Message generated will be sent to all the GLEIF Controllers in the order you provided.
-          <br />
-          <br />
+          Click the Generate Button to create a Challenge Messages to each member of the signing group.
         </p>
-
         <div class="flex flex-justify-between">
           <Button
             class="button--gray-dk button--big button--no-transform"
@@ -276,23 +244,22 @@ class GenerateChallenge {
     );
   }
 }
+
 class CopyChallenge {
   constructor(vnode) {}
   view(vnode) {
     return (
       <>
         <img src={responseMessage} style={{ width: '50%', margin: '1.5rem 0 2rem 0' }} />
-        <h3>Copy Challenge Message</h3>
+        <h3>Paste Challenge Message in Video Call</h3>
         <p class="p-tag" style={{ margin: '2rem 0 2rem 0' }}>
-          Generate a message for each controller then direct message each GLEIF Controller in the video call.
+          Generate a message for each participant then direct message everyone in the video call.
           <br />
           <br />
           <strong>
             Important! Don’t use a challenge message from another session, it should be unique to this session taking
-            place today with the GLEIF Controllers.
+            place today.
           </strong>
-          <br />
-          <br />
         </p>
         <TextField
           textarea
@@ -317,14 +284,11 @@ class ChallengeProgress {
     return (
       <>
         <img src={uploadFile} style={{ width: '60%', margin: '1.5rem 0 2rem 0' }} />
-        <h3>Challenge Message in Progress</h3>
+        <h3>Waiting for Signatures</h3>
         <p class="p-tag" style={{ margin: '2rem 0 2rem 0' }}>
-          You will be notified when the GRACs sign and return the Challenge Message, after which you may configure the
-          multi-sig set as the GLEIF Genesis Controller.
-          <br />
-          <br />
+          You will be notified when all participents sign and return the Challenge Message, after which you may
+          configure the multi-sig set.
         </p>
-
         <div class="flex flex-justify-between">
           <Button
             class="button--gray-dk button--big button--no-transform"
@@ -343,11 +307,12 @@ class ChallengeProgress {
     );
   }
 }
+
 class Notifications {
   tempNotiArray = [
     {
       type: 'You may now configure Multi-Sig Set',
-      displayPic: liFive,
+      displayPic: tempProfPic,
       linkText: 'View',
     },
     {
@@ -403,13 +368,13 @@ class Notifications {
 
 class InitiateVideoCall {
   constructor() {
-    this.currentState = 'genesis-event';
+    this.currentState = 'delegating-aids';
   }
   view(vnode) {
     return (
       <>
-        {this.currentState === 'genesis-event' && (
-          <GenesisEvent
+        {this.currentState === 'delegating-aids' && (
+          <DelegatingAIDs
             continue={() => {
               this.currentState = 'video-call';
             }}
@@ -418,7 +383,7 @@ class InitiateVideoCall {
         {this.currentState === 'video-call' && (
           <VideoCall
             back={() => {
-              this.currentState = 'genesis-event';
+              this.currentState = 'delegating-aids';
             }}
             continue={() => {
               this.currentState = 'start-video-call';
