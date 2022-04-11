@@ -1,19 +1,16 @@
 import m from 'mithril';
 import { Button, Card, TextField, TextTooltip } from '../../../src/app/components';
 import { KERI } from '../../../src/app/services';
-import createIdentifier from '../../../src/assets/img/create-identifier.png';
-import configureIdentifier from '../../../src/assets/img/configure-identifier.png';
-import approveRequest from '../../../src/assets/img/approve-request.png';
-import uploadImage from '../../../src/assets/img/upload-image.png';
-import uploadFile from '../../../src/assets/img/upload-file.png';
-import projectPlanning from '../../../src/assets/img/project-planning.png';
+
 import addNewContacts from '../../../src/assets/img/add-new-contacts.png';
+import projectPlanning from '../../../src/assets/img/project-planning.png';
 import responseMessage from '../../../src/assets/img/response-message.png';
-import githubLogo from '../../../src/assets/img/github-logo.png';
 import tempProfPic from '../../../src/assets/img/temp-prof-pic.jpg';
+import uploadFile from '../../../src/assets/img/upload-file.png';
 
 class DelegatingAIDs {
   constructor(vnode) {}
+
   view(vnode) {
     return (
       <>
@@ -41,11 +38,13 @@ class DelegatingAIDs {
 
 class VideoCall {
   constructor(vnode) {}
+
   view(vnode) {
     return (
       <>
+        <img src={projectPlanning} style={{ marginBottom: '2rem', width: '240px' }} />
         <h3>Initiate a Video Call</h3>
-        <p class="p-tag" style={{ margin: '2rem 0 2rem 0' }}>
+        <p class="p-tag" style={{ margin: '2rem 0 6rem 0' }}>
           In order to start the authentication process, you will need to initiate an real-time Out of Band Interaction
           (OOBI) session in which you and the other users are present, You will accept all their OOBIs (URL + AID) on a
           Video Call so that you can receive their identifying information.
@@ -66,12 +65,13 @@ class VideoCall {
 
 class StartVideoCall {
   constructor(vnode) {}
+
   view(vnode) {
     return (
       <>
-        <img src={projectPlanning} style={{ width: '50%', margin: '0 0 0 0' }} />
+        <img src={projectPlanning} style={{ marginBottom: '2rem', width: '240px' }} />
         <h3>Initiate Video Call</h3>
-        <p class="p-tag" style={{ margin: '2rem 0 2rem 0' }}>
+        <p class="p-tag" style={{ margin: '2rem 0 6rem 0' }}>
           Prior to Initiating the Video Call, make sure that you have everyone in the signing group ready to attend,
           either in person or over Video Call.
         </p>
@@ -106,10 +106,24 @@ class SendOOBI {
     });
   }
 
+  copyAlias() {
+    navigator.clipboard.writeText(this.oobi.alias).then(
+      () => {},
+      () => {}
+    );
+  }
+
+  copyURL() {
+    navigator.clipboard.writeText(this.oobi.url).then(
+      () => {},
+      () => {}
+    );
+  }
+
   view(vnode) {
     return (
       <>
-        <img src={addNewContacts} style={{ width: '50%', margin: '0 0 1rem 0' }} />
+        <img src={addNewContacts} style={{ width: '200px', margin: '0 0 1rem 0' }} />
         <h3>Send OOBI</h3>
         <p class="p-tag" style={{ margin: '2rem 0 2rem 0' }}>
           Copy this OOBI (AID + URL) to share your identifying information, and paste it into the Video Call.
@@ -120,13 +134,25 @@ class SendOOBI {
           fluid
           style={{ margin: '0 0 1rem 0', backgroundColor: 'rgba(0, 0, 0, 0.04)' }}
           value={this.oobi.alias}
+          iconTrailing={{
+            icon: 'content_copy',
+            onclick: (e) => {
+              this.copyAlias();
+            },
+          }}
         />
         <h3>URL:</h3>
         <TextField
           outlined
           fluid
-          style={{ height: '3rem', width: '100%', margin: '0 0 2rem 0', backgroundColor: 'rgba(0, 0, 0, 0.04)' }}
+          style={{ margin: '0 0 2rem 0', backgroundColor: 'rgba(0, 0, 0, 0.04)' }}
           value={this.oobi.url}
+          iconTrailing={{
+            icon: 'content_copy',
+            onclick: (e) => {
+              this.copyURL();
+            },
+          }}
         />
         <div class="flex flex-justify-between">
           <Button
@@ -142,88 +168,161 @@ class SendOOBI {
   }
 }
 
-class AcceptOOBIs {
-  constructor(vnode) {}
+// class AcceptOOBIs {
+//   constructor(vnode) {}
+
+//   view(vnode) {
+//     return (
+//       <>
+//         <img src={uploadFile} style={{ width: '240px', margin: '0 0 0 0' }} />
+//         <h3>
+//           Accept the{' '}
+//           <TextTooltip label={<u>OOBIs</u>}>
+//             OOBI is an out of band (meaning outside this software) interaction.
+//           </TextTooltip>
+//         </h3>
+//         <p class="p-tag" style={{ margin: '2rem 0 2rem 0' }}>
+//           While on the Video Call, make sure to obtain each participant's <strong>URL and OOBI</strong>. When you have
+//           both for everyone, please press continue.
+//         </p>
+//         <div class="flex flex-justify-between">
+//           <Button
+//             class="button--gray-dk button--big button--no-transform"
+//             raised
+//             label="Go Back"
+//             onclick={vnode.attrs.back}
+//           />
+//           <Button class="button--big button--no-transform" raised label="Continue" onclick={vnode.attrs.continue} />
+//         </div>
+//       </>
+//     );
+//   }
+// }
+
+class EnterOOBIs {
+  constructor(vnode) {
+    this.oobis = [
+      {
+        alias: '',
+        url: '',
+      },
+      {
+        alias: '',
+        url: '',
+      },
+      {
+        alias: '',
+        url: '',
+      },
+    ];
+  }
+
+  resolveOOBIPromise(oobi) {
+    return KERI.resolveOOBI(oobi.alias, oobi.url);
+  }
+
+  resolveAllOOBIs(vnode) {
+    let promises = this.oobis
+      .filter((oobi) => {
+        return oobi.alias && oobi.url;
+      })
+      .map((oobi) => {
+        return this.resolveOOBIPromise(oobi);
+      });
+    Promise.all(promises).then(() => {
+      vnode.attrs.continue();
+    });
+  }
+
   view(vnode) {
     return (
       <>
-        <img src={uploadFile} style={{ width: '50%', margin: '0 0 0 0' }} />
-        <h3>
-          Accept the{' '}
-          <TextTooltip label={<u>OOBIs</u>}>
-            OOBI is an out of band (meaning outside this software) interaction.
-          </TextTooltip>
-        </h3>
-        <p class="p-tag" style={{ margin: '2rem 0 2rem 0' }}>
-          While on the Video Call, make sure to obtain each participant's <strong>URL and OOBI.</strong>. When you have
-          both for everyone, please press continue.
-        </p>
-        <div class="flex flex-justify-between">
+        <h3>Enter OOBIs</h3>
+        <div style={{ height: '512px', overflowY: 'auto', margin: '0 0 1rem 0', paddingRight: '1rem' }}>
+          <div class="flex flex-justify-between" style={{ alignItems: 'baseline' }}>
+            <p class="p-tag" style={{ margin: '2rem 0 2rem 0' }}>
+              Enter AIDs, URLs and Aliases you received on the Video Call from all participants below:
+            </p>
+          </div>
+          {this.oobis.map((oobi) => {
+            return (
+              <Card class="card--fluid" style={{ margin: '0 0 1.5rem 0' }}>
+                <div class="flex flex-align-center flex-justify-between">
+                  <h5 style={{ width: '100px' }}>Alias:</h5>
+                  <TextField
+                    outlined
+                    fluid
+                    style={{ backgroundColor: 'rgba(0, 0, 0, 0.04)' }}
+                    value={oobi.alias}
+                    oninput={(e) => {
+                      oobi.alias = e.target.value;
+                    }}
+                  />
+                </div>
+                <div class="flex flex-align-center flex-justify-between">
+                  <h5 style={{ width: '100px' }}>URL:</h5>
+                  <TextField
+                    outlined
+                    fluid
+                    style={{ backgroundColor: 'rgba(0, 0, 0, 0.04)' }}
+                    value={oobi.url}
+                    oninput={(e) => {
+                      oobi.url = e.target.value;
+                    }}
+                  />
+                </div>
+              </Card>
+            );
+          })}
+        </div>
+        <div class="flex flex-justify-end">
           <Button
-            class="button--gray-dk button--big button--no-transform"
+            class="button--big button--no-transform"
             raised
-            label="Go Back"
-            onclick={vnode.attrs.back}
+            label="Continue"
+            onclick={() => {
+              this.resolveAllOOBIs(vnode);
+            }}
           />
-          <Button class="button--big button--no-transform" raised label="Continue" onclick={vnode.attrs.continue} />
         </div>
       </>
     );
   }
 }
 
-class EnterOOBIs {
-  tempOOBIArray = [
-    {
-      AID: '',
-      URL: '',
-      Alias: '',
-    },
-    {
-      AID: '',
-      URL: '',
-      Alias: '',
-    },
-    {
-      AID: '',
-      URL: '',
-      Alias: '',
-    },
-  ];
+class SelectChallengeRecipients {
+  constructor(vnode) {
+    this.recipients = ['', '', ''];
+  }
 
-  constructor(vnode) {}
   view(vnode) {
     return (
       <>
-        <h3>Enter OOBIs</h3>
-        <div class="flex flex-justify-between" style={{ alignItems: 'baseline' }}>
-          <p class="p-tag" style={{ margin: '2rem 0 2rem 0' }}>
-            Enter AIDs, URLs and Aliases you received on the Video Call from all participants below:
-          </p>
-        </div>
-        <div style={{ height: '350px', overflowY: 'scroll', margin: '0 0 1rem 0' }}>
-          {this.tempOOBIArray.map(() => {
-            return (
-              <Card class="card--fluid" style={{ margin: '0 0 1.5rem 0', height: '200px' }}>
-                <div class="flex flex-align-center flex-justify-between" style={{ flexDirection: 'column' }}>
-                  <div class="flex flex-align-center flex-justify-between">
-                    <h5>AID:</h5>
-                    <TextField style={{ backgroundColor: 'rgba(0, 0, 0, 0.04)', height: '2rem', width: '80%' }} />
-                  </div>
-                  <div class="flex flex-align-center flex-justify-between">
-                    <h5>URL:</h5>
-                    <TextField style={{ backgroundColor: 'rgba(0, 0, 0, 0.04)', height: '2rem', width: '80%' }} />
-                  </div>
-                  <div class="flex flex-align-center flex-justify-between">
-                    <h5>Alias:</h5>
-                    <TextField style={{ backgroundColor: 'rgba(0, 0, 0, 0.04)', height: '2rem', width: '80%' }} />
-                  </div>
-                </div>
-              </Card>
-            );
-          })}
-        </div>
-
+        <img src={responseMessage} style={{ width: '240px', margin: '1.5rem 0 2rem 0' }} />
+        <h3>Select Challenge Message Recipients</h3>
+        <p class="p-tag">
+          The next step of verification is to send each person a challenge message. Please enter the aliases of each
+          person in order that will be receiving a challenge message in Zoom.
+        </p>
+        {this.recipients.map((value, index) => {
+          return (
+            <TextField
+              outlined
+              fluid
+              style={{ margin: '0 0 2rem 0' }}
+              iconTrailing={{
+                icon: 'search',
+                onclick: (e) => {
+                  console.log(e);
+                },
+              }}
+              value={value}
+              oninput={(e) => {
+                this.recipients[index] = e.target.value;
+              }}
+            />
+          );
+        })}
         <div class="flex flex-justify-end">
           <Button class="button--big button--no-transform" raised label="Continue" onclick={vnode.attrs.continue} />
         </div>
@@ -231,8 +330,10 @@ class EnterOOBIs {
     );
   }
 }
+
 class GenerateChallenge {
   constructor(vnode) {}
+
   view(vnode) {
     return (
       <>
@@ -256,7 +357,17 @@ class GenerateChallenge {
 }
 
 class CopyChallenge {
-  constructor(vnode) {}
+  constructor() {
+    this.challangeMessage = '';
+  }
+
+  oninit() {
+    KERI.generateChallengeMessage().then((res) => {
+      console.log(res);
+      this.challangeMessage = res.words.join(' ');
+    });
+  }
+
   view(vnode) {
     return (
       <>
@@ -271,10 +382,7 @@ class CopyChallenge {
             place today.
           </strong>
         </p>
-        <TextField
-          textarea
-          style={{ height: '5rem', width: '100%', margin: '0 0 4rem 0', backgroundColor: 'rgba(0, 0, 0, 0.04)' }}
-        />
+        <TextField outlined textarea fluid style={{ margin: '0 0 4rem 0' }} value={this.challangeMessage} />
         <div class="flex flex-justify-between">
           <Button
             class="button--gray-dk button--big button--no-transform"
@@ -289,8 +397,33 @@ class CopyChallenge {
   }
 }
 
+class EnterChallengeMessages {
+  constructor(vnode) {}
+
+  view(vnode) {
+    return (
+      <>
+        <h3>Enter Bob’s Challenge Message Below</h3>
+        <p>Signer 1 of 12</p>
+        <p>Enter the challenge message that you received from Bob in the box below:</p>
+        <TextField outlined fluid textarea style={{ backgroundColor: 'rgba(0, 0, 0, 0.04)' }} />
+        <div class="flex flex-justify-between">
+          <Button
+            class="button--gray-dk button--big button--no-transform"
+            raised
+            label="Go Back"
+            onclick={vnode.attrs.back}
+          />
+          <Button class="button--big button--no-transform" raised label="Next" onclick={vnode.attrs.continue} />
+        </div>
+      </>
+    );
+  }
+}
+
 class WaitingForSignatures {
   constructor(vnode) {}
+
   view(vnode) {
     return (
       <>
@@ -347,7 +480,9 @@ class Notifications {
       linkText: 'View',
     },
   ];
+
   constructor(vnode) {}
+
   view(vnode) {
     return (
       <>
@@ -381,6 +516,7 @@ class InitiateVideoCall {
   constructor() {
     this.currentState = 'delegating-aids';
   }
+
   view(vnode) {
     return (
       <>
@@ -417,24 +553,34 @@ class InitiateVideoCall {
               this.currentState = 'start-video-call';
             }}
             continue={() => {
-              this.currentState = 'accept-oobi';
+              this.currentState = 'enter-oobis';
             }}
           />
         )}
-        {this.currentState === 'accept-oobi' && (
+        {/* {this.currentState === 'accept-oobi' && (
           <AcceptOOBIs
             back={() => {
-              this.currentState = 'start-video-call';
+              this.currentState = 'send-oobi';
             }}
             continue={() => {
               this.currentState = 'enter-oobis';
             }}
           />
-        )}
+        )} */}
         {this.currentState === 'enter-oobis' && (
           <EnterOOBIs
             back={() => {
-              this.currentState = 'accept-oobi';
+              this.currentState = 'send-oobi';
+            }}
+            continue={() => {
+              this.currentState = 'select-challenge-recipients';
+            }}
+          />
+        )}
+        {this.currentState === 'select-challenge-recipients' && (
+          <SelectChallengeRecipients
+            back={() => {
+              this.currentState = 'enter-oobis';
             }}
             continue={() => {
               this.currentState = 'generate-challenge';
@@ -444,7 +590,7 @@ class InitiateVideoCall {
         {this.currentState === 'generate-challenge' && (
           <GenerateChallenge
             back={() => {
-              this.currentState = 'enter-oobis';
+              this.currentState = 'select-challenge-recipients';
             }}
             continue={() => {
               this.currentState = 'copy-challenge';
@@ -455,6 +601,16 @@ class InitiateVideoCall {
           <CopyChallenge
             back={() => {
               this.currentState = 'generate-challenge';
+            }}
+            continue={() => {
+              this.currentState = 'enter-challenge-messages';
+            }}
+          />
+        )}
+        {this.currentState === 'enter-challenge-messages' && (
+          <EnterChallengeMessages
+            back={() => {
+              this.currentState = 'copy-challenge';
             }}
             continue={() => {
               this.currentState = 'waiting-for-signatures';
