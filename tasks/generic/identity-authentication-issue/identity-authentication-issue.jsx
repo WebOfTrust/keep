@@ -49,8 +49,9 @@ class WaitModal {
 }
 
 class StepsToAuthenticate {
-  constructor() {
+  constructor(vnode) {
     this.waitModalOpen = true;
+    console.log(vnode.attrs.steps);
   }
 
   view(vnode) {
@@ -64,18 +65,32 @@ class StepsToAuthenticate {
         />
         <h3>Identity Authentication</h3>
         <p class="p-tag">
-          This module will take you through the steps of how to authenticate a user's identity. Below are the steps for
-          how to complete the process:
+          {vnode.attrs.steps ? (
+            vnode.attrs.steps.paragraph
+          ) : (
+            <>
+              This module will take you through the steps of how to authenticate a user's identity. Below are the steps
+              for how to complete the process:
+            </>
+          )}
         </p>
         <h3>Steps to Identity Authentication</h3>
         <ol class="styled-ol" style={{ margin: '2rem 0' }}>
-          <li>Join a Video Call</li>
-          <li>Use an OOBI protocol to obtain the user's AID</li>
-          <li>Use an OOBI protocol to share your AID</li>
-          <li>Obtain and sign a Challenge Message</li>
-          <li>Generate and send a Challenge Message</li>
-          <li>User signs and returns Challenge Message</li>
-          <li>You verify signature and issue credentials</li>
+          {vnode.attrs.steps ? (
+            vnode.attrs.steps.list.map((element) => {
+              return <li>{element}</li>;
+            })
+          ) : (
+            <>
+              <li>Join a Video Call</li>
+              <li>Use an OOBI protocol to obtain the user's AID</li>
+              <li>Use an OOBI protocol to share your AID</li>
+              <li>Obtain and sign a Challenge Message</li>
+              <li>Generate and send a Challenge Message</li>
+              <li>User signs and returns Challenge Message</li>
+              <li>You verify signature and issue credentials</li>
+            </>
+          )}
         </ol>
         <div class="flex flex-justify-end">
           {/* <Button class="button--gray-dk button--big button--no-transform" raised label="Skip" /> */}

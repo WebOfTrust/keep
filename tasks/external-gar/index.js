@@ -86,7 +86,12 @@ const tasks = {
       label: 'Identity Authentication (Issue)',
       component: {
         view: (vnode) => {
-          return <IdentityAuthenticationIssue end={vnode.attrs.end} />;
+          return (
+            <IdentityAuthenticationIssue
+              steps={ExternalGarVariables.identityAuthentication.steps}
+              end={vnode.attrs.end}
+            />
+          );
         },
       },
     },
