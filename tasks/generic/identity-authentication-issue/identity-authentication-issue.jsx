@@ -367,6 +367,9 @@ class IdentityAuthenticationIssue {
         )}
         {this.currentState === 'join-video-call' && (
           <JoinVideoCall
+            back={() => {
+              this.currentState = 'steps-to-authenticate';
+            }}
             continue={() => {
               this.currentState = 'resolve-oobi';
             }}
@@ -374,6 +377,9 @@ class IdentityAuthenticationIssue {
         )}
         {this.currentState === 'resolve-oobi' && (
           <ResolveOOBI
+            back={() => {
+              this.currentState = 'join-video-call';
+            }}
             continue={() => {
               this.currentState = 'send-oobi';
             }}
@@ -381,6 +387,9 @@ class IdentityAuthenticationIssue {
         )}
         {this.currentState === 'send-oobi' && (
           <SendOOBI
+            back={() => {
+              this.currentState = 'resolve-oobi';
+            }}
             continue={() => {
               this.currentState = 'identity-verification';
             }}
@@ -388,6 +397,9 @@ class IdentityAuthenticationIssue {
         )}
         {this.currentState === 'identity-verification' && (
           <IdentityVerificationInProgress
+            back={() => {
+              this.currentState = 'send-oobi';
+            }}
             continue={() => {
               this.currentState = 'sign-challenge-message';
             }}
@@ -395,6 +407,9 @@ class IdentityAuthenticationIssue {
         )}
         {this.currentState === 'sign-challenge-message' && (
           <SignChallengeMessage
+            back={() => {
+              this.currentState = 'identity-verification';
+            }}
             continue={() => {
               this.currentState = 'generate-challenge-message';
             }}
@@ -402,6 +417,9 @@ class IdentityAuthenticationIssue {
         )}
         {this.currentState === 'generate-challenge-message' && (
           <GenerateChallengeMessage
+            back={() => {
+              this.currentState = 'sign-challenge-message';
+            }}
             continue={() => {
               this.currentState = 'copy-challenge-message';
             }}
@@ -409,12 +427,22 @@ class IdentityAuthenticationIssue {
         )}
         {this.currentState === 'copy-challenge-message' && (
           <CopyChallengeMessage
+            back={() => {
+              this.currentState = 'generate-challenge-message';
+            }}
             continue={() => {
               this.currentState = 'challenge-message-in-process';
             }}
           />
         )}
-        {this.currentState === 'challenge-message-in-process' && <ChallengeMessageInProgress end={vnode.attrs.end} />}
+        {this.currentState === 'challenge-message-in-process' && (
+          <ChallengeMessageInProgress
+            back={() => {
+              this.currentState = 'copy-challenge-message';
+            }}
+            end={vnode.attrs.end}
+          />
+        )}
       </>
     );
   }

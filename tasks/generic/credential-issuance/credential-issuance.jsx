@@ -79,6 +79,7 @@ class CredentialIssuance {
       <>
         {this.currentState === 'issue-creds' && (
           <IssueCreds
+            back={vnode.attrs.end}
             continue={() => {
               this.currentState = 'creds-issued';
             }}
