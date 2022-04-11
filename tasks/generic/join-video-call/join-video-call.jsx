@@ -172,7 +172,7 @@ class EnterOOBIs {
     return KERI.resolveOOBI(oobi.alias, oobi.url);
   }
 
-  resolveAllOOBIs(vnode) {
+  resolveAllOOBIs() {
     let promises = this.oobis
       .filter((oobi) => {
         return oobi.alias && oobi.url;
@@ -180,9 +180,7 @@ class EnterOOBIs {
       .map((oobi) => {
         return this.resolveOOBIPromise(oobi);
       });
-    Promise.all(promises).then(() => {
-      vnode.attrs.continue();
-    });
+    return Promise.all(promises);
   }
 
   view(vnode) {
@@ -232,7 +230,9 @@ class EnterOOBIs {
             raised
             label="Continue"
             onclick={() => {
-              this.resolveAllOOBIs(vnode);
+              this.resolveAllOOBIs().then(() => {
+                vnode.attrs.continue();
+              });
             }}
           />
         </div>
@@ -267,18 +267,125 @@ class EnterOOBIs {
 //   }
 // }
 
-class SendChallengeMessage {
+// class SendChallengeMessage {
+//   constructor(vnode) {}
+
+//   view(vnode) {
+//     return (
+//       <>
+//         <img src={responseMessage} style={{ width: '50%', margin: '1.5rem 0 2rem 0' }} />
+//         <h3>Paste Challenge Message Below</h3>
+//         <p class="p-tag" style={{ margin: '2rem 0 2rem 0' }}>
+//           Enter the 12-word challenge message into the chat and send to the initiator via direct message.
+//         </p>
+//         <TextField outlined fluid textarea style={{ margin: '0 0 4rem 0', backgroundColor: 'rgba(0, 0, 0, 0.04)' }} />
+//         <div class="flex flex-justify-between">
+//           <Button
+//             class="button--gray-dk button--big button--no-transform"
+//             raised
+//             label="Go Back"
+//             onclick={vnode.attrs.back}
+//           />
+//           <Button class="button--big button--no-transform" raised label="Continue" onclick={vnode.attrs.continue} />
+//         </div>
+//       </>
+//     );
+//   }
+// }
+
+class SelectChallengeRecipients {
+  constructor(vnode) {
+    this.recipients = ['', '', ''];
+  }
+
+  view(vnode) {
+    return (
+      <>
+        <img src={responseMessage} style={{ width: '240px', margin: '1.5rem 0 2rem 0' }} />
+        <h3>Paste Challenge Message in Video Call</h3>
+        <p class="p-tag">
+          The next step of verification is to send each person a challenge message. Please enter the aliases of each
+          person in order that will be receiving a challenge message in Zoom.
+        </p>
+        {this.recipients.map((value, index) => {
+          return (
+            <TextField
+              outlined
+              fluid
+              style={{ margin: '0 0 2rem 0' }}
+              iconTrailing={{
+                icon: 'search',
+                onclick: (e) => {
+                  console.log(e);
+                },
+              }}
+              value={value}
+              oninput={(e) => {
+                this.recipients[index] = e.target.value;
+              }}
+            />
+          );
+        })}
+        <div class="flex flex-justify-end">
+          <Button class="button--big button--no-transform" raised label="Continue" onclick={vnode.attrs.continue} />
+        </div>
+      </>
+    );
+  }
+}
+
+class GenerateChallenge {
   constructor(vnode) {}
 
   view(vnode) {
     return (
       <>
-        <img src={responseMessage} style={{ width: '50%', margin: '1.5rem 0 2rem 0' }} />
-        <h3>Paste Challenge Message Below</h3>
+        <img src={responseMessage} style={{ width: '240px', margin: '1.5rem 0 2rem 0' }} />
+        <h3>Generate and Send Challenge Message</h3>
         <p class="p-tag" style={{ margin: '2rem 0 2rem 0' }}>
-          Enter the 12-word challenge message into the chat and send to the initiator via direct message.
+          Click the Generate Button to create a Challenge Messages to each member of the signing group.
         </p>
-        <TextField outlined fluid textarea style={{ margin: '0 0 4rem 0', backgroundColor: 'rgba(0, 0, 0, 0.04)' }} />
+        <div class="flex flex-justify-between">
+          <Button
+            class="button--gray-dk button--big button--no-transform"
+            raised
+            label="Go Back"
+            onclick={vnode.attrs.back}
+          />
+          <Button class="button--big button--no-transform" raised label="Generate" onclick={vnode.attrs.continue} />
+        </div>
+      </>
+    );
+  }
+}
+
+class CopyChallenge {
+  constructor() {
+    this.challangeMessage = '';
+  }
+
+  oninit() {
+    KERI.generateChallengeMessage().then((res) => {
+      console.log(res);
+      this.challangeMessage = res.words.join(' ');
+    });
+  }
+
+  view(vnode) {
+    return (
+      <>
+        <img src={responseMessage} style={{ width: '240px', margin: '1.5rem 0 2rem 0' }} />
+        <h3>Paste Challenge Message in Video Call</h3>
+        <p class="p-tag" style={{ margin: '2rem 0 2rem 0' }}>
+          Generate a message for each participant then direct message everyone in the video call.
+          <br />
+          <br />
+          <strong>
+            Important! Don't use a challenge message from another session, it should be unique to this session taking
+            place today.
+          </strong>
+        </p>
+        <TextField outlined textarea fluid style={{ margin: '0 0 4rem 0' }} value={this.challangeMessage} />
         <div class="flex flex-justify-between">
           <Button
             class="button--gray-dk button--big button--no-transform"
@@ -293,12 +400,36 @@ class SendChallengeMessage {
   }
 }
 
+class EnterChallengeMessages {
+  constructor(vnode) {}
+
+  view(vnode) {
+    return (
+      <>
+        <h3>Enter Bob's Challenge Message Below</h3>
+        <p>Signer 1 of 12</p>
+        <p>Enter the challenge message that you received from Bob in the box below:</p>
+        <TextField outlined fluid textarea style={{ backgroundColor: 'rgba(0, 0, 0, 0.04)' }} />
+        <div class="flex flex-justify-between">
+          <Button
+            class="button--gray-dk button--big button--no-transform"
+            raised
+            label="Go Back"
+            onclick={vnode.attrs.back}
+          />
+          <Button class="button--big button--no-transform" raised label="Next" onclick={vnode.attrs.continue} />
+        </div>
+      </>
+    );
+  }
+}
+
 class VerificationProgress {
   constructor(vnode) {}
   view(vnode) {
     return (
       <>
-        <img src={uploadFile} style={{ width: '60%', margin: '1.5rem 0 2rem 0' }} />
+        <img src={uploadFile} style={{ width: '240px', margin: '1.5rem 0 2rem 0' }} />
         <h3>Your Verification is Under Review</h3>
         <p class="p-tag" style={{ margin: '2rem 0 2rem 0' }}>
           You will be notified when the initiator verifies your signature and you will resume on a Video Call to
@@ -352,7 +483,47 @@ class JoinVideoCall {
               this.currentState = 'send-oobi';
             }}
             continue={() => {
-              this.currentState = 'send-challenge-message';
+              this.currentState = 'select-challenge-recipients';
+            }}
+          />
+        )}
+        {this.currentState === 'select-challenge-recipients' && (
+          <SelectChallengeRecipients
+            back={() => {
+              this.currentState = 'enter-oobis';
+            }}
+            continue={() => {
+              this.currentState = 'generate-challenge';
+            }}
+          />
+        )}
+        {this.currentState === 'generate-challenge' && (
+          <GenerateChallenge
+            back={() => {
+              this.currentState = 'select-challenge-recipients';
+            }}
+            continue={() => {
+              this.currentState = 'copy-challenge';
+            }}
+          />
+        )}
+        {this.currentState === 'copy-challenge' && (
+          <CopyChallenge
+            back={() => {
+              this.currentState = 'generate-challenge';
+            }}
+            continue={() => {
+              this.currentState = 'enter-challenge-messages';
+            }}
+          />
+        )}
+        {this.currentState === 'enter-challenge-messages' && (
+          <EnterChallengeMessages
+            back={() => {
+              this.currentState = 'copy-challenge';
+            }}
+            continue={() => {
+              this.currentState = 'verification-progress';
             }}
           />
         )}
@@ -366,7 +537,7 @@ class JoinVideoCall {
             }}
           />
         )} */}
-        {this.currentState === 'send-challenge-message' && (
+        {/* {this.currentState === 'send-challenge-message' && (
           <SendChallengeMessage
             back={() => {
               this.currentState = 'enter-oobis';
@@ -375,7 +546,7 @@ class JoinVideoCall {
               this.currentState = 'verification-progress';
             }}
           />
-        )}
+        )} */}
         {this.currentState === 'verification-progress' && <VerificationProgress end={vnode.attrs.end} />}
       </>
     );

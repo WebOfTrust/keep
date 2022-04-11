@@ -221,7 +221,7 @@ class EnterOOBIs {
     return KERI.resolveOOBI(oobi.alias, oobi.url);
   }
 
-  resolveAllOOBIs(vnode) {
+  resolveAllOOBIs() {
     let promises = this.oobis
       .filter((oobi) => {
         return oobi.alias && oobi.url;
@@ -229,9 +229,7 @@ class EnterOOBIs {
       .map((oobi) => {
         return this.resolveOOBIPromise(oobi);
       });
-    Promise.all(promises).then(() => {
-      vnode.attrs.continue();
-    });
+    return Promise.all(promises);
   }
 
   view(vnode) {
@@ -281,7 +279,9 @@ class EnterOOBIs {
             raised
             label="Continue"
             onclick={() => {
-              this.resolveAllOOBIs(vnode);
+              this.resolveAllOOBIs().then(() => {
+                vnode.attrs.continue();
+              });
             }}
           />
         </div>
@@ -337,7 +337,7 @@ class GenerateChallenge {
   view(vnode) {
     return (
       <>
-        <img src={responseMessage} style={{ width: '50%', margin: '1.5rem 0 2rem 0' }} />
+        <img src={responseMessage} style={{ width: '240px', margin: '1.5rem 0 2rem 0' }} />
         <h3>Generate and Send Challenge Message</h3>
         <p class="p-tag" style={{ margin: '2rem 0 2rem 0' }}>
           Click the Generate Button to create a Challenge Messages to each member of the signing group.
@@ -371,7 +371,7 @@ class CopyChallenge {
   view(vnode) {
     return (
       <>
-        <img src={responseMessage} style={{ width: '50%', margin: '1.5rem 0 2rem 0' }} />
+        <img src={responseMessage} style={{ width: '240px', margin: '1.5rem 0 2rem 0' }} />
         <h3>Paste Challenge Message in Video Call</h3>
         <p class="p-tag" style={{ margin: '2rem 0 2rem 0' }}>
           Generate a message for each participant then direct message everyone in the video call.
@@ -403,7 +403,7 @@ class EnterChallengeMessages {
   view(vnode) {
     return (
       <>
-        <h3>Enter Bob’s Challenge Message Below</h3>
+        <h3>Enter Bob's Challenge Message Below</h3>
         <p>Signer 1 of 12</p>
         <p>Enter the challenge message that you received from Bob in the box below:</p>
         <TextField outlined fluid textarea style={{ backgroundColor: 'rgba(0, 0, 0, 0.04)' }} />
@@ -427,7 +427,7 @@ class WaitingForSignatures {
   view(vnode) {
     return (
       <>
-        <img src={uploadFile} style={{ width: '60%', margin: '1.5rem 0 2rem 0' }} />
+        <img src={uploadFile} style={{ width: '240px', margin: '1.5rem 0 2rem 0' }} />
         <h3>Waiting for Signatures</h3>
         <p class="p-tag" style={{ margin: '2rem 0 2rem 0' }}>
           You will be notified when all participents sign and return the Challenge Message, after which you may
