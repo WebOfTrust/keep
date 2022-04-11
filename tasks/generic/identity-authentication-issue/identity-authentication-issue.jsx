@@ -97,7 +97,12 @@ class JoinVideoCall {
           receive their identifying information.
         </p>
         <div class="flex flex-justify-between">
-          <Button class="button--gray-dk button--big button--no-transform" raised label="Go Back" />
+          <Button
+            class="button--gray-dk button--big button--no-transform"
+            raised
+            label="Go Back"
+            onclick={vnode.attrs.back}
+          />
           <Button class="button--big button--no-transform" raised label="Continue" onclick={vnode.attrs.continue} />
         </div>
       </>
@@ -154,7 +159,12 @@ class ResolveOOBI {
           }}
         />
         <div class="flex flex-justify-between">
-          <Button class="button--gray-dk button--big button--no-transform" raised label="Go Back" />
+          <Button
+            class="button--gray-dk button--big button--no-transform"
+            raised
+            label="Go Back"
+            onclick={vnode.attrs.back}
+          />
           <Button
             class="button--big button--no-transform"
             raised
@@ -215,7 +225,12 @@ class SendOOBI {
           value={this.oobi.url}
         />
         <div class="flex flex-justify-between">
-          <Button class="button--gray-dk button--big button--no-transform" raised label="Go Back" />
+          <Button
+            class="button--gray-dk button--big button--no-transform"
+            raised
+            label="Go Back"
+            onclick={vnode.attrs.back}
+          />
           <Button class="button--big button--no-transform" raised label="Continue" onclick={vnode.attrs.continue} />
         </div>
       </>
@@ -233,7 +248,12 @@ class IdentityVerificationInProgress {
           Remain in the Video Call until the user has resolved your OOBI.
         </p>
         <div class="flex flex-justify-between">
-          <Button class="button--gray-dk button--big button--no-transform" raised label="Go Back" />
+          <Button
+            class="button--gray-dk button--big button--no-transform"
+            raised
+            label="Go Back"
+            onclick={vnode.attrs.back}
+          />
           <Button class="button--big button--no-transform" raised label="Continue" onclick={vnode.attrs.continue} />
         </div>
       </>
@@ -275,7 +295,12 @@ class SignChallengeMessage {
           }}
         />
         <div class="flex flex-justify-between">
-          <Button class="button--gray-dk button--big button--no-transform" raised label="Go Back" />
+          <Button
+            class="button--gray-dk button--big button--no-transform"
+            raised
+            label="Go Back"
+            onclick={vnode.attrs.back}
+          />
           <Button
             class="button--big button--no-transform"
             raised
@@ -298,7 +323,12 @@ class GenerateChallengeMessage {
         <h3>Generate Challenge Message</h3>
         <p class="p-tag">The Challenge Message generated will be sent for verification purposes.</p>
         <div class="flex flex-justify-between">
-          <Button class="button--gray-dk button--big button--no-transform" raised label="Go Back" />
+          <Button
+            class="button--gray-dk button--big button--no-transform"
+            raised
+            label="Go Back"
+            onclick={vnode.attrs.back}
+          />
           <Button class="button--big button--no-transform" raised label="Generate" onclick={vnode.attrs.continue} />
         </div>
       </>
@@ -326,7 +356,12 @@ class CopyChallengeMessage {
         <p class="p-tag">Copy the Challenge Message into the chat box while on the Video Call.</p>
         <TextField outlined textarea fluid style={{ margin: '0 0 4rem 0' }} value={this.challangeMessage} />
         <div class="flex flex-justify-between">
-          <Button class="button--gray-dk button--big button--no-transform" raised label="Go Back" />
+          <Button
+            class="button--gray-dk button--big button--no-transform"
+            raised
+            label="Go Back"
+            onclick={vnode.attrs.back}
+          />
           <Button class="button--big button--no-transform" raised label="Continue" onclick={vnode.attrs.continue} />
         </div>
       </>
@@ -342,7 +377,12 @@ class ChallengeMessageInProgress {
         <h3>Challenge Message in Progress</h3>
         <p class="p-tag">You will be notified when the user signs and returns the Challenge Message.</p>
         <div class="flex flex-justify-between">
-          <Button class="button--gray-dk button--big button--no-transform" raised label="Go Back" />
+          <Button
+            class="button--gray-dk button--big button--no-transform"
+            raised
+            label="Go Back"
+            onclick={vnode.attrs.back}
+          />
           <Button class="button--big button--no-transform" raised label="Close" onclick={vnode.attrs.end} />
         </div>
       </>
