@@ -102,15 +102,6 @@ const tasks = {
   'main': [
     {
       imgSrc: addNewContacts,
-      label: 'Identity Authentication (Issue)',
-      component: {
-        view: (vnode) => {
-          return <IdentityAuthenticationIssue end={vnode.attrs.end} />;
-        },
-      },
-    },
-    {
-      imgSrc: addNewContacts,
       label: 'Identity Authentication (Receive)',
       component: {
         view: (vnode) => {

@@ -92,15 +92,6 @@ const tasks = {
     },
     {
       imgSrc: addNewContacts,
-      label: 'Identity Authentication (Receive)',
-      component: {
-        view: (vnode) => {
-          return <IdentityAuthenticationReceive end={vnode.attrs.end} />;
-        },
-      },
-    },
-    {
-      imgSrc: addNewContacts,
       label: 'Credential Issuance',
       component: {
         view: (vnode) => {
