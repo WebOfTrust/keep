@@ -12,6 +12,10 @@ class Nav {
     this.notificationsVisible = false;
   }
 
+  challengeNotificationClick(notification) {
+    m.route.set('/contacts');
+  }
+
   view() {
     return (
       <div class="nav">
@@ -40,12 +44,23 @@ class Nav {
                     }}
                     style={{
                       top: '88px',
+                      left: '-100px',
+                      width: '280px',
                     }}
                     padding={'16px'}
                   >
                     {Notify.notifications.map((notification) => {
                       if (notification.type === 'challenge') {
-                        return <p>New Verified Contact</p>;
+                        return (
+                          <a
+                            style={{ display: 'block' }}
+                            onclick={() => {
+                              this.challengeNotificationClick(notification);
+                            }}
+                          >
+                            New Verified Contact
+                          </a>
+                        );
                       }
                       return <p>notification</p>;
                     })}
