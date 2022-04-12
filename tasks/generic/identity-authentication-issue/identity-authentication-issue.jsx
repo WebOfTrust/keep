@@ -51,7 +51,6 @@ class WaitModal {
 class StepsToAuthenticate {
   constructor(vnode) {
     this.waitModalOpen = true;
-    console.log(vnode.attrs.steps);
   }
 
   view(vnode) {
@@ -135,12 +134,20 @@ class ResolveOOBI {
   }
 
   resolveOOBI(vnode) {
-    KERI.listIdentifiers().then((identifiers) => {
-      this.alias = identifiers[0].name;
-      KERI.resolveOOBI(this.alias, this.oobi.alias, this.oobi.url).then(() => {
-        vnode.attrs.continue();
+    KERI.listIdentifiers()
+      .then((identifiers) => {
+        this.alias = identifiers[0].name;
+        KERI.resolveOOBI(this.alias, this.oobi.alias, this.oobi.url)
+          .then(() => {
+            vnode.attrs.continue();
+          })
+          .catch((err) => {
+            console.log('resolveOOBI', err);
+          });
+      })
+      .catch((err) => {
+        console.log('listIdentifiers', err);
       });
-    });
   }
 
   view(vnode) {
@@ -206,6 +213,7 @@ class ResolveOOBI {
             class="button--big button--no-transform"
             raised
             label="Continue"
+            disabled={!this.oobi.alias || !this.oobi.url}
             onclick={() => {
               this.resolveOOBI(vnode);
             }}
@@ -225,12 +233,20 @@ class SendOOBI {
   }
 
   oninit() {
-    KERI.listIdentifiers().then((identifiers) => {
-      this.oobi.alias = identifiers[0].name;
-      KERI.getOOBI(identifiers[0].name, 'witness').then((oobi) => {
-        this.oobi.url = oobi.oobis[0];
+    KERI.listIdentifiers()
+      .then((identifiers) => {
+        this.oobi.alias = identifiers[0].name;
+        KERI.getOOBI(identifiers[0].name, 'witness')
+          .then((oobi) => {
+            this.oobi.url = oobi.oobis[0];
+          })
+          .catch((err) => {
+            console.log('getOOBI', err);
+          });
+      })
+      .catch((err) => {
+        console.log('listIdentifiers', err);
       });
-    });
   }
 
   view(vnode) {
@@ -304,13 +320,25 @@ class SignChallengeMessage {
   }
 
   signChallengeMessage(vnode) {
-    KERI.listIdentifiers().then((identifiers) => {
-      KERI.getContacts().then((contacts) => {
-        KERI.signChallengeMessage(identifiers[0].name, contacts[0].id, this.challengeMessage.split(' ')).then(() => {
-          vnode.attrs.continue();
-        });
+    KERI.listIdentifiers()
+      .then((identifiers) => {
+        KERI.getContacts()
+          .then((contacts) => {
+            KERI.signChallengeMessage(identifiers[0].name, contacts[0].id, this.challengeMessage.split(' '))
+              .then(() => {
+                vnode.attrs.continue();
+              })
+              .catch((err) => {
+                console.log('signChallengeMessage', err);
+              });
+          })
+          .catch((err) => {
+            console.log('getContacts', err);
+          });
+      })
+      .catch((err) => {
+        console.log('listIdentifiers', err);
       });
-    });
   }
 
   view(vnode) {
@@ -379,10 +407,13 @@ class CopyChallengeMessage {
   }
 
   oninit() {
-    KERI.generateChallengeMessage().then((res) => {
-      console.log(res);
-      this.challangeMessage = res.words.join(' ');
-    });
+    KERI.generateChallengeMessage()
+      .then((res) => {
+        this.challangeMessage = res.words.join(' ');
+      })
+      .catch((err) => {
+        console.log('generateChallengeMessage', err);
+      });
   }
 
   view(vnode) {

@@ -81,12 +81,20 @@ class SendOOBI {
   }
 
   oninit() {
-    KERI.listIdentifiers().then((identifiers) => {
-      this.oobi.alias = identifiers[0].name;
-      KERI.getOOBI(identifiers[0].name, 'witness').then((oobi) => {
-        this.oobi.url = oobi.oobis[0];
+    KERI.listIdentifiers()
+      .then((identifiers) => {
+        this.oobi.alias = identifiers[0].name;
+        KERI.getOOBI(identifiers[0].name, 'witness')
+          .then((oobi) => {
+            this.oobi.url = oobi.oobis[0];
+          })
+          .catch((err) => {
+            console.log('getOOBI', err);
+          });
+      })
+      .catch((err) => {
+        console.log('listIdentifiers', err);
       });
-    });
   }
 
   copyAlias() {
@@ -169,9 +177,13 @@ class EnterOOBIs {
         url: '',
       },
     ];
-    KERI.listIdentifiers().then((identifiers) => {
-      this.alias = identifiers[0].name;
-    });
+    KERI.listIdentifiers()
+      .then((identifiers) => {
+        this.alias = identifiers[0].name;
+      })
+      .catch((err) => {
+        console.log('listIdentifiers', err);
+      });
   }
 
   resolveOOBIPromise(oobi) {
@@ -236,9 +248,13 @@ class EnterOOBIs {
             raised
             label="Continue"
             onclick={() => {
-              this.resolveAllOOBIs().then(() => {
-                vnode.attrs.continue();
-              });
+              this.resolveAllOOBIs()
+                .then(() => {
+                  vnode.attrs.continue();
+                })
+                .catch((err) => {
+                  console.log('resolveAllOOBIs', err);
+                });
             }}
           />
         </div>
@@ -299,46 +315,46 @@ class EnterOOBIs {
 //   }
 // }
 
-class SelectChallengeRecipients {
-  constructor(vnode) {
-    this.recipients = ['', '', ''];
-  }
+// class SelectChallengeRecipients {
+//   constructor(vnode) {
+//     this.recipients = ['', '', ''];
+//   }
 
-  view(vnode) {
-    return (
-      <>
-        <img src={responseMessage} style={{ width: '240px', margin: '1.5rem 0 2rem 0' }} />
-        <h3>Paste Challenge Message in Video Call</h3>
-        <p class="p-tag">
-          The next step of verification is to send each person a challenge message. Please enter the aliases of each
-          person in order that will be receiving a challenge message in Zoom.
-        </p>
-        {this.recipients.map((value, index) => {
-          return (
-            <TextField
-              outlined
-              fluid
-              style={{ margin: '0 0 2rem 0' }}
-              iconTrailing={{
-                icon: 'search',
-                onclick: (e) => {
-                  console.log(e);
-                },
-              }}
-              value={value}
-              oninput={(e) => {
-                this.recipients[index] = e.target.value;
-              }}
-            />
-          );
-        })}
-        <div class="flex flex-justify-end">
-          <Button class="button--big button--no-transform" raised label="Continue" onclick={vnode.attrs.continue} />
-        </div>
-      </>
-    );
-  }
-}
+//   view(vnode) {
+//     return (
+//       <>
+//         <img src={responseMessage} style={{ width: '240px', margin: '1.5rem 0 2rem 0' }} />
+//         <h3>Paste Challenge Message in Video Call</h3>
+//         <p class="p-tag">
+//           The next step of verification is to send each person a challenge message. Please enter the aliases of each
+//           person in order that will be receiving a challenge message in Zoom.
+//         </p>
+//         {this.recipients.map((value, index) => {
+//           return (
+//             <TextField
+//               outlined
+//               fluid
+//               style={{ margin: '0 0 2rem 0' }}
+//               iconTrailing={{
+//                 icon: 'search',
+//                 onclick: (e) => {
+//                   console.log(e);
+//                 },
+//               }}
+//               value={value}
+//               oninput={(e) => {
+//                 this.recipients[index] = e.target.value;
+//               }}
+//             />
+//           );
+//         })}
+//         <div class="flex flex-justify-end">
+//           <Button class="button--big button--no-transform" raised label="Continue" onclick={vnode.attrs.continue} />
+//         </div>
+//       </>
+//     );
+//   }
+// }
 
 class GenerateChallenge {
   constructor(vnode) {}
@@ -371,10 +387,14 @@ class CopyChallenge {
   }
 
   oninit() {
-    KERI.generateChallengeMessage().then((res) => {
-      console.log(res);
-      this.challangeMessage = res.words.join(' ');
-    });
+    KERI.generateChallengeMessage()
+      .then((res) => {
+        console.log(res);
+        this.challangeMessage = res.words.join(' ');
+      })
+      .catch((err) => {
+        console.log('generateChallengeMessage', err);
+      });
   }
 
   view(vnode) {
@@ -533,11 +553,11 @@ class JoinVideoCall {
               this.currentState = 'send-oobi';
             }}
             continue={() => {
-              this.currentState = 'select-challenge-recipients';
+              this.currentState = 'generate-challenge';
             }}
           />
         )}
-        {this.currentState === 'select-challenge-recipients' && (
+        {/* {this.currentState === 'select-challenge-recipients' && (
           <SelectChallengeRecipients
             back={() => {
               this.currentState = 'enter-oobis';
@@ -546,11 +566,11 @@ class JoinVideoCall {
               this.currentState = 'generate-challenge';
             }}
           />
-        )}
+        )} */}
         {this.currentState === 'generate-challenge' && (
           <GenerateChallenge
             back={() => {
-              this.currentState = 'select-challenge-recipients';
+              this.currentState = 'enter-oobis';
             }}
             continue={() => {
               this.currentState = 'copy-challenge';
