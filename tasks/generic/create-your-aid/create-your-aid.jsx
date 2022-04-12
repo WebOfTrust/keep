@@ -181,9 +181,13 @@ class ReviewAndConfirm {
       'BuyRFMideczFZoapylLIyCjSdhtqVb31wZkRKvPfNqkw',
       'Bgoq68HCmYNUDgOz4Skvlu306o_NY-NrYuKAVhk3Zh9c',
     ];
-    KERI.createIdentifier(vnode.attrs.alias, witnesses).then(() => {
-      vnode.attrs.end();
-    });
+    KERI.createIdentifier(vnode.attrs.alias, witnesses)
+      .then(() => {
+        vnode.attrs.end();
+      })
+      .catch((err) => {
+        console.log('createIdentifier', err);
+      });
   }
 
   view(vnode) {

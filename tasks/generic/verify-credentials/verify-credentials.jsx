@@ -89,12 +89,20 @@ class AcceptOOBI {
   }
 
   oninit() {
-    KERI.listIdentifiers().then((identifiers) => {
-      this.oobi.alias = identifiers[0].name;
-      KERI.getOOBI(identifiers[0].name, 'witness').then((oobi) => {
-        this.oobi.url = oobi.oobis[0];
+    KERI.listIdentifiers()
+      .then((identifiers) => {
+        this.oobi.alias = identifiers[0].name;
+        KERI.getOOBI(identifiers[0].name, 'witness')
+          .then((oobi) => {
+            this.oobi.url = oobi.oobis[0];
+          })
+          .catch((err) => {
+            console.log('getOOBI', err);
+          });
+      })
+      .catch((err) => {
+        console.log('listIdentifiers', err);
       });
-    });
   }
 
   view(vnode) {
@@ -180,10 +188,14 @@ class PasteChallengeMessage {
   }
 
   signChallengeMessage(vnode) {
-    KERI.signChallengeMessage('qar aid', this.challengeMessage.split(' ')).then(() => {
-      console.log('challenge signed');
-      vnode.attrs.continue();
-    });
+    KERI.signChallengeMessage('qar aid', this.challengeMessage.split(' '))
+      .then(() => {
+        console.log('challenge signed');
+        vnode.attrs.continue();
+      })
+      .catch((err) => {
+        console.log('signChallengeMessage', err);
+      });
   }
 
   view(vnode) {

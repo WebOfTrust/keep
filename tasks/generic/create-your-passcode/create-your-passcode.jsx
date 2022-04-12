@@ -57,7 +57,7 @@ class GeneratePasscode {
         this.passcode = resp.passcode;
       })
       .catch((err) => {
-        console.log(err);
+        console.log('generatePasscode', err);
       });
   }
 
@@ -163,7 +163,7 @@ class EnterPasscode {
     KERI.initializeAgent(`keep${KERI.port}`, this.passcode)
       .then(vnode.attrs.continue)
       .catch((err) => {
-        console.log('initializeAgent err: ', err);
+        console.log('initializeAgent', err);
       });
   }
 

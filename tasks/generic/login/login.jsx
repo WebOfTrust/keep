@@ -15,7 +15,7 @@ class Login {
         vnode.attrs.end();
       })
       .catch((err) => {
-        console.log(err);
+        console.log('login', err);
       });
   }
 

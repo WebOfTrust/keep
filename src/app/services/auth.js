@@ -25,6 +25,7 @@ class Auth {
           resolve(response);
         })
         .catch((err) => {
+          console.log('unlockAgent', err);
           reject(err);
         });
     });

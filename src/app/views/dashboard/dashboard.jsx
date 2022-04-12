@@ -53,9 +53,13 @@ class Dashboard {
     // ];
     // this.portSelected = process.env.API_PORT;
     if (Auth.isLoggedIn()) {
-      KERI.listIdentifiers().then((ids) => {
-        this.identifiers = ids;
-      });
+      KERI.listIdentifiers()
+        .then((ids) => {
+          this.identifiers = ids;
+        })
+        .catch((err) => {
+          console.log('listIdentifiers', err);
+        });
     }
   }
 

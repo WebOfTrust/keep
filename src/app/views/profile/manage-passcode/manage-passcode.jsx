@@ -3,6 +3,7 @@ import createYourPasscode from '../../../../assets/img/create-your-passcode.png'
 import passcodeImg from '../../../../assets/img/passcode.png';
 import { Button, TextField } from '../../../components';
 import { KERI } from '../../../../app/services';
+
 class ChangingPasscode {
   view(vnode) {
     return (
@@ -56,7 +57,7 @@ class GeneratePasscode {
         console.log(this.passcode);
       })
       .catch((err) => {
-        console.log(err);
+        console.log('generatePasscode', err);
       });
   }
 
