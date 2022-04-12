@@ -8,6 +8,7 @@ import uploadFile from '../../../src/assets/img/upload-file.png';
 
 class DelegatingAIDs {
   constructor(vnode) {}
+
   view(vnode) {
     return (
       <>
@@ -35,6 +36,7 @@ class DelegatingAIDs {
 
 class VideoCall {
   constructor(vnode) {}
+
   view(vnode) {
     return (
       <>
@@ -152,6 +154,7 @@ class SendOOBI {
 
 class EnterOOBIs {
   constructor(vnode) {
+    this.alias = '';
     this.oobis = [
       {
         alias: '',
@@ -166,10 +169,13 @@ class EnterOOBIs {
         url: '',
       },
     ];
+    KERI.listIdentifiers().then((identifiers) => {
+      this.alias = identifiers[0].name;
+    });
   }
 
   resolveOOBIPromise(oobi) {
-    return KERI.resolveOOBI(oobi.alias, oobi.url);
+    return KERI.resolveOOBI(this.alias, oobi.alias, oobi.url);
   }
 
   resolveAllOOBIs() {
@@ -401,15 +407,50 @@ class CopyChallenge {
 }
 
 class EnterChallengeMessages {
-  constructor(vnode) {}
+  constructor(vnode) {
+    this.signers = [
+      {
+        alias: 'Bob',
+        challengeMessage: '',
+      },
+      {
+        alias: 'Alice',
+        challengeMessage: '',
+      },
+    ];
+    this.signerIdx = 0;
+  }
+
+  nextOrContinue(vnode) {
+    if (this.signerIdx + 1 === this.signers.length) {
+      vnode.attrs.continue();
+      return;
+    }
+    this.signerIdx++;
+  }
+
+  get currentSigner() {
+    return this.signers[this.signerIdx];
+  }
 
   view(vnode) {
     return (
       <>
-        <h3>Enter Bob's Challenge Message Below</h3>
-        <p>Signer 1 of 12</p>
+        <h3>Enter {this.currentSigner.alias}'s Challenge Message Below</h3>
+        <p>
+          Signer {this.signerIdx + 1} of {this.signers.length}
+        </p>
         <p>Enter the challenge message that you received from Bob in the box below:</p>
-        <TextField outlined fluid textarea style={{ backgroundColor: 'rgba(0, 0, 0, 0.04)' }} />
+        <TextField
+          outlined
+          fluid
+          textarea
+          style={{ backgroundColor: 'rgba(0, 0, 0, 0.04)' }}
+          value={this.currentSigner.challengeMessage}
+          oninput={(e) => {
+            this.currentSigner.challengeMessage = e.target.value;
+          }}
+        />
         <div class="flex flex-justify-between">
           <Button
             class="button--gray-dk button--big button--no-transform"
@@ -417,7 +458,14 @@ class EnterChallengeMessages {
             label="Go Back"
             onclick={vnode.attrs.back}
           />
-          <Button class="button--big button--no-transform" raised label="Next" onclick={vnode.attrs.continue} />
+          <Button
+            class="button--big button--no-transform"
+            raised
+            label="Next"
+            onclick={() => {
+              this.nextOrContinue(vnode);
+            }}
+          />
         </div>
       </>
     );
@@ -426,6 +474,7 @@ class EnterChallengeMessages {
 
 class VerificationProgress {
   constructor(vnode) {}
+
   view(vnode) {
     return (
       <>
@@ -447,6 +496,7 @@ class JoinVideoCall {
   constructor() {
     this.currentState = 'delegating-aids';
   }
+
   view(vnode) {
     return (
       <>

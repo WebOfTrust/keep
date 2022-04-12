@@ -201,6 +201,7 @@ class SendOOBI {
 
 class EnterOOBIs {
   constructor(vnode) {
+    this.alias = '';
     this.oobis = [
       {
         alias: '',
@@ -215,10 +216,13 @@ class EnterOOBIs {
         url: '',
       },
     ];
+    KERI.listIdentifiers().then((identifiers) => {
+      this.alias = identifiers[0].name;
+    });
   }
 
   resolveOOBIPromise(oobi) {
-    return KERI.resolveOOBI(oobi.alias, oobi.url);
+    return KERI.resolveOOBI(this.alias, oobi.alias, oobi.url);
   }
 
   resolveAllOOBIs() {
