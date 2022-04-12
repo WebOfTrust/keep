@@ -154,24 +154,42 @@ class ResolveOOBI {
           </TextTooltip>
         </h3>
         <p class="p-tag">
-          While on the Video Call, make sure to obtain the other party's <b>URL and OOBI</b>. When you have both for
-          each party, please press continue.
+          {vnode.attrs.acceptOobi ? (
+            vnode.attrs.acceptOobi.paragraph
+          ) : (
+            <>
+              While on the Video Call, make sure to obtain the other party's <b>URL and OOBI</b>. When you have both for
+              each party, please press continue.
+            </>
+          )}
         </p>
-        <label>Alias:</label>
+        <label>
+          {vnode.attrs.acceptOobi ? (
+            vnode.attrs.acceptOobi.alias
+          ) : (
+            <>
+              <strong>Alias:</strong>
+            </>
+          )}
+        </label>
         <TextField
           outlined
           fluid
           style={{ margin: '0 0 2rem 0' }}
           value={this.oobi.alias}
+          iconTrailing={{ icon: 'content_copy' }}
           oninput={(e) => {
             this.oobi.alias = e.target.value;
           }}
         />
-        <label>URL:</label>
+        <label>
+          <strong>URL:</strong>
+        </label>
         <TextField
           outlined
           fluid
           style={{ margin: '0 0 4rem 0' }}
+          iconTrailing={{ icon: 'content_copy' }}
           value={this.oobi.url}
           oninput={(e) => {
             this.oobi.url = e.target.value;
@@ -419,6 +437,7 @@ class IdentityAuthenticationIssue {
       <>
         {this.currentState === 'steps-to-authenticate' && (
           <StepsToAuthenticate
+            steps={vnode.attrs.steps}
             continue={() => {
               this.currentState = 'join-video-call';
             }}
@@ -436,6 +455,7 @@ class IdentityAuthenticationIssue {
         )}
         {this.currentState === 'resolve-oobi' && (
           <ResolveOOBI
+            acceptOobi={vnode.attrs.acceptOobi}
             back={() => {
               this.currentState = 'join-video-call';
             }}

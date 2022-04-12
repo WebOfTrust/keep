@@ -89,6 +89,7 @@ const tasks = {
           return (
             <IdentityAuthenticationIssue
               steps={ExternalGarVariables.identityAuthentication.steps}
+              acceptOobi={ExternalGarVariables.identityAuthentication.acceptOobi}
               end={vnode.attrs.end}
             />
           );

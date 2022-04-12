@@ -105,6 +105,19 @@ const ExternalGarVariables = {
         <>You verify signature and issue credentials.</>,
       ],
     },
+    acceptOobi: {
+      paragraph: (
+        <>
+          While on the Video Call, make sure to obtain the QAR's <b>URL and OOBI</b>. When you have both for each party,
+          please press continue.
+        </>
+      ),
+      alias: (
+        <>
+          <strong>AID:</strong>
+        </>
+      ),
+    },
   },
 };
 

@@ -73,6 +73,13 @@ class SelectMultiSigMembers {
           Please select the multi-sig group members. Event will not validate unless the minimum signing threshold is
           met. When weighted, the threshold is a sum of 1.
         </p>
+        <div class="flex flex-justify-evenly" style={{ margin: '2rem 0 2rem 0' }}>
+          <label class="container">
+            <span class="checkmark"></span>
+            <input type="checkbox" checked="checked" />
+            Create Credential Registry
+          </label>
+        </div>
         <div style={{ height: '350px', overflowY: 'scroll', margin: '0 0 1rem 0' }}>
           {this.tempConfigureArray.map((sig) => {
             return (
@@ -83,11 +90,13 @@ class SelectMultiSigMembers {
                 <h4 class="p-tag" style={{ margin: '0 0 0 0' }}>
                   {`#${sig.number}`}
                 </h4>
-                <div
+                <TextField
                   class="flex flex-align-center"
                   style={{ width: '68%', backgroundColor: 'white', height: '40px', borderRadius: '3px' }}
+                  iconTrailing={{ icon: 'search' }}
+                  placeholder={sig.name}
                 >
-                  <p
+                  {/* <p
                     class="font-color--battleship"
                     style={{
                       letterSpacing: '.15px',
@@ -96,8 +105,8 @@ class SelectMultiSigMembers {
                     }}
                   >
                     {sig.name}
-                  </p>
-                </div>
+                  </p> */}
+                </TextField>
                 <h4 class="p-tag" style={{ margin: '0 0 0 0' }}>
                   {sig.date}
                 </h4>
@@ -130,154 +139,7 @@ class MultiSigVerProg {
           You will be notified when the representatives provide their signature on the Inception Event.
         </p>
         <div class="flex flex-justify-end">
-          <Button
-            class="button--big button--no-transform"
-            raised
-            label="View Progress"
-            onclick={vnode.attrs.continue}
-          />
-        </div>
-      </>
-    );
-  }
-}
-class AcceptingOOBIs {
-  constructor(vnode) {}
-  view(vnode) {
-    return (
-      <>
-        <h3>Accept OOBIs</h3>
-        <div class="flex flex-justify-between" style={{ alignItems: 'baseline' }}>
-          <p class="p-tag" style={{ margin: '2rem 0 2rem 0' }}>
-            Enter AIDs, URLs and Aliases you received on the Video Call from the Controllers below:
-          </p>
-        </div>
-        <div style={{ height: '350px', overflowY: 'scroll' }}>
-          <Card class="card--fluid" style={{ margin: '0 0 1.5rem 0', height: '200px' }}>
-            <div class="flex flex-align-center flex-justify-between" style={{ flexDirection: 'column' }}>
-              <div class="flex flex-align-center flex-justify-between">
-                <h4>AID:</h4>
-                <TextField style={{ backgroundColor: 'rgba(0, 0, 0, 0.04)', height: '2rem', width: '80%' }} />
-              </div>
-              <div class="flex flex-align-center flex-justify-between">
-                <h4>URL:</h4>
-                <TextField style={{ backgroundColor: 'rgba(0, 0, 0, 0.04)', height: '2rem', width: '80%' }} />
-              </div>
-              <div class="flex flex-align-center flex-justify-between">
-                <h4>Alias:</h4>
-                <TextField style={{ backgroundColor: 'rgba(0, 0, 0, 0.04)', height: '2rem', width: '80%' }} />
-              </div>
-            </div>
-          </Card>
-          <Card class="card--fluid" style={{ margin: '0 0 1.5rem 0', height: '200px' }}>
-            <div class="flex flex-align-center flex-justify-between" style={{ flexDirection: 'column' }}>
-              <div class="flex flex-align-center flex-justify-between">
-                <h4>AID:</h4>
-                <TextField style={{ backgroundColor: 'rgba(0, 0, 0, 0.04)', height: '2rem', width: '80%' }} />
-              </div>
-              <div class="flex flex-align-center flex-justify-between">
-                <h4>URL:</h4>
-                <TextField style={{ backgroundColor: 'rgba(0, 0, 0, 0.04)', height: '2rem', width: '80%' }} />
-              </div>
-              <div class="flex flex-align-center flex-justify-between">
-                <h4>Alias:</h4>
-                <TextField style={{ backgroundColor: 'rgba(0, 0, 0, 0.04)', height: '2rem', width: '80%' }} />
-              </div>
-            </div>
-          </Card>
-        </div>
-
-        <div class="flex flex-justify-end">
-          <Button class="button--big button--no-transform" raised label="Continue" onclick={vnode.attrs.continue} />
-        </div>
-      </>
-    );
-  }
-}
-
-class GenerateChallengeMessage {
-  constructor(vnode) {}
-  view(vnode) {
-    return (
-      <>
-        <img src={responseMessage} style={{ width: '50%', margin: '1.5rem 0 2rem 0' }} />
-        <h3>Generate Challenge Message</h3>
-        <p class="p-tag" style={{ margin: '2rem 0 2rem 0' }}>
-          The Challenge Response Message generated will be sent to all the GLEIF Controllers in the order you provided.
-          <br />
-          <br />
-        </p>
-
-        <div class="flex flex-justify-between">
-          <Button
-            class="button--gray-dk button--big button--no-transform"
-            raised
-            label="Go Back"
-            onclick={vnode.attrs.back}
-          />
-          <Button class="button--big button--no-transform" raised label="Generate" onclick={vnode.attrs.continue} />
-        </div>
-      </>
-    );
-  }
-}
-class CopyChallengeMessage {
-  constructor(vnode) {}
-  view(vnode) {
-    return (
-      <>
-        <img src={responseMessage} style={{ width: '50%', margin: '1.5rem 0 2rem 0' }} />
-        <h3>Copy Challenge Message</h3>
-        <p class="p-tag" style={{ margin: '2rem 0 2rem 0' }}>
-          Generate a message for each controller then direct message each GLEIF Controller in the video call.
-          <br />
-          <br />
-          <strong>
-            Important! Don’t use a challenge message from another session, it should be unique to this session taking
-            place today with the GLEIF Controllers.
-          </strong>
-          <br />
-          <br />
-        </p>
-        <TextField
-          textarea
-          style={{ height: '5rem', width: '100%', margin: '0 0 4rem 0', backgroundColor: 'rgba(0, 0, 0, 0.04)' }}
-        />
-        <div class="flex flex-justify-between">
-          <Button
-            class="button--gray-dk button--big button--no-transform"
-            raised
-            label="Go Back"
-            onclick={vnode.attrs.back}
-          />
-          <Button class="button--big button--no-transform" raised label="Continue" onclick={vnode.attrs.continue} />
-        </div>
-      </>
-    );
-  }
-}
-class ChallengeMessageProgress {
-  constructor(vnode) {}
-  view(vnode) {
-    return (
-      <>
-        <img src={uploadFile} style={{ width: '60%', margin: '1.5rem 0 2rem 0' }} />
-        <h3>Challenge Message in Progress</h3>
-        <p class="p-tag" style={{ margin: '2rem 0 2rem 0' }}>
-          You will be notified when the GRACs sign and return the Challenge Message, after which you may configure the
-          multi-sig set as the GLEIF Genesis Controller.
-          <br />
-          <br />
-        </p>
-
-        <div class="flex flex-justify-between">
-          <Button
-            class="button--gray-dk button--big button--no-transform"
-            raised
-            label="Go Back"
-            onclick={vnode.attrs.back}
-          />
-          <Button class="button--big button--no-transform" raised label="close" onclick={vnode.attrs.end} />
+          <Button class="button--big button--no-transform" raised label="View Progress" onclick={vnode.attrs.end} />
         </div>
       </>
     );
@@ -309,48 +171,7 @@ class ConfigureMultiSigSet {
             }}
           />
         )}
-        {this.currentState === 'multi-sig-ver' && (
-          <MultiSigVerProg
-            continue={() => {
-              this.currentState = 'accept-oobis';
-            }}
-          />
-        )}
-        {this.currentState === 'accept-oobis' && (
-          <AcceptingOOBIs
-            continue={() => {
-              this.currentState = 'generate-challenge-message';
-            }}
-          />
-        )}
-        {this.currentState === 'generate-challenge-message' && (
-          <GenerateChallengeMessage
-            back={() => {
-              this.currentState = 'accept-oobis';
-            }}
-            continue={() => {
-              this.currentState = 'copy-challenge-message';
-            }}
-          />
-        )}
-        {this.currentState === 'copy-challenge-message' && (
-          <CopyChallengeMessage
-            back={() => {
-              this.currentState = 'generate-challenge-message';
-            }}
-            continue={() => {
-              this.currentState = 'challenge-message-progress';
-            }}
-          />
-        )}
-        {this.currentState === 'challenge-message-progress' && (
-          <ChallengeMessageProgress
-            back={() => {
-              this.currentState = 'copy-challenge-message';
-            }}
-            end={vnode.attrs.end}
-          />
-        )}
+        {this.currentState === 'multi-sig-ver' && <MultiSigVerProg end={vnode.attrs.end} />}
       </>
     );
   }

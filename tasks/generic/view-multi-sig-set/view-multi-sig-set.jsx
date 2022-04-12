@@ -66,6 +66,7 @@ class EventLog {
       <>
         <h3>Event Log</h3>
         <TextField
+          iconTrailing={{ icon: 'search' }}
           placeholder="Search by date or event log number"
           style={{
             backgroundColor: 'rgba(0, 0, 0, 0.04)',
@@ -73,6 +74,7 @@ class EventLog {
             width: '100%',
             borderRadius: '0px',
             alignItems: 'center',
+            margin: '2rem 0 2rem 0',
           }}
         />
         <br></br>
