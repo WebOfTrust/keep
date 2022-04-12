@@ -15,11 +15,17 @@
 // Card
 @use '@material/card/index' as card;
 
+// Checkbox
+@use '@material/checkbox/mixins' as checkbox;
+
 // CircularProgress
 @use '@material/circular-progress/mdc-circular-progress';
 
 // Chip
 @use '@material/chips/styles' as chipStyles;
+
+// Form Field
+@use "@material/form-field/mixins" as formField;
 
 // IconButton
 @use '@material/icon-button/styles' as iconButtonStyles;
@@ -40,6 +46,8 @@
 @use '@material/tooltip/styles' as tooltipStyles;
 
 @include card.core-styles;
+@include checkbox.core-styles;
+@include formField.core-styles;
 @include iconButton.core-styles;
 @include textfield.core-styles;
 

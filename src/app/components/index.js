@@ -1,6 +1,7 @@
 import Button from './button/button.jsx';
 import Breadcrumb from './breadcrumb/breadcrumb.jsx';
 import Card from './card/card.jsx';
+import Checkbox from './checkbox/checkbox.jsx';
 import Container from './container/container.jsx';
 import DatePicker from './date-picker/date-picker.jsx';
 import DateRange from './date-range/date-range.jsx';
@@ -20,6 +21,7 @@ module.exports = {
   Button,
   Breadcrumb,
   Card,
+  Checkbox,
   Container,
   DatePicker,
   DateRange,
