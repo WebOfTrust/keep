@@ -8,119 +8,20 @@ import contactGroup from '../../../assets/img/contact-group.png';
 import tempProfPic from '../../../assets/img/temp-prof-pic.jpg';
 
 class Contacts {
-  tempContactArray = [
-    {
-      id: '1',
-      name: 'Quentin Tarantino',
-      displayPic: tempProfPic,
-      description: 'GLEIF Authorized Representative',
-      email: '10epics@redapple.com',
-      phoneNumber: '1-555-555-5555',
-      company: 'GLEIF',
-      role: 'External GAR',
-    },
-    {
-      id: '2',
-      name: 'Bill',
-      displayPic: tempProfPic,
-      description: 'GLEIF Authorized Representative',
-      email: '10epics@redapple.com',
-      phoneNumber: '1-555-555-5555',
-      company: 'GLEIF',
-      role: 'External GAR',
-    },
-    {
-      id: '3',
-      name: 'Jackie Brown',
-      displayPic: tempProfPic,
-      description: 'GLEIF Authorized Representative',
-      email: '10epics@redapple.com',
-      phoneNumber: '1-555-555-5555',
-      company: 'GLEIF',
-      role: 'External GAR',
-    },
-    {
-      id: '4',
-      name: 'Cliff Booth',
-      displayPic: tempProfPic,
-      description: 'GLEIF Authorized Representative',
-      email: '10epics@redapple.com',
-      phoneNumber: '1-555-555-5555',
-      company: 'GLEIF',
-      role: 'External GAR',
-    },
-    {
-      id: '5',
-      name: 'Vincent Vega',
-      displayPic: tempProfPic,
-      description: 'GLEIF Authorized Representative',
-      email: '10epics@redapple.com',
-      phoneNumber: '1-555-555-5555',
-      company: 'GLEIF',
-      role: 'External GAR',
-    },
-    {
-      id: '6',
-      name: 'Calvin Candie',
-      displayPic: tempProfPic,
-      description: 'GLEIF Authorized Representative',
-      email: '10epics@redapple.com',
-      phoneNumber: '1-555-555-5555',
-      company: 'GLEIF',
-      role: 'External GAR',
-    },
-    {
-      id: '7',
-      name: 'Lt. Aldo Raine',
-      displayPic: tempProfPic,
-      description: 'GLEIF Authorized Representative',
-      email: '10epics@redapple.com',
-      phoneNumber: '1-555-555-5555',
-      company: 'GLEIF',
-      role: 'External GAR',
-    },
-    {
-      id: '8',
-      name: 'Mia Wallace',
-      displayPic: tempProfPic,
-      description: 'GLEIF Authorized Representative',
-      email: '10epics@redapple.com',
-      phoneNumber: '1-555-555-5555',
-      company: 'GLEIF',
-      role: 'External GAR',
-    },
-    {
-      id: '9',
-      name: 'Rick Dalton',
-      displayPic: tempProfPic,
-      description: 'GLEIF Authorized Representative',
-      email: '10epics@redapple.com',
-      phoneNumber: '1-555-555-5555',
-      company: 'GLEIF',
-      role: 'External GAR',
-    },
-    {
-      id: '10',
-      name: 'Mj. Marquis Warrren',
-      displayPic: tempProfPic,
-      description: 'GLEIF Authorized Representative',
-      email: '10epics@redapple.com',
-      phoneNumber: '1-555-555-5555',
-      company: 'GLEIF',
-      role: 'External GAR',
-    },
-  ];
-
   constructor() {
-    this.activeContact = 0;
-    KERI.getContacts().then((contacts) => {
-      console.log(contacts);
-    });
+    this.contacts = [];
+    this.activeContact = null;
+    KERI.getContacts()
+      .then((contacts) => {
+        this.contacts = contacts;
+      })
+      .catch((err) => {
+        console.log('getContacts', err);
+      });
   }
 
-  setContact = (id) => {
-    this.activeContact = id;
-    console.log(this.activeContact);
+  setContact = (contact) => {
+    this.activeContact = contact;
   };
 
   view(vnode) {
@@ -144,7 +45,7 @@ class Contacts {
                       icon: 'search',
                     }}
                   />
-                  {this.tempContactArray.map((contact) => {
+                  {this.contacts.map((contact) => {
                     return <ContactList contact={contact} setContact={this.setContact} />;
                   })}
                 </Card>
@@ -152,8 +53,8 @@ class Contacts {
               <div class="flex-1">
                 <Card class={'card--fluid'} style={{ position: 'relative' }} padding="4rem">
                   <IconButton class="close-icon" icon="close" />
-                  {this.activeContact !== 0 ? (
-                    <ContactDetails contactId={this.activeContact} contacts={this.tempContactArray} />
+                  {this.activeContact !== null ? (
+                    <ContactDetails contact={this.activeContact} />
                   ) : (
                     <>
                       <h2>My Contacts</h2>

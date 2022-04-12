@@ -16,14 +16,14 @@ class ContactList {
             cursor: 'pointer',
           }}
           onclick={() => {
-            vnode.attrs.setContact(vnode.attrs.contact.id);
+            vnode.attrs.setContact(vnode.attrs.contact);
           }}
         >
           <div class="flex" style={{ alignItems: 'center' }}>
-            <img src={vnode.attrs.contact.displayPic} style={{ width: '28px', height: '28px', borderRadius: '50%' }} />
+            {/* <img src={vnode.attrs.contact.displayPic} style={{ width: '28px', height: '28px', borderRadius: '50%' }} /> */}
             <div class="flex flex-column">
-              <p style={{ margin: '0 0 0 1rem', fontSize: '90%' }}>{vnode.attrs.contact.name}</p>
-              <p style={{ margin: '0 0 0 1rem', fontSize: '70%' }}>{vnode.attrs.contact.description}</p>
+              <p style={{ margin: '0 0 0 1rem', fontSize: '90%' }}>{vnode.attrs.contact.alias}</p>
+              {/* <p style={{ margin: '0 0 0 1rem', fontSize: '70%' }}>{vnode.attrs.contact.description}</p> */}
             </div>
           </div>
         </div>
