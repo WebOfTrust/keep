@@ -1,5 +1,5 @@
 import m from 'mithril';
-import { Button, Card, TextField } from '../../../src/app/components';
+import { Button, Card, TextField, Checkbox } from '../../../src/app/components';
 
 import uploadFile from '../../../src/assets/img/upload-file.png';
 
@@ -73,10 +73,12 @@ class SelectMultiSigMembers {
           Please select the multi-sig group members. Event will not validate unless the minimum signing threshold is
           met. When weighted, the threshold is a sum of 1.
         </p>
-        <div class="flex flex-justify-evenly" style={{ margin: '2rem 0 2rem 0' }}>
-          <label class="container">
-            <span class="checkmark"></span>
+        <div class="flex" style={{ margin: '2rem 0 2rem 0' }}>
+          <Checkbox />
+          <label class="flex" style={{ alignItems: 'center', color: '#737b7d' }}>
+            {/* <span class="checkmark"></span>
             <input type="checkbox" checked="checked" />
+            Create Credential Registry */}
             Create Credential Registry
           </label>
         </div>
