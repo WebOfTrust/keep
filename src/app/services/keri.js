@@ -67,11 +67,12 @@ class KERI {
     });
   }
 
-  static resolveOOBI(alias, url) {
+  static resolveOOBI(alias, oobialias, url) {
     return m.request({
       method: 'POST',
       url: `${process.env.API_HOST}:${this.port}/oobi/${alias}`,
       body: {
+        oobialias,
         url,
       },
     });

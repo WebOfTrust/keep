@@ -149,6 +149,7 @@ class IdentityVerificationInProgress {
 
 class ResolveOOBI {
   constructor() {
+    this.alias = '';
     this.oobi = {
       alias: '',
       url: '',
@@ -156,8 +157,11 @@ class ResolveOOBI {
   }
 
   resolveOOBI(vnode) {
-    KERI.resolveOOBI(this.oobi.alias, this.oobi.url).then(() => {
-      vnode.attrs.continue();
+    KERI.listIdentifiers().then((identifiers) => {
+      this.alias = identifiers[0].name;
+      KERI.resolveOOBI(this.alias, this.oobi.alias, this.oobi.url).then(() => {
+        vnode.attrs.continue();
+      });
     });
   }
 
