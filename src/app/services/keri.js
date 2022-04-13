@@ -107,6 +107,18 @@ class KERI {
     });
   }
 
+  static getContactsByAliases(aliases) {
+    let valueParams = aliases
+      .map((alias) => {
+        return `&filter_value=${alias}`;
+      })
+      .join('');
+    return m.request({
+      method: 'GET',
+      url: `${process.env.API_HOST}:${this.port}/contacts?filter_field=alias${valueParams}`,
+    });
+  }
+
   static getContact(prefix) {
     return m.request({
       method: 'GET',

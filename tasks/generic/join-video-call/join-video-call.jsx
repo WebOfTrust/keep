@@ -80,20 +80,14 @@ class SendOOBI {
     };
   }
 
-  oninit() {
-    KERI.listIdentifiers()
-      .then((identifiers) => {
-        this.oobi.alias = identifiers[0].name;
-        KERI.getOOBI(identifiers[0].name, 'witness')
-          .then((oobi) => {
-            this.oobi.url = oobi.oobis[0];
-          })
-          .catch((err) => {
-            console.log('getOOBI', err);
-          });
+  oninit(vnode) {
+    this.oobi.alias = vnode.attrs.identifiers[0].name;
+    KERI.getOOBI(this.oobi.alias, 'witness')
+      .then((oobi) => {
+        this.oobi.url = oobi.oobis[0];
       })
       .catch((err) => {
-        console.log('listIdentifiers', err);
+        console.log('getOOBI', err);
       });
   }
 
@@ -162,7 +156,7 @@ class SendOOBI {
 
 class EnterOOBIs {
   constructor(vnode) {
-    this.alias = '';
+    this.alias = vnode.attrs.identifiers[0].name;
     this.oobis = [
       {
         alias: '',
@@ -177,13 +171,6 @@ class EnterOOBIs {
         url: '',
       },
     ];
-    KERI.listIdentifiers()
-      .then((identifiers) => {
-        this.alias = identifiers[0].name;
-      })
-      .catch((err) => {
-        console.log('listIdentifiers', err);
-      });
   }
 
   resolveOOBIPromise(oobi) {
@@ -444,25 +431,20 @@ class CopyChallenge {
 
 class EnterChallengeMessages {
   constructor(vnode) {
-    this.alias = '';
-    this.contacts = [];
-    this.signers = vnode.attrs.oobis.map((oobi) => {
-      return {
-        alias: oobi.alias,
-        challangeMessage: '',
-      };
+    this.alias = vnode.attrs.identifiers[0].name;
+    this.signers = [];
+    this.aliases = vnode.attrs.oobis.map((oobi) => {
+      return oobi.alias;
     });
-    KERI.listIdentifiers()
-      .then((identifiers) => {
-        this.alias = identifiers[0].name;
-        console.log(this.alias);
-      })
-      .catch((err) => {
-        console.log('listIdentifiers', err);
-      });
-    KERI.getContacts()
+    KERI.getContactsByAliases(this.aliases)
       .then((contacts) => {
-        this.contacts = contacts;
+        this.signers = contacts.map((contact) => {
+          return {
+            id: contact.id,
+            alias: contact.alias,
+            challengeMessage: '',
+          };
+        });
       })
       .catch((err) => {
         console.log('getContacts', err);
@@ -470,7 +452,7 @@ class EnterChallengeMessages {
   }
 
   signChallengePromise(signer) {
-    return KERI.signChallengeMessage(this.alias, this.contacts[0].id, signer.challengeMessage.split(' '));
+    return KERI.signChallengeMessage(this.alias, signer.id, signer.challengeMessage.split(' '));
   }
 
   signAllChallengeMessages() {
@@ -558,13 +540,16 @@ class VerificationProgress {
 
 class JoinVideoCall {
   constructor() {
-    this.currentState = 'enter-challenge-messages';
-    this.oobis = [
-      {
-        alias: 'rootgar1',
-        url: 'http://127.0.0.1:5642/oobi/EF_h1XlGK4eng4sJ2y0e-liz-3DEOzWhPxMLhZbxHTdU/witness/BGKVzj4ve0VSd8z_AmvhLg4lqcC_9WYX90k03q-R_Ydo',
-      },
-    ];
+    this.currentState = 'delegating-aids';
+    this.identifiers = [];
+    this.oobis = [];
+    KERI.listIdentifiers()
+      .then((identifiers) => {
+        this.identifiers = identifiers;
+      })
+      .catch((err) => {
+        console.log('listIdentifiers', err);
+      });
   }
 
   view(vnode) {
@@ -589,6 +574,7 @@ class JoinVideoCall {
         )}
         {this.currentState === 'send-oobi' && (
           <SendOOBI
+            identifiers={this.identifiers}
             back={() => {
               this.currentState = 'video-call';
             }}
@@ -599,14 +585,15 @@ class JoinVideoCall {
         )}
         {this.currentState === 'enter-oobis' && (
           <EnterOOBIs
+            identifiers={this.identifiers}
+            setOOBIs={(oobis) => {
+              this.oobis = oobis;
+            }}
             back={() => {
               this.currentState = 'send-oobi';
             }}
             continue={() => {
               this.currentState = 'generate-challenge';
-            }}
-            setOOBIs={(oobis) => {
-              this.oobis = oobis;
             }}
           />
         )}
@@ -642,13 +629,14 @@ class JoinVideoCall {
         )}
         {this.currentState === 'enter-challenge-messages' && (
           <EnterChallengeMessages
+            identifiers={this.identifiers}
+            oobis={this.oobis}
             back={() => {
               this.currentState = 'copy-challenge';
             }}
             continue={() => {
               this.currentState = 'verification-progress';
             }}
-            oobis={this.oobis}
           />
         )}
         {/* {this.currentState === 'identity-verification' && (
