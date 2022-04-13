@@ -439,12 +439,44 @@ class CopyChallenge {
 
 class EnterChallengeMessages {
   constructor(vnode) {
+    this.alias = '';
+    this.contacts = [];
     this.signers = vnode.attrs.oobis.map((oobi) => {
       return {
         alias: oobi.alias,
         challangeMessage: '',
       };
     });
+    KERI.listIdentifiers()
+      .then((identifiers) => {
+        this.alias = identifiers[0].name;
+        console.log(this.alias);
+      })
+      .catch((err) => {
+        console.log('listIdentifiers', err);
+      });
+    KERI.getContacts()
+      .then((contacts) => {
+        this.contacts = contacts;
+      })
+      .catch((err) => {
+        console.log('getContacts', err);
+      });
+  }
+
+  signChallengePromise(signer) {
+    return KERI.signChallengeMessage(this.alias, this.contacts[0].id, signer.challengeMessage.split(' '));
+  }
+
+  signAllChallengeMessages() {
+    let promises = this.signers
+      .filter((signer) => {
+        return signer.alias && signer.challengeMessage;
+      })
+      .map((signer) => {
+        return this.signChallengePromise(signer);
+      });
+    return Promise.all(promises);
   }
 
   view(vnode) {
@@ -484,7 +516,13 @@ class EnterChallengeMessages {
             raised
             label="Next"
             onclick={() => {
-              vnode.attrs.continue();
+              this.signAllChallengeMessages()
+                .then(() => {
+                  vnode.attrs.continue();
+                })
+                .catch((err) => {
+                  console.log('signAllChallengeMessages', err);
+                });
             }}
           />
         </div>
@@ -586,8 +624,13 @@ class Notifications {
 
 class InitiateVideoCall {
   constructor() {
-    this.currentState = 'delegating-aids';
-    this.oobis = [];
+    this.currentState = 'enter-challenge-messages';
+    this.oobis = [
+      {
+        alias: 'extgar1',
+        url: 'http://127.0.0.1:5642/oobi/E1nskcqqz2jp4vwCD5TnD3CfWtBO6XjRLX4iQ8ic8nu4/witness/BGKVzj4ve0VSd8z_AmvhLg4lqcC_9WYX90k03q-R_Ydo',
+      },
+    ];
   }
 
   view(vnode) {
@@ -697,7 +740,7 @@ class InitiateVideoCall {
         {this.currentState === 'waiting-for-signatures' && (
           <WaitingForSignatures
             back={() => {
-              this.currentState = 'copy-challenge';
+              this.currentState = 'enter-challenge-messages';
             }}
             continue={() => {
               this.currentState = 'notifications';

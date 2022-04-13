@@ -241,6 +241,17 @@ class EnterOOBIs {
               </Card>
             );
           })}
+          <Button
+            class="button--no-transform"
+            raised
+            label="Add Another"
+            onclick={() => {
+              this.oobis.push({
+                alias: '',
+                url: '',
+              });
+            }}
+          />
         </div>
         <div class="flex flex-justify-end">
           <Button
@@ -250,6 +261,11 @@ class EnterOOBIs {
             onclick={() => {
               this.resolveAllOOBIs()
                 .then(() => {
+                  vnode.attrs.setOOBIs(
+                    this.oobis.filter((oobi) => {
+                      return oobi.alias && oobi.url;
+                    })
+                  );
                   vnode.attrs.continue();
                 })
                 .catch((err) => {
@@ -428,49 +444,71 @@ class CopyChallenge {
 
 class EnterChallengeMessages {
   constructor(vnode) {
-    this.signers = [
-      {
-        alias: 'Bob',
-        challengeMessage: '',
-      },
-      {
-        alias: 'Alice',
-        challengeMessage: '',
-      },
-    ];
-    this.signerIdx = 0;
+    this.alias = '';
+    this.contacts = [];
+    this.signers = vnode.attrs.oobis.map((oobi) => {
+      return {
+        alias: oobi.alias,
+        challangeMessage: '',
+      };
+    });
+    KERI.listIdentifiers()
+      .then((identifiers) => {
+        this.alias = identifiers[0].name;
+        console.log(this.alias);
+      })
+      .catch((err) => {
+        console.log('listIdentifiers', err);
+      });
+    KERI.getContacts()
+      .then((contacts) => {
+        this.contacts = contacts;
+      })
+      .catch((err) => {
+        console.log('getContacts', err);
+      });
   }
 
-  nextOrContinue(vnode) {
-    if (this.signerIdx + 1 === this.signers.length) {
-      vnode.attrs.continue();
-      return;
-    }
-    this.signerIdx++;
+  signChallengePromise(signer) {
+    return KERI.signChallengeMessage(this.alias, this.contacts[0].id, signer.challengeMessage.split(' '));
   }
 
-  get currentSigner() {
-    return this.signers[this.signerIdx];
+  signAllChallengeMessages() {
+    let promises = this.signers
+      .filter((signer) => {
+        return signer.alias && signer.challengeMessage;
+      })
+      .map((signer) => {
+        return this.signChallengePromise(signer);
+      });
+    return Promise.all(promises);
   }
 
   view(vnode) {
     return (
       <>
-        <h3>Enter {this.currentSigner.alias}'s Challenge Message Below</h3>
-        <p>
-          Signer {this.signerIdx + 1} of {this.signers.length}
-        </p>
-        <p>Enter the challenge message that you received from Bob in the box below:</p>
-        <TextField
-          outlined
-          fluid
-          textarea
-          style={{ backgroundColor: 'rgba(0, 0, 0, 0.04)' }}
-          value={this.currentSigner.challengeMessage}
-          oninput={(e) => {
-            this.currentSigner.challengeMessage = e.target.value;
-          }}
-        />
+        {this.signers.map((signer, index) => {
+          return (
+            <>
+              <Card>
+                <p>{signer.alias}</p>
+                <p>
+                  Signer {index + 1} of {this.signers.length}
+                </p>
+                <TextField
+                  outlined
+                  fluid
+                  textarea
+                  style={{ backgroundColor: 'rgba(0, 0, 0, 0.04)' }}
+                  value={signer.challengeMessage}
+                  oninput={(e) => {
+                    signer.challengeMessage = e.target.value;
+                  }}
+                />
+              </Card>
+            </>
+          );
+        })}
         <div class="flex flex-justify-between">
           <Button
             class="button--gray-dk button--big button--no-transform"
@@ -483,7 +521,13 @@ class EnterChallengeMessages {
             raised
             label="Next"
             onclick={() => {
-              this.nextOrContinue(vnode);
+              this.signAllChallengeMessages()
+                .then(() => {
+                  vnode.attrs.continue();
+                })
+                .catch((err) => {
+                  console.log('signAllChallengeMessages', err);
+                });
             }}
           />
         </div>
@@ -514,7 +558,13 @@ class VerificationProgress {
 
 class JoinVideoCall {
   constructor() {
-    this.currentState = 'delegating-aids';
+    this.currentState = 'enter-challenge-messages';
+    this.oobis = [
+      {
+        alias: 'rootgar1',
+        url: 'http://127.0.0.1:5642/oobi/EF_h1XlGK4eng4sJ2y0e-liz-3DEOzWhPxMLhZbxHTdU/witness/BGKVzj4ve0VSd8z_AmvhLg4lqcC_9WYX90k03q-R_Ydo',
+      },
+    ];
   }
 
   view(vnode) {
@@ -554,6 +604,9 @@ class JoinVideoCall {
             }}
             continue={() => {
               this.currentState = 'generate-challenge';
+            }}
+            setOOBIs={(oobis) => {
+              this.oobis = oobis;
             }}
           />
         )}
@@ -595,6 +648,7 @@ class JoinVideoCall {
             continue={() => {
               this.currentState = 'verification-progress';
             }}
+            oobis={this.oobis}
           />
         )}
         {/* {this.currentState === 'identity-verification' && (
