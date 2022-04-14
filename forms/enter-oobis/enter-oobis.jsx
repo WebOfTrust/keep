@@ -58,7 +58,7 @@ class EnterOOBIsForm {
                   <TextField
                     outlined
                     fluid
-                    style={{ backgroundColor: 'rgba(0, 0, 0, 0.04)' }}
+                    style={{ backgroundColor: 'rgba(0, 0, 0, 0.04)', height: '44px' }}
                     value={oobi.alias}
                     oninput={(e) => {
                       oobi.alias = e.target.value;
@@ -70,7 +70,7 @@ class EnterOOBIsForm {
                   <TextField
                     outlined
                     fluid
-                    style={{ backgroundColor: 'rgba(0, 0, 0, 0.04)' }}
+                    style={{ backgroundColor: 'rgba(0, 0, 0, 0.04)', height: '44px' }}
                     value={oobi.url}
                     oninput={(e) => {
                       oobi.url = e.target.value;

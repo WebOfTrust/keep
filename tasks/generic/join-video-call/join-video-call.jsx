@@ -249,7 +249,7 @@ class JoinVideoCall {
               configure the multi-sig set.
             </p>
             <div class="flex flex-justify-end">
-              <Button class="button--big button--no-transform" raised label="close" onclick={vnode.attrs.end} />
+              <Button class="button--big button--no-transform" raised label="Close" onclick={vnode.attrs.end} />
             </div>
           </>
         )}

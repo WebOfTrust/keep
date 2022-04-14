@@ -20,7 +20,13 @@ class SendChallengeForm {
   view(vnode) {
     return (
       <>
-        <TextField outlined textarea fluid style={{ margin: '0 0 4rem 0' }} value={this.challangeMessage} />
+        <TextField
+          outlined
+          textarea
+          fluid
+          style={{ backgroundColor: 'rgba(0, 0, 0, 0.04)', margin: '0 0 4rem 0' }}
+          value={this.challangeMessage}
+        />
       </>
     );
   }
