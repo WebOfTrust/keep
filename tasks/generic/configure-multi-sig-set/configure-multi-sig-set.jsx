@@ -1,5 +1,5 @@
 import m from 'mithril';
-import { Button, TextField, TextTooltip, Checkbox } from '../../../src/app/components';
+import { Button, TextField, TextTooltip, Checkbox, Radio } from '../../../src/app/components';
 import { KERI } from '../../../src/app/services';
 
 import secureMessaging from '../../../src/assets/img/secure-messaging.png';
@@ -85,8 +85,9 @@ class ConfigureMultiSigSet {
           <>
             <h3>Configure Multi-Sig Group</h3>
             <div style={{ height: '608px', overflowY: 'auto' }}>
-              <p>Are your signatures fractionally weighted?</p>
-              <p>ex. Each signer equals 1/3 of the group.</p>
+              <p class="p-tag-bold">Are your signatures fractionally weighted?</p>
+              <p class="p-tag">ex. Each signer equals 1/3 of the group.</p>
+
               <input
                 type="radio"
                 id="weighted-yes"
@@ -110,7 +111,10 @@ class ConfigureMultiSigSet {
               <br />
               {!this.fractionallyWeighted && (
                 <>
-                  <label>How many signers are required to sign?</label>
+                  <label>
+                    <p class="p-tag-bold">How many signers are required to sign?</p>
+                  </label>
+                  <br></br>
                   <TextField outlined type="number" />
                 </>
               )}
@@ -118,21 +122,33 @@ class ConfigureMultiSigSet {
                 <Checkbox />
                 <label>Create Credential Registry</label>
               </div>
-              <label>
-                Enter Signers{' '}
-                <TextTooltip label={<u>(in order)</u>}>
-                  Order must be consistent (same exact list everytime). If fractionally weighted it should be highest to
-                  lowest weight.{' '}
-                </TextTooltip>
-                :
-              </label>
+              <div class="flex flex-justify-between">
+                <label>
+                  <>
+                    <b>Enter Signers </b>
+                    <TextTooltip
+                      label={
+                        <u>
+                          <b>(in order):</b>
+                        </u>
+                      }
+                    >
+                      Order must be consistent (same exact list everytime). If fractionally weighted it should be
+                      highest to lowest weight.{' '}
+                    </TextTooltip>
+                    <br></br>
+                  </>
+                </label>
+                {this.fractionallyWeighted && <b>Weight</b>}
+              </div>
+
               <br />
               {this.tempConfigureArray.map((signer) => {
                 return (
-                  <>
+                  <div class="flex flex-justify-between">
                     <TextField
                       outlined
-                      style={{ marginRight: '2rem' }}
+                      style={{ margin: '0 2rem 1rem 0' }}
                       value={signer.alias}
                       oninput={(e) => {
                         signer.alias = e.target.value;
@@ -148,11 +164,15 @@ class ConfigureMultiSigSet {
                         }}
                       />
                     )}
-                  </>
+                  </div>
                 );
               })}
-              <TextField outlined style={{ marginRight: '2rem' }} placeholder="+ Add New" />
-              {this.fractionallyWeighted && <TextField outlined style={{ width: '80px' }} placeholder="1/3" value="" />}
+              <div class="flex flex-justify-between">
+                <TextField outlined style={{ marginRight: '2rem' }} placeholder="+ Add New" />
+                {this.fractionallyWeighted && (
+                  <TextField outlined style={{ width: '80px' }} placeholder="1/3" value="" />
+                )}
+              </div>
             </div>
             <div class="flex flex-justify-between" style={{ marginTop: '2rem' }}>
               <Button
@@ -174,6 +194,40 @@ class ConfigureMultiSigSet {
             </div>
           </>
         )}
+        {/* {this.currentState === 'select-a-delegator' && (
+          <>
+            <img src={secureMessaging} style={{ width: '50%' }} />
+            <h3>Select a Delegator</h3>
+            <p class="p-tag">
+              Provide the AID and create an alias for the delegator that will be delegating the accesses.
+            </p>
+            <br></br>
+            <br></br>
+            <p class="p-tag-bold">Delegator AID</p>
+            <TextField outlined style={{ marginRight: '2rem' }} placeholder="delegator aid" />
+            <br></br>
+            <p class="p-tag-bold">Delegator Alias</p>
+            <TextField outlined style={{ marginRight: '2rem' }} placeholder="delegator alias" />
+            <div class="flex flex-justify-between" style={{ marginTop: '2rem' }}>
+              <Button
+                class="button--gray-dk button--big button--no-transform"
+                raised
+                label="Go Back"
+                onclick={() => {
+                  this.currentState = 'configure-multi-sig-index';
+                }}
+              />
+              <Button
+                class="button--big button--no-transform"
+                raised
+                label="Continue"
+                onclick={() => {
+                  this.currentState = 'review-and-confirm';
+                }}
+              />
+            </div>
+          </>
+        )} */}
         {this.currentState === 'review-and-confirm' && (
           <>
             <h3>Review and Confirm</h3>
@@ -182,11 +236,23 @@ class ConfigureMultiSigSet {
             {this.tempConfigureArray.map((signer) => {
               return (
                 <>
-                  <TextField outlined style={{ marginRight: '2rem' }} value={signer.alias} />
+                  <TextField outlined style={{ margin: '0 2rem 2rem 0' }} value={signer.alias} />
                   {this.fractionallyWeighted && <TextField outlined style={{ width: '80px' }} value={signer.weight} />}
                 </>
               );
             })}
+            <div class="flex flex-justfiy-between" style={{ margin: '0 0 4rem 0' }}>
+              <div class="flex flex-column">
+                <p class="p-tag-bold">Delegator AID</p>
+                <TextField outlined style={{ marginRight: '2rem' }} placeholder="delegator aid" />
+              </div>
+
+              <div class="flex flex-column">
+                <p class="p-tag-bold">Delegator Alias</p>
+                <TextField outlined style={{ marginRight: '2rem' }} placeholder="delegator alias" />
+              </div>
+            </div>
+
             <div class="flex flex-justify-between">
               <Button
                 class="button--gray-dk button--big button--no-transform"
@@ -199,7 +265,7 @@ class ConfigureMultiSigSet {
               <Button
                 class="button--big button--no-transform"
                 raised
-                label="Continue"
+                label="Complete"
                 onclick={() => {
                   this.logMultisig();
                   this.currentState = 'setup-complete';
