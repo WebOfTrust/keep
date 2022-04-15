@@ -125,6 +125,36 @@ class KERI {
       url: `${process.env.API_HOST}:${this.port}/contacts/${prefix}`,
     });
   }
+
+  // GROUPS
+
+  static initiateGroupInception(alias, { aids, isith, nsith, toad, wits }) {
+    return m.request({
+      method: 'POST',
+      url: `${process.env.API_HOST}:${this.port}/groups/${alias}/icp`,
+      body: {
+        aids,
+        isith,
+        nsith,
+        toad,
+        wits,
+      },
+    });
+  }
+
+  static participateGroupInception(alias, { aids, isith, nsith, toad, wits }) {
+    return m.request({
+      method: 'PUT',
+      url: `${process.env.API_HOST}:${this.port}/groups/${alias}/icp`,
+      body: {
+        aids,
+        isith,
+        nsith,
+        toad,
+        wits,
+      },
+    });
+  }
 }
 
 module.exports = KERI;

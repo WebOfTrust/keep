@@ -1,5 +1,5 @@
 import m from 'mithril';
-import { Button, Card, Checkbox, TextField } from '../../src/app/components';
+import { Button, Card, TextField } from '../../src/app/components';
 import { KERI } from '../../src/app/services';
 
 /*

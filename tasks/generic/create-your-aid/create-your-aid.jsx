@@ -11,7 +11,6 @@ class CreateYourAID {
     this.currentState = 'welcome';
     this.alias = '';
     this.aliasPhoto = null;
-    this.AIDPopoverOpen = false;
   }
 
   createAID(vnode) {
