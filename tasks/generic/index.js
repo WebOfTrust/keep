@@ -15,7 +15,7 @@ import Login from './login/login';
 import ManualKeyRotation from './manual-key-rotation/manual-key-rotation';
 import ViewMultiSigSet from './view-multi-sig-set/view-multi-sig-set';
 import ViewNewCredential from './view-new-credential/view-new-credential';
-import VerifyCredentials from '../generic/verify-credentials/verify-credentials';
+import VerifyCredentials from './verify-credentials/verify-credentials';
 // Images
 import createYourPasscode from '../../src/assets/img/create-your-passcode.png';
 import addNewContacts from '../../src/assets/img/add-new-contacts.png';

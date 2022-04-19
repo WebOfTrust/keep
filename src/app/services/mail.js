@@ -81,8 +81,12 @@ class Mail {
   };
 
   static multisigHandler = (e) => {
-    console.log('multisig', e);
-    Toaster.success(`multisig: ${e}`);
+    let data = JSON.parse(e.data);
+    console.log(data);
+    Notify.push({
+      type: 'multisig',
+      data,
+    });
     m.redraw();
   };
 

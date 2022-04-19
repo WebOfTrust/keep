@@ -10,6 +10,7 @@ import Modal from './modal/modal.jsx';
 import Nav from './nav/nav.jsx';
 import NavRail from './nav-rail/nav-rail.jsx';
 import Popover from './popover/popover.jsx';
+import Radio from './radio/radio.jsx';
 import Select from './select/select.jsx';
 import Spinner from './spinner/spinner.jsx';
 import Steps from './steps/steps.jsx';
@@ -30,6 +31,7 @@ module.exports = {
   Nav,
   NavRail,
   Popover,
+  Radio,
   Select,
   Spinner,
   Steps,
