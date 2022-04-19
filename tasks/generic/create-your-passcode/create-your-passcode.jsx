@@ -160,7 +160,7 @@ class EnterPasscode {
   }
 
   initializeAgent(vnode) {
-    KERI.initializeAgent(`keep${KERI.port}`, this.passcode)
+    KERI.initializeAgent(`keep${process.env.API_PORT}`, this.passcode)
       .then(vnode.attrs.continue)
       .catch((err) => {
         console.log('initializeAgent', err);

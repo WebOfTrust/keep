@@ -1,14 +1,12 @@
 import m from 'mithril';
 
 class KERI {
-  static port = process.env.API_PORT;
-
   // CODES
 
   static generatePasscode() {
     return m.request({
       method: 'GET',
-      url: `${process.env.API_HOST}:${this.port}/codes`,
+      url: `${process.env.API_HOST}:${process.env.API_PORT}/codes`,
     });
   }
 
@@ -17,7 +15,7 @@ class KERI {
   static initializeAgent(name, passcode) {
     return m.request({
       method: 'POST',
-      url: `${process.env.API_HOST}:${this.port}/boot`,
+      url: `${process.env.API_HOST}:${process.env.API_PORT}/boot`,
       body: {
         name,
         passcode,
@@ -28,7 +26,7 @@ class KERI {
   static unlockAgent(name, passcode) {
     return m.request({
       method: 'PUT',
-      url: `${process.env.API_HOST}:${this.port}/boot`,
+      url: `${process.env.API_HOST}:${process.env.API_PORT}/boot`,
       body: {
         name,
         passcode,
@@ -41,7 +39,7 @@ class KERI {
   static createIdentifier(alias, witnesses) {
     return m.request({
       method: 'POST',
-      url: `${process.env.API_HOST}:${this.port}/ids/${alias}`,
+      url: `${process.env.API_HOST}:${process.env.API_PORT}/ids/${alias}`,
       body: {
         wits: witnesses,
       },
@@ -51,7 +49,7 @@ class KERI {
   static listIdentifiers() {
     return m.request({
       method: 'GET',
-      url: `${process.env.API_HOST}:${this.port}/ids`,
+      url: `${process.env.API_HOST}:${process.env.API_PORT}/ids`,
     });
   }
 
@@ -60,7 +58,7 @@ class KERI {
   static getOOBI(alias, role) {
     return m.request({
       method: 'GET',
-      url: `${process.env.API_HOST}:${this.port}/oobi/${alias}`,
+      url: `${process.env.API_HOST}:${process.env.API_PORT}/oobi/${alias}`,
       params: {
         role,
       },
@@ -70,7 +68,7 @@ class KERI {
   static resolveOOBI(alias, oobialias, url) {
     return m.request({
       method: 'POST',
-      url: `${process.env.API_HOST}:${this.port}/oobi/${alias}`,
+      url: `${process.env.API_HOST}:${process.env.API_PORT}/oobi/${alias}`,
       body: {
         oobialias,
         url,
@@ -83,14 +81,14 @@ class KERI {
   static generateChallengeMessage() {
     return m.request({
       method: 'GET',
-      url: `${process.env.API_HOST}:${this.port}/challenge`,
+      url: `${process.env.API_HOST}:${process.env.API_PORT}/challenge`,
     });
   }
 
   static signChallengeMessage(alias, recipient, words) {
     return m.request({
       method: 'POST',
-      url: `${process.env.API_HOST}:${this.port}/challenge/${alias}`,
+      url: `${process.env.API_HOST}:${process.env.API_PORT}/challenge/${alias}`,
       body: {
         recipient,
         words,
@@ -103,7 +101,7 @@ class KERI {
   static getContacts() {
     return m.request({
       method: 'GET',
-      url: `${process.env.API_HOST}:${this.port}/contacts`,
+      url: `${process.env.API_HOST}:${process.env.API_PORT}/contacts`,
     });
   }
 
@@ -115,14 +113,14 @@ class KERI {
       .join('');
     return m.request({
       method: 'GET',
-      url: `${process.env.API_HOST}:${this.port}/contacts?filter_field=alias${valueParams}`,
+      url: `${process.env.API_HOST}:${process.env.API_PORT}/contacts?filter_field=alias${valueParams}`,
     });
   }
 
   static getContact(prefix) {
     return m.request({
       method: 'GET',
-      url: `${process.env.API_HOST}:${this.port}/contacts/${prefix}`,
+      url: `${process.env.API_HOST}:${process.env.API_PORT}/contacts/${prefix}`,
     });
   }
 
@@ -131,7 +129,7 @@ class KERI {
   static initiateGroupInception(alias, { aids, isith, nsith, toad, wits }) {
     return m.request({
       method: 'POST',
-      url: `${process.env.API_HOST}:${this.port}/groups/${alias}/icp`,
+      url: `${process.env.API_HOST}:${process.env.API_PORT}/groups/${alias}/icp`,
       body: {
         aids,
         isith,
@@ -145,7 +143,7 @@ class KERI {
   static participateGroupInception(alias, { aids, isith, nsith, toad, wits }) {
     return m.request({
       method: 'PUT',
-      url: `${process.env.API_HOST}:${this.port}/groups/${alias}/icp`,
+      url: `${process.env.API_HOST}:${process.env.API_PORT}/groups/${alias}/icp`,
       body: {
         aids,
         isith,

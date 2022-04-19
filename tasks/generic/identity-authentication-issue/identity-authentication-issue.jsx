@@ -1,6 +1,6 @@
 import m from 'mithril';
 import { Button, TextField, TextTooltip, Modal } from '../../../src/app/components';
-import { KERI } from '../../../src/app/services';
+import { KERI, Profile } from '../../../src/app/services';
 import addNewContacts from '../../../src/assets/img/add-new-contacts.png';
 import responseMessage from '../../../src/assets/img/response-message.png';
 import uploadFile from '../../../src/assets/img/upload-file.png';
@@ -51,6 +51,7 @@ class WaitModal {
 class StepsToAuthenticate {
   constructor(vnode) {
     this.waitModalOpen = true;
+    Profile.isLead = true;
   }
 
   view(vnode) {

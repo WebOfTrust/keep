@@ -11,6 +11,7 @@ import { KERI } from '../../src/app/services';
 
 class SendOOBIForm {
   constructor(vnode) {
+    this.copied = false;
     this.oobi = {
       alias: '',
       url: '',
@@ -37,28 +38,20 @@ class SendOOBIForm {
 
   copyURL() {
     navigator.clipboard.writeText(this.oobi.url).then(
-      () => {},
-      () => {}
+      () => {
+          this.copied = true;
+          m.redraw();
+      },
+      () => {
+          this.copied = false;
+          m.redraw();
+      }
     );
   }
 
   view(vnode) {
     return (
       <>
-        <h3>Alias:</h3>
-        <TextField
-          outlined
-          fluid
-          style={{ margin: '0 0 1rem 0', backgroundColor: 'rgba(0, 0, 0, 0.04)' }}
-          value={this.oobi.alias}
-          iconTrailing={{
-            icon: 'content_copy',
-            onclick: (e) => {
-              this.copyAlias();
-            },
-          }}
-          oninput={vnode.attrs.aliasInputChange}
-        />
         <h3>URL:</h3>
         <TextField
           outlined
@@ -72,6 +65,7 @@ class SendOOBIForm {
             },
           }}
         />
+        <p className="font-color--green font-weight--medium">{this.copied ? 'OOBI copied!' : <br/>}</p>
       </>
     );
   }

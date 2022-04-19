@@ -1,6 +1,6 @@
 import m from 'mithril';
 import { Button, TextField } from '../../../src/app/components';
-import { KERI } from '../../../src/app/services';
+import { KERI, Profile } from '../../../src/app/services';
 import createIdentifier from '../../../src/assets/img/create-identifier.png';
 import configureIdentifier from '../../../src/assets/img/configure-identifier.png';
 import approveRequest from '../../../src/assets/img/approve-request.png';
@@ -21,7 +21,17 @@ class CreateYourAID {
     ];
     KERI.createIdentifier(this.alias, witnesses)
       .then(() => {
-        vnode.attrs.end();
+        Profile.loadIdentifiers()
+        KERI.listIdentifiers()
+            .then((ids) => {
+              if (ids.length === 1) {
+                Profile.setDefaultAID(ids[0])
+                vnode.attrs.end();
+              }
+            })
+            .catch((err) => {
+              console.log('listIdentfiers', err);
+            })
       })
       .catch((err) => {
         console.log('createIdentifier', err);

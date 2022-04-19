@@ -1,44 +1,75 @@
 import m from 'mithril';
 import { Button } from '../../../src/app/components';
-import { KERI } from '../../../src/app/services';
-import { EnterChallengesForm, EnterOOBIsForm, SendChallengeForm, SendOOBIForm } from '../../../forms';
+import { KERI, Profile } from '../../../src/app/services';
+import { EnterChallengesForm, EnterOOBIsForm, SendChallengeForm } from '../../../forms';
 
 import addNewContacts from '../../../src/assets/img/add-new-contacts.png';
 import projectPlanning from '../../../src/assets/img/project-planning.png';
 import responseMessage from '../../../src/assets/img/response-message.png';
 import uploadFile from '../../../src/assets/img/upload-file.png';
+import CopyChallengePanel from "./copy-challenge-panel"
+import { SendOOBIForm } from '../../../forms';
+
+class InitiateVideoCallTask {
+  constructor() {
+    this.currentState = 'delegating-aids';
+    this._component = {
+      view: (vnode) => {
+        return <InitiateVideoCall end={vnode.attrs.end} parent={this}/>;
+      }
+    }
+    this.sendOOBIPanel = {
+      view: (vnode) => {
+        return <SendOOBIPanel end={vnode.attrs.end} identifiers={Profile.identifiers} parent={this}/>;
+      }
+    }
+    this.copyChallengePanel = {
+      view: (vnode) => {
+        return <CopyChallengePanel />
+      }
+    }
+  }
+
+  get imgSrc() {
+    return addNewContacts;
+  }
+
+  get label() {
+    return 'Initiate Video Call';
+  }
+
+  get component() {
+    return this._component
+  }
+
+  get lcomponent() {
+    switch(this.currentState) {
+      case 'send-oobi':
+        return this.sendOOBIPanel;
+      case 'challenge-messages':
+        return this.copyChallengePanel;
+      default:
+        return undefined;
+    }
+  }
+}
+
 
 class InitiateVideoCall {
   constructor() {
-    this.currentState = 'delegating-aids';
-    this.identifiers = [];
+    Profile.isLead = true;
     this.oobis = [
       {
         alias: '',
         url: '',
-      },
-      {
-        alias: '',
-        url: '',
-      },
-      {
-        alias: '',
-        url: '',
-      },
+      }
     ];
-    KERI.listIdentifiers()
-      .then((identifiers) => {
-        this.identifiers = identifiers;
-      })
-      .catch((err) => {
-        console.log('listIdentifiers', err);
-      });
   }
 
   view(vnode) {
     return (
       <>
-        {this.currentState === 'delegating-aids' && (
+        {vnode.attrs.parent.currentState === 'delegating-aids' && (
           <>
             <h3>Delegating AIDs</h3>
             <p class="p-tag">This module will take you through the steps for AID Delegation.</p>
@@ -60,13 +91,13 @@ class InitiateVideoCall {
                 raised
                 label="Continue"
                 onclick={() => {
-                  this.currentState = 'video-call';
+                  vnode.attrs.parent.currentState = 'video-call';
                 }}
               />
             </div>
           </>
         )}
-        {this.currentState === 'video-call' && (
+        {vnode.attrs.parent.currentState === 'video-call' && (
           <>
             <img src={projectPlanning} style={{ marginBottom: '2rem', width: '240px' }} />
             <h3>Initiate a Video Call</h3>
@@ -81,7 +112,7 @@ class InitiateVideoCall {
                 raised
                 label="Go Back"
                 onclick={() => {
-                  this.currentState = 'delegating-aids';
+                  vnode.attrs.parent.currentState = 'delegating-aids';
                 }}
               />
               <Button
@@ -89,13 +120,13 @@ class InitiateVideoCall {
                 raised
                 label="Continue"
                 onclick={() => {
-                  this.currentState = 'start-video-call';
+                  vnode.attrs.parent.currentState = 'start-video-call';
                 }}
               />
             </div>
           </>
         )}
-        {this.currentState === 'start-video-call' && (
+        {vnode.attrs.parent.currentState === 'start-video-call' && (
           <>
             <img src={projectPlanning} style={{ marginBottom: '2rem', width: '240px' }} />
             <h3>Initiate Video Call</h3>
@@ -109,7 +140,7 @@ class InitiateVideoCall {
                 raised
                 label="Go Back"
                 onclick={() => {
-                  this.currentState = 'video-call';
+                  vnode.attrs.parent.currentState = 'video-call';
                 }}
               />
               <Button
@@ -117,45 +148,17 @@ class InitiateVideoCall {
                 raised
                 label="Get Started"
                 onclick={() => {
-                  this.currentState = 'send-oobi';
+                  vnode.attrs.parent.currentState = 'send-oobi';
                 }}
               />
             </div>
           </>
         )}
-        {this.currentState === 'send-oobi' && (
+        {vnode.attrs.parent.currentState === 'send-oobi' && (
           <>
-            <img src={addNewContacts} style={{ width: '200px', margin: '0 0 1rem 0' }} />
-            <h3>Send OOBI</h3>
-            <p class="p-tag" style={{ margin: '2rem 0 2rem 0' }}>
-              Copy this OOBI (Alias + URL) and paste it into the Video Call to share your identifying information.
-            </p>
-            <SendOOBIForm identifiers={this.identifiers} />
-            <div class="flex flex-justify-between">
-              <Button
-                class="button--gray-dk button--big button--no-transform"
-                raised
-                label="Go Back"
-                onclick={() => {
-                  this.currentState = 'start-video-call';
-                }}
-              />
-              <Button
-                class="button--big button--no-transform"
-                raised
-                label="Continue"
-                onclick={() => {
-                  this.currentState = 'enter-oobis';
-                }}
-              />
-            </div>
-          </>
-        )}
-        {this.currentState === 'enter-oobis' && (
-          <>
-            <h3>Enter OOBIs</h3>
+            <h3>Accept OOBI from other person(s)</h3>
             <EnterOOBIsForm
-              identifiers={this.identifiers}
+              identifiers={Profile.identifiers}
               oobis={this.oobis}
               oobisChange={(oobis) => {
                 this.oobis = oobis;
@@ -167,13 +170,13 @@ class InitiateVideoCall {
                 raised
                 label="Continue"
                 onclick={() => {
-                  this.currentState = 'generate-challenge';
+                  vnode.attrs.parent.currentState = 'generate-challenge';
                 }}
               />
             </div>
           </>
         )}
-        {this.currentState === 'generate-challenge' && (
+        {vnode.attrs.parent.currentState === 'generate-challenge' && (
           <>
             <img src={responseMessage} style={{ width: '240px', margin: '1.5rem 0 2rem 0' }} />
             <h3>Generate and Send Challenge Message</h3>
@@ -186,7 +189,7 @@ class InitiateVideoCall {
                 raised
                 label="Go Back"
                 onclick={() => {
-                  this.currentState = 'enter-oobis';
+                  vnode.attrs.parent.currentState = 'send-oobi';
                 }}
               />
               <Button
@@ -194,56 +197,22 @@ class InitiateVideoCall {
                 raised
                 label="Generate"
                 onclick={() => {
-                  this.currentState = 'copy-challenge';
+                  vnode.attrs.parent.currentState = 'challenge-messages';
                 }}
               />
             </div>
           </>
         )}
-        {this.currentState === 'copy-challenge' && (
+        {vnode.attrs.parent.currentState === 'challenge-messages' && (
           <>
-            <img src={responseMessage} style={{ width: '240px', margin: '1.5rem 0 2rem 0' }} />
-            <h3>Paste Challenge Message in Video Call</h3>
-            <p class="p-tag" style={{ margin: '2rem 0 2rem 0' }}>
-              Generate a message for each participant then direct message everyone in the video call.
-              <br />
-              <br />
-              <strong>
-                Important! Don't use a challenge message from another session, it should be unique to this session
-                taking place today.
-              </strong>
-            </p>
-            <SendChallengeForm />
+            <EnterChallengesForm identifiers={Profile.identifiers} oobis={this.oobis} />
             <div class="flex flex-justify-between">
               <Button
                 class="button--gray-dk button--big button--no-transform"
                 raised
                 label="Go Back"
                 onclick={() => {
-                  this.currentState = 'generate-challenge';
-                }}
-              />
-              <Button
-                class="button--big button--no-transform"
-                raised
-                label="Continue"
-                onclick={() => {
-                  this.currentState = 'enter-challenge-messages';
-                }}
-              />
-            </div>
-          </>
-        )}
-        {this.currentState === 'enter-challenge-messages' && (
-          <>
-            <EnterChallengesForm identifiers={this.identifiers} oobis={this.oobis} />
-            <div class="flex flex-justify-between">
-              <Button
-                class="button--gray-dk button--big button--no-transform"
-                raised
-                label="Go Back"
-                onclick={() => {
-                  this.currentState = 'copy-challenge';
+                  vnode.attrs.parent.currentState = 'generate-challenge';
                 }}
               />
               <Button
@@ -251,13 +220,13 @@ class InitiateVideoCall {
                 raised
                 label="Next"
                 onclick={() => {
-                  this.currentState = 'waiting-for-signatures';
+                  vnode.attrs.parent.currentState = 'waiting-for-signatures';
                 }}
               />
             </div>
           </>
         )}
-        {this.currentState === 'waiting-for-signatures' && (
+        {vnode.attrs.parent.currentState === 'waiting-for-signatures' && (
           <>
             <img src={uploadFile} style={{ width: '240px', margin: '1.5rem 0 2rem 0' }} />
             <h3>Waiting for Signatures</h3>
@@ -271,14 +240,14 @@ class InitiateVideoCall {
                 raised
                 label="Go Back"
                 onclick={() => {
-                  this.currentState = 'enter-challenge-messages';
+                  vnode.attrs.parent.currentState = 'challenge-messages';
                 }}
               />
               <Button class="button--big button--no-transform" raised label="Close" onclick={vnode.attrs.end} />
             </div>
           </>
         )}
-        {/* {this.currentState === 'notifications' && (
+        {/* {vnode.attrs.parent.currentState === 'notifications' && (
           <>
             <h3 style={{ margin: '0 0 3rem 0' }}>Notifications</h3>
             {this.tempNotiArray.map((noti) => {
@@ -308,4 +277,28 @@ class InitiateVideoCall {
   }
 }
 
-module.exports = InitiateVideoCall;
+class SendOOBIPanel {
+
+  constructor() {
+  }
+
+  view(vnode) {
+    return (
+        <>
+          <img src={addNewContacts} style={{width: '200px', margin: '0 0 1rem 0'}} alt=""/>
+          <h3>Send OOBI for your {vnode.attrs.identifiers[0].name} AID</h3>
+          <p class="p-tag" style={{margin: '2rem 0 2rem 0'}}>
+            Copy this OOBI URL for your default AID and paste it into the Video Call to share your identifying
+            information.
+            To use another AID for this transaction, go to your profile and set another default AID before
+            continuing.
+          </p>
+          <SendOOBIForm identifiers={vnode.attrs.identifiers}/>
+        </>
+    )
+  }
+}
+
+module.exports = SendOOBIPanel
+
+module.exports = InitiateVideoCallTask;

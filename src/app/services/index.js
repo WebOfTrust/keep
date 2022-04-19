@@ -3,6 +3,7 @@ import KERI from './keri';
 import Mail from './mail';
 import Notify from './notify';
 import Toaster from './toaster';
+import Profile from './profile';
 
 module.exports = {
   Auth,
@@ -10,4 +11,5 @@ module.exports = {
   Mail,
   Notify,
   Toaster,
+  Profile,
 };

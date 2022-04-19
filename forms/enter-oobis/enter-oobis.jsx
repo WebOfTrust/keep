@@ -47,7 +47,8 @@ class EnterOOBIsForm {
         <div style={{ height: '512px', overflowY: 'auto', margin: '0 0 1rem 0', paddingRight: '1rem' }}>
           <div class="flex flex-justify-between" style={{ alignItems: 'baseline' }}>
             <p class="p-tag" style={{ margin: '2rem 0 2rem 0' }}>
-              Enter Aliases and URLs you received on the Video Call from all participants below:
+              While on the Video Call make sure to obtain each participant's <b>URL</b> and give them
+                an Alias that makes sense to you:
             </p>
           </div>
           {vnode.attrs.oobis.map((oobi) => {

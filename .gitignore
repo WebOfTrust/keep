@@ -64,6 +64,7 @@ typings/
 .cache
 .parcel-cache
 .parcel-cache-dev
+.parcel-cache-dev-lead
 
 # next.js build output
 .next
@@ -96,6 +97,7 @@ ward/venv
 build
 build-ui
 build-ui-dev
+build-ui-dev-lead
 dist
 __pycache__
 .pytest_cache

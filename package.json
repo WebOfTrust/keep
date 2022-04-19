@@ -11,10 +11,10 @@
   "main": "electron.js",
   "scripts": {
     "start": "parcel src/index.html --cache-dir ward/.parcel-cache-dev --dist-dir ward/build-ui-dev",
-    "start2": "parcel src/index.html --port 1334 --cache-dir ward/.parcel-cache-dev --dist-dir ward/build-ui-dev",
-    "start3": "parcel src/index.html --port 1434 --cache-dir ward/.parcel-cache-dev --dist-dir ward/build-ui-dev",
+    "start:lead-external-gar": "NODE_ENV=lead-external-gar parcel src/index.html --port 1634 --cache-dir ward/.parcel-cache-dev-lead --dist-dir ward/build-ui-dev-lead",
+    "start:external-gar": "NODE_ENV=external-gar parcel src/index.html --port 1734 --cache-dir ward/.parcel-cache-dev --dist-dir ward/build-ui-dev",
     "set-tasks:generic": "plop tasks-index 'generic' --force",
-    "rm-build": "rm -rf ward/.parcel-cache ward/build-ui ward/.parcel-cache-dev ward/build-ui-dev",
+    "rm-build": "rm -rf ward/.parcel-cache ward/build-ui ward/.parcel-cache-dev ward/build-ui-dev ward/.parcel-cache-dev-lead ward/build-ui-dev-lead",
     "build:generic": "yarn rm-build; yarn set-tasks:generic; parcel build src/index.html --cache-dir ward/.parcel-cache --dist-dir ward/build-ui --public-url ./",
     "electron": "electron-forge start",
     "package": "electron-forge package",

@@ -1,5 +1,5 @@
 import m from 'mithril';
-import { Auth, Notify } from '../../services';
+import { Auth, Notify, Profile } from '../../services';
 import Container from '../container/container.jsx';
 import IconButton from '../icon-button/icon-button.jsx';
 import Popover from '../popover/popover.jsx';
@@ -16,6 +16,21 @@ class Nav {
     m.route.set('/contacts');
   }
 
+  get navLabel() {
+    let label = ""
+    let aid = Profile.getDefaultAID()
+    if (aid !== null) {
+      console.log(aid);
+      label = "(" + aid.name + ") "
+    }
+    if (Profile.isLead) {
+      label += "Lead ";
+    }
+
+    label += Auth.title();
+    return label;
+  }
+
   view() {
     return (
       <div class="nav">
@@ -27,7 +42,7 @@ class Nav {
               </m.route.Link>
             </h2>
             <div class="nav__spacer"></div>
-            {Auth.isLoggedIn() && (
+            {Auth.isLoggedIn && (
               <>
                 <div class="relative">
                   <IconButton
@@ -73,6 +88,9 @@ class Nav {
                     m.route.set('/settings');
                   }}
                 />
+                <div
+                  style={{color: "green", paddingRight: "5px", fontWeight: "bold"}}
+                >{this.navLabel}</div>
                 <img
                   src={githubLogo}
                   style={{ height: '40px', width: '40px', cursor: 'pointer' }}

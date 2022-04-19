@@ -11,6 +11,28 @@
         ]
       ]
     },
+    "external-gar": {
+      "plugins": [
+        [
+          "@babel/plugin-transform-react-jsx",
+          {
+            "pragma": "m",
+            "pragmaFrag": "'['"
+          }
+        ]
+      ]
+    },
+    "lead-external-gar": {
+      "plugins": [
+        [
+          "@babel/plugin-transform-react-jsx",
+          {
+            "pragma": "m",
+            "pragmaFrag": "'['"
+          }
+        ]
+      ]
+    },
     "development": {
       "plugins": [
         [

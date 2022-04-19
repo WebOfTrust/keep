@@ -10,7 +10,7 @@ import CredentialIssuance from '../generic/credential-issuance/credential-issuan
 import CredentialRevocation from '../generic/credential-revocation/credential-revocation';
 import IdentityAuthenticationIssue from '../generic/identity-authentication-issue/identity-authentication-issue';
 import IdentityAuthenticationReceive from '../generic/identity-authentication-receive/identity-authentication-receive';
-import InitiateVideoCallTask from '../generic/initiate-video-call/initiate-video-call';
+import InitiateVideoCall from '../generic/initiate-video-call/initiate-video-call';
 import IntroToYourRole from '../generic/intro-to-your-role/intro-to-your-role';
 import JoinVideoCall from '../generic/join-video-call/join-video-call';
 import Login from '../generic/login/login';
@@ -83,11 +83,11 @@ const tasks = {
   'main': [
     // {
     //   imgSrc: addNewContacts,
-    //   label: 'Identity Authentication (Participate)',
+    //   label: 'Identity Authentication (Initiate)',
     //   component: {
     //     view: (vnode) => {
     //       return (
-    //         <IdentityAuthenticationReceive
+    //         <IdentityAuthenticationIssue
     //           steps={ExternalGarVariables.identityAuthentication.steps}
     //           acceptOobi={ExternalGarVariables.identityAuthentication.acceptOobi}
     //           end={vnode.attrs.end}
@@ -96,19 +96,45 @@ const tasks = {
     //     },
     //   },
     // },
-    new InitiateVideoCallTask(),
+    // {
+    //   imgSrc: addNewContacts,
+    //   label: 'Credential Issuance',
+    //   component: {
+    //     view: (vnode) => {
+    //       return <CredentialIssuance end={vnode.attrs.end} />;
+    //     },
+    //   },
+    // },
     {
       imgSrc: addNewContacts,
-      label: 'Join Video Call',
+      label: 'Initiate Video Call',
       component: {
         view: (vnode) => {
-          return <JoinVideoCall end={vnode.attrs.end} />;
+          return <InitiateVideoCall end={vnode.attrs.end} />;
         },
       },
     },
+    // {
+    //   imgSrc: addNewContacts,
+    //   label: 'Join Video Call',
+    //   component: {
+    //     view: (vnode) => {
+    //       return <JoinVideoCall end={vnode.attrs.end} />;
+    //     },
+    //   },
+    // },
+    // {
+    //   imgSrc: addNewContacts,
+    //   label: 'View Multi-Sig Set',
+    //   component: {
+    //     view: (vnode) => {
+    //       return <ViewMultiSigSet end={vnode.attrs.end} />;
+    //     },
+    //   },
+    // },
     {
       imgSrc: addNewContacts,
-      label: 'Initiate Multi-Sig Set',
+      label: 'Create Multi-Sig Set',
       component: {
         view: (vnode) => {
           return <ConfigureMultiSigSet end={vnode.attrs.end} />;
@@ -117,49 +143,22 @@ const tasks = {
     },
     {
       imgSrc: addNewContacts,
-      label: 'Join Multi-Sig Set',
-      component: {
-        view: (vnode) => {
-          return <ViewMultiSigSet end={vnode.attrs.end} />;
-        },
-      },
-    },
-    {
-      imgSrc: addNewContacts,
-      label: 'Initiate Manual Key Rotation',
+      label: 'Triggered Manual Key Rotation',
       component: {
         view: (vnode) => {
           return <ManualKeyRotation end={vnode.attrs.end} />;
         },
       },
     },
-    {
-      imgSrc: addNewContacts,
-      label: 'Join Manual Key Rotation',
-      component: {
-        view: (vnode) => {
-          return <ManualKeyRotation end={vnode.attrs.end} />;
-        },
-      },
-    },
-    {
-      imgSrc: addNewContacts,
-      label: 'Credential Issuance',
-      component: {
-        view: (vnode) => {
-          return <CredentialIssuance end={vnode.attrs.end} />;
-        },
-      },
-    },
-    {
-      imgSrc: addNewContacts,
-      label: 'Credential Revocation',
-      component: {
-        view: (vnode) => {
-          return <CredentialRevocation end={vnode.attrs.end} />;
-        },
-      },
-    },
+    // {
+    //   imgSrc: addNewContacts,
+    //   label: 'Credential Revocation',
+    //   component: {
+    //     view: (vnode) => {
+    //       return <CredentialRevocation end={vnode.attrs.end} />;
+    //     },
+    //   },
+    // },
   ],
 };
 
