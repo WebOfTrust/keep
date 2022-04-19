@@ -1,6 +1,6 @@
 import m from 'mithril';
 import { Button, Card, Container, IconButton, NavRail, Select } from '../../components';
-import { Auth, KERI, Mail } from '../../services';
+import { Auth, Contacts, KERI, Mail } from '../../services';
 import tasks from '../../../../tasks';
 import './dashboard.scss';
 
@@ -60,6 +60,7 @@ class Dashboard {
         .catch((err) => {
           console.log('listIdentifiers', err);
         });
+      Contacts.requestList();
     }
   }
 

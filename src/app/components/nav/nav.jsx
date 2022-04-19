@@ -16,6 +16,10 @@ class Nav {
     m.route.set('/contacts');
   }
 
+  multisigNotificationClick(notification) {
+    console.log('Click multisig notification', notification);
+  }
+
   view() {
     return (
       <div class="nav">
@@ -62,7 +66,19 @@ class Nav {
                           </a>
                         );
                       }
-                      return <p>notification</p>;
+                      if (notification.type === 'multisig') {
+                        return (
+                          <a
+                            style={{ display: 'block' }}
+                            onclick={() => {
+                              this.multisigNotificationClick(notification);
+                            }}
+                          >
+                            New Multi-Sig Verification
+                          </a>
+                        );
+                      }
+                      return <p>Unhandled notification type</p>;
                     })}
                   </Popover>
                 </div>

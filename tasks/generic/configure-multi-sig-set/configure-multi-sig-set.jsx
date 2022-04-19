@@ -1,46 +1,38 @@
 import m from 'mithril';
-import { Button, TextField, TextTooltip, Checkbox, Radio } from '../../../src/app/components';
-import { KERI } from '../../../src/app/services';
+import { Button, Checkbox, Radio, Select, TextField, TextTooltip } from '../../../src/app/components';
+import { Contacts, KERI } from '../../../src/app/services';
 
 import secureMessaging from '../../../src/assets/img/secure-messaging.png';
-import uploadFile from '../../../src/assets/img/upload-file.png';
 
 class ConfigureMultiSigSet {
   constructor() {
     this.currentState = 'configure-multi-sig-index';
+    this.aid = '';
+    this.groupAlias = '';
     this.fractionallyWeighted = false;
-    this.tempConfigureArray = [
+    this.numSigners = 0; // Used only if fractionallyWeighted is false
+    this.signers = [
       {
-        id: 'E1nskcqqz2jp4vwCD5TnD3CfWtBO6XjRLX4iQ8ic8nu4',
-        alias: 'rootgar1',
-        weight: '1/3',
-      },
-      {
-        id: 'EF_h1XlGK4eng4sJ2y0e-liz-3DEOzWhPxMLhZbxHTdU',
-        alias: 'extgar1',
-        weight: '1/3',
-      },
-      {
-        id: 'EU8SZDwgcAy5DEvcu6ACuSviaZaVjJYxS6oXPmv0zB8o',
-        alias: 'intgar1',
-        weight: '1/3',
+        id: '',
+        alias: '',
+        weight: '',
       },
     ];
+    KERI.listIdentifiers()
+      .then((identifiers) => {
+        this.aid = identifiers[0].prefix;
+      })
+      .catch((err) => {
+        console.log('listIdentifiers', err);
+      });
   }
 
-  logMultisig() {
-    let aids = this.tempConfigureArray.map((obj) => {
+  initiateGroupInception() {
+    let aids = this.signers.map((obj) => {
       return obj.id;
     });
-    let sith = this.tempConfigureArray
-      .map((obj) => {
-        return obj.weight;
-      })
-      .join(',');
     let inceptData = {
-      aids: aids,
-      isith: sith,
-      nsith: sith,
+      aids: [this.aid, ...aids],
       toad: 3,
       wits: [
         'BGKVzj4ve0VSd8z_AmvhLg4lqcC_9WYX90k03q-R_Ydo',
@@ -48,7 +40,21 @@ class ConfigureMultiSigSet {
         'Bgoq68HCmYNUDgOz4Skvlu306o_NY-NrYuKAVhk3Zh9c',
       ],
     };
-    KERI.initiateGroupInception('newgroup', inceptData)
+    if (!this.fractionallyWeighted) {
+      let sith = this.numSigners.toString();
+      inceptData.isith = sith;
+      inceptData.nsith = sith;
+    }
+    if (this.fractionallyWeighted) {
+      let sith = this.signers
+        .map((obj) => {
+          return obj.weight;
+        })
+        .join(',');
+      inceptData.isith = sith;
+      inceptData.nsith = sith;
+    }
+    KERI.initiateGroupInception('mymultisiggroup', inceptData)
       .then((incept) => {
         console.log(incept);
       })
@@ -63,17 +69,56 @@ class ConfigureMultiSigSet {
         {this.currentState === 'configure-multi-sig-index' && (
           <>
             <img src={secureMessaging} style={{ width: '268px', margin: '4rem 0 1rem 0' }} />
-            <h3>Configure Multi-Sig Set</h3>
+            <h3>Configure Multi-Sig Group</h3>
             <p class="p-tag">
-              If you are seeing this, it is because you have verified contacts and can now configure the multi-sig set.
-              You will now be tasked with creating the multi-sig set. Once this is completed, make sure that all members
-              of the multi-sig group are available for an OOBI exchange.
+              If you are seeing this, it is because you have verified contacts and can now configure the multi-sig
+              group. You will now be tasked with creating the multi-sig group. Once this is completed, make sure that
+              all members of the multi-sig group are available to sign the inception event of the multisig identifier.
             </p>
             <div class="flex flex-justify-end">
               <Button
                 class="button--big button--no-transform"
                 raised
                 label="Continue"
+                onclick={() => {
+                  this.currentState = 'create-group-alias';
+                }}
+              />
+            </div>
+          </>
+        )}
+        {this.currentState === 'create-group-alias' && (
+          <>
+            <h3>Create Your Multi-Sig Group Alias</h3>
+            <img src={secureMessaging} style={{ width: '268px', margin: '4rem 0 2rem 0' }} />
+            <p class="p-tag" style={{ margin: '2rem 0 2rem 0' }}>
+              The alias should be an easy to remember name for your multi-sig group.
+            </p>
+            <p class="p-tag" style={{ margin: '2rem 0 2rem 0' }}>
+              What would you like your group's alias to be?
+            </p>
+            <TextField
+              outlined
+              fluid
+              value={this.groupAlias}
+              oninput={(e) => {
+                this.groupAlias = e.target.value;
+              }}
+            />
+            <div class="flex flex-justify-between" style={{ marginTop: '2rem' }}>
+              <Button
+                class="button--gray-dk button--big button--no-transform"
+                raised
+                label="Go Back"
+                onclick={() => {
+                  this.currentState = 'configure-multi-sig-index';
+                }}
+              />
+              <Button
+                class="button--big button--no-transform"
+                raised
+                label="Continue"
+                disabled={!this.groupAlias}
                 onclick={() => {
                   this.currentState = 'configure-multisig-group';
                 }}
@@ -87,35 +132,43 @@ class ConfigureMultiSigSet {
             <div style={{ height: '608px', overflowY: 'auto' }}>
               <p class="p-tag-bold">Are your signatures fractionally weighted?</p>
               <p class="p-tag">ex. Each signer equals 1/3 of the group.</p>
-
-              <input
-                type="radio"
-                id="weighted-yes"
-                name="weighted"
-                checked={this.fractionallyWeighted}
-                onclick={() => {
-                  this.fractionallyWeighted = true;
-                }}
-              />
-              <label for="weighted-yes">Yes</label>
-              <input
-                type="radio"
-                id="weighted-no"
-                name="weighted"
-                checked={!this.fractionallyWeighted}
-                onclick={() => {
-                  this.fractionallyWeighted = false;
-                }}
-              />
-              <label for="weighted-no">No</label>
-              <br />
+              <div class="flex flex-align-center">
+                <div class="flex flex-align-center" style={{ marginRight: '2rem' }}>
+                  <Radio
+                    id="weighted-yes"
+                    name="weighted"
+                    checked={this.fractionallyWeighted}
+                    onclick={() => {
+                      this.fractionallyWeighted = true;
+                    }}
+                  />
+                  <label for="weighted-yes">Yes</label>
+                </div>
+                <div class="flex flex-align-center">
+                  <Radio
+                    id="weighted-no"
+                    name="weighted"
+                    checked={!this.fractionallyWeighted}
+                    onclick={() => {
+                      this.fractionallyWeighted = false;
+                    }}
+                  />
+                  <label for="weighted-no">No</label>
+                </div>
+              </div>
               {!this.fractionallyWeighted && (
                 <>
                   <label>
                     <p class="p-tag-bold">How many signers are required to sign?</p>
                   </label>
-                  <br></br>
-                  <TextField outlined type="number" />
+                  <TextField
+                    outlined
+                    type="number"
+                    value={this.numSigners}
+                    oninput={(e) => {
+                      this.numSigners = parseInt(e.target.value);
+                    }}
+                  />
                 </>
               )}
               <div class="flex" style={{ alignItems: 'center', margin: '2rem 0 2rem 0' }}>
@@ -134,30 +187,33 @@ class ConfigureMultiSigSet {
                       }
                     >
                       Order must be consistent (same exact list everytime). If fractionally weighted it should be
-                      highest to lowest weight.{' '}
+                      highest to lowest weight.
                     </TextTooltip>
-                    <br></br>
                   </>
                 </label>
                 {this.fractionallyWeighted && <b>Weight</b>}
               </div>
-
-              <br />
-              {this.tempConfigureArray.map((signer) => {
+              {this.signers.map((signer) => {
                 return (
-                  <div class="flex flex-justify-between">
-                    <TextField
-                      outlined
-                      style={{ margin: '0 2rem 1rem 0' }}
-                      value={signer.alias}
-                      oninput={(e) => {
-                        signer.alias = e.target.value;
+                  <div class="flex flex-justify-between" style={{ margin: '1rem 0' }}>
+                    <Select
+                      options={Contacts.list.map((contact) => {
+                        return {
+                          label: contact.alias,
+                          value: contact.id,
+                        };
+                      })}
+                      selectedChange={(id) => {
+                        let contact = Contacts.filterById(id)[0];
+                        signer.id = contact.id;
+                        signer.alias = contact.alias;
                       }}
                     />
                     {this.fractionallyWeighted && (
                       <TextField
                         outlined
                         style={{ width: '80px' }}
+                        placeholder="1/3"
                         value={signer.weight}
                         oninput={(e) => {
                           signer.weight = e.target.value;
@@ -167,12 +223,19 @@ class ConfigureMultiSigSet {
                   </div>
                 );
               })}
-              <div class="flex flex-justify-between">
-                <TextField outlined style={{ marginRight: '2rem' }} placeholder="+ Add New" />
-                {this.fractionallyWeighted && (
-                  <TextField outlined style={{ width: '80px' }} placeholder="1/3" value="" />
-                )}
-              </div>
+              <Button
+                class="button--big button--no-transform"
+                raised
+                label="Add New"
+                iconLeading="add"
+                onclick={() => {
+                  this.signers.push({
+                    id: '',
+                    alias: '',
+                    weight: '',
+                  });
+                }}
+              />
             </div>
             <div class="flex flex-justify-between" style={{ marginTop: '2rem' }}>
               <Button
@@ -180,13 +243,18 @@ class ConfigureMultiSigSet {
                 raised
                 label="Go Back"
                 onclick={() => {
-                  this.currentState = 'configure-multi-sig-index';
+                  this.currentState = 'create-group-alias';
                 }}
               />
               <Button
                 class="button--big button--no-transform"
                 raised
                 label="Continue"
+                disabled={
+                  this.signers.filter((signer) => {
+                    return signer.id !== '';
+                  }).length < 1
+                }
                 onclick={() => {
                   this.currentState = 'review-and-confirm';
                 }}
@@ -194,18 +262,15 @@ class ConfigureMultiSigSet {
             </div>
           </>
         )}
-        {/* {this.currentState === 'select-a-delegator' && (
+        {/* {this.currentState === 'select-delegator' && (
           <>
-            <img src={secureMessaging} style={{ width: '50%' }} />
+            <img src={secureMessaging} style={{ width: '268px' }} />
             <h3>Select a Delegator</h3>
             <p class="p-tag">
               Provide the AID and create an alias for the delegator that will be delegating the accesses.
             </p>
-            <br></br>
-            <br></br>
             <p class="p-tag-bold">Delegator AID</p>
             <TextField outlined style={{ marginRight: '2rem' }} placeholder="delegator aid" />
-            <br></br>
             <p class="p-tag-bold">Delegator Alias</p>
             <TextField outlined style={{ marginRight: '2rem' }} placeholder="delegator alias" />
             <div class="flex flex-justify-between" style={{ marginTop: '2rem' }}>
@@ -214,7 +279,7 @@ class ConfigureMultiSigSet {
                 raised
                 label="Go Back"
                 onclick={() => {
-                  this.currentState = 'configure-multi-sig-index';
+                  this.currentState = 'configure-multisig-group';
                 }}
               />
               <Button
@@ -231,9 +296,11 @@ class ConfigureMultiSigSet {
         {this.currentState === 'review-and-confirm' && (
           <>
             <h3>Review and Confirm</h3>
+            <h4>Group Alias</h4>
+            <TextField outlined fluid value={this.groupAlias} />
             <p>Review signers to make sure the list is complete.</p>
             <h4>Signers (in order):</h4>
-            {this.tempConfigureArray.map((signer) => {
+            {this.signers.map((signer) => {
               return (
                 <>
                   <TextField outlined style={{ margin: '0 2rem 2rem 0' }} value={signer.alias} />
@@ -241,25 +308,23 @@ class ConfigureMultiSigSet {
                 </>
               );
             })}
-            <div class="flex flex-justfiy-between" style={{ margin: '0 0 4rem 0' }}>
+            {/* <div class="flex flex-justfiy-between" style={{ margin: '0 0 4rem 0' }}>
               <div class="flex flex-column">
                 <p class="p-tag-bold">Delegator AID</p>
                 <TextField outlined style={{ marginRight: '2rem' }} placeholder="delegator aid" />
               </div>
-
               <div class="flex flex-column">
                 <p class="p-tag-bold">Delegator Alias</p>
                 <TextField outlined style={{ marginRight: '2rem' }} placeholder="delegator alias" />
               </div>
-            </div>
-
+            </div> */}
             <div class="flex flex-justify-between">
               <Button
                 class="button--gray-dk button--big button--no-transform"
                 raised
                 label="Go Back"
                 onclick={() => {
-                  this.currentState = 'configure-multisig-group';
+                  this.currentState = 'create-group-alias';
                 }}
               />
               <Button
@@ -267,7 +332,7 @@ class ConfigureMultiSigSet {
                 raised
                 label="Complete"
                 onclick={() => {
-                  this.logMultisig();
+                  this.initiateGroupInception();
                   this.currentState = 'setup-complete';
                 }}
               />
@@ -277,13 +342,12 @@ class ConfigureMultiSigSet {
         {this.currentState === 'setup-complete' && (
           <>
             <img src={secureMessaging} style={{ width: '268px', margin: '4rem 0 2rem 0' }} />
-            <h3>Multi-Sig Setup is Completed!</h3>
+            <h3>Multi-Signature Verification in Progress</h3>
             <p class="p-tag" style={{ margin: '2rem 0 2rem 0' }}>
-              Your multi-sig setup is now completed. You may now proceed to to configure the multi-sig set. Make sure
-              that all members of the multi-sig group are available for an OOBI exchange.
+              You will be notified when the participants provide their signature on the Inception Event.
             </p>
             <div class="flex flex-justify-end">
-              <Button class="button--big button--no-transform" raised label="Continue" onclick={vnode.attrs.end} />
+              <Button class="button--big button--no-transform" raised label="View Progress" onclick={vnode.attrs.end} />
             </div>
           </>
         )}
