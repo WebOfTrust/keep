@@ -54,7 +54,7 @@ class ConfigureMultiSigSet {
       inceptData.isith = sith;
       inceptData.nsith = sith;
     }
-    KERI.initiateGroupInception('mymultisiggroup', inceptData)
+    KERI.initiateGroupInception(this.groupAlias, inceptData)
       .then((incept) => {
         console.log(incept);
       })
