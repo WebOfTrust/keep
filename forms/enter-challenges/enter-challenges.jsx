@@ -1,74 +1,48 @@
 import m from 'mithril';
 import { Button, Card, TextField } from '../../src/app/components';
-import { KERI } from '../../src/app/services';
+import { KERI, Participants } from '../../src/app/services';
 
 /*
- * EnterOOBIsForm
+ * EnterChallengesForm
  *
  * attrs
  * identifiers - an array of agent identifiers
- * oobis - array of oobis to sign messages for
  */
 
 class EnterChallengesForm {
   constructor(vnode) {
     this.alias = vnode.attrs.identifiers[0].name;
-    this.signers = [];
-    this.aliases = vnode.attrs.oobis.map((oobi) => {
+    this.aliases = Participants.oobis.map((oobi) => {
       return oobi.alias;
     });
-    KERI.getContactsByAliases(this.aliases)
-      .then((contacts) => {
-        this.signers = contacts.map((contact) => {
-          return {
-            id: contact.id,
-            alias: contact.alias,
-            challengeMessage: '',
-            signed: false,
-            confirmed: false,
-          };
-        });
-      })
-      .catch((err) => {
-        console.log('getContacts', err);
-      });
   }
 
   signChallengePromise(signer) {
     return KERI.signChallengeMessage(this.alias, signer.id, signer.challengeMessage.split(' '));
   }
 
-  get confirmedCount() {
-    return this.signers
-      ? this.signers.filter((signer) => {
-          return signer.confirmed;
-        }).length
-      : 0;
-  }
-
   view(vnode) {
     return (
       <>
-        <p>
-          In progress: {this.confirmedCount}/{this.signers.length} confirmed
-        </p>
         <div style={{ height: '512px', overflowY: 'auto', margin: '0 0 1rem 0', paddingRight: '1rem' }}>
-          {this.signers.map((signer, index) => {
+          {Participants.oobis.map((signer, index) => {
             return (
               <>
-                <Card>
-                  <p>{signer.alias}</p>
-                  <TextField
-                    outlined
-                    fluid
-                    textarea
-                    style={{ backgroundColor: 'rgba(0, 0, 0, 0.04)' }}
-                    value={signer.challengeMessage}
-                    oninput={(e) => {
-                      signer.challengeMessage = e.target.value;
-                    }}
-                  />
-                  {!signer.signed ? (
+                <Card class="card--fluid" style={{margin: '0 0 1.5rem 0'}}>
+                    <div className="flex flex-align-center flex-justify-between">
+                        <h5 style={{width: '100px'}}>{signer.alias}</h5>
+                          <TextField
+                            outlined
+                            fluid
+                            textarea
+                            style={{ backgroundColor: 'rgba(0, 0, 0, 0.04)' }}
+                            value={signer.challengeMessage}
+                            oninput={(e) => {
+                              signer.challengeMessage = e.target.value;
+                            }}
+                          />
+                    </div>
+                  {!signer.sent ? (
                     <Button
                       class="button--big button--no-transform"
                       raised
@@ -76,7 +50,7 @@ class EnterChallengesForm {
                       onclick={() => {
                         this.signChallengePromise(signer)
                           .then(() => {
-                            signer.signed = true;
+                            signer.sent = true;
                           })
                           .catch((err) => {
                             console.log('signChallengePromise', err);

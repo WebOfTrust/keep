@@ -1,23 +1,18 @@
 import m from 'mithril';
 import {Button, Card, IconButton, TextField} from '../../src/app/components';
-import {KERI} from '../../src/app/services';
+import {KERI, Participants} from '../../src/app/services';
 
 /*
  * EnterOOBIsForm
  *
  * attrs
  * identifiers - an array of agent identifiers
- * oobis - array of oobis to modify
- * oobisChange - function triggered after all oobis are resolved
  */
 
 class EnterOOBIsForm {
     constructor(vnode) {
         this.complete = false;
         this.alias = vnode.attrs.identifiers[0].name;
-        vnode.attrs.oobis.forEach((oobi) => {
-            oobi.status = "none";
-        });
     }
 
     resolveOOBIPromise(oobi) {
@@ -25,7 +20,7 @@ class EnterOOBIsForm {
     }
 
     resolveAllOOBIs(vnode) {
-        let promises = vnode.attrs.oobis
+        let promises = Participants.oobis
             .filter((oobi) => {
                 return oobi.alias && oobi.url;
             })
@@ -35,13 +30,11 @@ class EnterOOBIsForm {
             });
         return Promise.all(promises)
             .then(() => {
-                this.ensureOOBIsResolved(vnode.attrs.oobis)
+                this.ensureOOBIsResolved(Participants.oobis)
                     .then(() => {
-                        vnode.attrs.oobisChange(
-                            vnode.attrs.oobis.filter((oobi) => {
+                        Participants.oobis.filter((oobi) => {
                                 return oobi.alias && oobi.url;
                             })
-                        );
                     });
             })
             .catch((err) => {
@@ -62,20 +55,21 @@ class EnterOOBIsForm {
                             return contacts.some((contact) => {
                                 if (contact.alias === oobi.alias) {
                                     oobi.status = "resolved";
+                                    oobi.id = contact.id;
                                     return true;
                                 }
                                 return false;
                             })
                         })
                         if (done) return resolve();
-                        setTimeout(waitForOOBI, 1000);
+                        setTimeout(waitForOOBI, 700);
 
                     })
                     .catch((err) => {
                         reject()
                         console.log('getContacts', err);
                     });
-            }), 1000);
+            }), 700);
         });
     }
 
@@ -89,14 +83,14 @@ class EnterOOBIsForm {
                             an Alias that makes sense to you:
                         </p>
                     </div>
-                    {vnode.attrs.oobis.map((oobi) => {
+                    {Participants.oobis.map((oobi) => {
                         return (
                             <Card class="card--fluid" style={{margin: '0 0 1.5rem 0'}}>
                                 <IconButton
                                     class="close-icon"
                                     icon="close"
                                     onclick={() => {
-                                        vnode.attrs.oobis.splice(vnode.attrs.oobis.indexOf(oobi), 1);
+                                        Participants.oobis.splice(Participants.oobis.indexOf(oobi), 1);
                                     }}
                                 />
                                 <div className="flex flex-align-center flex-justify-between">
@@ -145,11 +139,7 @@ class EnterOOBIsForm {
                         raised
                         label="Add Another"
                         onclick={() => {
-                            vnode.attrs.oobis.push({
-                                alias: '',
-                                url: '',
-                                status: 'none'
-                            });
+                            Participants.addOOBI("", "");
                         }}
                     />
                     <Button

@@ -1,7 +1,9 @@
 import m from 'mithril';
 import Notify from './notify';
-// import KERI from './keri';
+import Participants from './oobis';
 import Toaster from './toaster';
+import KERI from './keri'
+import Profile from './profile'
 
 class Mail {
   static MINSNIFFSIZE = 30;
@@ -72,7 +74,18 @@ class Mail {
 
   static challengeHandler = (e) => {
     let data = JSON.parse(e.data);
-    console.log(data);
+    const oobi = Participants.oobis.find((oobi) => {
+      return data.signer === oobi.id;
+    })
+    if (oobi !== undefined) {
+      if (data.words.length === Participants.words.length
+          && data.words.every((v,i)=> v === Participants.words[i])) {
+        oobi.verified = true
+        m.redraw();
+        const aid = Profile.getDefaultAID()
+        KERI.updateContact(aid.name, oobi.id, {verified: "true"})
+      }
+    }
     Notify.push({
       type: 'challenge',
       data,
@@ -110,7 +123,7 @@ class Mail {
 
   static initEventSource = () => {
     this.source = new EventSource(
-      `${process.env.API_HOST}:${this.port}/mbx?pre=E59KmDbpjK0tRf9Rmc7OlueZVz7LB94DdD3cjQVvPcng&topics=%2Fchallenge%3D0&topics=%2Fmultisig%3D0&topics=%2Freceipt%3D0&topics=%2Freplay%3D0&topics=%2Freply%3D0`
+      `${process.env.API_HOST}:${process.env.API_PORT}/mbx?pre=E59KmDbpjK0tRf9Rmc7OlueZVz7LB94DdD3cjQVvPcng&topics=%2Fchallenge%3D0&topics=%2Fmultisig%3D0&topics=%2Freceipt%3D0&topics=%2Freplay%3D0&topics=%2Freply%3D0`
     );
     this.source.addEventListener('/challenge', this.challengeHandler, false);
     this.source.addEventListener('/multisig', this.multisigHandler, false);

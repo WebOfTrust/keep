@@ -28,6 +28,7 @@ class Dashboard {
     KERI.listIdentifiers()
       .then((ids) => {
         Auth.isLoggedIn = true;
+        Mail.initEventSource();
         if (ids.length > 0) {
           if (sessionStorage.getItem('seenIntro')) {
             this.tasksShown = this.allTasks[this.userTypeSelected]['main'];

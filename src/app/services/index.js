@@ -5,6 +5,7 @@ import Mail from './mail';
 import Notify from './notify';
 import Toaster from './toaster';
 import Profile from './profile';
+import Participants from "./oobis"
 
 module.exports = {
   Auth,
@@ -14,4 +15,5 @@ module.exports = {
   Notify,
   Toaster,
   Profile,
+  Participants,
 };

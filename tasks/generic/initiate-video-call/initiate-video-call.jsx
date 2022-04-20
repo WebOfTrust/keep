@@ -1,6 +1,6 @@
 import m from 'mithril';
 import { Button } from '../../../src/app/components';
-import { KERI, Profile } from '../../../src/app/services';
+import { KERI, Profile, Participants } from '../../../src/app/services';
 import { EnterChallengesForm, EnterOOBIsForm, SendChallengeForm } from '../../../forms';
 
 import addNewContacts from '../../../src/assets/img/add-new-contacts.png';
@@ -12,6 +12,7 @@ import { SendOOBIForm } from '../../../forms';
 
 class InitiateVideoCallTask {
   constructor() {
+
     this.currentState = 'intro';
     this._component = {
       view: (vnode) => {
@@ -58,19 +59,6 @@ class InitiateVideoCallTask {
 class InitiateVideoCall {
   constructor() {
     Profile.isLead = true;
-    this.oobis = [
-      {
-        alias: '',
-        url: '',
-        status: ''
-      }
-    ];
-  }
-
-  oobisResolved() {
-    return this.oobis.length > 0 && this.oobis.every((oobi) => {
-      return oobi.status === "resolved"
-    })
   }
 
   view(vnode) {
@@ -180,17 +168,13 @@ class InitiateVideoCall {
             <h3>Accept OOBI from other person(s)</h3>
             <EnterOOBIsForm
               identifiers={Profile.identifiers}
-              oobis={this.oobis}
-              oobisChange={(oobis) => {
-                this.oobis = oobis;
-              }}
             />
             <div class="flex flex-justify-end" style={{ marginTop: '2rem' }}>
               <Button
                 class="button--big button--no-transform"
                 raised
                 label="Continue"
-                disabled={!this.oobisResolved()}
+                disabled={!Participants.oobisResolved()}
                 onclick={() => {
                   vnode.attrs.parent.currentState = 'generate-challenge';
                 }}
@@ -227,7 +211,7 @@ class InitiateVideoCall {
         )}
         {vnode.attrs.parent.currentState === 'challenge-messages' && (
           <>
-            <EnterChallengesForm identifiers={Profile.identifiers} oobis={this.oobis} />
+            <EnterChallengesForm identifiers={Profile.identifiers} />
             <div class="flex flex-justify-between">
               <Button
                 class="button--gray-dk button--big button--no-transform"
@@ -241,6 +225,7 @@ class InitiateVideoCall {
                 class="button--big button--no-transform"
                 raised
                 label="Next"
+                disabled={!(Participants.oobisVerified() && Participants.oobisConfirmed())}
                 onclick={() => {
                   vnode.attrs.parent.currentState = 'waiting-for-signatures';
                 }}
@@ -323,26 +308,46 @@ class SendOOBIPanel {
 
 class CopyChallengePanel {
 
-  constructor() {
+  constructor(vnode) {
+    this.signers = vnode.attrs.signers
   }
 
   view(vnode) {
     return (
         <>
-          <img src={responseMessage} style={{width: '240px', margin: '1.5rem 0 2rem 0'}}/>
-          <h3>Paste Challenge Message in Video Call</h3>
+          <div className="flex flex-align-center flex-justify-between">
+            <img src={addNewContacts} style={{width: '120px', margin: '1.5rem 0 1rem 0'}}/>
+            <h3>Challenge Message Recipients</h3>
+          </div>
           <p class="p-tag" style={{margin: '2rem 0 2rem 0'}}>
-            Generate a message for each participant then direct message everyone in the video call.
+            Paste the message into the video chat so that your contact(s) can be verified
             <br/>
             <br/>
             <strong>
               Important! Don't use a challenge message from another session, it should be unique to this
-              session
-              taking place today.
+              session taking place today.
             </strong>
           </p>
           <SendChallengeForm/>
-
+          <div className="flex flex-align-center flex-justify-between">
+            <p class="font-color--battleship">Participant</p>
+            <p class="font-color--battleship">Status</p>
+          </div>
+          {Participants.oobis.map((signer, index) => {
+            return (
+                <>
+                  <div className="flex flex-align-center flex-justify-between">
+                    <p>{signer.alias}</p>
+                    {!signer.verified && (
+                        <p class="font-color--blue">In Progress</p>
+                    )}
+                    {signer.verified && (
+                        <p class="font-color--green">Verified!</p>
+                    )}
+                  </div>
+                </>
+            )
+          })}
         </>
     )
   }

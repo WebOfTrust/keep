@@ -124,6 +124,15 @@ class KERI {
     });
   }
 
+  static updateContact(alias, aid, body) {
+    return m.request({
+      method: 'PUT',
+      url: `${process.env.API_HOST}:${process.env.API_PORT}/contacts/${aid}/${alias}`,
+      body: body,
+    });
+  }
+
+
   // GROUPS
 
   static initiateGroupInception(alias, { aids, isith, nsith, toad, wits }) {

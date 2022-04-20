@@ -29,13 +29,6 @@ class SendOOBIForm {
       });
   }
 
-  copyAlias() {
-    navigator.clipboard.writeText(this.oobi.alias).then(
-      () => {},
-      () => {}
-    );
-  }
-
   copyURL() {
     navigator.clipboard.writeText(this.oobi.url).then(
       () => {

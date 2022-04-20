@@ -11,10 +11,6 @@ import '../scss/nav-rail.scss';
 
 let root = document.body;
 
-if (Auth.isLoggedIn) {
-  Mail.initEventSource();
-}
-
 const MainLayout = {
   view: (vnode) => {
     return (
