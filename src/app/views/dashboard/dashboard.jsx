@@ -13,41 +13,16 @@ class Dashboard {
     this.tasksShown = [];
     this.taskSelected = null;
 
-    this.userTypeOptions = [
-      // {
-      //   label: 'Generic',
-      //   value: 'generic',
-      // },
-      {
-        label: 'External GAR',
-        value: 'external-gar',
-      },
-      // {
-      //   label: 'Internal GAR',
-      //   value: 'internal-gar',
-      // },
-      // {
-      //   label: 'Root GAR',
-      //   value: 'root-gar',
-      // },
-      // {
-      //   label: 'LAR',
-      //   value: 'lar',
-      // },
-      // {
-      //   label: 'Person',
-      //   value: 'person',
-      // },
-      // {
-      //   label: 'QAR',
-      //   value: 'qar',
-      // },
-    ];
-    this.changeUserType(process.env.USER_TYPE);
-    this.getTasksFlow();
-    Profile.loadIdentifiers();
-    Contacts.requestList();
-  }
+        this.userTypeOptions = [
+            {
+                label: 'External GAR',
+                value: 'external-gar',
+            },
+        ];
+        this.changeUserType(process.env.USER_TYPE);
+        this.getTasksFlow()
+        Profile.loadIdentifiers();
+    }
 
   getTasksFlow() {
     KERI.listIdentifiers()

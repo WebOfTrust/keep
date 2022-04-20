@@ -7,12 +7,12 @@ import addNewContacts from '../../../src/assets/img/add-new-contacts.png';
 import projectPlanning from '../../../src/assets/img/project-planning.png';
 import responseMessage from '../../../src/assets/img/response-message.png';
 import uploadFile from '../../../src/assets/img/upload-file.png';
-import CopyChallengePanel from "./copy-challenge-panel"
 import { SendOOBIForm } from '../../../forms';
+
 
 class InitiateVideoCallTask {
   constructor() {
-    this.currentState = 'delegating-aids';
+    this.currentState = 'intro';
     this._component = {
       view: (vnode) => {
         return <InitiateVideoCall end={vnode.attrs.end} parent={this}/>;
@@ -69,37 +69,51 @@ class InitiateVideoCall {
   view(vnode) {
     return (
       <>
-        {vnode.attrs.parent.currentState === 'delegating-aids' && (
+        {vnode.attrs.parent.currentState === 'intro' && (
           <>
-            <h3>Delegating AIDs</h3>
-            <p class="p-tag">This module will take you through the steps for AID Delegation.</p>
-            <h3>Steps to AID Delegation</h3>
-            <p class="p-tag">
-              <div class="flex flex-column">
-                <ol class="styled-ol" style={{ margin: '2rem 0' }}>
-                  <li>Initiate a Video Call</li>
-                  <li>Send your OOBI over video call and receive the other user's OOBI.</li>
-                  <li>Send a Challenge Message</li>
-                  <li>You will sign and return Challenge Message.</li>
-                  <li>Once you have signed, you must verify signatures of all participants.</li>
-                </ol>
-              </div>
+            <h3>Identity Authentication</h3>
+            <p className="p-tag">
+              {vnode.attrs.steps ? (
+                  vnode.attrs.steps.paragraph
+              ) : (
+                  <>
+                    This module will take you through the steps of how to authenticate a user's identity. Below are the
+                    steps
+                    for how to complete the process:
+                  </>
+              )}
             </p>
-            <div class="flex flex-justify-end">
-              <Button
-                class="button--big button--no-transform"
-                raised
-                label="Continue"
-                onclick={() => {
-                  vnode.attrs.parent.currentState = 'video-call';
-                }}
+            <h3>Steps to Identity Authentication</h3>
+            <ol className="styled-ol" style={{margin: '2rem 0'}}>
+              {vnode.attrs.steps ? (
+                  vnode.attrs.steps.list.map((element) => {
+                    return <li>{element}</li>;
+                  })
+              ) : (
+                  <>
+                    <li>Initiate a Video Call</li>
+                    <li>Use an OOBI protocol to obtain the user's AID</li>
+                    <li>Use an OOBI protocol to share your AID</li>
+                    <li>Obtain and sign a Challenge Message</li>
+                    <li>Generate and send a Challenge Message</li>
+                    <li>User signs and returns Challenge Message</li>
+                    <li>You verify signature and issue credentials</li>
+                  </>
+              )}
+            </ol>
+            <div className="flex flex-justify-end">
+              {/* <Button class="button--gray-dk button--big button--no-transform" raised label="Skip" /> */}
+              <Button class="button--big button--no-transform" raised label="Continue"
+                      onclick={() => {
+                        vnode.attrs.parent.currentState = 'video-call';
+                      }}
               />
             </div>
           </>
         )}
         {vnode.attrs.parent.currentState === 'video-call' && (
           <>
-            <img src={projectPlanning} style={{ marginBottom: '2rem', width: '240px' }} />
+            <img src={responseMessage} style={{ marginBottom: '2rem', width: '240px' }} />
             <h3>Initiate a Video Call</h3>
             <p class="p-tag" style={{ margin: '2rem 0 6rem 0' }}>
               In order to start the authentication process, you will need to initiate an real-time Out of Band
@@ -299,6 +313,31 @@ class SendOOBIPanel {
   }
 }
 
-module.exports = SendOOBIPanel
+class CopyChallengePanel {
+
+  constructor() {
+  }
+
+  view(vnode) {
+    return (
+        <>
+          <img src={responseMessage} style={{width: '240px', margin: '1.5rem 0 2rem 0'}}/>
+          <h3>Paste Challenge Message in Video Call</h3>
+          <p class="p-tag" style={{margin: '2rem 0 2rem 0'}}>
+            Generate a message for each participant then direct message everyone in the video call.
+            <br/>
+            <br/>
+            <strong>
+              Important! Don't use a challenge message from another session, it should be unique to this
+              session
+              taking place today.
+            </strong>
+          </p>
+          <SendChallengeForm/>
+
+        </>
+    )
+  }
+}
 
 module.exports = InitiateVideoCallTask;

@@ -12,7 +12,7 @@ import IdentityAuthenticationIssue from '../generic/identity-authentication-issu
 import IdentityAuthenticationReceive from '../generic/identity-authentication-receive/identity-authentication-receive';
 import InitiateVideoCallTask from '../generic/initiate-video-call/initiate-video-call';
 import IntroToYourRole from '../generic/intro-to-your-role/intro-to-your-role';
-import JoinVideoCall from '../generic/join-video-call/join-video-call';
+import JoinVideoCallTask from '../generic/join-video-call/join-video-call';
 import Login from '../generic/login/login';
 import ManualKeyRotation from '../generic/manual-key-rotation/manual-key-rotation';
 import ViewMultiSigSet from '../generic/view-multi-sig-set/view-multi-sig-set';
@@ -20,8 +20,11 @@ import ViewNewCredential from '../generic/view-new-credential/view-new-credentia
 
 // Images
 import addNewContacts from '../../src/assets/img/add-new-contacts.png';
+import secureMessaging from '../../src/assets/img/secure-messaging.png';
+import loanApproved from '../../src/assets/img/loan-approved.png';
 import createYourPasscode from '../../src/assets/img/create-your-passcode.png';
 import createIdentifier from '../../src/assets/img/create-identifier.png';
+import declineRequest from '../../src/assets/img/decline-request.png';
 
 const tasks = {
   'create-passcode': [
@@ -97,17 +100,9 @@ const tasks = {
     //   },
     // },
     new InitiateVideoCallTask(),
+    new JoinVideoCallTask(),
     {
-      imgSrc: addNewContacts,
-      label: 'Join Video Call',
-      component: {
-        view: (vnode) => {
-          return <JoinVideoCall end={vnode.attrs.end} />;
-        },
-      },
-    },
-    {
-      imgSrc: addNewContacts,
+      imgSrc: secureMessaging,
       label: 'Initiate Multi-Sig Set',
       component: {
         view: (vnode) => {
@@ -116,7 +111,7 @@ const tasks = {
       },
     },
     {
-      imgSrc: addNewContacts,
+      imgSrc: secureMessaging,
       label: 'Join Multi-Sig Set',
       component: {
         view: (vnode) => {
@@ -143,7 +138,7 @@ const tasks = {
       },
     },
     {
-      imgSrc: addNewContacts,
+      imgSrc: loanApproved,
       label: 'Credential Issuance',
       component: {
         view: (vnode) => {
@@ -152,7 +147,7 @@ const tasks = {
       },
     },
     {
-      imgSrc: addNewContacts,
+      imgSrc: declineRequest,
       label: 'Credential Revocation',
       component: {
         view: (vnode) => {
