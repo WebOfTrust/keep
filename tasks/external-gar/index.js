@@ -103,7 +103,7 @@ const tasks = {
     new JoinVideoCallTask(),
     {
       imgSrc: secureMessaging,
-      label: 'Initiate Multi-Sig Set',
+      label: 'Initiate Multi-Sig Group',
       component: {
         view: (vnode) => {
           return <ConfigureMultiSigSet end={vnode.attrs.end} />;
@@ -112,7 +112,7 @@ const tasks = {
     },
     {
       imgSrc: secureMessaging,
-      label: 'Join Multi-Sig Set',
+      label: 'Join Multi-Sig Group',
       component: {
         view: (vnode) => {
           return <ViewMultiSigSet end={vnode.attrs.end} />;

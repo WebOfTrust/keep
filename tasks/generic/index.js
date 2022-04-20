@@ -137,7 +137,7 @@ const tasks = {
     },
     {
       imgSrc: calendar,
-      label: 'View Multi-Sig Set',
+      label: 'View Multi-Sig Group',
       component: {
         view: (vnode) => {
           return <ViewMultiSigSet end={vnode.attrs.end} />;
@@ -146,7 +146,7 @@ const tasks = {
     },
     {
       imgSrc: secureMessaging,
-      label: 'Configure Multi-Sig Set',
+      label: 'Configure Multi-Sig Group',
       component: {
         view: (vnode) => {
           return <ConfigureMultiSigSet end={vnode.attrs.end} />;

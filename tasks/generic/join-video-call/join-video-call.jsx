@@ -245,7 +245,7 @@ class JoinVideoCall {
                 <h3>Waiting for Signatures</h3>
                 <p class="p-tag" style={{ margin: '2rem 0 2rem 0' }}>
                   You will be notified when all participents sign and return the Challenge Message, after which you may
-                  configure the multi-sig set.
+                  configure the multi-sig group.
                 </p>
                 <div class="flex flex-justify-between">
                   <Button

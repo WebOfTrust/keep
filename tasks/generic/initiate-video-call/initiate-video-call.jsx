@@ -62,8 +62,15 @@ class InitiateVideoCall {
       {
         alias: '',
         url: '',
+        status: ''
       }
     ];
+  }
+
+  oobisResolved() {
+    return this.oobis.length > 0 && this.oobis.every((oobi) => {
+      return oobi.status === "resolved"
+    })
   }
 
   view(vnode) {
@@ -183,6 +190,7 @@ class InitiateVideoCall {
                 class="button--big button--no-transform"
                 raised
                 label="Continue"
+                disabled={!this.oobisResolved()}
                 onclick={() => {
                   vnode.attrs.parent.currentState = 'generate-challenge';
                 }}
@@ -246,7 +254,7 @@ class InitiateVideoCall {
             <h3>Waiting for Signatures</h3>
             <p class="p-tag" style={{ margin: '2rem 0 2rem 0' }}>
               You will be notified when all participents sign and return the Challenge Message, after which you may
-              configure the multi-sig set.
+              configure the multi-sig group.
             </p>
             <div class="flex flex-justify-between">
               <Button

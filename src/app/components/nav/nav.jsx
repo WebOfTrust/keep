@@ -20,7 +20,6 @@ class Nav {
     let label = '';
     let aid = Profile.getDefaultAID();
     if (aid !== null) {
-      console.log(aid);
       label = '(' + aid.name + ') ';
     }
     if (Profile.isLead) {
