@@ -12,10 +12,6 @@ class Nav {
     this.notificationsVisible = false;
   }
 
-  challengeNotificationClick(notification) {
-    m.route.set('/contacts');
-  }
-
   get navLabel() {
     let label = '';
     let aid = Profile.getDefaultAID();
@@ -30,8 +26,16 @@ class Nav {
     return label;
   }
 
-  multisigNotificationClick(notification) {
-    console.log('Click multisig notification', notification);
+  challengeNotificationClick(notification) {
+    m.route.set('/contacts');
+  }
+
+  multisigCompleteClick(notification) {
+    console.log('Multisig complete', notification);
+  }
+
+  multisigInitClick(notification) {
+    console.log('Multisig init', notification);
   }
 
   view() {
@@ -81,14 +85,26 @@ class Nav {
                         );
                       }
                       if (notification.type === 'multisig') {
+                        let rType = notification.data.r;
+                        let meta = {
+                          title: 'New Credential Registry',
+                          clickHandler: null,
+                        };
+                        if (rType.includes('/complete')) {
+                          meta.title = 'New Credential Registry';
+                          meta.clickHandler = this.multisigCompleteClick;
+                        } else if (rType.includes('/init')) {
+                          meta.title = 'New Multi-Sig Verification';
+                          meta.clickHandler = this.multisigInitClick;
+                        }
                         return (
                           <a
                             style={{ display: 'block' }}
                             onclick={() => {
-                              this.multisigNotificationClick(notification);
+                              meta.clickHandler(notification);
                             }}
                           >
-                            New Multi-Sig Verification
+                            {meta.title}
                           </a>
                         );
                       }
