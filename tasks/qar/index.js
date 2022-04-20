@@ -23,7 +23,7 @@ import InitiateVideoCall from '../generic/initiate-video-call/initiate-video-cal
 import JoinVideoCall from '../generic/join-video-call/join-video-call';
 
 import ManualKeyRotation from '../generic/manual-key-rotation/manual-key-rotation';
-import ViewMultiSigSet from '../generic/view-multi-sig-set/view-multi-sig-set';
+import ViewMultiSigEventLogs from '../generic/view-multi-sig-event-logs/view-multi-sig-event-logs';
 import ViewNewCredential from '../generic/view-new-credential/view-new-credential';
 import VerifyCredentials from '../generic/verify-credentials/verify-credentials';
 // Tasks
@@ -42,6 +42,7 @@ import verifyCredentials from '../../src/assets/img/verify-credentials.png';
 import declineRequest from '../../src/assets/img/decline-request.png';
 import calendar from '../../src/assets/img/calendar.png';
 import loanApproved from '../../src/assets/img/loan-approved.png';
+
 const tasks = {
   'create-passcode': [
     {
@@ -141,7 +142,7 @@ const tasks = {
       label: 'View Multi-Sig Group',
       component: {
         view: (vnode) => {
-          return <ViewMultiSigSet end={vnode.attrs.end} />;
+          return <ViewMultiSigEventLogs end={vnode.attrs.end} />;
         },
       },
     },

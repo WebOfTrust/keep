@@ -11,7 +11,7 @@ import JoinVideoCall from '../generic/join-video-call/join-video-call';
 import InitiateVideoCall from '../generic/initiate-video-call/initiate-video-call';
 import IdentityAuthenticationIssue from '../generic/identity-authentication-issue/identity-authentication-issue';
 import IdentityAuthenticationReceive from '../generic/identity-authentication-receive/identity-authentication-receive';
-import ViewMultiSigSet from '../generic/view-multi-sig-set/view-multi-sig-set';
+import ViewMultiSigEventLogs from '../generic/view-multi-sig-event-logs/view-multi-sig-event-logs';
 import ConfigureMultiSigSet from '../generic/configure-multi-sig-set/configure-multi-sig-set';
 // Tasks
 // import IntroToAVRRole from './intro-you-the-avr-role/intro-to-the-avr-role';
@@ -134,7 +134,7 @@ const tasks = {
       label: 'View Multi-Sig Group',
       component: {
         view: (vnode) => {
-          return <ViewMultiSigSet end={vnode.attrs.end} />;
+          return <ViewMultiSigEventLogs end={vnode.attrs.end} />;
         },
       },
     },

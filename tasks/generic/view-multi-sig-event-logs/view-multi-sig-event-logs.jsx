@@ -258,7 +258,7 @@ class MultiSigVerProg {
   }
 }
 
-class ViewMultiSigSet {
+class ViewMultiSigEventLogs {
   constructor() {
     this.currentState = 'event-log';
   }
@@ -288,4 +288,4 @@ class ViewMultiSigSet {
   }
 }
 
-module.exports = ViewMultiSigSet;
+module.exports = ViewMultiSigEventLogs;

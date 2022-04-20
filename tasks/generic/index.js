@@ -13,7 +13,7 @@ import IntroToYourRole from './intro-to-your-role/intro-to-your-role';
 import JoinVideoCall from './join-video-call/join-video-call';
 import Login from './login/login';
 import ManualKeyRotation from './manual-key-rotation/manual-key-rotation';
-import ViewMultiSigSet from './view-multi-sig-set/view-multi-sig-set';
+import ViewMultiSigEventLogs from './view-multi-sig-event-logs/view-multi-sig-event-logs';
 import ViewNewCredential from './view-new-credential/view-new-credential';
 import VerifyCredentials from './verify-credentials/verify-credentials';
 // Images
@@ -137,10 +137,10 @@ const tasks = {
     },
     {
       imgSrc: calendar,
-      label: 'View Multi-Sig Group',
+      label: 'View Multi-Sig Event Logs',
       component: {
         view: (vnode) => {
-          return <ViewMultiSigSet end={vnode.attrs.end} />;
+          return <ViewMultiSigEventLogs end={vnode.attrs.end} />;
         },
       },
     },
