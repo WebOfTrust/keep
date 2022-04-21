@@ -22,6 +22,13 @@ class Profile {
         return this._identifiers;
     }
 
+    static filterIdentifiersById(id) {
+        return this._identifiers.filter((identifier) => {
+            return identifier.id === id;
+        });
+
+    }
+
     static loadIdentifiers() {
         KERI.listIdentifiers()
             .then((identifiers) => {

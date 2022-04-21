@@ -1,5 +1,5 @@
 import m from 'mithril';
-import { Auth, Notify, Profile, Tasks } from '../../services';
+import {Auth, KERI, Notify, Profile, Tasks} from '../../services';
 import Container from '../container/container.jsx';
 import IconButton from '../icon-button/icon-button.jsx';
 import Popover from '../popover/popover.jsx';
@@ -36,8 +36,17 @@ class Nav {
   }
 
   multisigInitClick(notification) {
-    console.log('Multisig init', notification);
-    Tasks.active = Tasks.all['main'][3];
+    // KERI.participateGroupInception("GLEIF External", {
+    //   aids: notification.data.aids,
+    //   isith: notification.data.ked.kt,
+    //   nsith: notification.data.ked.nt,
+    //   toad: Number(notification.data.ked.bt),
+    //   wits: notification.data.ked.b,
+    // }).then(() => {
+    //   console.log('inception complete');
+    //   this.currentState = 'event-complete';
+    // });
+    Tasks.active = Tasks.find('join-multisig')
   }
 
   view() {

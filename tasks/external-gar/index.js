@@ -35,6 +35,15 @@ const multisigTask = {
     },
   },
 }
+const joinMultisigTask = {
+  imgSrc: secureMessaging,
+  label: 'Join Multi-Sig Group',
+  component: {
+    view: (vnode) => {
+      return <JoinMultiSigGroup end={vnode.attrs.end} />;
+    },
+  },
+}
 
 const tasks = {
   'create-passcode': [
@@ -60,7 +69,7 @@ const tasks = {
   'create-identifier': [
     {
       imgSrc: createIdentifier,
-      label: 'Create Local GLEIF AID',
+      label: 'Incept Local GLEIF Single-Sig AID',
       component: {
         view: (vnode) => {
           return (
@@ -77,9 +86,8 @@ const tasks = {
     },
   ],
   'create-multisig': [
-    new VideoCallTask(true,"Initiate GLEIF External AID Creation", multisigTask),
-    new VideoCallTask(false,"Join GLEIF External AID Creation"),
-    // multisigTask,
+    new VideoCallTask(true,"Lead GLEIF External Multi-Sig AID Inception", multisigTask),
+    new VideoCallTask(false,"Join GLEIF External Multi-Sig AID Inception"),
     {
       imgSrc: addNewContacts,
       label: 'Perform Manual Key Rotation',
@@ -90,6 +98,9 @@ const tasks = {
       },
     },
 
+  ],
+  'join-multisig': [
+    joinMultisigTask
   ],
   'intro-to-role': [
     {
@@ -110,29 +121,20 @@ const tasks = {
   ],
   'main': [
     {
-      imgSrc: secureMessaging,
-      label: 'Initiate Multi-Sig Group',
+      imgSrc: loanApproved,
+      label: 'Credential Issuance',
       component: {
         view: (vnode) => {
-          return <ConfigureMultiSigSet end={vnode.attrs.end} />;
+          return <CredentialIssuance end={vnode.attrs.end} />;
         },
       },
     },
     {
-      imgSrc: secureMessaging,
-      label: 'Join Multi-Sig Group',
+      imgSrc: declineRequest,
+      label: 'Credential Revocation',
       component: {
         view: (vnode) => {
-          return <JoinMultiSigGroup end={vnode.attrs.end} />;
-        },
-      },
-    },
-    {
-      imgSrc: addNewContacts,
-      label: 'View Multi-Sig Event Logs',
-      component: {
-        view: (vnode) => {
-          return <ViewMultiSigEventLogs end={vnode.attrs.end} />;
+          return <CredentialRevocation end={vnode.attrs.end} />;
         },
       },
     },
@@ -155,20 +157,11 @@ const tasks = {
       },
     },
     {
-      imgSrc: loanApproved,
-      label: 'Credential Issuance',
+      imgSrc: addNewContacts,
+      label: 'View Multi-Sig Event Logs',
       component: {
         view: (vnode) => {
-          return <CredentialIssuance end={vnode.attrs.end} />;
-        },
-      },
-    },
-    {
-      imgSrc: declineRequest,
-      label: 'Credential Revocation',
-      component: {
-        view: (vnode) => {
-          return <CredentialRevocation end={vnode.attrs.end} />;
+          return <ViewMultiSigEventLogs end={vnode.attrs.end} />;
         },
       },
     },
