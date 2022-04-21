@@ -1,29 +1,34 @@
 import m from 'mithril';
 
-import { Button, Card, Container, IconButton, NavRail } from '../../components';
-import { Auth, Contacts, KERI, Mail, Profile, Tasks } from '../../services';
+import {Button, Card, Container, IconButton, NavRail} from '../../components';
+import {Auth, Contacts, KERI, Mail, Profile, Tasks } from '../../services';
 import './dashboard.scss';
 
 class Dashboard {
-  constructor() {
-    this.aboutDismissed = false;
-    this.tasksShown = [];
-    this.getTasksFlow();
+    constructor() {
+        this.aboutDismissed = false;
+
+        this.tasksShown = [];
+        this.getTasksFlow();
     Profile.loadIdentifiers();
     Contacts.requestList();
   }
 
-  getTasksFlow() {
-    KERI.listIdentifiers()
-      .then((ids) => {
-        Auth.isLoggedIn = true;
-        Mail.initEventSource();
-        if (ids.length > 0) {
-          if (sessionStorage.getItem('seenIntro')) {
-            this.tasksShown = Tasks.all['main'];
-          } else {
-            this.tasksShown = Tasks.all['intro-to-role'];
-          }
+    getTasksFlow() {
+        KERI.listIdentifiers()
+            .then((ids) => {
+                Auth.isLoggedIn = true;
+                Mail.initEventSource();
+                if (ids.length === 0) {
+                    this.tasksShown = this.allTasks[this.userTypeSelected]['create-identifier'];
+                } else if (ids.length === 1) {
+                    this.tasksShown = this.allTasks[this.userTypeSelected]['create-multisig'];
+                } else {
+                    if (sessionStorage.getItem('seenIntro')) {
+                        this.tasksShown = Tasks.all['main'];
+                    } else {
+                        this.tasksShown = Tasks.all['intro-to-role'];
+                    }
 
           if (Profile.getDefaultAID() === null) {
             Profile.setDefaultAID(ids[0]);

@@ -10,9 +10,8 @@ import CredentialIssuance from '../generic/credential-issuance/credential-issuan
 import CredentialRevocation from '../generic/credential-revocation/credential-revocation';
 import IdentityAuthenticationIssue from '../generic/identity-authentication-issue/identity-authentication-issue';
 import IdentityAuthenticationReceive from '../generic/identity-authentication-receive/identity-authentication-receive';
-import InitiateVideoCallTask from '../generic/initiate-video-call/initiate-video-call';
+import VideoCallTask from '../generic/video-call/video-call';
 import IntroToYourRole from '../generic/intro-to-your-role/intro-to-your-role';
-import JoinVideoCallTask from '../generic/join-video-call/join-video-call';
 import JoinMultiSigGroup from '../generic/join-multi-sig-group/join-multi-sig-group';
 import Login from '../generic/login/login';
 import ManualKeyRotation from '../generic/manual-key-rotation/manual-key-rotation';
@@ -51,7 +50,7 @@ const tasks = {
   'create-identifier': [
     {
       imgSrc: createIdentifier,
-      label: 'Create Your GLEIF AID',
+      label: 'Create Local GLEIF AID',
       component: {
         view: (vnode) => {
           return (
@@ -66,6 +65,20 @@ const tasks = {
         },
       },
     },
+  ],
+  'create-multisig': [
+    new VideoCallTask(true,"Initiate GLEIF External AID Creation"),
+    new VideoCallTask(false,"Join GLEIF External AID Creation"),
+    {
+      imgSrc: addNewContacts,
+      label: 'Perform Manual Key Rotation',
+      component: {
+        view: (vnode) => {
+          return <ManualKeyRotation end={vnode.attrs.end} />;
+        },
+      },
+    },
+
   ],
   'intro-to-role': [
     {
@@ -85,23 +98,6 @@ const tasks = {
     },
   ],
   'main': [
-    // {
-    //   imgSrc: addNewContacts,
-    //   label: 'Identity Authentication (Participate)',
-    //   component: {
-    //     view: (vnode) => {
-    //       return (
-    //         <IdentityAuthenticationReceive
-    //           steps={ExternalGarVariables.identityAuthentication.steps}
-    //           acceptOobi={ExternalGarVariables.identityAuthentication.acceptOobi}
-    //           end={vnode.attrs.end}
-    //         />
-    //       );
-    //     },
-    //   },
-    // },
-    new InitiateVideoCallTask(),
-    new JoinVideoCallTask(),
     {
       imgSrc: secureMessaging,
       label: 'Initiate Multi-Sig Group',

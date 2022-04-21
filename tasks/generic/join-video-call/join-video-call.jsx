@@ -11,7 +11,8 @@ import { SendOOBIForm } from '../../../forms';
 
 
 class JoinVideoCallTask {
-  constructor() {
+  constructor(label) {
+    this._label = label
     this.currentState = 'intro';
     this._component = {
       view: (vnode) => {
@@ -35,7 +36,7 @@ class JoinVideoCallTask {
   }
 
   get label() {
-    return 'Join Video Call';
+    return this._label;
   }
 
   get component() {

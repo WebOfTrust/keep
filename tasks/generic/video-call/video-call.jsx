@@ -10,14 +10,15 @@ import uploadFile from '../../../src/assets/img/upload-file.png';
 import { SendOOBIForm } from '../../../forms';
 
 
-class InitiateVideoCallTask {
-  constructor(label) {
+class VideoCallTask {
+  constructor(initiate, label) {
     this._label = label
+    this.initiate = initiate
 
     this.currentState = 'intro';
     this._component = {
       view: (vnode) => {
-        return <InitiateVideoCall end={vnode.attrs.end} parent={this}/>;
+        return <VideoCall end={vnode.attrs.end} parent={this}/>;
       }
     }
     this.sendOOBIPanel = {
@@ -30,6 +31,10 @@ class InitiateVideoCallTask {
         return <CopyChallengePanel />
       }
     }
+  }
+
+  get lead() {
+    return this.initiate
   }
 
   get imgSrc() {
@@ -57,9 +62,8 @@ class InitiateVideoCallTask {
 }
 
 
-class InitiateVideoCall {
-  constructor() {
-    Profile.isLead = true;
+class VideoCall {
+  constructor(vnode) {
   }
 
   view(vnode) {
@@ -87,7 +91,7 @@ class InitiateVideoCall {
                   })
               ) : (
                   <>
-                    <li>Initiate a Video Call</li>
+                    <li>{vnode.attrs.parent.initiate ? "Initiate" : "Join"} a Video Call</li>
                     <li>Use an OOBI protocol to obtain the user's AID</li>
                     <li>Use an OOBI protocol to share your AID</li>
                     <li>Obtain and sign a Challenge Message</li>
@@ -122,7 +126,7 @@ class InitiateVideoCall {
                 raised
                 label="Go Back"
                 onclick={() => {
-                  vnode.attrs.parent.currentState = 'delegating-aids';
+                  vnode.attrs.parent.currentState = 'intro';
                 }}
               />
               <Button
@@ -228,19 +232,23 @@ class InitiateVideoCall {
                 label="Next"
                 disabled={!(Participants.oobisVerified() && Participants.oobisConfirmed())}
                 onclick={() => {
-                  vnode.attrs.parent.currentState = 'waiting-for-signatures';
+                  if (vnode.attrs.parent.initiate) {
+                  /* If INITIATE, figure out how to launch Multisig */
+                  } else {
+                    vnode.attrs.parent.currentState = 'waiting-for-multisig';
+                  }
                 }}
               />
             </div>
           </>
         )}
-        {vnode.attrs.parent.currentState === 'waiting-for-signatures' && (
+        {vnode.attrs.parent.currentState === 'waiting-for-multisig' && (
           <>
             <img src={uploadFile} style={{ width: '240px', margin: '1.5rem 0 2rem 0' }} />
-            <h3>Waiting for Signatures</h3>
+            <h3>Waiting for Multi-Sig Group Initiation</h3>
             <p class="p-tag" style={{ margin: '2rem 0 2rem 0' }}>
-              You will be notified when all participents sign and return the Challenge Message, after which you may
-              configure the multi-sig group.
+              You will be notified when the Lead External GAR initiates the creation of the Multi-Sig Group for
+              the GLEIF External AID.  Clicking on the notification will allow you to participate in the inception event.
             </p>
             <div class="flex flex-justify-between">
               <Button
@@ -255,31 +263,6 @@ class InitiateVideoCall {
             </div>
           </>
         )}
-        {/* {vnode.attrs.parent.currentState === 'notifications' && (
-          <>
-            <h3 style={{ margin: '0 0 3rem 0' }}>Notifications</h3>
-            {this.tempNotiArray.map((noti) => {
-              return (
-                <div
-                  class="flex flex-justify-between divider"
-                  style={{ alignItems: 'center', margin: '0', height: '40px' }}
-                >
-                  <div class="flex" style={{ alignItems: 'center', marginBottom: '-9px' }}>
-                    <img src={noti.displayPic} style={{ width: '28px', height: '28px', borderRadius: '50%' }} />
-                    <h5 style={{ margin: '0 0 0 1rem' }}>{noti.type}</h5>
-                  </div>
-
-                  <h5 style={{ color: '#3c64b1', margin: '0 0 -9px 0', alignItems: 'center' }}>
-                    <u>{noti.linkText}</u>
-                  </h5>
-                </div>
-              );
-            })}
-            <div class="flex flex-justify-end" style={{ margin: '4rem 0 0 0' }}>
-              <Button class="button--big button--no-transform" raised label="Close" onclick={vnode.attrs.end} />
-            </div>
-          </>
-        )} */}
       </>
     );
   }
@@ -354,4 +337,4 @@ class CopyChallengePanel {
   }
 }
 
-module.exports = InitiateVideoCallTask;
+module.exports = VideoCallTask;
