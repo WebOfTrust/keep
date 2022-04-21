@@ -101,7 +101,7 @@ class ConfigureMultiSigSet {
                 this.groupAlias = e.target.value;
               }}
             />
-            <div class="flex flex-justify-between" style={{ marginTop: '2rem' }}>
+            <div class="flex flex-justify-between" style={{ marginTop: '4rem' }}>
               <Button
                 class="button--gray-dk button--big button--no-transform"
                 raised

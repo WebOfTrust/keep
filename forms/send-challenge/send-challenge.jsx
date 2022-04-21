@@ -1,24 +1,24 @@
 import m from 'mithril';
-import { TextField } from '../../src/app/components';
+import { Button, TextField } from '../../src/app/components';
 import { KERI, Participants } from '../../src/app/services';
 
 class SendChallengeForm {
   constructor() {
     this.challengeMessage = '';
-    this.copied = false
+    this.copied = false;
   }
 
   copyMessage() {
     navigator.clipboard.writeText(this.challengeMessage).then(
-        () => {
-          this.copied = true;
-          Participants.updateWords(this.challengeMessage.split(" "))
-          m.redraw();
-        },
-        () => {
-          this.copied = false;
-          m.redraw();
-        }
+      () => {
+        this.copied = true;
+        Participants.updateWords(this.challengeMessage.split(' '));
+        m.redraw();
+      },
+      () => {
+        this.copied = false;
+        m.redraw();
+      }
     );
   }
 
@@ -43,14 +43,17 @@ class SendChallengeForm {
           fluid
           style={{ backgroundColor: 'rgba(0, 0, 0, 0.04)', margin: '0 0 0 0' }}
           value={this.challengeMessage}
-          iconTrailing={{
-            icon: 'content_copy',
-            onclick: (e) => {
-              this.copyMessage();
-            },
-          }}
         />
-        <p className="font-color--green font-weight--medium">{this.copied ? 'Challenge message copied!' : <br/>}</p>
+        <div class="flex flex-align-center flex-justify-between" style={{ margin: '1rem 0' }}>
+          <Button
+            label="Copy"
+            iconLeading="content_copy"
+            onclick={(e) => {
+              this.copyMessage();
+            }}
+          />
+          <p className="font-color--green font-weight--medium">{this.copied ? 'Challenge message copied!' : <br />}</p>
+        </div>
       </>
     );
   }
