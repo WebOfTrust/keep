@@ -1,8 +1,6 @@
 import m from 'mithril';
 import { MDCTextField } from '@material/textfield';
 
-// TODO: Needs a way to "data-bind" the value passed in vnode attrs
-
 class TextField {
   constructor() {
     this.textfieldClass = 'mdc-text-field';
@@ -53,6 +51,9 @@ class TextField {
     }
     if (this.options.iconLeading) {
       this.textfieldClass += ' mdc-text-field--with-leading-icon';
+    }
+    if (this.options.iconTrailing) {
+      this.textfieldClass += ' mdc-text-field--with-trailing-icon';
     }
     if (this.options.class) {
       this.textfieldClass += ` ${this.options.class}`;
@@ -158,7 +159,7 @@ class TextField {
           )}
           {this.options.iconTrailing && (
             <i
-              class="material-icons mdc-text-field__icon mdc-text-field__icon--leading"
+              class="material-icons mdc-text-field__icon mdc-text-field__icon--trailing"
               tabindex={this.options.iconTrailing.onclick ? '0' : null}
               role={this.options.iconTrailing.onclick ? 'button' : null}
               onclick={this.options.iconTrailing.onclick}
