@@ -3,9 +3,10 @@ import Contacts from './contacts';
 import KERI from './keri';
 import Mail from './mail';
 import Notify from './notify';
-import Toaster from './toaster';
 import Profile from './profile';
-import Participants from "./oobis"
+import Participants from './oobis';
+import Tasks from './tasks';
+import Toaster from './toaster';
 
 module.exports = {
   Auth,
@@ -13,7 +14,8 @@ module.exports = {
   KERI,
   Mail,
   Notify,
-  Toaster,
   Profile,
   Participants,
+  Tasks,
+  Toaster,
 };

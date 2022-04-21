@@ -1,13 +1,17 @@
 import m from 'mithril';
 
 import { Nav, ToastOutlet } from './components';
-import { Auth, Mail } from './services';
+import { Auth, Mail, Tasks } from './services';
 import { Contacts, Dashboard, Error, Profile, Settings } from './views';
+
+import tasks from '../../tasks';
 
 import '../scss/defaults.scss';
 import '../scss/typography.scss';
 import '../scss/globals.scss';
 import '../scss/nav-rail.scss';
+
+Tasks.all = tasks;
 
 let root = document.body;
 

@@ -15,6 +15,12 @@ class Contacts {
     });
   }
 
+  static filterByIds(ids) {
+    return this.list.some((a) => {
+      return ids.indexOf(a) >= 0;
+    });
+  }
+
   static filterByAlias(alias) {
     return this.list.filter((contact) => {
       return contact.alias === alias;

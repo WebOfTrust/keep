@@ -1,14 +1,7 @@
 import m from 'mithril';
 import { TextTooltip } from '../../src/app/components';
 import addNewContacts from '../../src/assets/img/add-new-contacts.png';
-import projectPlanning from '../../src/assets/img/project-planning.png';
-import createIdentifier from '../../src/assets/img/create-identifier.png';
-import secureMessaging from '../../src/assets/img/secure-messaging.png';
-import uploadFile from '../../src/assets/img/upload-file.png';
 import verifyCredentials from '../../src/assets/img/verify-credentials.png';
-import declineRequest from '../../src/assets/img/decline-request.png';
-import calendar from '../../src/assets/img/calendar.png';
-import loanApproved from '../../src/assets/img/loan-approved.png';
 
 const ExternalGarVariables = {
   createYourAid: {
@@ -93,7 +86,7 @@ const ExternalGarVariables = {
     steps: {
       paragraph: (
         <>
-          This module will take you through the steps of how to authenticate a QAR’s identity. Below are the steps for
+          This module will take you through the steps of how to authenticate a QAR's identity. Below are the steps for
           how to complete the process:
         </>
       ),

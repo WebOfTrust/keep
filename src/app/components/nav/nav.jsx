@@ -1,8 +1,9 @@
 import m from 'mithril';
-import { Auth, Notify, Profile } from '../../services';
+import { Auth, Notify, Profile, Tasks } from '../../services';
 import Container from '../container/container.jsx';
 import IconButton from '../icon-button/icon-button.jsx';
 import Popover from '../popover/popover.jsx';
+
 import githubLogo from '../../../assets/img/github-logo.png';
 import keepLogo from '../../../assets/img/logo/keep.png';
 import './nav.scss';
@@ -36,6 +37,7 @@ class Nav {
 
   multisigInitClick(notification) {
     console.log('Multisig init', notification);
+    Tasks.active = Tasks.all['main'][3];
   }
 
   view() {

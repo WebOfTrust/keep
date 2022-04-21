@@ -1,28 +1,17 @@
 import m from 'mithril';
 
-import { Button, Card, Container, IconButton, NavRail, Select } from '../../components';
-import { Auth, Contacts, KERI, Mail, Profile } from '../../services';
-
-import tasks from '../../../../tasks';
+import { Button, Card, Container, IconButton, NavRail } from '../../components';
+import { Auth, Contacts, KERI, Mail, Profile, Tasks } from '../../services';
 import './dashboard.scss';
 
 class Dashboard {
   constructor() {
     this.aboutDismissed = false;
-    this.allTasks = tasks;
     this.tasksShown = [];
-    this.taskSelected = null;
-
-        this.userTypeOptions = [
-            {
-                label: 'External GAR',
-                value: 'external-gar',
-            },
-        ];
-        this.changeUserType(process.env.USER_TYPE);
-        this.getTasksFlow()
-        Profile.loadIdentifiers();
-    }
+    this.getTasksFlow();
+    Profile.loadIdentifiers();
+    Contacts.requestList();
+  }
 
   getTasksFlow() {
     KERI.listIdentifiers()
@@ -31,32 +20,23 @@ class Dashboard {
         Mail.initEventSource();
         if (ids.length > 0) {
           if (sessionStorage.getItem('seenIntro')) {
-            this.tasksShown = this.allTasks[this.userTypeSelected]['main'];
+            this.tasksShown = Tasks.all['main'];
           } else {
-            this.tasksShown = this.allTasks[this.userTypeSelected]['intro-to-role'];
+            this.tasksShown = Tasks.all['intro-to-role'];
           }
 
           if (Profile.getDefaultAID() === null) {
             Profile.setDefaultAID(ids[0]);
           }
         } else {
-          this.tasksShown = this.allTasks[this.userTypeSelected]['create-identifier'];
+          this.tasksShown = Tasks.all['create-identifier'];
         }
       })
       .catch((err) => {
         Auth.isLoggedIn = false;
         Profile.clearDefaultAID();
-        this.tasksShown = this.allTasks[this.userTypeSelected]['create-passcode'];
+        this.tasksShown = Tasks.all['create-passcode'];
       });
-  }
-
-  changeUserType(e) {
-    this.userTypeSelected = e;
-    this.taskSelected = null;
-  }
-
-  changeTask(task) {
-    this.taskSelected = task;
   }
 
   view() {
@@ -68,9 +48,9 @@ class Dashboard {
             <Container class="headspace" style={{ padding: '0 4rem' }}>
               <div class="flex flex-justify-between">
                 <div class="flex-1" style={{ marginRight: '4rem' }}>
-                  {this.taskSelected && this.taskSelected.lcomponent !== undefined && (
+                  {Tasks.active && Tasks.active.lcomponent !== undefined && (
                     <Card
-                      class={'card--fluid' + (this.taskSelected ? ' card--active' : null)}
+                      class={'card--fluid' + (Tasks.active ? ' card--active' : null)}
                       style={{ position: 'relative' }}
                       padding="4rem"
                     >
@@ -78,23 +58,23 @@ class Dashboard {
                         class="close-icon"
                         icon="close"
                         onclick={() => {
-                          if (this.taskSelected) {
-                            this.taskSelected = null;
+                          if (Tasks.active) {
+                            Tasks.active = null;
                           } else {
                             this.aboutDismissed = true;
                           }
                         }}
                       />
-                      {this.taskSelected && (
-                        <this.taskSelected.lcomponent
+                      {Tasks.active && (
+                        <Tasks.active.lcomponent
                           end={() => {
-                            this.taskSelected = null;
+                            Tasks.active = null;
                           }}
                         />
                       )}
                     </Card>
                   )}
-                  {(!this.taskSelected || this.taskSelected.lcomponent === undefined) && (
+                  {(!Tasks.active || Tasks.active.lcomponent === undefined) && (
                     <Card class="card--fluid" padding="1.5rem">
                       <div class="flex flex-align-center flex-justify-between">
                         <h1>Tasks</h1>
@@ -103,11 +83,11 @@ class Dashboard {
                       {this.tasksShown.map((task, i) => {
                         return (
                           <Card
-                            class={'card--fluid card--hover' + (task === this.taskSelected ? ' card--active' : '')}
+                            class={'card--fluid card--hover' + (task === Tasks.active ? ' card--active' : '')}
                             padding="1.5rem"
                             style={{ marginBottom: '2.5rem' }}
                             onclick={() => {
-                              this.changeTask(this.tasksShown[i]);
+                              Tasks.active = this.tasksShown[i];
                             }}
                           >
                             <div class="flex flex-align-center">
@@ -121,9 +101,9 @@ class Dashboard {
                   )}
                 </div>
                 <div class="flex-1">
-                  {(this.taskSelected || (Auth.isLoggedIn && !this.aboutDismissed)) && (
+                  {(Tasks.active || (Auth.isLoggedIn && !this.aboutDismissed)) && (
                     <Card
-                      class={'card--fluid' + (this.taskSelected ? ' card--active' : null)}
+                      class={'card--fluid' + (Tasks.active ? ' card--active' : null)}
                       style={{ position: 'relative' }}
                       padding="4rem"
                     >
@@ -131,21 +111,21 @@ class Dashboard {
                         class="close-icon"
                         icon="close"
                         onclick={() => {
-                          if (this.taskSelected) {
-                            this.taskSelected = null;
+                          if (Tasks.active) {
+                            Tasks.active = null;
                           } else {
                             this.aboutDismissed = true;
                           }
                         }}
                       />
-                      {this.taskSelected && (
-                        <this.taskSelected.component
+                      {Tasks.active && (
+                        <Tasks.active.component
                           end={() => {
-                            this.taskSelected = null;
+                            Tasks.active = null;
                           }}
                         />
                       )}
-                      {!this.aboutDismissed && !this.taskSelected && (
+                      {!this.aboutDismissed && !Tasks.active && (
                         <>
                           <h3>About Your Tasks</h3>
                           <p class="font-color--battleship" style={{ lineHeight: '1.38', letterSpacing: '0.3px' }}>
