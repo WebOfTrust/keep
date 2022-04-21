@@ -3,6 +3,34 @@ import m from 'mithril';
 import { MDCCheckbox } from '@material/checkbox';
 
 class Checkbox {
+  constructor() {
+    this.checkboxClass = 'mdc-checkbox mdc-checkbox--touch';
+    this.optionDefaults = {
+      id: null,
+      class: null,
+      checked: false,
+      onclick: null,
+      disabled: false,
+    };
+    this.options = null;
+  }
+
+  assignOptions(vnode) {
+    this.options = Object.assign({}, this.optionDefaults, vnode.attrs);
+  }
+
+  setClass() {
+    this.checkboxClass = 'mdc-checkbox mdc-checkbox--touch';
+    if (this.options.class) {
+      this.checkboxClass += ` ${this.options.class}`;
+    }
+  }
+
+  oninit(vnode) {
+    this.assignOptions(vnode);
+    this.setClass();
+  }
+
   oncreate(vnode) {
     try {
       this.checkbox = new MDCCheckbox(vnode.dom);
@@ -11,12 +39,23 @@ class Checkbox {
     }
   }
 
+  onbeforeupdate(vnode) {
+    this.assignOptions(vnode);
+    this.setClass();
+  }
+
   view(vnode) {
     return (
       <>
         <div class="mdc-touch-target-wrapper">
-          <div class="mdc-checkbox mdc-checkbox--touch">
-            <input type="checkbox" class="mdc-checkbox__native-control" id="checkbox-1" />
+          <div class={this.checkboxClass} onclick={this.options.onclick}>
+            <input
+              type="checkbox"
+              class="mdc-checkbox__native-control"
+              id={this.options.id}
+              checked={this.options.checked}
+              disabled={this.options.disabled}
+            />
             <div class="mdc-checkbox__background">
               <svg class="mdc-checkbox__checkmark" viewBox="0 0 24 24">
                 <path class="mdc-checkbox__checkmark-path" fill="none" d="M1.73,12.91 8.1,19.28 22.79,4.59" />
