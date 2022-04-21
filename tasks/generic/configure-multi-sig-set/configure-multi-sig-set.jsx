@@ -1,13 +1,12 @@
 import m from 'mithril';
 import { Button, Checkbox, Radio, Select, TextField, TextTooltip } from '../../../src/app/components';
-import { Contacts, KERI } from '../../../src/app/services';
+import { Contacts, KERI, Profile } from '../../../src/app/services';
 
 import secureMessaging from '../../../src/assets/img/secure-messaging.png';
 
 class ConfigureMultiSigSet {
   constructor() {
     this.currentState = 'configure-multi-sig-index';
-    this.aid = '';
     this.groupAlias = '';
     this.fractionallyWeighted = false;
     this.numSigners = 0; // Used only if fractionallyWeighted is false
@@ -18,13 +17,9 @@ class ConfigureMultiSigSet {
         weight: '',
       },
     ];
-    KERI.listIdentifiers()
-      .then((identifiers) => {
-        this.aid = identifiers[0].prefix;
-      })
-      .catch((err) => {
-        console.log('listIdentifiers', err);
-      });
+    this.default = Profile.getDefaultAID()
+    this.weight = "1/2"
+    Contacts.requestList();
   }
 
   initiateGroupInception() {
@@ -32,7 +27,7 @@ class ConfigureMultiSigSet {
       return obj.id;
     });
     let inceptData = {
-      aids: [this.aid, ...aids],
+      aids: [this.default.aid, ...aids],
       toad: 3,
       wits: [
         'BGKVzj4ve0VSd8z_AmvhLg4lqcC_9WYX90k03q-R_Ydo',
@@ -46,11 +41,12 @@ class ConfigureMultiSigSet {
       inceptData.nsith = sith;
     }
     if (this.fractionallyWeighted) {
-      let sith = this.signers
+      let vals = this.signers
         .map((obj) => {
           return obj.weight;
-        })
-        .join(',');
+        });
+      vals.splice(0, 0, this.weight);
+      let sith = vals.join(',')
       inceptData.isith = sith;
       inceptData.nsith = sith;
     }
@@ -193,6 +189,20 @@ class ConfigureMultiSigSet {
                 </label>
                 {this.fractionallyWeighted && <b>Weight</b>}
               </div>
+              <div className="flex flex-justify-between" style={{margin: '1rem 0'}}>
+                <p><b>{this.default.name}</b> (Your local identifier)</p>
+                {this.fractionallyWeighted && (
+                    <TextField
+                        outlined
+                        style={{ width: '80px' }}
+                        placeholder="1/3"
+                        value={this.weight}
+                        oninput={(e) => {
+                          this.weight = e.target.value;
+                        }}
+                    />
+                )}
+              </div>
               {this.signers.map((signer) => {
                 return (
                   <div class="flex flex-justify-between" style={{ margin: '1rem 0' }}>
@@ -300,6 +310,8 @@ class ConfigureMultiSigSet {
             <TextField outlined fluid value={this.groupAlias} />
             <p>Review signers to make sure the list is complete.</p>
             <h4>Signers (in order):</h4>
+            <TextField outlined style={{ margin: '0 2rem 2rem 0' }} value={this.default.name} />
+            {this.fractionallyWeighted && <TextField outlined style={{ width: '80px' }} value={this.weight} />}
             {this.signers.map((signer) => {
               return (
                 <>

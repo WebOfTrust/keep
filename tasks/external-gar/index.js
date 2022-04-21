@@ -79,6 +79,7 @@ const tasks = {
   'create-multisig': [
     new VideoCallTask(true,"Initiate GLEIF External AID Creation", multisigTask),
     new VideoCallTask(false,"Join GLEIF External AID Creation"),
+    // multisigTask,
     {
       imgSrc: addNewContacts,
       label: 'Perform Manual Key Rotation',
