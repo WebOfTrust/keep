@@ -1,6 +1,6 @@
 import m from 'mithril';
 import { Button } from '../../../src/app/components';
-import { Profile, Participants } from '../../../src/app/services';
+import { Profile, Participants, Tasks } from '../../../src/app/services';
 import { EnterChallengesForm, EnterOOBIsForm, SendChallengeForm } from '../../../forms';
 
 import addNewContacts from '../../../src/assets/img/add-new-contacts.png';
@@ -11,9 +11,10 @@ import { SendOOBIForm } from '../../../forms';
 
 
 class VideoCallTask {
-  constructor(initiate, label) {
+  constructor(initiate, label, next) {
     this._label = label
     this.initiate = initiate
+    this.next = next
 
     this.currentState = 'intro';
     this._component = {
@@ -97,7 +98,12 @@ class VideoCall {
                     <li>Obtain and sign a Challenge Message</li>
                     <li>Generate and send a Challenge Message</li>
                     <li>User signs and returns Challenge Message</li>
-                    <li>You verify signature and issue credentials</li>
+                    {vnode.attrs.parent.initiate && (
+                        <li>You initiate the Multi-Sig Group for all participants</li>
+                    )}
+                    {!vnode.attrs.parent.initiate && (
+                        <li>Wait for invitation to join Multi-Sig Group</li>
+                    )}
                   </>
               )}
             </ol>
@@ -105,7 +111,11 @@ class VideoCall {
               {/* <Button class="button--gray-dk button--big button--no-transform" raised label="Skip" /> */}
               <Button class="button--big button--no-transform" raised label="Continue"
                       onclick={() => {
-                        vnode.attrs.parent.currentState = 'video-call';
+                        if (vnode.attrs.parent.initiate) {
+                          vnode.attrs.parent.currentState = 'video-call';
+                        } else {
+                          vnode.attrs.parent.currentState = 'join-call';
+                        }
                       }}
               />
             </div>
@@ -117,8 +127,8 @@ class VideoCall {
             <h3>Initiate a Video Call</h3>
             <p class="p-tag" style={{ margin: '2rem 0 6rem 0' }}>
               In order to start the authentication process, you will need to initiate an real-time Out of Band
-              Interaction (OOBI) session in which you and the other users are present. You will accept all their OOBIs
-              (Alias + URL) on a Video Call so that you can receive their identifying information.
+              Interaction (OOBI) session in which you and the other users are present. You will accept all their OOBI
+              URLs on a Video Call so that you can receive their identifying information.
             </p>
             <div class="flex flex-justify-between">
               <Button
@@ -135,6 +145,35 @@ class VideoCall {
                 label="Continue"
                 onclick={() => {
                   vnode.attrs.parent.currentState = 'start-video-call';
+                }}
+              />
+            </div>
+          </>
+        )}
+        {vnode.attrs.parent.currentState === 'join-call' && (
+          <>
+            <img src={responseMessage} style={{ marginBottom: '2rem', width: '240px' }} />
+            <h3>Join a Video Call</h3>
+            <p class="p-tag" style={{ margin: '2rem 0 6rem 0' }}>
+              In order to participate in the authentication process, you will need to join an real-time Out of Band
+              Interaction (OOBI) session initiated by the Lead in which you and the other users are present. You will accept all their OOBI
+              URLs on a Video Call so that you can receive their identifier information.
+            </p>
+            <div class="flex flex-justify-between">
+              <Button
+                class="button--gray-dk button--big button--no-transform"
+                raised
+                label="Go Back"
+                onclick={() => {
+                  vnode.attrs.parent.currentState = 'intro';
+                }}
+              />
+              <Button
+                class="button--big button--no-transform"
+                raised
+                label="Continue"
+                onclick={() => {
+                  vnode.attrs.parent.currentState = 'send-oobi';
                 }}
               />
             </div>
@@ -232,8 +271,8 @@ class VideoCall {
                 label="Next"
                 disabled={!(Participants.oobisVerified() && Participants.oobisConfirmed())}
                 onclick={() => {
-                  if (vnode.attrs.parent.initiate) {
-                  /* If INITIATE, figure out how to launch Multisig */
+                  if (vnode.attrs.parent.initiate && vnode.attrs.parent.next !== undefined) {
+                    Tasks.active = vnode.attrs.parent.next;
                   } else {
                     vnode.attrs.parent.currentState = 'waiting-for-multisig';
                   }

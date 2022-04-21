@@ -26,6 +26,16 @@ import createYourPasscode from '../../src/assets/img/create-your-passcode.png';
 import createIdentifier from '../../src/assets/img/create-identifier.png';
 import declineRequest from '../../src/assets/img/decline-request.png';
 
+const multisigTask = {
+  imgSrc: secureMessaging,
+  label: 'Configure Multi-Sig Group',
+  component: {
+    view: (vnode) => {
+      return <ConfigureMultiSigSet end={vnode.attrs.end} />;
+    },
+  },
+}
+
 const tasks = {
   'create-passcode': [
     {
@@ -67,7 +77,7 @@ const tasks = {
     },
   ],
   'create-multisig': [
-    new VideoCallTask(true,"Initiate GLEIF External AID Creation"),
+    new VideoCallTask(true,"Initiate GLEIF External AID Creation", multisigTask),
     new VideoCallTask(false,"Join GLEIF External AID Creation"),
     {
       imgSrc: addNewContacts,
@@ -161,7 +171,7 @@ const tasks = {
         },
       },
     },
-  ],
+  ]
 };
 
 module.exports = tasks;
