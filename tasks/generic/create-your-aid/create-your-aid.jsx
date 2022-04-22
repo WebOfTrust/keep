@@ -21,17 +21,17 @@ class CreateYourAID {
     ];
     KERI.createIdentifier(this.alias, witnesses)
       .then(() => {
-        Profile.loadIdentifiers()
+        Profile.loadIdentifiers();
         KERI.listIdentifiers()
-            .then((ids) => {
-              if (ids.length === 1) {
-                Profile.setDefaultAID(ids[0])
-                vnode.attrs.end();
-              }
-            })
-            .catch((err) => {
-              console.log('listIdentfiers', err);
-            })
+          .then((ids) => {
+            if (ids.length === 1) {
+              Profile.setDefaultAID(ids[0]);
+              vnode.attrs.end();
+            }
+          })
+          .catch((err) => {
+            console.log('listIdentfiers', err);
+          });
       })
       .catch((err) => {
         console.log('createIdentifier', err);
@@ -45,7 +45,7 @@ class CreateYourAID {
           <>
             <h3>{vnode.attrs.welcome ? vnode.attrs.welcome.title : 'Welcome To KEEP'}</h3>
             <img src={createIdentifier} style={{ display: 'block', margin: '5rem auto 0', width: '270px' }} />
-            <p class="p-tag" style={{ margin: '2rem 0 2rem 0' }}>
+            <p class="p-tag" style={{ margin: '4rem 0 4rem 0' }}>
               {vnode.attrs.welcome ? (
                 vnode.attrs.welcome.paragraph
               ) : (
@@ -83,7 +83,7 @@ class CreateYourAID {
           <>
             <h3>{vnode.attrs.creatingAID ? vnode.attrs.creatingAID.title : 'Creating Your AID'}</h3>
             <img src={createIdentifier} style={{ display: 'block', margin: '5rem auto 0', width: '270px' }} />
-            <p class="p-tag" style={{ margin: '2rem 0 2rem 0' }}>
+            <p class="p-tag" style={{ margin: '4rem 0 6rem 0' }}>
               {vnode.attrs.creatingAID ? (
                 vnode.attrs.creatingAID.paragraph
               ) : (

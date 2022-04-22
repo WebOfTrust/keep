@@ -11,7 +11,7 @@ class WelcomeToKEEP {
       <>
         <h3>Welcome to KEEP</h3>
         <div class="flex flex-justify-center" style={{ margin: '4.5rem 0' }}>
-          <img src={createYourPasscode} style={{ width: '192px' }} />
+          <img src={createYourPasscode} style={{ width: '205px' }} />
         </div>
         <p class="p-tag" style={{ margin: '2rem 0 2rem 0' }}>
           To get started and enter the software, you will need to generate a passcode.
@@ -99,8 +99,8 @@ class GeneratePasscode {
           }
         />
         <h3>Generate Your Passcode</h3>
-        <div class="flex flex-justify-center" style={{ margin: '4.5rem 0' }}>
-          <img src={createYourPasscode} style={{ width: '192px' }} />
+        <div class="flex flex-justify-center" style={{ margin: '3rem 0 2rem 0' }}>
+          <img src={createYourPasscode} style={{ width: '205px' }} />
         </div>
         <p class="p-tag" style={{ margin: '0 0 2.5rem 0' }}>
           Generate your passcode here or in your password management app such as 1Password or Last Pass to encrypt your
@@ -121,7 +121,7 @@ class GeneratePasscode {
             },
           }}
         />
-        <div class="flex flex-justify-between" style={{ margin: '1rem 0 6rem' }}>
+        <div class="flex flex-justify-end" style={{ margin: '2.5rem 0 3rem 0' }}>
           <p class="font-color--green font-weight--medium">{this.copied ? 'Passcode copied!' : <br />}</p>
           <Button
             raised
@@ -171,10 +171,10 @@ class EnterPasscode {
     return (
       <>
         <h3>Please Enter Your Passcode</h3>
-        <div class="flex flex-justify-center" style={{ margin: '5rem 0' }}>
-          <img src={passcodeImg} style={{ width: '192px' }} />
+        <div class="flex flex-justify-center" style={{ margin: '5rem 0 4rem 0' }}>
+          <img src={passcodeImg} style={{ width: '205px' }} />
         </div>
-        <p class="p-tag" style={{ margin: '0 0 3rem 0' }}>
+        <p class="p-tag" style={{ margin: '0 0 4rem 0' }}>
           You can find your 22-character passcode by referring back to your storage spot (1Password, Last Pass, Safe
           Deposit Box) and entering it into the box below.
         </p>
