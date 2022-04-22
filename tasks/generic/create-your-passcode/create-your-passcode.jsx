@@ -121,7 +121,7 @@ class GeneratePasscode {
             },
           }}
         />
-        <div class="flex flex-justify-end" style={{ margin: '2.5rem 0 3rem 0' }}>
+        <div class="flex flex-justify-between" style={{ margin: '2.5rem 0 3rem 0' }}>
           <p class="font-color--green font-weight--medium">{this.copied ? 'Passcode copied!' : <br />}</p>
           <Button
             raised

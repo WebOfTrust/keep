@@ -125,7 +125,7 @@ class Nav {
                 </div>
                 <IconButton
                   icon="settings"
-                  style={{ marginRight: '2rem' }}
+                  style={{ marginRight: '1rem' }}
                   onclick={() => {
                     m.route.set('/settings');
                   }}
