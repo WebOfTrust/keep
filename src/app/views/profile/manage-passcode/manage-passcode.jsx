@@ -8,21 +8,23 @@ class ChangingPasscode {
   view(vnode) {
     return (
       <>
-        <h3>Changing Your Passcode</h3>
-        <div class="flex flex-justify-center" style={{ margin: '4.5rem 0' }}>
-          <img src={createYourPasscode} style={{ width: '192px' }} />
-        </div>
-        <p class="p-tag" style={{ margin: '2rem 0 2rem 0' }}>
-          Before you change your passcode, remember that your passcode is your only way to enter the software, and that
-          if you lose it, you cannot get back in..
-          <br></br>
-          <br></br>
-          Make sure to store your password somewhere safe: a password management app, or printed and in a safe deposit
-          box.
-        </p>
-        <div class="flex flex-justify-end">
-          <Button class="button--no-transform button--big" raised label="Continue" onclick={vnode.attrs.continue} />
-        </div>
+          <div style={{margin: '2rem'}}>
+            <h3>Changing Your Passcode</h3>
+            <div class="flex flex-justify-center" style={{ margin: '4.5rem 0' }}>
+              <img src={createYourPasscode} style={{ width: '192px' }} />
+            </div>
+            <p class="p-tag" style={{ margin: '2rem 0 2rem 0' }}>
+              Before you change your passcode, remember that your passcode is your only way to enter the software, and that
+              if you lose it, you cannot get back in..
+              <br></br>
+              <br></br>
+              Make sure to store your password somewhere safe: a password management app, or printed and in a safe deposit
+              box.
+            </p>
+            <div class="flex flex-justify-end">
+              <Button class="button--no-transform button--big" raised label="Continue" onclick={vnode.attrs.continue} />
+            </div>
+          </div>
       </>
     );
   }
@@ -165,7 +167,7 @@ class EnterPasscode {
             },
           }}
         />
-        <div class="flex flex-justify-between" style={{ marginTop: '4rem' }}>
+        <div class="flex flex-justify-between" style={{ marginTop: '9rem' }}>
           <Button
             raised
             class="button--no-transform button--gray-dk button--big"

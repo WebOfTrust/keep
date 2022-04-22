@@ -136,11 +136,11 @@ class VerifyCredentials {
               </TextTooltip>
             </h3>
             <p class="p-tag" style={{ margin: '2rem 0 2rem 0' }}>
-              While on the Video Call, make sure to obtain the the <strong>URL and AID</strong>. When you have both
+              While on the Video Call, make sure to obtain the the <strong>URL and Alias</strong>. When you have both
               please press continue.
             </p>
             <label>
-              <strong>AID:</strong>
+              <strong>Alias:</strong>
             </label>
             <TextField
               outlined

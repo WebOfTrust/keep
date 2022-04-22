@@ -139,7 +139,6 @@ class KERI {
     });
   }
 
-
   // GROUPS
 
   static initiateGroupInception(alias, { aids, isith, nsith, toad, wits }) {

@@ -33,7 +33,8 @@ class ContactDetails {
           <TextField filled fluid placeholder={contact.phoneNumber} style={{ width: '60%', height: '2.5rem' }} />
         </div> */}
         <div class="flex flex-justify-between" style={{ marginTop: '3rem' }}>
-          <Button class="button--gray-dk button--big button--no-transform" raised label="Go Back" />
+          <Button class="button--gray-dk button--big button--no-transform" raised label="
+          Go Back" />
           <Button class="button--big button--no-transform" raised label="Save" />
         </div>
       </>

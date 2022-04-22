@@ -1,6 +1,6 @@
 import m from 'mithril';
 import mq from 'mithril-query';
-import EditProfile from './edit-profile.jsx';
+import EditProfile from './manage-identifiers.jsx';
 
 describe('EditProfile component', () => {
   it('Should create', () => {

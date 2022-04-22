@@ -239,7 +239,7 @@ class InitiateVideoCall {
             <img src={uploadFile} style={{ width: '240px', margin: '1.5rem 0 2rem 0' }} />
             <h3>Waiting for Signatures</h3>
             <p class="p-tag" style={{ margin: '2rem 0 2rem 0' }}>
-              You will be notified when all participents sign and return the Challenge Message, after which you may
+              You will be notified when all participants sign and return the Challenge Message, after which you may
               configure the multi-sig group.
             </p>
             <div class="flex flex-justify-between">

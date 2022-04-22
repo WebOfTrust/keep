@@ -71,6 +71,7 @@ class SendOOBI {
       alias: '',
       url: '',
     };
+
   }
 
   oninit() {
@@ -96,7 +97,7 @@ class SendOOBI {
         <img src={addNewContacts} style={{ width: '40%', margin: '1.5rem 0 0 0' }} />
         <h3>Send OOBI</h3>
         <p class="p-tag" style={{ margin: '2rem 0 2rem 0' }}>
-          Copy this OOBI (AID + URL) to share your identifying information and paste it into the Video Call.
+          Copy this OOBI (Alias + URL) to share your identifying information and paste it into the Video Call.
         </p>
         <label>Alias:</label>
         <TextField
