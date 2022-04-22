@@ -124,6 +124,13 @@ class KERI {
     });
   }
 
+  static getEscrowsForIdentifier(prefix) {
+    return m.request({
+      method: 'GET',
+      url: `${process.env.API_HOST}:${process.env.API_PORT}/escrows?pre=${prefix}`,
+    });
+  }
+
   static updateContact(alias, aid, body) {
     return m.request({
       method: 'PUT',

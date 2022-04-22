@@ -1,6 +1,6 @@
 import m from 'mithril';
-import { Button, TextField } from '../../../src/app/components';
-import { KERI, Profile } from '../../../src/app/services';
+import {Button, Select, TextField} from '../../../src/app/components';
+import { KERI, Profile, Witnesses } from '../../../src/app/services';
 import createIdentifier from '../../../src/assets/img/create-identifier.png';
 import configureIdentifier from '../../../src/assets/img/configure-identifier.png';
 import approveRequest from '../../../src/assets/img/approve-request.png';
@@ -11,15 +11,12 @@ class CreateYourAID {
     this.currentState = 'welcome';
     this.alias = '';
     this.aliasPhoto = null;
+    this.wits = "local"
   }
 
   createAID(vnode) {
-    const witnesses = [
-      'BGKVzj4ve0VSd8z_AmvhLg4lqcC_9WYX90k03q-R_Ydo',
-      'BuyRFMideczFZoapylLIyCjSdhtqVb31wZkRKvPfNqkw',
-      'Bgoq68HCmYNUDgOz4Skvlu306o_NY-NrYuKAVhk3Zh9c',
-    ];
-    KERI.createIdentifier(this.alias, witnesses)
+    let wits = Witnesses.witnesses[this.wits]
+    KERI.createIdentifier(this.alias, wits)
       .then(() => {
         Profile.loadIdentifiers();
         KERI.listIdentifiers()
@@ -88,7 +85,7 @@ class CreateYourAID {
                 vnode.attrs.creatingAID.paragraph
               ) : (
                 <>
-                  In order to provide authorization, you will first have to create your own Delegated AID within the
+                  In order to provide authorization, you will first have to create your own AID within the
                   software and be verified as an authorized representative.
                 </>
               )}
@@ -152,16 +149,25 @@ class CreateYourAID {
                 : 'The alias should be an easy to remember name for your Delegated AID.'}
               <br />
               <br />
-              What would you like your alias to be?
+                <p className="p-tag-bold">What would you like your alias to be?</p>
             </p>
             <TextField
               outlined
               fluid
-              style={{ margin: '0 0 4rem 0' }}
+              style={{ margin: '0 0 0 0' }}
               oninput={(e) => {
                 this.alias = e.target.value;
               }}
               value={this.alias}
+            />
+            <p className="p-tag-bold">Select your witness pool:</p>
+            <Select
+                value={this.wits}
+                style={{ width: "300px", margin: '0 0 3.5rem 0' }}
+                options={Witnesses.witnessPools}
+                selectedChange={(wits) => {
+                    this.wits = wits
+                }}
             />
             <div class="flex flex-justify-between">
               <Button

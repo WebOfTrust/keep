@@ -2,6 +2,7 @@ import KERI from './keri';
 
 class Profile {
     static _isLead = false
+    static _default = undefined
     static _identifiers = []
 
     constructor() {
@@ -33,6 +34,13 @@ class Profile {
         KERI.listIdentifiers()
             .then((identifiers) => {
                 this._identifiers = identifiers;
+                this._default = this._identifiers.find((aid) => {
+                    return ("metadata" in aid) && ("default" in aid.metadata)
+                })
+
+                if (this._default === undefined && this._identifiers.length > 0) {
+                    this._default = this._identifiers[0]
+                }
             })
             .catch((err) => {
                 this._identifiers = []
@@ -41,23 +49,14 @@ class Profile {
     }
 
     static clearDefaultAID() {
-        sessionStorage.removeItem('defaultAID');
-        sessionStorage.removeItem('defaultAlias');
     }
 
     static setDefaultAID(aid) {
-        sessionStorage.setItem('defaultAID', aid.prefix);
-        sessionStorage.setItem('defaultAlias', aid.name);
+        this._default = aid
     }
 
     static getDefaultAID() {
-        let aid = sessionStorage.getItem("defaultAID")
-        let name = sessionStorage.getItem("defaultAlias")
-        if (aid === null || name == null) {
-            return null
-        }
-
-        return {aid: aid, name: name}
+        return this._default;
     }
 }
 

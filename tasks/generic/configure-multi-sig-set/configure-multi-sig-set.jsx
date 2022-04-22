@@ -1,21 +1,28 @@
 import m from 'mithril';
 import { Button, Checkbox, IconButton, Radio, Select, TextField, TextTooltip } from '../../../src/app/components';
-import { Contacts, KERI, Profile } from '../../../src/app/services';
+import { Contacts, KERI, Profile, MultiSig, Witnesses } from '../../../src/app/services';
 import './configure-multi-sig-set.scss';
 
 import secureMessaging from '../../../src/assets/img/secure-messaging.png';
+import greenCheckMark from "../../../src/assets/img/green-check-mark.svg";
+import redX from "../../../src/assets/img/red-x.svg";
+
 
 class ConfigureMultiSigSet {
   constructor() {
     this.currentState = 'configure-multi-sig-index';
+    // this.currentState = 'setup-complete';
     this.groupAlias = '';
+    this.status = '';
     this.fractionallyWeighted = false;
     this.numSigners = 0; // Used only if fractionallyWeighted is false
-    this.signers = [
+    this.wits = Witnesses.witnessPools[0].wits
+    MultiSig.participants = [
       {
         id: '',
         alias: '',
         weight: '',
+        signed: false,
       },
     ];
     this.default = Profile.getDefaultAID();
@@ -23,18 +30,56 @@ class ConfigureMultiSigSet {
     Contacts.requestList();
   }
 
+  ensureMultiSigSigned() {
+    new Promise(function (resolve, reject) {
+      setTimeout(function waitForSignatures() {
+        KERI.getEscrowsForIdentifier(MultiSig.currentEvent['i'])
+            .then((escrows) => {
+              if (escrows['partially-signed-events'].length > 0) {
+                let icp = escrows['partially-signed-events'][0]
+                let sigs = icp['signatures']
+                sigs.every((sig) => {
+                  let idx = sig.index;
+                  MultiSig.participants[idx].signed = true
+                })
+                this.status = "Waiting for participant signatures..."
+              } else if (escrows['partially-witnessed-events'].length > 0) {
+                this.status = "Waiting for witness receipts..."
+              }
+              else {
+                KERI.listIdentifiers()
+                    .then((identifiers) => {
+                      let icp = identifiers.find(e => e.prefix === MultiSig.currentEvent['i'])
+                      if (icp.group.accepted) {
+                        this.status = "Inception Complete"
+                      } else {
+                        this.status = "Failed: Event Timeout"
+                      }
+                    })
+                    .catch((err) => {
+                      console.log('listIdentifiers', err);
+                    });
+                return
+              }
+              setTimeout(waitForSignatures, 1000);
+            })
+            .catch((err) => {
+              reject();
+              console.log('getContacts', err);
+            });
+      }, 1000);
+    });
+
+  }
+
   initiateGroupInception() {
-    let aids = this.signers.map((obj) => {
+    let aids = MultiSig.participants.map((obj) => {
       return obj.id;
     });
     let inceptData = {
-      aids: [this.default.aid, ...aids],
+      aids: [this.default.prefix, ...aids],
       toad: 3,
-      wits: [
-        'BGKVzj4ve0VSd8z_AmvhLg4lqcC_9WYX90k03q-R_Ydo',
-        'BuyRFMideczFZoapylLIyCjSdhtqVb31wZkRKvPfNqkw',
-        'Bgoq68HCmYNUDgOz4Skvlu306o_NY-NrYuKAVhk3Zh9c',
-      ],
+      wits: Witnesses.witnesses[this.wits],
     };
     if (!this.fractionallyWeighted) {
       let sith = this.numSigners.toString();
@@ -42,7 +87,7 @@ class ConfigureMultiSigSet {
       inceptData.nsith = sith;
     }
     if (this.fractionallyWeighted) {
-      let vals = this.signers.map((obj) => {
+      let vals = MultiSig.participants.map((obj) => {
         return obj.weight;
       });
       vals.splice(0, 0, this.weight);
@@ -50,11 +95,21 @@ class ConfigureMultiSigSet {
       inceptData.isith = sith;
       inceptData.nsith = sith;
     }
+
+    MultiSig.participants.splice(0, 0, {
+      id: this.default.prefix,
+      alias: this.default.name,
+      weight: this.weight,
+      signed: true
+    })
     KERI.initiateGroupInception(this.groupAlias, inceptData)
       .then((incept) => {
-        console.log(incept);
+        this.status = "Event Submitted"
+        MultiSig.currentEvent = incept;
+        this.ensureMultiSigSigned()
       })
       .catch((err) => {
+        this.status = "Failed: Invalid Event"
         console.log('initiateGroupInception', err);
       });
   }
@@ -125,7 +180,17 @@ class ConfigureMultiSigSet {
         {this.currentState === 'configure-multisig-group' && (
           <>
             <h3 style={{ marginBottom: '2rem' }}>Configure Multi-Sig Group</h3>
-            <p class="p-tag-bold">Are your signatures fractionally weighted?</p>
+            <p class="p-tag-bold">Select your witness pool:</p>
+              <Select
+                  value={this.wits}
+                  options={Witnesses.witnessPools}
+                  style={{width: "300px"}}
+                  selectedChange={(wits) => {
+                    this.wits = wits
+                  }}
+              />
+
+              <p class="p-tag-bold">Are your signatures fractionally weighted?</p>
             <p class="p-tag">ex. Each signer equals 1/3 of the group.</p>
             <div class="flex flex-align-center">
               <div class="flex flex-align-center" style={{ marginRight: '2rem' }}>
@@ -214,7 +279,7 @@ class ConfigureMultiSigSet {
                 )}
                 <div style={{ width: '48px', height: '48px', marginLeft: '1rem' }}></div>
               </div>
-              {this.signers.map((signer, index) => {
+              {MultiSig.participants.map((signer, index) => {
                 return (
                   <div class="flex flex-align-center flex-justify-between" style={{ margin: '1rem 0' }}>
                     <Select
@@ -261,10 +326,11 @@ class ConfigureMultiSigSet {
               label="Add Another"
               iconLeading="add"
               onclick={() => {
-                this.signers.push({
-                  id: '',
-                  alias: '',
-                  weight: '',
+                MultiSig.participants.push({
+                    id: '',
+                    alias: '',
+                    weight: '',
+                    signed: false,
                 });
               }}
             />
@@ -282,7 +348,7 @@ class ConfigureMultiSigSet {
                 raised
                 label="Continue"
                 disabled={
-                  this.signers.filter((signer) => {
+                  MultiSig.participants.filter((signer) => {
                     return signer.id !== '';
                   }).length < 1
                 }
@@ -329,6 +395,8 @@ class ConfigureMultiSigSet {
             <h3 style={{ marginBottom: '2rem' }}>Review and Confirm</h3>
             <p class="font-weight--bold font-color--battleship">Group Alias</p>
             <div class="uneditable-value">{this.groupAlias}</div>
+            <h4>Witness Pool:</h4>
+            <TextField outlined fluid value={Witnesses.witnessPools.find(p => p.value=this.wits).label} />
             <p class="font-color--battleship" style={{ margin: '2rem 0' }}>
               Review signers to make sure the list is complete.
             </p>
@@ -339,7 +407,7 @@ class ConfigureMultiSigSet {
               </div>
               {this.fractionallyWeighted && <div class="uneditable-value">{this.weight}</div>}
             </div>
-            {this.signers.map((signer) => {
+            {MultiSig.participants.map((signer) => {
               return (
                 <>
                   <div class="flex flex-align-center flex-justify-between" style={{ margin: '1rem 0' }}>
@@ -383,18 +451,89 @@ class ConfigureMultiSigSet {
           </>
         )}
         {this.currentState === 'setup-complete' && (
-          <>
-            <img src={secureMessaging} style={{ width: '268px', margin: '4rem 0 2rem 0' }} />
-            <h3>Multi-Signature Verification in Progress</h3>
-            <p class="p-tag" style={{ margin: '2rem 0 2rem 0' }}>
-              You will be notified when the participants provide their signature on the Inception Event.
-            </p>
-            <div class="flex flex-justify-end">
-              <Button class="button--big button--no-transform" raised label="View Progress" onclick={vnode.attrs.end} />
-            </div>
-          </>
+            <EventDetails
+                groupAlias={this.groupAlias}
+                status={this.status}
+                back={() => {
+                  this.currentState = 'event-log';
+                }}
+                continue={() => {
+                  this.currentState = 'multi-sig-ver';
+                }}
+            />
         )}
       </>
+    );
+  }
+}
+
+class EventDetails {
+
+  constructor(vnode) {
+    /*
+    *
+    * We have the AIDS.  Use them to get the KELs and to determine
+    * the order of the signatures so we can match up with Signatures.
+    *
+    * */
+  }
+
+  view(vnode) {
+    return (
+        <>
+          <h3>{vnode.attrs.groupAlias} Inception:</h3>
+          <h4 class="p-tag" style={{ margin: '0 0 0 0' }}>
+            Status: {vnode.attrs.status}
+          </h4>
+
+          <div class="flex flex-justify-between">
+            <p class="p-tag" style={{ margin: '2rem 0 1rem 4.5rem' }}>
+              Name:
+            </p>
+            <p class="p-tag" style={{ margin: '2rem 1rem 1rem 0' }}>
+              Signed?
+            </p>
+          </div>
+          <div style={{ height: '350px', overflowY: 'scroll', margin: '0 0 1rem 0' }}>
+            {MultiSig.participants.map((sig, i) => {
+              return (
+                  <div
+                      class="flex flex-justify-evenly "
+                      style={{ alignItems: 'center', margin: '0 0 1rem 0', width: '100%' }}
+                  >
+                    <h4 class="p-tag" style={{ margin: '0 0 0 0' }}>
+                      {`#${i+1}`}
+                    </h4>
+                    <div
+                        class="flex flex-align-center"
+                        style={{ width: '55%', backgroundColor: 'white', height: '40px', borderRadius: '3px' }}
+                    >
+                      <p class="p-tag-bold" style={{ margin: '0 0 0 .5rem', fontSize: '80%' }}>
+                        {sig.alias}
+                      </p>
+                    </div>
+
+                    <div style={{ margin: '0 0 0 .5rem' }}>
+                      {sig.signed ? (
+                          <img src={greenCheckMark} style={{ width: '80%' }} />
+                      ) : (
+                          <img src={redX} style={{ width: '80%' }} />
+                      )}
+                    </div>
+                  </div>
+              );
+            })}
+          </div>
+          <div class="flex flex-justify-between">
+            <Button
+                class="button--gray-dk button--big button--no-transform"
+                raised
+                label="Go Back"
+                onclick={vnode.attrs.back}
+            />
+            <Button class="button--big button--no-transform" raised label="Continue" onclick={vnode.attrs.continue} />
+          </div>
+        </>
     );
   }
 }

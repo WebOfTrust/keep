@@ -16,7 +16,7 @@ class Nav {
   get navLabel() {
     let label = '';
     let aid = Profile.getDefaultAID();
-    if (aid !== null) {
+    if (aid !== undefined) {
       label = '(' + aid.name + ') ';
     }
     if (Profile.isLead) {

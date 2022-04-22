@@ -94,7 +94,7 @@ class JoinMultiSigGroup {
                 let contact = Contacts.filterById(signer)
                 if (contact.length === 1) {
                   name = contact[0].alias
-                } else if(signer === this.aid.aid){
+                } else if(signer === this.aid.prefix){
                   name = this.aid.name + " (Your AID)"
                 } else {
                   name = "Unknown AID"
