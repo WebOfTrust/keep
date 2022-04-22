@@ -193,7 +193,7 @@ class EnterPasscode {
             },
           }}
         />
-        <div class="flex flex-justify-between" style={{ marginTop: '9rem' }}>
+        <div class="flex flex-justify-between" style={{ marginTop: '4rem' }}>
           <Button
             raised
             class="button--no-transform button--gray-dk button--big"

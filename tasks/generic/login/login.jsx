@@ -44,7 +44,7 @@ class Login {
             },
           }}
         />
-        <div class="flex flex-justify-end" style={{ marginTop: '9rem' }}>
+        <div class="flex flex-justify-end" style={{ marginTop: '4rem' }}>
           <Button
             raised
             class="button--no-transform button--big"

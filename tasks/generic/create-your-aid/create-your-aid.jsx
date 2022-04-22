@@ -83,7 +83,7 @@ class CreateYourAID {
           <>
             <h3>{vnode.attrs.creatingAID ? vnode.attrs.creatingAID.title : 'Creating Your AID'}</h3>
             <img src={createIdentifier} style={{ display: 'block', margin: '5rem auto 0', width: '270px' }} />
-            <p class="p-tag" style={{ margin: '4rem 0 6rem 0' }}>
+            <p class="p-tag" style={{ margin: '4rem 0 4rem 0' }}>
               {vnode.attrs.creatingAID ? (
                 vnode.attrs.creatingAID.paragraph
               ) : (
@@ -117,7 +117,7 @@ class CreateYourAID {
           <>
             <h3>{vnode.attrs.stepsToCreate ? vnode.attrs.stepsToCreate.title : 'Steps to Create Your AID'}</h3>
             <img src={approveRequest} style={{ display: 'block', margin: '5rem auto 0', width: '244px' }} />
-            <ol class="styled-ol" style={{ margin: '2rem 0 2rem 0' }}>
+            <ol class="styled-ol" style={{ margin: '2rem 0 4rem 0' }}>
               <li>Configure your AID</li>
               <li>Create an Alias</li>
               <li>Select a photo for your Alias</li>
@@ -157,7 +157,7 @@ class CreateYourAID {
             <TextField
               outlined
               fluid
-              style={{ margin: '0 0 6.5rem 0' }}
+              style={{ margin: '0 0 4rem 0' }}
               oninput={(e) => {
                 this.alias = e.target.value;
               }}
@@ -188,12 +188,12 @@ class CreateYourAID {
           <>
             <img src={uploadImage} style={{ width: '172px' }} />
             <h3 style={{ margin: '2rem 0' }}>Select a Photo for the Alias</h3>
-            <p class="p-tag" style={{ margin: '2rem 0' }}>
+            <p class="p-tag" style={{ margin: '2rem 0 0 0' }}>
               If you would like your alias to have a photo instead of the default icon, please upload a photo.
             </p>
             <input
               type="file"
-              style={{ margin: '0 0 10rem 0' }}
+              style={{ margin: '4rem 0 4rem 0' }}
               onchange={(e) => {
                 this.aliasPhoto = URL.createObjectURL(e.target.files[0]);
               }}
@@ -234,7 +234,7 @@ class CreateYourAID {
               />
             </div>
             <TextField outlined fluid value={this.alias} />
-            <div class="flex flex-justify-between" style={{ alignItems: 'baseline', margin: '6rem 0 2rem' }}>
+            <div class="flex flex-justify-between" style={{ alignItems: 'baseline', margin: '2rem 0' }}>
               <p class="p-tag">Alias Photo:</p>
               <Button
                 class="button--gray button--small button--no-transform"
@@ -245,7 +245,7 @@ class CreateYourAID {
                 }}
               />
             </div>
-            <img src={this.aliasPhoto} style={{ height: '100px', marginBottom: '10rem', width: '100px' }} />
+            <img src={this.aliasPhoto} style={{ height: '100px', marginBottom: '4rem', width: '100px' }} />
             <div class="flex flex-justify-end">
               <Button
                 class="button--big button--no-transform"
