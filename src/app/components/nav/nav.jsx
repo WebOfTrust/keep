@@ -78,21 +78,25 @@ class Nav {
                     style={{
                       top: '88px',
                       left: '-100px',
-                      width: '280px',
+                      width: '320px',
                     }}
                     padding={'16px'}
                   >
+                    <p class="font-weight--bold font-color--blue">Notifications</p>
                     {Notify.notifications.map((notification) => {
                       if (notification.type === 'challenge') {
                         return (
-                          <a
-                            style={{ display: 'block' }}
+                          <div
+                            class="pointer font-weight--bold font-color--battleship flex flex-align-center flex-justify-between"
                             onclick={() => {
                               this.challengeNotificationClick(notification);
                             }}
                           >
-                            New Verified Contact
-                          </a>
+                            <p>New Verified Contact</p>
+                            <p>
+                              <u>View</u>
+                            </p>
+                          </div>
                         );
                       }
                       if (notification.type === 'multisig') {
@@ -109,14 +113,17 @@ class Nav {
                           meta.clickHandler = this.multisigInitClick;
                         }
                         return (
-                          <a
-                            style={{ display: 'block' }}
+                          <div
+                            class="pointer font-weight--bold font-color--battleship flex flex-align-center flex-justify-between"
                             onclick={() => {
                               meta.clickHandler(notification);
                             }}
                           >
-                            {meta.title}
-                          </a>
+                            <p>{meta.title}</p>
+                            <p>
+                              <u>View</u>
+                            </p>
+                          </div>
                         );
                       }
                       return <p>Unhandled notification type</p>;
