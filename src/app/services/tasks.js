@@ -24,6 +24,15 @@ class Tasks {
   static set active(_active) {
     this._active = _active;
   }
+
+  static find(name) {
+    let tasks = this._all[name];
+    if (tasks !== undefined) {
+      return tasks[0];
+    } else {
+      return undefined;
+    }
+  }
 }
 
 module.exports = Tasks;

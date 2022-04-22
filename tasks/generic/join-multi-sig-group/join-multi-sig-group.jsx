@@ -1,6 +1,6 @@
 import m from 'mithril';
 import { Button, TextField } from '../../../src/app/components';
-import { KERI } from '../../../src/app/services';
+import { KERI, Profile, Notify, Contacts } from '../../../src/app/services';
 import todoList from '../../../src/assets/img/to-do-list.png';
 import secureMessaging from '../../../src/assets/img/secure-messaging.png';
 
@@ -43,28 +43,21 @@ import secureMessaging from '../../../src/assets/img/secure-messaging.png';
 class JoinMultiSigGroup {
   constructor() {
     this.currentState = 'new-multi-sig-group';
-    this.aid = '';
+    this.aid = Profile.getDefaultAID()
     this.groupAlias = '';
-    KERI.listIdentifiers()
-      .then((identifiers) => {
-        this.aid = identifiers[0].prefix;
-      })
-      .catch((err) => {
-        console.log('listIdentifiers', err);
-      });
+    let notif = Notify.findByType("multisig")
+    this.aids = notif.data.aids
+    this.ked = notif.data.ked
+    this.fractionallyWeighted = Array.isArray(this.ked.kt)
   }
 
   confirmAndSign() {
     KERI.participateGroupInception(this.groupAlias, {
-      aids: ['E-4-PsMBN0YEKyTl3zL0zulWcBehdaaG6Go5cMc0BzQ8', 'EozYHef4je02EkMOA1IKM65WkIdSjfrL7XWDk_JzJL9o'],
-      isith: '1',
-      nsith: '1',
-      toad: 3,
-      wits: [
-        'BGKVzj4ve0VSd8z_AmvhLg4lqcC_9WYX90k03q-R_Ydo',
-        'BuyRFMideczFZoapylLIyCjSdhtqVb31wZkRKvPfNqkw',
-        'Bgoq68HCmYNUDgOz4Skvlu306o_NY-NrYuKAVhk3Zh9c',
-      ],
+      aids: this.aids,
+      isith: this.ked.kt,
+      nsith: this.ked.nt,
+      toad: Number(this.ked.bt),
+      wits: this.ked.b,
     }).then(() => {
       console.log('inception complete');
       this.currentState = 'event-complete';
@@ -85,35 +78,54 @@ class JoinMultiSigGroup {
                 raised
                 label="View"
                 onclick={() => {
-                  this.currentState = 'select-members';
+                  this.currentState = 'review-members';
                 }}
               />
             </div>
           </>
         )}
-        {this.currentState === 'select-members' && (
-          <>
-            <h3>Select Multi-Sig Group Members</h3>
-            <p>Please select the multi-sig group members that will sign to issue this credential.</p>
-            <div class="flex flex-align-center">
-              <div style={{ marginRight: '1rem' }}>
-                <h3 class="p-tag">#1</h3>
+        {this.currentState === 'review-members' && (
+            <>
+              <h3>Review and Confirm</h3>
+              <p>Review signers to make sure the list is complete.</p>
+              <h4>Signers (in order):</h4>
+              {this.aids.map((signer, i) => {
+                let name = ""
+                let contact = Contacts.filterById(signer)
+                if (contact.length === 1) {
+                  name = contact[0].alias
+                } else if(signer === this.aid.aid){
+                  name = this.aid.name + " (Your AID)"
+                } else {
+                  name = "Unknown AID"
+                }
+                return (
+                    <>
+                      <TextField outlined style={{ margin: '0 2rem 2rem 0' }} value={name} />
+                      {this.fractionallyWeighted && <TextField outlined style={{ width: '80px' }} value={this.ked.kt[i]} />}
+                    </>
+                );
+              })}
+
+              <div class="flex flex-justify-between">
+                <Button
+                    class="button--gray-dk button--big button--no-transform"
+                    raised
+                    label="Go Back"
+                    onclick={() => {
+                      this.currentState = 'review-members';
+                    }}
+                />
+                <Button
+                    class="button--big button--no-transform"
+                    raised
+                    label="Confirm"
+                    onclick={() => {
+                      this.currentState = 'create-group-alias';
+                    }}
+                />
               </div>
-              <div class="flex-1">
-                <TextField outlined fluid />
-              </div>
-            </div>
-            <div class="flex flex-justify-end" style={{ marginTop: '4rem' }}>
-              <Button
-                class="button--big button--no-transform"
-                raised
-                label="Confirm & Sign"
-                onclick={() => {
-                  this.currentState = 'create-group-alias';
-                }}
-              />
-            </div>
-          </>
+            </>
         )}
         {this.currentState === 'create-group-alias' && (
           <>

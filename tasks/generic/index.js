@@ -2,6 +2,7 @@ import m from 'mithril';
 
 // Tasks
 import ConfigureMultiSigSet from './configure-multi-sig-set/configure-multi-sig-set';
+import JoinMultiSigGroup from './join-multi-sig-group/join-multi-sig-group';
 import CreateYourAID from './create-your-aid/create-your-aid';
 import CreatePasscode from './create-your-passcode/create-your-passcode';
 import CredentialIssuance from './credential-issuance/credential-issuance';
@@ -150,6 +151,15 @@ const tasks = {
       component: {
         view: (vnode) => {
           return <ConfigureMultiSigSet end={vnode.attrs.end} />;
+        },
+      },
+    },
+    {
+      imgSrc: secureMessaging,
+      label: 'Join Multi-Sig Group',
+      component: {
+        view: (vnode) => {
+          return <JoinMultiSigGroup end={vnode.attrs.end} />;
         },
       },
     },
