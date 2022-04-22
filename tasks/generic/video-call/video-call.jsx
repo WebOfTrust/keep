@@ -38,7 +38,11 @@ class VideoCallTask {
   }
 
   get imgSrc() {
-    return addNewContacts;
+    if (this.initiate === true) {
+      return projectPlanning;
+    } else {
+      return addNewContacts;
+    }
   }
 
   get label() {

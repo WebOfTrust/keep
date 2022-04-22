@@ -25,7 +25,10 @@ import loanApproved from '../../src/assets/img/loan-approved.png';
 import createYourPasscode from '../../src/assets/img/create-your-passcode.png';
 import createIdentifier from '../../src/assets/img/create-identifier.png';
 import declineRequest from '../../src/assets/img/decline-request.png';
-
+import verifyCredentials from '../../src/assets/img/verify-credentials.png';
+import projectPlanning from '../../src/assets/img/project-planning.png';
+import calendar from '../../src/assets/img/calendar.png';
+import passcode from '../../src/assets/img/calendar.png';
 const multisigTask = {
   imgSrc: secureMessaging,
   label: 'Configure Multi-Sig Group',
@@ -57,7 +60,7 @@ const tasks = {
       },
     },
     {
-      imgSrc: createYourPasscode,
+      imgSrc: passcode,
       label: 'Enter Your Passcode',
       component: {
         view: (vnode) => {
@@ -89,7 +92,7 @@ const tasks = {
     new VideoCallTask(true, 'Lead GLEIF External Multi-Sig AID Inception', multisigTask),
     new VideoCallTask(false, 'Join GLEIF External Multi-Sig AID Inception'),
     {
-      imgSrc: addNewContacts,
+      imgSrc: verifyCredentials,
       label: 'Perform Manual Key Rotation',
       component: {
         view: (vnode) => {
@@ -136,7 +139,7 @@ const tasks = {
       },
     },
     {
-      imgSrc: addNewContacts,
+      imgSrc: verifyCredentials,
       label: 'Initiate Manual Key Rotation',
       component: {
         view: (vnode) => {
@@ -145,7 +148,7 @@ const tasks = {
       },
     },
     {
-      imgSrc: addNewContacts,
+      imgSrc: verifyCredentials,
       label: 'Join Manual Key Rotation',
       component: {
         view: (vnode) => {
@@ -154,7 +157,7 @@ const tasks = {
       },
     },
     {
-      imgSrc: addNewContacts,
+      imgSrc: calendar,
       label: 'View Multi-Sig Event Logs',
       component: {
         view: (vnode) => {
