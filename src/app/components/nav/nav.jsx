@@ -1,5 +1,5 @@
 import m from 'mithril';
-import {Auth, KERI, Notify, Profile, Tasks} from '../../services';
+import { Auth, KERI, Notify, Profile, Tasks } from '../../services';
 import Container from '../container/container.jsx';
 import IconButton from '../icon-button/icon-button.jsx';
 import Popover from '../popover/popover.jsx';
@@ -46,7 +46,7 @@ class Nav {
     //   console.log('inception complete');
     //   this.currentState = 'event-complete';
     // });
-    Tasks.active = Tasks.find('join-multisig')
+    Tasks.active = Tasks.find('join-multisig');
   }
 
   view() {
@@ -65,7 +65,7 @@ class Nav {
                 <div class="relative">
                   <IconButton
                     icon="notifications"
-                    style={{ marginRight: '2rem' }}
+                    style={{ marginRight: '1rem' }}
                     onclick={(e) => {
                       this.notificationsVisible = !this.notificationsVisible;
                     }}
@@ -125,7 +125,7 @@ class Nav {
                 </div>
                 <IconButton
                   icon="settings"
-                  style={{ marginRight: '2rem' }}
+                  style={{ marginRight: '1rem' }}
                   onclick={() => {
                     m.route.set('/settings');
                   }}

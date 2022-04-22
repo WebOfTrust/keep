@@ -131,8 +131,10 @@ class Dashboard {
                       {!this.aboutDismissed && !Tasks.active && (
                         <>
                           <h3>About Your Tasks</h3>
-                          <br></br>
-                          <p class="font-color--battleship" style={{ lineHeight: '1.38', letterSpacing: '0.3px' }}>
+                          <p
+                            class="font-color--battleship"
+                            style={{ lineHeight: '1.38', letterSpacing: '0.3px', margin: '3rem 0 4rem 0' }}
+                          >
                             This section is designed to help you navigate Keep and learn how to complete tasks required
                             for your role. Click on one of the tasks on the left and this panel will provide more
                             information.
@@ -140,10 +142,6 @@ class Dashboard {
                             <br />
                             If you are already familiar with the software, feel free to select the “Dismiss” button.
                           </p>
-                          <br></br>
-                          <br></br>
-                          <br></br>
-                          <br></br>
                           <div class="flex flex-justify-end">
                             <Button
                               class="button--no-transform button--big"

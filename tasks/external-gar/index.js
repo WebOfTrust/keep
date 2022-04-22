@@ -89,15 +89,6 @@ const tasks = {
     new VideoCallTask(true, 'Lead GLEIF External Multi-Sig AID Inception', multisigTask),
     new VideoCallTask(false, 'Join GLEIF External Multi-Sig AID Inception'),
     {
-      imgSrc: secureMessaging,
-      label: 'Configure Multi-Sig Group',
-      component: {
-        view: (vnode) => {
-          return <ConfigureMultiSigSet end={vnode.attrs.end} />;
-        },
-      },
-    },
-    {
       imgSrc: addNewContacts,
       label: 'Perform Manual Key Rotation',
       component: {
