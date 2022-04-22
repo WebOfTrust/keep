@@ -127,7 +127,8 @@ class EnterOOBIsForm {
         </div>
         <div class="flex flex-justify-between">
           <Button
-            class="button--no-transform"
+            raised
+            class="button--no-transform button--gray"
             label="Add Another"
             iconLeading="add"
             onclick={() => {
@@ -135,8 +136,8 @@ class EnterOOBIsForm {
             }}
           />
           <Button
-            class="button--no-transform"
             raised
+            class="button--no-transform"
             label="Resolve OOBIs"
             onclick={() => {
               this.resolveAllOOBIs(vnode);

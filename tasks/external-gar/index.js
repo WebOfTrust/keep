@@ -34,7 +34,7 @@ const multisigTask = {
       return <ConfigureMultiSigSet end={vnode.attrs.end} />;
     },
   },
-}
+};
 const joinMultisigTask = {
   imgSrc: secureMessaging,
   label: 'Join Multi-Sig Group',
@@ -43,7 +43,7 @@ const joinMultisigTask = {
       return <JoinMultiSigGroup end={vnode.attrs.end} />;
     },
   },
-}
+};
 
 const tasks = {
   'create-passcode': [
@@ -86,8 +86,17 @@ const tasks = {
     },
   ],
   'create-multisig': [
-    new VideoCallTask(true,"Lead GLEIF External Multi-Sig AID Inception", multisigTask),
-    new VideoCallTask(false,"Join GLEIF External Multi-Sig AID Inception"),
+    new VideoCallTask(true, 'Lead GLEIF External Multi-Sig AID Inception', multisigTask),
+    new VideoCallTask(false, 'Join GLEIF External Multi-Sig AID Inception'),
+    {
+      imgSrc: secureMessaging,
+      label: 'Configure Multi-Sig Group',
+      component: {
+        view: (vnode) => {
+          return <ConfigureMultiSigSet end={vnode.attrs.end} />;
+        },
+      },
+    },
     {
       imgSrc: addNewContacts,
       label: 'Perform Manual Key Rotation',
@@ -97,11 +106,8 @@ const tasks = {
         },
       },
     },
-
   ],
-  'join-multisig': [
-    joinMultisigTask
-  ],
+  'join-multisig': [joinMultisigTask],
   'intro-to-role': [
     {
       imgSrc: createIdentifier,
@@ -165,7 +171,7 @@ const tasks = {
         },
       },
     },
-  ]
+  ],
 };
 
 module.exports = tasks;

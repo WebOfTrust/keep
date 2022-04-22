@@ -1,0 +1,8 @@
+@import '../../../src/scss/variables';
+
+.uneditable-value {
+  background-color: white;
+  color: $battleship-grey;
+  font-weight: 500;
+  padding: 1rem;
+}

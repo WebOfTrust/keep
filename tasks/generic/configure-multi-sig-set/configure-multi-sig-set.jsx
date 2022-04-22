@@ -1,6 +1,7 @@
 import m from 'mithril';
-import { Button, Checkbox, Radio, Select, TextField, TextTooltip } from '../../../src/app/components';
+import { Button, Checkbox, IconButton, Radio, Select, TextField, TextTooltip } from '../../../src/app/components';
 import { Contacts, KERI, Profile } from '../../../src/app/services';
+import './configure-multi-sig-set.scss';
 
 import secureMessaging from '../../../src/assets/img/secure-messaging.png';
 
@@ -17,8 +18,8 @@ class ConfigureMultiSigSet {
         weight: '',
       },
     ];
-    this.default = Profile.getDefaultAID()
-    this.weight = "1/2"
+    this.default = Profile.getDefaultAID();
+    this.weight = '1/2';
     Contacts.requestList();
   }
 
@@ -41,12 +42,11 @@ class ConfigureMultiSigSet {
       inceptData.nsith = sith;
     }
     if (this.fractionallyWeighted) {
-      let vals = this.signers
-        .map((obj) => {
-          return obj.weight;
-        });
+      let vals = this.signers.map((obj) => {
+        return obj.weight;
+      });
       vals.splice(0, 0, this.weight);
-      let sith = vals.join(',')
+      let sith = vals.join(',');
       inceptData.isith = sith;
       inceptData.nsith = sith;
     }
@@ -66,7 +66,7 @@ class ConfigureMultiSigSet {
           <>
             <img src={secureMessaging} style={{ width: '268px', margin: '4rem 0 1rem 0' }} />
             <h3>Configure Multi-Sig Group</h3>
-            <p class="p-tag">
+            <p class="p-tag" style={{ margin: '2rem 0' }}>
               If you are seeing this, it is because you have verified contacts and can now configure the multi-sig
               group. You will now be tasked with creating the multi-sig group. Once this is completed, make sure that
               all members of the multi-sig group are available to sign the inception event of the multisig identifier.
@@ -124,88 +124,99 @@ class ConfigureMultiSigSet {
         )}
         {this.currentState === 'configure-multisig-group' && (
           <>
-            <h3>Configure Multi-Sig Group</h3>
-            <div style={{ height: '608px', overflowY: 'auto' }}>
-              <p class="p-tag-bold">Are your signatures fractionally weighted?</p>
-              <p class="p-tag">ex. Each signer equals 1/3 of the group.</p>
-              <div class="flex flex-align-center">
-                <div class="flex flex-align-center" style={{ marginRight: '2rem' }}>
-                  <Radio
-                    id="weighted-yes"
-                    name="weighted"
-                    checked={this.fractionallyWeighted}
-                    onclick={() => {
-                      this.fractionallyWeighted = true;
-                    }}
-                  />
-                  <label for="weighted-yes">Yes</label>
-                </div>
-                <div class="flex flex-align-center">
-                  <Radio
-                    id="weighted-no"
-                    name="weighted"
-                    checked={!this.fractionallyWeighted}
-                    onclick={() => {
-                      this.fractionallyWeighted = false;
-                    }}
-                  />
-                  <label for="weighted-no">No</label>
-                </div>
+            <h3 style={{ marginBottom: '2rem' }}>Configure Multi-Sig Group</h3>
+            <p class="p-tag-bold">Are your signatures fractionally weighted?</p>
+            <p class="p-tag">ex. Each signer equals 1/3 of the group.</p>
+            <div class="flex flex-align-center">
+              <div class="flex flex-align-center" style={{ marginRight: '2rem' }}>
+                <Radio
+                  id="weighted-yes"
+                  name="weighted"
+                  checked={this.fractionallyWeighted}
+                  onclick={() => {
+                    this.fractionallyWeighted = true;
+                  }}
+                />
+                <label class="font-weight--bold font-color--battleship" for="weighted-yes">
+                  Yes
+                </label>
               </div>
-              {!this.fractionallyWeighted && (
+              <div class="flex flex-align-center">
+                <Radio
+                  id="weighted-no"
+                  name="weighted"
+                  checked={!this.fractionallyWeighted}
+                  onclick={() => {
+                    this.fractionallyWeighted = false;
+                  }}
+                />
+                <label class="font-weight--bold font-color--battleship" for="weighted-no">
+                  No
+                </label>
+              </div>
+            </div>
+            <div class="flex" style={{ alignItems: 'center', margin: '1rem 0' }}>
+              <Checkbox checked={true} disabled={true} />
+              <label class="font-weight--medium font-color--battleship">Create Credential Registry</label>
+            </div>
+            {!this.fractionallyWeighted && (
+              <>
+                <label>
+                  <p class="p-tag-bold">How many signers are required to sign?</p>
+                </label>
+                <TextField
+                  outlined
+                  type="number"
+                  style={{ marginBottom: '2rem' }}
+                  value={this.numSigners}
+                  oninput={(e) => {
+                    this.numSigners = parseInt(e.target.value);
+                  }}
+                />
+              </>
+            )}
+            <div class="flex flex-align-center flex-justify-between">
+              <label class="font-color--battleship">
                 <>
-                  <label>
-                    <p class="p-tag-bold">How many signers are required to sign?</p>
-                  </label>
+                  <b>Enter Signers </b>
+                  <TextTooltip
+                    label={
+                      <u>
+                        <b>(in order):</b>
+                      </u>
+                    }
+                  >
+                    Order must be consistent (same exact list everytime). If fractionally weighted it should be highest
+                    to lowest weight.
+                  </TextTooltip>
+                </>
+              </label>
+              <div class="flex-1"></div>
+              {this.fractionallyWeighted && <b class="font-color--battleship">Weight</b>}
+              <div style={{ width: '48px', height: '48px', marginLeft: '1rem' }}></div>
+            </div>
+            <div style={{ marginBottom: '1rem', maxHeight: '320px', overflowY: 'auto' }}>
+              <div className="flex flex-align-center flex-justify-between" style={{ margin: '1rem 0' }}>
+                <p class="font-color--battleship">
+                  <b>{this.default.name}</b> (Your local identifier)
+                </p>
+                <div class="flex-1"></div>
+                {this.fractionallyWeighted && (
                   <TextField
                     outlined
-                    type="number"
-                    value={this.numSigners}
+                    style={{ width: '75px' }}
+                    placeholder="1/3"
+                    value={this.weight}
                     oninput={(e) => {
-                      this.numSigners = parseInt(e.target.value);
+                      this.weight = e.target.value;
                     }}
                   />
-                </>
-              )}
-              <div class="flex" style={{ alignItems: 'center', margin: '2rem 0 2rem 0' }}>
-                <Checkbox />
-                <label>Create Credential Registry</label>
-              </div>
-              <div class="flex flex-justify-between">
-                <label>
-                  <>
-                    <b>Enter Signers </b>
-                    <TextTooltip
-                      label={
-                        <u>
-                          <b>(in order):</b>
-                        </u>
-                      }
-                    >
-                      Order must be consistent (same exact list everytime). If fractionally weighted it should be
-                      highest to lowest weight.
-                    </TextTooltip>
-                  </>
-                </label>
-                {this.fractionallyWeighted && <b>Weight</b>}
-              </div>
-              <div className="flex flex-justify-between" style={{margin: '1rem 0'}}>
-                <p><b>{this.default.name}</b> (Your local identifier)</p>
-                {this.fractionallyWeighted && (
-                    <TextField
-                        outlined
-                        style={{ width: '80px' }}
-                        placeholder="1/3"
-                        value={this.weight}
-                        oninput={(e) => {
-                          this.weight = e.target.value;
-                        }}
-                    />
                 )}
+                <div style={{ width: '48px', height: '48px', marginLeft: '1rem' }}></div>
               </div>
-              {this.signers.map((signer) => {
+              {this.signers.map((signer, index) => {
                 return (
-                  <div class="flex flex-justify-between" style={{ margin: '1rem 0' }}>
+                  <div class="flex flex-align-center flex-justify-between" style={{ margin: '1rem 0' }}>
                     <Select
                       options={Contacts.list.map((contact) => {
                         return {
@@ -219,10 +230,11 @@ class ConfigureMultiSigSet {
                         signer.alias = contact.alias;
                       }}
                     />
+                    <div class="flex-1"></div>
                     {this.fractionallyWeighted && (
                       <TextField
                         outlined
-                        style={{ width: '80px' }}
+                        style={{ width: '75px' }}
                         placeholder="1/3"
                         value={signer.weight}
                         oninput={(e) => {
@@ -230,24 +242,33 @@ class ConfigureMultiSigSet {
                         }}
                       />
                     )}
+                    <IconButton
+                      icon="close"
+                      style={{
+                        marginLeft: '1rem',
+                      }}
+                      onclick={() => {
+                        this.signers.splice(index, 1);
+                      }}
+                    />
                   </div>
                 );
               })}
-              <Button
-                class="button--big button--no-transform"
-                raised
-                label="Add New"
-                iconLeading="add"
-                onclick={() => {
-                  this.signers.push({
-                    id: '',
-                    alias: '',
-                    weight: '',
-                  });
-                }}
-              />
             </div>
-            <div class="flex flex-justify-between" style={{ marginTop: '2rem' }}>
+            <Button
+              raised
+              class="button--no-transform button--gray"
+              label="Add Another"
+              iconLeading="add"
+              onclick={() => {
+                this.signers.push({
+                  id: '',
+                  alias: '',
+                  weight: '',
+                });
+              }}
+            />
+            <div class="flex flex-justify-between" style={{ marginTop: '4rem' }}>
               <Button
                 class="button--gray-dk button--big button--no-transform"
                 raised
@@ -305,18 +326,28 @@ class ConfigureMultiSigSet {
         )} */}
         {this.currentState === 'review-and-confirm' && (
           <>
-            <h3>Review and Confirm</h3>
-            <h4>Group Alias</h4>
-            <TextField outlined fluid value={this.groupAlias} />
-            <p>Review signers to make sure the list is complete.</p>
-            <h4>Signers (in order):</h4>
-            <TextField outlined style={{ margin: '0 2rem 2rem 0' }} value={this.default.name} />
-            {this.fractionallyWeighted && <TextField outlined style={{ width: '80px' }} value={this.weight} />}
+            <h3 style={{ marginBottom: '2rem' }}>Review and Confirm</h3>
+            <p class="font-weight--bold font-color--battleship">Group Alias</p>
+            <div class="uneditable-value">{this.groupAlias}</div>
+            <p class="font-color--battleship" style={{ margin: '2rem 0' }}>
+              Review signers to make sure the list is complete.
+            </p>
+            <p class="font-weight--bold font-color--battleship">Signers (in order):</p>
+            <div class="flex flex-align-center flex-justify-between" style={{ margin: '1rem 0' }}>
+              <div class="flex-1 uneditable-value" style={{ marginRight: '1rem' }}>
+                {this.default.name}
+              </div>
+              {this.fractionallyWeighted && <div class="uneditable-value">{this.weight}</div>}
+            </div>
             {this.signers.map((signer) => {
               return (
                 <>
-                  <TextField outlined style={{ margin: '0 2rem 2rem 0' }} value={signer.alias} />
-                  {this.fractionallyWeighted && <TextField outlined style={{ width: '80px' }} value={signer.weight} />}
+                  <div class="flex flex-align-center flex-justify-between" style={{ margin: '1rem 0' }}>
+                    <div class="flex-1 uneditable-value" style={{ marginRight: '1rem' }}>
+                      {signer.alias}
+                    </div>
+                    {this.fractionallyWeighted && <div class="uneditable-value">{signer.weight}</div>}
+                  </div>
                 </>
               );
             })}
@@ -330,7 +361,7 @@ class ConfigureMultiSigSet {
                 <TextField outlined style={{ marginRight: '2rem' }} placeholder="delegator alias" />
               </div>
             </div> */}
-            <div class="flex flex-justify-between">
+            <div class="flex flex-justify-between" style={{ marginTop: '4rem' }}>
               <Button
                 class="button--gray-dk button--big button--no-transform"
                 raised
