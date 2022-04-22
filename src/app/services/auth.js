@@ -2,19 +2,16 @@ import KERI from './keri';
 import Mail from './mail';
 
 class Auth {
-  static _isLoggedIn = false
+  static _isLoggedIn = false;
 
-  constructor() {
+  constructor() {}
+
+  static get isLoggedIn() {
+    return this._isLoggedIn;
   }
 
-  static
-  get isLoggedIn() {
-    return this._isLoggedIn
-  }
-
-  static
-  set isLoggedIn(l) {
-    this._isLoggedIn = l
+  static set isLoggedIn(l) {
+    this._isLoggedIn = l;
   }
 
   static setAgent(name) {
@@ -27,12 +24,12 @@ class Auth {
 
   static title() {
     switch (process.env.USER_TYPE) {
-      case "lead-external-gar":
-        return "Lead External GAR"
-      case "external-gar":
-        return "External GAR"
+      case 'lead-external-gar':
+        return 'Lead External GAR';
+      case 'external-gar':
+        return 'External GAR';
       default:
-        return ""
+        return '';
     }
   }
 
@@ -41,6 +38,7 @@ class Auth {
       KERI.unlockAgent(`keep${process.env.API_PORT}`, passcode)
         .then((response) => {
           this.setAgent(response.name);
+          this.isLoggedIn = true;
           setTimeout(() => {
             Mail.initEventSource();
           }, 1000);

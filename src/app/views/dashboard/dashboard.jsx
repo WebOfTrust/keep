@@ -7,29 +7,15 @@ import './dashboard.scss';
 class Dashboard {
   constructor() {
     this.aboutDismissed = false;
-    this.tasksShown = [];
-    this.getTasksFlow();
     Profile.loadIdentifiers();
     Contacts.requestList();
-  }
 
-  getTasksFlow() {
     KERI.listIdentifiers()
       .then((ids) => {
         Auth.isLoggedIn = true;
         Mail.initEventSource();
-        if (ids.length === 0) {
-          this.tasksShown = Tasks.all['create-identifier'];
-        } else if (ids.length === 1) {
-          this.tasksShown = Tasks.all['create-multisig'];
-        } else {
-          if (sessionStorage.getItem('seenIntro')) {
-            this.tasksShown = Tasks.all['main'];
-          } else {
-            this.tasksShown = Tasks.all['intro-to-role'];
-          }
-
-          if (Profile.getDefaultAID() === null) {
+        if (Profile.getDefaultAID() === null) {
+          if (ids.length > 0) {
             Profile.setDefaultAID(ids[0]);
           }
         }
@@ -37,8 +23,24 @@ class Dashboard {
       .catch((err) => {
         Auth.isLoggedIn = false;
         Profile.clearDefaultAID();
-        this.tasksShown = Tasks.all['create-passcode'];
       });
+  }
+
+  get tasksShown() {
+    if (!Auth.isLoggedIn) {
+      return Tasks.all['create-passcode'];
+    }
+    if (Profile.identifiers.length === 0) {
+      return Tasks.all['create-identifier'];
+    } else if (Profile.identifiers.length === 1) {
+      return Tasks.all['create-multisig'];
+    } else {
+      if (sessionStorage.getItem('seenIntro')) {
+        return Tasks.all['main'];
+      } else {
+        return Tasks.all['intro-to-role'];
+      }
+    }
   }
 
   view() {
@@ -71,6 +73,8 @@ class Dashboard {
                         <Tasks.active.lcomponent
                           end={() => {
                             Tasks.active = null;
+                            Profile.loadIdentifiers();
+                            Contacts.requestList();
                           }}
                         />
                       )}
@@ -125,6 +129,8 @@ class Dashboard {
                         <Tasks.active.component
                           end={() => {
                             Tasks.active = null;
+                            Profile.loadIdentifiers();
+                            Contacts.requestList();
                           }}
                         />
                       )}
