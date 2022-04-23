@@ -35,13 +35,18 @@ class ConfigureMultiSigSet {
       setTimeout(function waitForSignatures() {
         KERI.getEscrowsForIdentifier(MultiSig.currentEvent['i'])
             .then((escrows) => {
+              console.log(escrows)
               if (escrows['partially-signed-events'].length > 0) {
                 let icp = escrows['partially-signed-events'][0]
+                console.log("icp", icp)
                 let sigs = icp['signatures']
+                console.log("sigs", sigs)
                 sigs.every((sig) => {
                   let idx = sig.index;
+                  console.log(idx)
                   MultiSig.participants[idx].signed = true
                 })
+                console.log("setting status to participants")
                 this.status = "Waiting for participant signatures..."
                 m.redraw()
               } else if (escrows['partially-witnessed-events'].length > 0) {
@@ -460,9 +465,7 @@ class ConfigureMultiSigSet {
                 back={() => {
                   this.currentState = 'event-log';
                 }}
-                continue={() => {
-                  this.currentState = 'multi-sig-ver';
-                }}
+                continue={vnode.attrs.end}
             />
         )}
       </>
