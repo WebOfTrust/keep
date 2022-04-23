@@ -34,6 +34,8 @@ a:link {
 }
 
 .styled-ol {
+  list-style-type: none;
+
   li {
     @include medium;
     color: rgba(0, 0, 0, 0.87);
