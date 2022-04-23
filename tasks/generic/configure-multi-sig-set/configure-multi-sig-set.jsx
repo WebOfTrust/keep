@@ -43,8 +43,10 @@ class ConfigureMultiSigSet {
                   MultiSig.participants[idx].signed = true
                 })
                 this.status = "Waiting for participant signatures..."
+                m.redraw()
               } else if (escrows['partially-witnessed-events'].length > 0) {
                 this.status = "Waiting for witness receipts..."
+                m.redraw()
               }
               else {
                 KERI.listIdentifiers()
@@ -55,19 +57,20 @@ class ConfigureMultiSigSet {
                       } else {
                         this.status = "Failed: Event Timeout"
                       }
+                      m.redraw()
                     })
                     .catch((err) => {
                       console.log('listIdentifiers', err);
                     });
                 return
               }
-              setTimeout(waitForSignatures, 1000);
+              setTimeout(waitForSignatures, 2000);
             })
             .catch((err) => {
               reject();
               console.log('getContacts', err);
             });
-      }, 1000);
+      }, 2000);
     });
 
   }

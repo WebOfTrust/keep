@@ -43,7 +43,8 @@ import secureMessaging from '../../../src/assets/img/secure-messaging.png';
 class JoinMultiSigGroup {
   constructor() {
     this.currentState = 'new-multi-sig-group';
-    this.aid = Profile.getDefaultAID()
+    this.aid = Profile.getDefaultAID();
+    Contacts.requestList();
     this.groupAlias = '';
     let notif = Notify.findByType("multisig")
     this.aids = notif.data.aids
@@ -90,8 +91,10 @@ class JoinMultiSigGroup {
               <p>Review signers to make sure the list is complete.</p>
               <h4>Signers (in order):</h4>
               {this.aids.map((signer, i) => {
+                console.log(signer)
                 let name = ""
                 let contact = Contacts.filterById(signer)
+                console.log(contact)
                 if (contact.length === 1) {
                   name = contact[0].alias
                 } else if(signer === this.aid.prefix){
