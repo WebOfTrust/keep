@@ -403,8 +403,8 @@ class ConfigureMultiSigSet {
             <h3 style={{ marginBottom: '2rem' }}>Review and Confirm</h3>
             <p class="font-weight--bold font-color--battleship">Group Alias</p>
             <div class="uneditable-value">{this.groupAlias}</div>
-            <h4>Witness Pool:</h4>
-            <TextField outlined fluid value={Witnesses.witnessPools.find((p) => (p.value = this.wits)).label} />
+            <p className="font-weight--bold font-color--battleship">Witness Pool:</p>
+            <div className="uneditable-value">{Witnesses.witnessPools.find((p) => (p.value = this.wits)).label}</div>
             <p class="font-color--battleship" style={{ margin: '2rem 0' }}>
               Review signers to make sure the list is complete.
             </p>
