@@ -1,5 +1,5 @@
 import m from 'mithril';
-import {Button, Select, TextField} from '../../../src/app/components';
+import { Button, Select, TextField } from '../../../src/app/components';
 import { KERI, Profile, Witnesses } from '../../../src/app/services';
 import createIdentifier from '../../../src/assets/img/create-identifier.png';
 import configureIdentifier from '../../../src/assets/img/configure-identifier.png';
@@ -11,11 +11,11 @@ class CreateYourAID {
     this.currentState = 'welcome';
     this.alias = '';
     this.aliasPhoto = null;
-    this.wits = "local"
+    this.wits = 'local';
   }
 
   createAID(vnode) {
-    let wits = Witnesses.witnesses[this.wits]
+    let wits = Witnesses.witnesses[this.wits];
     KERI.createIdentifier(this.alias, wits)
       .then(() => {
         Profile.loadIdentifiers();
@@ -85,8 +85,8 @@ class CreateYourAID {
                 vnode.attrs.creatingAID.paragraph
               ) : (
                 <>
-                  In order to provide authorization, you will first have to create your own AID within the
-                  software and be verified as an authorized representative.
+                  In order to provide authorization, you will first have to create your own AID within the software and
+                  be verified as an authorized representative.
                 </>
               )}
             </p>
@@ -149,7 +149,7 @@ class CreateYourAID {
                 : 'The alias should be an easy to remember name for your Delegated AID.'}
               <br />
               <br />
-                <p className="p-tag-bold">What would you like your alias to be?</p>
+              <p className="p-tag-bold">What would you like your alias to be?</p>
             </p>
             <TextField
               outlined
@@ -162,12 +162,12 @@ class CreateYourAID {
             />
             <p className="p-tag-bold">Select your witness pool:</p>
             <Select
-                value={this.wits}
-                style={{ width: "300px", margin: '0 0 3.5rem 0' }}
-                options={Witnesses.witnessPools}
-                selectedChange={(wits) => {
-                    this.wits = wits
-                }}
+              value={this.wits}
+              style={{ width: '300px', margin: '0 0 3.5rem 0' }}
+              options={Witnesses.witnessPools}
+              selectedChange={(wits) => {
+                this.wits = wits;
+              }}
             />
             <div class="flex flex-justify-between">
               <Button
@@ -197,13 +197,35 @@ class CreateYourAID {
             <p class="p-tag" style={{ margin: '2rem 0 0 0' }}>
               If you would like your alias to have a photo instead of the default icon, please upload a photo.
             </p>
-            <input
-              type="file"
-              style={{ margin: '4rem 0 4rem 0' }}
-              onchange={(e) => {
-                this.aliasPhoto = URL.createObjectURL(e.target.files[0]);
-              }}
-            />
+            <div class="flex flex-justify-evenly" style={{ alignItems: 'center', margin: '4rem 0 4rem 0' }}>
+              <>
+                <input
+                  type="file"
+                  style={{ margin: '4rem 0 4rem 0' }}
+                  id="actual-upload"
+                  onchange={(e) => {
+                    this.aliasPhoto = URL.createObjectURL(e.target.files[0]);
+                  }}
+                  hidden
+                />
+                <label
+                  for="actual-upload"
+                  style={{
+                    backgroundColor: '#c4c4c4',
+                    padding: '5px 25px 0px 25px',
+                    color: 'white',
+                    // width: '81px',
+                    fontSize: '250%',
+                    cursor: 'pointer',
+                  }}
+                >
+                  +
+                </label>
+              </>
+
+              <p style={{ fontSize: '150%', color: '#737b7d' }}>Upload Photo</p>
+            </div>
+
             <div class="flex flex-justify-between">
               <Button
                 class="button--gray-dk button--big button--no-transform"

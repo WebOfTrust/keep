@@ -140,7 +140,7 @@ class Nav {
                 </div>
                 <IconButton
                   icon="settings"
-                  style={{ marginRight: '1rem' }}
+                  style={{ marginRight: '1.25rem' }}
                   onclick={() => {
                     m.route.set('/settings');
                   }}
@@ -148,12 +148,12 @@ class Nav {
 
                 <img
                   src={githubLogo}
-                  style={{ height: '40px', width: '40px', cursor: 'pointer' }}
+                  style={{ height: '40px', width: '40px', cursor: 'pointer', marginRight: '1rem' }}
                   onclick={() => {
                     m.route.set('/profile');
                   }}
                 />
-                <div style={{ color: '#0cbc8b', paddingLeft: '2rem', fontWeight: 'bold', fontSize: '130%' }}>
+                <div style={{ color: '#0cbc8b', paddingLeft: '1rem', fontWeight: 'bold', fontSize: '130%' }}>
                   {this.navLabel}
                 </div>
               </>
