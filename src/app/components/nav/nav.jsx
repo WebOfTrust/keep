@@ -153,7 +153,7 @@ class Nav {
                     m.route.set('/profile');
                   }}
                 />
-                <div style={{ color: '#0cbc8b', paddingLeft: '1rem', fontWeight: 'bold', fontSize: '130%' }}>
+                <div style={{ color: '#0cbc8b', paddingLeft: '1rem', fontWeight: 'bold', fontSize: '100%' }}>
                   {this.navLabel}
                 </div>
               </>

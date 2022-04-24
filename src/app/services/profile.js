@@ -52,7 +52,9 @@ class Profile {
     }
 
     static setDefaultAID(aid) {
-        this._default = aid
+        KERI.updateIdentifier(aid.name, {
+            default: "true"
+        })
     }
 
     static getDefaultAID() {

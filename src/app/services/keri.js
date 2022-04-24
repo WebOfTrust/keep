@@ -46,6 +46,14 @@ class KERI {
     });
   }
 
+  static updateIdentifier(alias, body) {
+    return m.request({
+      method: 'PUT',
+      url: `${process.env.API_HOST}:${process.env.API_PORT}/ids/${alias}`,
+      body: body
+    });
+  }
+
   static listIdentifiers() {
     return m.request({
       method: 'GET',

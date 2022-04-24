@@ -1,6 +1,6 @@
 import m from 'mithril';
 import githubLogo from '../../../../assets/img/github-logo.png';
-import {Button, Card, TextField} from '../../../components';
+import {Button, Card, Radio, TextField} from '../../../components';
 import uploadPhoto from '../../../../assets/img/upload-image.png';
 import 'emoji-picker-element';
 import KERI from "../../../services/keri";
@@ -180,7 +180,7 @@ class ListIdentifiers {
         console.log(this.identifiers)
         return (
             <>
-                <div style={{height: '512px', overflowY: 'scroll', margin: '0 0 2rem 0'}}>
+                <div style={{height: '624px', overflowY: 'scroll', margin: '0 0 2rem 0'}}>
                     {this.identifiers.map((aid) => {
                         console.log("poop", aid)
                         return (
@@ -190,13 +190,20 @@ class ListIdentifiers {
                                     <div style="display:inline-block; vertical-align:middle">
                                         <div class="font-weight--medium"
                                              style="margin: 1.5rem 0 1rem 0;">{aid.name}</div>
-                                        <div style="margin: 0 0 0 0;">{aid.prefix}</div>
+                                        <code style="margin: 0 0 0 0;">{aid.prefix}</code>
                                         <div className="flex flex-justify-between" style={{marginTop: '3rem'}}>
                                             <div>Use as default
-                                                <input style={{ marginTop: '1rem 1rem' }} type="radio" name="aliasRadio"
-                                                onclick={() => {
-                                                    console.log("hihihi")
-                                                }}/>
+                                                <Radio
+                                                    id="alias"
+                                                    name="alias"
+                                                    checked={("metadata" in aid) && ("default" in aid.metadata)}
+                                                    onclick={() => {
+                                                        KERI.updateIdentifier(aid.name, {
+                                                            default: "true"
+                                                        })
+                                                    }}
+                                                    style={{ marginTop: '1rem 1rem' }}
+                                                />
                                             </div>
                                             <Button class="button--big button--no-transform" raised label="Edit"
                                                     onclick={() => {
