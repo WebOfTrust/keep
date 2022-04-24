@@ -145,7 +145,7 @@ class Nav {
                     m.route.set('/settings');
                   }}
                 />
-                <div style={{ color: 'green', paddingRight: '5px', fontWeight: 'bold' }}>{this.navLabel}</div>
+
                 <img
                   src={githubLogo}
                   style={{ height: '40px', width: '40px', cursor: 'pointer' }}
@@ -153,6 +153,9 @@ class Nav {
                     m.route.set('/profile');
                   }}
                 />
+                <div style={{ color: '#0cbc8b', paddingLeft: '2rem', fontWeight: 'bold', fontSize: '130%' }}>
+                  {this.navLabel}
+                </div>
               </>
             )}
           </div>
