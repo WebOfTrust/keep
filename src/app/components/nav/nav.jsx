@@ -11,6 +11,7 @@ import './nav.scss';
 class Nav {
   constructor() {
     this.notificationsVisible = false;
+    console.log(Notify.notifications);
   }
 
   get navLabel() {
@@ -70,6 +71,13 @@ class Nav {
                       this.notificationsVisible = !this.notificationsVisible;
                     }}
                   />
+                  {Notify.notifications.length > 0 ? (
+                    <span class="noti-badge">
+                      <p>{Notify.notifications.length}</p>
+                    </span>
+                  ) : (
+                    <></>
+                  )}
                   <Popover
                     visible={this.notificationsVisible}
                     onClose={() => {

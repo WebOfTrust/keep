@@ -43,3 +43,22 @@ a {
   padding: 0 1rem;
   width: 100%;
 }
+
+.noti-badge{
+  position: absolute;
+  width: 10px;
+  height: 10px;
+  top: 9px;
+  right: 30px;
+  // padding: 5px 10px;
+  border-radius: 50%;
+  background: red;
+  // color: white;
+  p{
+    font-size: 55%;
+    color: white;
+    font-weight: bold;
+    margin: 0 0 4px 2.5px;
+    
+  }
+}
