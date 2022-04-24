@@ -6,7 +6,7 @@ import './profile.scss';
 
 class Profile {
   constructor() {
-    this.currentState = null;
+    this.currentState = 'manage-identifiers';
   }
 
   view(vnode) {
