@@ -65,10 +65,14 @@
     }
   },
   "dependencies": {
+    "@popperjs/core": "^2.11.5",
     "electron-squirrel-startup": "^1.0.0",
+    "emoji-button": "^2.2.2",
+    "emoji-picker-element": "^1.11.3",
     "material-components-web": "^13.0.0",
     "mithril": "^2.0.4",
-    "moment": "^2.29.1"
+    "moment": "^2.29.1",
+    "picmo": "^5.0.0-beta.1"
   },
   "devDependencies": {
     "@babel/plugin-transform-react-jsx": "^7.16.0",

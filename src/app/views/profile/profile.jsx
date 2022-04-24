@@ -26,8 +26,8 @@ class Profile {
                       this.currentState = 'manage-identifiers';
                     }}
                   >
-                    <div class="flex flex-align-center">
-                      {/* <img src={task.imgSrc} alt={task.label} style={{ marginRight: '1rem', width: '72px' }} /> */}
+                    <div class="flex flex-align-center" style={{color: '#494949'}}>
+                      <span className="material-icons md-48" style={{marginRight: '1rem'}}>people</span>
                       <h3>Manage Identifiers</h3>
                     </div>
                   </Card>
@@ -39,8 +39,8 @@ class Profile {
                       this.currentState = 'manage-passcode';
                     }}
                   >
-                    <div class="flex flex-align-center">
-                      {/* <img src={task.imgSrc} alt={task.label} style={{ marginRight: '1rem', width: '72px' }} /> */}
+                    <div class="flex flex-align-center" style={{color: '#494949'}}>
+                      <span className="material-icons md-48" style={{marginRight: '1rem'}}>key</span>
                       <h3>Manage Passcode</h3>
                     </div>
                   </Card>
