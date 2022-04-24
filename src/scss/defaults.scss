@@ -46,19 +46,19 @@ a {
 
 .noti-badge{
   position: absolute;
-  width: 10px;
-  height: 10px;
+  width: 14px;
+  height: 14px;
   top: 9px;
-  right: 30px;
+  right: 40px;
   // padding: 5px 10px;
   border-radius: 50%;
-  background: red;
+  background: #d7e5ff;
   // color: white;
   p{
-    font-size: 55%;
-    color: white;
+    font-size: 75%;
+    color: #737b7d;
     font-weight: bold;
-    margin: 0 0 4px 2.5px;
+    margin: 1px 0 0px 3px;
     
   }
 }
