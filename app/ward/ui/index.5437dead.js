@@ -9219,18 +9219,11 @@ class Auth {
         sessionStorage.removeItem('agent');
     }
     static title() {
-        switch(undefined){
-            case 'lead-external-gar':
-                return 'Lead External GAR';
-            case 'external-gar':
-                return 'External GAR';
-            default:
-                return '';
-        }
+        return 'External GAR';
     }
     static login(passcode) {
         let promise = new Promise((resolve, reject)=>{
-            _keriDefault.default.unlockAgent(`keep${"5623"}`, passcode).then((response)=>{
+            _keriDefault.default.unlockAgent(`keep${"5723"}`, passcode).then((response)=>{
                 this.setAgent(response.name);
                 this.isLoggedIn = true;
                 setTimeout(()=>{
@@ -9259,13 +9252,13 @@ class KERI {
     static generatePasscode() {
         return _mithrilDefault.default.request({
             method: 'GET',
-            url: `${"http://localhost"}:${"5623"}/codes`
+            url: `${"http://localhost"}:${"5723"}/codes`
         });
     }
     static initializeAgent(name, passcode) {
         return _mithrilDefault.default.request({
             method: 'POST',
-            url: `${"http://localhost"}:${"5623"}/boot`,
+            url: `${"http://localhost"}:${"5723"}/boot`,
             body: {
                 name,
                 passcode
@@ -9275,7 +9268,7 @@ class KERI {
     static unlockAgent(name1, passcode1) {
         return _mithrilDefault.default.request({
             method: 'PUT',
-            url: `${"http://localhost"}:${"5623"}/boot`,
+            url: `${"http://localhost"}:${"5723"}/boot`,
             body: {
                 name: name1,
                 passcode: passcode1
@@ -9285,7 +9278,7 @@ class KERI {
     static createIdentifier(alias5, witnesses) {
         return _mithrilDefault.default.request({
             method: 'POST',
-            url: `${"http://localhost"}:${"5623"}/ids/${alias5}`,
+            url: `${"http://localhost"}:${"5723"}/ids/${alias5}`,
             body: {
                 wits: witnesses
             }
@@ -9294,20 +9287,20 @@ class KERI {
     static updateIdentifier(alias1, body) {
         return _mithrilDefault.default.request({
             method: 'PUT',
-            url: `${"http://localhost"}:${"5623"}/ids/${alias1}`,
+            url: `${"http://localhost"}:${"5723"}/ids/${alias1}`,
             body: body
         });
     }
     static listIdentifiers() {
         return _mithrilDefault.default.request({
             method: 'GET',
-            url: `${"http://localhost"}:${"5623"}/ids`
+            url: `${"http://localhost"}:${"5723"}/ids`
         });
     }
     static getOOBI(alias2, role) {
         return _mithrilDefault.default.request({
             method: 'GET',
-            url: `${"http://localhost"}:${"5623"}/oobi/${alias2}`,
+            url: `${"http://localhost"}:${"5723"}/oobi/${alias2}`,
             params: {
                 role
             }
@@ -9316,7 +9309,7 @@ class KERI {
     static resolveOOBI(alias3, oobialias, url) {
         return _mithrilDefault.default.request({
             method: 'POST',
-            url: `${"http://localhost"}:${"5623"}/oobi/${alias3}`,
+            url: `${"http://localhost"}:${"5723"}/oobi/${alias3}`,
             body: {
                 oobialias,
                 url
@@ -9326,13 +9319,13 @@ class KERI {
     static generateChallengeMessage() {
         return _mithrilDefault.default.request({
             method: 'GET',
-            url: `${"http://localhost"}:${"5623"}/challenge`
+            url: `${"http://localhost"}:${"5723"}/challenge`
         });
     }
     static signChallengeMessage(alias4, recipient, words) {
         return _mithrilDefault.default.request({
             method: 'POST',
-            url: `${"http://localhost"}:${"5623"}/challenge/${alias4}`,
+            url: `${"http://localhost"}:${"5723"}/challenge/${alias4}`,
             body: {
                 recipient,
                 words
@@ -9342,7 +9335,7 @@ class KERI {
     static getContacts() {
         return _mithrilDefault.default.request({
             method: 'GET',
-            url: `${"http://localhost"}:${"5623"}/contacts`
+            url: `${"http://localhost"}:${"5723"}/contacts`
         });
     }
     static getContactsByAliases(aliases) {
@@ -9351,32 +9344,32 @@ class KERI {
         }).join('');
         return _mithrilDefault.default.request({
             method: 'GET',
-            url: `${"http://localhost"}:${"5623"}/contacts?filter_field=alias${valueParams}`
+            url: `${"http://localhost"}:${"5723"}/contacts?filter_field=alias${valueParams}`
         });
     }
     static getContact(prefix) {
         return _mithrilDefault.default.request({
             method: 'GET',
-            url: `${"http://localhost"}:${"5623"}/contacts/${prefix}`
+            url: `${"http://localhost"}:${"5723"}/contacts/${prefix}`
         });
     }
     static getEscrowsForIdentifier(prefix1) {
         return _mithrilDefault.default.request({
             method: 'GET',
-            url: `${"http://localhost"}:${"5623"}/escrows?pre=${prefix1}`
+            url: `${"http://localhost"}:${"5723"}/escrows?pre=${prefix1}`
         });
     }
     static updateContact(alias, aid, body1) {
         return _mithrilDefault.default.request({
             method: 'PUT',
-            url: `${"http://localhost"}:${"5623"}/contacts/${aid}/${alias}`,
+            url: `${"http://localhost"}:${"5723"}/contacts/${aid}/${alias}`,
             body: body1
         });
     }
     static initiateGroupInception(alias6, { aids , isith , nsith , toad , wits  }) {
         return _mithrilDefault.default.request({
             method: 'POST',
-            url: `${"http://localhost"}:${"5623"}/groups/${alias6}/icp`,
+            url: `${"http://localhost"}:${"5723"}/groups/${alias6}/icp`,
             body: {
                 aids,
                 isith,
@@ -9389,7 +9382,7 @@ class KERI {
     static participateGroupInception(alias7, { aids: aids1 , isith: isith1 , nsith: nsith1 , toad: toad1 , wits: wits1  }) {
         return _mithrilDefault.default.request({
             method: 'PUT',
-            url: `${"http://localhost"}:${"5623"}/groups/${alias7}/icp`,
+            url: `${"http://localhost"}:${"5723"}/groups/${alias7}/icp`,
             body: {
                 aids: aids1,
                 isith: isith1,
@@ -9419,7 +9412,7 @@ var _profileDefault = parcelHelpers.interopDefault(_profile);
 var Buffer = require("buffer").Buffer;
 class Mail {
     static MINSNIFFSIZE = 30;
-    static _port = "5623";
+    static _port = "5723";
     static groupName = '';
     static messages = [];
     static presentations = [];
@@ -9511,7 +9504,7 @@ class Mail {
     };
     static initEventSource = ()=>{
         if (this.source || this.messages.length > 0) return;
-        this.source = new EventSource(`${"http://localhost"}:${"5623"}/mbx?pre=E59KmDbpjK0tRf9Rmc7OlueZVz7LB94DdD3cjQVvPcng&topics=%2Fchallenge%3D0&topics=%2Fmultisig%3D0&topics=%2Freceipt%3D0&topics=%2Freplay%3D0&topics=%2Freply%3D0`);
+        this.source = new EventSource(`${"http://localhost"}:${"5723"}/mbx?pre=E59KmDbpjK0tRf9Rmc7OlueZVz7LB94DdD3cjQVvPcng&topics=%2Fchallenge%3D0&topics=%2Fmultisig%3D0&topics=%2Freceipt%3D0&topics=%2Freplay%3D0&topics=%2Freply%3D0`);
         this.source.addEventListener('/challenge', this.challengeHandler, false);
         this.source.addEventListener('/multisig', this.multisigHandler, false);
         this.source.addEventListener('/receipt', this.receiptHandler, false);
@@ -25119,7 +25112,7 @@ class EnterPasscode {
         this.showPasscode = false;
     }
     initializeAgent(vnode2) {
-        _services.KERI.initializeAgent(`keep${"5623"}`, this.passcode).then(vnode2.attrs.continue).catch((err)=>{
+        _services.KERI.initializeAgent(`keep${"5723"}`, this.passcode).then(vnode2.attrs.continue).catch((err)=>{
             console.log('initializeAgent', err);
         });
     }

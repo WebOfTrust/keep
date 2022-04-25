@@ -4,6 +4,7 @@ const {app, BrowserWindow} = electron;
 const {spawn} = require('child_process');
 const retry = require('promise-retry');
 const fetch = (...args) => import('node-fetch').then(({default: fetch}) => fetch(...args));
+const log = require('electron-log');
 
 let ward = null;
 
@@ -27,9 +28,13 @@ const createWindow = () => {
 
     if (ward === null) {
         ward = spawn(`${__dirname}/ward/ward`);
+        ward.on('error', function(err) {
+            log.error('spawn error' + err);
+        });
+
         ward.stdout.on('data', (data) => {
             let buffer = Buffer.from(data);
-            console.log('out:', buffer.toString());
+            log.info('out:', buffer.toString());
         });
 
         ward.stderr.on('data', (data) => {
@@ -43,20 +48,20 @@ const createWindow = () => {
                 win.loadFile(__dirname + '/oops.html');
                 ward.kill();
             }
-            console.log('err:', err);
+            log.error('err:', err);
         });
 
         ward.on('close', (code) => {
-            console.log(`ward process exited with code ${code}`);
+            log.info(`ward process exited with code ${code}`);
         });
     }
 
     retry((retry) => {
-        console.log('⏳ launching...');
+        log.info('⏳ launching...');
         return fetch('http://localhost:5623').catch(retry);
     }).then(() => {
         win.loadURL('http://localhost:5623').then(() =>
-            console.log('🚀 launched...'))
+            log.info('🚀 launched...'))
     }).catch(() => {
         ward.kill();
         app.quit()
