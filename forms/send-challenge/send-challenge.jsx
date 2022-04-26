@@ -26,6 +26,7 @@ class SendChallengeForm {
     KERI.generateChallengeMessage()
       .then((res) => {
         this.challengeMessage = res.words.join(' ');
+        Participants.updateWords(res.words);
       })
       .catch((err) => {
         console.log('generateChallengeMessage', err);
