@@ -30,9 +30,10 @@ function getProfileView(identifier) {
                 textAlign: 'center',
                 borderRadius: '50%',
                 background: 'grey',
-                verticalAlign: 'middle',
+                verticalAlign: 'top',
                 color: 'white',
-                marginRight: '2rem'
+                marginRight: '2rem',
+                marginTop: '1rem'
             }}>
                 <div>{initials}</div>
             </div>
@@ -177,7 +178,6 @@ class ListIdentifiers {
     }
 
     view(vnode) {
-        console.log(this.identifiers)
         return (
             <>
                 <div style={{height: '624px', overflowY: 'scroll', margin: '0 0 2rem 0'}}>
@@ -188,9 +188,28 @@ class ListIdentifiers {
                                     {getProfileView(aid)}
                                     <div style="display:inline-block; vertical-align:middle">
                                         <div class="font-weight--medium"
-                                             style="margin: 1.5rem 0 1rem 0;">{aid.name}</div>
+                                             style="margin: 1.5rem 0 1rem 0;">{aid.name}
+                                            <span className="material-icons-outlined md-24" style={{float: 'right'}}>
+                                                {aid.hasOwnProperty("group") ? "group" : "person"}
+                                            </span>
+                                        </div>
+                                        <h6 style={{margin: '1rem 0 0 0'}}>
+                                            Prefix:
+                                        </h6>
                                         <code style="margin: 0 0 0 0;">{aid.prefix}</code>
-                                        <div className="flex flex-justify-between" style={{marginTop: '3rem'}}>
+                                        <div>
+                                            <h6 style={{margin: '1rem 0 0 0'}}>
+                                                Public Keys:
+                                            </h6>
+                                            {aid.public_keys.map((pk) => {
+                                                return (
+                                                    <div>
+                                                    <code style="margin: 0 0 0 0;">{pk}</code>
+                                                    </div>
+                                                )
+                                            })}
+                                        </div>
+                                        <div className="flex flex-justify-between" style={{marginTop: '1rem'}}>
                                             <div>Use as default
                                                 <Radio
                                                     id="alias"
