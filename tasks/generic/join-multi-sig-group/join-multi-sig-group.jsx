@@ -71,7 +71,7 @@ class JoinMultiSigGroup {
         {this.currentState === 'new-multi-sig-group' && (
           <>
             <img src={todoList} style={{ width: '188px', margin: '4rem 0 0 0' }} />
-            <h3>New Multi-Sig Set</h3>
+            <h3>New Multi-Sig Group</h3>
             <p class="p-tag">View the multi-sig group and confirm that these individuals are authorized.</p>
             <div class="flex flex-justify-end">
               <Button

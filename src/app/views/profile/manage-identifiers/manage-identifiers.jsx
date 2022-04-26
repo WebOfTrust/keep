@@ -182,7 +182,6 @@ class ListIdentifiers {
             <>
                 <div style={{height: '624px', overflowY: 'scroll', margin: '0 0 2rem 0'}}>
                     {this.identifiers.map((aid) => {
-                        console.log("poop", aid)
                         return (
                             <Card class="" style={{margin: '1.5rem ', padding: '0'}}>
                                 <div>

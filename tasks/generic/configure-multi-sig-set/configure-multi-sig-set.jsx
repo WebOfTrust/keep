@@ -404,7 +404,7 @@ class ConfigureMultiSigSet {
             <p class="font-weight--bold font-color--battleship">Group Alias</p>
             <div class="uneditable-value">{this.groupAlias}</div>
             <p className="font-weight--bold font-color--battleship">Witness Pool:</p>
-            <div className="uneditable-value">{Witnesses.witnessPools.find((p) => (p.value = this.wits)).label}</div>
+            <div className="uneditable-value">{Witnesses.witnessPools.find((p) => (p.value === this.wits)).label}</div>
             <p class="font-color--battleship" style={{ margin: '2rem 0' }}>
               Review signers to make sure the list is complete.
             </p>

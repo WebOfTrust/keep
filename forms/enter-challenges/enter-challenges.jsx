@@ -64,15 +64,31 @@ class EnterChallengesForm {
                       />
                     </div>
                   ) : (
-                    <div class="flex flex-align-center flex-justify-end" style={{ marginTop: '1.5rem' }}>
-                      <label class="font-color--battleship" style={{ fontWeight: 'bold', textDecoration: 'underline' }}>
-                        Out of Band Confirmation
-                      </label>
-                      <Checkbox
-                        checked={signer.confirmed}
-                        onclick={() => {
-                          signer.confirmed = !signer.confirmed;
-                        }}
+                    <div class="flex flex-align-center flex-justify-between" style={{ marginTop: '1.5rem' }}>
+                      <div class="flex flex-align-left flex-justify-between">
+                        <label class="font-color--battleship" style={{ marginTop: '1rem', fontWeight: 'bold', textDecoration: 'underline' }}>
+                          Confirmed?
+                        </label>
+                        <Checkbox
+                          checked={signer.confirmed}
+                          onclick={() => {
+                            signer.confirmed = !signer.confirmed;
+                          }}
+                        />
+                      </div>
+                      <Button
+                          class="button--no-transform"
+                          raised
+                          label="Resend"
+                          onclick={() => {
+                            this.signChallengePromise(signer)
+                                .then(() => {
+                                  signer.sent = true;
+                                })
+                                .catch((err) => {
+                                  console.log('signChallengePromise', err);
+                                });
+                          }}
                       />
                     </div>
                   )}
