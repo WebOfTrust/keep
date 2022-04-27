@@ -4,42 +4,7 @@ import {Button, Card, Radio, TextField} from '../../../components';
 import uploadPhoto from '../../../../assets/img/upload-image.png';
 import 'emoji-picker-element';
 import KERI from "../../../services/keri";
-
-function getProfileView(identifier) {
-    if (identifier.hasOwnProperty("image")) {
-        return (
-            <img src={githubLogo} style={{width: '35%', borderRadius: '50%', position: 'relative'}}/>
-        );
-    } else if (identifier.hasOwnProperty("name")) {
-        let initials = "";
-
-        const parts = identifier.name.split(" ")
-        if (parts.length === 1) {
-            initials = identifier.name.substring(0, 1)
-        } else if (parts.length >= 2) {
-            initials = parts[0].substring(0, 1) + parts[1].substring(0, 1)
-        }
-
-        return (
-            <div style={{
-                display: 'inline-block',
-                fontSize: '1.75em',
-                width: '2.75em',
-                height: '2.75em',
-                lineHeight: '2.75em',
-                textAlign: 'center',
-                borderRadius: '50%',
-                background: 'grey',
-                verticalAlign: 'top',
-                color: 'white',
-                marginRight: '2rem',
-                marginTop: '1rem'
-            }}>
-                <div>{initials}</div>
-            </div>
-        );
-    }
-}
+import ProfilePicture from "../../../components/profile/picture";
 
 class Identifier {
     view(vnode) {
@@ -48,7 +13,7 @@ class Identifier {
                 <div style={{margin: '2rem'}}>
                     <h1>{vnode.attrs.parent.selectedIdentifier.name}</h1>
                     <div style={{margin: '2rem 0 2rem 0', position: 'relative'}}>
-                        {getProfileView(vnode.attrs.parent.selectedIdentifier)}
+                        <ProfilePicture identifier={vnode.attrs.parent.selectedIdentifier}/>
                         <span className="material-icons-outlined md-24" style={{
                             marginRight: '1rem', backgroundColor: '#494949', borderRadius: '50%',
                             position: 'absolute', top: '50px', left: '50px', color: 'white', padding: '0.25rem'
@@ -184,15 +149,12 @@ class ListIdentifiers {
                     {this.identifiers.map((aid) => {
                         return (
                             <Card class="" style={{margin: '1.5rem ', padding: '0'}}>
-                                <div>
-                                    {getProfileView(aid)}
-                                    <div style="display:inline-block; vertical-align:middle">
-                                        <div class="font-weight--medium"
-                                             style="margin: 1.5rem 0 1rem 0;">{aid.name}
-                                            <span className="material-icons-outlined md-24" style={{float: 'right'}}>
+                                <ProfilePicture identifier={aid}/>
+                                        <div class="font-weight--medium" style={{marginLeft: '1rem', marginTop: '1.25rem', display: 'inline-block'}}>{aid.name}</div>
+                                        <span className="material-icons-outlined md-24" style={{float: 'right'}}>
                                                 {aid.hasOwnProperty("group") ? "group" : "person"}
                                             </span>
-                                        </div>
+                                    <div>
                                         <h6 style={{margin: '1rem 0 0 0'}}>
                                             Prefix:
                                         </h6>
@@ -204,7 +166,7 @@ class ListIdentifiers {
                                             {aid.public_keys.map((pk) => {
                                                 return (
                                                     <div>
-                                                    <code style="margin: 0 0 0 0;">{pk}</code>
+                                                        <code style="margin: 0 0 0 0;">{pk}</code>
                                                     </div>
                                                 )
                                             })}
@@ -220,7 +182,7 @@ class ListIdentifiers {
                                                             default: "true"
                                                         })
                                                     }}
-                                                    style={{ marginTop: '1rem 1rem' }}
+                                                    style={{marginTop: '1rem 1rem'}}
                                                 />
                                             </div>
                                             <Button class="button--big button--no-transform" raised label="Edit"
@@ -230,7 +192,6 @@ class ListIdentifiers {
                                                     }}/>
                                         </div>
                                     </div>
-                                </div>
                             </Card>
                         );
                     })}

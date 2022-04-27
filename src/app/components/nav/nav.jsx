@@ -3,8 +3,8 @@ import { Auth, KERI, Notify, Profile, Tasks } from '../../services';
 import Container from '../container/container.jsx';
 import IconButton from '../icon-button/icon-button.jsx';
 import Popover from '../popover/popover.jsx';
+import ProfilePicture from '../profile/picture';
 
-import githubLogo from '../../../assets/img/github-logo.png';
 import keepLogo from '../../../assets/img/logo/keep.png';
 import './nav.scss';
 
@@ -26,6 +26,18 @@ class Nav {
 
     label += Auth.title();
     return label;
+  }
+
+  get profilePicture() {
+    let identifier = Profile.getDefaultAID()
+    return (
+        <div style={{cursor: 'pointer', marginRight: '0.5rem',  marginLeft: '1rem'}}
+             onclick={() => {
+               m.route.set('/profile');
+             }}>
+          <ProfilePicture size='s' identifier={identifier}/>
+        </div>
+    )
   }
 
   challengeNotificationClick(notification) {
@@ -140,19 +152,13 @@ class Nav {
                 </div>
                 <IconButton
                   icon="settings"
-                  style={{ marginRight: '1.25rem' }}
                   onclick={() => {
                     m.route.set('/settings');
                   }}
                 />
 
-                <img
-                  src={githubLogo}
-                  style={{ height: '40px', width: '40px', cursor: 'pointer', marginRight: '1rem' }}
-                  onclick={() => {
-                    m.route.set('/profile');
-                  }}
-                />
+                {this.profilePicture}
+
                 <div style={{ color: '#0cbc8b', paddingLeft: '1rem', fontWeight: 'bold', fontSize: '100%' }}>
                   {this.navLabel}
                 </div>

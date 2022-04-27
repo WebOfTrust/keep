@@ -253,7 +253,7 @@ class VideoCall {
         {vnode.attrs.parent.currentState === 'waiting-for-multisig' && (
           <>
             <img src={uploadFile} style={{ width: '240px', margin: '1.5rem 0 2rem 0' }} />
-            <h3>Waiting for Multi-Sig Group Initiation</h3>
+            <h3>Waiting for Multi-Sig Group Inception</h3>
             <p class="p-tag" style={{ margin: '2rem 0 2rem 0' }}>
               You will be notified when the Lead External GAR initiates the creation of the Multi-Sig Group for the
               GLEIF External AID. Clicking on the notification will allow you to participate in the inception event.
