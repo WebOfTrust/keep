@@ -147,11 +147,12 @@ a:link {
   &-justify-around {
     justify-content: space-around;
   }
-
+  &-justify-start{
+    justify-content: flex-start;
+  }
   &-justify-end {
     justify-content: flex-end;
   }
-
   &-justify-center {
     justify-content: center;
   }
