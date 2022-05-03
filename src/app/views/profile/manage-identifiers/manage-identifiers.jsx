@@ -7,6 +7,28 @@ import KERI from "../../../services/keri";
 import ProfilePicture from "../../../components/profile/picture";
 
 class Identifier {
+    parseMetadata(aid) {
+        if (aid.hasOwnProperty("metadata")) {
+            return (
+                <div>
+                    {
+                        Object.entries(aid.metadata)
+                            // .filter(([k, v], i) => k !== "default")
+                            .map(
+                                ([k, v], i) => {
+                                    return (
+                                        <div className="flex flex-justify-between">
+                                            <p className="p-tag">{k}:</p>
+                                            <p className="p-tag">{v}</p>
+                                        </div>
+                                    )
+                                }
+                            )}
+                </div>
+            )
+        }
+    }
+
     view(vnode) {
         return (
             <>
@@ -19,20 +41,7 @@ class Identifier {
                             position: 'absolute', top: '50px', left: '50px', color: 'white', padding: '0.25rem'
                         }} onclick={vnode.attrs.editImage}>photo_camera</span>
                     </div>
-                    <div>
-                        <div class="flex flex-justify-between">
-                            <p class="p-tag">Email:</p>
-                            <p class="p-tag">Octocat</p>
-                        </div>
-                        <div class="flex flex-justify-between">
-                            <p class="p-tag">Company:</p>
-                            <p class="p-tag">GLEIF</p>
-                        </div>
-                        <div class="flex flex-justify-between">
-                            <p class="p-tag">Phone Number:</p>
-                            <p class="p-tag">+ 1-801-888-8888</p>
-                        </div>
-                    </div>
+                    {this.parseMetadata(vnode.attrs.parent.selectedIdentifier)}
                     <div class="flex flex-justify-end" style={{margin: '4rem 0 0 0'}}>
                         <Button class="button--gray-dk button--big button--no-transform" raised label="
                                  Go Back" onclick={vnode.attrs.back}/>
@@ -46,30 +55,50 @@ class Identifier {
 }
 
 class IdentifierEditPage {
+    editMetadata(aid) {
+        if (aid.hasOwnProperty("metadata")) {
+            return (
+                <div>
+                    {
+                        Object.entries(aid.metadata)
+                            // .filter(([k, v], i) => k !== "default")
+                            .map(
+                                ([k, v], i) => {
+                                    console.log(k, v)
+                                    return (
+                                        <div className="flex flex-justify-between">
+                                            <TextField filled fluid value={k}
+                                                       style={{width: '45%', height: '2.5rem'}}/>
+                                            <TextField filled fluid value={v}
+                                                       style={{width: '45%', height: '2.5rem'}}/>
+                                        </div>
+                                    )
+                                }
+                            )}
+                </div>
+            )
+        }
+    }
+
+
     view(vnode) {
         return (
             <>
                 <div style={{margin: '2rem'}}>
-                    <h1>{vnode.attrs.identifier.name}</h1>
+                    <h1>{vnode.attrs.parent.selectedIdentifier.name}</h1>
                     <div class="flex flex-justify-between" style={{margin: '2rem 0 2rem 0'}}>
                         <img src={githubLogo} style={{width: '35%', borderRadius: '50%'}}/>
                     </div>
-                    <div>
-                        <div class="flex flex-justify-between">
-                            <p class="p-tag">Email:</p>
-                            <TextField filled fluid placeholder="octocat@gleif.org"
-                                       style={{width: '60%', height: '2.5rem'}}/>
-                        </div>
-                        <div class="flex flex-justify-between">
-                            <p class="p-tag">Company:</p>
-                            <TextField filled fluid placeholder="GLEIF" style={{width: '60%', height: '2.5rem'}}/>
-                        </div>
-                        <div class="flex flex-justify-between">
-                            <p class="p-tag">Phone Number:</p>
-                            <TextField filled fluid placeholder="+ 1-801-888-8888"
-                                       style={{width: '60%', height: '2.5rem'}}/>
-                        </div>
-                    </div>
+                    {this.editMetadata(vnode.attrs.parent.selectedIdentifier)}
+                    <Button
+                        raised
+                        class="button--no-transform button--gray"
+                        label="Add Metadata"
+                        iconLeading="add"
+                        onclick={() => {
+                            console.log("foo")
+                        }}
+                    />
                     <div className="flex flex-justify-between" style={{marginTop: '3rem'}}>
                         <Button class="button--gray-dk button--big button--no-transform" raised label="
                          Go Back" onclick={vnode.attrs.back}/>
@@ -100,11 +129,12 @@ class EditImage {
     }
 
     view(vnode) {
+        console.log("foo foo foo", vnode.attrs.parent.selectedIdentifier.identifier)
         return (
             <>
                 <div style={{margin: '2rem'}}>
                     <img src={uploadPhoto} style={{marginBottom: '1rem'}}/>
-                    <h3>Select a Symbol or Photo for {vnode.attrs.parent.selectedIdentifier.alias}</h3>
+                    <h3>Select a Symbol or Photo for {vnode.attrs.parent.selectedIdentifier.identifier.name}</h3>
                     <p class="p-tag">This symbol or photo will be listed alongside your alias in your credentials
                         wallet.</p>
 
@@ -134,7 +164,6 @@ class ListIdentifiers {
 
     constructor() {
         KERI.listIdentifiers().then((identifiers) => {
-            console.log(identifiers)
             this.identifiers = identifiers
         }).catch((err) => {
             this.identifiers = []
@@ -150,48 +179,52 @@ class ListIdentifiers {
                         return (
                             <Card class="" style={{margin: '1.5rem ', padding: '0'}}>
                                 <ProfilePicture identifier={aid}/>
-                                        <div class="font-weight--medium" style={{marginLeft: '1rem', marginTop: '1.25rem', display: 'inline-block'}}>{aid.name}</div>
-                                        <span className="material-icons-outlined md-24" style={{float: 'right'}}>
+                                <div class="font-weight--medium" style={{
+                                    marginLeft: '1rem',
+                                    marginTop: '1.25rem',
+                                    display: 'inline-block'
+                                }}>{aid.name}</div>
+                                <span className="material-icons-outlined md-24" style={{float: 'right'}}>
                                                 {aid.hasOwnProperty("group") ? "group" : "person"}
                                             </span>
+                                <div>
+                                    <h6 style={{margin: '1rem 0 0 0'}}>
+                                        Prefix:
+                                    </h6>
+                                    <code style="margin: 0 0 0 0;">{aid.prefix}</code>
                                     <div>
                                         <h6 style={{margin: '1rem 0 0 0'}}>
-                                            Prefix:
+                                            Public Keys:
                                         </h6>
-                                        <code style="margin: 0 0 0 0;">{aid.prefix}</code>
-                                        <div>
-                                            <h6 style={{margin: '1rem 0 0 0'}}>
-                                                Public Keys:
-                                            </h6>
-                                            {aid.public_keys.map((pk) => {
-                                                return (
-                                                    <div>
-                                                        <code style="margin: 0 0 0 0;">{pk}</code>
-                                                    </div>
-                                                )
-                                            })}
-                                        </div>
-                                        <div className="flex flex-justify-between" style={{marginTop: '1rem'}}>
-                                            <div>Use as default
-                                                <Radio
-                                                    id="alias"
-                                                    name="alias"
-                                                    checked={("metadata" in aid) && ("default" in aid.metadata)}
-                                                    onclick={() => {
-                                                        KERI.updateIdentifier(aid.name, {
-                                                            default: "true"
-                                                        })
-                                                    }}
-                                                    style={{marginTop: '1rem 1rem'}}
-                                                />
-                                            </div>
-                                            <Button class="button--big button--no-transform" raised label="Edit"
-                                                    onclick={() => {
-                                                        vnode.attrs.parent.selectedIdentifier = aid
-                                                        vnode.attrs.continue();
-                                                    }}/>
-                                        </div>
+                                        {aid.public_keys.map((pk) => {
+                                            return (
+                                                <div>
+                                                    <code style="margin: 0 0 0 0;">{pk}</code>
+                                                </div>
+                                            )
+                                        })}
                                     </div>
+                                    <div className="flex flex-justify-between" style={{marginTop: '1rem'}}>
+                                        <div>Use as default
+                                            <Radio
+                                                id="alias"
+                                                name="alias"
+                                                checked={("metadata" in aid) && ("default" in aid.metadata)}
+                                                onclick={() => {
+                                                    KERI.updateIdentifier(aid.name, {
+                                                        default: "true"
+                                                    })
+                                                }}
+                                                style={{marginTop: '1rem 1rem'}}
+                                            />
+                                        </div>
+                                        <Button class="button--big button--no-transform" raised label="Edit"
+                                                onclick={() => {
+                                                    vnode.attrs.parent.selectedIdentifier = aid
+                                                    vnode.attrs.continue();
+                                                }}/>
+                                    </div>
+                                </div>
                             </Card>
                         );
                     })}
