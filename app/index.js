@@ -16,8 +16,8 @@ if (require('electron-squirrel-startup')) {
 
 const createWindow = () => {
     const win = new BrowserWindow({
-        width: 1024,
-        height: 768,
+        width: 1440,
+        height: 1024,
         icon: `${__dirname}/assets/icon.icns`
     });
 
