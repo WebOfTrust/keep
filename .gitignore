@@ -94,6 +94,9 @@ out/
 ward/build
 ward/dist
 ward/venv
+ward/keri
+ward/ui
+app/ward
 build
 build-ui
 build-ui-dev

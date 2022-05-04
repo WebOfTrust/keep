@@ -23,6 +23,17 @@ jobs:
 
       - name: Checkout code
         uses: actions/checkout@v2
+
+      - uses: actions/setup-node@v2
+        with:
+          node-version: '14'
+          cache: 'yarn'
+
+      - name: build ui
+        run: |
+          yarn install
+          yarn build:external-gar
+
       - name: Build project
         run: |
           cd ward

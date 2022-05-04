@@ -1,4 +1,4 @@
-name: Build
+name: Build External GAR
 
 on:
   push:
@@ -27,7 +27,7 @@ jobs:
       - name: build ui
         run: |
           yarn install
-          yarn build:generic
+          yarn build:external-gar
 
       - name: package python
         run: |

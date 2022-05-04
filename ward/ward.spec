@@ -6,9 +6,9 @@ block_cipher = None
 
 a = Analysis(['ward/main.py'],
              pathex=[],
-             binaries=[],
              datas=[
-                ('build-ui', 'ui')
+                ('build-ui-dev', 'ui'),
+                ('config', 'keri/cf/')
              ],
              hiddenimports=[
                 'falcon.app_helpers',
