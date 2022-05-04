@@ -7,15 +7,23 @@ class Login {
   constructor() {
     this.passcode = '';
     this.showPasscode = false;
+    this.error = '';
+    this.submitting = false;
   }
 
   login(vnode) {
+    this.error = '';
+    this.submitting = true;
     Auth.login(this.passcode)
       .then(() => {
         vnode.attrs.end();
       })
       .catch((err) => {
-        console.log('login', err);
+        // TODO: Replace with dynamic error messages
+        this.error = 'Error unlocking keystore with passcode entered.';
+      })
+      .finally(() => {
+        this.submitting = false;
       });
   }
 
@@ -44,11 +52,13 @@ class Login {
             },
           }}
         />
+        {this.error && <p class="error">{this.error}</p>}
         <div class="flex flex-justify-end" style={{ marginTop: '4rem' }}>
           <Button
             raised
             class="button--no-transform button--big"
             label="Login"
+            disabled={!this.passcode || this.submitting}
             onclick={() => {
               this.login(vnode);
             }}

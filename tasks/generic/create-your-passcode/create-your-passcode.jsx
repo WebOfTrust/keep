@@ -157,13 +157,21 @@ class EnterPasscode {
   constructor() {
     this.passcode = '';
     this.showPasscode = false;
+    this.error = '';
+    this.submitting = false;
   }
 
   initializeAgent(vnode) {
+    this.submitting = true;
     KERI.initializeAgent(`keep${process.env.API_PORT}`, this.passcode)
       .then(vnode.attrs.continue)
       .catch((err) => {
         console.log('initializeAgent', err);
+        // TODO: Replace with dynamic error messages
+        this.error = 'Error creating keystore with passcode entered.';
+      })
+      .finally(() => {
+        this.submitting = false;
       });
   }
 
@@ -171,10 +179,10 @@ class EnterPasscode {
     return (
       <>
         <h3>Please Enter Your Passcode</h3>
-        <div class="flex flex-justify-center" style={{ margin: '5rem 0 4rem 0' }}>
+        <div class="flex flex-justify-center" style={{ margin: '5rem 0' }}>
           <img src={passcodeImg} style={{ width: '205px' }} />
         </div>
-        <p class="p-tag" style={{ margin: '0 0 4rem 0' }}>
+        <p class="p-tag" style={{ margin: '0 0 3rem 0' }}>
           You can find your 22-character passcode by referring back to your storage spot (1Password, Last Pass, Safe
           Deposit Box) and entering it into the box below.
         </p>
@@ -193,6 +201,7 @@ class EnterPasscode {
             },
           }}
         />
+        {this.error && <p class="error">{this.error}</p>}
         <div class="flex flex-justify-between" style={{ marginTop: '4rem' }}>
           <Button
             raised
@@ -204,6 +213,7 @@ class EnterPasscode {
             raised
             class="button--no-transform button--big"
             label="Continue"
+            disabled={!this.passcode || this.submitting}
             onclick={() => {
               this.initializeAgent(vnode);
             }}
