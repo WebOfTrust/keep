@@ -9,6 +9,16 @@ class Dashboard {
     this.aboutDismissed = false;
     Profile.loadIdentifiers();
     Contacts.requestList();
+    this.sliceStart = 0;
+    this.sliceEnd = 4;
+    this.changeSliceNext = () => {
+      this.sliceStart += 4;
+      this.sliceEnd += 4;
+    };
+    this.changeSliceBack = () => {
+      this.sliceStart -= 4;
+      this.sliceEnd -= 4;
+    };
 
     KERI.listIdentifiers()
       .then((ids) => {
@@ -44,6 +54,7 @@ class Dashboard {
   }
 
   view() {
+    console.log(this.tasksShown.length);
     return (
       <>
         <div style="position: relative">
@@ -86,7 +97,7 @@ class Dashboard {
                         <h1>Tasks</h1>
                         {/* <Button raised iconLeading="add" label="New Task" /> */}
                       </div>
-                      {this.tasksShown.map((task, i) => {
+                      {this.tasksShown.slice(this.sliceStart, this.sliceEnd).map((task, i) => {
                         return (
                           <Card
                             class={'card--fluid card--hover' + (task === Tasks.active ? ' card--active' : '')}
@@ -104,6 +115,31 @@ class Dashboard {
                           </Card>
                         );
                       })}
+                      <div>
+                        <div class="flex flex-justify-between" style={{ alignItems: 'center' }}>
+                          {this.sliceStart != 0 && (
+                            <Button
+                              iconTrailing="arrow_back_ios"
+                              onclick={() => {
+                                this.changeSliceBack();
+                              }}
+                            >
+                              <h3>Previous Tasks</h3>
+                            </Button>
+                          )}
+                          {this.sliceEnd <= this.tasksShown.length && (
+                            <Button
+                              style={{ float: 'right' }}
+                              iconTrailing="arrow_forward_ios"
+                              onclick={() => {
+                                this.changeSliceNext();
+                              }}
+                            >
+                              <h3>Next Tasks</h3>
+                            </Button>
+                          )}
+                        </div>
+                      </div>
                     </Card>
                   )}
                 </div>
