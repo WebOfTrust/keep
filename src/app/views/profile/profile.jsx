@@ -19,15 +19,19 @@ class Profile {
               <div class="flex-1" style={{ marginRight: '4rem' }}>
                 <Card class="card--fluid" padding="1.5rem">
                   <Card
-                    class={`card--fluid card--hover ${this.currentState === 'manage-identifiers' ? 'card--active' : ''}`}
+                    class={`card--fluid card--hover ${
+                      this.currentState === 'manage-identifiers' ? 'card--active' : ''
+                    }`}
                     padding="1.5rem"
                     style={{ marginBottom: '2.5rem' }}
                     onclick={() => {
                       this.currentState = 'manage-identifiers';
                     }}
                   >
-                    <div class="flex flex-align-center" style={{color: '#494949'}}>
-                      <span className="material-icons md-48" style={{marginRight: '1rem'}}>people</span>
+                    <div class="flex flex-align-center" style={{ color: '#494949' }}>
+                      <span className="material-icons md-48" style={{ marginRight: '1rem' }}>
+                        people
+                      </span>
                       <h3>Manage Identifiers</h3>
                     </div>
                   </Card>
@@ -39,18 +43,25 @@ class Profile {
                       this.currentState = 'manage-passcode';
                     }}
                   >
-                    <div class="flex flex-align-center" style={{color: '#494949'}}>
-                      <span className="material-icons md-48" style={{marginRight: '1rem'}}>key</span>
+                    <div class="flex flex-align-center" style={{ color: '#494949' }}>
+                      <span className="material-icons md-48" style={{ marginRight: '1rem' }}>
+                        key
+                      </span>
                       <h3>Manage Passcode</h3>
                     </div>
                   </Card>
                 </Card>
               </div>
               <div class="flex-1">
-                <Card class={'card--fluid'} style={{ position: 'relative' }} padding="2rem 0rem">
-                  <IconButton class="close-icon" icon="close" onclick={() => {
-                    this.currentState = null;
-                  }} style={`${this.currentState == null ? 'visibility: hidden;' : 'visibility: visible;'}`}/>
+                <Card class={'card--fluid'} style={{ position: 'relative' }} padding="4rem 4rem">
+                  <IconButton
+                    class="close-icon"
+                    icon="close"
+                    onclick={() => {
+                      this.currentState = null;
+                    }}
+                    style={`${this.currentState == null ? 'visibility: hidden;' : 'visibility: visible;'}`}
+                  />
                   {this.currentState === 'manage-identifiers' && <ManageIdentifiers />}
                   {this.currentState === 'manage-passcode' && <ManagePasscode />}
                 </Card>
