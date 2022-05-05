@@ -7,7 +7,9 @@ block_cipher = None
 a = Analysis(['ward/main.py'],
              pathex=[],
              datas=[
-                ('build-ui-dev', 'ui'),
+                ('ports.json', '.'),
+                ('debug.json', '.'),
+                ('build-ui', 'ui'),
                 ('config', 'keri/cf/')
              ],
              hiddenimports=[

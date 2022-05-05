@@ -40,7 +40,7 @@ bundle the backend
 
 ```shell
 ❯ cd ward
-❯ pyinstaller ward.spec --clean --noconfirm --onefile
+❯ pyinstaller generic.spec --clean --noconfirm --onefile
 ```
 
 Run electron app

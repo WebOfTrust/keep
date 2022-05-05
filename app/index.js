@@ -1,6 +1,6 @@
 const electron = require('electron');
 const {app, BrowserWindow} = electron;
-
+const fs = require('fs');
 const {spawn} = require('child_process');
 const retry = require('promise-retry');
 const fetch = (...args) => import('node-fetch').then(({default: fetch}) => fetch(...args));
@@ -24,10 +24,28 @@ const createWindow = () => {
     // noinspection JSIgnoredPromiseFromCall
     win.loadFile(__dirname + '/index.html');
 
-    win.webContents.openDevTools()
+    let ports = {};
+    const portPath = __dirname + '/ward/ports.json';
+    if (fs.existsSync(portPath)) {
+        ports = JSON.parse(fs.readFileSync(portPath));
+    }
+
+    const debugPath = __dirname + '/ward/debug.json';
+    if (fs.existsSync(debugPath)) {
+        let debug = JSON.parse(fs.readFileSync(debugPath));
+        if (debug === true) {
+            win.webContents.openDevTools()
+        }
+    }
 
     if (ward === null) {
-        ward = spawn(`${__dirname}/ward/ward`);
+        let args = [];
+
+        if (ports["tcp"] && ports["admin"]) {
+            args = [ports.tcp, ports.admin]
+        }
+
+        ward = spawn(`${__dirname}/ward/ward`, args);
         ward.on('error', function(err) {
             log.error('spawn error' + err);
         });

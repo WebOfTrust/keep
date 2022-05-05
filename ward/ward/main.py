@@ -10,6 +10,8 @@ from keri.app import directing
 class Ward:
     UiPath = ""
     HeadDirPath = ""
+    tcp = 5621
+    admin = 5623
 
     def __init__(self) -> None:
         super().__init__()
@@ -18,11 +20,18 @@ class Ward:
 
         self.UiPath = os.path.join(sys._MEIPASS, 'ui', "") if self.packaged else None
         self.HeadDirPath = os.path.join(sys._MEIPASS, '', "") if self.packaged else None
+        self.tcp = sys.argv[1] if len(sys.argv) >= 2 and len(sys.argv[1]) > 0 else 5621
+        self.admin = sys.argv[2] if len(sys.argv) >= 3 and len(sys.argv[2]) > 0 else 5623
 
     def start(self):
-        doers = booting.setup(controller="", configFile='demo-witness-oobis.json',
-                              configDir=self.HeadDirPath, insecure=True, tcp=5621, adminHttpPort=5623,
-                              path=self.UiPath, headDirPath=self.HeadDirPath)
+        doers = booting.setup(controller="",
+                              configFile='demo-witness-oobis.json',
+                              configDir=self.HeadDirPath,
+                              insecure=True,
+                              tcp=int(self.tcp),
+                              adminHttpPort=int(self.admin),
+                              path=self.UiPath,
+                              headDirPath=self.HeadDirPath)
 
         directing.runController(doers=doers, expire=0.0)
 
