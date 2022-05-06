@@ -83,6 +83,12 @@
 }
 
 .button {
+  &--white {
+    @include button.ink-color($default-text);
+    @include button.icon-color($default-text);
+    @include button.container-fill-color(white);
+    @include button.outline-color($gray-lt);
+  }
   &--gray {
     @include button.ink-color($default-text);
     @include button.icon-color($default-text);

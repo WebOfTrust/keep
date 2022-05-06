@@ -36,7 +36,7 @@ class Dashboard {
       });
   }
 
-  get tasksShown() {
+  get tasksList() {
     if (!Auth.isLoggedIn) {
       return Tasks.all['create-passcode'];
     }
@@ -51,6 +51,13 @@ class Dashboard {
         return Tasks.all['intro-to-role'];
       }
     }
+  }
+
+  get tasksSlice() {
+    if (!this.tasksList) {
+      return [];
+    }
+    return this.tasksList.slice(this.sliceStart, this.sliceEnd);
   }
 
   view() {
@@ -96,15 +103,15 @@ class Dashboard {
                         <h1>Tasks</h1>
                         {/* <Button raised iconLeading="add" label="New Task" /> */}
                       </div>
-                      {this.tasksShown.slice(this.sliceStart, this.sliceEnd).map((task, i) => {
+                      {this.tasksSlice.map((task, i) => {
                         return (
                           <Card
                             class={'card--fluid card--hover' + (task === Tasks.active ? ' card--active' : '')}
                             padding="1.5rem"
                             style={{ marginBottom: '2.5rem' }}
                             onclick={() => {
-                              Profile.isLead = this.tasksShown[i].lead;
-                              Tasks.active = this.tasksShown[i];
+                              Profile.isLead = this.tasksSlice[i].lead;
+                              Tasks.active = this.tasksSlice[i];
                             }}
                           >
                             <div class="flex flex-align-center">
@@ -118,23 +125,24 @@ class Dashboard {
                         <div class="flex flex-justify-between" style={{ alignItems: 'center' }}>
                           {this.sliceStart != 0 && (
                             <Button
+                              class="button--white"
                               iconLeading="arrow_back_ios"
                               label="Previous Tasks"
                               onclick={() => {
                                 this.changeSliceBack();
                               }}
-                            ></Button>
+                            />
                           )}
-                          {this.sliceStart === 0 && <div style={{ opacity: '0' }}></div>}
-                          {this.sliceEnd <= this.tasksShown.length && (
+                          {this.sliceStart === 0 && <div></div>}
+                          {this.sliceEnd <= this.tasksList.length && (
                             <Button
-                              style={{ float: 'right' }}
+                              class="button--white"
                               iconTrailing="arrow_forward_ios"
                               label="Next Tasks"
                               onclick={() => {
                                 this.changeSliceNext();
                               }}
-                            ></Button>
+                            />
                           )}
                         </div>
                       </div>
