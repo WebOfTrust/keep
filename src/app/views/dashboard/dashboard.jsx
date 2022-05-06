@@ -54,7 +54,6 @@ class Dashboard {
   }
 
   view() {
-    console.log(this.tasksShown.length);
     return (
       <>
         <div style="position: relative">
