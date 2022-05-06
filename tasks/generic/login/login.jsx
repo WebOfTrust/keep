@@ -18,9 +18,8 @@ class Login {
       .then(() => {
         vnode.attrs.end();
       })
-      .catch((err) => {
-        // TODO: Replace with dynamic error messages
-        this.error = 'Error unlocking keystore with passcode entered.';
+      .catch(() => {
+        this.error = 'Unlock failed';
       })
       .finally(() => {
         this.submitting = false;

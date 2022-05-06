@@ -1,7 +1,8 @@
 DIR = $(shell pwd)
 
 clean:
-	rm -rf ward/.parcel-* ward/build-* ward/dist app/ward ward/debug.json ward/ports.json
+	yarn rm-build
+	rm -rf ward/.parcel-* ward/build-* ward/dist app/ward ward/debug.json ward/config.json
 
 prod-root-gar: clean
 	yarn
@@ -9,7 +10,7 @@ prod-root-gar: clean
 
 	cd $(DIR)/ward; \
 	pip install -r requirements.txt; \
-	pyinstaller generic.spec --clean --noconfirm --onefile;
+	pyinstaller generic.spec --clean --noconfirm;
 
 	cd $(DIR)/app; \
 	cp -r $(DIR)/ward/dist/ward ./ward; \
@@ -24,10 +25,11 @@ endif
 	yarn
 	yarn package:external-gar
 
+	python convert_env.py .env.lead-external-gar >> ward/config.json
+
 	cd $(DIR)/ward; \
-	echo "{\"tcp\": 5621, \"admin\": 5623}" >> ports.json; \
 	pip install -r requirements.txt; \
-	pyinstaller generic.spec --clean --noconfirm --onefile;
+	pyinstaller generic.spec --clean --noconfirm;
 
 	cd $(DIR)/app; \
 	cp -r $(DIR)/ward/dist/ward ./ward; \
@@ -39,7 +41,7 @@ prod-internal-gar: clean
 
 	cd $(DIR)/ward; \
 	pip install -r requirements.txt; \
-	pyinstaller generic.spec --clean --noconfirm --onefile;
+	pyinstaller generic.spec --clean --noconfirm;
 
 	cd $(DIR)/app; \
 	cp -r $(DIR)/ward/dist/ward ./ward; \
@@ -51,7 +53,7 @@ prod-qar: clean
 
 	cd $(DIR)/ward; \
 	pip install -r requirements.txt; \
-	pyinstaller generic.spec --clean --noconfirm --onefile;
+	pyinstaller generic.spec --clean --noconfirm;
 
 	cd $(DIR)/app; \
 	cp -r $(DIR)/ward/dist/ward ./ward; \
@@ -63,7 +65,7 @@ prod-lar: clean
 
 	cd $(DIR)/ward; \
 	pip install -r requirements.txt; \
-	pyinstaller generic.spec --clean --noconfirm --onefile;
+	pyinstaller generic.spec --clean --noconfirm;
 
 	cd $(DIR)/app; \
 	cp -r $(DIR)/ward/dist/ward ./ward; \

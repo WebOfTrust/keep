@@ -99,7 +99,7 @@ ward/ui
 app/ward
 ward/src
 ward/debug.json
-ward/ports.json
+ward/config.json
 build
 build-ui
 build-ui-dev

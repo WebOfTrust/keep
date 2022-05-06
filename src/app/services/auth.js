@@ -34,22 +34,21 @@ class Auth {
   }
 
   static login(passcode) {
-    let promise = new Promise((resolve, reject) => {
+    return new Promise((resolve, reject) => {
       KERI.unlockAgent(`keep${process.env.API_PORT}`, passcode)
-        .then((response) => {
-          this.setAgent(response.name);
-          this.isLoggedIn = true;
-          setTimeout(() => {
-            Mail.initEventSource();
-          }, 1000);
-          resolve(response);
-        })
-        .catch((err) => {
-          console.log('unlockAgent', err);
-          reject(err);
-        });
+          .then((response) => {
+            this.setAgent(response.name);
+            this.isLoggedIn = true;
+            setTimeout(() => {
+              Mail.initEventSource();
+            }, 1000);
+            resolve(response);
+          })
+          .catch((err) => {
+            console.log('unlockAgent', err);
+            reject(err);
+          });
     });
-    return promise;
   }
 
   static logout() {

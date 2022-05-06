@@ -24,11 +24,21 @@ const createWindow = () => {
     // noinspection JSIgnoredPromiseFromCall
     win.loadFile(__dirname + '/index.html');
 
-    let ports = {};
-    const portPath = __dirname + '/ward/ports.json';
-    if (fs.existsSync(portPath)) {
-        ports = JSON.parse(fs.readFileSync(portPath));
+    let config = {};
+    const configPath = __dirname + '/ward/config.json';
+    if (fs.existsSync(configPath)) {
+        config = JSON.parse(fs.readFileSync(configPath));
     }
+
+    process.env.API_HOST = 'http://localhost';
+    process.env.TCP_PORT = config["TCP_PORT"];
+    process.env.API_PORT = config["API_PORT"];
+    process.env.USER_TYPE = config["USER_TYPE"];
+
+    log.info(process.env.API_HOST)
+    log.info(process.env.TCP_PORT)
+    log.info(process.env.API_PORT)
+    log.info(process.env.USER_TYPE)
 
     const debugPath = __dirname + '/ward/debug.json';
     if (fs.existsSync(debugPath)) {
@@ -39,13 +49,7 @@ const createWindow = () => {
     }
 
     if (ward === null) {
-        let args = [];
-
-        if (ports["tcp"] && ports["admin"]) {
-            args = [ports.tcp, ports.admin]
-        }
-
-        ward = spawn(`${__dirname}/ward/ward`, args);
+        ward = spawn(`${__dirname}/ward/ward`, [process.env.TCP_PORT, process.env.API_PORT]);
         ward.on('error', function(err) {
             log.error('spawn error' + err);
         });

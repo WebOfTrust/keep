@@ -24,6 +24,12 @@ class Ward:
         self.admin = sys.argv[2] if len(sys.argv) >= 3 and len(sys.argv[2]) > 0 else 5623
 
     def start(self):
+
+        sys.stdout.write(str(self.tcp))
+        sys.stdout.write(" ")
+        sys.stdout.write(str(self.admin))
+        sys.stdout.flush()
+
         doers = booting.setup(controller="",
                               configFile='demo-witness-oobis.json',
                               configDir=self.HeadDirPath,
