@@ -119,24 +119,23 @@ class Dashboard {
                         <div class="flex flex-justify-between" style={{ alignItems: 'center' }}>
                           {this.sliceStart != 0 && (
                             <Button
-                              iconTrailing="arrow_back_ios"
+                              iconLeading="arrow_back_ios"
+                              label="Previous Tasks"
                               onclick={() => {
                                 this.changeSliceBack();
                               }}
-                            >
-                              <h3>Previous Tasks</h3>
-                            </Button>
+                            ></Button>
                           )}
+                          {this.sliceStart === 0 && <div style={{ opacity: '0' }}></div>}
                           {this.sliceEnd <= this.tasksShown.length && (
                             <Button
                               style={{ float: 'right' }}
                               iconTrailing="arrow_forward_ios"
+                              label="Next Tasks"
                               onclick={() => {
                                 this.changeSliceNext();
                               }}
-                            >
-                              <h3>Next Tasks</h3>
-                            </Button>
+                            ></Button>
                           )}
                         </div>
                       </div>
