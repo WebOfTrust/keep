@@ -23,7 +23,7 @@ class CreateYourAID {
           .then((ids) => {
             if (ids.length === 1) {
               Profile.setDefaultAID(ids[0]);
-              console.log(vnode.attrs)
+              console.log(vnode.attrs);
               vnode.attrs.end();
             }
           })
@@ -163,10 +163,12 @@ class CreateYourAID {
             />
             <p className="p-tag-bold">Select your witness pool:</p>
             <Select
+              outlined
+              fluid
               value={this.wits}
-              style={{ width: '300px', margin: '0 0 3.5rem 0' }}
+              style={{ margin: '0 0 3.5rem 0' }}
               options={Witnesses.witnessPools}
-              selectedChange={(wits) => {
+              onchange={(wits) => {
                 this.wits = wits;
               }}
             />
@@ -262,7 +264,7 @@ class CreateYourAID {
                 }}
               />
             </div>
-            <TextField outlined fluid value={this.alias} />
+            <div class="uneditable-value">{this.alias}</div>
             <div class="flex flex-justify-between" style={{ alignItems: 'baseline', margin: '2rem 0' }}>
               <p class="p-tag">Alias Photo:</p>
               <Button

@@ -128,9 +128,9 @@ class SelectAliasCred {
           </div>
         </div>
         <h3>Select Default Credential:</h3>
-        <Select options={[{ label: 'External GAR', value: 'External GAR' }]} initialSelection={'External GAR'} />
+        <Select options={[{ label: 'External GAR', value: 'External GAR' }]} value={'External GAR'} />
         <h3>Edit Alias</h3>
-        <Select options={[{ label: 'Octocat', value: 'Octocat' }]} initialSelection={'Octocat'} />
+        <Select options={[{ label: 'Octocat', value: 'Octocat' }]} value={'Octocat'} />
 
         <div class="flex flex-justify-between" style={{ margin: '4rem 0 0 0' }}>
           <Button class="button--gray-dk button--big button--no-transform" raised label="Go Back" />

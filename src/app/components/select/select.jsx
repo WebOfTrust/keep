@@ -2,16 +2,76 @@ import m from 'mithril';
 import { MDCSelect } from '@material/select';
 
 class Select {
+  constructor() {
+    this.selectClass = 'mdc-select';
+    this.optionDefaults = {
+      class: null,
+      disabled: false,
+      filled: false,
+      fluid: false,
+      // iconLeading: null,
+      // iconTrailing: null,
+      label: null,
+      // maxlength: null,
+      // minlength: null,
+      onchange: null,
+      outlined: false,
+      // pattern: null,
+      // placeholder: '',
+      style: null,
+      // textarea: false,
+      // type: 'text',
+      options: [],
+      value: null,
+    };
+    this.options = null;
+    this.mdcInstance = null;
+  }
+
+  assignOptions(vnode) {
+    this.options = Object.assign({}, this.optionDefaults, vnode.attrs);
+  }
+
+  setClass() {
+    this.selectClass = 'mdc-select';
+    if (this.options.filled) {
+      this.selectClass += ' mdc-select--filled';
+    }
+    if (this.options.outlined) {
+      this.selectClass += ' mdc-select--outlined';
+    }
+    if (!this.options.label) {
+      this.selectClass += ' mdc-select--no-label';
+    }
+    if (this.options.disabled) {
+      this.selectClass += ' mdc-select--disabled';
+    }
+    // if (this.options.iconLeading) {
+    //   this.selectClass += ' mdc-select--with-leading-icon';
+    // }
+    // if (this.options.iconTrailing) {
+    //   this.selectClass += ' mdc-select--with-trailing-icon';
+    // }
+    if (this.options.class) {
+      this.selectClass += ` ${this.options.class}`;
+    }
+  }
+
+  oninit(vnode) {
+    this.assignOptions(vnode);
+    this.setClass();
+  }
+
   oncreate(vnode) {
     try {
-      this.select = new MDCSelect(vnode.dom);
+      this.mdcInstance = new MDCSelect(vnode.dom);
       // Set initial value if passed in attrs
-      if (vnode.attrs.initialSelection) {
-        this.select.value = vnode.attrs.initialSelection;
+      if (this.options.value) {
+        this.mdcInstance.value = this.options.value;
       }
       // Set up value change listener
-      this.select.listen('MDCSelect:change', () => {
-        vnode.attrs.selectedChange(this.select.value);
+      this.mdcInstance.listen('MDCSelect:change', () => {
+        this.options.onchange(this.mdcInstance.value);
         m.redraw();
       });
     } catch (e) {
@@ -19,16 +79,38 @@ class Select {
     }
   }
 
+  onbeforeupdate(vnode) {
+    this.assignOptions(vnode);
+    this.setClass();
+  }
+
   view(vnode) {
     return (
       <>
-        <div class="mdc-select mdc-select--filled" style={vnode.attrs.style ? vnode.attrs.style : {}}>
+        <div class={this.selectClass} style={{ width: this.options.fluid ? '100%' : 'auto', ...this.options.style }}>
           <div class="mdc-select__anchor" role="button">
-            <span class="mdc-select__ripple"></span>
-            <span class="mdc-floating-label">{vnode.attrs.label}</span>
+            {this.options.filled && <span class="mdc-select__ripple"></span>}
+            {this.options.filled && this.options.label && (
+              <>
+                <span class="mdc-floating-label">{this.options.label}</span>
+              </>
+            )}
             <span class="mdc-select__selected-text-container">
               <span class="mdc-select__selected-text"></span>
             </span>
+            {this.options.outlined && (
+              <>
+                <span class="mdc-notched-outline">
+                  <span class="mdc-notched-outline__leading"></span>
+                  {this.options.label && (
+                    <span class="mdc-notched-outline__notch">
+                      <span class="mdc-floating-label">{this.options.label}</span>
+                    </span>
+                  )}
+                  <span class="mdc-notched-outline__trailing"></span>
+                </span>
+              </>
+            )}
             <span class="mdc-select__dropdown-icon">
               <svg class="mdc-select__dropdown-icon-graphic" viewBox="7 10 10 5" focusable="false">
                 <polygon
@@ -45,12 +127,12 @@ class Select {
                 ></polygon>
               </svg>
             </span>
-            <span class="mdc-line-ripple"></span>
+            {this.options.filled && <span class="mdc-line-ripple"></span>}
           </div>
           <div class="mdc-select__menu mdc-menu mdc-menu-surface mdc-menu-surface--fullwidth">
             <ul class="mdc-deprecated-list" role="listbox">
-              {vnode.attrs.options &&
-                vnode.attrs.options.map((option) => {
+              {this.options.options &&
+                this.options.options.map((option) => {
                   return (
                     <>
                       <li class="mdc-deprecated-list-item" data-value={option.value} role="option">

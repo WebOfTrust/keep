@@ -46,10 +46,10 @@ class JoinMultiSigGroup {
     this.aid = Profile.getDefaultAID();
     Contacts.requestList();
     this.groupAlias = '';
-    let notif = Notify.findByType("multisig")
-    this.aids = notif.data.aids
-    this.ked = notif.data.ked
-    this.fractionallyWeighted = Array.isArray(this.ked.kt)
+    let notif = Notify.findByType('multisig');
+    this.aids = notif.data.aids;
+    this.ked = notif.data.ked;
+    this.fractionallyWeighted = Array.isArray(this.ked.kt);
   }
 
   confirmAndSign() {
@@ -70,10 +70,10 @@ class JoinMultiSigGroup {
       <>
         {this.currentState === 'new-multi-sig-group' && (
           <>
-            <img src={todoList} style={{ width: '188px', margin: '4rem 0 0 0' }} />
+            <img src={todoList} style={{ width: '188px', margin: '0 0 2rem 0' }} />
             <h3>New Multi-Sig Group</h3>
             <p class="p-tag">View the multi-sig group and confirm that these individuals are authorized.</p>
-            <div class="flex flex-justify-end">
+            <div class="flex flex-justify-end" style={{ marginTop: '4rem' }}>
               <Button
                 class="button--big button--no-transform"
                 raised
@@ -86,49 +86,53 @@ class JoinMultiSigGroup {
           </>
         )}
         {this.currentState === 'review-members' && (
-            <>
-              <h3>Review and Confirm</h3>
-              <p>Review signers to make sure the list is complete.</p>
-              <h4>Signers (in order):</h4>
-              {this.aids.map((signer, i) => {
-                console.log(signer)
-                let name = ""
-                let contact = Contacts.filterById(signer)
-                console.log(contact)
-                if (contact.length === 1) {
-                  name = contact[0].alias
-                } else if(signer === this.aid.prefix){
-                  name = this.aid.name + " (Your AID)"
-                } else {
-                  name = "Unknown AID"
-                }
-                return (
-                    <>
-                      <TextField outlined style={{ margin: '0 2rem 2rem 0' }} value={name} />
-                      {this.fractionallyWeighted && <TextField outlined style={{ width: '80px' }} value={this.ked.kt[i]} />}
-                    </>
-                );
-              })}
+          <>
+            <h3>Review and Confirm</h3>
+            <p>Review signers to make sure the list is complete.</p>
+            <h4>Signers (in order):</h4>
+            {this.aids.map((signer, i) => {
+              console.log(signer);
+              let name = '';
+              let contact = Contacts.filterById(signer);
+              console.log(contact);
+              if (contact.length === 1) {
+                name = contact[0].alias;
+              } else if (signer === this.aid.prefix) {
+                name = this.aid.name + ' (Your AID)';
+              } else {
+                name = 'Unknown AID';
+              }
+              return (
+                <>
+                  <div class="flex flex-align-center flex-justify-between" style={{ margin: '1rem 0' }}>
+                    <div class="flex-1 uneditable-value" style={{ marginRight: '1rem' }}>
+                      {name}
+                    </div>
+                    {this.fractionallyWeighted && <div class="uneditable-value">{this.ked.kt[i]}</div>}
+                  </div>
+                </>
+              );
+            })}
 
-              <div class="flex flex-justify-between">
-                <Button
-                    class="button--gray-dk button--big button--no-transform"
-                    raised
-                    label="Go Back"
-                    onclick={() => {
-                      this.currentState = 'review-members';
-                    }}
-                />
-                <Button
-                    class="button--big button--no-transform"
-                    raised
-                    label="Confirm"
-                    onclick={() => {
-                      this.currentState = 'create-group-alias';
-                    }}
-                />
-              </div>
-            </>
+            <div class="flex flex-justify-between" style={{ marginTop: '4rem' }}>
+              <Button
+                class="button--gray-dk button--big button--no-transform"
+                raised
+                label="Go Back"
+                onclick={() => {
+                  this.currentState = 'new-multi-sig-group';
+                }}
+              />
+              <Button
+                class="button--big button--no-transform"
+                raised
+                label="Confirm"
+                onclick={() => {
+                  this.currentState = 'create-group-alias';
+                }}
+              />
+            </div>
+          </>
         )}
         {this.currentState === 'create-group-alias' && (
           <>

@@ -65,7 +65,7 @@ class StyleGuide {
             <TextField textarea filled placeholder="Placeholder" />
             <TextField textarea outlined placeholder="Placeholder" />
             <h3>Select</h3>
-            <Select />
+            <Select outlined />
             <h3>Modal</h3>
             <Button
               raised

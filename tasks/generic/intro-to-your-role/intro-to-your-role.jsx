@@ -9,8 +9,8 @@ class IntroToYourRole {
     this.steps = [
       <>
         <h3>{vnode.attrs.main ? vnode.attrs.main.title : 'Intro to your Role'}</h3>
-        <img src={approveRequest} style={{ display: 'block', margin: '5rem auto', width: '244px' }} />
-        <p class="p-tag" style={{ margin: '0 0 7rem' }}>
+        <img src={approveRequest} style={{ display: 'block', margin: '4rem auto', width: '244px' }} />
+        <p class="p-tag">
           {vnode.attrs.main ? (
             vnode.attrs.main.paragraph
           ) : (
@@ -20,7 +20,7 @@ class IntroToYourRole {
             </>
           )}
         </p>
-        <div class="flex flex-justify-between">
+        <div class="flex flex-justify-between" style={{ marginTop: '4rem' }}>
           <Button
             class="button--gray-dk button--big button--no-transform"
             raised
@@ -45,9 +45,9 @@ class IntroToYourRole {
         this.steps.push(
           <>
             <h3>{step.title}</h3>
-            <img src={step.image} style={{ width: '60%', margin: '4rem 0 4rem 4rem' }} />
+            <img src={step.image} style={{ display: 'block', width: '200px', margin: '4rem auto' }} />
             <p class="p-tag">{step.paragraph}</p>
-            <div class="flex flex-justify-between">
+            <div class="flex flex-justify-between" style={{ marginTop: '4rem' }}>
               <Button
                 class="button--gray-dk button--big button--no-transform"
                 raised

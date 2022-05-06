@@ -1,10 +1,13 @@
 import m from 'mithril';
-import { Button, TextField } from '../../../src/app/components';
+import { Button, Select, TextField } from '../../../src/app/components';
 import approveRequest from '../../../src/assets/img/approve-request.png';
 import githubLogo from '../../../src/assets/img/github-logo.png';
 
 class IssueCreds {
-  constructor(vnode) {}
+  constructor(vnode) {
+    this.contact = null;
+    this.credential = null;
+  }
 
   view(vnode) {
     return (
@@ -12,25 +15,32 @@ class IssueCreds {
         <h3>Issue Credentials</h3>
         <p class="p-tag">Contact</p>
         <TextField
-          filled
+          outlined
           fluid
-          placeholder="Jane Smith"
           style={{ marginBottom: '2rem' }}
           iconTrailing={{
             icon: 'search',
           }}
-        />
-        <p class="p-tag">Credentials</p>
-        <TextField
-          filled
-          fluid
-          placeholder="QAR for QVI Corp."
-          style={{ marginBottom: '2rem' }}
-          iconTrailing={{
-            icon: 'arrow_drop_down',
+          value={this.contact}
+          oninput={(e) => {
+            this.contact = e.target.value;
           }}
         />
-
+        <p class="p-tag">Credentials</p>
+        <Select
+          outlined
+          fluid
+          style={{ marginBottom: '2rem' }}
+          options={[
+            { label: 'A', value: 'a' },
+            { label: 'B', value: 'b' },
+            { label: 'C', value: 'c' },
+          ]}
+          value={this.credential}
+          onchange={(e) => {
+            this.credential = e;
+          }}
+        />
         <div class="flex flex-justify-between" style={{ marginTop: '4rem' }}>
           <Button
             raised

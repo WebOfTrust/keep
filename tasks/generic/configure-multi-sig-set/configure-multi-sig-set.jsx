@@ -1,7 +1,6 @@
 import m from 'mithril';
 import { Button, Checkbox, IconButton, Radio, Select, TextField, TextTooltip } from '../../../src/app/components';
 import { Contacts, KERI, Profile, MultiSig, Witnesses } from '../../../src/app/services';
-import './configure-multi-sig-set.scss';
 
 import secureMessaging from '../../../src/assets/img/secure-messaging.png';
 import greenCheckMark from '../../../src/assets/img/green-check-mark.svg';
@@ -190,10 +189,11 @@ class ConfigureMultiSigSet {
             <h3 style={{ marginBottom: '2rem' }}>Configure Multi-Sig Group</h3>
             <p class="p-tag-bold">Select your witness pool:</p>
             <Select
+              outlined
               value={this.wits}
               options={Witnesses.witnessPools}
               style={{ width: '300px' }}
-              selectedChange={(wits) => {
+              onchange={(wits) => {
                 this.wits = wits;
               }}
             />
@@ -291,13 +291,14 @@ class ConfigureMultiSigSet {
                 return (
                   <div class="flex flex-align-center flex-justify-between" style={{ margin: '1rem 0' }}>
                     <Select
+                      outlined
                       options={Contacts.list.map((contact) => {
                         return {
                           label: contact.alias,
                           value: contact.id,
                         };
                       })}
-                      selectedChange={(id) => {
+                      onchange={(id) => {
                         let contact = Contacts.filterById(id)[0];
                         signer.id = contact.id;
                         signer.alias = contact.alias;
@@ -404,7 +405,7 @@ class ConfigureMultiSigSet {
             <p class="font-weight--bold font-color--battleship">Group Alias</p>
             <div class="uneditable-value">{this.groupAlias}</div>
             <p className="font-weight--bold font-color--battleship">Witness Pool:</p>
-            <div className="uneditable-value">{Witnesses.witnessPools.find((p) => (p.value === this.wits)).label}</div>
+            <div className="uneditable-value">{Witnesses.witnessPools.find((p) => p.value === this.wits).label}</div>
             <p class="font-color--battleship" style={{ margin: '2rem 0' }}>
               Review signers to make sure the list is complete.
             </p>
