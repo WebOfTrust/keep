@@ -29,24 +29,16 @@ jobs:
           node-version: '14'
           cache: 'yarn'
 
-      - name: build ui
+      - name: Package
         run: |
-          yarn install
-          yarn build:external-gar
-
-      - name: Build project
-        run: |
-          cd ward
-          pip install -r requirements.txt --no-cache
-          pyinstaller generic.spec --clean --noconfirm
-
-      - uses: papeloto/action-zip@v1
-        with:
-          files: ward/dist/ward/
-          dest: ward-${{ steps.vars.outputs.tag }}-${{matrix.os}}.zip    
-
-      - uses: ncipollo/release-action@v1
-        with:
-          artifacts: "ward-${{ steps.vars.outputs.tag }}-${{matrix.os}}.zip"
-          token: ${{ secrets.GITHUB_TOKEN }}
-          allowUpdates: True
+          make package-prod-external-gar
+#      - uses: papeloto/action-zip@v1
+#        with:
+#          files: ward/dist/ward/
+#          dest: ward-${{ steps.vars.outputs.tag }}-${{matrix.os}}.zip
+#
+#      - uses: ncipollo/release-action@v1
+#        with:
+#          artifacts: "ward-${{ steps.vars.outputs.tag }}-${{matrix.os}}.zip"
+#          token: ${{ secrets.GITHUB_TOKEN }}
+#          allowUpdates: True

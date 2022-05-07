@@ -32,8 +32,19 @@ endif
 	pyinstaller generic.spec --clean --noconfirm;
 
 	cd $(DIR)/app; \
-	cp -r $(DIR)/ward/dist/ward ./ward; \
-	yarn start
+	cp -r $(DIR)/ward/dist/ward ./ward;
+ifdef start
+	cd $(DIR)/app; \
+	yarn start;
+endif
+
+start-prod-external-gar: clean prod-external-gar
+	cd $(DIR)/app; \
+	yarn start;
+
+package-prod-external-gar: clean prod-external-gar
+	cd $(DIR)/app; \
+	yarn make
 
 prod-internal-gar: clean
 	yarn
