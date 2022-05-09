@@ -187,12 +187,14 @@ class CreateYourAID {
                 label="Continue"
                 disabled={this.alias.length === 0}
                 onclick={() => {
-                  this.currentState = 'select-photo';
+                  this.currentState = 'review-and-confirm';
                 }}
               />
             </div>
           </>
         )}
+
+        {/* TO DO: SKIPPED SELECT PHOTO FOR NOW, FUNCTIONAL */}
         {this.currentState === 'select-photo' && (
           <>
             <img src={uploadImage} style={{ width: '172px' }} />
