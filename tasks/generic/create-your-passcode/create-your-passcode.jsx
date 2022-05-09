@@ -1,9 +1,9 @@
 import m from 'mithril';
 import { Button, Modal, TextField } from '../../../src/app/components';
 import { KERI } from '../../../src/app/services';
-import createYourPasscode from '../../../src/assets/img/create-your-passcode.png';
-import passcodeImg from '../../../src/assets/img/passcode.png';
-import wait from '../../../src/assets/img/wait.png';
+import createYourPasscode from '../../../src/assets/img/create-your-passcode.svg';
+import passcodeImg from '../../../src/assets/img/passcode.svg';
+import wait from '../../../src/assets/img/wait.svg';
 
 class WelcomeToKEEP {
   view(vnode) {

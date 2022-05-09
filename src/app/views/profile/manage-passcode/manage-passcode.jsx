@@ -1,6 +1,6 @@
 import m from 'mithril';
-import createYourPasscode from '../../../../assets/img/create-your-passcode.png';
-import passcodeImg from '../../../../assets/img/passcode.png';
+import createYourPasscode from '../../../../assets/img/create-your-passcode.svg';
+import passcodeImg from '../../../../assets/img/passcode.svg';
 import { Button, TextField } from '../../../components';
 import { KERI } from '../../../../app/services';
 

@@ -1,8 +1,8 @@
 import m from 'mithril';
 import { Button, TextField } from '../../../src/app/components';
 import { KERI, Profile, Notify, Contacts } from '../../../src/app/services';
-import todoList from '../../../src/assets/img/to-do-list.png';
-import secureMessaging from '../../../src/assets/img/secure-messaging.png';
+import todoList from '../../../src/assets/img/to-do-list.svg';
+import secureMessaging from '../../../src/assets/img/secure-messaging.svg';
 
 // {
 //   "data": {

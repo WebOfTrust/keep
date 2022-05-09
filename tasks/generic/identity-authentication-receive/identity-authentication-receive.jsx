@@ -1,11 +1,11 @@
 import m from 'mithril';
 import { Button, TextField, TextTooltip } from '../../../src/app/components';
 import { KERI } from '../../../src/app/services';
-import approveRequest from '../../../src/assets/img/approve-request.png';
-import addNewContacts from '../../../src/assets/img/add-new-contacts.png';
-import uploadFile from '../../../src/assets/img/upload-file.png';
-import verifyCredentials from '../../../src/assets/img/verify-credentials.png';
-import responseMessage from '../../../src/assets/img/response-message.png';
+import approveRequest from '../../../src/assets/img/approve-request.svg';
+import addNewContacts from '../../../src/assets/img/add-new-contacts.svg';
+import uploadFile from '../../../src/assets/img/upload-file.svg';
+import verifyCredentials from '../../../src/assets/img/verify-credentials.svg';
+import responseMessage from '../../../src/assets/img/response-message.svg';
 
 class StepsToAuthenticate {
   constructor(vnode) {}
@@ -71,7 +71,6 @@ class SendOOBI {
       alias: '',
       url: '',
     };
-
   }
 
   oninit() {

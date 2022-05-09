@@ -1,9 +1,9 @@
 import { Button, Container, Steps } from '../../components';
 import './tutorial.scss';
-import addNewContacts from '../../../assets/img/add-new-contacts.png';
-import configureIdentifier from '../../../assets/img/configure-identifier.png';
-import createYourPasscode from '../../../assets/img/create-your-passcode.png';
-import verifyCredentials from '../../../assets/img/verify-credentials.png';
+import addNewContacts from '../../../assets/img/add-new-contacts.svg';
+import configureIdentifier from '../../../assets/img/configure-identifier.svg';
+import createYourPasscode from '../../../assets/img/create-your-passcode.svg';
+import verifyCredentials from '../../../assets/img/verify-credentials.svg';
 
 import m from 'mithril';
 

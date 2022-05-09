@@ -3,7 +3,7 @@ import { Button, TextField } from '../../../src/app/components';
 
 import greenCheckMark from '../../../src/assets/img/green-check-mark.svg';
 import redX from '../../../src/assets/img/red-x.svg';
-import uploadFile from '../../../src/assets/img/upload-file.png';
+import uploadFile from '../../../src/assets/img/upload-file.svg';
 
 class EventLog {
   eventLogArray = [

@@ -1,6 +1,6 @@
 import m from 'mithril';
 import { Button } from '../../../src/app/components';
-import approveRequest from '../../../src/assets/img/approve-request.png';
+import approveRequest from '../../../src/assets/img/approve-request.svg';
 
 class IntroToYourRole {
   constructor(vnode) {

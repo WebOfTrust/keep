@@ -3,10 +3,10 @@ import { Button } from '../../../src/app/components';
 import { Profile, Participants, Tasks } from '../../../src/app/services';
 import { EnterChallengesForm, EnterOOBIsForm, SendChallengeForm } from '../../../forms';
 
-import addNewContacts from '../../../src/assets/img/add-new-contacts.png';
-import projectPlanning from '../../../src/assets/img/project-planning.png';
-import responseMessage from '../../../src/assets/img/response-message.png';
-import uploadFile from '../../../src/assets/img/upload-file.png';
+import addNewContacts from '../../../src/assets/img/add-new-contacts.svg';
+import projectPlanning from '../../../src/assets/img/project-planning.svg';
+import responseMessage from '../../../src/assets/img/response-message.svg';
+import uploadFile from '../../../src/assets/img/upload-file.svg';
 import { SendOOBIForm } from '../../../forms';
 
 class VideoCallTask {

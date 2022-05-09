@@ -1,7 +1,7 @@
 import m from 'mithril';
 import { Button, Container, IconButton, TextField } from '../../../components';
 import { ConfigureWitnesses } from '../../../modals';
-import configureIdentifier from '../../../../assets/img/configure-identifier.png';
+import configureIdentifier from '../../../../assets/img/configure-identifier.svg';
 
 class ConfigureIdentifier {
   constructor() {

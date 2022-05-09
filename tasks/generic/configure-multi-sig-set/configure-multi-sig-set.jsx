@@ -2,7 +2,7 @@ import m from 'mithril';
 import { Button, Checkbox, IconButton, Radio, Select, TextField, TextTooltip } from '../../../src/app/components';
 import { Contacts, KERI, Profile, MultiSig, Witnesses } from '../../../src/app/services';
 
-import secureMessaging from '../../../src/assets/img/secure-messaging.png';
+import secureMessaging from '../../../src/assets/img/secure-messaging.svg';
 import greenCheckMark from '../../../src/assets/img/green-check-mark.svg';
 import redX from '../../../src/assets/img/red-x.svg';
 

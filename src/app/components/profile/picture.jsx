@@ -1,5 +1,5 @@
 import m from 'mithril';
-import githubLogo from '../../../assets/img/github-logo.png';
+import githubLogo from '../../../assets/img/github-logo.svg';
 
 class ProfilePicture {
   constructor(vnode) {

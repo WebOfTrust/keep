@@ -19,9 +19,9 @@ import ViewMultiSigEventLogs from '../generic/view-multi-sig-event-logs/view-mul
 import ViewNewCredential from '../generic/view-new-credential/view-new-credential';
 
 // Images
-import addNewContacts from '../../src/assets/img/add-new-contacts.png';
-import createYourPasscode from '../../src/assets/img/create-your-passcode.png';
-import createIdentifier from '../../src/assets/img/create-identifier.png';
+import addNewContacts from '../../src/assets/img/add-new-contacts.svg';
+import createYourPasscode from '../../src/assets/img/create-your-passcode.svg';
+import createIdentifier from '../../src/assets/img/create-identifier.svg';
 
 const tasks = {
   'create-passcode': [

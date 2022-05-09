@@ -1,10 +1,10 @@
 import m from 'mithril';
 import { Button, Select, TextField } from '../../../src/app/components';
 import { KERI, Profile, Witnesses } from '../../../src/app/services';
-import createIdentifier from '../../../src/assets/img/create-identifier.png';
-import configureIdentifier from '../../../src/assets/img/configure-identifier.png';
-import approveRequest from '../../../src/assets/img/approve-request.png';
-import uploadImage from '../../../src/assets/img/upload-image.png';
+import createIdentifier from '../../../src/assets/img/create-identifier.svg';
+import configureIdentifier from '../../../src/assets/img/configure-identifier.svg';
+import approveRequest from '../../../src/assets/img/approve-request.svg';
+import uploadImage from '../../../src/assets/img/upload-image.svg';
 
 class CreateYourAID {
   constructor() {

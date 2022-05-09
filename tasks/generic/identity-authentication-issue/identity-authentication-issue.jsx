@@ -1,10 +1,10 @@
 import m from 'mithril';
 import { Button, TextField, TextTooltip, Modal } from '../../../src/app/components';
 import { KERI, Profile } from '../../../src/app/services';
-import addNewContacts from '../../../src/assets/img/add-new-contacts.png';
-import responseMessage from '../../../src/assets/img/response-message.png';
-import uploadFile from '../../../src/assets/img/upload-file.png';
-import wait from '../../../src/assets/img/wait.png';
+import addNewContacts from '../../../src/assets/img/add-new-contacts.svg';
+import responseMessage from '../../../src/assets/img/response-message.svg';
+import uploadFile from '../../../src/assets/img/upload-file.svg';
+import wait from '../../../src/assets/img/wait.svg';
 
 class WaitModal {
   view(vnode) {

@@ -3,7 +3,7 @@ import { Card, Container, IconButton, NavRail, Button } from '../../components';
 import EditWatchers from './edit-watchers/edit-watchers.jsx';
 import EditWitnesses from './edit-witnesses/edit-witnesses.jsx';
 import './settings.scss';
-import configureIdentifier from '../../../assets/img/configure-identifier.png';
+import configureIdentifier from '../../../assets/img/configure-identifier.svg';
 class Settings {
   constructor() {
     this.currentState = null;

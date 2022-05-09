@@ -1,7 +1,7 @@
 import m from 'mithril';
 import { Button, TextField } from '../../../src/app/components';
 import { Auth } from '../../../src/app/services';
-import passcodeImg from '../../../src/assets/img/passcode.png';
+import passcodeImg from '../../../src/assets/img/passcode.svg';
 
 class Login {
   constructor() {

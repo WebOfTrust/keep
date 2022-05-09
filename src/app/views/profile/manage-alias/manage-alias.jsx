@@ -1,6 +1,6 @@
 import m from 'mithril';
-import githubLogo from '../../../../assets/img/github-logo.png';
-import uploadImage from '../../../../assets/img/upload-image.png';
+import githubLogo from '../../../../assets/img/github-logo.svg';
+import uploadImage from '../../../../assets/img/upload-image.svg';
 import { Button, Select } from '../../../components';
 class AliasToEdit {
   view(vnode) {

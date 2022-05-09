@@ -1,7 +1,7 @@
 import m from 'mithril';
-import githubLogo from '../../../../assets/img/github-logo.png';
+import githubLogo from '../../../../assets/img/github-logo.svg';
 import { Button, Card, Radio, TextField } from '../../../components';
-import uploadPhoto from '../../../../assets/img/upload-image.png';
+import uploadPhoto from '../../../../assets/img/upload-image.svg';
 import 'emoji-picker-element';
 import KERI from '../../../services/keri';
 import ProfilePicture from '../../../components/profile/picture';

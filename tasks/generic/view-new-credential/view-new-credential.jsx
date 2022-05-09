@@ -1,9 +1,9 @@
 import m from 'mithril';
 import { Button } from '../../../src/app/components';
-import approveRequest from '../../../src/assets/img/approve-request.png';
-import addNewContacts from '../../../src/assets/img/add-new-contacts.png';
-import verifyCredentials from '../../../src/assets/img/verify-credentials.png';
-import githubLogo from '../../../src/assets/img/github-logo.png';
+import approveRequest from '../../../src/assets/img/approve-request.svg';
+import addNewContacts from '../../../src/assets/img/add-new-contacts.svg';
+import verifyCredentials from '../../../src/assets/img/verify-credentials.svg';
+import githubLogo from '../../../src/assets/img/github-logo.svg';
 class ViewCreds {
   constructor(vnode) {}
   view(vnode) {

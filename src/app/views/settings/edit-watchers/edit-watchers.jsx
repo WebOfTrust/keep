@@ -1,7 +1,7 @@
 import m from 'mithril';
-import githubLogo from '../../../../assets/img/github-logo.png';
+import githubLogo from '../../../../assets/img/github-logo.svg';
 import { Button, Select, TextField } from '../../../components';
-import configureIdentifier from '../../../../assets/img/configure-identifier.png';
+import configureIdentifier from '../../../../assets/img/configure-identifier.svg';
 class EnterWatcherURLs {
   view(vnode) {
     return (

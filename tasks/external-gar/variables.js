@@ -1,7 +1,7 @@
 import m from 'mithril';
 import { TextTooltip } from '../../src/app/components';
-import addNewContacts from '../../src/assets/img/add-new-contacts.png';
-import verifyCredentials from '../../src/assets/img/verify-credentials.png';
+import addNewContacts from '../../src/assets/img/add-new-contacts.svg';
+import verifyCredentials from '../../src/assets/img/verify-credentials.svg';
 
 const ExternalGarVariables = {
   createYourAid: {
@@ -101,8 +101,8 @@ const ExternalGarVariables = {
     acceptOobi: {
       paragraph: (
         <>
-          While on the Video Call, make sure to obtain the QAR's <b>Alias and OOBI</b>. When you have both for each party,
-          please press continue.
+          While on the Video Call, make sure to obtain the QAR's <b>Alias and OOBI</b>. When you have both for each
+          party, please press continue.
         </>
       ),
       alias: (

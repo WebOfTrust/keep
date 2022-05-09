@@ -10,11 +10,11 @@ import IntroToYourRole from '../generic/intro-to-your-role/intro-to-your-role';
 import Login from '../generic/login/login';
 import VerifyCredentials from '../generic/verify-credentials/verify-credentials';
 // Images
-import addNewContacts from '../../src/assets/img/add-new-contacts.png';
-import createYourPasscode from '../../src/assets/img/create-your-passcode.png';
-import createIdentifier from '../../src/assets/img/create-identifier.png';
-import uploadFile from '../../src/assets/img/upload-file.png';
-import loanApproved from '../../src/assets/img/loan-approved.png';
+import addNewContacts from '../../src/assets/img/add-new-contacts.svg';
+import createYourPasscode from '../../src/assets/img/create-your-passcode.svg';
+import createIdentifier from '../../src/assets/img/create-identifier.svg';
+import uploadFile from '../../src/assets/img/upload-file.svg';
+import loanApproved from '../../src/assets/img/loan-approved.svg';
 
 const tasks = {
   'create-passcode': [

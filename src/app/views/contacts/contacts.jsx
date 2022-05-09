@@ -4,7 +4,7 @@ import { KERI } from '../../services';
 import './contacts.scss';
 import ContactList from './contact-list/contact-list';
 import ContactDetails from './contact-details/contact-details';
-import contactGroup from '../../../assets/img/contact-group.png';
+import contactGroup from '../../../assets/img/contact-group.svg';
 import tempProfPic from '../../../assets/img/temp-prof-pic.jpg';
 
 class Contacts {

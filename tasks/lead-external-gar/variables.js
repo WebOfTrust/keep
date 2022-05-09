@@ -1,14 +1,14 @@
 import m from 'mithril';
 import { TextTooltip } from '../../src/app/components';
-import addNewContacts from '../../src/assets/img/add-new-contacts.png';
-import projectPlanning from '../../src/assets/img/project-planning.png';
-import createIdentifier from '../../src/assets/img/create-identifier.png';
-import secureMessaging from '../../src/assets/img/secure-messaging.png';
-import uploadFile from '../../src/assets/img/upload-file.png';
-import verifyCredentials from '../../src/assets/img/verify-credentials.png';
-import declineRequest from '../../src/assets/img/decline-request.png';
-import calendar from '../../src/assets/img/calendar.png';
-import loanApproved from '../../src/assets/img/loan-approved.png';
+import addNewContacts from '../../src/assets/img/add-new-contacts.svg';
+import projectPlanning from '../../src/assets/img/project-planning.svg';
+import createIdentifier from '../../src/assets/img/create-identifier.svg';
+import secureMessaging from '../../src/assets/img/secure-messaging.svg';
+import uploadFile from '../../src/assets/img/upload-file.svg';
+import verifyCredentials from '../../src/assets/img/verify-credentials.svg';
+import declineRequest from '../../src/assets/img/decline-request.svg';
+import calendar from '../../src/assets/img/calendar.svg';
+import loanApproved from '../../src/assets/img/loan-approved.svg';
 
 const ExternalGarVariables = {
   createYourAid: {

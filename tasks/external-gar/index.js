@@ -19,16 +19,16 @@ import ViewMultiSigEventLogs from '../generic/view-multi-sig-event-logs/view-mul
 import ViewNewCredential from '../generic/view-new-credential/view-new-credential';
 
 // Images
-import addNewContacts from '../../src/assets/img/add-new-contacts.png';
-import secureMessaging from '../../src/assets/img/secure-messaging.png';
-import loanApproved from '../../src/assets/img/loan-approved.png';
-import createYourPasscode from '../../src/assets/img/create-your-passcode.png';
-import createIdentifier from '../../src/assets/img/create-identifier.png';
-import declineRequest from '../../src/assets/img/decline-request.png';
-import verifyCredentials from '../../src/assets/img/verify-credentials.png';
-import projectPlanning from '../../src/assets/img/project-planning.png';
-import calendar from '../../src/assets/img/calendar.png';
-import passcode from '../../src/assets/img/calendar.png';
+import addNewContacts from '../../src/assets/img/add-new-contacts.svg';
+import secureMessaging from '../../src/assets/img/secure-messaging.svg';
+import loanApproved from '../../src/assets/img/loan-approved.svg';
+import createYourPasscode from '../../src/assets/img/create-your-passcode.svg';
+import createIdentifier from '../../src/assets/img/create-identifier.svg';
+import declineRequest from '../../src/assets/img/decline-request.svg';
+import verifyCredentials from '../../src/assets/img/verify-credentials.svg';
+import projectPlanning from '../../src/assets/img/project-planning.svg';
+import calendar from '../../src/assets/img/calendar.svg';
+import passcode from '../../src/assets/img/calendar.svg';
 const multisigTask = {
   imgSrc: secureMessaging,
   label: 'Configure Multi-Sig Group',

@@ -1,7 +1,7 @@
 import m from 'mithril';
 import { Button, Select, TextField } from '../../../src/app/components';
-import approveRequest from '../../../src/assets/img/approve-request.png';
-import githubLogo from '../../../src/assets/img/github-logo.png';
+import approveRequest from '../../../src/assets/img/approve-request.svg';
+import githubLogo from '../../../src/assets/img/github-logo.svg';
 
 class IssueCreds {
   constructor(vnode) {
