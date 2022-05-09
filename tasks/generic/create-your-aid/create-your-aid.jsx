@@ -267,7 +267,7 @@ class CreateYourAID {
               />
             </div>
             <div class="uneditable-value">{this.alias}</div>
-            <div class="flex flex-justify-between" style={{ alignItems: 'baseline', margin: '2rem 0' }}>
+            {/* <div class="flex flex-justify-between" style={{ alignItems: 'baseline', margin: '2rem 0' }}>
               <p class="p-tag">Alias Photo:</p>
               <Button
                 class="button--gray button--small button--no-transform"
@@ -278,7 +278,7 @@ class CreateYourAID {
                 }}
               />
             </div>
-            <img src={this.aliasPhoto} style={{ height: '100px', marginBottom: '4rem', width: '100px' }} />
+            <img src={this.aliasPhoto} style={{ height: '100px', marginBottom: '4rem', width: '100px' }} /> */}
             <div class="flex flex-justify-end">
               <Button
                 class="button--big button--no-transform"
