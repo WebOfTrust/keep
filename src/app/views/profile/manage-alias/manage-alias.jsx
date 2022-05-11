@@ -223,6 +223,9 @@ class ManageAlias {
         )}
         {this.currentState === 'review-and-confirm' && (
           <ReviewAndConfirm
+            back={() => {
+              this.currentState = 'alias-to-update';
+            }}
             continue={() => {
               this.currentState = 'select-alias-cred';
             }}
@@ -230,6 +233,9 @@ class ManageAlias {
         )}
         {this.currentState === 'select-alias-cred' && (
           <SelectAliasCred
+            back={() => {
+              this.currentState = 'review-and-confirm';
+            }}
             continue={() => {
               this.currentState = 'select-photo';
             }}
@@ -237,6 +243,9 @@ class ManageAlias {
         )}
         {this.currentState === 'select-photo' && (
           <SelectPhoto
+            back={() => {
+              this.currentState = 'select-alias-cred';
+            }}
             continue={() => {
               this.currentState = 'edit-profile-alias';
             }}
