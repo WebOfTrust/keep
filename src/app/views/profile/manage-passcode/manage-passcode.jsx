@@ -8,7 +8,7 @@ class ChangingPasscode {
   view(vnode) {
     return (
       <>
-        <div style={{ margin: '2rem' }}>
+        <div>
           <h3>Changing Your Passcode</h3>
           <div class="flex flex-justify-center" style={{ margin: '4.5rem 0' }}>
             <img src={createYourPasscode} style={{ width: '192px' }} />
@@ -224,6 +224,9 @@ class ManagePasscode {
         )}
         {this.currentState === 'generate-passcode' && (
           <GeneratePasscode
+            back={() => {
+              this.currentState = 'changing-your-passcode';
+            }}
             continue={() => {
               this.currentState = 'confirm-passcode';
             }}
@@ -231,6 +234,9 @@ class ManagePasscode {
         )}
         {this.currentState === 'confirm-passcode' && (
           <EnterPasscode
+            back={() => {
+              this.currentState = 'generate-passcode';
+            }}
             continue={() => {
               this.currentState = 'passcode-finished';
             }}
