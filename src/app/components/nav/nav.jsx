@@ -11,19 +11,21 @@ import './nav.scss';
 class Nav {
   constructor() {
     this.notificationsVisible = false;
-    console.log(Notify.notifications);
+    this.identifier = Profile.getDefaultAID();
+  }
+
+  onupdate() {
+    this.identifier = Profile.getDefaultAID();
   }
 
   get navLabel() {
     let label = '';
-    let aid = Profile.getDefaultAID();
-    if (aid !== undefined) {
-      label = '(' + aid.name + ') ';
+    if (this.identifier) {
+      label = '(' + this.identifier.name + ') ';
     }
     if (Profile.isLead) {
       label += 'Lead ';
     }
-
     label += Auth.title();
     return label;
   }
