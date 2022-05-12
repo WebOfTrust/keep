@@ -1,12 +1,14 @@
 import m from 'mithril';
 
 class KERI {
+  static keriURL = `${process.env.API_HOST}:${process.env.API_PORT}`;
+
   // CODES
 
   static generatePasscode() {
     return m.request({
       method: 'GET',
-      url: `${process.env.API_HOST}:${process.env.API_PORT}/codes`,
+      url: `${this.keriURL}/codes`,
     });
   }
 
@@ -15,7 +17,7 @@ class KERI {
   static initializeAgent(name, passcode) {
     return m.request({
       method: 'POST',
-      url: `${process.env.API_HOST}:${process.env.API_PORT}/boot`,
+      url: `${this.keriURL}/boot`,
       body: {
         name,
         passcode,
@@ -26,7 +28,7 @@ class KERI {
   static unlockAgent(name, passcode) {
     return m.request({
       method: 'PUT',
-      url: `${process.env.API_HOST}:${process.env.API_PORT}/boot`,
+      url: `${this.keriURL}/boot`,
       body: {
         name,
         passcode,
@@ -39,7 +41,7 @@ class KERI {
   static createIdentifier(alias, witnesses) {
     return m.request({
       method: 'POST',
-      url: `${process.env.API_HOST}:${process.env.API_PORT}/ids/${alias}`,
+      url: `${this.keriURL}/ids/${alias}`,
       body: {
         wits: witnesses,
       },
@@ -49,15 +51,15 @@ class KERI {
   static updateIdentifier(alias, body) {
     return m.request({
       method: 'PUT',
-      url: `${process.env.API_HOST}:${process.env.API_PORT}/ids/${alias}`,
-      body: body
+      url: `${this.keriURL}/ids/${alias}`,
+      body: body,
     });
   }
 
   static listIdentifiers() {
     return m.request({
       method: 'GET',
-      url: `${process.env.API_HOST}:${process.env.API_PORT}/ids`,
+      url: `${this.keriURL}/ids`,
     });
   }
 
@@ -66,7 +68,7 @@ class KERI {
   static getOOBI(alias, role) {
     return m.request({
       method: 'GET',
-      url: `${process.env.API_HOST}:${process.env.API_PORT}/oobi/${alias}`,
+      url: `${this.keriURL}/oobi/${alias}`,
       params: {
         role,
       },
@@ -76,7 +78,7 @@ class KERI {
   static resolveOOBI(alias, oobialias, url) {
     return m.request({
       method: 'POST',
-      url: `${process.env.API_HOST}:${process.env.API_PORT}/oobi/${alias}`,
+      url: `${this.keriURL}/oobi/${alias}`,
       body: {
         oobialias,
         url,
@@ -89,14 +91,14 @@ class KERI {
   static generateChallengeMessage() {
     return m.request({
       method: 'GET',
-      url: `${process.env.API_HOST}:${process.env.API_PORT}/challenge`,
+      url: `${this.keriURL}/challenge`,
     });
   }
 
   static signChallengeMessage(alias, recipient, words) {
     return m.request({
       method: 'POST',
-      url: `${process.env.API_HOST}:${process.env.API_PORT}/challenge/${alias}`,
+      url: `${this.keriURL}/challenge/${alias}`,
       body: {
         recipient,
         words,
@@ -109,7 +111,7 @@ class KERI {
   static getContacts() {
     return m.request({
       method: 'GET',
-      url: `${process.env.API_HOST}:${process.env.API_PORT}/contacts`,
+      url: `${this.keriURL}/contacts`,
     });
   }
 
@@ -121,28 +123,28 @@ class KERI {
       .join('');
     return m.request({
       method: 'GET',
-      url: `${process.env.API_HOST}:${process.env.API_PORT}/contacts?filter_field=alias${valueParams}`,
+      url: `${this.keriURL}/contacts?filter_field=alias${valueParams}`,
     });
   }
 
   static getContact(prefix) {
     return m.request({
       method: 'GET',
-      url: `${process.env.API_HOST}:${process.env.API_PORT}/contacts/${prefix}`,
+      url: `${this.keriURL}/contacts/${prefix}`,
     });
   }
 
   static getEscrowsForIdentifier(prefix) {
     return m.request({
       method: 'GET',
-      url: `${process.env.API_HOST}:${process.env.API_PORT}/escrows?pre=${prefix}`,
+      url: `${this.keriURL}/escrows?pre=${prefix}`,
     });
   }
 
   static updateContact(alias, aid, body) {
     return m.request({
       method: 'PUT',
-      url: `${process.env.API_HOST}:${process.env.API_PORT}/contacts/${aid}/${alias}`,
+      url: `${this.keriURL}/contacts/${aid}/${alias}`,
       body: body,
     });
   }
@@ -152,7 +154,7 @@ class KERI {
   static initiateGroupInception(alias, { aids, isith, nsith, toad, wits }) {
     return m.request({
       method: 'POST',
-      url: `${process.env.API_HOST}:${process.env.API_PORT}/groups/${alias}/icp`,
+      url: `${this.keriURL}/groups/${alias}/icp`,
       body: {
         aids,
         isith,
@@ -166,7 +168,7 @@ class KERI {
   static participateGroupInception(alias, { aids, isith, nsith, toad, wits }) {
     return m.request({
       method: 'PUT',
-      url: `${process.env.API_HOST}:${process.env.API_PORT}/groups/${alias}/icp`,
+      url: `${this.keriURL}/groups/${alias}/icp`,
       body: {
         aids,
         isith,
