@@ -1,10 +1,7 @@
-import m from 'mithril';
-
 class Tasks {
   static _all = {
     'create-passcode': [],
     'create-identifier': [],
-    'intro-to-role': [],
     'main': [],
   };
   static _active = null;
