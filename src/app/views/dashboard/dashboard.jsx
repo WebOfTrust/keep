@@ -45,11 +45,7 @@ class Dashboard {
     } else if (Profile.identifiers.length === 1) {
       return Tasks.all['create-multisig'];
     } else {
-      if (sessionStorage.getItem('seenIntro')) {
-        return Tasks.all['main'];
-      } else {
-        return Tasks.all['intro-to-role'];
-      }
+      return Tasks.all['main'];
     }
   }
 

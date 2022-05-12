@@ -34,13 +34,10 @@ class Contacts {
               <div class="flex-1" style={{ marginRight: '4rem' }}>
                 <Card class="card--fluid" padding="1.5rem">
                   <TextField
-                    style={{ backgroundColor: 'white', height: '3rem', margin: '0 0 1.5rem 0', width: '75%' }}
+                    style={{ backgroundColor: 'white', height: '3rem', margin: '0 0 1.5rem 0' }}
                     filled
                     fluid
                     placeholder="Search for Contacts"
-                    // oninput={(e) => {
-                    //   this.passcode = e.target.value;
-                    // }}
                     iconTrailing={{
                       icon: 'search',
                     }}
