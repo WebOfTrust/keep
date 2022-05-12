@@ -73,7 +73,6 @@ class IntroToYourRole {
 
   nextOrEnd(vnode) {
     if (this.step + 1 >= this.steps.length) {
-      sessionStorage.setItem('seenIntro', true);
       vnode.attrs.end();
       return;
     }

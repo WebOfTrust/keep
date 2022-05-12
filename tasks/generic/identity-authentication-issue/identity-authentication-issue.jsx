@@ -172,13 +172,7 @@ class ResolveOOBI {
           )}
         </p>
         <label>
-          {vnode.attrs.acceptOobi ? (
-            vnode.attrs.acceptOobi.alias
-          ) : (
-            <>
-              <strong>Alias:</strong>
-            </>
-          )}
+          <strong>Alias:</strong>
         </label>
         <TextField
           outlined

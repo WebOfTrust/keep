@@ -118,7 +118,7 @@ class CreateYourAID {
             <ol class="styled-ol" style={{ margin: '2rem 0 4rem 0' }}>
               <li>Configure your AID</li>
               <li>Create an Alias</li>
-              <li>Select a photo for your Alias</li>
+              {/* <li>Select a photo for your Alias</li> */}
             </ol>
             <div class="flex flex-justify-between">
               <Button
@@ -279,7 +279,7 @@ class CreateYourAID {
               />
             </div>
             <img src={this.aliasPhoto} style={{ height: '100px', marginBottom: '4rem', width: '100px' }} /> */}
-            <div class="flex flex-justify-end">
+            <div class="flex flex-justify-end" style={{ marginTop: '4rem' }}>
               <Button
                 class="button--big button--no-transform"
                 raised

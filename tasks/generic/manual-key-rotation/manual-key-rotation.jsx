@@ -10,22 +10,14 @@ class Notifications {
     return (
       <>
         <h3>Notifications</h3>
-        <div class="flex" style={{ borderBottom: '1px solid grey', height: '40px', justifyContent: 'space-evenly' }}>
+        <div class="flex flex-justify-between" style={{ borderBottom: '1px solid grey' }}>
           <img src={githubLogo} style={{ width: '10%' }} />
           <p>New Key Rotation Request</p>
           <p style={{ textDecoration: 'underline', cursor: 'pointer' }} onclick={vnode.attrs.continue}>
             Go To Task
           </p>
         </div>
-        <div class="flex" style={{ borderBottom: '1px solid grey', height: '40px' }}></div>
-        <div class="flex" style={{ borderBottom: '1px solid grey', height: '40px' }}></div>
-        <div class="flex" style={{ borderBottom: '1px solid grey', height: '40px' }}></div>
-        <div class="flex" style={{ borderBottom: '1px solid grey', height: '40px' }}></div>
-        <div class="flex" style={{ borderBottom: '1px solid grey', height: '40px' }}></div>
-        <div class="flex" style={{ borderBottom: '1px solid grey', height: '40px' }}></div>
-        <br></br>
-        <br></br>
-        <div class="flex flex-justify-end">
+        <div class="flex flex-justify-end" style={{ marginTop: '4rem' }}>
           <Button class="button--big button--no-transform" raised label="Close" onclick={vnode.attrs.end} />
         </div>
       </>
