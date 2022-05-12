@@ -2,6 +2,7 @@
 import os
 import os.path
 import sys
+import argparse
 
 from keri.app import booting
 from keri.app import directing
@@ -10,8 +11,6 @@ from keri.app import directing
 class Ward:
     UiPath = ""
     HeadDirPath = ""
-    tcp = 5621
-    admin = 5623
 
     def __init__(self) -> None:
         super().__init__()
@@ -20,22 +19,20 @@ class Ward:
 
         self.UiPath = os.path.join(sys._MEIPASS, 'ui', "") if self.packaged else None
         self.HeadDirPath = os.path.join(sys._MEIPASS, '', "") if self.packaged else None
-        self.tcp = sys.argv[1] if len(sys.argv) >= 2 and len(sys.argv[1]) > 0 else 5621
-        self.admin = sys.argv[2] if len(sys.argv) >= 3 and len(sys.argv[2]) > 0 else 5623
 
-    def start(self):
+    def start(self, args):
+        if args.debug:
+            sys.stdout.write(f"Booting set up {args}\n")
+            sys.stdout.write(f"UI path {self.UiPath}\n")
+            sys.stdout.write(f"HeadDirPath {self.HeadDirPath}\n")
+            sys.stdout.flush()
 
-        sys.stdout.write(str(self.tcp))
-        sys.stdout.write(" ")
-        sys.stdout.write(str(self.admin))
-        sys.stdout.flush()
-
-        doers = booting.setup(controller="",
+        doers = booting.setup(controller="E59KmDbpjK0tRf9Rmc7OlueZVz7LB94DdD3cjQVvPcng",
                               configFile='demo-witness-oobis.json',
                               configDir=self.HeadDirPath,
                               insecure=True,
-                              tcp=int(self.tcp),
-                              adminHttpPort=int(self.admin),
+                              tcp=int(args.tcp),
+                              adminHttpPort=int(args.admin),
                               path=self.UiPath,
                               headDirPath=self.HeadDirPath)
 
@@ -43,8 +40,13 @@ class Ward:
 
 
 def main():
+    parser = argparse.ArgumentParser(description='Launch Ward')
+    parser.add_argument('--tcp', default=5621, help='tcp port')
+    parser.add_argument('--admin', default=5623, help='admin port')
+    parser.add_argument('--debug', action='store_true', help='print debug messages')
+
     ward = Ward()
-    ward.start()
+    ward.start(parser.parse_args())
 
 
 if __name__ == '__main__':

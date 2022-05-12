@@ -11,6 +11,7 @@
   "scripts": {
     "package:root-gar": "NODE_ENV=root-gar parcel build src/index.html --cache-dir ward/.parcel-cache-dev --dist-dir ward/build-ui",
     "package:external-gar": "NODE_ENV=external-gar parcel build src/index.html --cache-dir ward/.parcel-cache-dev --dist-dir ward/build-ui",
+    "package:lead-external-gar": "NODE_ENV=lead-external-gar parcel build src/index.html --cache-dir ward/.parcel-cache-dev --dist-dir ward/build-ui",
     "package:internal-gar": "NODE_ENV=internal-gar parcel build src/index.html --cache-dir ward/.parcel-cache-dev --dist-dir ward/build-ui",
     "package:qar": "NODE_ENV=qar parcel build src/index.html --cache-dir ward/.parcel-cache-dev --dist-dir ward/build-ui",
     "package:lar": "NODE_ENV=lar parcel build src/index.html --cache-dir ward/.parcel-cache-dev --dist-dir ward/build-ui",
@@ -76,6 +77,7 @@
     "electron-squirrel-startup": "^1.0.0",
     "emoji-button": "^2.2.2",
     "emoji-picker-element": "^1.11.3",
+    "json": "^11.0.0",
     "material-components-web": "^13.0.0",
     "mithril": "^2.0.4",
     "moment": "^2.29.1",
