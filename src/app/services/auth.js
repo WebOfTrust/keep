@@ -24,10 +24,22 @@ class Auth {
 
   static title() {
     switch (process.env.USER_TYPE) {
-      case 'lead-external-gar':
-        return 'Lead External GAR';
       case 'external-gar':
         return 'External GAR';
+      case 'generic':
+        return 'Generic';
+      case 'internal-gar':
+        return 'Internal GAR';
+      case 'lar':
+        return 'LAR';
+      case 'lead-external-gar':
+        return 'Lead External GAR';
+      case 'person':
+        return 'Person';
+      case 'qar':
+        return 'QAR';
+      case 'root-gar':
+        return 'Root GAR';
       default:
         return '';
     }
