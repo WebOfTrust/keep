@@ -76,7 +76,7 @@ const QarVariables = {
         image: addNewContacts,
         paragraph: (
           <>
-            Once you are authorized to act on behalf of the QVI, you complete identity authentication with a GAR . A GAR
+            Once you are authorized to act on behalf of the QVI, you complete identity authentication with a GAR. A GAR
             and the QAR will complete a real-time OOBI session in which the GAR and the QAR are present to accomplish
             this.
           </>
