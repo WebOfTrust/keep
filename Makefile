@@ -22,6 +22,14 @@ endif
 	cd $(DIR)/app; \
 	cp -r $(DIR)/ward/dist/ward ./ward;
 
+run-root-gar: clean root-gar
+	cd $(DIR)/app; \
+	yarn start;
+
+pkg-root-gar: clean root-gar
+	cd $(DIR)/app; \
+	yarn;
+
 external-gar: clean
 ifdef debug
 	echo "true" >> ward/debug.json;

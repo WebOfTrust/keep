@@ -26,4 +26,4 @@ jobs:
 
       - name: Package
         run: |
-          make prod-external-gar
+          make external-gar
