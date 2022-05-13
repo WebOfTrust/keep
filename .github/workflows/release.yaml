@@ -12,10 +12,10 @@ jobs:
       matrix:
         os: [ macos-latest, ubuntu-latest ]
     steps:
-      - name: Set up Python 3.9.8
+      - name: Set up Python 3.10.4
         uses: actions/setup-python@v2
         with:
-          python-version: 3.9.8
+          python-version: 3.10.4
 
       - name: Set tag
         id: vars
@@ -29,24 +29,16 @@ jobs:
           node-version: '14'
           cache: 'yarn'
 
-      - name: build ui
+      - name: Package
         run: |
-          yarn install
-          yarn build:external-gar
-
-      - name: Build project
-        run: |
-          cd ward
-          pip install -r requirements.txt
-          pyinstaller ward.spec --onefile --clean --noconfirm
-
-      - uses: papeloto/action-zip@v1
-        with:
-          files: ward/dist/ward/
-          dest: ward-${{ steps.vars.outputs.tag }}-${{matrix.os}}.zip    
-
-      - uses: ncipollo/release-action@v1
-        with:
-          artifacts: "ward-${{ steps.vars.outputs.tag }}-${{matrix.os}}.zip"
-          token: ${{ secrets.GITHUB_TOKEN }}
-          allowUpdates: True
+          make pkg-external-gar
+#      - uses: papeloto/action-zip@v1
+#        with:
+#          files: ward/dist/ward/
+#          dest: ward-${{ steps.vars.outputs.tag }}-${{matrix.os}}.zip
+#
+#      - uses: ncipollo/release-action@v1
+#        with:
+#          artifacts: "ward-${{ steps.vars.outputs.tag }}-${{matrix.os}}.zip"
+#          token: ${{ secrets.GITHUB_TOKEN }}
+#          allowUpdates: True

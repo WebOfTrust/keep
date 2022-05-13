@@ -8,8 +8,17 @@
   },
   "homepage": "https://weboftrust.github.io/keep",
   "license": "Apache-2.0",
-  "main": "electron.js",
   "scripts": {
+    "package:root-gar": "NODE_ENV=root-gar parcel build src/index.html --cache-dir ward/.parcel-cache-dev --dist-dir ward/build-ui",
+    "package:external-gar": "NODE_ENV=external-gar parcel build src/index.html --cache-dir ward/.parcel-cache-dev --dist-dir ward/build-ui",
+    "package:lead-external-gar": "NODE_ENV=lead-external-gar parcel build src/index.html --cache-dir ward/.parcel-cache-dev --dist-dir ward/build-ui",
+    "package:internal-gar": "NODE_ENV=internal-gar parcel build src/index.html --cache-dir ward/.parcel-cache-dev --dist-dir ward/build-ui",
+    "package:qar": "NODE_ENV=qar parcel build src/index.html --cache-dir ward/.parcel-cache-dev --dist-dir ward/build-ui",
+    "package:lar": "NODE_ENV=lar parcel build src/index.html --cache-dir ward/.parcel-cache-dev --dist-dir ward/build-ui",
+
+
+
+
     "build:generic": "yarn rm-build; yarn set-tasks:generic; parcel build src/index.html --cache-dir ward/.parcel-cache --dist-dir ward/build-ui --public-url ./",
     "start:generic": "parcel src/index.html --cache-dir ward/.parcel-cache-dev --dist-dir ward/build-ui",
     "build:lead-external-gar": "NODE_ENV=lead-external-gar parcel build src/index.html --cache-dir ward/.parcel-cache-dev-lead --dist-dir ward/build-ui-dev-lead",
@@ -18,16 +27,16 @@
     "start:external-gar": "NODE_ENV=external-gar parcel src/index.html --port 1734 --cache-dir ward/.parcel-cache-dev --dist-dir ward/build-ui-dev",
     "set-tasks:generic": "plop tasks-index 'generic' --force",
     "rm-build": "rm -rf ward/.parcel-cache ward/build-ui ward/.parcel-cache-dev ward/build-ui-dev ward/.parcel-cache-dev-lead ward/build-ui-dev-lead",
-    "pages:start": "parcel pages/index.html",
-    "pages:rm-build": "rm -rf .parcel-cache dist",
-    "pages:build": "yarn pages:rm-build; parcel build pages/index.html --public-url ./",
-    "prepages:deploy": "yarn pages:build",
-    "pages:deploy": "gh-pages -d dist",
     "test": "NODE_ENV=test jest",
     "test:watch": "NODE_ENV=test jest --watch",
     "lint": "eslint src/",
     "format": "prettier --write src/**/*.{js,html,jsx,json,scss,css,md} --no-error-on-unmatched-pattern",
-    "nuke": "rm -rf node_modules/; yarn rm-build; yarn pages:rm-build"
+    "nuke": "rm -rf node_modules/; yarn rm-build; yarn pages:rm-build",
+    "pages:start": "parcel pages/index.html",
+    "pages:rm-build": "rm -rf .parcel-cache dist",
+    "pages:build": "yarn pages:rm-build; parcel build pages/index.html --public-url ./",
+    "prepages:deploy": "yarn pages:build",
+    "pages:deploy": "gh-pages -d dist"
   },
   "targets": {
     "main": false
@@ -68,6 +77,7 @@
     "electron-squirrel-startup": "^1.0.0",
     "emoji-button": "^2.2.2",
     "emoji-picker-element": "^1.11.3",
+    "json": "^11.0.0",
     "material-components-web": "^13.0.0",
     "mithril": "^2.0.4",
     "moment": "^2.29.1",

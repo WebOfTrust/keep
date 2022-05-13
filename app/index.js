@@ -1,10 +1,11 @@
 const electron = require('electron');
 const {app, BrowserWindow} = electron;
-
+const fs = require('fs');
 const {spawn} = require('child_process');
 const retry = require('promise-retry');
 const fetch = (...args) => import('node-fetch').then(({default: fetch}) => fetch(...args));
 const log = require('electron-log');
+log.transports.file.resolvePath = () => __dirname + "/keep.log";
 
 let ward = null;
 
@@ -18,17 +19,43 @@ const createWindow = () => {
     const win = new BrowserWindow({
         width: 1440,
         height: 1024,
-        icon: `${__dirname}/assets/icon.icns`
+        icon: `./assets/icon.icns`
     });
 
     // noinspection JSIgnoredPromiseFromCall
     win.loadFile(__dirname + '/index.html');
 
-    win.webContents.openDevTools()
+    let config = {};
+    const configPath = __dirname + '/ward/config.json';
+    if (fs.existsSync(configPath)) {
+        config = JSON.parse(fs.readFileSync(configPath));
+    }
+
+    let args = [];
+    process.env.API_HOST = 'http://localhost';
+
+    process.env.TCP_PORT = config["TCP_PORT"];
+    args.push("--tcp", process.env.TCP_PORT)
+
+    process.env.API_PORT = config["API_PORT"];
+    args.push("--admin", process.env.API_PORT)
+
+    process.env.USER_TYPE = config["USER_TYPE"];
+    const debugPath = __dirname + '/ward/debug.json';
+    if (fs.existsSync(debugPath)) {
+        let debug = JSON.parse(fs.readFileSync(debugPath));
+        if (debug === true) {
+            win.webContents.openDevTools()
+            args.push("--debug")
+
+            log.info(args)
+        }
+    }
 
     if (ward === null) {
-        ward = spawn(`${__dirname}/ward/ward`);
-        ward.on('error', function(err) {
+
+        ward = spawn(`${__dirname}/ward/ward`, args);
+        ward.on('error', function (err) {
             log.error('spawn error' + err);
         });
 
@@ -42,10 +69,10 @@ const createWindow = () => {
             let err = buffer.toString()
             if (err.match(/Address already in use/) ||
                 err.match(/keri.kering.AuthError/ ||
-                err.match(/keri.kering.ConfigurationError/) )
+                    err.match(/keri.kering.ConfigurationError/))
             ) {
                 // noinspection JSIgnoredPromiseFromCall
-                win.loadFile(__dirname + '/oops.html');
+                win.loadFile('./oops.html');
                 ward.kill();
             }
             log.error('err:', err);
@@ -55,12 +82,12 @@ const createWindow = () => {
             log.info(`ward process exited with code ${code}`);
         });
     }
-
+    const host = `${process.env.API_HOST}:${process.env.API_PORT}`
     retry((retry) => {
         log.info('⏳ launching...');
-        return fetch('http://localhost:5623').catch(retry);
+        return fetch(host).catch(retry);
     }).then(() => {
-        win.loadURL('http://localhost:5623').then(() =>
+        win.loadURL(host).then(() =>
             log.info('🚀 launched...'))
     }).catch(() => {
         ward.kill();

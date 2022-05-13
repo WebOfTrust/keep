@@ -6,45 +6,19 @@ Electron based application for managing KERI identifiers.
 
 ## Architecture
 
-Electron app wrapping a python app that serves the API and UI.
+Keep bundles together several moving parts:a JavaScript application implemented in (MithrilJS)[link] which is packaged and statically served 
 
-### Running locally
-
-Run the UI from the top level dir
-
-```shell
-❯ yarn install
-❯ yarn start
-```
-
-Run the backend 
-
-```shell
-❯ cd ward
-❯ source venv/bin/activate
-❯ pip install -r requirements.txt
-❯ python ward/main.py
-```
+    * A UI build using MithrilJS found at the root.
+        |_ src
+        |_ tasks
+        |_ plop_templates
+        |_ pages (style guide, not up to date)
+    * A (Pyinstaller)[link] bundled wrapper around KERIPY. It contains a small Python application, which in turn configures and launches a REST API from KERIPY
 
 
-### Running package
+by a (Falcon)[link] application, which also provides a REST API exposing the necessary functionality for the vLEI Ecosystem using (KERI)[link], and (ACDC)[link]
+and the (KERIPY)[link] implementation.
 
-Build UI
+A slim Node.JS wrapper (./app/index.js) launches a process referred to as 'Ward' (./ward/ward/main.py) which in turn configures and launches the Bootstrap process from KERIPY.
 
-```shell
-❯ yarn install
-❯ yarn build
-```
-
-bundle the backend
-
-```shell
-❯ cd ward
-❯ pyinstaller ward.spec --clean --noconfirm --onefile
-```
-
-Run electron app
-
-```shell
-❯ yarn electron
-```
+Ward is made executable by packaging it using PyInstaller (./ward/generic.spec)

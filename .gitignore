@@ -97,6 +97,9 @@ ward/venv
 ward/keri
 ward/ui
 app/ward
+ward/src
+ward/debug.json
+ward/config.json
 build
 build-ui
 build-ui-dev

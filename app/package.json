@@ -1,6 +1,6 @@
 {
   "name": "keep",
-  "version": "1.0.0",
+  "version": "1.0.2",
   "main": "index.js",
   "license": "Apache-2.0",
   "devDependencies": {
@@ -15,14 +15,14 @@
   "dependencies": {
     "electron-log": "^4.4.6",
     "electron-squirrel-startup": "^1.0.0",
+    "json": "^11.0.0",
     "node-fetch": "^3.2.3",
     "promise-retry": "^2.0.1"
   },
   "scripts": {
     "start": "electron-forge start",
     "package": "electron-forge package",
-    "make": "electron-forge make",
-    "build": "cd .. && yarn build; cd ward && pyinstaller ward.spec --clean --noconfirm --onefile; cp -r dist/ward/ ../app/ward"
+    "make": "electron-forge make"
   },
   "config": {
     "forge": {
