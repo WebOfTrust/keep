@@ -17,7 +17,6 @@ import ManualKeyRotation from '../generic/manual-key-rotation/manual-key-rotatio
 import ViewMultiSigEventLogs from '../generic/view-multi-sig-event-logs/view-multi-sig-event-logs';
 
 // Images
-import addNewContacts from '../../src/assets/img/add-new-contacts.svg';
 import secureMessaging from '../../src/assets/img/secure-messaging.svg';
 import loanApproved from '../../src/assets/img/loan-approved.svg';
 import createYourPasscode from '../../src/assets/img/create-your-passcode.svg';

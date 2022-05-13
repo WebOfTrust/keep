@@ -10,13 +10,22 @@
   "license": "Apache-2.0",
   "scripts": {
     "package:root-gar": "NODE_ENV=root-gar parcel build src/index.html --cache-dir ward/.parcel-cache-dev --dist-dir ward/build-ui",
+    "set-tasks:root-gar": "plop tasks-index 'root-gar' --force",
+
     "package:external-gar": "NODE_ENV=external-gar parcel build src/index.html --cache-dir ward/.parcel-cache-dev --dist-dir ward/build-ui",
+    "set-tasks:external-gar": "plop tasks-index 'external-gar' --force",
+
     "package:lead-external-gar": "NODE_ENV=lead-external-gar parcel build src/index.html --cache-dir ward/.parcel-cache-dev --dist-dir ward/build-ui",
+    "set-tasks:lead-external-gar": "plop tasks-index 'lead-external-gar' --force",
+
     "package:internal-gar": "NODE_ENV=internal-gar parcel build src/index.html --cache-dir ward/.parcel-cache-dev --dist-dir ward/build-ui",
+    "set-tasks:internal-gar": "plop tasks-index 'internal-gar' --force",
+
     "package:qar": "NODE_ENV=qar parcel build src/index.html --cache-dir ward/.parcel-cache-dev --dist-dir ward/build-ui",
+    "set-tasks:qar": "plop tasks-index 'qar' --force",
+
     "package:lar": "NODE_ENV=lar parcel build src/index.html --cache-dir ward/.parcel-cache-dev --dist-dir ward/build-ui",
-
-
+    "set-tasks:lar": "plop tasks-index 'lar' --force",
 
 
     "build:generic": "yarn rm-build; yarn set-tasks:generic; parcel build src/index.html --cache-dir ward/.parcel-cache --dist-dir ward/build-ui --public-url ./",

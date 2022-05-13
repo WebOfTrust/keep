@@ -12,6 +12,7 @@ else
 endif
 	yarn
 
+	yarn set-tasks:root-gar
 	yarn package:root-gar
 	python convert_env.py .env.root-gar >> ward/config.json
 
@@ -36,7 +37,9 @@ ifdef debug
 else
 	echo "false" >> ward/debug.json;
 endif
+
 	yarn
+	yarn set-tasks:external-gar
 
 ifdef lead
 	yarn package:lead-external-gar
