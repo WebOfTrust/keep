@@ -27,7 +27,6 @@
     "package:lar": "NODE_ENV=lar parcel build src/index.html --cache-dir ward/.parcel-cache-dev --dist-dir ward/build-ui",
     "set-tasks:lar": "plop tasks-index 'lar' --force",
 
-
     "build:generic": "yarn rm-build; yarn set-tasks:generic; parcel build src/index.html --cache-dir ward/.parcel-cache --dist-dir ward/build-ui --public-url ./",
     "start:generic": "parcel src/index.html --cache-dir ward/.parcel-cache-dev --dist-dir ward/build-ui",
     "build:lead-external-gar": "NODE_ENV=lead-external-gar parcel build src/index.html --cache-dir ward/.parcel-cache-dev-lead --dist-dir ward/build-ui-dev-lead",

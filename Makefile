@@ -83,7 +83,7 @@ else
 	echo "false" >> ward/debug.json;
 endif
 	yarn
-
+	yarn set-tasks:internal-gar
 	yarn package:internal-gar
 	python convert_env.py .env.internal-gar >> ward/config.json
 
@@ -94,6 +94,14 @@ endif
 	cd $(DIR)/app; \
 	cp -r $(DIR)/ward/dist/ward ./ward;
 
+run-internal-gar: clean internal-gar
+	cd $(DIR)/app; \
+	yarn start;
+
+pkg-internal-gar: clean internal-gar
+	cd $(DIR)/app; \
+	yarn;
+
 qar: clean
 ifdef debug
 	echo "true" >> ward/debug.json;
@@ -101,7 +109,7 @@ else
 	echo "false" >> ward/debug.json;
 endif
 	yarn
-
+	yarn set-tasks:qar
 	yarn package:qar
 	python convert_env.py .env.qar >> ward/config.json
 
@@ -112,6 +120,14 @@ endif
 	cd $(DIR)/app; \
 	cp -r $(DIR)/ward/dist/ward ./ward;
 
+run-qar: clean qar
+	cd $(DIR)/app; \
+	yarn start;
+
+pkg-qar: clean qar
+	cd $(DIR)/app; \
+	yarn;
+
 lar: clean
 ifdef debug
 	echo "true" >> ward/debug.json;
@@ -119,7 +135,7 @@ else
 	echo "false" >> ward/debug.json;
 endif
 	yarn
-
+	yarn set-tasks:lar
 	yarn package:lar
 	python convert_env.py .env.lar >> ward/config.json
 
@@ -129,6 +145,14 @@ endif
 
 	cd $(DIR)/app; \
 	cp -r $(DIR)/ward/dist/ward ./ward;
+
+run-lar: clean lar
+	cd $(DIR)/app; \
+	yarn start;
+
+pkg-lar: clean lar
+	cd $(DIR)/app; \
+	yarn;
 
 tail-external:
 	tail -f /Applications/keep-external.app/Contents/Resources/app/keep.log

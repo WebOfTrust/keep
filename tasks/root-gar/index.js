@@ -97,60 +97,7 @@ const tasks = {
     },
   ],
   'join-multisig': [joinMultisigTask],
-  'intro-to-role': [
-    {
-      imgSrc: createIdentifier,
-      label: 'Intro to Your Role',
-      component: {
-        view: (vnode) => {
-          return (
-            <IntroToYourRole
-              main={RootGarVariables.introToYourRole.main}
-              steps={RootGarVariables.introToYourRole.steps}
-              end={vnode.attrs.end}
-            />
-          );
-        },
-      },
-    },
-  ],
   'main': [
-    {
-      imgSrc: loanApproved,
-      label: 'Initiate Credential Issuance',
-      component: {
-        view: (vnode) => {
-          return <CredentialIssuance end={vnode.attrs.end} />;
-        },
-      },
-    },
-    {
-      imgSrc: loanApproved,
-      label: 'Join Credential Issuance',
-      component: {
-        view: (vnode) => {
-          return <CredentialIssuance end={vnode.attrs.end} />;
-        },
-      },
-    },
-    {
-      imgSrc: declineRequest,
-      label: 'Initiate Credential Revocation',
-      component: {
-        view: (vnode) => {
-          return <CredentialRevocation end={vnode.attrs.end} />;
-        },
-      },
-    },
-    {
-      imgSrc: declineRequest,
-      label: 'Join Credential Revocation',
-      component: {
-        view: (vnode) => {
-          return <CredentialRevocation end={vnode.attrs.end} />;
-        },
-      },
-    },
     {
       imgSrc: verifyCredentials,
       label: 'Initiate Manual Key Rotation',

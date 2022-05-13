@@ -36,9 +36,7 @@ class ConfigureMultiSigSet {
             console.log(escrows);
             if (escrows['partially-signed-events'].length > 0) {
               let icp = escrows['partially-signed-events'][0];
-              console.log('icp', icp);
               let sigs = icp['signatures'];
-              console.log('sigs', sigs);
               sigs.every((sig) => {
                 let idx = sig.index;
                 console.log(idx);

@@ -17,6 +17,7 @@ import ManualKeyRotation from '../generic/manual-key-rotation/manual-key-rotatio
 import ViewMultiSigEventLogs from '../generic/view-multi-sig-event-logs/view-multi-sig-event-logs';
 
 // Images
+import addNewContacts from '../../src/assets/img/add-new-contacts.svg';
 import secureMessaging from '../../src/assets/img/secure-messaging.svg';
 import loanApproved from '../../src/assets/img/loan-approved.svg';
 import createYourPasscode from '../../src/assets/img/create-your-passcode.svg';
@@ -126,8 +127,26 @@ const tasks = {
       },
     },
     {
+      imgSrc: verifyCredentials,
+      label: 'Join Manual Key Rotation',
+      component: {
+        view: (vnode) => {
+          return <ManualKeyRotation end={vnode.attrs.end} />;
+        },
+      },
+    },
+    {
       imgSrc: loanApproved,
-      label: 'Initiate ECR Credential Issuance',
+      label: 'Initiate QVI Credential Issuance',
+      component: {
+        view: (vnode) => {
+          return <CredentialIssuance end={vnode.attrs.end} />;
+        },
+      },
+    },
+    {
+      imgSrc: loanApproved,
+      label: 'Join QVI Credential Issuance',
       component: {
         view: (vnode) => {
           return <CredentialIssuance end={vnode.attrs.end} />;
@@ -136,10 +155,37 @@ const tasks = {
     },
     {
       imgSrc: declineRequest,
-      label: 'Initiate ECR Credential Revocation',
+      label: 'Initiate QVI Credential Revocation',
       component: {
         view: (vnode) => {
           return <CredentialRevocation end={vnode.attrs.end} />;
+        },
+      },
+    },
+    {
+      imgSrc: declineRequest,
+      label: 'Join QVI Credential Revocation',
+      component: {
+        view: (vnode) => {
+          return <CredentialRevocation end={vnode.attrs.end} />;
+        },
+      },
+    },
+    {
+      imgSrc: calendar,
+      label: 'Initiate Delegation Approval',
+      component: {
+        view: (vnode) => {
+          return <ViewMultiSigEventLogs end={vnode.attrs.end} />;
+        },
+      },
+    },
+    {
+      imgSrc: calendar,
+      label: 'Join Delegation Approval',
+      component: {
+        view: (vnode) => {
+          return <ViewMultiSigEventLogs end={vnode.attrs.end} />;
         },
       },
     },

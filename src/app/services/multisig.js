@@ -1,7 +1,6 @@
-
 class MultiSig {
-    static currentEvent = {}
-    static participants = []
+  static currentEvent = {};
+  static participants = [];
 }
 
-module.exports = MultiSig
+module.exports = MultiSig;
