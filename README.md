@@ -8,19 +8,19 @@ Electron based application for managing KERI identifiers.
 
 Keep bundles together several moving parts: 
 
-    * a JavaScript UI implemented in (MithrilJS)[link]
-    * a Pyinstaller wrapper around the Python implementation fo KERI called `ward` which serves the UI
-    * an electron app that wraps the previous two
+* a JavaScript UI implemented in [MithrilJS](https://mithril.js.org)
+* a Pyinstaller wrapper around the Python implementation fo KERI called `ward` which serves the UI
+* an electron app that wraps the previous two
 
 ## Builds
     
 Keep can be built for the various participants in the vLEI ecosystem:
 
-    * root-gar
-    * external-gar
-    * internal-gar
-    * qar
-    * lar
+* root-gar
+* external-gar
+* internal-gar
+* qar
+* lar
 
 ## Developing
 
