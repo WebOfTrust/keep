@@ -11,6 +11,7 @@ jobs:
       matrix:
         os: [ macos-latest, ubuntu-latest ]
         build: [root-gar, external-gar, internal-gar, qar, lar]
+        outs: [dmg, deb]
     runs-on: ${{ matrix.os }}
     steps:
       - name: Set up Python 3.10.4
@@ -33,13 +34,13 @@ jobs:
       - name: Package
         run: |
           make pkg-${{ matrix.build }}
-#      - uses: papeloto/action-zip@v1
-#        with:
-#          files: ward/dist/ward/
-#          dest: ward-${{ steps.vars.outputs.tag }}-${{matrix.os}}.zip
-#
-#      - uses: ncipollo/release-action@v1
-#        with:
-#          artifacts: "ward-${{ steps.vars.outputs.tag }}-${{matrix.os}}.zip"
-#          token: ${{ secrets.GITHUB_TOKEN }}
-#          allowUpdates: True
+
+#      - name: Set outs
+#        id: vars
+#        run: echo ::set-output name=tag::${GITHUB_REF#refs/*/}
+
+      - uses: ncipollo/release-action@v1
+        with:
+          artifacts: 'app/out/make/keep-*'${{ outs }}
+          token: ${{ secrets.GITHUB_TOKEN }}
+          allowUpdates: True
