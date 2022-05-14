@@ -6,12 +6,12 @@ on:
 jobs:
   release:
     name: Release ${{ matrix.os }}
-    runs-on: ${{ matrix.os }}
     strategy:
       fail-fast: false
       matrix:
         os: [ macos-latest, ubuntu-latest ]
         build: [root-gar, external-gar, internal-gar, qar, lar]
+    runs-on: ${{ matrix.os }}
     steps:
       - name: Set up Python 3.10.4
         uses: actions/setup-python@v2
@@ -32,7 +32,7 @@ jobs:
 
       - name: Package
         run: |
-          make pkg-${{ build }}
+          make pkg-${{ matrix.build }}
 #      - uses: papeloto/action-zip@v1
 #        with:
 #          files: ward/dist/ward/

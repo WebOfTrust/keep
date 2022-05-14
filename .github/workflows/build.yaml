@@ -27,4 +27,4 @@ jobs:
 
       - name: build
         run: |
-          make ${{ build }}
+          make ${{ matrix.build }}
