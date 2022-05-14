@@ -41,6 +41,6 @@ jobs:
 
       - uses: ncipollo/release-action@v1
         with:
-          artifacts: 'app/out/make/keep-*'${{ outs }}
+          artifacts: app/out/make/keep-*${{ outs }}
           token: ${{ secrets.GITHUB_TOKEN }}
           allowUpdates: True
