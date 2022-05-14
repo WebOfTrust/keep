@@ -1,7 +1,7 @@
 DIR = $(shell pwd)
 
 clean:
-	yarn rm-build
+	rm -rf ward/.parcel-cache ward/build-ui ward/.parcel-cache-dev ward/build-ui-dev ward/.parcel-cache-dev-lead ward/build-ui-dev-lead
 	rm -rf node_modules/ ward/.parcel-* ward/build-* ward/dist app/ward ward/debug.json ward/config.json app/ward/keri app/out app/ward app/keep.log
 
 root-gar: clean
@@ -25,6 +25,7 @@ endif
 
 run-root-gar: clean root-gar
 	cd $(DIR)/app; \
+	yarn; \
 	yarn start;
 
 pkg-root-gar: clean root-gar
