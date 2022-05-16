@@ -1,10 +1,19 @@
 # Keep
 
-Electron based application for managing KERI identifiers.
+A task orientated application for managing [AIDs](https://github.com/WebOfTrust/ietf-keri) in the [vLEI Ecosystem](https://www.gleif.org/en/lei-solutions/gleifs-digital-strategy-for-the-lei/introducing-the-verifiable-lei-vlei). 
 
-![example workflow](https://github.com/WebOfTrust/keep/actions/workflows/build.yaml/badge.svg)
+Keep can be used to: 
 
-## Architecture
+* establish and manage local AIDs
+* create, join and manage distributed Multi-Sig AIDs (with or without delegation)
+* issue and revoke credentials specified within the vLEI Ecosystem
+
+[![example workflow](https://github.com/WebOfTrust/keep/actions/workflows/build.yaml/badge.svg)](https://github.com/WebOfTrust/keep/actions?query=workflow%3ABuild)
+
+
+[![keri version](https://img.shields.io/badge/KERI-0.6.6-green.svg)](https://pypi.org/project/keri/)
+[![node version](https://img.shields.io/badge/node-17.7.1-blue.svg)](https://nodejs.org/en/download/)
+[![python version](https://img.shields.io/badge/python-3.10.4-blue.svg)](https://www.python.org/downloads/)
 
 Keep bundles together several moving parts: 
 
@@ -116,4 +125,6 @@ sys.stdout.flush()
 
 will be piped to a `app/keep.log`
 
+### Disclaimer
 
+While the current Keep software is specific to the vLEI Ecosystem, it is designed to support generic task lists to support any ecosystem using [KERI](https://github.com/WebOfTrust/ietf-keri) and [ACDC](https://github.com/trustoverip/tswg-acdc-specification).

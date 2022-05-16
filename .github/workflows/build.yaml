@@ -1,4 +1,4 @@
-name: Build External GAR
+name: Build
 
 on:
   push:
