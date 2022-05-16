@@ -127,8 +127,62 @@ const tasks = {
       },
     },
     {
+      imgSrc: verifyCredentials,
+      label: 'Join Manual Key Rotation',
+      component: {
+        view: (vnode) => {
+          return <ManualKeyRotation end={vnode.attrs.end} />;
+        },
+      },
+    },
+    {
       imgSrc: loanApproved,
-      label: 'Initiate Credential Issuance',
+      label: 'Initiate LE Credential Issuance',
+      component: {
+        view: (vnode) => {
+          return <CredentialIssuance end={vnode.attrs.end} />;
+        },
+      },
+    },
+    {
+      imgSrc: loanApproved,
+      label: 'Join LE Credential Issuance',
+      component: {
+        view: (vnode) => {
+          return <CredentialIssuance end={vnode.attrs.end} />;
+        },
+      },
+    },
+    {
+      imgSrc: loanApproved,
+      label: 'Initiate OOR Credential Issuance',
+      component: {
+        view: (vnode) => {
+          return <CredentialIssuance end={vnode.attrs.end} />;
+        },
+      },
+    },
+    {
+      imgSrc: loanApproved,
+      label: 'Join OOR Credential Issuance',
+      component: {
+        view: (vnode) => {
+          return <CredentialIssuance end={vnode.attrs.end} />;
+        },
+      },
+    },
+    {
+      imgSrc: loanApproved,
+      label: 'Initiate ECR Credential Issuance',
+      component: {
+        view: (vnode) => {
+          return <CredentialIssuance end={vnode.attrs.end} />;
+        },
+      },
+    },
+    {
+      imgSrc: loanApproved,
+      label: 'Join ECR Credential Issuance',
       component: {
         view: (vnode) => {
           return <CredentialIssuance end={vnode.attrs.end} />;
@@ -145,8 +199,26 @@ const tasks = {
       },
     },
     {
+      imgSrc: declineRequest,
+      label: 'Join Credential Revocation',
+      component: {
+        view: (vnode) => {
+          return <CredentialRevocation end={vnode.attrs.end} />;
+        },
+      },
+    },
+    {
       imgSrc: calendar,
       label: 'View Multi-Sig Event Logs',
+      component: {
+        view: (vnode) => {
+          return <ViewMultiSigEventLogs end={vnode.attrs.end} />;
+        },
+      },
+    },
+    {
+      imgSrc: calendar,
+      label: 'Accept Credential',
       component: {
         view: (vnode) => {
           return <ViewMultiSigEventLogs end={vnode.attrs.end} />;

@@ -173,24 +173,6 @@ const tasks = {
     },
     {
       imgSrc: calendar,
-      label: 'Initiate Delegation Approval',
-      component: {
-        view: (vnode) => {
-          return <ViewMultiSigEventLogs end={vnode.attrs.end} />;
-        },
-      },
-    },
-    {
-      imgSrc: calendar,
-      label: 'Join Delegation Approval',
-      component: {
-        view: (vnode) => {
-          return <ViewMultiSigEventLogs end={vnode.attrs.end} />;
-        },
-      },
-    },
-    {
-      imgSrc: calendar,
       label: 'View Multi-Sig Event Logs',
       component: {
         view: (vnode) => {

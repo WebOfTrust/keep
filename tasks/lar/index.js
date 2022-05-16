@@ -1,4 +1,3 @@
-import m from 'mithril';
 // Variables
 import LarVariables from './variables';
 
@@ -6,29 +5,50 @@ import LarVariables from './variables';
 import CreateYourPasscode from '../generic/create-your-passcode/create-your-passcode';
 import IntroToYourRole from '../generic/intro-to-your-role/intro-to-your-role';
 import Login from '../generic/login/login';
-import JoinVideoCall from '../generic/join-video-call/join-video-call';
-import InitiateVideoCall from '../generic/initiate-video-call/initiate-video-call';
-import IdentityAuthenticationIssue from '../generic/identity-authentication-issue/identity-authentication-issue';
 import IdentityAuthenticationReceive from '../generic/identity-authentication-receive/identity-authentication-receive';
 import ViewMultiSigEventLogs from '../generic/view-multi-sig-event-logs/view-multi-sig-event-logs';
 import ConfigureMultiSigSet from '../generic/configure-multi-sig-set/configure-multi-sig-set';
-
 // Tasks
+// import IntroToAVRRole from './intro-you-the-avr-role/intro-to-the-avr-role';
+// import IDAssuranceOfOOR from './identity-assurance-of-oor/identity-assurance-of-oor';
+// import CreateYourAvrAid from './create-your-avr-aid/create-your-avr-aid';
+// import QVIIdentityAssurance from './qvi-identity-assurance/qvi-identity-assurance';
+// import IssueOORvLEICredential from './issue-oor-vlei-credential/issue-oor-vlei-credential';
 import CredentialIssuance from '../generic/credential-issuance/credential-issuance';
+// import TriggerManualKeyRotation from './trigger-manual-key-rotation/trigger-manual-key-rotation';
 import ManualKeyRotation from '../generic/manual-key-rotation/manual-key-rotation';
 import CredentialRevocation from '../generic/credential-revocation/credential-revocation';
-import VerifyCredentials from '../generic/verify-credentials/verify-credentials';
-
+// import RevokeAVRvLEICredential from './revoke-avr-vlei-credential/revoke-avr-vlei-credential';
 // Images
 import addNewContacts from '../../src/assets/img/add-new-contacts.svg';
-import projectPlanning from '../../src/assets/img/project-planning.svg';
 import createIdentifier from '../../src/assets/img/create-identifier.svg';
-import uploadFile from '../../src/assets/img/upload-file.svg';
+import secureMessaging from '../../src/assets/img/secure-messaging.svg';
 import verifyCredentials from '../../src/assets/img/verify-credentials.svg';
 import declineRequest from '../../src/assets/img/decline-request.svg';
 import calendar from '../../src/assets/img/calendar.svg';
 import loanApproved from '../../src/assets/img/loan-approved.svg';
-import ExternalGarVariables from "../external-gar/variables";
+import VideoCallTask from "../generic/video-call/video-call";
+import JoinMultiSigGroup from "../generic/join-multi-sig-group/join-multi-sig-group";
+
+const multisigTask = {
+  imgSrc: secureMessaging,
+  label: 'Configure Multi-Sig Group',
+  component: {
+    view: (vnode) => {
+      return <ConfigureMultiSigSet end={vnode.attrs.end} />;
+    },
+  },
+};
+
+const joinMultisigTask = {
+  imgSrc: secureMessaging,
+  label: 'Join Multi-Sig Group',
+  component: {
+    view: (vnode) => {
+      return <JoinMultiSigGroup end={vnode.attrs.end} />;
+    },
+  },
+};
 
 const tasks = {
   'create-passcode': [
@@ -60,14 +80,13 @@ const tasks = {
           return (
               <IntroToYourRole
                   main={LarVariables.introToYourRole.main}
-                  steps={LarVariabless.introToYourRole.steps}
+                  steps={LarVariables.introToYourRole.steps}
                   end={vnode.attrs.end}
               />
           );
         },
       },
-    },
-    {
+    },    {
       imgSrc: createIdentifier,
       label: 'Understanding Single-Sig or Multi-Sig for Your Legal Entity',
       component: {
@@ -75,7 +94,7 @@ const tasks = {
           return (
               <IntroToYourRole
                   main={LarVariables.introToYourRole.main}
-                  steps={LarVariabless.introToYourRole.steps}
+                  steps={LarVariables.introToYourRole.steps}
                   end={vnode.attrs.end}
               />
           );
@@ -100,6 +119,20 @@ const tasks = {
       },
     },
   ],
+  'create-multisig': [
+    {
+      imgSrc: addNewContacts,
+      label: 'Join One Way OOBI/Challenge with Lead External GAR',
+      component: {
+        view: (vnode) => {
+          return <IdentityAuthenticationReceive end={vnode.attrs.end} />;
+        },
+      },
+    },
+    new VideoCallTask(true, 'Lead LAR Multi-Sig AID Inception', multisigTask),
+    new VideoCallTask(false, 'Join LAR Multi-Sig AID Inception'),
+  ],
+  'join-multisig': [joinMultisigTask],
   'main': [
     {
       imgSrc: verifyCredentials,

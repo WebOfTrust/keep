@@ -180,6 +180,15 @@ const tasks = {
         },
       },
     },
+    {
+      imgSrc: calendar,
+      label: 'Accept Credential',
+      component: {
+        view: (vnode) => {
+          return <ViewMultiSigEventLogs end={vnode.attrs.end} />;
+        },
+      },
+    },
   ],
 };
 
