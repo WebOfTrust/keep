@@ -1,4 +1,4 @@
-name: Build External GAR
+name: Build
 
 on:
   push:
@@ -11,6 +11,7 @@ jobs:
       fail-fast: false
       matrix:
         os: [macos-latest, ubuntu-latest]
+        build: [root-gar, external-gar, internal-gar, qar, lar]
     steps:
       - name: Set up Python 3.10.4
         uses: actions/setup-python@v2
@@ -24,6 +25,6 @@ jobs:
           node-version: '14'
           cache: 'yarn'
 
-      - name: Package
+      - name: build
         run: |
-          make external-gar
+          make ${{ matrix.build }}

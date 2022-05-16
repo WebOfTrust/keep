@@ -16,11 +16,10 @@ const ExternalGarVariables = {
       ),
       paragraph: (
         <>
-          This software is designed to help you complete verification of authorized representatives on behalf of GLEIF
-          and also as a storage place for all of your credentials.
+          This software is designed to help you complete verification of authorized representatives on behalf of GLEIF.
           <br />
           <br />
-          The first step will be to create your Delegated AID, then you will receive a short tutorial, You may skip the
+          The first step will be to create your local AID, then you will receive a short tutorial, You may skip the
           tutorial by selecting the “skip” button.
         </>
       ),
@@ -28,7 +27,7 @@ const ExternalGarVariables = {
     creatingAID: {
       title: (
         <>
-          Creating your <TextTooltip label={<u>AID</u>}>AID is your identifier for your GRAC software.</TextTooltip>
+          Creating your local <TextTooltip label={<u>AID</u>}>AID.</TextTooltip>
         </>
       ),
       paragraph: (

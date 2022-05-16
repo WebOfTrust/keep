@@ -1,6 +1,6 @@
 import m from 'mithril';
-//Variables
-import RootGARVariables from './variables';
+// Variables
+import RootGarVariables from './variables';
 
 // Tasks
 import ConfigureMultiSigSet from '../generic/configure-multi-sig-set/configure-multi-sig-set';
@@ -16,14 +16,12 @@ import ManualKeyRotation from '../generic/manual-key-rotation/manual-key-rotatio
 import ViewMultiSigEventLogs from '../generic/view-multi-sig-event-logs/view-multi-sig-event-logs';
 
 // Images
-import secureMessaging from '../../src/assets/img/secure-messaging.svg';
-import loanApproved from '../../src/assets/img/loan-approved.svg';
-import createYourPasscode from '../../src/assets/img/create-your-passcode.svg';
 import createIdentifier from '../../src/assets/img/create-identifier.svg';
-import declineRequest from '../../src/assets/img/decline-request.svg';
 import verifyCredentials from '../../src/assets/img/verify-credentials.svg';
+import declineRequest from '../../src/assets/img/decline-request.svg';
 import calendar from '../../src/assets/img/calendar.svg';
-import passcode from '../../src/assets/img/calendar.svg';
+import loanApproved from '../../src/assets/img/loan-approved.svg';
+import secureMessaging from "../../src/assets/img/secure-messaging.svg";
 
 const multisigTask = {
   imgSrc: secureMessaging,
@@ -48,7 +46,7 @@ const joinMultisigTask = {
 const tasks = {
   'create-passcode': [
     {
-      imgSrc: createYourPasscode,
+      imgSrc: createIdentifier,
       label: 'Create Your Passcode',
       component: {
         view: (vnode) => {
@@ -57,7 +55,7 @@ const tasks = {
       },
     },
     {
-      imgSrc: passcode,
+      imgSrc: createIdentifier,
       label: 'Enter Your Passcode',
       component: {
         view: (vnode) => {
@@ -69,30 +67,15 @@ const tasks = {
   'create-identifier': [
     {
       imgSrc: createIdentifier,
-      label: 'Intro to Your Role',
-      component: {
-        view: (vnode) => {
-          return (
-            <IntroToYourRole
-              main={RootGARVariables.introToYourRole.main}
-              steps={RootGARVariables.introToYourRole.steps}
-              end={vnode.attrs.end}
-            />
-          );
-        },
-      },
-    },
-    {
-      imgSrc: createIdentifier,
       label: 'Incept Local GLEIF Single-Sig AID',
       component: {
         view: (vnode) => {
           return (
             <CreateYourAID
-              welcome={RootGARVariables.createYourAid.welcome}
-              creatingAID={RootGARVariables.createYourAid.CreateYourAID}
-              stepsToCreate={RootGARVariables.createYourAid.stepsToCreate}
-              createYourAlias={RootGARVariables.createYourAid.createYourAlias}
+              welcome={RootGarVariables.createYourAid.welcome}
+              creatingAID={RootGarVariables.createYourAid.CreateYourAID}
+              stepsToCreate={RootGarVariables.createYourAid.stepsToCreate}
+              createYourAlias={RootGarVariables.createYourAid.createYourAlias}
               end={vnode.attrs.end}
             />
           );
@@ -103,6 +86,15 @@ const tasks = {
   'create-multisig': [
     new VideoCallTask(true, 'Lead GLEIF External Multi-Sig AID Inception', multisigTask),
     new VideoCallTask(false, 'Join GLEIF External Multi-Sig AID Inception'),
+    {
+      imgSrc: verifyCredentials,
+      label: 'Perform Manual Key Rotation',
+      component: {
+        view: (vnode) => {
+          return <ManualKeyRotation end={vnode.attrs.end} />;
+        },
+      },
+    },
   ],
   'join-multisig': [joinMultisigTask],
   'main': [
@@ -116,26 +108,35 @@ const tasks = {
       },
     },
     {
-      imgSrc: loanApproved,
-      label: 'Initiate Credential Issuance',
+      imgSrc: verifyCredentials,
+      label: 'Join Manual Key Rotation',
       component: {
         view: (vnode) => {
-          return <CredentialIssuance end={vnode.attrs.end} />;
-        },
-      },
-    },
-    {
-      imgSrc: declineRequest,
-      label: 'Initiate Credential Revocation',
-      component: {
-        view: (vnode) => {
-          return <CredentialRevocation end={vnode.attrs.end} />;
+          return <ManualKeyRotation end={vnode.attrs.end} />;
         },
       },
     },
     {
       imgSrc: calendar,
       label: 'View Multi-Sig Event Logs',
+      component: {
+        view: (vnode) => {
+          return <ViewMultiSigEventLogs end={vnode.attrs.end} />;
+        },
+      },
+    },
+    {
+      imgSrc: calendar,
+      label: 'Initiate Delegation Approval',
+      component: {
+        view: (vnode) => {
+          return <ViewMultiSigEventLogs end={vnode.attrs.end} />;
+        },
+      },
+    },
+    {
+      imgSrc: calendar,
+      label: 'Join Delegation Approval',
       component: {
         view: (vnode) => {
           return <ViewMultiSigEventLogs end={vnode.attrs.end} />;

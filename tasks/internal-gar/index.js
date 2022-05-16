@@ -127,8 +127,26 @@ const tasks = {
       },
     },
     {
+      imgSrc: verifyCredentials,
+      label: 'Join Manual Key Rotation',
+      component: {
+        view: (vnode) => {
+          return <ManualKeyRotation end={vnode.attrs.end} />;
+        },
+      },
+    },
+    {
       imgSrc: loanApproved,
-      label: 'Initiate Credential Issuance',
+      label: 'Initiate ECR Credential Issuance',
+      component: {
+        view: (vnode) => {
+          return <CredentialIssuance end={vnode.attrs.end} />;
+        },
+      },
+    },
+    {
+      imgSrc: loanApproved,
+      label: 'Join ECR Credential Issuance',
       component: {
         view: (vnode) => {
           return <CredentialIssuance end={vnode.attrs.end} />;
@@ -137,7 +155,16 @@ const tasks = {
     },
     {
       imgSrc: declineRequest,
-      label: 'Initiate Credential Revocation',
+      label: 'Initiate ECR Credential Revocation',
+      component: {
+        view: (vnode) => {
+          return <CredentialRevocation end={vnode.attrs.end} />;
+        },
+      },
+    },
+    {
+      imgSrc: declineRequest,
+      label: 'Join ECR Credential Revocation',
       component: {
         view: (vnode) => {
           return <CredentialRevocation end={vnode.attrs.end} />;

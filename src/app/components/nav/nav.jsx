@@ -51,16 +51,6 @@ class Nav {
   }
 
   multisigInitClick(notification) {
-    // KERI.participateGroupInception("GLEIF External", {
-    //   aids: notification.data.aids,
-    //   isith: notification.data.ked.kt,
-    //   nsith: notification.data.ked.nt,
-    //   toad: Number(notification.data.ked.bt),
-    //   wits: notification.data.ked.b,
-    // }).then(() => {
-    //   console.log('inception complete');
-    //   this.currentState = 'event-complete';
-    // });
     Tasks.active = Tasks.find('join-multisig');
   }
 

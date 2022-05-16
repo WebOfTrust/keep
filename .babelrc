@@ -11,6 +11,17 @@
         ]
       ]
     },
+    "root-gar": {
+      "plugins": [
+        [
+          "@babel/plugin-transform-react-jsx",
+          {
+            "pragma": "m",
+            "pragmaFrag": "'['"
+          }
+        ]
+      ]
+    },
     "external-gar": {
       "plugins": [
         [
@@ -23,6 +34,39 @@
       ]
     },
     "lead-external-gar": {
+      "plugins": [
+        [
+          "@babel/plugin-transform-react-jsx",
+          {
+            "pragma": "m",
+            "pragmaFrag": "'['"
+          }
+        ]
+      ]
+    },
+    "internal-gar": {
+      "plugins": [
+        [
+          "@babel/plugin-transform-react-jsx",
+          {
+            "pragma": "m",
+            "pragmaFrag": "'['"
+          }
+        ]
+      ]
+    },
+    "qar": {
+      "plugins": [
+        [
+          "@babel/plugin-transform-react-jsx",
+          {
+            "pragma": "m",
+            "pragmaFrag": "'['"
+          }
+        ]
+      ]
+    },
+    "lar": {
       "plugins": [
         [
           "@babel/plugin-transform-react-jsx",
