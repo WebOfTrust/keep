@@ -22,6 +22,17 @@
         ]
       ]
     },
+    "lead-root-gar": {
+      "plugins": [
+        [
+          "@babel/plugin-transform-react-jsx",
+          {
+            "pragma": "m",
+            "pragmaFrag": "'['"
+          }
+        ]
+      ]
+    },
     "external-gar": {
       "plugins": [
         [

@@ -10,13 +10,12 @@
   "license": "Apache-2.0",
   "scripts": {
     "package:root-gar": "NODE_ENV=root-gar parcel build src/index.html --cache-dir ward/.parcel-cache-dev --dist-dir ward/build-ui",
+    "package:lead-root-gar": "NODE_ENV=lead-root-gar parcel build src/index.html --cache-dir ward/.parcel-cache-dev --dist-dir ward/build-ui",
     "set-tasks:root-gar": "plop tasks-index 'root-gar' --force",
 
     "package:external-gar": "NODE_ENV=external-gar parcel build src/index.html --cache-dir ward/.parcel-cache-dev --dist-dir ward/build-ui",
-    "set-tasks:external-gar": "plop tasks-index 'external-gar' --force",
-
     "package:lead-external-gar": "NODE_ENV=lead-external-gar parcel build src/index.html --cache-dir ward/.parcel-cache-dev --dist-dir ward/build-ui",
-    "set-tasks:lead-external-gar": "plop tasks-index 'lead-external-gar' --force",
+    "set-tasks:external-gar": "plop tasks-index 'external-gar' --force",
 
     "package:internal-gar": "NODE_ENV=internal-gar parcel build src/index.html --cache-dir ward/.parcel-cache-dev --dist-dir ward/build-ui",
     "set-tasks:internal-gar": "plop tasks-index 'internal-gar' --force",
