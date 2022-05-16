@@ -137,6 +137,24 @@ const tasks = {
     },
     {
       imgSrc: loanApproved,
+      label: 'Initiate Delegation Approval',
+      component: {
+        view: (vnode) => {
+          return <CredentialIssuance end={vnode.attrs.end} />;
+        },
+      },
+    },
+    {
+      imgSrc: loanApproved,
+      label: 'Join Delegation Approval',
+      component: {
+        view: (vnode) => {
+          return <CredentialIssuance end={vnode.attrs.end} />;
+        },
+      },
+    },
+    {
+      imgSrc: loanApproved,
       label: 'Initiate QVI Credential Issuance',
       component: {
         view: (vnode) => {

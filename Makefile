@@ -31,7 +31,9 @@ run-root-gar: clean root-gar
 pkg-root-gar: clean root-gar
 	cd $(DIR)/app; \
 	yarn; \
-	yarn make;
+	yarn json -I -f package.json -e 'this.name="keep-root"'; \
+	yarn make; \
+	yarn json -I -f package.json -e 'this.name="keep"';
 
 external-gar: clean
 ifdef debug
@@ -103,6 +105,7 @@ run-internal-gar: clean internal-gar
 pkg-internal-gar: clean internal-gar
 	cd $(DIR)/app; \
 	yarn; \
+	yarn json -I -f package.json -e 'this.name="keep-internal"'; \
 	yarn make; \
 	yarn json -I -f package.json -e 'this.name="keep"';
 
@@ -131,6 +134,7 @@ run-qar: clean qar
 pkg-qar: clean qar
 	cd $(DIR)/app; \
 	yarn; \
+	yarn json -I -f package.json -e 'this.name="keep-qar"'; \
 	yarn make; \
 	yarn json -I -f package.json -e 'this.name="keep"';
 
@@ -159,6 +163,7 @@ run-lar: clean lar
 pkg-lar: clean lar
 	cd $(DIR)/app; \
 	yarn; \
+	yarn json -I -f package.json -e 'this.name="keep-lar"'; \
 	yarn make; \
 	yarn json -I -f package.json -e 'this.name="keep"';
 
