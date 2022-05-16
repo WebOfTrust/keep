@@ -5,7 +5,9 @@ const {spawn} = require('child_process');
 const retry = require('promise-retry');
 const fetch = (...args) => import('node-fetch').then(({default: fetch}) => fetch(...args));
 const log = require('electron-log');
-log.transports.file.resolvePath = () => __dirname + "/keep.log";
+const path = require('path')
+
+log.transports.file.resolvePath = () => `${__dirname}${path.sep}keep.log`
 
 let ward = null;
 
@@ -19,14 +21,15 @@ const createWindow = () => {
     const win = new BrowserWindow({
         width: 1440,
         height: 1024,
-        icon: `./assets/icon.icns`
+        icon: `${__dirname}${path.sep}assets${path.sep}icon.icns`
     });
 
     // noinspection JSIgnoredPromiseFromCall
-    win.loadFile(__dirname + '/index.html');
+
+    win.loadFile(`${__dirname}${path.sep}index.html`);
 
     let config = {};
-    const configPath = __dirname + '/ward/config.json';
+    const configPath = `${__dirname}${path.sep}ward${path.sep}config.json`;
     if (fs.existsSync(configPath)) {
         config = JSON.parse(fs.readFileSync(configPath));
     }
@@ -41,7 +44,8 @@ const createWindow = () => {
     args.push("--admin", process.env.API_PORT)
 
     process.env.USER_TYPE = config["USER_TYPE"];
-    const debugPath = __dirname + '/ward/debug.json';
+
+    const debugPath = `${__dirname}${path.sep}ward${path.sep}debug.json`;
     if (fs.existsSync(debugPath)) {
         let debug = JSON.parse(fs.readFileSync(debugPath));
         if (debug === true) {
@@ -54,7 +58,7 @@ const createWindow = () => {
 
     if (ward === null) {
 
-        ward = spawn(`${__dirname}/ward/ward`, args);
+        ward = spawn(`${__dirname}${path.sep}ward${path.sep}ward`, args);
         ward.on('error', function (err) {
             log.error('spawn error' + err);
         });
@@ -72,7 +76,7 @@ const createWindow = () => {
                     err.match(/keri.kering.ConfigurationError/))
             ) {
                 // noinspection JSIgnoredPromiseFromCall
-                win.loadFile('./oops.html');
+                win.loadFile(`${__dirname}${path.sep}oops.html`);
                 ward.kill();
             }
             log.error('err:', err);

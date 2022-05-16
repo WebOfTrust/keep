@@ -34,12 +34,13 @@ Keep can be built for the various participants in the vLEI ecosystem:
 ## Developing
 
 Development builds can be run in two ways, packaged or unpackaged. Unpakcaged requires running your own KERIPy agent.
+Using the make commands `debug=true` will enable the dev tools console and specific to external-gar builds `lead=true` will provide the same functionality as the split yarn tasks.
 
 #### Unpackaged
 
 ```
 yarn start:lead-external-gar
-yarn start:-external-gar
+yarn start:external-gar
 ```
 
 #### Packaged    
