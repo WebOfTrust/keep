@@ -28,13 +28,13 @@ const InternalGarVariables = {
     creatingAID: {
       title: (
         <>
-          Creating your <TextTooltip label={<u>AID</u>}>AID is your identifier for your GRAC software.</TextTooltip>
+          Creating your <TextTooltip label={<u>AID</u>}>AID is your identifier for your QVI software.</TextTooltip>
         </>
       ),
       paragraph: (
         <>
           In order to provide authorization, you will first have to create your own GLEIF Delegated AID within the
-          software and GLEIF will verify you as an authorized representative (GAR) to act on their behalf.
+          software and GLEIF will verify you as an authorized party to act on their behalf.
         </>
       ),
     },

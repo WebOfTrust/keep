@@ -1,5 +1,5 @@
 import m from 'mithril';
-import {TextTooltip} from '../../src/app/components';
+import { TextTooltip } from '../../src/app/components';
 import addNewContacts from '../../src/assets/img/add-new-contacts.svg';
 import verifyCredentials from '../../src/assets/img/verify-credentials.svg';
 
@@ -8,16 +8,17 @@ const RootGarVariables = {
     welcome: {
       title: (
         <>
-          Welcome to your Root <TextTooltip label={<u>GAR</u>}>GLEIF Authorized Representative</TextTooltip>{' '}
-            Software
+          Welcome to your Root <TextTooltip label={<u>Root GAR</u>}>GLEIF Authorized Representative</TextTooltip>{' '}
+          Software
         </>
       ),
       paragraph: (
         <>
-          This software is designed to help you establish the GLEIF root of trust.
+          This software is designed to help you complete verification of authorized representatives on behalf of GLEIF
+          and also as a storage place for all of your credentials.
           <br />
           <br />
-          The first step will be to create your local AID, then you will receive a short tutorial, You may skip the
+          The first step will be to create your Delegated AID, then you will receive a short tutorial, You may skip the
           tutorial by selecting the “skip” button.
         </>
       ),
@@ -49,7 +50,15 @@ const RootGarVariables = {
   },
   introToYourRole: {
     main: {
-      title: 'Intro to the GRAC Role',
+      title: (
+        <>
+          Intro to the{' '}
+          <TextTooltip label={<u>Root Gar</u>}>
+            Root GAR is an acronym for Root GLEIF Authorized Representative
+          </TextTooltip>{' '}
+          Role
+        </>
+      ),
       paragraph: (
         <>
           You have now created your GLEIF Delegated AID! While you are waiting for your GLEIF credentials, here is a
