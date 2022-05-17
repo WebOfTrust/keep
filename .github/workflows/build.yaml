@@ -28,7 +28,7 @@ jobs:
 
       - name: build
         run: |
-          make ${{lead}} pkg-${{ matrix.build }}
+          make ${{ matrix.lead }} pkg-${{ matrix.build }}
 
       - uses: actions/upload-artifact@v3
         with:
