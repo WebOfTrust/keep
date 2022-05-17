@@ -28,7 +28,8 @@ const InternalGarVariables = {
     creatingAID: {
       title: (
         <>
-          Creating your <TextTooltip label={<u>AID</u>}>AID is your identifier for your QVI software.</TextTooltip>
+          Creating your{' '}
+          <TextTooltip label={<u>AID</u>}>AID is your identifier for your Internal GAR software.</TextTooltip>
         </>
       ),
       paragraph: (
