@@ -26,7 +26,7 @@ const RootGarVariables = {
     creatingAID: {
       title: (
         <>
-          Creating your <TextTooltip label={<u>AID</u>}>AID is your identifier for your GRAC software.</TextTooltip>
+          Creating Your <TextTooltip label={<u>AID</u>}>AID is your identifier for your Root Gar software.</TextTooltip>
         </>
       ),
       paragraph: (
