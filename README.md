@@ -51,8 +51,8 @@ Each build can be packaged with:
 make root-gar    
 make external-gar    
 make internal-gar    
-make qar-gar    
-make lar-gar    
+make qar    
+make lar    
 ```
 
 Running an instance of each can be done with:
@@ -61,8 +61,8 @@ Running an instance of each can be done with:
 make run-root-gar    
 make run-external-gar    
 make run-internal-gar    
-make run-qar-gar    
-make run-lar-gar    
+make run-qar
+make run-lar    
 ```
 
 To create a packaged version for current OS, (dmg or deb (maybe windows if your dare try)) can be done with:
@@ -71,8 +71,8 @@ To create a packaged version for current OS, (dmg or deb (maybe windows if your 
 make pkg-root-gar    
 make pkg-external-gar    
 make pkg-internal-gar    
-make pkg-qar-gar    
-make pkg-lar-gar    
+make pkg-qar    
+make pkg-lar    
 ```
 
 Outputs are in `keep/app/out/make` and can be run directly.
