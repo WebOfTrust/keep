@@ -31,6 +31,7 @@ jobs:
           make ${{ matrix.lead }} pkg-${{ matrix.build }}
 
       - uses: actions/upload-artifact@v3
+        if: github.ref == 'refs/heads/main'
         with:
-          name: Keep ${{ matrix.build}} ${{matrix.os}}
+          name: keep-${{matrix.lead}}-${{ matrix.build}}-${{matrix.os}}
           path: app/out/keep*
