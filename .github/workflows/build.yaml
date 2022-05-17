@@ -12,6 +12,7 @@ jobs:
       matrix:
         os: [macos-latest, ubuntu-latest]
         build: [root-gar, external-gar, internal-gar, qar, lar]
+        lead: [lead=true, lead=false]
     steps:
       - name: Set up Python 3.10.4
         uses: actions/setup-python@v2
@@ -27,4 +28,9 @@ jobs:
 
       - name: build
         run: |
-          make ${{ matrix.build }}
+          make ${{lead}} pkg-${{ matrix.build }}
+
+      - uses: actions/upload-artifact@v3
+        with:
+          name: Keep ${{ matrix.build}} ${{matrix.os}}
+          path: app/out/keep*
