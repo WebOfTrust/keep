@@ -11,15 +11,17 @@ else
 	echo "false" >> ward/debug.json;
 endif
 	yarn
-
 	yarn set-tasks:root-gar
+ifdef lead
+	yarn package:lead-root-gar
+	python convert_env.py .env.lead-root-gar >> ward/config.json
+else
 	yarn package:root-gar
 	python convert_env.py .env.root-gar >> ward/config.json
-
+endif
 	cd $(DIR)/ward; \
 	pip install -r requirements.txt; \
 	pyinstaller generic.spec --clean --noconfirm;
-
 	cd $(DIR)/app; \
 	cp -r $(DIR)/ward/dist/ward ./ward;
 
@@ -30,8 +32,15 @@ run-root-gar: clean root-gar
 
 pkg-root-gar: clean root-gar
 	cd $(DIR)/app; \
-	yarn; \
-	yarn json -I -f package.json -e 'this.name="keep-root"'; \
+	yarn;
+ifdef lead
+	cd $(DIR)/app; \
+	yarn json -I -f package.json -e 'this.name="keep-lead-root"';
+else
+	cd $(DIR)/app; \
+	yarn json -I -f package.json -e 'this.name="keep-root"';
+endif
+	cd $(DIR)/app; \
 	yarn make; \
 	yarn json -I -f package.json -e 'this.name="keep"';
 
@@ -41,23 +50,18 @@ ifdef debug
 else
 	echo "false" >> ward/debug.json;
 endif
-
 	yarn
 	yarn set-tasks:external-gar
-
 ifdef lead
 	yarn package:lead-external-gar
 	python convert_env.py .env.lead-external-gar >> ward/config.json
 else
 	yarn package:external-gar
 	python convert_env.py .env.external-gar >> ward/config.json
-
 endif
-
 	cd $(DIR)/ward; \
 	pip install -r requirements.txt --no-cache-dir; \
 	pyinstaller generic.spec --clean --noconfirm;
-
 	cd $(DIR)/app; \
 	cp -r $(DIR)/ward/dist/ward ./ward;
 
@@ -68,7 +72,6 @@ run-external-gar: clean external-gar
 pkg-external-gar: clean external-gar
 	cd $(DIR)/app; \
 	yarn;
-
 ifdef lead
 	cd $(DIR)/app; \
 	yarn json -I -f package.json -e 'this.name="keep-lead-external"';
@@ -88,13 +91,16 @@ else
 endif
 	yarn
 	yarn set-tasks:internal-gar
+ifdef lead
+	yarn package:lead-internal-gar
+	python convert_env.py .env.lead-internal-gar >> ward/config.json
+else
 	yarn package:internal-gar
 	python convert_env.py .env.internal-gar >> ward/config.json
-
+endif
 	cd $(DIR)/ward; \
 	pip install -r requirements.txt; \
 	pyinstaller generic.spec --clean --noconfirm;
-
 	cd $(DIR)/app; \
 	cp -r $(DIR)/ward/dist/ward ./ward;
 
@@ -104,8 +110,15 @@ run-internal-gar: clean internal-gar
 
 pkg-internal-gar: clean internal-gar
 	cd $(DIR)/app; \
-	yarn; \
-	yarn json -I -f package.json -e 'this.name="keep-internal"'; \
+	yarn;
+ifdef lead
+	cd $(DIR)/app; \
+	yarn json -I -f package.json -e 'this.name="keep-lead-internal"';
+else
+	cd $(DIR)/app; \
+	yarn json -I -f package.json -e 'this.name="keep-internal"';
+endif
+	cd $(DIR)/app; \
 	yarn make; \
 	yarn json -I -f package.json -e 'this.name="keep"';
 
@@ -117,13 +130,16 @@ else
 endif
 	yarn
 	yarn set-tasks:qar
+ifdef lead
+	yarn package:lead-qar
+	python convert_env.py .env.lead-qar >> ward/config.json
+else
 	yarn package:qar
 	python convert_env.py .env.qar >> ward/config.json
-
+endif
 	cd $(DIR)/ward; \
 	pip install -r requirements.txt; \
 	pyinstaller generic.spec --clean --noconfirm;
-
 	cd $(DIR)/app; \
 	cp -r $(DIR)/ward/dist/ward ./ward;
 
@@ -133,8 +149,15 @@ run-qar: clean qar
 
 pkg-qar: clean qar
 	cd $(DIR)/app; \
-	yarn; \
-	yarn json -I -f package.json -e 'this.name="keep-qar"'; \
+	yarn;
+ifdef lead
+	cd $(DIR)/app; \
+	yarn json -I -f package.json -e 'this.name="keep-lead-qar"';
+else
+	cd $(DIR)/app; \
+	yarn json -I -f package.json -e 'this.name="keep-qar"';
+endif
+	cd $(DIR)/app; \
 	yarn make; \
 	yarn json -I -f package.json -e 'this.name="keep"';
 
@@ -146,13 +169,16 @@ else
 endif
 	yarn
 	yarn set-tasks:lar
+ifdef lead
+	yarn package:lead-lar
+	python convert_env.py .env.lead-lar >> ward/config.json
+else
 	yarn package:lar
 	python convert_env.py .env.lar >> ward/config.json
-
+endif
 	cd $(DIR)/ward; \
 	pip install -r requirements.txt; \
 	pyinstaller generic.spec --clean --noconfirm;
-
 	cd $(DIR)/app; \
 	cp -r $(DIR)/ward/dist/ward ./ward;
 
@@ -162,8 +188,15 @@ run-lar: clean lar
 
 pkg-lar: clean lar
 	cd $(DIR)/app; \
-	yarn; \
-	yarn json -I -f package.json -e 'this.name="keep-lar"'; \
+	yarn;
+ifdef lead
+	cd $(DIR)/app; \
+	yarn json -I -f package.json -e 'this.name="keep-lead-lar"';
+else
+	cd $(DIR)/app; \
+	yarn json -I -f package.json -e 'this.name="keep-lar"';
+endif
+	cd $(DIR)/app; \
 	yarn make; \
 	yarn json -I -f package.json -e 'this.name="keep"';
 
