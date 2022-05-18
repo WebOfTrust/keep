@@ -1,18 +1,58 @@
-import m from 'mithril';
+import m, { vnode } from 'mithril';
 import moment from 'moment';
 import { Button, Select, TextField } from '../../../src/app/components';
-import { KERI } from '../../../src/app/services';
+import { Contacts, KERI, Profile } from '../../../src/app/services';
 import approveRequest from '../../../src/assets/img/approve-request.svg';
+import loanApproved from '../../../src/assets/img/loan-approved.svg';
 import githubLogo from '../../../src/assets/img/github-logo.svg';
+
+class CredentialIssuanceTask {
+  constructor(config) {
+    this._label = config.label;
+    this._component = {
+      view: (vnode) => {
+        return <CredentialIssuance end={vnode.attrs.end} parent={this} />;
+      },
+    };
+    this.currentState = 'issue-credential';
+  }
+
+  get imgSrc() {
+    return loanApproved;
+  }
+
+  get label() {
+    return this._label;
+  }
+
+  get component() {
+    return this._component;
+  }
+}
 
 class CredentialIssuance {
   constructor() {
-    this.currentState = 'issue-credential';
     this.contacts = [];
     this.credentials = [
       {
-        label: 'QAR for QVI Corp.',
-        value: 'qarforqvicorp',
+        label: 'GLEIF vLEI Credential',
+        value: 'ExBYRwKdVGTWFq1M3IrewjKRhKusW9p9fdsdD0aSTWQI',
+      },
+      {
+        label: 'Legal Entity Engagement Context Role vLEI Credential',
+        value: 'EZKqORTA9nWpoC0fnJZE69uXLrJ1KhIphqqLynAh8Tbw',
+      },
+      {
+        label: 'Legal Entity Official Organizational Role vLEI Credential',
+        value: 'EfUao55W5P2JhyyGK7w_qAaXjq_Zy6a-v1zq3fjTpeJU',
+      },
+      {
+        label: 'Legal Entity vLEI Credential',
+        value: 'EN8i2i5ye0-xGS95pm5cg1j0GmFkarJe0zzsSrrf4XJY',
+      },
+      {
+        label: 'Qualified vLEI Issuer Credential',
+        value: 'EWCeT9zTxaZkaC_3-amV2JtG6oUxNA36sCC0P5MI7Buw',
       },
     ];
     this.contact = null;
@@ -31,21 +71,49 @@ class CredentialIssuance {
   }
 
   get contactsSelect() {
-    return this.contacts.map((contact) => {
-      return {
-        label: contact.alias,
-        value: contact.id,
-      };
+    return [
+      {
+        label: '',
+        value: null,
+      },
+      ...this.contacts.map((contact) => {
+        return {
+          label: contact.alias,
+          value: contact.id,
+        };
+      }),
+    ];
+  }
+
+  issueCredential(vnode) {
+    KERI.issueCredential(Profile.getDefaultAID().name, {
+      credentialData: null,
+      recipient: Contacts.filterByAlias(this.contact)[0].id,
+      registry: null,
+      schema: this.credential,
+      source: null,
+    }).then(() => {
+      vnode.attrs.parent.currentState = 'credential-issued';
     });
   }
 
   view(vnode) {
     return (
       <>
-        {this.currentState === 'issue-credential' && (
+        {vnode.attrs.parent.currentState === 'issue-credential' && (
           <>
             <h3>Issue Credential</h3>
             <p class="p-tag">Contact</p>
+            {/* <Select
+              outlined
+              fluid
+              style={{ marginBottom: '2rem' }}
+              options={this.contactsSelect}
+              value={this.contact}
+              onchange={(e) => {
+                this.contact = e;
+              }}
+            /> */}
             <TextField
               outlined
               fluid
@@ -84,13 +152,13 @@ class CredentialIssuance {
                 raised
                 label="Preview"
                 onclick={() => {
-                  this.currentState = 'review-credential';
+                  vnode.attrs.parent.currentState = 'review-credential';
                 }}
               />
             </div>
           </>
         )}
-        {this.currentState === 'review-credential' && (
+        {vnode.attrs.parent.currentState === 'review-credential' && (
           <>
             <h3 style={{ marginBottom: '2rem' }}>Review Credential</h3>
             <p class="p-tag" style={{ fontSize: '20px' }}>
@@ -101,7 +169,7 @@ class CredentialIssuance {
                 <img src={githubLogo} style={{ width: '100px', height: '100px' }} />
               </div>
               <div>
-                <h3 style={{ fontSize: '20px', margin: '.5rem 0' }}>Bob Smith</h3>
+                <h3 style={{ fontSize: '20px', margin: '.5rem 0' }}>{this.contact}</h3>
                 {/* <p class="p-tag" style={{ margin: '.5rem 0' }}>
                   QAR for VeriTech
                 </p> */}
@@ -126,7 +194,7 @@ class CredentialIssuance {
                     </b>{' '}
                     granting QAR credentials to{' '}
                     <b>
-                      <u>Bob Smith</u>
+                      <u>{this.contact}</u>
                     </b>{' '}
                     on 11/2/20
                   </p>
@@ -143,7 +211,7 @@ class CredentialIssuance {
                 />
                 <p class="p-tag">
                   <b>
-                    <u>QVI credential to be issued on {this.currentDate}</u>
+                    <u>GLEIF vLEI Credential to be issued on {this.currentDate}</u>
                   </b>
                 </p>
               </div>
@@ -154,7 +222,7 @@ class CredentialIssuance {
                 raised
                 label="Go Back"
                 onclick={() => {
-                  this.currentState = 'issue-credential';
+                  vnode.attrs.parent.currentState = 'issue-credential';
                 }}
               />
               <Button
@@ -162,13 +230,13 @@ class CredentialIssuance {
                 raised
                 label="Submit"
                 onclick={() => {
-                  this.currentState = 'credential-issued';
+                  this.issueCredential(vnode);
                 }}
               />
             </div>
           </>
         )}
-        {this.currentState === 'credential-issued' && (
+        {vnode.attrs.parent.currentState === 'credential-issued' && (
           <>
             <img src={approveRequest} style={{ width: '230px', margin: '1.5rem 0 2rem 0' }} />
             <h3>Credential Issued</h3>
@@ -191,4 +259,4 @@ class CredentialIssuance {
   }
 }
 
-module.exports = CredentialIssuance;
+module.exports = CredentialIssuanceTask;

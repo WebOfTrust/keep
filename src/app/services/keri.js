@@ -178,6 +178,22 @@ class KERI {
       },
     });
   }
+
+  // ISSUE
+
+  static issueCredential(alias, { credentialData, recipient, registry, schema, source }) {
+    return m.request({
+      method: 'POST',
+      url: `${this.keriURL}/credentials/${alias}`,
+      body: {
+        credentialData,
+        recipient,
+        registry,
+        schema,
+        source,
+      },
+    });
+  }
 }
 
 module.exports = KERI;
