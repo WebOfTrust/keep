@@ -36,6 +36,15 @@ class KERI {
     });
   }
 
+  // LOCK
+
+  static lockAgent() {
+    return m.request({
+      method: 'GET',
+      url: `${this.keriURL}/lock`,
+    });
+  }
+
   // IDENTIFIERS
 
   static createIdentifier(alias, witnesses) {
