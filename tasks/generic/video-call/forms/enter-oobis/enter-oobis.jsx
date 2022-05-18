@@ -1,6 +1,6 @@
 import m from 'mithril';
-import { Button, Card, IconButton, TextField } from '../../src/app/components';
-import { KERI, Participants } from '../../src/app/services';
+import { Button, Card, IconButton, TextField } from '../../../../../src/app/components';
+import { KERI, Participants } from '../../../../../src/app/services';
 
 /*
  * EnterOOBIsForm
@@ -77,8 +77,8 @@ class EnterOOBIsForm {
         <div style={{ maxHeight: '512px', overflowY: 'auto', margin: '0 0 1rem 0', paddingRight: '1rem' }}>
           <div class="flex flex-justify-between" style={{ alignItems: 'baseline' }}>
             <p class="p-tag" style={{ margin: '2rem 0 2rem 0' }}>
-              While on the Video Call make sure to obtain each participant's <b>URL</b> and give them an Alias that
-              makes sense to you:
+              While on the Video Call make sure to obtain {vnode.attrs.oneToOne ? `the ` : `each`} participant's{' '}
+              <b>URL</b> and give them an Alias that makes sense to you:
             </p>
           </div>
           {Participants.oobis.map((oobi) => {
@@ -125,16 +125,18 @@ class EnterOOBIsForm {
             );
           })}
         </div>
-        <div class="flex flex-justify-between">
-          <Button
-            raised
-            class="button--no-transform button--gray"
-            label="Add Another"
-            iconLeading="add"
-            onclick={() => {
-              Participants.addOOBI('', '');
-            }}
-          />
+        <div class={`flex ${vnode.attrs.oneToOne ? ' flex-justify-end' : ' flex-justify-between'}`}>
+          {!vnode.attrs.oneToOne && (
+            <Button
+              raised
+              class="button--no-transform button--gray"
+              label="Add Another"
+              iconLeading="add"
+              onclick={() => {
+                Participants.addOOBI('', '');
+              }}
+            />
+          )}
           <Button
             raised
             class="button--no-transform"

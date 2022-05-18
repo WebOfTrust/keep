@@ -1,6 +1,6 @@
 import m from 'mithril';
-import { Button, Card, Checkbox, TextField } from '../../src/app/components';
-import { KERI, Participants } from '../../src/app/services';
+import { Button, Card, Checkbox, TextField } from '../../../../../src/app/components';
+import { KERI, Participants } from '../../../../../src/app/services';
 
 /*
  * EnterChallengesForm
@@ -66,7 +66,10 @@ class EnterChallengesForm {
                   ) : (
                     <div class="flex flex-align-center flex-justify-between" style={{ marginTop: '1.5rem' }}>
                       <div class="flex flex-align-left flex-justify-between">
-                        <label class="font-color--battleship" style={{ marginTop: '1rem', fontWeight: 'bold', textDecoration: 'underline' }}>
+                        <label
+                          class="font-color--battleship"
+                          style={{ marginTop: '1rem', fontWeight: 'bold', textDecoration: 'underline' }}
+                        >
                           Confirmed?
                         </label>
                         <Checkbox
@@ -77,18 +80,18 @@ class EnterChallengesForm {
                         />
                       </div>
                       <Button
-                          class="button--no-transform"
-                          raised
-                          label="Resend"
-                          onclick={() => {
-                            this.signChallengePromise(signer)
-                                .then(() => {
-                                  signer.sent = true;
-                                })
-                                .catch((err) => {
-                                  console.log('signChallengePromise', err);
-                                });
-                          }}
+                        class="button--no-transform"
+                        raised
+                        label="Resend"
+                        onclick={() => {
+                          this.signChallengePromise(signer)
+                            .then(() => {
+                              signer.sent = true;
+                            })
+                            .catch((err) => {
+                              console.log('signChallengePromise', err);
+                            });
+                        }}
                       />
                     </div>
                   )}

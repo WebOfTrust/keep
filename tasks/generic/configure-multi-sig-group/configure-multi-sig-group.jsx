@@ -15,6 +15,7 @@ class ConfigureMultiSigGroupTask {
       },
     };
     this.currentState = 'configure-multi-sig-index';
+    this.requireDelegator = config.requireDelegator;
   }
 
   get imgSrc() {
@@ -47,6 +48,7 @@ class ConfigureMultiSigGroup {
     ];
     this.default = Profile.getDefaultAID();
     this.weight = '1/2';
+    this.delegator = null;
     Contacts.requestList();
   }
 
@@ -55,16 +57,13 @@ class ConfigureMultiSigGroup {
       setTimeout(function waitForSignatures() {
         KERI.getEscrowsForIdentifier(MultiSig.currentEvent['i'])
           .then((escrows) => {
-            console.log(escrows);
             if (escrows['partially-signed-events'].length > 0) {
               let icp = escrows['partially-signed-events'][0];
               let sigs = icp['signatures'];
               sigs.every((sig) => {
                 let idx = sig.index;
-                console.log(idx);
                 MultiSig.participants[idx].signed = true;
               });
-              console.log('setting status to participants');
               this.status = 'Waiting for participant signatures...';
               m.redraw();
             } else if (escrows['partially-witnessed-events'].length > 0) {
@@ -122,7 +121,9 @@ class ConfigureMultiSigGroup {
       inceptData.isith = sith;
       inceptData.nsith = sith;
     }
-
+    if (this.delegator) {
+      inceptData.delpre = this.delegator.id;
+    }
     MultiSig.participants.splice(0, 0, {
       id: this.default.prefix,
       alias: this.default.name,
@@ -382,23 +383,35 @@ class ConfigureMultiSigGroup {
                   }).length < 1
                 }
                 onclick={() => {
-                  vnode.attrs.parent.currentState = 'review-and-confirm';
+                  if (vnode.attrs.parent.requireDelegator) {
+                    vnode.attrs.parent.currentState = 'select-delegator';
+                  } else {
+                    vnode.attrs.parent.currentState = 'review-and-confirm';
+                  }
                 }}
               />
             </div>
           </>
         )}
-        {/* {vnode.attrs.parent.currentState === 'select-delegator' && (
+        {vnode.attrs.parent.currentState === 'select-delegator' && (
           <>
             <img src={secureMessaging} style={{ width: '268px' }} />
             <h3>Select a Delegator</h3>
-            <p class="p-tag">
-              Provide the AID and create an alias for the delegator that will be delegating the accesses.
-            </p>
-            <p class="p-tag-bold">Delegator AID</p>
-            <TextField outlined style={{ marginRight: '2rem' }} placeholder="delegator aid" />
-            <p class="p-tag-bold">Delegator Alias</p>
-            <TextField outlined style={{ marginRight: '2rem' }} placeholder="delegator alias" />
+            <p class="p-tag">Select a delegator that will be delegating the accesses.</p>
+            <p class="p-tag-bold">Delegator</p>
+            <Select
+              outlined
+              options={Contacts.list.map((contact) => {
+                return {
+                  label: contact.alias,
+                  value: contact.id,
+                };
+              })}
+              onchange={(id) => {
+                let contact = Contacts.filterById(id)[0];
+                this.delegator = contact;
+              }}
+            />
             <div class="flex flex-justify-between" style={{ marginTop: '2rem' }}>
               <Button
                 class="button--gray-dk button--big button--no-transform"
@@ -412,13 +425,14 @@ class ConfigureMultiSigGroup {
                 class="button--big button--no-transform"
                 raised
                 label="Continue"
+                disabled={!this.delegator}
                 onclick={() => {
                   vnode.attrs.parent.currentState = 'review-and-confirm';
                 }}
               />
             </div>
           </>
-        )} */}
+        )}
         {vnode.attrs.parent.currentState === 'review-and-confirm' && (
           <>
             <h3 style={{ marginBottom: '2rem' }}>Review and Confirm</h3>
@@ -448,16 +462,20 @@ class ConfigureMultiSigGroup {
                 </>
               );
             })}
-            {/* <div class="flex flex-justfiy-between" style={{ margin: '0 0 4rem 0' }}>
-              <div class="flex flex-column">
-                <p class="p-tag-bold">Delegator AID</p>
-                <TextField outlined style={{ marginRight: '2rem' }} placeholder="delegator aid" />
-              </div>
-              <div class="flex flex-column">
-                <p class="p-tag-bold">Delegator Alias</p>
-                <TextField outlined style={{ marginRight: '2rem' }} placeholder="delegator alias" />
-              </div>
-            </div> */}
+            {vnode.attrs.parent.requireDelegator && (
+              <>
+                <div class="flex flex-justfiy-between" style={{ margin: '0 0 4rem 0' }}>
+                  <div class="flex flex-column">
+                    <p class="p-tag-bold">Delegator AID</p>
+                    <div class="uneditable-value">{this.delegator.id}</div>
+                  </div>
+                  <div class="flex flex-column">
+                    <p class="p-tag-bold">Delegator Alias</p>
+                    <div class="uneditable-value">{this.delegator.alias}</div>
+                  </div>
+                </div>
+              </>
+            )}
             <div class="flex flex-justify-between" style={{ marginTop: '4rem' }}>
               <Button
                 class="button--gray-dk button--big button--no-transform"

@@ -1,21 +1,25 @@
 import m from 'mithril';
 import { Button } from '../../../src/app/components';
 import { Profile, Participants, Tasks } from '../../../src/app/services';
-import { EnterChallengesForm, EnterOOBIsForm, SendChallengeForm } from '../../../forms';
+import { EnterChallengesForm, EnterOOBIsForm, SendChallengeForm, SendOOBIForm } from './forms';
 
 import addNewContacts from '../../../src/assets/img/add-new-contacts.svg';
 import projectPlanning from '../../../src/assets/img/project-planning.svg';
 import responseMessage from '../../../src/assets/img/response-message.svg';
 import uploadFile from '../../../src/assets/img/upload-file.svg';
-import { SendOOBIForm } from '../../../forms';
 
 class VideoCallTask {
   constructor(config) {
     this._label = config.label;
     this.initiate = config.initiate;
+    this.oneToOne = config.oneToOne;
     this.next = config.next;
 
-    this.currentState = 'intro';
+    if (config.skipIntro) {
+      this.currentState = this.initiate ? 'video-call' : 'join-call';
+    } else {
+      this.currentState = 'intro';
+    }
     this._component = {
       view: (vnode) => {
         return <VideoCall end={vnode.attrs.end} parent={this} />;
@@ -178,8 +182,8 @@ class VideoCall {
         )}
         {vnode.attrs.parent.currentState === 'send-oobi' && (
           <>
-            <h3>Accept OOBI from other person(s)</h3>
-            <EnterOOBIsForm identifiers={Profile.identifiers} />
+            <h3>Accept OOBI from other person{vnode.attrs.parent.oneToOne ? '' : 's'}</h3>
+            <EnterOOBIsForm identifiers={Profile.identifiers} oneToOne={vnode.attrs.parent.oneToOne} />
             <div class="flex flex-justify-end" style={{ marginTop: '4rem' }}>
               <Button
                 class="button--big button--no-transform"
@@ -238,7 +242,7 @@ class VideoCall {
                 label="Next"
                 disabled={!(Participants.oobisVerified() && Participants.oobisConfirmed())}
                 onclick={() => {
-                  if (vnode.attrs.parent.initiate && vnode.attrs.parent.next !== undefined) {
+                  if (vnode.attrs.parent.next !== undefined) {
                     Tasks.active = vnode.attrs.parent.next;
                   } else {
                     vnode.attrs.parent.currentState = 'waiting-for-multisig';
@@ -253,8 +257,8 @@ class VideoCall {
             <img src={uploadFile} style={{ width: '240px', margin: '1.5rem 0 2rem 0' }} />
             <h3>Waiting for Multi-Sig Group Inception</h3>
             <p class="p-tag" style={{ margin: '2rem 0 2rem 0' }}>
-              You will be notified when the Lead External GAR initiates the creation of the Multi-Sig Group for the
-              GLEIF External AID. Clicking on the notification will allow you to participate in the inception event.
+              You will be notified when the Lead initiates the creation of the Multi-Sig Group. Clicking on the
+              notification will allow you to participate in the inception event.
             </p>
             <div class="flex flex-justify-between">
               <Button

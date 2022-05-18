@@ -1,6 +1,6 @@
 import m from 'mithril';
-import { TextField } from '../../src/app/components';
-import { KERI } from '../../src/app/services';
+import { TextField } from '../../../../../src/app/components';
+import { KERI } from '../../../../../src/app/services';
 
 /*
  * SendOOBIForm
@@ -32,12 +32,12 @@ class SendOOBIForm {
   copyURL() {
     navigator.clipboard.writeText(this.oobi.url).then(
       () => {
-          this.copied = true;
-          m.redraw();
+        this.copied = true;
+        m.redraw();
       },
       () => {
-          this.copied = false;
-          m.redraw();
+        this.copied = false;
+        m.redraw();
       }
     );
   }
@@ -58,7 +58,7 @@ class SendOOBIForm {
             },
           }}
         />
-        <p className="font-color--green font-weight--medium">{this.copied ? 'OOBI copied!' : <br/>}</p>
+        <p className="font-color--green font-weight--medium">{this.copied ? 'OOBI copied!' : <br />}</p>
       </>
     );
   }

@@ -41,6 +41,7 @@ class JoinMultiSigGroup {
 
   confirmAndSign(vnode) {
     KERI.participateGroupInception(this.groupAlias, {
+      delpre: this.ked.di,
       aids: this.aids,
       isith: this.ked.kt,
       nsith: this.ked.nt,

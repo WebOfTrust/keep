@@ -3,6 +3,8 @@ import m from 'mithril';
 // Variables
 import variables from './variables';
 
+import { Button } from '../../src/app/components';
+
 // Tasks
 
 import ConfigureMultiSigGroupTask from '../generic/configure-multi-sig-group/configure-multi-sig-group';
@@ -17,6 +19,32 @@ import ManualKeyRotationTask from '../generic/manual-key-rotation/manual-key-rot
 import VideoCallTask from '../generic/video-call/video-call';
 import ViewMultiSigEventLogsTask from '../generic/view-multi-sig-event-logs/view-multi-sig-event-logs';
 
+import loanApproved from '../../src/assets/img/loan-approved.svg';
+
+class ExchangeWithLeadRootGARTask {
+  constructor() {
+    this.label = '';
+    this.imgSrc = null;
+    this.component = {
+      view: (vnode) => {
+        return (
+          <>
+            <img src={loanApproved} style={{ width: '240px' }} />
+            <h3>Exchange OOBIs with Lead Root GAR</h3>
+            <p>
+              Verification of the External GARs has been completed, please proceed with exchanging OOBIs with your Lead
+              Root GAR
+            </p>
+            <div class="flex flex-justify-end">
+              <Button raised class="button--big button--no-transform" label="Continue" onclick={() => {}} />
+            </div>
+          </>
+        );
+      },
+    };
+  }
+}
+
 const tasks = {
   'create-passcode': [
     new CreatePasscodeTask({ label: 'Create Your Passcode' }),
@@ -29,17 +57,19 @@ const tasks = {
   'create-multisig': [
     new VideoCallTask({
       initiate: true,
-      label: 'Join One Way OOBI/Challenge with Lead Root GAR',
-      next: new ConfigureMultiSigGroupTask('Configure Multi-Sig Group'),
+      skipIntro: true,
+      oneToOne: true,
+      label: 'Initiate One Way OOBI/Challenge with Lead Root GAR',
+      next: new ConfigureMultiSigGroupTask({ label: 'Configure Multi-Sig Group', requireDelegator: true }),
     }),
     new VideoCallTask({
       initiate: true,
       label: 'Lead GLEIF External Multi-Sig AID Inception',
-      next: new ConfigureMultiSigGroupTask('Configure Multi-Sig Group'),
+      next: new ExchangeWithLeadRootGARTask(),
     }),
     new VideoCallTask({ initiate: false, label: 'Join GLEIF External Multi-Sig AID Inception' }),
   ],
-  'join-multisig': [new JoinMultiSigGroupTask('Join Multi-Sig Group')],
+  'join-multisig': [new JoinMultiSigGroupTask({ label: 'Join Multi-Sig Group' })],
   'main': [
     new ManualKeyRotationTask({ label: 'Initiate Manual Key Rotation' }),
     new ManualKeyRotationTask({ label: 'Join Manual Key Rotation' }),

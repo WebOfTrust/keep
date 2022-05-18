@@ -151,7 +151,7 @@ class KERI {
 
   // GROUPS
 
-  static initiateGroupInception(alias, { aids, isith, nsith, toad, wits }) {
+  static initiateGroupInception(alias, { aids, isith, nsith, toad, wits, delpre }) {
     return m.request({
       method: 'POST',
       url: `${this.keriURL}/groups/${alias}/icp`,
@@ -161,11 +161,12 @@ class KERI {
         nsith,
         toad,
         wits,
+        delpre,
       },
     });
   }
 
-  static participateGroupInception(alias, { aids, isith, nsith, toad, wits }) {
+  static participateGroupInception(alias, { aids, isith, nsith, toad, wits, delpre }) {
     return m.request({
       method: 'PUT',
       url: `${this.keriURL}/groups/${alias}/icp`,
@@ -175,6 +176,7 @@ class KERI {
         nsith,
         toad,
         wits,
+        delpre,
       },
     });
   }

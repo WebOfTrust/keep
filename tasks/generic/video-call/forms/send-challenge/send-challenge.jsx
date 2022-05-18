@@ -1,6 +1,6 @@
 import m from 'mithril';
-import { Button, TextField } from '../../src/app/components';
-import { KERI, Participants } from '../../src/app/services';
+import { Button, TextField } from '../../../../../src/app/components';
+import { KERI, Participants } from '../../../../../src/app/services';
 
 class SendChallengeForm {
   constructor() {
