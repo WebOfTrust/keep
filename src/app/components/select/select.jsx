@@ -129,10 +129,10 @@ class Select {
             </span>
             {this.options.filled && <span class="mdc-line-ripple"></span>}
           </div>
-          <div class="mdc-select__menu mdc-menu mdc-menu-surface mdc-menu-surface--fullwidth">
-            <ul class="mdc-deprecated-list" role="listbox">
-              {this.options.options &&
-                this.options.options.map((option) => {
+          {this.options.options && (
+            <div class="mdc-select__menu mdc-menu mdc-menu-surface mdc-menu-surface--fullwidth">
+              <ul class="mdc-deprecated-list" role="listbox">
+                {this.options.options.map((option) => {
                   return (
                     <>
                       <li class="mdc-deprecated-list-item" data-value={option.value} role="option">
@@ -142,8 +142,9 @@ class Select {
                     </>
                   );
                 })}
-            </ul>
-          </div>
+              </ul>
+            </div>
+          )}
         </div>
       </>
     );

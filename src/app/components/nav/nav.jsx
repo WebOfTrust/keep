@@ -11,35 +11,18 @@ import './nav.scss';
 class Nav {
   constructor() {
     this.notificationsVisible = false;
-    this.identifier = Profile.getDefaultAID();
-  }
-
-  onupdate() {
-    this.identifier = Profile.getDefaultAID();
   }
 
   get navLabel() {
     let label = '';
-    if (this.identifier) {
-      label = '(' + this.identifier.name + ') ';
+    if (Profile.getDefaultAID()) {
+      label = '(' + Profile.getDefaultAID().name + ') ';
     }
     if (Profile.isLead) {
       label += 'Lead ';
     }
     label += Auth.title();
     return label;
-  }
-
-  get profilePicture() {
-    let identifier = Profile.getDefaultAID()
-    return (
-        <div style={{cursor: 'pointer', marginRight: '0.5rem',  marginLeft: '1rem'}}
-             onclick={() => {
-               m.route.set('/profile');
-             }}>
-          <ProfilePicture size='s' identifier={identifier}/>
-        </div>
-    )
   }
 
   challengeNotificationClick(notification) {
@@ -148,8 +131,14 @@ class Nav {
                     m.route.set('/settings');
                   }}
                 />
-
-                {this.profilePicture}
+                <div
+                  style={{ cursor: 'pointer', marginRight: '0.5rem', marginLeft: '1rem' }}
+                  onclick={() => {
+                    m.route.set('/profile');
+                  }}
+                >
+                  <ProfilePicture size="s" identifier={this.identifier} />
+                </div>
 
                 <div style={{ color: '#0cbc8b', paddingLeft: '1rem', fontWeight: 'bold', fontSize: '100%' }}>
                   {this.navLabel}
