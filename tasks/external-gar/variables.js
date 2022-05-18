@@ -118,31 +118,6 @@ const ExternalGarVariables = {
       },
     ],
   },
-  identityAuthentication: {
-    steps: {
-      paragraph: (
-        <>
-          This module will take you through the steps of how to authenticate a QAR's identity. Below are the steps for
-          how to complete the process:
-        </>
-      ),
-      list: [
-        <>Initiate a Video Call.</>,
-        <>Use an OOBI protocol to obtain the QAR's AID.</>,
-        <>Send a Challenge Message to the QAR.</>,
-        <>QAR signs and returns Challenge Message.</>,
-        <>You verify signature and issue credentials.</>,
-      ],
-    },
-    acceptOobi: {
-      paragraph: (
-        <>
-          While on the Video Call, make sure to obtain the QAR's <b>Alias and OOBI</b>. When you have both for each
-          party, please press continue.
-        </>
-      ),
-    },
-  },
 };
 
 module.exports = ExternalGarVariables;

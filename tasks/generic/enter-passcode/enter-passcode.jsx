@@ -3,7 +3,30 @@ import { Button, TextField } from '../../../src/app/components';
 import { Auth } from '../../../src/app/services';
 import passcodeImg from '../../../src/assets/img/passcode.svg';
 
-class Login {
+class EnterPasscodeTask {
+  constructor(config) {
+    this._label = config.label;
+    this._component = {
+      view: (vnode) => {
+        return <EnterPasscode end={vnode.attrs.end} parent={this} />;
+      },
+    };
+  }
+
+  get imgSrc() {
+    return passcodeImg;
+  }
+
+  get label() {
+    return this._label;
+  }
+
+  get component() {
+    return this._component;
+  }
+}
+
+class EnterPasscode {
   constructor() {
     this.passcode = '';
     this.showPasscode = false;
@@ -68,4 +91,4 @@ class Login {
   }
 }
 
-module.exports = Login;
+module.exports = EnterPasscodeTask;

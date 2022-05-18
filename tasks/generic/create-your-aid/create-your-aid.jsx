@@ -6,9 +6,32 @@ import configureIdentifier from '../../../src/assets/img/configure-identifier.sv
 import approveRequest from '../../../src/assets/img/approve-request.svg';
 import uploadImage from '../../../src/assets/img/upload-image.svg';
 
+class CreateYourAIDTask {
+  constructor(config) {
+    this._label = config.label;
+    this._component = {
+      view: (vnode) => {
+        return <CreateYourAID end={vnode.attrs.end} parent={this} variables={config.variables} />;
+      },
+    };
+    this.currentState = 'welcome';
+  }
+
+  get imgSrc() {
+    return createIdentifier;
+  }
+
+  get label() {
+    return this._label;
+  }
+
+  get component() {
+    return this._component;
+  }
+}
+
 class CreateYourAID {
   constructor() {
-    this.currentState = 'welcome';
     this.alias = '';
     this.aliasPhoto = null;
     this.wits = 'local';
@@ -39,13 +62,13 @@ class CreateYourAID {
   view(vnode) {
     return (
       <>
-        {this.currentState === 'welcome' && (
+        {vnode.attrs.parent.currentState === 'welcome' && (
           <>
-            <h3>{vnode.attrs.welcome ? vnode.attrs.welcome.title : 'Welcome To KEEP'}</h3>
+            <h3>{vnode.attrs.variables.welcome ? vnode.attrs.variables.welcome.title : 'Welcome To KEEP'}</h3>
             <img src={createIdentifier} style={{ display: 'block', margin: '5rem auto 0', width: '270px' }} />
             <p class="p-tag" style={{ margin: '4rem 0 4rem 0' }}>
-              {vnode.attrs.welcome ? (
-                vnode.attrs.welcome.paragraph
+              {vnode.attrs.variables.welcome ? (
+                vnode.attrs.variables.welcome.paragraph
               ) : (
                 <>
                   This software is designed to help you complete verification of authorized representatives and also as
@@ -63,7 +86,7 @@ class CreateYourAID {
                 raised
                 label="Skip"
                 onclick={() => {
-                  this.currentState = 'create-your-alias';
+                  vnode.attrs.parent.currentState = 'create-your-alias';
                 }}
               />
               <Button
@@ -71,19 +94,19 @@ class CreateYourAID {
                 raised
                 label="Continue"
                 onclick={() => {
-                  this.currentState = 'creating-aid';
+                  vnode.attrs.parent.currentState = 'creating-aid';
                 }}
               />
             </div>
           </>
         )}
-        {this.currentState === 'creating-aid' && (
+        {vnode.attrs.parent.currentState === 'creating-aid' && (
           <>
-            <h3>{vnode.attrs.creatingAID ? vnode.attrs.creatingAID.title : 'Creating Your AID'}</h3>
+            <h3>{vnode.attrs.variables.creatingAID ? vnode.attrs.variables.creatingAID.title : 'Creating Your AID'}</h3>
             <img src={createIdentifier} style={{ display: 'block', margin: '5rem auto 0', width: '270px' }} />
             <p class="p-tag" style={{ margin: '4rem 0 4rem 0' }}>
-              {vnode.attrs.creatingAID ? (
-                vnode.attrs.creatingAID.paragraph
+              {vnode.attrs.variables.creatingAID ? (
+                vnode.attrs.variables.creatingAID.paragraph
               ) : (
                 <>
                   In order to provide authorization, you will first have to create your own AID within the software and
@@ -97,7 +120,7 @@ class CreateYourAID {
                 raised
                 label="Skip"
                 onclick={() => {
-                  this.currentState = 'create-your-alias';
+                  vnode.attrs.parent.currentState = 'create-your-alias';
                 }}
               />
               <Button
@@ -105,15 +128,19 @@ class CreateYourAID {
                 raised
                 label="Continue"
                 onclick={() => {
-                  this.currentState = 'steps-to-create';
+                  vnode.attrs.parent.currentState = 'steps-to-create';
                 }}
               />
             </div>
           </>
         )}
-        {this.currentState === 'steps-to-create' && (
+        {vnode.attrs.parent.currentState === 'steps-to-create' && (
           <>
-            <h3>{vnode.attrs.stepsToCreate ? vnode.attrs.stepsToCreate.title : 'Steps to Create Your AID'}</h3>
+            <h3>
+              {vnode.attrs.variables.stepsToCreate
+                ? vnode.attrs.variables.stepsToCreate.title
+                : 'Steps to Create Your AID'}
+            </h3>
             <img src={approveRequest} style={{ display: 'block', margin: '5rem auto 0', width: '244px' }} />
             <ol class="styled-ol" style={{ margin: '2rem 0 4rem 0' }}>
               <li>Configure your AID</li>
@@ -126,7 +153,7 @@ class CreateYourAID {
                 raised
                 label="Skip"
                 onclick={() => {
-                  this.currentState = 'create-your-alias';
+                  vnode.attrs.parent.currentState = 'create-your-alias';
                 }}
               />
               <Button
@@ -134,19 +161,19 @@ class CreateYourAID {
                 raised
                 label="Continue"
                 onclick={() => {
-                  this.currentState = 'create-your-alias';
+                  vnode.attrs.parent.currentState = 'create-your-alias';
                 }}
               />
             </div>
           </>
         )}
-        {this.currentState === 'create-your-alias' && (
+        {vnode.attrs.parent.currentState === 'create-your-alias' && (
           <>
             <h3>Create Your Alias</h3>
             <img src={configureIdentifier} style={{ display: 'block', margin: '5rem auto 0', width: '172px' }} />
             <p class="p-tag" style={{ marginTop: '2rem', marginBottom: '2rem' }}>
-              {vnode.attrs.createYourAlias
-                ? vnode.attrs.createYourAlias.paragraph
+              {vnode.attrs.variables.createYourAlias
+                ? vnode.attrs.variables.createYourAlias.paragraph
                 : 'The alias should be an easy to remember name for your Delegated AID.'}
               <br />
               <br />
@@ -178,7 +205,7 @@ class CreateYourAID {
                 raised
                 label="Go Back"
                 onclick={() => {
-                  this.currentState = 'steps-to-create';
+                  vnode.attrs.parent.currentState = 'steps-to-create';
                 }}
               />
               <Button
@@ -187,7 +214,7 @@ class CreateYourAID {
                 label="Continue"
                 disabled={this.alias.length === 0}
                 onclick={() => {
-                  this.currentState = 'review-and-confirm';
+                  vnode.attrs.parent.currentState = 'review-and-confirm';
                 }}
               />
             </div>
@@ -195,7 +222,7 @@ class CreateYourAID {
         )}
 
         {/* TO DO: SKIPPED SELECT PHOTO FOR NOW, FUNCTIONAL */}
-        {this.currentState === 'select-photo' && (
+        {vnode.attrs.parent.currentState === 'select-photo' && (
           <>
             <img src={uploadImage} style={{ width: '172px' }} />
             <h3 style={{ margin: '2rem 0' }}>Select a Photo for the Alias</h3>
@@ -237,7 +264,7 @@ class CreateYourAID {
                 raised
                 label="Go Back"
                 onclick={() => {
-                  this.currentState = 'create-your-alias';
+                  vnode.attrs.parent.currentState = 'create-your-alias';
                 }}
               />
               <Button
@@ -246,13 +273,13 @@ class CreateYourAID {
                 label="Continue"
                 disabled={!this.aliasPhoto}
                 onclick={() => {
-                  this.currentState = 'review-and-confirm';
+                  vnode.attrs.parent.currentState = 'review-and-confirm';
                 }}
               />
             </div>
           </>
         )}
-        {this.currentState === 'review-and-confirm' && (
+        {vnode.attrs.parent.currentState === 'review-and-confirm' && (
           <>
             <h3>Review and Confirm</h3>
             <div class="flex flex-justify-between" style={{ alignItems: 'baseline', margin: '2rem 0' }}>
@@ -262,7 +289,7 @@ class CreateYourAID {
                 raised
                 label="Edit"
                 onclick={() => {
-                  this.currentState = 'create-your-alias';
+                  vnode.attrs.parent.currentState = 'create-your-alias';
                 }}
               />
             </div>
@@ -274,7 +301,7 @@ class CreateYourAID {
                 raised
                 label="Edit"
                 onclick={() => {
-                  this.currentState = 'select-photo';
+                  vnode.attrs.parent.currentState = 'select-photo';
                 }}
               />
             </div>
@@ -296,4 +323,4 @@ class CreateYourAID {
   }
 }
 
-module.exports = CreateYourAID;
+module.exports = CreateYourAIDTask;

@@ -1,6 +1,30 @@
 import m from 'mithril';
 import { Button } from '../../../src/app/components';
 import approveRequest from '../../../src/assets/img/approve-request.svg';
+import createIdentifier from '../../../src/assets/img/create-identifier.svg';
+
+class IntroToYourRoleTask {
+  constructor(config) {
+    this._label = config.label;
+    this._component = {
+      view: (vnode) => {
+        return <IntroToYourRole end={vnode.attrs.end} parent={this} variables={config.variables} />;
+      },
+    };
+  }
+
+  get imgSrc() {
+    return createIdentifier;
+  }
+
+  get label() {
+    return this._label;
+  }
+
+  get component() {
+    return this._component;
+  }
+}
 
 class IntroToYourRole {
   constructor(vnode) {
@@ -8,11 +32,11 @@ class IntroToYourRole {
 
     this.steps = [
       <>
-        <h3>{vnode.attrs.main ? vnode.attrs.main.title : 'Intro to your Role'}</h3>
+        <h3>{vnode.attrs.variables.main ? vnode.attrs.variables.main.title : 'Intro to your Role'}</h3>
         <img src={approveRequest} style={{ display: 'block', margin: '4rem auto', width: '244px' }} />
         <p class="p-tag">
-          {vnode.attrs.main ? (
-            vnode.attrs.main.paragraph
+          {vnode.attrs.variables.main ? (
+            vnode.attrs.variables.main.paragraph
           ) : (
             <>
               You have now created your Delegated AID! While you are waiting for your credentials, here is a brief
@@ -40,8 +64,8 @@ class IntroToYourRole {
         </div>
       </>,
     ];
-    if (vnode.attrs.steps) {
-      vnode.attrs.steps.forEach((step) => {
+    if (vnode.attrs.variables.steps) {
+      vnode.attrs.variables.steps.forEach((step) => {
         this.steps.push(
           <>
             <h3>{step.title}</h3>
@@ -84,4 +108,4 @@ class IntroToYourRole {
   }
 }
 
-module.exports = IntroToYourRole;
+module.exports = IntroToYourRoleTask;

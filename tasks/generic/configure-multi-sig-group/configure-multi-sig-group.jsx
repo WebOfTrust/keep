@@ -6,10 +6,32 @@ import secureMessaging from '../../../src/assets/img/secure-messaging.svg';
 import greenCheckMark from '../../../src/assets/img/green-check-mark.svg';
 import redX from '../../../src/assets/img/red-x.svg';
 
-class ConfigureMultiSigSet {
-  constructor() {
+class ConfigureMultiSigGroupTask {
+  constructor(config) {
+    this._label = config.label;
+    this._component = {
+      view: (vnode) => {
+        return <ConfigureMultiSigGroup end={vnode.attrs.end} parent={this} />;
+      },
+    };
     this.currentState = 'configure-multi-sig-index';
-    // this.currentState = 'setup-complete';
+  }
+
+  get imgSrc() {
+    return secureMessaging;
+  }
+
+  get label() {
+    return this._label;
+  }
+
+  get component() {
+    return this._component;
+  }
+}
+
+class ConfigureMultiSigGroup {
+  constructor() {
     this.groupAlias = '';
     this.status = '';
     this.fractionallyWeighted = false;
@@ -122,7 +144,7 @@ class ConfigureMultiSigSet {
   view(vnode) {
     return (
       <>
-        {this.currentState === 'configure-multi-sig-index' && (
+        {vnode.attrs.parent.currentState === 'configure-multi-sig-index' && (
           <>
             <img src={secureMessaging} style={{ width: '268px', margin: '4rem 0 1rem 0' }} />
             <h3>Configure Multi-Sig Group</h3>
@@ -137,13 +159,13 @@ class ConfigureMultiSigSet {
                 raised
                 label="Continue"
                 onclick={() => {
-                  this.currentState = 'create-group-alias';
+                  vnode.attrs.parent.currentState = 'create-group-alias';
                 }}
               />
             </div>
           </>
         )}
-        {this.currentState === 'create-group-alias' && (
+        {vnode.attrs.parent.currentState === 'create-group-alias' && (
           <>
             <h3>Create Your Multi-Sig Group Alias</h3>
             <img src={secureMessaging} style={{ width: '268px', margin: '4rem 0 2rem 0' }} />
@@ -167,7 +189,7 @@ class ConfigureMultiSigSet {
                 raised
                 label="Go Back"
                 onclick={() => {
-                  this.currentState = 'configure-multi-sig-index';
+                  vnode.attrs.parent.currentState = 'configure-multi-sig-index';
                 }}
               />
               <Button
@@ -176,13 +198,13 @@ class ConfigureMultiSigSet {
                 label="Continue"
                 disabled={!this.groupAlias}
                 onclick={() => {
-                  this.currentState = 'configure-multisig-group';
+                  vnode.attrs.parent.currentState = 'configure-multisig-group';
                 }}
               />
             </div>
           </>
         )}
-        {this.currentState === 'configure-multisig-group' && (
+        {vnode.attrs.parent.currentState === 'configure-multisig-group' && (
           <>
             <h3 style={{ marginBottom: '2rem' }}>Configure Multi-Sig Group</h3>
             <p class="p-tag-bold">Select your witness pool:</p>
@@ -347,7 +369,7 @@ class ConfigureMultiSigSet {
                 raised
                 label="Go Back"
                 onclick={() => {
-                  this.currentState = 'create-group-alias';
+                  vnode.attrs.parent.currentState = 'create-group-alias';
                 }}
               />
               <Button
@@ -360,13 +382,13 @@ class ConfigureMultiSigSet {
                   }).length < 1
                 }
                 onclick={() => {
-                  this.currentState = 'review-and-confirm';
+                  vnode.attrs.parent.currentState = 'review-and-confirm';
                 }}
               />
             </div>
           </>
         )}
-        {/* {this.currentState === 'select-delegator' && (
+        {/* {vnode.attrs.parent.currentState === 'select-delegator' && (
           <>
             <img src={secureMessaging} style={{ width: '268px' }} />
             <h3>Select a Delegator</h3>
@@ -383,7 +405,7 @@ class ConfigureMultiSigSet {
                 raised
                 label="Go Back"
                 onclick={() => {
-                  this.currentState = 'configure-multisig-group';
+                  vnode.attrs.parent.currentState = 'configure-multisig-group';
                 }}
               />
               <Button
@@ -391,13 +413,13 @@ class ConfigureMultiSigSet {
                 raised
                 label="Continue"
                 onclick={() => {
-                  this.currentState = 'review-and-confirm';
+                  vnode.attrs.parent.currentState = 'review-and-confirm';
                 }}
               />
             </div>
           </>
         )} */}
-        {this.currentState === 'review-and-confirm' && (
+        {vnode.attrs.parent.currentState === 'review-and-confirm' && (
           <>
             <h3 style={{ marginBottom: '2rem' }}>Review and Confirm</h3>
             <p class="font-weight--bold font-color--battleship">Group Alias</p>
@@ -442,7 +464,7 @@ class ConfigureMultiSigSet {
                 raised
                 label="Go Back"
                 onclick={() => {
-                  this.currentState = 'create-group-alias';
+                  vnode.attrs.parent.currentState = 'create-group-alias';
                 }}
               />
               <Button
@@ -451,18 +473,18 @@ class ConfigureMultiSigSet {
                 label="Complete"
                 onclick={() => {
                   this.initiateGroupInception();
-                  this.currentState = 'setup-complete';
+                  vnode.attrs.parent.currentState = 'setup-complete';
                 }}
               />
             </div>
           </>
         )}
-        {this.currentState === 'setup-complete' && (
+        {vnode.attrs.parent.currentState === 'setup-complete' && (
           <EventDetails
             groupAlias={this.groupAlias}
             status={this.status}
             back={() => {
-              this.currentState = 'event-log';
+              vnode.attrs.parent.currentState = 'event-log';
             }}
             continue={vnode.attrs.end}
           />
@@ -542,4 +564,4 @@ class EventDetails {
   }
 }
 
-module.exports = ConfigureMultiSigSet;
+module.exports = ConfigureMultiSigGroupTask;

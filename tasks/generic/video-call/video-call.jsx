@@ -10,10 +10,10 @@ import uploadFile from '../../../src/assets/img/upload-file.svg';
 import { SendOOBIForm } from '../../../forms';
 
 class VideoCallTask {
-  constructor(initiate, label, next) {
-    this._label = label;
-    this.initiate = initiate;
-    this.next = next;
+  constructor(config) {
+    this._label = config.label;
+    this.initiate = config.initiate;
+    this.next = config.next;
 
     this.currentState = 'intro';
     this._component = {
@@ -66,8 +66,6 @@ class VideoCallTask {
 }
 
 class VideoCall {
-  constructor(vnode) {}
-
   view(vnode) {
     return (
       <>
@@ -126,8 +124,8 @@ class VideoCall {
             <h3>Initiate a Video Call</h3>
             <p class="p-tag" style={{ margin: '2rem 0' }}>
               In order to start the authentication process, you will need to initiate an real-time Out of Band
-              Interaction (OOBI) session in which you and the other users are present. You will accept all their OOBI
-              URLs on a Video Call so that you can receive their identifying information.
+              Interaction (OOBI) session in which you and the other users are present, You will accept all their OOBIs
+              (URL + AID) on a Video Call so that you can receive their identifying information.
             </p>
             <div class="flex flex-justify-between" style={{ marginTop: '4rem' }}>
               <Button

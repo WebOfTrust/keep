@@ -1,48 +1,35 @@
-import m from 'mithril';
+import m, { vnode } from 'mithril';
 import { Button, TextField } from '../../../src/app/components';
 import { KERI, Profile, Notify, Contacts } from '../../../src/app/services';
 import todoList from '../../../src/assets/img/to-do-list.svg';
 import secureMessaging from '../../../src/assets/img/secure-messaging.svg';
 
-// {
-//   "data": {
-//       "src": "E-4-PsMBN0YEKyTl3zL0zulWcBehdaaG6Go5cMc0BzQ8",
-//       "r": "/icp/init",
-//       "aids": [
-//           "E-4-PsMBN0YEKyTl3zL0zulWcBehdaaG6Go5cMc0BzQ8",
-//           "EozYHef4je02EkMOA1IKM65WkIdSjfrL7XWDk_JzJL9o"
-//       ],
-//       "ked": {
-//           "v": "KERI10JSON000215_",
-//           "t": "icp",
-//           "d": "EoZCKXPW7bG_Il3pfzjKZYzS80bCTZXTZja5ZS4-85jY",
-//           "i": "EoZCKXPW7bG_Il3pfzjKZYzS80bCTZXTZja5ZS4-85jY",
-//           "s": "0",
-//           "kt": "1",
-//           "k": [
-//               "D-U6Sc6VqQC3rDuD2wLF3oR8C4xQyWOTMp4zbJyEnRlE",
-//               "DQKeRX-2dXdSWS-EiwYyiQdeIwesvubEqnUYC5vsEyjo"
-//           ],
-//           "nt": "1",
-//           "n": [
-//               "E6UpCouA9mZA03hMFJLrhA0SvwR4HVNqf2wrZM-ydTSI",
-//               "ENVtv0_G68psQhfWB-ZyVH1lndLli2LSmfSxxszNufoI"
-//           ],
-//           "bt": "3",
-//           "b": [
-//               "BGKVzj4ve0VSd8z_AmvhLg4lqcC_9WYX90k03q-R_Ydo",
-//               "BuyRFMideczFZoapylLIyCjSdhtqVb31wZkRKvPfNqkw",
-//               "Bgoq68HCmYNUDgOz4Skvlu306o_NY-NrYuKAVhk3Zh9c"
-//           ],
-//           "c": [],
-//           "a": []
-//       }
-//   }
-// }
+class JoinMultiSigGroupTask {
+  constructor(config) {
+    this._label = config.label;
+    this._component = {
+      view: (vnode) => {
+        return <JoinMultiSigGroup end={vnode.attrs.end} parent={this} />;
+      },
+    };
+    this.currentState = 'new-multi-sig-group';
+  }
+
+  get imgSrc() {
+    return secureMessaging;
+  }
+
+  get label() {
+    return this._label;
+  }
+
+  get component() {
+    return this._component;
+  }
+}
 
 class JoinMultiSigGroup {
   constructor() {
-    this.currentState = 'new-multi-sig-group';
     this.aid = Profile.getDefaultAID();
     Contacts.requestList();
     this.groupAlias = '';
@@ -52,7 +39,7 @@ class JoinMultiSigGroup {
     this.fractionallyWeighted = Array.isArray(this.ked.kt);
   }
 
-  confirmAndSign() {
+  confirmAndSign(vnode) {
     KERI.participateGroupInception(this.groupAlias, {
       aids: this.aids,
       isith: this.ked.kt,
@@ -61,14 +48,14 @@ class JoinMultiSigGroup {
       wits: this.ked.b,
     }).then(() => {
       console.log('inception complete');
-      this.currentState = 'event-complete';
+      vnode.attrs.parent.currentState = 'event-complete';
     });
   }
 
   view(vnode) {
     return (
       <>
-        {this.currentState === 'new-multi-sig-group' && (
+        {vnode.attrs.parent.currentState === 'new-multi-sig-group' && (
           <>
             <img src={todoList} style={{ width: '188px', margin: '0 0 2rem 0' }} />
             <h3>New Multi-Sig Group</h3>
@@ -79,13 +66,13 @@ class JoinMultiSigGroup {
                 raised
                 label="View"
                 onclick={() => {
-                  this.currentState = 'review-members';
+                  vnode.attrs.parent.currentState = 'review-members';
                 }}
               />
             </div>
           </>
         )}
-        {this.currentState === 'review-members' && (
+        {vnode.attrs.parent.currentState === 'review-members' && (
           <>
             <h3>Review and Confirm</h3>
             <p>Review signers to make sure the list is complete.</p>
@@ -120,7 +107,7 @@ class JoinMultiSigGroup {
                 raised
                 label="Go Back"
                 onclick={() => {
-                  this.currentState = 'new-multi-sig-group';
+                  vnode.attrs.parent.currentState = 'new-multi-sig-group';
                 }}
               />
               <Button
@@ -128,13 +115,13 @@ class JoinMultiSigGroup {
                 raised
                 label="Confirm"
                 onclick={() => {
-                  this.currentState = 'create-group-alias';
+                  vnode.attrs.parent.currentState = 'create-group-alias';
                 }}
               />
             </div>
           </>
         )}
-        {this.currentState === 'create-group-alias' && (
+        {vnode.attrs.parent.currentState === 'create-group-alias' && (
           <>
             <h3>Create Your Multi-Sig Group Alias</h3>
             <img src={secureMessaging} style={{ width: '268px', margin: '4rem 0 2rem 0' }} />
@@ -159,13 +146,13 @@ class JoinMultiSigGroup {
                 label="Continue"
                 disabled={!this.groupAlias}
                 onclick={() => {
-                  this.confirmAndSign();
+                  this.confirmAndSign(vnode);
                 }}
               />
             </div>
           </>
         )}
-        {this.currentState === 'event-complete' && (
+        {vnode.attrs.parent.currentState === 'event-complete' && (
           <>
             <img src={todoList} style={{ width: '188px', margin: '4rem 0 0 0' }} />
             <h3>Inception Event Completed</h3>
@@ -182,4 +169,4 @@ class JoinMultiSigGroup {
   }
 }
 
-module.exports = JoinMultiSigGroup;
+module.exports = JoinMultiSigGroupTask;
