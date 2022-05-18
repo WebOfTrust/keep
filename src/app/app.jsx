@@ -1,6 +1,6 @@
 import m from 'mithril';
 
-import { Nav, ToastOutlet } from './components';
+import { Nav, ToastOutlet, Footer } from './components';
 import { Auth, Mail, Tasks } from './services';
 import { Contacts, Dashboard, Error, Profile, Settings } from './views';
 
@@ -22,6 +22,7 @@ const MainLayout = {
         <ToastOutlet />
         <Nav />
         {vnode.children}
+        <Footer />
       </>
     );
   },

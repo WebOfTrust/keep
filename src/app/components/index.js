@@ -17,7 +17,7 @@ import Steps from './steps/steps.jsx';
 import TextField from './text-field/text-field.jsx';
 import TextTooltip from './text-tooltip/text-tooltip.jsx';
 import ToastOutlet from './toast-outlet/toast-outlet.jsx';
-
+import Footer from './footer/footer.jsx';
 module.exports = {
   Button,
   Breadcrumb,
@@ -26,6 +26,7 @@ module.exports = {
   Container,
   DatePicker,
   DateRange,
+  Footer,
   IconButton,
   Modal,
   Nav,
