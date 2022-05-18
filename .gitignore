@@ -107,6 +107,7 @@ build-ui-dev-lead
 dist
 __pycache__
 .pytest_cache
+.webcache
 
 code.txt
 scripts
