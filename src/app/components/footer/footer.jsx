@@ -8,7 +8,7 @@ class Footer {
     return (
       <div class="flex" style={{ border: 'solid 1px #e2e5e6', height: '50px' }}>
         <Container class="flex flex-justify-end" style={{ alignItems: 'center' }}>
-          <div class="flex flex-justify-evenly" style={{ marginRight: '60px', alignItems: 'center' }}>
+          <div class="flex flex-justify-evenly" style={{ alignItems: 'center' }}>
             <img src={keepLogo} />
             <p style={{ color: '#3c64b1', fontWeight: '600', margin: '6px 0 0 10px' }}>
               {' '}
