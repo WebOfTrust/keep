@@ -130,7 +130,7 @@ class Dashboard {
                             />
                           )}
                           {this.sliceStart === 0 && <div></div>}
-                          {this.sliceEnd <= this.tasksList.length && (
+                          {this.sliceEnd < this.tasksList.length && (
                             <Button
                               class="button--white"
                               iconTrailing="arrow_forward_ios"
