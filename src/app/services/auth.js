@@ -20,6 +20,7 @@ class Auth {
 
   static removeAgent() {
     sessionStorage.removeItem('agent');
+    this._isLoggedIn = false
   }
 
   static title() {

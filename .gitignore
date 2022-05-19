@@ -108,6 +108,5 @@ dist
 __pycache__
 .pytest_cache
 .webcache
-
 code.txt
 scripts

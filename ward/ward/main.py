@@ -27,7 +27,13 @@ class Ward:
             sys.stdout.write(f"HeadDirPath {self.HeadDirPath}\n")
             sys.stdout.flush()
 
-        doers = booting.setup(controller="E59KmDbpjK0tRf9Rmc7OlueZVz7LB94DdD3cjQVvPcng",
+        servery = booting.Servery(port=int(args.admin))
+        if args.debug:
+            sys.stdout.write(f"servery {servery}\n")
+            sys.stdout.flush()
+
+        doers = booting.setup(servery=servery,
+                              controller="E59KmDbpjK0tRf9Rmc7OlueZVz7LB94DdD3cjQVvPcng",
                               configFile='demo-witness-oobis.json',
                               configDir=self.HeadDirPath,
                               insecure=True,
@@ -35,6 +41,10 @@ class Ward:
                               adminHttpPort=int(args.admin),
                               path=self.UiPath,
                               headDirPath=self.HeadDirPath)
+
+        if args.debug:
+            sys.stdout.write(f"doers {doers}\n")
+            sys.stdout.flush()
 
         directing.runController(doers=doers, expire=0.0)
 

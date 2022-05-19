@@ -146,7 +146,10 @@ class Nav {
                 <IconButton
                     icon="lock"
                     onclick={() => {
-                      KERI.lockAgent()
+                      KERI.lockAgent().then(() => {
+                        Auth.removeAgent();
+                        m.route.set('/dashboard');
+                      })
                     }}
                 />
               </>
