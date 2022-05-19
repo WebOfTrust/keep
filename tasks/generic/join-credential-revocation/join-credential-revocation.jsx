@@ -1,7 +1,7 @@
 import m from 'mithril';
 import createIdentifier from '../../../src/assets/img/create-identifier.svg';
 
-class JoinCredentialRevocation {
+class JoinCredentialRevocationTask {
   constructor(config) {
     this._label = config.label;
     this._component = {
@@ -34,4 +34,4 @@ class JoinCredentialRevocation {
   }
 }
 
-module.exports = JoinCredentialRevocation;
+module.exports = JoinCredentialRevocationTask;

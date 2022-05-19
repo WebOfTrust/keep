@@ -1,7 +1,7 @@
 import m from 'mithril';
 import createIdentifier from '../../../src/assets/img/create-identifier.svg';
 
-class InitiateManualKeyRotation {
+class InitiateManualKeyRotationTask {
   constructor(config) {
     this._label = config.label;
     this._component = {
@@ -34,4 +34,4 @@ class InitiateManualKeyRotation {
   }
 }
 
-module.exports = InitiateManualKeyRotation;
+module.exports = InitiateManualKeyRotationTask;

@@ -20,13 +20,13 @@ import ViewMultiSigEventLogsTask from '../generic/view-multi-sig-event-logs/view
 import loanApproved from '../../src/assets/img/loan-approved.svg';
 
 //dummy tasks
-import JoinManualKeyRotation from '../generic/join-manual-key-rotation/join-manual-key-rotation';
-import InitiateManualKeyRotation from '../generic/initiate-manual-key-rotation/initiate-manual-key-rotation';
-import InitiateDelegationApproval from '../generic/initiate-delegation-approval/initiate-delegation-approval';
-import JoinDelegationApproval from '../generic/join-delegation-approval/join-delegation-approval';
-import JoinCredentialRevocation from '../generic/join-credential-revocation/join-credential-revocation';
-import JoinCredentialIssuance from '../generic/join-credential-issuance/join-credential-issuance';
-import AcceptCredentials from '../generic/accept-credentials/accept-credentials';
+import JoinManualKeyRotationTask from '../generic/join-manual-key-rotation/join-manual-key-rotation';
+import InitiateManualKeyRotationTask from '../generic/initiate-manual-key-rotation/initiate-manual-key-rotation';
+import InitiateDelegationApprovalTask from '../generic/initiate-delegation-approval/initiate-delegation-approval';
+import JoinDelegationApprovalTask from '../generic/join-delegation-approval/join-delegation-approval';
+import JoinCredentialRevocationTask from '../generic/join-credential-revocation/join-credential-revocation';
+import JoinCredentialIssuanceTask from '../generic/join-credential-issuance/join-credential-issuance';
+import AcceptCredentialsTask from '../generic/accept-credentials/accept-credentials';
 
 class DelegationApprovalInProcessTask {
   constructor() {
@@ -69,7 +69,7 @@ const tasks = {
   'join-multisig': [new JoinMultiSigGroupTask({ label: 'Join Multi-Sig Group' })],
   'main': [
     new ManualKeyRotationTask({ label: 'Initiate Manual Key Rotation' }),
-    new JoinManualKeyRotation({ label: 'Join Manual Key Rotation' }),
+    new JoinManualKeyRotationTask({ label: 'Join Manual Key Rotation' }),
     new VideoCallTask({
       initiate: false,
       skipIntro: true,
@@ -77,7 +77,7 @@ const tasks = {
       label: 'Initiate Delegation Approval',
       next: new DelegationApprovalInProcessTask(),
     }),
-    new JoinCredentialIssuance({ label: 'Join Delegation Approval' }),
+    new JoinCredentialIssuanceTask({ label: 'Join Delegation Approval' }),
     new ViewMultiSigEventLogsTask({ label: 'View Multi-Sig Event Logs' }),
   ],
 };

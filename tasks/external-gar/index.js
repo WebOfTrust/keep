@@ -19,13 +19,15 @@ import ManualKeyRotationTask from '../generic/manual-key-rotation/manual-key-rot
 import VideoCallTask from '../generic/video-call/video-call';
 import ViewMultiSigEventLogsTask from '../generic/view-multi-sig-event-logs/view-multi-sig-event-logs';
 
-// tasks real
-import JoinManualKeyRotation from '../generic/join-manual-key-rotation/join-manual-key-rotation';
-import InitiateManualKeyRotation from '../generic/initiate-manual-key-rotation/initiate-manual-key-rotation';
-import InitiateDelegationApproval from '../generic/initiate-delegation-approval/initiate-delegation-approval';
-import JoinDelegationApproval from '../generic/join-delegation-approval/join-delegation-approval';
-import JoinCredentialRevocation from '../generic/join-credential-revocation/join-credential-revocation';
-import JoinCredentialIssuance from '../generic/join-credential-issuance/join-credential-issuance';
+// dummy tasks
+import JoinManualKeyRotationTask from '../generic/join-manual-key-rotation/join-manual-key-rotation';
+import InitiateManualKeyRotationTask from '../generic/initiate-manual-key-rotation/initiate-manual-key-rotation';
+import InitiateDelegationApprovalTask from '../generic/initiate-delegation-approval/initiate-delegation-approval';
+import JoinDelegationApprovalTask from '../generic/join-delegation-approval/join-delegation-approval';
+import JoinCredentialRevocationTask from '../generic/join-credential-revocation/join-credential-revocation';
+import JoinCredentialIssuanceTask from '../generic/join-credential-issuance/join-credential-issuance';
+import AcceptCredentialsTask from '../generic/accept-credentials/accept-credentials';
+
 import loanApproved from '../../src/assets/img/loan-approved.svg';
 
 class ExchangeWithLeadRootGARTask {
@@ -79,13 +81,13 @@ const tasks = {
   'join-multisig': [new JoinMultiSigGroupTask({ label: 'Join Multi-Sig Group' })],
   'main': [
     new ManualKeyRotationTask({ label: 'Initiate Manual Key Rotation' }),
-    new JoinManualKeyRotation({ label: 'Join Manual Key Rotation' }),
-    new InitiateDelegationApproval({ label: 'Initiate Delegation Approval' }),
-    new JoinDelegationApproval({ label: 'Join Delegation Approval' }),
+    new JoinManualKeyRotationTask({ label: 'Join Manual Key Rotation' }),
+    new InitiateDelegationApprovalTask({ label: 'Initiate Delegation Approval' }),
+    new JoinDelegationApprovalTask({ label: 'Join Delegation Approval' }),
     new CredentialIssuanceTask({ label: 'Initiate QVI Credential Issuance' }),
-    new JoinCredentialIssuance({ label: 'Join QVI Credential Issuance' }),
+    new JoinCredentialIssuanceTask({ label: 'Join QVI Credential Issuance' }),
     new CredentialRevocationTask({ label: 'Initiate QVI Credential Revocation' }),
-    new JoinCredentialRevocation({ label: 'Join QVI Credential Revocation' }),
+    new JoinCredentialRevocationTask({ label: 'Join QVI Credential Revocation' }),
     new ViewMultiSigEventLogsTask({ label: 'View Multi-Sig Event Logs' }),
   ],
 };
