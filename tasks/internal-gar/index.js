@@ -17,6 +17,14 @@ import ManualKeyRotationTask from '../generic/manual-key-rotation/manual-key-rot
 import VideoCallTask from '../generic/video-call/video-call';
 import ViewMultiSigEventLogsTask from '../generic/view-multi-sig-event-logs/view-multi-sig-event-logs';
 
+//dummy tasks
+import JoinManualKeyRotation from '../generic/join-manual-key-rotation/join-manual-key-rotation';
+import InitiateManualKeyRotation from '../generic/initiate-manual-key-rotation/initiate-manual-key-rotation';
+import InitiateDelegationApproval from '../generic/initiate-delegation-approval/initiate-delegation-approval';
+import JoinDelegationApproval from '../generic/join-delegation-approval/join-delegation-approval';
+import JoinCredentialRevocation from '../generic/join-credential-revocation/join-credential-revocation';
+import JoinCredentialIssuance from '../generic/join-credential-issuance/join-credential-issuance';
+import AcceptCredentials from '../generic/accept-credentials/accept-credentials';
 const tasks = {
   'create-passcode': [
     new CreatePasscodeTask({ label: 'Create Your Passcode' }),
@@ -42,13 +50,13 @@ const tasks = {
   'join-multisig': [new JoinMultiSigGroupTask('Join Multi-Sig Group')],
   'main': [
     new ManualKeyRotationTask({ label: 'Initiate Manual Key Rotation' }),
-    new ManualKeyRotationTask({ label: 'Join Manual Key Rotation' }),
+    new JoinManualKeyRotation({ label: 'Join Manual Key Rotation' }),
     new CredentialIssuanceTask({ label: 'Initiate ECR Credential Issuance' }),
-    new CredentialIssuanceTask({ label: 'Join ECR Credential Issuance' }),
+    new JoinCredentialIssuance({ label: 'Join ECR Credential Issuance' }),
     new CredentialRevocationTask({ label: 'Initiate ECR Credential Revocation' }),
-    new CredentialRevocationTask({ label: 'Join ECR Credential Revocation' }),
+    new JoinCredentialIssuance({ label: 'Join ECR Credential Revocation' }),
     new ViewMultiSigEventLogsTask({ label: 'View Multi-Sig Event Logs' }),
-    new ViewMultiSigEventLogsTask({ label: 'Accept Credential' }),
+    new AcceptCredentials({ label: 'Accept Credential' }),
   ],
 };
 
