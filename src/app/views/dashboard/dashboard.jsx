@@ -71,23 +71,10 @@ class Dashboard {
                       style={{ position: 'relative' }}
                       padding="4rem"
                     >
-                      <IconButton
-                        class="close-icon"
-                        icon="close"
-                        onclick={() => {
-                          if (Tasks.active) {
-                            Tasks.active = null;
-                          } else {
-                            this.aboutDismissed = true;
-                          }
-                        }}
-                      />
                       {Tasks.active && (
                         <Tasks.active.lcomponent
                           end={() => {
                             Tasks.active = null;
-                            Profile.loadIdentifiers();
-                            Contacts.requestList();
                           }}
                         />
                       )}

@@ -21,12 +21,7 @@ import loanApproved from '../../src/assets/img/loan-approved.svg';
 
 //dummy tasks
 import JoinManualKeyRotationTask from '../generic/join-manual-key-rotation/join-manual-key-rotation';
-import InitiateManualKeyRotationTask from '../generic/initiate-manual-key-rotation/initiate-manual-key-rotation';
-import InitiateDelegationApprovalTask from '../generic/initiate-delegation-approval/initiate-delegation-approval';
 import JoinDelegationApprovalTask from '../generic/join-delegation-approval/join-delegation-approval';
-import JoinCredentialRevocationTask from '../generic/join-credential-revocation/join-credential-revocation';
-import JoinCredentialIssuanceTask from '../generic/join-credential-issuance/join-credential-issuance';
-import AcceptCredentialsTask from '../generic/accept-credentials/accept-credentials';
 
 class DelegationApprovalInProcessTask {
   constructor() {
@@ -36,11 +31,11 @@ class DelegationApprovalInProcessTask {
       view: (vnode) => {
         return (
           <>
-            <img src={loanApproved} style={{ width: '240px' }} />
-            <h3>Delegation Approval in Progress</h3>
-            <p>You will be notified when it is time for you to sign</p>
-            <div class="flex flex-justify-end">
-              <Button raised class="button--big button--no-transform" label="Close" onclick={() => {}} />
+            <img src={loanApproved} style={{ marginBottom: '1rem', width: '240px' }} />
+            <h3 style={{ marginBottom: '2rem' }}>Delegation Approval in Progress</h3>
+            <p class="p-tag">You will be notified when it is time for you to sign</p>
+            <div class="flex flex-justify-end" style={{ marginTop: '4rem' }}>
+              <Button raised class="button--big button--no-transform" label="Close" onclick={vnode.attrs.end} />
             </div>
           </>
         );
@@ -77,7 +72,7 @@ const tasks = {
       label: 'Initiate Delegation Approval',
       next: new DelegationApprovalInProcessTask(),
     }),
-    new JoinCredentialIssuanceTask({ label: 'Join Delegation Approval' }),
+    new JoinDelegationApprovalTask({ label: 'Join Delegation Approval' }),
     new ViewMultiSigEventLogsTask({ label: 'View Multi-Sig Event Logs' }),
   ],
 };

@@ -77,20 +77,22 @@ class EnterOOBIsForm {
         <div style={{ maxHeight: '512px', overflowY: 'auto', margin: '0 0 1rem 0', paddingRight: '1rem' }}>
           <div class="flex flex-justify-between" style={{ alignItems: 'baseline' }}>
             <p class="p-tag" style={{ margin: '2rem 0 2rem 0' }}>
-              While on the Video Call make sure to obtain {vnode.attrs.oneToOne ? `the ` : `each`} participant's{' '}
+              While on the Video Call make sure to obtain {vnode.attrs.oneToOne ? `the other` : `each`} participant's{' '}
               <b>URL</b> and give them an Alias that makes sense to you:
             </p>
           </div>
           {vnode.attrs.participants.oobis.map((oobi) => {
             return (
               <Card class="card--fluid" style={{ margin: '0 0 1.5rem 0' }}>
-                <IconButton
-                  class="close-icon"
-                  icon="close"
-                  onclick={() => {
-                    vnode.attrs.participants.oobis.splice(vnode.attrs.participants.oobis.indexOf(oobi), 1);
-                  }}
-                />
+                {!vnode.attrs.oneToOne && (
+                  <IconButton
+                    class="close-icon"
+                    icon="close"
+                    onclick={() => {
+                      vnode.attrs.participants.oobis.splice(vnode.attrs.participants.oobis.indexOf(oobi), 1);
+                    }}
+                  />
+                )}
                 <div className="flex flex-align-center">
                   <h5 style={{ minWidth: '100px' }}>Status:</h5>
                   {oobi.status === 'none' && <p className="font-color--battleship font-weight--medium">Not Started</p>}

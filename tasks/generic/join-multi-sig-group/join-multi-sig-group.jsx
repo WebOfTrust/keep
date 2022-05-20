@@ -36,6 +36,7 @@ class JoinMultiSigGroup {
     let notif = Notify.findByType('multisig');
     this.aids = notif.data.aids;
     this.ked = notif.data.ked;
+    this.delegator = Contacts.filterById(this.ked.di)[0];
     this.fractionallyWeighted = Array.isArray(this.ked.kt);
   }
 
@@ -77,7 +78,17 @@ class JoinMultiSigGroup {
           <>
             <h3>Review and Confirm</h3>
             <p>Review signers to make sure the list is complete.</p>
-            <h4>Signers (in order):</h4>
+            {this.ked.di && (
+              <>
+                <h4>Delegator:</h4>
+                <div class="flex flex-align-center flex-justify-between" style={{ margin: '1rem 0' }}>
+                  <div class="flex-1 uneditable-value" style={{ minHeight: '48px' }}>
+                    {this.delegator?.alias}
+                  </div>
+                </div>
+              </>
+            )}
+            <h4>Signers:</h4>
             {this.aids.map((signer, i) => {
               console.log(signer);
               let name = '';

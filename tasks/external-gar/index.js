@@ -4,6 +4,7 @@ import m from 'mithril';
 import variables from './variables';
 
 import { Button } from '../../src/app/components';
+import { Tasks } from '../../src/app/services';
 
 // Tasks
 
@@ -21,12 +22,9 @@ import ViewMultiSigEventLogsTask from '../generic/view-multi-sig-event-logs/view
 
 // dummy tasks
 import JoinManualKeyRotationTask from '../generic/join-manual-key-rotation/join-manual-key-rotation';
-import InitiateManualKeyRotationTask from '../generic/initiate-manual-key-rotation/initiate-manual-key-rotation';
-import InitiateDelegationApprovalTask from '../generic/initiate-delegation-approval/initiate-delegation-approval';
 import JoinDelegationApprovalTask from '../generic/join-delegation-approval/join-delegation-approval';
 import JoinCredentialRevocationTask from '../generic/join-credential-revocation/join-credential-revocation';
 import JoinCredentialIssuanceTask from '../generic/join-credential-issuance/join-credential-issuance';
-import AcceptCredentialsTask from '../generic/accept-credentials/accept-credentials';
 
 import loanApproved from '../../src/assets/img/loan-approved.svg';
 
@@ -38,14 +36,21 @@ class ExchangeWithLeadRootGARTask {
       view: (vnode) => {
         return (
           <>
-            <img src={loanApproved} style={{ width: '240px' }} />
-            <h3>Exchange OOBIs with Lead Root GAR</h3>
-            <p>
+            <img src={loanApproved} style={{ marginBottom: '1rem', width: '240px' }} />
+            <h3 style={{ marginBottom: '2rem' }}>Exchange OOBIs with Lead Root GAR</h3>
+            <p class="p-tag">
               Verification of the External GARs has been completed, please proceed with exchanging OOBIs with your Lead
               Root GAR
             </p>
-            <div class="flex flex-justify-end">
-              <Button raised class="button--big button--no-transform" label="Continue" onclick={() => {}} />
+            <div class="flex flex-justify-end" style={{ marginTop: '4rem' }}>
+              <Button
+                raised
+                class="button--big button--no-transform"
+                label="Continue"
+                onclick={() => {
+                  Tasks.active = challengeWithLeadRootGAR;
+                }}
+              />
             </div>
           </>
         );
@@ -53,6 +58,70 @@ class ExchangeWithLeadRootGARTask {
     };
   }
 }
+
+class RootGARExchangeCompleteTask {
+  constructor() {
+    this.label = '';
+    this.imgSrc = null;
+    this.component = {
+      view: (vnode) => {
+        return (
+          <>
+            <img src={loanApproved} style={{ marginBottom: '1rem', width: '240px' }} />
+            <h3 style={{ marginBottom: '2rem' }}>Create Your Multi Sig Group</h3>
+            <p class="p-tag">
+              Verification of the Lead Root GAR has been completed, please proceed with creating your multi-sig group
+            </p>
+            <div class="flex flex-justify-end" style={{ marginTop: '4rem' }}>
+              <Button
+                raised
+                class="button--big button--no-transform"
+                label="Close"
+                onclick={() => {
+                  Tasks.active = configureMultisigGroup;
+                }}
+              />
+            </div>
+          </>
+        );
+      },
+    };
+  }
+}
+
+class DelegationApprovalInProcessTask {
+  constructor() {
+    this.label = '';
+    this.imgSrc = null;
+    this.component = {
+      view: (vnode) => {
+        return (
+          <>
+            <img src={loanApproved} style={{ marginBottom: '1rem', width: '240px' }} />
+            <h3 style={{ marginBottom: '2rem' }}>Delegation Approval in Progress</h3>
+            <p class="p-tag">You will be notified when it is time for you to sign</p>
+            <div class="flex flex-justify-end" style={{ marginTop: '4rem' }}>
+              <Button raised class="button--big button--no-transform" label="Close" onclick={vnode.attrs.end} />
+            </div>
+          </>
+        );
+      },
+    };
+  }
+}
+
+const challengeWithLeadRootGAR = new VideoCallTask({
+  initiate: true,
+  skipIntro: true,
+  oneToOne: true,
+  label: 'Challenge with Lead Root GAR',
+  next: new RootGARExchangeCompleteTask(),
+});
+
+const configureMultisigGroup = new ConfigureMultiSigGroupTask({
+  label: 'Configure Multi-Sig Group',
+  requireDelegator: true,
+});
 
 const tasks = {
   'create-passcode': [
@@ -64,13 +133,7 @@ const tasks = {
     new CreateYourAIDTask({ label: 'Incept Local GLEIF Single-Sig AID', variables: variables.createYourAid }),
   ],
   'create-multisig': [
-    new VideoCallTask({
-      initiate: true,
-      skipIntro: true,
-      oneToOne: true,
-      label: 'Initiate One Way OOBI/Challenge with Lead Root GAR',
-      next: new ConfigureMultiSigGroupTask({ label: 'Configure Multi-Sig Group', requireDelegator: true }),
-    }),
+    challengeWithLeadRootGAR,
     new VideoCallTask({
       initiate: true,
       label: 'Lead GLEIF External Multi-Sig AID Inception',
@@ -82,7 +145,13 @@ const tasks = {
   'main': [
     new ManualKeyRotationTask({ label: 'Initiate Manual Key Rotation' }),
     new JoinManualKeyRotationTask({ label: 'Join Manual Key Rotation' }),
-    new InitiateDelegationApprovalTask({ label: 'Initiate Delegation Approval' }),
+    new VideoCallTask({
+      initiate: false,
+      skipIntro: true,
+      oneToOne: true,
+      label: 'Initiate Delegation Approval',
+      next: new DelegationApprovalInProcessTask(),
+    }),
     new JoinDelegationApprovalTask({ label: 'Join Delegation Approval' }),
     new CredentialIssuanceTask({ label: 'Initiate QVI Credential Issuance' }),
     new JoinCredentialIssuanceTask({ label: 'Join QVI Credential Issuance' }),

@@ -129,12 +129,12 @@ class VideoCall {
         )}
         {vnode.attrs.parent.currentState === 'video-call' && (
           <>
-            <img src={responseMessage} style={{ marginBottom: '2rem', width: '240px' }} />
+            <img src={projectPlanning} style={{ marginBottom: '2rem', width: '240px' }} />
             <h3>Initiate a Video Call</h3>
             <p class="p-tag" style={{ margin: '2rem 0' }}>
               In order to start the authentication process, you will need to initiate a real-time Out of Band
-              Interaction (OOBI) session in which you and the other users are present, You will accept all their OOBIs
-              (URL + AID) on a Video Call so that you can receive their identifying information.
+              Interaction (OOBI) session in which you and the other users are present. You will accept all their OOBI
+              URLs on a Video Call so that you can receive their identifying information.
             </p>
             <div class="flex flex-justify-between" style={{ marginTop: '4rem' }}>
               <Button
@@ -161,7 +161,7 @@ class VideoCall {
             <img src={responseMessage} style={{ marginBottom: '2rem', width: '240px' }} />
             <h3>Join a Video Call</h3>
             <p class="p-tag" style={{ margin: '2rem 0' }}>
-              In order to participate in the authentication process, you will need to join an real-time Out of Band
+              In order to participate in the authentication process, you will need to join a real-time Out of Band
               Interaction (OOBI) session initiated by the Lead in which you and the other users are present. You will
               accept all their OOBI URLs on a Video Call so that you can receive their identifier information.
             </p>
@@ -321,7 +321,8 @@ class CopyChallengePanel {
           <h3>Challenge Message Recipients</h3>
         </div>
         <p class="p-tag" style={{ margin: '2rem 0 2rem 0' }}>
-          Paste the message into the video chat so that your contact(s) can be verified
+          Paste the message into the video chat so that your contact{vnode.attrs.parent.oneToOne ? '' : 's'} can be
+          verified
           <br />
           <br />
           <strong>

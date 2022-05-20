@@ -18,9 +18,6 @@ import ViewMultiSigEventLogsTask from '../generic/view-multi-sig-event-logs/view
 
 //dummy tasks
 import JoinManualKeyRotationTask from '../generic/join-manual-key-rotation/join-manual-key-rotation';
-import InitiateManualKeyRotationTask from '../generic/initiate-manual-key-rotation/initiate-manual-key-rotation';
-import InitiateDelegationApprovalTask from '../generic/initiate-delegation-approval/initiate-delegation-approval';
-import JoinDelegationApprovalTask from '../generic/join-delegation-approval/join-delegation-approval';
 import JoinCredentialRevocationTask from '../generic/join-credential-revocation/join-credential-revocation';
 import JoinCredentialIssuanceTask from '../generic/join-credential-issuance/join-credential-issuance';
 import AcceptCredentialsTask from '../generic/accept-credentials/accept-credentials';
@@ -55,7 +52,7 @@ const tasks = {
     new CredentialRevocationTask({ label: 'Initiate Credential Revocation' }),
     new JoinCredentialRevocationTask({ label: 'Join Credential Revocation' }),
     new ViewMultiSigEventLogsTask({ label: 'View Multi-Sig Event Logs' }),
-    new ViewMultiSigEventLogsTask({ label: 'Accept Credential' }),
+    new AcceptCredentialsTask({ label: 'Accept Credential' }),
   ],
 };
 

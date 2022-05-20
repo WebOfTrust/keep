@@ -46,9 +46,9 @@ class ConfigureMultiSigGroup {
         signed: false,
       },
     ];
+    MultiSig.delegator = null;
     this.default = Profile.getDefaultAID();
     this.weight = '1/2';
-    this.delegator = null;
     Contacts.requestList();
   }
 
@@ -121,8 +121,8 @@ class ConfigureMultiSigGroup {
       inceptData.isith = sith;
       inceptData.nsith = sith;
     }
-    if (this.delegator) {
-      inceptData.delpre = this.delegator.id;
+    if (MultiSig.delegator) {
+      inceptData.delpre = MultiSig.delegator.id;
     }
     MultiSig.participants.splice(0, 0, {
       id: this.default.prefix,
@@ -343,7 +343,7 @@ class ConfigureMultiSigGroup {
                         marginLeft: '1rem',
                       }}
                       onclick={() => {
-                        this.signers.splice(index, 1);
+                        MultiSig.participants.splice(index, 1);
                       }}
                     />
                   </div>
@@ -395,12 +395,15 @@ class ConfigureMultiSigGroup {
         )}
         {vnode.attrs.parent.currentState === 'select-delegator' && (
           <>
-            <img src={secureMessaging} style={{ width: '268px' }} />
+            <img src={secureMessaging} style={{ marginBottom: '1rem', width: '268px' }} />
             <h3>Select a Delegator</h3>
-            <p class="p-tag">Select a delegator that will be delegating the accesses.</p>
+            <p class="p-tag" style={{ margin: '2rem 0' }}>
+              Select a delegator that will be delegating the accesses.
+            </p>
             <p class="p-tag-bold">Delegator</p>
             <Select
               outlined
+              fluid
               options={Contacts.list.map((contact) => {
                 return {
                   label: contact.alias,
@@ -409,10 +412,10 @@ class ConfigureMultiSigGroup {
               })}
               onchange={(id) => {
                 let contact = Contacts.filterById(id)[0];
-                this.delegator = contact;
+                MultiSig.delegator = contact;
               }}
             />
-            <div class="flex flex-justify-between" style={{ marginTop: '2rem' }}>
+            <div class="flex flex-justify-between" style={{ marginTop: '4rem' }}>
               <Button
                 class="button--gray-dk button--big button--no-transform"
                 raised
@@ -425,7 +428,7 @@ class ConfigureMultiSigGroup {
                 class="button--big button--no-transform"
                 raised
                 label="Continue"
-                disabled={!this.delegator}
+                disabled={!MultiSig.delegator}
                 onclick={() => {
                   vnode.attrs.parent.currentState = 'review-and-confirm';
                 }}
@@ -436,7 +439,7 @@ class ConfigureMultiSigGroup {
         {vnode.attrs.parent.currentState === 'review-and-confirm' && (
           <>
             <h3 style={{ marginBottom: '2rem' }}>Review and Confirm</h3>
-            <p class="font-weight--bold font-color--battleship">Group Alias</p>
+            <p class="font-weight--bold font-color--battleship">Group Alias:</p>
             <div class="uneditable-value">{this.groupAlias}</div>
             <p className="font-weight--bold font-color--battleship">Witness Pool:</p>
             <div className="uneditable-value">{Witnesses.witnessPools.find((p) => p.value === this.wits).label}</div>
@@ -464,15 +467,9 @@ class ConfigureMultiSigGroup {
             })}
             {vnode.attrs.parent.requireDelegator && (
               <>
-                <div class="flex flex-justfiy-between" style={{ margin: '0 0 4rem 0' }}>
-                  <div class="flex flex-column">
-                    <p class="p-tag-bold">Delegator AID</p>
-                    <div class="uneditable-value">{this.delegator.id}</div>
-                  </div>
-                  <div class="flex flex-column">
-                    <p class="p-tag-bold">Delegator Alias</p>
-                    <div class="uneditable-value">{this.delegator.alias}</div>
-                  </div>
+                <p class="font-weight--bold font-color--battleship">Delegator:</p>
+                <div class="flex flex-align-center flex-justify-between" style={{ margin: '0 0 4rem 0' }}>
+                  <div class="flex-1 uneditable-value">{MultiSig.delegator.alias}</div>
                 </div>
               </>
             )}
@@ -499,6 +496,7 @@ class ConfigureMultiSigGroup {
         )}
         {vnode.attrs.parent.currentState === 'setup-complete' && (
           <EventDetails
+            parent={vnode.attrs.parent}
             groupAlias={this.groupAlias}
             status={this.status}
             back={() => {
@@ -538,7 +536,7 @@ class EventDetails {
             Signed?
           </p>
         </div>
-        <div style={{ height: '350px', overflowY: 'scroll', margin: '0 0 1rem 0' }}>
+        <div style={{ maxHeight: '350px', overflowY: 'scroll', margin: '0 0 1rem 0' }}>
           {MultiSig.participants.map((sig, i) => {
             return (
               <div
@@ -568,7 +566,29 @@ class EventDetails {
             );
           })}
         </div>
-        <div class="flex flex-justify-between">
+        {vnode.attrs.parent.requireDelegator && (
+          <>
+            <h3>Delegation Approval:</h3>
+            <div
+              class="flex flex-justify-evenly "
+              style={{ alignItems: 'center', margin: '0 0 1rem 0', width: '100%' }}
+            >
+              <div
+                class="flex flex-align-center"
+                style={{ width: '55%', backgroundColor: 'white', height: '40px', borderRadius: '3px' }}
+              >
+                <p class="p-tag-bold" style={{ margin: '0 0 0 .5rem', fontSize: '80%' }}>
+                  {MultiSig.delegator.alias}
+                </p>
+              </div>
+              <div style={{ margin: '0 0 0 .5rem' }}>
+                {/* TODO: Change from unchecked to checked when delegator signs */}
+                <img src={redX} style={{ width: '80%' }} />
+              </div>
+            </div>
+          </>
+        )}
+        <div class="flex flex-justify-between" style={{ marginTop: '4rem' }}>
           <Button
             class="button--gray-dk button--big button--no-transform"
             raised

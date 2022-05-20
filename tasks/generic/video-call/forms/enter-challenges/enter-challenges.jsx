@@ -33,7 +33,7 @@ class EnterChallengesForm {
                     <h5 style={{ minWidth: '100px' }}>Alias:</h5>
                     <p class="p-tag-bold">{signer.alias}</p>
                   </div>
-                  <div class="flex flex-align-center flex-justify-between">
+                  <div class="flex flex-justify-between">
                     <h5 style={{ minWidth: '100px' }}>Message:</h5>
                     <TextField
                       outlined
