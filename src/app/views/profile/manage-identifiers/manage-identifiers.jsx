@@ -190,20 +190,35 @@ class ListIdentifiers {
                     <code style="margin: 0 0 0 0;">{aid.prefix}</code>
                   </div>
 
-                  <div>
-                    <div style={{ margin: '0 0 2rem 0' }}>
-                      <p class="p-tag-bold" style={{ margin: '1rem 0 0 0' }}>
-                        Public Keys:
-                      </p>
-                      {aid.public_keys.map((pk) => {
-                        return (
-                          <div>
-                            <code style="margin: 0 0 0 0;">{pk}</code>
-                          </div>
-                        );
-                      })}
+                  {aid.public_keys && (
+                    <div>
+                      <div style={{ margin: '0 0 2rem 0' }}>
+                        <p class="p-tag-bold" style={{ margin: '1rem 0 0 0' }}>
+                          Public Keys:
+                        </p>
+                        {aid.public_keys.map((pk) => {
+                          return (
+                            <div>
+                              <code style="margin: 0 0 0 0;">{pk}</code>
+                            </div>
+                          );
+                        })}
+                      </div>
                     </div>
-                  </div>
+                  )}
+
+                  {aid.delegated && (
+                    <div>
+                      <div style={{ margin: '0 0 2rem 0' }}>
+                        <p class="p-tag-bold" style={{ margin: '1rem 0 0 0' }}>
+                          Delegator:
+                        </p>
+                        <div>
+                          <code style="margin: 0 0 0 0;">{aid.delegator}</code>
+                        </div>
+                      </div>
+                    </div>
+                  )}
                   <div className="flex flex-justify-between" style={{ marginTop: '1rem', alignItems: 'center' }}>
                     <div class="flex">
                       <Radio

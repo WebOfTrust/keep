@@ -30,7 +30,7 @@ class Nav {
   }
 
   multisigCompleteClick(notification) {
-    console.log('Multisig complete', notification);
+    m.route.set('/profile');
   }
 
   multisigInitClick(notification) {
@@ -97,11 +97,11 @@ class Nav {
                       if (notification.type === 'multisig') {
                         let rType = notification.data.r;
                         let meta = {
-                          title: 'New Credential Registry',
+                          title: '',
                           clickHandler: null,
                         };
                         if (rType.includes('/complete')) {
-                          meta.title = 'New Credential Registry';
+                          meta.title = `Multi-Sig Inception Complete`;
                           meta.clickHandler = this.multisigCompleteClick;
                         } else if (rType.includes('/init')) {
                           meta.title = 'New Multi-Sig Verification';
