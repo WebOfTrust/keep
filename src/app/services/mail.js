@@ -95,6 +95,10 @@ class Mail {
     m.redraw();
   };
 
+  static delegateHandler = (e) => {
+    console.log(e);
+  };
+
   static multisigHandler = (e) => {
     let data = JSON.parse(e.data);
     console.log(data);
@@ -105,45 +109,23 @@ class Mail {
     m.redraw();
   };
 
-  static receiptHandler = (e) => {
-    console.log('receipt', e);
-    Toaster.success(`receipt: ${e}`);
-    m.redraw();
-  };
-
-  static replayHandler = (e) => {
-    console.log('replay', e);
-    Toaster.success(`replay: ${e}`);
-    m.redraw();
-  };
-
-  static replyHandler = (e) => {
-    console.log('reply', e);
-    Toaster.success(`reply: ${e}`);
-    m.redraw();
-  };
-
   static initEventSource = () => {
     if (this.source || this.messages.length > 0) {
       return;
     }
     this.source = new EventSource(
-      `${process.env.API_HOST}:${process.env.API_PORT}/mbx?pre=E59KmDbpjK0tRf9Rmc7OlueZVz7LB94DdD3cjQVvPcng&topics=%2Fchallenge%3D0&topics=%2Fmultisig%3D0&topics=%2Freceipt%3D0&topics=%2Freplay%3D0&topics=%2Freply%3D0`
+      `${process.env.API_HOST}:${process.env.API_PORT}/mbx?pre=E59KmDbpjK0tRf9Rmc7OlueZVz7LB94DdD3cjQVvPcng&topics=%2Fchallenge%3D0&topics=%2Fdelegate%3D0&topics=%2Fmultisig%3D0&topics=%2Fcredential%3D0`
     );
     this.source.addEventListener('/challenge', this.challengeHandler, false);
+    this.source.addEventListener('/delegate', this.delegateHandler, false);
     this.source.addEventListener('/multisig', this.multisigHandler, false);
-    this.source.addEventListener('/receipt', this.receiptHandler, false);
-    this.source.addEventListener('/replay', this.replayHandler, false);
-    this.source.addEventListener('/reply', this.replyHandler, false);
   };
 
   static closeEventSource = () => {
     this.messages = [];
     this.source.removeEventListener('/challenge', this.challengeHandler, false);
+    this.source.removeEventListener('/delegate', this.delegateHandler, false);
     this.source.removeEventListener('/multisig', this.multisigHandler, false);
-    this.source.removeEventListener('/receipt', this.receiptHandler, false);
-    this.source.removeEventListener('/replay', this.replayHandler, false);
-    this.source.removeEventListener('/reply', this.replyHandler, false);
     this.source.close();
     this.source = null;
   };

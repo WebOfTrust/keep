@@ -62,7 +62,7 @@ class Dashboard {
         <div style="position: relative">
           <div class="dashboard">
             {Auth.isLoggedIn && <NavRail selected="dashboard"></NavRail>}
-            <Container class="headspace" style={{ padding: '0 4rem' }}>
+            <Container class="headspace" style={{ marginBottom: '5rem', padding: '0 4rem' }}>
               <div class="flex flex-justify-between">
                 <div class="flex-1" style={{ marginRight: '4rem' }}>
                   {Tasks.active && Tasks.active.lcomponent !== undefined && (
