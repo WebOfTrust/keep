@@ -1,6 +1,6 @@
 import m from 'mithril';
 import { Button, TextField } from '../../../../../src/app/components';
-import { KERI, Participants } from '../../../../../src/app/services';
+import { KERI } from '../../../../../src/app/services';
 
 class SendChallengeForm {
   constructor() {
@@ -8,11 +8,11 @@ class SendChallengeForm {
     this.copied = false;
   }
 
-  copyMessage() {
+  copyMessage(vnode) {
     navigator.clipboard.writeText(this.challengeMessage).then(
       () => {
         this.copied = true;
-        Participants.updateWords(this.challengeMessage.split(' '));
+        vnode.attrs.participants.updateWords(this.challengeMessage.split(' '));
         m.redraw();
       },
       () => {
@@ -22,11 +22,11 @@ class SendChallengeForm {
     );
   }
 
-  oninit() {
+  oninit(vnode) {
     KERI.generateChallengeMessage()
       .then((res) => {
         this.challengeMessage = res.words.join(' ');
-        Participants.updateWords(res.words);
+        vnode.attrs.participants.updateWords(res.words);
       })
       .catch((err) => {
         console.log('generateChallengeMessage', err);
@@ -52,7 +52,7 @@ class SendChallengeForm {
             label="Copy"
             iconLeading="content_copy"
             onclick={(e) => {
-              this.copyMessage();
+              this.copyMessage(vnode);
             }}
           />
           <p class="font-color--green font-weight--medium">{this.copied ? 'Challenge message copied!' : <br />}</p>

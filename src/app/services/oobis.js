@@ -1,24 +1,28 @@
 class Participants {
-  static oobis = [
-    {
-      alias: '',
-      url: '',
-      status: 'none',
-      challengeMessage: '',
-      verified: false,
-      sent: false,
-      confirmed: false,
-    },
-  ];
+  static instances = [];
 
-  static words = [];
+  constructor() {
+    this.oobis = [
+      {
+        alias: '',
+        url: '',
+        status: 'none',
+        challengeMessage: '',
+        verified: false,
+        sent: false,
+        confirmed: false,
+      },
+    ];
+    this.words = [];
+    Participants.instances.push(this);
+  }
 
-  static updateWords(words) {
+  updateWords(words) {
     this.words.length = 0;
     this.words.push(...words);
   }
 
-  static addOOBI(alias, url) {
+  addOOBI(alias, url) {
     this.oobis.push({
       alias: alias,
       url: url,
@@ -29,7 +33,7 @@ class Participants {
     });
   }
 
-  static oobisResolved() {
+  oobisResolved() {
     return (
       this.oobis.length > 0 &&
       this.oobis.every((oobi) => {
@@ -38,7 +42,7 @@ class Participants {
     );
   }
 
-  static oobisVerified() {
+  oobisVerified() {
     return (
       this.oobis.length > 0 &&
       this.oobis.every((oobi) => {
@@ -47,7 +51,7 @@ class Participants {
     );
   }
 
-  static oobisConfirmed() {
+  oobisConfirmed() {
     return (
       this.oobis.length > 0 &&
       this.oobis.every((oobi) => {

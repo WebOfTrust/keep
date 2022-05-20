@@ -1,6 +1,6 @@
 import m from 'mithril';
 import { Button, Card, IconButton, TextField } from '../../../../../src/app/components';
-import { KERI, Participants } from '../../../../../src/app/services';
+import { KERI } from '../../../../../src/app/services';
 
 /*
  * EnterOOBIsForm
@@ -20,7 +20,7 @@ class EnterOOBIsForm {
   }
 
   resolveAllOOBIs(vnode) {
-    let promises = Participants.oobis
+    let promises = vnode.attrs.participants.oobis
       .filter((oobi) => {
         return oobi.alias && oobi.url;
       })
@@ -30,8 +30,8 @@ class EnterOOBIsForm {
       });
     return Promise.all(promises)
       .then(() => {
-        this.ensureOOBIsResolved(Participants.oobis).then(() => {
-          Participants.oobis.filter((oobi) => {
+        this.ensureOOBIsResolved(vnode.attrs.participants.oobis).then(() => {
+          vnode.attrs.participants.oobis.filter((oobi) => {
             return oobi.alias && oobi.url;
           });
         });
@@ -81,14 +81,14 @@ class EnterOOBIsForm {
               <b>URL</b> and give them an Alias that makes sense to you:
             </p>
           </div>
-          {Participants.oobis.map((oobi) => {
+          {vnode.attrs.participants.oobis.map((oobi) => {
             return (
               <Card class="card--fluid" style={{ margin: '0 0 1.5rem 0' }}>
                 <IconButton
                   class="close-icon"
                   icon="close"
                   onclick={() => {
-                    Participants.oobis.splice(Participants.oobis.indexOf(oobi), 1);
+                    vnode.attrs.participants.oobis.splice(vnode.attrs.participants.oobis.indexOf(oobi), 1);
                   }}
                 />
                 <div className="flex flex-align-center">
@@ -133,7 +133,7 @@ class EnterOOBIsForm {
               label="Add Another"
               iconLeading="add"
               onclick={() => {
-                Participants.addOOBI('', '');
+                vnode.attrs.participants.addOOBI('', '');
               }}
             />
           )}

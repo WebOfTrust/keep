@@ -1,6 +1,6 @@
 import m from 'mithril';
 import { Button, Card, Checkbox, TextField } from '../../../../../src/app/components';
-import { KERI, Participants } from '../../../../../src/app/services';
+import { KERI } from '../../../../../src/app/services';
 
 /*
  * EnterChallengesForm
@@ -12,7 +12,7 @@ import { KERI, Participants } from '../../../../../src/app/services';
 class EnterChallengesForm {
   constructor(vnode) {
     this.alias = vnode.attrs.identifiers[0].name;
-    this.aliases = Participants.oobis.map((oobi) => {
+    this.aliases = vnode.attrs.participants.oobis.map((oobi) => {
       return oobi.alias;
     });
   }
@@ -25,7 +25,7 @@ class EnterChallengesForm {
     return (
       <>
         <div style={{ maxHeight: '512px', overflowY: 'auto', margin: '0 0 1rem 0', paddingRight: '1rem' }}>
-          {Participants.oobis.map((signer, index) => {
+          {vnode.attrs.participants.oobis.map((signer, index) => {
             return (
               <>
                 <Card class="card--fluid" style={{ margin: '0 0 1.5rem 0' }}>

@@ -74,17 +74,20 @@ class Mail {
 
   static challengeHandler = (e) => {
     let data = JSON.parse(e.data);
-    const oobi = Participants.oobis.find((oobi) => {
-      return data.signer === oobi.id;
-    });
-    if (oobi !== undefined) {
-      if (data.words.length === Participants.words.length && data.words.every((v, i) => v === Participants.words[i])) {
-        oobi.verified = true;
-        m.redraw();
-        const aid = Profile.getDefaultAID();
-        KERI.updateContact(aid.name, oobi.id, { verified: 'true' });
+    const participantInstances = Participants.instances;
+    participantInstances.forEach((instance) => {
+      const oobi = instance.oobis.find((oobi) => {
+        return data.signer === oobi.id;
+      });
+      if (oobi !== undefined) {
+        if (data.words.length === instance.words.length && data.words.every((v, i) => v === instance.words[i])) {
+          oobi.verified = true;
+          m.redraw();
+          const aid = Profile.getDefaultAID();
+          KERI.updateContact(aid.name, oobi.id, { verified: 'true' });
+        }
       }
-    }
+    });
     Notify.push({
       type: 'challenge',
       data,

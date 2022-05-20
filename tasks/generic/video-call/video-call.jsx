@@ -14,6 +14,7 @@ class VideoCallTask {
     this.initiate = config.initiate;
     this.oneToOne = config.oneToOne;
     this.next = config.next;
+    this.participants = new Participants();
 
     if (config.skipIntro) {
       this.currentState = this.initiate ? 'video-call' : 'join-call';
@@ -32,7 +33,7 @@ class VideoCallTask {
     };
     this.copyChallengePanel = {
       view: (vnode) => {
-        return <CopyChallengePanel />;
+        return <CopyChallengePanel parent={this} />;
       },
     };
   }
@@ -100,8 +101,12 @@ class VideoCall {
                   <li>Obtain and sign a Challenge Message</li>
                   <li>Generate and send a Challenge Message</li>
                   <li>User signs and returns Challenge Message</li>
-                  {vnode.attrs.parent.initiate && <li>You initiate the Multi-Sig Group for all participants</li>}
-                  {!vnode.attrs.parent.initiate && <li>Wait for invitation to join Multi-Sig Group</li>}
+                  {vnode.attrs.parent.initiate && !vnode.attrs.parent.oneToOne && (
+                    <li>You initiate the Multi-Sig Group for all participants</li>
+                  )}
+                  {!vnode.attrs.parent.initiate && !vnode.attrs.parent.oneToOne && (
+                    <li>Wait for invitation to join Multi-Sig Group</li>
+                  )}
                 </>
               )}
             </ol>
@@ -127,7 +132,7 @@ class VideoCall {
             <img src={responseMessage} style={{ marginBottom: '2rem', width: '240px' }} />
             <h3>Initiate a Video Call</h3>
             <p class="p-tag" style={{ margin: '2rem 0' }}>
-              In order to start the authentication process, you will need to initiate an real-time Out of Band
+              In order to start the authentication process, you will need to initiate a real-time Out of Band
               Interaction (OOBI) session in which you and the other users are present, You will accept all their OOBIs
               (URL + AID) on a Video Call so that you can receive their identifying information.
             </p>
@@ -183,13 +188,17 @@ class VideoCall {
         {vnode.attrs.parent.currentState === 'send-oobi' && (
           <>
             <h3>Accept OOBI from other person{vnode.attrs.parent.oneToOne ? '' : 's'}</h3>
-            <EnterOOBIsForm identifiers={Profile.identifiers} oneToOne={vnode.attrs.parent.oneToOne} />
+            <EnterOOBIsForm
+              identifiers={Profile.identifiers}
+              participants={vnode.attrs.parent.participants}
+              oneToOne={vnode.attrs.parent.oneToOne}
+            />
             <div class="flex flex-justify-end" style={{ marginTop: '4rem' }}>
               <Button
                 class="button--big button--no-transform"
                 raised
                 label="Continue"
-                disabled={!Participants.oobisResolved()}
+                disabled={!vnode.attrs.parent.participants.oobisResolved()}
                 onclick={() => {
                   vnode.attrs.parent.currentState = 'generate-challenge';
                 }}
@@ -226,7 +235,7 @@ class VideoCall {
         )}
         {vnode.attrs.parent.currentState === 'challenge-messages' && (
           <>
-            <EnterChallengesForm identifiers={Profile.identifiers} />
+            <EnterChallengesForm identifiers={Profile.identifiers} participants={vnode.attrs.parent.participants} />
             <div class="flex flex-justify-between">
               <Button
                 class="button--gray-dk button--big button--no-transform"
@@ -240,7 +249,9 @@ class VideoCall {
                 class="button--big button--no-transform"
                 raised
                 label="Next"
-                disabled={!(Participants.oobisVerified() && Participants.oobisConfirmed())}
+                disabled={
+                  !(vnode.attrs.parent.participants.oobisVerified() && vnode.attrs.parent.participants.oobisConfirmed())
+                }
                 onclick={() => {
                   if (vnode.attrs.parent.next !== undefined) {
                     Tasks.active = vnode.attrs.parent.next;
@@ -318,12 +329,12 @@ class CopyChallengePanel {
             place today.
           </strong>
         </p>
-        <SendChallengeForm />
+        <SendChallengeForm participants={vnode.attrs.parent.participants} />
         <div className="flex flex-align-center flex-justify-between">
           <p class="font-color--battleship">Participant</p>
           <p class="font-color--battleship">Status</p>
         </div>
-        {Participants.oobis.map((signer, index) => {
+        {vnode.attrs.parent.participants.oobis.map((signer, index) => {
           return (
             <>
               <div className="flex flex-align-center flex-justify-between">
