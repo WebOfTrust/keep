@@ -137,9 +137,8 @@ class Nav {
                     m.route.set('/profile');
                   }}
                 >
-                  <ProfilePicture size="s" identifier={this.identifier} />
+                  <ProfilePicture size="s" identifier={Profile.getDefaultAID()} />
                 </div>
-
                 <div style={{ color: '#0cbc8b', paddingLeft: '1rem', fontWeight: 'bold', fontSize: '100%' }}>
                   {this.navLabel}
                 </div>
