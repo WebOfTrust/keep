@@ -139,9 +139,19 @@ class Nav {
                 >
                   <ProfilePicture size="s" identifier={Profile.getDefaultAID()} />
                 </div>
-                <div style={{ color: '#0cbc8b', paddingLeft: '1rem', fontWeight: 'bold', fontSize: '100%' }}>
+                <div style={{ color: '#0cbc8b', paddingLeft: '1rem', paddingRight: '1rem', fontWeight: 'bold', fontSize: '100%' }}>
                   {this.navLabel}
                 </div>
+
+                <IconButton
+                    icon="lock"
+                    onclick={() => {
+                      KERI.lockAgent().then(() => {
+                        Auth.removeAgent();
+                        m.route.set('/dashboard');
+                      })
+                    }}
+                />
               </>
             )}
           </div>

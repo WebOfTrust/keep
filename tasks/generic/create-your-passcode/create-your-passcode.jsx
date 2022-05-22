@@ -69,11 +69,10 @@ class CreatePasscode {
 
   initializeAgent(vnode) {
     this.submitting = true;
-    KERI.initializeAgent(`keep${process.env.API_PORT}`, this.enterPasscode)
+    KERI.initializeAgent(`keep-${process.env.USER_TYPE}-${process.env.API_PORT}`, this.enterPasscode)
       .then(vnode.attrs.end)
       .catch((err) => {
         console.log('initializeAgent', err);
-        // TODO: Replace with dynamic error messages
         this.error = 'Error creating keystore with passcode entered.';
       })
       .finally(() => {

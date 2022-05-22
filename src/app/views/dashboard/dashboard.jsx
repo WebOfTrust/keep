@@ -7,8 +7,6 @@ import './dashboard.scss';
 class Dashboard {
   constructor() {
     this.aboutDismissed = false;
-    Profile.loadIdentifiers();
-    Contacts.requestList();
     this.sliceStart = 0;
     this.sliceEnd = 4;
     this.changeSliceNext = () => {
@@ -19,6 +17,12 @@ class Dashboard {
       this.sliceStart -= 4;
       this.sliceEnd -= 4;
     };
+
+    KERI.status(`keep-${process.env.USER_TYPE}-${process.env.API_PORT}`).then(() => {
+      this.exists = true
+    }).catch((err) =>{
+      this.exists = false
+    })
 
     KERI.listIdentifiers()
       .then((ids) => {
@@ -38,7 +42,10 @@ class Dashboard {
 
   get tasksList() {
     if (!Auth.isLoggedIn) {
-      return Tasks.all['create-passcode'];
+      if (this.exists) {
+        return [Tasks.all['create-passcode'][1]];
+      }
+      return [Tasks.all['create-passcode'][0]];
     }
     if (Profile.identifiers.length === 0) {
       return Tasks.all['create-identifier'];
@@ -154,8 +161,12 @@ class Dashboard {
                         <Tasks.active.component
                           end={() => {
                             Tasks.active = null;
-                            Profile.loadIdentifiers();
-                            Contacts.requestList();
+                            KERI.status(`keep-${process.env.USER_TYPE}-${process.env.API_PORT}`).then(() => {
+                              this.exists = true;
+                                m.redraw();
+                            }).catch((err) =>{
+                              this.exists = false
+                            })
                           }}
                         />
                       )}
