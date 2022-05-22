@@ -14,6 +14,13 @@ class KERI {
 
   // BOOT
 
+  static status(name) {
+    return m.request({
+      method: 'GET',
+      url: `${this.keriURL}/boot/${name}`,
+    });
+  }
+
   static initializeAgent(name, passcode) {
     return m.request({
       method: 'POST',

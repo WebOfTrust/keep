@@ -48,7 +48,7 @@ class Auth {
 
   static login(passcode) {
     return new Promise((resolve, reject) => {
-      KERI.unlockAgent(`keep${process.env.API_PORT}`, passcode)
+      KERI.unlockAgent(`keep-${process.env.USER_TYPE}-${process.env.API_PORT}`, passcode)
         .then((response) => {
           this.setAgent(response.name);
           this.isLoggedIn = true;
