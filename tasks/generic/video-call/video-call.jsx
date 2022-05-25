@@ -161,10 +161,11 @@ class VideoCall {
             <img src={responseMessage} style={{ marginBottom: '2rem', width: '240px' }} />
             <h3>Join a Video Call</h3>
             <p class="p-tag" style={{ margin: '2rem 0' }}>
-              In order to participate in the authentication process, you will need to join a real-time Out of Band
-              Interaction (OOBI) session initiated by the Lead in which you and the other users are present. You will
-              accept all their OOBI URLs on a Video Call so that you can receive their identifier information.
+              In order to start the authentication process, you will need to initiate an real-time OOBI session in which
+              you and the other participant are present, You will accept all their AID and URL on a Video Call so that
+              you can receive their identifying information.
             </p>
+            <h3>Generate OOBI</h3>
             <div class="flex flex-justify-between" style={{ marginTop: '4rem' }}>
               <Button
                 class="button--gray-dk button--big button--no-transform"
@@ -298,9 +299,8 @@ class SendOOBIPanel {
         <img src={addNewContacts} style={{ width: '200px', margin: '0 0 1rem 0' }} alt="" />
         <h3>Send OOBI for your {vnode.attrs.identifiers[0].name} AID</h3>
         <p class="p-tag" style={{ margin: '2rem 0 2rem 0' }}>
-          Copy this OOBI URL for your default AID and paste it into the Video Call to share your identifying
-          information. To use another AID for this transaction, go to your profile and set another default AID before
-          continuing.
+          Copy this OOBI (AID + URL) to share your identifying information with all parties on the call, and paste it
+          into the Video Call.
         </p>
         <SendOOBIForm identifiers={vnode.attrs.identifiers} />
       </>
