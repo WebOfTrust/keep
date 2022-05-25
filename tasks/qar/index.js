@@ -38,6 +38,11 @@ const tasks = {
       next: new ConfigureMultiSigGroupTask('Configure Multi-Sig Group'),
     }),
     new VideoCallTask({ initiate: false, label: 'Join QAR Multi-Sig AID Inception' }),
+    new VideoCallTask({
+      initiate: true,
+      label: 'Challenge with Lead Root GAR',
+      next: new ConfigureMultiSigGroupTask('Configure Multi-Sig Group'),
+    }),
   ],
   'join-multisig': [new JoinMultiSigGroupTask('Join Multi-Sig Group')],
   'main': [
