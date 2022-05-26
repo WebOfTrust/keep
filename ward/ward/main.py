@@ -1,8 +1,8 @@
 # -*- encoding: utf-8 -*-
+import argparse
 import os
 import os.path
 import sys
-import argparse
 
 from keri.app import booting
 from keri.app import directing
@@ -28,10 +28,6 @@ class Ward:
             sys.stdout.flush()
 
         servery = booting.Servery(port=int(args.admin))
-        if args.debug:
-            sys.stdout.write(f"servery {servery}\n")
-            sys.stdout.flush()
-
         doers = booting.setup(servery=servery,
                               controller="E59KmDbpjK0tRf9Rmc7OlueZVz7LB94DdD3cjQVvPcng",
                               configFile='demo-witness-oobis.json',
@@ -42,11 +38,7 @@ class Ward:
                               path=self.UiPath,
                               headDirPath=self.HeadDirPath)
 
-        if args.debug:
-            sys.stdout.write(f"doers {doers}\n")
-            sys.stdout.flush()
-
-        directing.runController(doers=doers, expire=0.0)
+        directing.runController(doers=doers+[servery], expire=0.0)
 
 
 def main():

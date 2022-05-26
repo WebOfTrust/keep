@@ -36,6 +36,7 @@ class JoinMultiSigGroup {
     let notif = Notify.findByType('multisig');
     this.aids = notif.data.aids;
     this.ked = notif.data.ked;
+    console.log(notif)
     this.delegator = Contacts.filterById(this.ked.di)[0];
     this.fractionallyWeighted = Array.isArray(this.ked.kt);
   }

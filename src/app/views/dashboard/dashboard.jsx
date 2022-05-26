@@ -1,7 +1,7 @@
 import m from 'mithril';
 
 import { Button, Card, Container, IconButton, NavRail } from '../../components';
-import { Auth, Contacts, KERI, Mail, Profile, Tasks } from '../../services';
+import { Auth, Contacts, KERI, Mail, Keep, Profile, Tasks } from '../../services';
 import './dashboard.scss';
 
 class Dashboard {
@@ -18,11 +18,16 @@ class Dashboard {
       this.sliceEnd -= 4;
     };
 
-    KERI.status(`keep-${process.env.USER_TYPE}-${process.env.API_PORT}`).then(() => {
-      this.exists = true
-    }).catch((err) =>{
-      this.exists = false
-    })
+    this.existingKeystore = false;
+
+    Profile.loadIdentifiers();
+    Contacts.requestList();
+
+    if (Keep.isPackaged()) {
+       Keep.check().then((resp) => {
+         this.existingKeystore = resp
+      });
+    }
 
     KERI.listIdentifiers()
       .then((ids) => {
@@ -42,11 +47,15 @@ class Dashboard {
 
   get tasksList() {
     if (!Auth.isLoggedIn) {
-      if (this.exists) {
-        return [Tasks.all['create-passcode'][1]];
+      if (Keep.isPackaged()) {
+        if (this.existingKeystore) {
+          return [Tasks.all['create-passcode'][1]];
+        }
+        return [Tasks.all['create-passcode'][0]];
       }
-      return [Tasks.all['create-passcode'][0]];
+      return Tasks.all['create-passcode']
     }
+
     if (Profile.identifiers.length === 0) {
       return Tasks.all['create-identifier'];
     } else if (Profile.identifiers.length === 1) {
@@ -161,12 +170,14 @@ class Dashboard {
                         <Tasks.active.component
                           end={() => {
                             Tasks.active = null;
-                            KERI.status(`keep-${process.env.USER_TYPE}-${process.env.API_PORT}`).then(() => {
-                              this.exists = true;
+                            Profile.loadIdentifiers();
+                            Contacts.requestList();
+                            if (Keep.isPackaged()) {
+                              Keep.check().then((resp) => {
+                                this.existingKeystore = resp
                                 m.redraw();
-                            }).catch((err) =>{
-                              this.exists = false
-                            })
+                              });
+                            }
                           }}
                         />
                       )}

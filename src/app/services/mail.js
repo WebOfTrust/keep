@@ -96,7 +96,13 @@ class Mail {
   };
 
   static delegateHandler = (e) => {
-    console.log(e);
+    let data = JSON.parse(e.data);
+    console.log(data);
+    Notify.push({
+      type: 'delegate',
+      data,
+    });
+    m.redraw();
   };
 
   static multisigHandler = (e) => {
