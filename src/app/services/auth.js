@@ -1,5 +1,6 @@
 import KERI from './keri';
 import Mail from './mail';
+import Keep from './keep';
 
 class Auth {
   static _isLoggedIn = false;
@@ -20,7 +21,7 @@ class Auth {
 
   static removeAgent() {
     sessionStorage.removeItem('agent');
-    this._isLoggedIn = false
+    this._isLoggedIn = false;
   }
 
   static title() {
@@ -48,7 +49,7 @@ class Auth {
 
   static login(passcode) {
     return new Promise((resolve, reject) => {
-      KERI.unlockAgent(`keep-${process.env.USER_TYPE}-${process.env.API_PORT}`, passcode)
+      KERI.unlockAgent(Keep.getName(), passcode)
         .then((response) => {
           this.setAgent(response.name);
           this.isLoggedIn = true;

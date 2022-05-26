@@ -1,6 +1,6 @@
 import m from 'mithril';
 import { Button, Modal, TextField } from '../../../src/app/components';
-import { KERI } from '../../../src/app/services';
+import { KERI, Keep } from '../../../src/app/services';
 import createYourPasscode from '../../../src/assets/img/create-your-passcode.svg';
 import passcodeImg from '../../../src/assets/img/passcode.svg';
 import wait from '../../../src/assets/img/wait.svg';
@@ -69,7 +69,7 @@ class CreatePasscode {
 
   initializeAgent(vnode) {
     this.submitting = true;
-    KERI.initializeAgent(`keep-${process.env.USER_TYPE}-${process.env.API_PORT}`, this.enterPasscode)
+    KERI.initializeAgent(Keep.getName(), this.enterPasscode)
       .then(vnode.attrs.end)
       .catch((err) => {
         console.log('initializeAgent', err);

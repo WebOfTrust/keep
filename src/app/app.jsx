@@ -11,7 +11,7 @@ import '../scss/typography.scss';
 import '../scss/globals.scss';
 import '../scss/nav-rail.scss';
 
-Tasks.all = tasks;
+Tasks.all = tasks[process.env.USER_TYPE];
 
 let root = document.body;
 

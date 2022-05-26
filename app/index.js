@@ -6,10 +6,14 @@ const retry = require('promise-retry');
 const fetch = (...args) => import('node-fetch').then(({default: fetch}) => fetch(...args));
 const log = require('electron-log');
 const path = require('path')
+const express = require("express");
+const cors = require('cors');
 
 log.transports.file.resolvePath = () => `${__dirname}${path.sep}keep.log`
 
 let ward = null;
+let exp = express();
+let server = null;
 
 // Handle creating/removing shortcuts on Windows when installing/uninstalling.
 if (require('electron-squirrel-startup')) {
@@ -35,15 +39,9 @@ const createWindow = () => {
     }
 
     let args = [];
-    process.env.API_HOST = 'http://localhost';
-
-    process.env.TCP_PORT = config["TCP_PORT"];
-    args.push("--tcp", process.env.TCP_PORT)
-
-    process.env.API_PORT = config["API_PORT"];
-    args.push("--admin", process.env.API_PORT)
-
-    process.env.USER_TYPE = config["USER_TYPE"];
+    const API_HOST = 'http://localhost';
+    args.push("--tcp", config["TCP_PORT"]);
+    args.push("--admin", config["API_PORT"]);
 
     const debugPath = `${__dirname}${path.sep}ward${path.sep}debug.json`;
     if (fs.existsSync(debugPath)) {
@@ -51,13 +49,10 @@ const createWindow = () => {
         if (debug === true) {
             win.webContents.openDevTools()
             args.push("--debug")
-
-            log.info(args)
         }
     }
 
     if (ward === null) {
-
         ward = spawn(`${__dirname}${path.sep}ward${path.sep}ward`, args);
         ward.on('error', function (err) {
             log.error('spawn error' + err);
@@ -86,7 +81,17 @@ const createWindow = () => {
             log.info(`ward process exited with code ${code}`);
         });
     }
-    const host = `${process.env.API_HOST}:${process.env.API_PORT}`
+
+    let corsOptions = {
+        origin: `http://localhost:${config["API_PORT"]}`,
+        optionsSuccessStatus: 200
+    }
+    exp.use("/keep", cors(corsOptions), function (_, res) {
+        res.json(fs.existsSync(`${__dirname}${path.sep}ward${path.sep}keri${path.sep}ks${path.sep}keep-${config["USER_TYPE"]}-${config["API_PORT"]}`));
+    });
+    server = exp.listen(8765)
+
+    const host = `${API_HOST}:${config["API_PORT"]}`
     retry((retry) => {
         log.info('⏳ launching...');
         return fetch(host).catch(retry);
@@ -95,7 +100,8 @@ const createWindow = () => {
             log.info('🚀 launched...'))
     }).catch(() => {
         ward.kill();
-        app.quit()
+        app.quit();
+        server.close();
     });
 }
 
@@ -117,4 +123,5 @@ app.on('window-all-closed', () => {
 
 app.on('will-quit', () => {
     ward.kill();
+    server.close();
 });

@@ -121,7 +121,16 @@ class Nav {
                           </div>
                         );
                       }
-                      return <p>Unhandled notification type</p>;
+                      if (notification.type === 'delegate') {
+                        return (
+                            <div
+                                class="pointer font-weight--bold font-color--battleship flex flex-align-center flex-justify-between"
+                            >
+                              <p>delegate {notification}</p>
+                            </div>
+                        );
+                      }
+                      return (<p>Unhandled notification type {notification.type}</p>);
                     })}
                   </Popover>
                 </div>

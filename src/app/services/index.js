@@ -6,6 +6,7 @@ import MultiSig from './multisig';
 import Notify from './notify';
 import Profile from './profile';
 import Participants from './oobis';
+import Keep from './keep';
 import Tasks from './tasks';
 import Toaster from './toaster';
 import Witnesses from './witnesses';
@@ -19,6 +20,7 @@ module.exports = {
   Notify,
   Profile,
   Participants,
+  Keep,
   Tasks,
   Toaster,
   Witnesses,
