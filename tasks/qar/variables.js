@@ -94,6 +94,36 @@ const QarVariables = {
       },
     ],
   },
+  VideoCall: {
+    intro: {
+      title: 'Challenge with Lead External Gar',
+      image: addNewContacts,
+      paragraph: (
+        <>
+          In this flow, you will be joining an OOBI exchange with the Lead External GAR, for verification purposes.
+          <br></br>
+          Would you like to continue?
+        </>
+      ),
+    },
+    join: {
+      title: 'Join Video Call',
+      title2: 'Generate OOBI',
+      image: addNewContacts,
+      paragraph: (
+        <>
+          In order to start the authentication process, you will need to initiate an real-time OOBI session in which you
+          and the other participants are present, you will accept all their AID and URL on a Video Call so that you can
+          receive their identifying information.
+        </>
+      ),
+    },
+    verification: {
+      title: 'Verification in Progress',
+      image: loanApproved,
+      paragraph: <>You will be notified when it is time for you to sign</>,
+    },
+  },
 };
 
 module.exports = QarVariables;
