@@ -12,8 +12,7 @@ const cors = require('cors');
 log.transports.file.resolvePath = () => `${__dirname}${path.sep}keep.log`
 
 let ward = null;
-let exp = express();
-let server = null;
+let keep = null;
 
 // Handle creating/removing shortcuts on Windows when installing/uninstalling.
 if (require('electron-squirrel-startup')) {
@@ -86,10 +85,10 @@ const createWindow = () => {
         origin: `http://localhost:${config["API_PORT"]}`,
         optionsSuccessStatus: 200
     }
-    exp.use("/keep", cors(corsOptions), function (_, res) {
+
+    keep = express().use("/keep", cors(corsOptions), function (_, res) {
         res.json(fs.existsSync(`${__dirname}${path.sep}ward${path.sep}keri${path.sep}ks${path.sep}keep-${config["USER_TYPE"]}-${config["API_PORT"]}`));
-    });
-    server = exp.listen(8765)
+    }).listen(8765);
 
     const host = `${API_HOST}:${config["API_PORT"]}`
     retry((retry) => {
@@ -101,7 +100,7 @@ const createWindow = () => {
     }).catch(() => {
         ward.kill();
         app.quit();
-        server.close();
+        keep.close();
     });
 }
 
@@ -123,5 +122,5 @@ app.on('window-all-closed', () => {
 
 app.on('will-quit', () => {
     ward.kill();
-    server.close();
+    keep.close();
 });

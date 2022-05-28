@@ -7,6 +7,7 @@ import Notify from './notify';
 import Profile from './profile';
 import Participants from './oobis';
 import Keep from './keep';
+import WellKnown from './wellknown';
 import Tasks from './tasks';
 import Toaster from './toaster';
 import Witnesses from './witnesses';
@@ -23,5 +24,6 @@ module.exports = {
   Keep,
   Tasks,
   Toaster,
+  WellKnown,
   Witnesses,
 };
