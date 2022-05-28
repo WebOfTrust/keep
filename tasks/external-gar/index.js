@@ -19,6 +19,7 @@ import JoinMultiSigGroupTask from '../generic/join-multi-sig-group/join-multi-si
 import ManualKeyRotationTask from '../generic/manual-key-rotation/manual-key-rotation';
 import VideoCallTask from '../generic/video-call/video-call';
 import ViewMultiSigEventLogsTask from '../generic/view-multi-sig-event-logs/view-multi-sig-event-logs';
+import LeadExtLeadRootOOBI from './lead-ext-lead-root-oobi'
 
 // dummy tasks
 import JoinManualKeyRotationTask from '../generic/join-manual-key-rotation/join-manual-key-rotation';
@@ -27,67 +28,6 @@ import JoinCredentialRevocationTask from '../generic/join-credential-revocation/
 import JoinCredentialIssuanceTask from '../generic/join-credential-issuance/join-credential-issuance';
 
 import loanApproved from '../../src/assets/img/loan-approved.svg';
-
-class ExchangeWithLeadRootGARTask {
-  constructor() {
-    this.label = '';
-    this.imgSrc = null;
-    this.component = {
-      view: (vnode) => {
-        return (
-          <>
-            <img src={loanApproved} style={{ marginBottom: '1rem', width: '240px' }} />
-            <h3 style={{ marginBottom: '2rem' }}>Exchange OOBIs with Lead Root GAR</h3>
-            <p class="p-tag">
-              Verification of the External GARs has been completed, please proceed with exchanging OOBIs with your Lead
-              Root GAR
-            </p>
-            <div class="flex flex-justify-end" style={{ marginTop: '4rem' }}>
-              <Button
-                raised
-                class="button--big button--no-transform"
-                label="Continue"
-                onclick={() => {
-                  Tasks.active = challengeWithLeadRootGAR;
-                }}
-              />
-            </div>
-          </>
-        );
-      },
-    };
-  }
-}
-
-class RootGARExchangeCompleteTask {
-  constructor() {
-    this.label = '';
-    this.imgSrc = null;
-    this.component = {
-      view: (vnode) => {
-        return (
-          <>
-            <img src={loanApproved} style={{ marginBottom: '1rem', width: '240px' }} />
-            <h3 style={{ marginBottom: '2rem' }}>Create Your Multi Sig Group</h3>
-            <p class="p-tag">
-              Verification of the Lead Root GAR has been completed, please proceed with creating your multi-sig group
-            </p>
-            <div class="flex flex-justify-end" style={{ marginTop: '4rem' }}>
-              <Button
-                raised
-                class="button--big button--no-transform"
-                label="Close"
-                onclick={() => {
-                  Tasks.active = configureMultisigGroup;
-                }}
-              />
-            </div>
-          </>
-        );
-      },
-    };
-  }
-}
 
 class DelegationApprovalInProcessTask {
   constructor() {
@@ -110,19 +50,6 @@ class DelegationApprovalInProcessTask {
   }
 }
 
-const challengeWithLeadRootGAR = new VideoCallTask({
-  initiate: true,
-  skipIntro: true,
-  oneToOne: true,
-  label: 'Challenge with Lead Root GAR',
-  next: new RootGARExchangeCompleteTask(),
-});
-
-const configureMultisigGroup = new ConfigureMultiSigGroupTask({
-  label: 'Configure Multi-Sig Group',
-  requireDelegator: true,
-});
-
 const tasks = {
   'create-passcode': [
     new CreatePasscodeTask({ label: 'Create Your Passcode' }),
@@ -133,11 +60,10 @@ const tasks = {
     new CreateYourAIDTask({ label: 'Incept Local GLEIF Single-Sig AID', variables: variables.createYourAid }),
   ],
   'create-multisig': [
-    challengeWithLeadRootGAR,
+    new LeadExtLeadRootOOBI({label: "Challenge with Lead Root GAR "}),
     new VideoCallTask({
       initiate: true,
       label: 'Lead GLEIF External Multi-Sig AID Inception',
-      next: new ExchangeWithLeadRootGARTask(),
     }),
     new VideoCallTask({ initiate: false, label: 'Join GLEIF External Multi-Sig AID Inception' }),
   ],

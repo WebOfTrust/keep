@@ -1,6 +1,6 @@
 import m from 'mithril';
 import { Button, Checkbox, IconButton, Radio, Select, TextField, TextTooltip } from '../../../src/app/components';
-import { Contacts, KERI, Profile, MultiSig, Witnesses } from '../../../src/app/services';
+import { Contacts, KERI, Profile, MultiSig, Witnesses, WellKnown } from '../../../src/app/services';
 
 import secureMessaging from '../../../src/assets/img/secure-messaging.svg';
 import greenCheckMark from '../../../src/assets/img/green-check-mark.svg';
@@ -28,6 +28,16 @@ class ConfigureMultiSigGroupTask {
 
   get component() {
     return this._component;
+  }
+
+  get delegator() {
+    let d = "Unknown";
+    WellKnown.getExternalDelegator().then((resp) => {
+      console.log(resp)
+      d = resp
+    });
+
+    return d;
   }
 }
 
@@ -396,25 +406,18 @@ class ConfigureMultiSigGroup {
         {vnode.attrs.parent.currentState === 'select-delegator' && (
           <>
             <img src={secureMessaging} style={{ marginBottom: '1rem', width: '268px' }} />
-            <h3>Select a Delegator</h3>
+            <h3>Confirm Delegator</h3>
             <p class="p-tag" style={{ margin: '2rem 0' }}>
-              Select a delegator that will be delegating the accesses.
+              These details should be cross referenced with other well known sources.
             </p>
-            <p class="p-tag-bold">Delegator</p>
-            <Select
-              outlined
-              fluid
-              options={Contacts.list.map((contact) => {
-                return {
-                  label: contact.alias,
-                  value: contact.id,
-                };
-              })}
-              onchange={(id) => {
-                let contact = Contacts.filterById(id)[0];
-                MultiSig.delegator = contact;
-              }}
-            />
+            <p class="p-tag-bold">
+              See the Ecosystem Governance Framework for a full listing of available well known sources.
+            </p>
+            <p>
+              {
+                this.delegator
+              }
+            </p>
             <div class="flex flex-justify-between" style={{ marginTop: '4rem' }}>
               <Button
                 class="button--gray-dk button--big button--no-transform"
