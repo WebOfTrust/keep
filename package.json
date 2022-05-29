@@ -35,6 +35,7 @@
     "start:root-gar": "NODE_ENV=root-gar parcel src/index.html --port 1534 --cache-dir .webcache/.root-gar-cache-dev --dist-dir .webcache/root-gar-build-dev",
     "start:lead-external-gar": "NODE_ENV=lead-external-gar parcel src/index.html --port 1634 --cache-dir .webcache/.lead-external-gar-cache-dev --dist-dir .webcache/lead-external-gar-build-dev",
     "start:external-gar": "NODE_ENV=external-gar parcel src/index.html --port 1734 --cache-dir .webcache/.external-gar-cache-dev --dist-dir .webcache/external-gar-build-dev",
+    "start:person": "NODE_ENV=person parcel src/index.html --port 1834 --cache-dir .webcache/.person-cache-dev --dist-dir .webcache/person-build-dev",
     "set-tasks:generic": "plop tasks-index 'generic' --force",
     "rm-build": "rm -rf ward/.parcel-cache ward/build-ui ward/.parcel-cache-dev ward/build-ui-dev ward/.parcel-cache-dev-lead ward/build-ui-dev-lead",
     "test": "NODE_ENV=test jest",

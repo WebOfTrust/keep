@@ -79,6 +79,23 @@ class KERI {
     });
   }
 
+  static listCredentials(alias) {
+    return m.request({
+      method: 'GET',
+      url: `${this.keriURL}/credentials/${alias}?type=received`,
+    });
+  }
+
+
+  static listSchema() {
+    return m.request({
+      method: 'GET',
+      url: `${this.keriURL}/schema`,
+    });
+  }
+
+
+
   // OOBI
 
   static getOOBI(alias, role) {

@@ -2,7 +2,7 @@ import m from 'mithril';
 
 import { Nav, ToastOutlet, Footer } from './components';
 import { Auth, Mail, Tasks } from './services';
-import { Contacts, Dashboard, Error, Profile, Settings } from './views';
+import { Contacts, Dashboard, Error, Profile, Settings, Credentials } from './views';
 
 import tasks from '../../tasks';
 
@@ -50,6 +50,18 @@ m.route(root, '/dashboard', {
       return (
         <MainLayout>
           <Contacts />
+        </MainLayout>
+      );
+    },
+  },
+  '/credentials': {
+    oninit: () => {
+      document.title = documentTitle + ' | Credentials';
+    },
+    view: () => {
+      return (
+        <MainLayout>
+          <Credentials />
         </MainLayout>
       );
     },

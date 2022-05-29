@@ -10,7 +10,10 @@ class Keep {
   }
 
   static getName() {
-    return `keep-${process.env.USER_TYPE}-${process.env.API_PORT}`;
+    if (process.env.USER_TYPE === 'person')
+      return process.env.USER_TYPE
+    else
+      return `keep-${process.env.USER_TYPE}-${process.env.API_PORT}`;
   }
 
   static check() {
