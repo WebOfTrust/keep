@@ -58,7 +58,7 @@ class Dashboard {
 
     if (Profile.identifiers.length === 0) {
       return Tasks.all['create-identifier'];
-    } else if (Profile.identifiers.length === 1) {
+    } else if (Profile.identifiers.length === 1 && 'create-multisig' in Tasks.all) {
       return Tasks.all['create-multisig'];
     } else {
       return Tasks.all['main'];
