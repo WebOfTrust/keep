@@ -10,7 +10,7 @@ class Credentials {
     constructor() {
         this.credentials = [];
         this.activeCredential = null;
-        KERI.listCredentials("person")
+        KERI.listCredentials("person", 'received')
             .then((credentials) => {
                 this.credentials = credentials;
             })
