@@ -1,6 +1,5 @@
-import m from 'mithril';
 import KERI from "../../../services/keri";
-import { TextField, Button, Card, Radio } from '../../../components';
+import {Card} from '../../../components';
 
 class CredentialList {
     schema = {}
@@ -17,8 +16,7 @@ class CredentialList {
                     this.contacts = new Map(contacts.map(c => {
                         return [c.id, c];
                     }));
-                    console.log(this.contacts)
-                    KERI.listCredentials('person')
+                    KERI.listCredentials('person', 'issued')
                         .then((credentials) => {
                             this.credentials = credentials;
                         })

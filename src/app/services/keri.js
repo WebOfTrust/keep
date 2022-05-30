@@ -79,10 +79,10 @@ class KERI {
     });
   }
 
-  static listCredentials(alias) {
+  static listCredentials(alias, type) {
     return m.request({
       method: 'GET',
-      url: `${this.keriURL}/credentials/${alias}?type=received`,
+      url: `${this.keriURL}/credentials/${alias}?type=${type}`,
     });
   }
 
