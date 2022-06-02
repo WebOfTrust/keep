@@ -5,7 +5,7 @@ import passcodeImg from "../../../src/assets/img/passcode.svg";
 import verifyCredential from "../../../src/assets/img/verify-credentials.svg";
 import KERI from "../../../src/app/services/keri";
 
-const ViRASchema = "Ec7NSIUfktTAofFOSaXhnKHdOqoILdSLvvMtin9uQk_s";
+const ViRASchema = "Ehwr6tZh6XakKBKWQW07otQ9uCwg0g7CF-dPz9qb_fwQ";
 const OORSchema = "E2RzmSCFmG2a5U2OqZF-yUobeSYkW-a3FsN82eZXMxY0"
 
 const edges = {
@@ -45,6 +45,7 @@ class SignXBRLReport {
         this.schema = {};
         this.credentials = {}
         this.credential = null;
+        this.vira = null
         this.contacts = {}
         this.factsFile = '';
         this.fileName = 'Upload Facts File';
@@ -78,17 +79,28 @@ class SignXBRLReport {
 
     signReport(vnode) {
         let e = edges
-        e.oor.n = this.credential['sad']['i']
-        KERI.issueCredential('person',
+        e.oor.n = this.credential['sad']['d']
+        return KERI.issueCredential('person',
             {
                 credentialData: this.facts,
-                registry: 'person',
+                registry: 'vLEI-person',
                 schema: ViRASchema,
                 source: e,
             })
-            .then(() => {
-                console.log("credential issued")
-            })
+    }
+
+    exportCredential() {
+        let alias = "person";
+        let said = this.vira['sad']['d'];
+
+        KERI.exportCredential(alias, said).then((data) => {
+            let b = new Blob([data], {type: "application/json+cesr"})
+            let a = document.createElement("a");
+            a.href = window.URL.createObjectURL(b);
+            a.download = "credential.cesr";
+            a.click();
+        })
+
     }
 
     view(vnode) {
@@ -355,15 +367,39 @@ class SignXBRLReport {
                                 label="Sign"
                                 disabled={!this.factsFile || this.submitting}
                                 onclick={() => {
-                                    this.signReport().then(() => {
-                                        vnode.attrs.parent.currentState = 'confirm-and-sign';
+                                    this.signReport().then((credential) => {
+                                        this.vira = credential
+                                        vnode.attrs.parent.currentState = 'export-credential';
                                     })
                                 }}
                             />
                         </div>
                     </>
                 )}
+                {vnode.attrs.parent.currentState === 'export-credential' && (
+                    <>
+                        <h3>Export Verifiable iXBRL Report Attestation</h3>
+                        <div className="flex flex-justify-center" style={{margin: '5rem 0'}}>
+                            <img src={passcodeImg} style={{width: '192px'}}/>
+                        </div>
+                        <p className="p-tag" style={{margin: '0 0 3rem 0'}}>
+                            Click on export to download a file containing your Verifiable iXBRL Report Attestation
+                            and all supporting cryptographic material.
+                        </p>
 
+                        <div className="flex flex-justify-end" style={{marginTop: '4rem'}}>
+                            <Button
+                                raised
+                                class="button--no-transform button--big"
+                                label="Export"
+                                disabled={!this.vira}
+                                onclick={() => {
+                                    this.exportCredential()
+                                }}
+                            />
+                        </div>
+                    </>
+                )}
             </>
         );
     }
