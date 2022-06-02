@@ -13,6 +13,8 @@ class VideoCallTask {
     this._label = config.label;
     this.initiate = config.initiate;
     this.oneToOne = config.oneToOne;
+    this.skip = config.skip
+    this.acceptCredential = config.acceptCredential
     this.next = config.next;
     this.participants = new Participants();
 
@@ -101,6 +103,9 @@ class VideoCall {
                   <li>Obtain and sign a Challenge Message</li>
                   <li>Generate and send a Challenge Message</li>
                   <li>User signs and returns Challenge Message</li>
+                  {vnode.attrs.parent.acceptCredential && (
+                      <li>Wait for credentials to be issued.</li>
+                  )}
                   {vnode.attrs.parent.initiate && !vnode.attrs.parent.oneToOne && (
                     <li>You initiate the Multi-Sig Group for all participants</li>
                   )}
@@ -193,7 +198,19 @@ class VideoCall {
               participants={vnode.attrs.parent.participants}
               oneToOne={vnode.attrs.parent.oneToOne}
             />
-            <div class="flex flex-justify-end" style={{ marginTop: '4rem' }}>
+            <div class="flex flex-justify-between" style={{ marginTop: '4rem' }}>
+              <Button
+                  class="button--big button--no-transform"
+                  raised
+                  label="Skip"
+                  onclick={() => {
+                    if (vnode.attrs.parent.next !== undefined) {
+                      Tasks.active = vnode.attrs.parent.next;
+                    } else {
+                      vnode.attrs.parent.currentState = 'waiting-for-multisig';
+                    }
+                  }}
+              />
               <Button
                 class="button--big button--no-transform"
                 raised

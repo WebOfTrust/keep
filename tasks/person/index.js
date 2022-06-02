@@ -6,6 +6,7 @@ import IntroToYourRoleTask from '../generic/intro-to-your-role/intro-to-your-rol
 import ManualKeyRotationTask from "../generic/manual-key-rotation/manual-key-rotation";
 import AcceptCredentialsTask from "../generic/accept-credentials/accept-credentials";
 import SignXBRLReport from "../generic/sign-xbrl-report/sign-xbrl-report"
+import VideoCallTask from "../generic/video-call/video-call";
 
 const tasks = {
     'create-passcode': [
@@ -17,7 +18,13 @@ const tasks = {
         new CreateYourAIDTask({label: 'Create Your AID'}),
     ],
     'main': [
-        new AcceptCredentialsTask({ label: 'Accept Credential' }),
+        new VideoCallTask({
+            initiate: true,
+            label: 'Accept Credential',
+            oneToOne: true,
+            acceptCredential: true,
+            next: new AcceptCredentialsTask({ label: 'Accept Credential' }),
+        }),
         new ManualKeyRotationTask({label: 'Perform Manual Key Rotation'}),
         new SignXBRLReport({label: 'Sign XBRL Report'}),
     ],
