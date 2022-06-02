@@ -85,6 +85,123 @@ class CreatePasscode {
       <>
         {/* {vnode.attrs.parent.currentState === 'welcome' && (
           <>
+            // Confirmed Outgoing Challenge Requests
+            <h3>Outgoing Challenge Requests</h3>
+
+            <div style={{ maxHeight: '350px', overflowY: 'scroll', margin: '2rem 0 1rem 0' }}>
+              <p class="p-tag" style={{ margin: '0 0 2rem 0' }}>
+                Others Challenging You
+              </p>
+              <p class="p-tag">In progress: 1/1 confirmed</p>
+              <Card style={{ margin: '0 0 2rem 0' }}>
+                <div class="flex" style={{ flexDirection: 'column' }}>
+                  <div class="flex flex-justify-between" style={{ margin: '.5rem 0 .5rem 0' }}>
+                    <p class="p-tag-bold">Alias</p>
+                    <TextField outlined fluid placeholder="Jane Smith" style={{ width: '70%' }} />
+                  </div>
+                  <div class="flex flex-justify-between" style={{ margin: '.5rem 0 .5rem 0' }}>
+                    <p class="p-tag-bold">Message:</p>
+                    <TextField
+                      textarea
+                      outlined
+                      fluid
+                      placeholder="this is a message you could type."
+                      style={{ width: '70%', height: '90px' }}
+                    />
+                  </div>
+                  <div class="flex flex-justify-between" style={{ marginTop: '10px' }}>
+                    <div class="flex">
+                      <label
+                        class="font-color--battleship"
+                        style={{ marginTop: '1rem', fontWeight: 'bold', textDecoration: 'underline' }}
+                      >
+                        Confirmed?
+                      </label>
+                      <Checkbox />
+                    </div>
+
+                    <Button
+                      class="button--no-transform button--big"
+                      raised
+                      label="Resend"
+                      onclick={() => {
+                        vnode.attrs.parent.currentState = 'create-passcode';
+                      }}
+                    />
+                  </div>
+                </div>
+              </Card>
+            </div>
+            <div class="flex flex-justify-between" style={{ marginTop: '2rem' }}>
+              <Button
+                raised
+                class="button--no-transform button--gray-dk button--big"
+                label="Go Back"
+                onclick={() => {
+                  vnode.attrs.parent.currentState = 'welcome';
+                }}
+              />
+              <Button
+                class="button--no-transform button--big"
+                raised
+                label="In Progress"
+                onclick={() => {
+                  vnode.attrs.parent.currentState = 'create-passcode';
+                }}
+              />
+            </div>
+          </>
+        )} */}
+
+        {/* {vnode.attrs.parent.currentState === 'welcome' && (
+          <>
+            // ENTER OOBIs
+            <h3>Enter OOBIs</h3>
+
+            <div style={{ maxHeight: '350px', overflowY: 'scroll', margin: '2rem 0 1rem 0' }}>
+              <p class="p-tag">
+                Enter AIDs, URLs and Aliases you received on the Video Call from all participants below:{' '}
+              </p>
+              <Card style={{ margin: '0 0 2rem 0' }}>
+                <div class="flex" style={{ flexDirection: 'column' }}>
+                  <div class="flex flex-justify-between" style={{ margin: '.5rem .5rem .5rem .5rem' }}>
+                    <p class="p-tag-bold">AID:</p>
+                    <TextField outlined fluid placeholder="Jane Smith" style={{ width: '70%' }} />
+                  </div>
+                  <div class="flex flex-justify-between" style={{ margin: '.5rem .5rem .5rem .5rem' }}>
+                    <p class="p-tag-bold">URL:</p>
+                    <TextField outlined fluid placeholder="Jane Smith" style={{ width: '70%' }} />
+                  </div>
+                  <div class="flex flex-justify-between" style={{ margin: '.5rem .5rem .5rem .5rem' }}>
+                    <p class="p-tag-bold">Alias:</p>
+                    <TextField outlined fluid placeholder="Jane Smith" style={{ width: '70%' }} />
+                  </div>
+                </div>
+              </Card>
+            </div>
+            <div class="flex flex-justify-between" style={{ marginTop: '2rem' }}>
+              <Button
+                raised
+                class="button--no-transform button--gray-dk button--big"
+                label="Go Back"
+                onclick={() => {
+                  vnode.attrs.parent.currentState = 'welcome';
+                }}
+              />
+              <Button
+                class="button--no-transform button--big"
+                raised
+                label="Continue"
+                onclick={() => {
+                  vnode.attrs.parent.currentState = 'create-passcode';
+                }}
+              />
+            </div>
+          </>
+        )} */}
+        {/* {vnode.attrs.parent.currentState === 'welcome' && (
+          <>
+          // LEAD CHALLENGE WITH ENTERNAL GAR QAR
             <h3>Enter Challenge Messages Below</h3>
 
             <div style={{ maxHeight: '350px', overflowY: 'scroll', margin: '2rem 0 1rem 0' }}>
