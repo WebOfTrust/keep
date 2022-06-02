@@ -73,6 +73,7 @@ class Mail {
   // };
 
   static challengeHandler = (e) => {
+    console.log("challenge handler", e)
     let data = JSON.parse(e.data);
     const participantInstances = Participants.instances;
     participantInstances.forEach((instance) => {
