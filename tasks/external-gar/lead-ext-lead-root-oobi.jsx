@@ -12,13 +12,6 @@ class LeadExtLeadRootOOBI {
         this.participants = new Participants();
         console.log(this.participants);
 
-        // explicit with well known
-        WellKnown.getExternalDelegator().then((resp) => {
-            this.participants.oobis.shift(); // hack
-            this.participants.addOOBI(resp.alias, resp.oobi)
-            this.participants.oobis[0].id = resp.id;
-        });
-
         this.currentState = 'video-call';
 
         this.sendOOBIPanel = {

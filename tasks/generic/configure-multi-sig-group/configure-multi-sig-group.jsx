@@ -32,11 +32,6 @@ class ConfigureMultiSigGroupTask {
 
   get delegator() {
     let d = "Unknown";
-    WellKnown.getExternalDelegator().then((resp) => {
-      console.log(resp)
-      d = resp
-    });
-
     return d;
   }
 }
