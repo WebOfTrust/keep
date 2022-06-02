@@ -1,5 +1,5 @@
 import m from 'mithril';
-import { Button, Modal, TextField } from '../../../src/app/components';
+import { Button, Modal, TextField, Card, Checkbox } from '../../../src/app/components';
 import { KERI } from '../../../src/app/services';
 import createYourPasscode from '../../../src/assets/img/create-your-passcode.svg';
 import passcodeImg from '../../../src/assets/img/passcode.svg';
@@ -83,6 +83,88 @@ class CreatePasscode {
   view(vnode) {
     return (
       <>
+        {/* {vnode.attrs.parent.currentState === 'welcome' && (
+          <>
+            <h3>Enter Challenge Messages Below</h3>
+
+            <div style={{ maxHeight: '350px', overflowY: 'scroll', margin: '2rem 0 1rem 0' }}>
+              <p class="p-tag">In progress: 2/12 confirmed</p>
+              <Card style={{ margin: '0 0 2rem 0' }}>
+                <div class="flex" style={{ flexDirection: 'column' }}>
+                  <div class="flex flex-justify-between" style={{ margin: '.5rem 0 .5rem 0' }}>
+                    <p class="p-tag-bold">Alias</p>
+                    <TextField outlined fluid placeholder="Jane Smith" style={{ width: '70%' }} />
+                  </div>
+                  <div class="flex flex-justify-between" style={{ margin: '.5rem 0 .5rem 0' }}>
+                    <p class="p-tag-bold">Message:</p>
+                    <TextField
+                      textarea
+                      outlined
+                      fluid
+                      placeholder="this is a message you could type."
+                      style={{ width: '70%', height: '90px' }}
+                    />
+                  </div>
+                  <div class="flex flex-justify-end" style={{ marginTop: '10px' }}>
+                    <Button
+                      class="button--no-transform button--big"
+                      raised
+                      label="Send"
+                      onclick={() => {
+                        vnode.attrs.parent.currentState = 'create-passcode';
+                      }}
+                    />
+                  </div>
+                </div>
+              </Card>
+              <Card style={{ margin: '0 0 2rem 0' }}>
+                <div class="flex" style={{ flexDirection: 'column' }}>
+                  <div class="flex flex-justify-between" style={{ margin: '.5rem 0 .5rem 0' }}>
+                    <p class="p-tag-bold">Alias</p>
+                    <TextField outlined fluid placeholder="Jane Smith" style={{ width: '70%' }} />
+                  </div>
+                  <div class="flex flex-justify-between" style={{ margin: '.5rem 0 .5rem 0' }}>
+                    <p class="p-tag-bold">Message:</p>
+                    <TextField
+                      textarea
+                      outlined
+                      fluid
+                      placeholder="this is a message you could type"
+                      style={{ width: '70%', height: '90px' }}
+                    />
+                  </div>
+                  <div class="flex flex-justify-end" style={{ marginTop: '10px' }}>
+                    <label
+                      class="font-color--battleship"
+                      style={{ marginTop: '1rem', fontWeight: 'bold', textDecoration: 'underline' }}
+                    >
+                      Out of Band Confirmation
+                    </label>
+                    <Checkbox />
+                  </div>
+                </div>
+              </Card>
+            </div>
+            <div class="flex flex-justify-between" style={{ marginTop: '2rem' }}>
+              <Button
+                raised
+                class="button--no-transform button--gray-dk button--big"
+                label="Go Back"
+                onclick={() => {
+                  vnode.attrs.parent.currentState = 'welcome';
+                }}
+              />
+              <Button
+                class="button--no-transform button--big"
+                raised
+                label="In Progress"
+                onclick={() => {
+                  vnode.attrs.parent.currentState = 'create-passcode';
+                }}
+              />
+            </div>
+          </>
+        )} */}
         {vnode.attrs.parent.currentState === 'welcome' && (
           <>
             <h3>Welcome to KEEP</h3>
