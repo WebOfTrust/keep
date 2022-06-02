@@ -1,5 +1,5 @@
 import m from 'mithril';
-import {Participants, Profile, Tasks} from '../../src/app/services';
+import {Participants, Profile, WellKnown, Tasks} from '../../src/app/services';
 import {EnterChallengesForm, SendOOBIForm} from '../generic/video-call/forms';
 import { Button } from '../../src/app/components';
 
@@ -10,6 +10,14 @@ class LeadExtLeadRootOOBI {
         this._label = config.label;
         // this.next = config.next;
         this.participants = new Participants();
+        console.log(this.participants);
+
+        // explicit with well known
+        WellKnown.getExternalDelegator().then((resp) => {
+            this.participants.oobis.shift(); // hack
+            this.participants.addOOBI(resp.alias, resp.oobi)
+            this.participants.oobis[0].id = resp.id;
+        });
 
         this.currentState = 'video-call';
 
@@ -77,7 +85,7 @@ class LeadExtLeadRootOOBIRightPanel {
         return (
             <>
                 <EnterChallengesForm identifiers={Profile.identifiers} participants={vnode.attrs.parent.participants}/>
-                <div class="flex flex-justify-between">
+                    <div class="flex flex-justify-between">
                     <Button
                         class="button--gray-dk button--big button--no-transform"
                         raised

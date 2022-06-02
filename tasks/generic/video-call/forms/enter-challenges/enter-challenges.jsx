@@ -11,6 +11,8 @@ import { KERI } from '../../../../../src/app/services';
 
 class EnterChallengesForm {
   constructor(vnode) {
+    console.log(vnode.attrs.participants)
+    console.log(vnode.attrs.participants.oobis)
     this.alias = vnode.attrs.identifiers[0].name;
     this.aliases = vnode.attrs.participants.oobis.map((oobi) => {
       return oobi.alias;
@@ -18,6 +20,7 @@ class EnterChallengesForm {
   }
 
   signChallengePromise(signer) {
+    console.log(this.alias, signer.id, signer.challengeMessage.split(' '))
     return KERI.signChallengeMessage(this.alias, signer.id, signer.challengeMessage.split(' '));
   }
 
@@ -26,6 +29,7 @@ class EnterChallengesForm {
       <>
         <div style={{ maxHeight: '512px', overflowY: 'auto', margin: '0 0 1rem 0', paddingRight: '1rem' }}>
           {vnode.attrs.participants.oobis.map((signer, index) => {
+            console.log("signer", signer);
             return (
               <>
                 <Card class="card--fluid" style={{ margin: '0 0 1.5rem 0' }}>
