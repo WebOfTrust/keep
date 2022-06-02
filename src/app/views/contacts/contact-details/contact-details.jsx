@@ -4,6 +4,7 @@ import { TextField, Button } from '../../../components';
 class ContactDetails {
   view(vnode) {
     let contact = vnode.attrs.contact;
+
     return (
       <>
         <h1>My Contacts</h1>

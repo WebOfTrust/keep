@@ -229,6 +229,16 @@ class KERI {
       },
     });
   }
+
+  // EXPORT
+
+  static exportCredential(alias, said) {
+    return m.request({
+      method: 'GET',
+      url: `${this.keriURL}/credentials/${alias}/${said}`,
+      responseType: "application/json+cesr"
+    });
+  }
 }
 
 module.exports = KERI;
