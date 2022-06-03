@@ -10,7 +10,7 @@ import CreatePasscodeTask from '../generic/create-your-passcode/create-your-pass
 import EnterPasscodeTask from '../generic/enter-passcode/enter-passcode';
 import IntroToYourRoleTask from '../generic/intro-to-your-role/intro-to-your-role';
 import JoinMultiSigGroupTask from '../generic/join-multi-sig-group/join-multi-sig-group';
-import ManualKeyRotationTask from '../generic/manual-key-rotation/manual-key-rotation';
+import InitiateManualKeyRotationTask from '../generic/initiate-manual-key-rotation/initiate-manual-key-rotation';
 import VideoCallTask from '../generic/video-call/video-call';
 import ViewMultiSigEventLogsTask from '../generic/view-multi-sig-event-logs/view-multi-sig-event-logs';
 import LeadRootLeadExtOOBI from './lead-root-lead-ext-oobi'
@@ -61,7 +61,7 @@ const tasks = {
     ],
     'join-multisig': [new JoinMultiSigGroupTask({label: 'Join Multi-Sig Group'})],
     'main': [
-        new ManualKeyRotationTask({label: 'Initiate Manual Key Rotation'}),
+        new InitiateManualKeyRotationTask({label: 'Initiate Manual Key Rotation'}),
         new JoinManualKeyRotationTask({label: 'Join Manual Key Rotation'}),
         new LeadRootLeadExtOOBI({label: 'Challenge with Ext GAR'}),
         // new JoinDelegationApprovalTask({label: 'Join Delegation Approval'}),

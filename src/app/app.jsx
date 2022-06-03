@@ -1,7 +1,7 @@
 import m from 'mithril';
 
 import { Nav, ToastOutlet, Footer } from './components';
-import { Auth, Mail, Tasks } from './services';
+import { Auth, Mail, Tasks, Profile as ProfileSvc } from './services';
 import { Contacts, Dashboard, Error, Profile, Settings, Credentials } from './views';
 
 import tasks from '../../tasks';
@@ -12,6 +12,7 @@ import '../scss/globals.scss';
 import '../scss/nav-rail.scss';
 
 Tasks.all = tasks[process.env.USER_TYPE];
+ProfileSvc.loadIdentifiers();
 
 let root = document.body;
 

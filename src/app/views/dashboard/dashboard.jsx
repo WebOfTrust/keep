@@ -41,7 +41,6 @@ class Dashboard {
       })
       .catch((err) => {
         Auth.isLoggedIn = false;
-        Profile.clearDefaultAID();
       });
   }
 
