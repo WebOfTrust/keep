@@ -13,7 +13,7 @@ import CredentialRevocationTask from '../generic/credential-revocation/credentia
 import EnterPasscodeTask from '../generic/enter-passcode/enter-passcode';
 import IntroToYourRoleTask from '../generic/intro-to-your-role/intro-to-your-role';
 import JoinMultiSigGroupTask from '../generic/join-multi-sig-group/join-multi-sig-group';
-import ManualKeyRotationTask from '../generic/manual-key-rotation/manual-key-rotation';
+import InitiateManualKeyRotationTask from '../generic/initiate-manual-key-rotation/initiate-manual-key-rotation';
 import VideoCallTask from '../generic/video-call/video-call';
 import ViewMultiSigEventLogsTask from '../generic/view-multi-sig-event-logs/view-multi-sig-event-logs';
 
@@ -46,7 +46,7 @@ const tasks = {
   ],
   'join-multisig': [new JoinMultiSigGroupTask('Join Multi-Sig Group')],
   'main': [
-    new ManualKeyRotationTask({ label: 'Initiate Manual Key Rotation' }),
+    new InitiateManualKeyRotationTask({ label: 'Initiate Manual Key Rotation' }),
     new JoinManualKeyRotationTask({ label: 'Join Manual Key Rotation' }),
     new CredentialIssuanceTask({ label: 'Initiate ECR Credential Issuance' }),
     new JoinCredentialIssuanceTask({ label: 'Join ECR Credential Issuance' }),

@@ -9,7 +9,8 @@ import CredentialRevocationTask from './credential-revocation/credential-revocat
 import EnterPasscodeTask from './enter-passcode/enter-passcode';
 import IntroToYourRoleTask from './intro-to-your-role/intro-to-your-role';
 import JoinMultiSigGroupTask from './join-multi-sig-group/join-multi-sig-group';
-import ManualKeyRotationTask from './manual-key-rotation/manual-key-rotation';
+import InitiateManualKeyRotationTask from '../generic/initiate-manual-key-rotation/initiate-manual-key-rotation';
+import JoinManualKeyRotationTask from '../generic/join-manual-key-rotation/join-manual-key-rotation';
 import VideoCallTask from './video-call/video-call';
 import ViewMultiSigEventLogsTask from './view-multi-sig-event-logs/view-multi-sig-event-logs';
 
@@ -34,8 +35,8 @@ const tasks = {
   'main': [
     new CredentialIssuanceTask({ label: 'Credential Issuance' }),
     new CredentialRevocationTask({ label: 'Credential Revocation' }),
-    new ManualKeyRotationTask({ label: 'Initiate Manual Key Rotation' }),
-    new ManualKeyRotationTask({ label: 'Join Manual Key Rotation' }),
+    new InitiateManualKeyRotationTask({ label: 'Initiate Manual Key Rotation' }),
+    new JoinManualKeyRotationTask({ label: 'Join Manual Key Rotation' }),
     new ViewMultiSigEventLogsTask({ label: 'View Multi-Sig Event Logs' }),
   ],
 };

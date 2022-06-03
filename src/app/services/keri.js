@@ -72,6 +72,14 @@ class KERI {
     });
   }
 
+  static rotateIdentifier(alias) {
+    return m.request({
+      method:'PUT',
+      url: `${this.keriURL}/ids/${alias}/rot`,
+      body: {}
+    })
+  }
+
   static listIdentifiers() {
     return m.request({
       method: 'GET',

@@ -1,6 +1,6 @@
 import m from 'mithril';
 import { Button, Card, IconButton, TextField } from '../../../../../src/app/components';
-import { KERI } from '../../../../../src/app/services';
+import { KERI, Profile } from '../../../../../src/app/services';
 
 /*
  * EnterOOBIsForm
@@ -12,7 +12,7 @@ import { KERI } from '../../../../../src/app/services';
 class EnterOOBIsForm {
   constructor(vnode) {
     this.complete = false;
-    this.alias = vnode.attrs.identifiers[0].name;
+    this.alias = Profile.getDefaultSingleAID()
   }
 
   resolveOOBIPromise(oobi) {
