@@ -1,6 +1,6 @@
 import m from 'mithril';
 import { Button, Card, Checkbox, TextField } from '../../../../../src/app/components';
-import {KERI, Profile } from '../../../../../src/app/services';
+import {KERI, Profile} from '../../../../../src/app/services';
 
 /*
  * EnterChallengesForm
@@ -18,6 +18,7 @@ class EnterChallengesForm {
   }
 
   signChallengePromise(signer) {
+    console.log(this.alias, signer.id, signer.challengeMessage.split(' '))
     return KERI.signChallengeMessage(this.alias, signer.id, signer.challengeMessage.split(' '));
   }
 

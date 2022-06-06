@@ -14,6 +14,7 @@ import IntroToYourRoleTask from '../generic/intro-to-your-role/intro-to-your-rol
 import JoinMultiSigGroupTask from '../generic/join-multi-sig-group/join-multi-sig-group';
 import InitiateManualKeyRotationTask from '../generic/initiate-manual-key-rotation/initiate-manual-key-rotation';
 import VideoCallTask from '../generic/video-call/video-call';
+import JoinVideoCallTask from '../generic/join-video-call/join-video-call';
 import ViewMultiSigEventLogsTask from '../generic/view-multi-sig-event-logs/view-multi-sig-event-logs';
 
 //dummy tasks
@@ -41,16 +42,19 @@ const tasks = {
     ],
     'join-multisig': [new JoinMultiSigGroupTask('Join Multi-Sig Group')],
     'main': [
-        new InitiateManualKeyRotationTask({label: 'Initiate Manual Key Rotation'}),
-        new JoinManualKeyRotationTask({label: 'Join Manual Key Rotation'}),
+        new AcceptCredentialsTask({label: 'Accept Credential'}),
         new VideoCallTask({
             initiate: true,
             label: 'Initiate LE Credential Issuance',
+            aidToSend: variables.aidToSend,
+            steps: variables.initiateLECredentialIssuance.steps,
             next:new CredentialIssuanceTask({label: 'Initiate LE Credential Issuance'}),
         }),
-        new VideoCallTask({
+        new JoinVideoCallTask({
             initiate: false,
             label: 'Join LE Credential Issuance',
+            steps: variables.joinLECredentialIssuance.steps,
+            oobiRecipient: variables.joinLECredentialIssuance.oobiRecipient,
             next:new JoinCredentialIssuanceTask({label: 'Join LE Credential Issuance'}),
         }),
         new CredentialIssuanceTask({label: 'Initiate OOR Credential Issuance'}),
@@ -59,6 +63,8 @@ const tasks = {
         new JoinCredentialIssuanceTask({label: 'Join ECR Credential Issuance'}),
         new CredentialRevocationTask({label: 'Initiate Credential Revocation'}),
         new JoinCredentialRevocationTask({label: 'Join Credential Revocation'}),
+        new InitiateManualKeyRotationTask({label: 'Initiate Manual Key Rotation'}),
+        new JoinManualKeyRotationTask({label: 'Join Manual Key Rotation'}),
         new ViewMultiSigEventLogsTask({label: 'View Multi-Sig Event Logs'}),
         new AcceptCredentialsTask({label: 'Accept Credential'}),
     ],

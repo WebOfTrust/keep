@@ -46,14 +46,19 @@ const tasks = {
   ],
   'join-multisig': [new JoinMultiSigGroupTask('Join Multi-Sig Group')],
   'main': [
-    new InitiateManualKeyRotationTask({ label: 'Initiate Manual Key Rotation' }),
-    new JoinManualKeyRotationTask({ label: 'Join Manual Key Rotation' }),
+    new VideoCallTask({
+      initiate: true,
+      label: 'Accept Credential',
+      acceptCredential: true,
+      next: new AcceptCredentialsTask({ label: 'Accept Credential' }),
+    }),
     new CredentialIssuanceTask({ label: 'Initiate ECR Credential Issuance' }),
     new JoinCredentialIssuanceTask({ label: 'Join ECR Credential Issuance' }),
     new CredentialRevocationTask({ label: 'Initiate ECR Credential Revocation' }),
     new JoinCredentialIssuanceTask({ label: 'Join ECR Credential Revocation' }),
+    new InitiateManualKeyRotationTask({ label: 'Initiate Manual Key Rotation' }),
+    new JoinManualKeyRotationTask({ label: 'Join Manual Key Rotation' }),
     new ViewMultiSigEventLogsTask({ label: 'View Multi-Sig Event Logs' }),
-    new AcceptCredentialsTask({ label: 'Accept Credential' }),
   ],
 };
 

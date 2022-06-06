@@ -41,31 +41,32 @@ class Profile {
     KERI.listIdentifiers()
       .then((identifiers) => {
         this._identifiers = identifiers;
-        this._singleSig = this.identifiers.filter((aid) => {
+        this._singleSigs = this.identifiers.filter((aid) => {
             return !("group" in aid);
         });
-        this._multiSig = this.identifiers.filter((aid) => {
+        this._multiSigs = this.identifiers.filter((aid) => {
             return "group" in aid;
         });
         this._default = this._identifiers.find((aid) => {
           return 'metadata' in aid && 'default' in aid.metadata;
         });
-        this._defaultSingle = this._singleSig.find((aid) => {
+        this._defaultSingle = this._singleSigs.find((aid) => {
           return 'metadata' in aid && 'default' in aid.metadata;
         });
-        this._defaultMulti = this._multiSig.find((aid) => {
+        this._defaultMulti = this._multiSigs.find((aid) => {
           return 'metadata' in aid && 'default' in aid.metadata;
         });
 
         if (this._default === undefined && this._identifiers.length > 0) {
           this._default = this._identifiers[0];
         }
-        if (this._defaultSingle === undefined && this._singleSig.length > 0) {
-          // this._default = this._singleSig[0];
+        if (this._defaultSingle === undefined && this._singleSigs.length > 0) {
+          // this._defaultSingle = this._singleSigs[0];
           this._defaultSingle = this._singleSig[0];
         }
-        if (this._default === undefined && this._multiSig.length > 0) {
-          // this._default = this._multiSig[0];
+
+        if (this._defaultMulti === undefined && this._multiSigs.length > 0) {
+          // this._defaultMulti = this._multiSig[0];
           this._defaultMulti = this._multiSig[0];
         }
       })
@@ -81,8 +82,12 @@ class Profile {
     });
   }
 
-  static getDefaultAID() {
-    return this._default;
+  static getDefaultAID(type) {
+      if (type === 'single' || this._defaultMulti === undefined) {
+          return this._defaultSingle
+      } else {
+          return this._defaultMulti
+      }
   }
 
   static getDefaultSingleAID() {

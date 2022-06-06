@@ -8,14 +8,14 @@ import projectPlanning from '../../../src/assets/img/project-planning.svg';
 import responseMessage from '../../../src/assets/img/response-message.svg';
 import uploadFile from '../../../src/assets/img/upload-file.svg';
 
-class VideoCallTask {
+class JoinVideoCallTask {
   constructor(config) {
     this._label = config.label;
     this.initiate = config.initiate;
     this.oneToOne = config.oneToOne;
-    this.skip = config.skip
     this.acceptCredential = config.acceptCredential
     this.next = config.next;
+    this.oobiRecipient = config.oobiRecipient;
 
     this.aidToSend = config.aidToSend;
     this.steps = config.steps;
@@ -28,12 +28,7 @@ class VideoCallTask {
     }
     this._component = {
       view: (vnode) => {
-        return <VideoCall end={vnode.attrs.end} parent={this} steps={this.steps}/>;
-      },
-    };
-    this.sendOOBIPanel = {
-      view: (vnode) => {
-        return <SendOOBIPanel end={vnode.attrs.end} parent={this} />;
+        return <JoinVideoCall end={vnode.attrs.end} parent={this} steps={this.steps}/>;
       },
     };
     this.copyChallengePanel = {
@@ -65,8 +60,6 @@ class VideoCallTask {
 
   get lcomponent() {
     switch (this.currentState) {
-      case 'send-oobi':
-        return this.sendOOBIPanel;
       case 'challenge-messages':
         return this.copyChallengePanel;
       default:
@@ -75,13 +68,13 @@ class VideoCallTask {
   }
 }
 
-class VideoCall {
+class JoinVideoCall {
   view(vnode) {
     return (
       <>
         {vnode.attrs.parent.currentState === 'intro' && (
           <>
-            <h3>Identity Authentication</h3>
+            <h3>Join Identity Authentication</h3>
             <p className="p-tag" style={{ margin: '2rem 0' }}>
               {vnode.attrs.steps ? (
                 vnode.attrs.steps.paragraph
@@ -94,29 +87,11 @@ class VideoCall {
             </p>
             <h3>Steps to Identity Authentication</h3>
             <ol className="styled-ol" style={{ margin: '2rem 0' }}>
-              {vnode.attrs.steps ? (
+              {
                 vnode.attrs.steps.list.map((element) => {
                   return <li>{element}</li>;
                 })
-              ) : (
-                <>
-                  <li>{vnode.attrs.parent.initiate ? 'Initiate' : 'Join'} a Video Call</li>
-                  <li>Use an OOBI protocol to obtain the user's AID</li>
-                  <li>Use an OOBI protocol to share your AID</li>
-                  <li>Obtain and sign a Challenge Message</li>
-                  <li>Generate and send a Challenge Message</li>
-                  <li>User signs and returns Challenge Message</li>
-                  {vnode.attrs.parent.acceptCredential && (
-                      <li>Wait for credentials to be issued.</li>
-                  )}
-                  {vnode.attrs.parent.initiate && !vnode.attrs.parent.oneToOne && (
-                    <li>You initiate the Multi-Sig Group for all participants</li>
-                  )}
-                  {!vnode.attrs.parent.initiate && !vnode.attrs.parent.oneToOne && (
-                    <li>Wait for invitation to join Multi-Sig Group</li>
-                  )}
-                </>
-              )}
+             }
             </ol>
             <div className="flex flex-justify-end" style={{ marginTop: '4rem' }}>
               {/* <Button class="button--gray-dk button--big button--no-transform" raised label="Skip" /> */}
@@ -169,11 +144,10 @@ class VideoCall {
             <img src={responseMessage} style={{ marginBottom: '2rem', width: '240px' }} />
             <h3>Join a Video Call</h3>
             <p class="p-tag" style={{ margin: '2rem 0' }}>
-              In order to start the authentication process, you will need to initiate an real-time OOBI session in which
-              you and the other participant are present, You will accept all their AID and URL on a Video Call so that
-              you can receive their identifying information.
+              In order to participate in the authentication process, you will need to join a real-time Out of Band
+              Interaction (OOBI) session initiated by the Lead in which you and the other users are present. You will
+              accept all their OOBI URLs on a Video Call so that you can receive their identifier information.
             </p>
-            <h3>Generate OOBI</h3>
             <div class="flex flex-justify-between" style={{ marginTop: '4rem' }}>
               <Button
                 class="button--gray-dk button--big button--no-transform"
@@ -196,7 +170,7 @@ class VideoCall {
         )}
         {vnode.attrs.parent.currentState === 'send-oobi' && (
           <>
-            <h3>Accept OOBI from other person{vnode.attrs.parent.oneToOne ? '' : 's'}</h3>
+            <h3>Accept OOBI from {vnode.attrs.parent.oobiRecipient}</h3>
             <EnterOOBIsForm
               participants={vnode.attrs.parent.participants}
               oneToOne={vnode.attrs.parent.oneToOne}
@@ -225,9 +199,9 @@ class VideoCall {
         {vnode.attrs.parent.currentState === 'generate-challenge' && (
           <>
             <img src={responseMessage} style={{ width: '240px', margin: '1.5rem 0 2rem 0' }} />
-            <h3>Generate and Send Challenge Message</h3>
+            <h3>Obtain the Challenge Message from the Lead</h3>
             <p class="p-tag" style={{ margin: '2rem 0 2rem 0' }}>
-              Click the Generate Button to create a Challenge Messages to each member of the signing group.
+              Copy and paste the Challenge Message generated by the Lead that will be signed by the LARs.
             </p>
             <div class="flex flex-justify-between">
               <Button
@@ -314,8 +288,9 @@ class SendOOBIPanel {
         <img src={addNewContacts} style={{ width: '200px', margin: '0 0 1rem 0' }} alt="" />
         <h3>Send OOBI for your {} AID</h3>
         <p class="p-tag" style={{ margin: '2rem 0 2rem 0' }}>
-          Copy this OOBI (AID + URL) to share your identifying information with all parties on the call, and paste it
-          into the Video Call.
+          Copy this OOBI URL for your default AID and paste it into the Video Call to share your identifying
+          information. To use another AID for this transaction, go to your profile and set another default AID before
+          continuing.
         </p>
         <SendOOBIForm aidToSend={vnode.attrs.parent.aidToSend} />
       </>
@@ -336,7 +311,7 @@ class CopyChallengePanel {
           <h3>Challenge Message Recipients</h3>
         </div>
         <p class="p-tag" style={{ margin: '2rem 0 2rem 0' }}>
-          Paste the message into the video chat so that your contact{vnode.attrs.parent.oneToOne ? '' : 's'} can be
+          Copy the message from the Lead so that your contact{vnode.attrs.parent.oneToOne ? '' : 's'} can be
           verified
           <br />
           <br />
@@ -366,4 +341,4 @@ class CopyChallengePanel {
   }
 }
 
-module.exports = VideoCallTask;
+module.exports = JoinVideoCallTask;

@@ -1,6 +1,6 @@
 import m from 'mithril';
 import { TextField } from '../../../../../src/app/components';
-import { KERI } from '../../../../../src/app/services';
+import { KERI, Profile } from '../../../../../src/app/services';
 
 /*
  * SendOOBIForm
@@ -12,6 +12,8 @@ import { KERI } from '../../../../../src/app/services';
 class SendOOBIForm {
   constructor(vnode) {
     this.copied = false;
+    this.aidToSend = Profile.getDefaultAID(vnode.attrs.aidToSend);
+
     this.oobi = {
       alias: '',
       url: '',
@@ -19,8 +21,8 @@ class SendOOBIForm {
   }
 
   oninit(vnode) {
-    this.oobi.alias = vnode.attrs.identifiers[0].name;
-    KERI.getOOBI(vnode.attrs.identifiers[0].name, 'witness')
+    this.oobi.alias = this.aidToSend.name;
+    KERI.getOOBI(this.aidToSend.name, 'witness')
       .then((oobi) => {
         this.oobi.url = oobi.oobis[0];
       })
