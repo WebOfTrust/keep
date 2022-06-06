@@ -61,10 +61,12 @@ class Profile {
           this._default = this._identifiers[0];
         }
         if (this._defaultSingle === undefined && this._singleSig.length > 0) {
-          this._default = this._singleSig[0];
+          // this._default = this._singleSig[0];
+          this._defaultSingle = this._singleSig[0];
         }
         if (this._default === undefined && this._multiSig.length > 0) {
-          this._default = this._multiSigs[0];
+          // this._default = this._multiSig[0];
+          this._defaultMulti = this._multiSig[0];
         }
       })
       .catch((err) => {

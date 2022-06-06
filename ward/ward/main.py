@@ -27,8 +27,6 @@ class Ward:
             sys.stdout.write(f"HeadDirPath {self.HeadDirPath}\n")
             sys.stdout.flush()
 
-
-
         servery = booting.Servery(port=int(args.admin))
         doers = booting.setup(servery=servery,
                               controller="E59KmDbpjK0tRf9Rmc7OlueZVz7LB94DdD3cjQVvPcng",

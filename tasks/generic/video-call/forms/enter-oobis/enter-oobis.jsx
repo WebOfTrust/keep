@@ -12,7 +12,7 @@ import { KERI, Profile } from '../../../../../src/app/services';
 class EnterOOBIsForm {
   constructor(vnode) {
     this.complete = false;
-    this.alias = Profile.getDefaultSingleAID()
+    this.alias = Profile.getDefaultSingleAID().name
   }
 
   resolveOOBIPromise(oobi) {
