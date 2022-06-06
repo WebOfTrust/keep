@@ -44,7 +44,7 @@ class EnterChallengesForm {
                       oninput={(e) => {
                         signer.challengeMessage = e.target.value;
                       }}
-                    />`
+                    />
                   </div>
                   {!signer.sent ? (
                     <div class="flex flex-justify-end" style={{ marginTop: '1rem' }}>
