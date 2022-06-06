@@ -1,6 +1,6 @@
 import m from 'mithril';
-import { Button, Checkbox, IconButton, Radio, Select, TextField, TextTooltip } from '../../../src/app/components';
-import { Contacts, KERI, Profile, MultiSig, Witnesses, WellKnown } from '../../../src/app/services';
+import {Button, Checkbox, IconButton, Radio, Select, TextField, TextTooltip} from '../../../src/app/components';
+import {Contacts, KERI, MultiSig, Profile, Witnesses} from '../../../src/app/services';
 
 import secureMessaging from '../../../src/assets/img/secure-messaging.svg';
 import greenCheckMark from '../../../src/assets/img/green-check-mark.svg';
@@ -29,11 +29,6 @@ class ConfigureMultiSigGroupTask {
   get component() {
     return this._component;
   }
-
-  get delegator() {
-    let d = "Unknown";
-    return d;
-  }
 }
 
 class ConfigureMultiSigGroup {
@@ -43,6 +38,7 @@ class ConfigureMultiSigGroup {
     this.fractionallyWeighted = false;
     this.numSigners = 0; // Used only if fractionallyWeighted is false
     this.wits = Witnesses.witnessPools[0].wits;
+    Contacts.requestList();
     MultiSig.participants = [
       {
         id: '',
@@ -51,10 +47,16 @@ class ConfigureMultiSigGroup {
         signed: false,
       },
     ];
+
     MultiSig.delegator = null;
+    Contacts.list.forEach((contact) => {
+      if (contact.alias === 'GLEIF Root') {
+        MultiSig.delegator = contact;
+      }
+    });
+
     this.default = Profile.getDefaultAID();
     this.weight = '1/2';
-    Contacts.requestList();
   }
 
   ensureMultiSigSigned() {
@@ -405,13 +407,14 @@ class ConfigureMultiSigGroup {
             <p class="p-tag" style={{ margin: '2rem 0' }}>
               These details should be cross referenced with other well known sources.
             </p>
-            <p class="p-tag-bold">
+
+            <p className="p-tag-bold">Delegator Alias:</p>
+            <div className="uneditable-value">{MultiSig.delegator.alias}</div>
+            <p className="p-tag-bold">Delegator AID:</p>
+            <div className="uneditable-value"><code>{MultiSig.delegator.id}</code></div>
+
+            <p class="p-tag">
               See the Ecosystem Governance Framework for a full listing of available well known sources.
-            </p>
-            <p>
-              {
-                this.delegator
-              }
             </p>
             <div class="flex flex-justify-between" style={{ marginTop: '4rem' }}>
               <Button
