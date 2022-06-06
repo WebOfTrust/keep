@@ -64,6 +64,10 @@ const tasks = {
     new VideoCallTask({
       initiate: true,
       label: 'Lead GLEIF External Multi-Sig AID Inception',
+      next: new ConfigureMultiSigGroupTask({
+        label: 'Configure Multi-Sig Group',
+        requireDelegator: true,
+      }),
     }),
     new VideoCallTask({ initiate: false, label: 'Join GLEIF External Multi-Sig AID Inception' }),
   ],
