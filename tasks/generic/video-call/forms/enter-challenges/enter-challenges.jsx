@@ -1,6 +1,6 @@
 import m from 'mithril';
 import { Button, Card, Checkbox, TextField } from '../../../../../src/app/components';
-import { KERI } from '../../../../../src/app/services';
+import { KERI, Profile } from '../../../../../src/app/services';
 
 /*
  * EnterChallengesForm
@@ -11,16 +11,13 @@ import { KERI } from '../../../../../src/app/services';
 
 class EnterChallengesForm {
   constructor(vnode) {
-    console.log(vnode.attrs.participants)
-    console.log(vnode.attrs.participants.oobis)
-    this.alias = vnode.attrs.identifiers[0].name;
+    this.alias = Profile.getDefaultSingleAID().name;
     this.aliases = vnode.attrs.participants.oobis.map((oobi) => {
       return oobi.alias;
     });
   }
 
   signChallengePromise(signer) {
-    console.log(this.alias, signer.id, signer.challengeMessage.split(' '))
     return KERI.signChallengeMessage(this.alias, signer.id, signer.challengeMessage.split(' '));
   }
 
@@ -29,7 +26,6 @@ class EnterChallengesForm {
       <>
         <div style={{ maxHeight: '512px', overflowY: 'auto', margin: '0 0 1rem 0', paddingRight: '1rem' }}>
           {vnode.attrs.participants.oobis.map((signer, index) => {
-            console.log("signer", signer);
             return (
               <>
                 <Card class="card--fluid" style={{ margin: '0 0 1.5rem 0' }}>
@@ -48,7 +44,7 @@ class EnterChallengesForm {
                       oninput={(e) => {
                         signer.challengeMessage = e.target.value;
                       }}
-                    />
+                    />`
                   </div>
                   {!signer.sent ? (
                     <div class="flex flex-justify-end" style={{ marginTop: '1rem' }}>

@@ -8,13 +8,11 @@ class LeadRootLeadExtOOBI {
     constructor(config) {
         this._label = config.label;
         this.participants = new Participants();
-
         this.currentState = 'video-call';
 
         this.sendOOBIPanel = {
             view: (vnode) => {
                 return <LeadRootLeadExtOOBISend
-                    identifiers={Profile.identifiers}
                     parent={this}
                     end={vnode.attrs.end}
                 />;
@@ -24,7 +22,6 @@ class LeadRootLeadExtOOBI {
         this._component = {
             view: (vnode) => {
                 return <LeadRootLeadExtOOBIRightPanel
-                    identifiers={Profile.identifiers}
                     parent={this}
                     end={vnode.attrs.end}
                 />;
@@ -59,7 +56,6 @@ class LeadRootLeadExtOOBISend {
             <>
                 <h3>Accept OOBI from External GAR</h3>
                 <EnterOOBIsForm
-                    identifiers={Profile.identifiers}
                     participants={vnode.attrs.parent.participants}
                     oneToOne={true}
                 />
