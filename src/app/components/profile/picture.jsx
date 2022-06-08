@@ -3,7 +3,6 @@ import githubLogo from '../../../assets/img/github-logo.svg';
 
 class ProfilePicture {
   constructor(vnode) {
-    console.log(vnode.attrs);
   }
 
   view(vnode) {

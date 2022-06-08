@@ -34,7 +34,14 @@ class Nav {
   }
 
   multisigInitClick(notification) {
+    this.notificationsVisible = false;
     Tasks.active = Tasks.find('join-multisig');
+  }
+
+  delegationRequestClick(notification) {
+    this.notificationsVisible = false;
+    Tasks.active = Tasks.find('approve-delegation');
+    m.redraw()
   }
 
   view() {
@@ -71,8 +78,8 @@ class Nav {
                       this.notificationsVisible = false;
                     }}
                     style={{
-                      top: '88px',
-                      left: '-100px',
+                      top: '45px',
+                      left: '0px',
                       width: '320px',
                     }}
                     padding={'16px'}
@@ -122,11 +129,26 @@ class Nav {
                         );
                       }
                       if (notification.type === 'delegate') {
+                        let rType = notification.data.r;
+                        let meta = {
+                          title: '',
+                          clickHandler: null,
+                        };
+                        if (rType.includes('/request')) {
+                          meta.title = `Delegation Request`;
+                          meta.clickHandler = this.delegationRequestClick;
+                        }
                         return (
                             <div
-                                class="pointer font-weight--bold font-color--battleship flex flex-align-center flex-justify-between"
+                                className="pointer font-weight--bold font-color--battleship flex flex-align-center flex-justify-between"
+                                onclick={() => {
+                                  meta.clickHandler(notification);
+                                }}
                             >
-                              <p>delegate {notification}</p>
+                              <p>{meta.title}</p>
+                              <p>
+                                <u>View</u>
+                              </p>
                             </div>
                         );
                       }

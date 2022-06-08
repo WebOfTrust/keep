@@ -33,7 +33,7 @@ class Profile {
 
   static filterIdentifiersById(id) {
     return this._identifiers.filter((identifier) => {
-      return identifier.id === id;
+      return identifier.prefix === id;
     });
   }
 
@@ -61,13 +61,11 @@ class Profile {
           this._default = this._identifiers[0];
         }
         if (this._defaultSingle === undefined && this._singleSigs.length > 0) {
-          // this._defaultSingle = this._singleSigs[0];
-          this._defaultSingle = this._singleSig[0];
+          this._defaultSingle = this._singleSigs[0];
         }
 
         if (this._defaultMulti === undefined && this._multiSigs.length > 0) {
-          // this._defaultMulti = this._multiSig[0];
-          this._defaultMulti = this._multiSig[0];
+          this._defaultMulti = this._multiSigs[0];
         }
       })
       .catch((err) => {

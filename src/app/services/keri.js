@@ -127,8 +127,18 @@ class KERI {
     });
   }
 
-  // CHALLENGE/RESPONSE
+  static sendOOBIs(alias, oobis) {
+    let body = oobis.map((oobi) => {
+      return {alias: oobi.alias, url: oobi.url};
+    })
+    return m.request({
+      method: 'POST',
+      url: `${this.keriURL}/oobi/groups/${alias}/share`,
+      body: { oobis: body }
+    })
+  }
 
+  // CHALLENGE/RESPONSE
   static generateChallengeMessage() {
     return m.request({
       method: 'GET',
@@ -218,6 +228,28 @@ class KERI {
         toad,
         wits,
         delpre,
+      },
+    });
+  }
+
+  static initiateGroupInteraction(alias, { aids, data }) {
+    return m.request({
+      method: 'POST',
+      url: `${this.keriURL}/groups/${alias}/ixn`,
+      body: {
+        aids,
+        data,
+      },
+    });
+  }
+
+  static participateGroupInteraction(alias, { aids, data }) {
+    return m.request({
+      method: 'PUT',
+      url: `${this.keriURL}/groups/${alias}/ixn`,
+      body: {
+        aids,
+        data
       },
     });
   }

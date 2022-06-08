@@ -10,6 +10,7 @@ import CreatePasscodeTask from '../generic/create-your-passcode/create-your-pass
 import EnterPasscodeTask from '../generic/enter-passcode/enter-passcode';
 import IntroToYourRoleTask from '../generic/intro-to-your-role/intro-to-your-role';
 import JoinMultiSigGroupTask from '../generic/join-multi-sig-group/join-multi-sig-group';
+import JoinDelegationApprovalTask from '../generic/join-delegation-approval/join-delegation-approval';
 import InitiateManualKeyRotationTask from '../generic/initiate-manual-key-rotation/initiate-manual-key-rotation';
 import VideoCallTask from '../generic/video-call/video-call';
 import ViewMultiSigEventLogsTask from '../generic/view-multi-sig-event-logs/view-multi-sig-event-logs';
@@ -60,11 +61,11 @@ const tasks = {
         new VideoCallTask({initiate: false, label: 'Join GLEIF External Multi-Sig AID Inception'}),
     ],
     'join-multisig': [new JoinMultiSigGroupTask({label: 'Join Multi-Sig Group'})],
+    'approve-delegation': [new JoinDelegationApprovalTask({label: "Delegation Approval"})],
     'main': [
         new InitiateManualKeyRotationTask({label: 'Initiate Manual Key Rotation'}),
         new JoinManualKeyRotationTask({label: 'Join Manual Key Rotation'}),
         new LeadRootLeadExtOOBI({label: 'Challenge with Ext GAR'}),
-        // new JoinDelegationApprovalTask({label: 'Join Delegation Approval'}),
         new ViewMultiSigEventLogsTask({label: 'View Multi-Sig Event Logs'}),
     ],
 };
