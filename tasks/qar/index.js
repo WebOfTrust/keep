@@ -36,7 +36,7 @@ const tasks = {
         new VideoCallTask({
             initiate: true,
             label: 'Lead QAR Multi-Sig AID Inception',
-            next: new ConfigureMultiSigGroupTask('Configure Multi-Sig Group'),
+            next: new ConfigureMultiSigGroupTask({label: 'Configure Multi-Sig Group', requireDelegator: true}),
         }),
         new VideoCallTask({initiate: false, label: 'Join QAR Multi-Sig AID Inception'}),
     ],

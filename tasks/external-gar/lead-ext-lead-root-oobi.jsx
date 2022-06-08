@@ -23,20 +23,20 @@ class LeadExtLeadRootOOBI {
             });
 
             if (this.wellknown === undefined) {
-                console.log("error")
-            }
+            } else {
 
-            this.rootParticipant = {
-                oobis: [{
-                    alias: this.wellknown.alias,
-                    id: this.wellknown.id,
-                    status: 'none',
-                    challengeMessage: '',
-                    verified: false,
-                    sent: false,
-                    confirmed: false,
-                },], words: []
-            };
+                this.rootParticipant = {
+                    oobis: [{
+                        alias: this.wellknown.alias,
+                        id: this.wellknown.id,
+                        status: 'none',
+                        challengeMessage: '',
+                        verified: false,
+                        sent: false,
+                        confirmed: false,
+                    },], words: []
+                };
+            }
         });
 
         this.sendOOBIPanel = {

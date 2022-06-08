@@ -73,7 +73,6 @@ class Mail {
   // };
 
   static challengeHandler = (e) => {
-    console.log("challenge handler", e)
     let data = JSON.parse(e.data);
     const participantInstances = Participants.instances;
     participantInstances.forEach((instance) => {
@@ -98,7 +97,6 @@ class Mail {
 
   static delegateHandler = (e) => {
     let data = JSON.parse(e.data);
-    console.log(data);
     Notify.push({
       type: 'delegate',
       data,
@@ -108,7 +106,6 @@ class Mail {
 
   static multisigHandler = (e) => {
     let data = JSON.parse(e.data);
-    console.log(data);
     Notify.push({
       type: 'multisig',
       data,
