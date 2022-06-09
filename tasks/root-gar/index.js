@@ -14,7 +14,7 @@ import JoinDelegationApprovalTask from '../generic/join-delegation-approval/join
 import InitiateManualKeyRotationTask from '../generic/initiate-manual-key-rotation/initiate-manual-key-rotation';
 import VideoCallTask from '../generic/video-call/video-call';
 import ViewMultiSigEventLogsTask from '../generic/view-multi-sig-event-logs/view-multi-sig-event-logs';
-import LeadRootLeadExtOOBI from './lead-root-lead-ext-oobi'
+import LeadRootLeadOOBI from './lead-root-lead-oobi'
 
 import loanApproved from '../../src/assets/img/loan-approved.svg';
 
@@ -65,7 +65,8 @@ const tasks = {
     'main': [
         new InitiateManualKeyRotationTask({label: 'Initiate Manual Key Rotation'}),
         new JoinManualKeyRotationTask({label: 'Join Manual Key Rotation'}),
-        new LeadRootLeadExtOOBI({label: 'Challenge with Ext GAR'}),
+        new LeadRootLeadOOBI({label: 'Challenge with External GARs', variables: variables.externalOobi}),
+        new LeadRootLeadOOBI({label: 'Challenge with Internal GARs', variables: variables.internalOobi}),
         new ViewMultiSigEventLogsTask({label: 'View Multi-Sig Event Logs'}),
     ],
 };

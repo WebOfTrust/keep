@@ -106,10 +106,14 @@ class Mail {
 
   static multisigHandler = (e) => {
     let data = JSON.parse(e.data);
-    Notify.push({
-      type: 'multisig',
-      data,
-    });
+    let rType = data.r;
+    if (rType === '/ixn/complete') {
+    } else {
+      Notify.push({
+        type: 'multisig',
+        data,
+      });
+    }
     m.redraw();
   };
 

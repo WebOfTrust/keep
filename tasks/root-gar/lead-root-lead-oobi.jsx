@@ -6,15 +6,16 @@ import {EnterOOBIsForm, SendChallengeForm} from '../generic/video-call/forms';
 import addNewContacts from '../../src/assets/img/add-new-contacts.svg';
 import todoList from "../../src/assets/img/to-do-list.svg";
 
-class LeadRootLeadExtOOBI {
+class LeadRootLeadOobi {
     constructor(config) {
         this._label = config.label;
         this.participants = new Participants();
         this.currentState = 'one-way-oobi-challenge';
+        this.variables = config.variables;
 
         this.sendOOBIPanel = {
             view: (vnode) => {
-                return <LeadRootLeadExtOOBISend
+                return <LeadRootLeadOOBISend
                     parent={this}
                     end={vnode.attrs.end}
                 />;
@@ -23,7 +24,7 @@ class LeadRootLeadExtOOBI {
 
         this._component = {
             view: (vnode) => {
-                return <LeadRootLeadExtOOBIRightPanel
+                return <LeadRootLeadOOBIRightPanel
                     parent={this}
                     end={vnode.attrs.end}
                 />;
@@ -45,10 +46,10 @@ class LeadRootLeadExtOOBI {
 
     get lcomponent() {
         switch (this.currentState) {
-            case "finished":
-                return undefined
+            case "one-way-oobi-challenge":
+                return this.sendOOBIPanel
         }
-        return this.sendOOBIPanel
+        return undefined;
     }
 
     sendOobis() {
@@ -57,11 +58,11 @@ class LeadRootLeadExtOOBI {
     }
 }
 
-class LeadRootLeadExtOOBISend {
+class LeadRootLeadOOBISend {
     view(vnode) {
         return (
             <>
-                <h3>Accept OOBI from External GAR</h3>
+                <h3>Accept OOBI from {vnode.attrs.parent.variables.type} GAR</h3>
                 <EnterOOBIsForm
                     participants={vnode.attrs.parent.participants}
                 />
@@ -70,7 +71,7 @@ class LeadRootLeadExtOOBISend {
     }
 }
 
-class LeadRootLeadExtOOBIRightPanel {
+class LeadRootLeadOOBIRightPanel {
     view(vnode) {
         return (
             <>
@@ -129,7 +130,7 @@ class LeadRootLeadExtOOBIRightPanel {
                         <h3>Inception Event Completed</h3>
                         <p class="p-tag">
                             Thank you for authenticating all members. You will receive a notification when
-                            the External GARs have created their Multi-Sig AID and are requesting delegation.
+                            the {vnode.attrs.parent.variables.type} GARs have created their Multi-Sig AID and are requesting delegation.
                         </p>
                         <div class="flex flex-justify-end" style={{marginTop: '4rem'}}>
                             <Button class="button--big button--no-transform" raised label="Close"
@@ -142,4 +143,4 @@ class LeadRootLeadExtOOBIRightPanel {
     }
 }
 
-module.exports = LeadRootLeadExtOOBI;
+module.exports = LeadRootLeadOobi;

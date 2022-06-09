@@ -16,7 +16,6 @@ class EnterOOBIsForm {
   }
 
   resolveOOBIPromise(oobi) {
-    console.log("resolving oobi", this.aliasToSign, oobi.alias, oobi.url)
     return KERI.resolveOOBI(this.aliasToSign, oobi.alias, oobi.url);
   }
 
