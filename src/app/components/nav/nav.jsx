@@ -40,6 +40,7 @@ class Nav {
 
   delegationRequestClick(notification) {
     this.notificationsVisible = false;
+    Notify.selected = notification;
     Tasks.active = Tasks.find('approve-delegation');
     m.redraw()
   }
@@ -107,12 +108,16 @@ class Nav {
                           title: '',
                           clickHandler: null,
                         };
-                        if (rType.includes('/complete')) {
+                        if (rType === '/icp/complete') {
                           meta.title = `Multi-Sig Inception Complete`;
                           meta.clickHandler = this.multisigCompleteClick;
+                        } else if (rType === "/ixn/complete") {
+
                         } else if (rType.includes('/init')) {
                           meta.title = 'New Multi-Sig Verification';
                           meta.clickHandler = this.multisigInitClick;
+                        } else {
+                          return undefined;
                         }
                         return (
                           <div

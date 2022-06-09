@@ -1,6 +1,6 @@
 import m from 'mithril';
 import approveRequest from '../../../src/assets/img/approve-request.svg';
-import {Button, TextField} from '../../../src/app/components';
+import {Button} from '../../../src/app/components';
 import {KERI, Profile, Notify, Contacts} from '../../../src/app/services';
 
 class JoinDelegationApprovalTask {
@@ -30,7 +30,7 @@ class JoinDelegationApprovalTask {
 
 class JoinDelegationApproval {
     constructor() {
-        let notif = Notify.findByType('delegate');
+        let notif = Notify.selected;
         this.aids = notif.data.aids;
         this.ked = notif.data.ked;
         this.delegatorAID = notif.data.delpre;
@@ -52,12 +52,10 @@ class JoinDelegationApproval {
         }]
 
         let aids = this.aid[0].group.aids
-        KERI.initiateGroupInteraction(this.delegatorAlias, {
+        return KERI.initiateGroupInteraction(this.delegatorAlias, {
             aids: aids,
             data: data
-        } ).then((res) => {
-            console.log("complete")
-        })
+        } )
     }
 
     view(vnode) {
@@ -139,7 +137,27 @@ class JoinDelegationApproval {
                                 raised
                                 label="Confirm"
                                 onclick={() => {
-                                    this.approveDelegation();
+                                    this.approveDelegation().then(() => {
+                                        vnode.attrs.parent.currentState = 'delegate-complete';
+                                    });
+                                }}
+                            />
+                        </div>
+                    </>
+                )}
+                {vnode.attrs.parent.currentState === 'delegate-complete' && (
+                    <>
+                        <img src={approveRequest} style={{width: '188px', margin: '0 0 2rem 0'}}/>
+                        <h3>Delegation complete</h3>
+                        <p class="p-tag">When enough members of {this.delegatorAlias} have approved the delegation you will
+                            receive a notification to create an alias for the new delegated AID.</p>
+                        <div class="flex flex-justify-end" style={{marginTop: '4rem'}}>
+                            <Button
+                                class="button--big button--no-transform"
+                                raised
+                                label="View"
+                                onclick={() => {
+                                    vnode.attrs.end;
                                 }}
                             />
                         </div>

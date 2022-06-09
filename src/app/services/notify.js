@@ -1,8 +1,17 @@
 class Notify {
   static notifications = [];
+  static _selected = {}
 
   static push(notification) {
     this.notifications.push(notification);
+  }
+
+  static set selected(notification) {
+    this._selected = notification;
+  }
+
+  static get selected() {
+    return this._selected;
   }
 
   static findByType(type) {
