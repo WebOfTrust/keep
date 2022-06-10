@@ -18,7 +18,7 @@ else
 	python convert_env.py .env.root-gar >> ward/config.json
 endif
 	cd $(DIR)/ward; \
-#	pip install -r requirements.txt; \
+	pip install -r requirements.txt; \
 	pyinstaller generic.spec --clean --noconfirm;
 	cd $(DIR)/app; \
 	cp -r $(DIR)/ward/dist/ward ./ward;
@@ -50,13 +50,14 @@ else
 endif
 	yarn
 ifdef lead
-
+	yarn package:lead-external-gar
 	python convert_env.py .env.lead-external-gar >> ward/config.json
 else
 	yarn package:external-gar
 	python convert_env.py .env.external-gar >> ward/config.json
 endif
 	cd $(DIR)/ward; \
+	pip install -r requirements.txt; \
 	pyinstaller generic.spec --clean --noconfirm;
 
 	cd $(DIR)/app; \

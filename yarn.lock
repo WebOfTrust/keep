@@ -8758,11 +8758,6 @@ parse-color@^1.0.0:
   dependencies:
     color-convert "~0.5.0"
 
-parse-env-to-json@^1.0.4:
-  version "1.0.4"
-  resolved "https://registry.yarnpkg.com/parse-env-to-json/-/parse-env-to-json-1.0.4.tgz#ed181447388fcd3c2191d658898833fd6f89a15d"
-  integrity sha512-O7mJJ9T6feJ4P+1Xp2FDiFXfXXDfR/yLUcxuyskurcqNeg6ndBkYKGBoNEhrB7cxXFC1y0hrAo5GKFJ0fqzvsQ==
-
 parse-filepath@^1.0.2:
   version "1.0.2"
   resolved "https://registry.npmjs.org/parse-filepath/-/parse-filepath-1.0.2.tgz"
