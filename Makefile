@@ -18,7 +18,7 @@ else
 	python convert_env.py .env.root-gar >> ward/config.json
 endif
 	cd $(DIR)/ward; \
-	pip install -r requirements.txt; \
+	pip install -r requirements.txt --no-cache-dir; \
 	pyinstaller generic.spec --clean --noconfirm;
 	cd $(DIR)/app; \
 	cp -r $(DIR)/ward/dist/ward ./ward;
@@ -57,7 +57,7 @@ else
 	python convert_env.py .env.external-gar >> ward/config.json
 endif
 	cd $(DIR)/ward; \
-	pip install -r requirements.txt; \
+	pip install -r requirements.txt --no-cache-dir; \
 	pyinstaller generic.spec --clean --noconfirm;
 
 	cd $(DIR)/app; \
@@ -97,7 +97,7 @@ else
 	python convert_env.py .env.internal-gar >> ward/config.json
 endif
 	cd $(DIR)/ward; \
-	pip install -r requirements.txt; \
+	pip install -r requirements.txt --no-cache-dir; \
 	pyinstaller generic.spec --clean --noconfirm;
 
 	cd $(DIR)/app; \
@@ -137,7 +137,7 @@ else
 	python convert_env.py .env.qar >> ward/config.json
 endif
 	cd $(DIR)/ward; \
-	pip install -r requirements.txt; \
+	pip install -r requirements.txt --no-cache-dir; \
 	pyinstaller generic.spec --clean --noconfirm;
 
 	cd $(DIR)/app; \
@@ -177,7 +177,7 @@ else
 	python convert_env.py .env.lar >> ward/config.json
 endif
 	cd $(DIR)/ward; \
-	pip install -r requirements.txt; \
+	pip install -r requirements.txt --no-cache-dir; \
 	pyinstaller generic.spec --clean --noconfirm;
 
 	cd $(DIR)/app; \
@@ -213,7 +213,7 @@ endif
 	python convert_env.py .env.person >> ward/config.json
 
 	cd $(DIR)/ward; \
-	pip install -r requirements.txt; \
+	pip install -r requirements.txt --no-cache-dir; \
 	pyinstaller generic.spec --clean --noconfirm; \
 	cp -r $(DIR)/ward/dist/ward ./ward;
 
