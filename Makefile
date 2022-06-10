@@ -237,12 +237,12 @@ tail-lead-external:
 
 
 all:
-	make debug=true pkg-external-gar; mv app/out/make/keep-external-1.0.2-arm64.dmg ~/
-	make debug=true lead=true pkg-external-gar; mv app/out/make/keep-lead-external-1.0.2-arm64.dmg ~/
-	make debug=true pkg-root-gar; mv app/out/make/keep-root-1.0.2-arm64.dmg ~/
-	make debug=true lead=true pkg-root-gar; mv app/out/make/keep-lead-root-1.0.2-arm64.dmg ~/
-	make debug=true pkg-internal-gar; mv app/out/make/keep-internal-1.0.2-arm64.dmg ~/
-	make debug=true lead=true pkg-internal-gar; mv app/out/make/keep-lead-internal-1.0.2-arm64.dmg ~/
-	make debug=true pkg-qar; mv app/out/make/keep-qar-1.0.2-arm64.dmg ~/
-	make debug=true lead=true pkg-qar; mv app/out/make/keep-lead-qar-1.0.2-arm64.dmg ~/
-	make debug=true pkg-person; mv app/out/make/keep-person-1.0.2-arm64.dmg ~/
+	make debug=true pkg-external-gar; mv app/out/make/keep-*.dmg ~/
+	make debug=true lead=true pkg-external-gar; mv app/out/make/keep-*.dmg ~/
+	make debug=true pkg-root-gar; mv app/out/make/keep-*.dmg ~/
+	make debug=true lead=true pkg-root-gar; mv app/out/make/keep-*.dmg ~/
+	make debug=true pkg-internal-gar; mv app/out/make/keep-*.dmg ~/
+	make debug=true lead=true pkg-internal-gar; mv app/out/make/keep-*.dmg ~/
+	make debug=true pkg-qar; mv app/out/make/keep-*.dmg ~/
+	make debug=true lead=true pkg-qar; mv app/out/make/keep-*.dmg ~/
+	make debug=true pkg-person; mv app/out/make/keep-*.dmg ~/
