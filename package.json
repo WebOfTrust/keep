@@ -24,7 +24,7 @@
     "package:lar": "NODE_ENV=lar parcel build src/index.html --cache-dir ward/.parcel-cache-dev --dist-dir ward/build-ui",
     "package:lead-lar": "NODE_ENV=lead-lar parcel build src/index.html --cache-dir ward/.parcel-cache-dev --dist-dir ward/build-ui",
 
-    "package:person": "NODE_ENV=person parcel build src/index.html --cache-dir ward/.person-cache-dev --dist-dir ward/build-ui",
+    "package:person": "NODE_ENV=person parcel build src/index.html --cache-dir ward/.parcel-cache-dev --dist-dir ward/build-ui",
 
     "build:generic": "yarn rm-build; yarn set-tasks:generic; parcel build src/index.html --cache-dir ward/.parcel-cache --dist-dir ward/build-ui --public-url ./",
     "start:generic": "parcel src/index.html --cache-dir ward/.parcel-cache-dev --dist-dir ward/build-ui",
