@@ -36,13 +36,19 @@ const tasks = {
         new VideoCallTask({
             initiate: true,
             label: 'Lead QAR Multi-Sig AID Inception',
-            next: new ConfigureMultiSigGroupTask({label: 'Configure Multi-Sig Group', requireDelegator: true}),
+            next: new ConfigureMultiSigGroupTask({label: 'Configure Multi-Sig Group', requiredDelegator: "GLEIF External"}),
         }),
         new VideoCallTask({initiate: false, label: 'Join QAR Multi-Sig AID Inception'}),
     ],
     'join-multisig': [new JoinMultiSigGroupTask('Join Multi-Sig Group')],
     'main': [
-        new AcceptCredentialsTask({label: 'Accept Credential'}),
+        new VideoCallTask({
+            initiate: true,
+            label: 'Accept Credential',
+            oneToOne: true,
+            acceptCredential: true,
+            next: new AcceptCredentialsTask({ label: 'Accept Credential' }),
+        }),
         new VideoCallTask({
             initiate: true,
             label: 'Initiate LE Credential Issuance',

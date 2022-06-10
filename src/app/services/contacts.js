@@ -4,7 +4,7 @@ class Contacts {
   static list = [];
 
   static requestList() {
-    KERI.getContacts().then((contacts) => {
+    return KERI.getContacts().then((contacts) => {
       this.list = contacts;
     });
   }

@@ -4,6 +4,7 @@ import Participants from './oobis';
 import Toaster from './toaster';
 import KERI from './keri';
 import Profile from './profile';
+import MultiSig from './multisig'
 
 class Mail {
   static MINSNIFFSIZE = 30;
@@ -108,12 +109,14 @@ class Mail {
     let data = JSON.parse(e.data);
     let rType = data.r;
     if (rType === '/ixn/complete') {
-    } else {
-      Notify.push({
-        type: 'multisig',
-        data,
-      });
+      return;
     }
+
+    Notify.push({
+      type: 'multisig',
+      data,
+    });
+
     m.redraw();
   };
 

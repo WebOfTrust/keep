@@ -94,7 +94,6 @@ class JoinMultiSigGroup {
               console.log(signer);
               let name = '';
               let contact = Contacts.filterById(signer);
-              console.log(contact);
               if (contact.length === 1) {
                 name = contact[0].alias;
               } else if (signer === this.aid.prefix) {
