@@ -19,7 +19,7 @@ class Keep {
   static check() {
     return m.request({
       method: 'GET',
-      url: 'http://localhost:8765/keep',
+      url: `http://localhost:${process.env.KEEP_PORT}/keep`,
     });
   }
 }
