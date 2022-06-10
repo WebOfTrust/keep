@@ -168,7 +168,7 @@ class ListIdentifiers {
         <div style={{ height: '624px', overflowY: 'scroll', margin: '0 0 0 0' }}>
           {this.identifiers.map((aid) => {
             return (
-              <Card class="" style={{ margin: '1px', padding: '0' }}>
+              <Card class="" style={{ margin: '10px 5px 10px 5px', padding: '0' }}>
                 <div class="flex flex-justify-between">
                   <div class="flex">
                     <ProfilePicture identifier={aid} />
@@ -185,7 +185,7 @@ class ListIdentifiers {
                 <div>
                   <div style={{ margin: '2rem 0 2rem 0' }}>
                     <p class="p-tag-bold" style={{ margin: '1rem 0 0 0' }}>
-                      Prefix:
+                      AID:
                     </p>
                     <code style="margin: 0 0 0 0;">{aid.prefix}</code>
                   </div>

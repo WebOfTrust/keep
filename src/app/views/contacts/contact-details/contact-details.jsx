@@ -21,11 +21,11 @@ class ContactDetails {
           <p class="p-tag">Name:</p>
           <TextField filled fluid placeholder={contact.alias} style={{ width: '60%', height: '2.5rem' }} />
         </div>
-        {/* <div class="flex flex-justify-between">
-          <p class="p-tag">Email:</p>
-          <TextField filled fluid placeholder={contact.email} style={{ width: '60%', height: '2.5rem' }} />
+         <div class="flex flex-justify-between">
+          <p class="p-tag">AID:</p>
+             <TextField filled fluid placeholder={contact.id} style={{ width: '60%', height: '2.5rem' }} />
         </div>
-        <div class="flex flex-justify-between">
+          {/*<div class="flex flex-justify-between">
           <p class="p-tag">Company:</p>
           <TextField filled fluid placeholder={contact.company} style={{ width: '60%', height: '2.5rem' }} />
         </div>

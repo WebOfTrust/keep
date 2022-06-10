@@ -213,7 +213,7 @@ class VideoCall {
                 class="button--big button--no-transform"
                 raised
                 label="Continue"
-                disabled={!vnode.attrs.parent.participants.oobisResolved()}
+                disabled={false /* !vnode.attrs.parent.participants.oobisResolved() */}
                 onclick={() => {
                   vnode.attrs.parent.currentState = 'generate-challenge';
                 }}
@@ -264,8 +264,8 @@ class VideoCall {
                 class="button--big button--no-transform"
                 raised
                 label="Next"
-                disabled={
-                  !(vnode.attrs.parent.participants.oobisVerified() && vnode.attrs.parent.participants.oobisConfirmed())
+                disabled={ false
+                  // !(vnode.attrs.parent.participants.oobisVerified() && vnode.attrs.parent.participants.oobisConfirmed())
                 }
                 onclick={() => {
                   if (vnode.attrs.parent.next !== undefined) {

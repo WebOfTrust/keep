@@ -15,7 +15,7 @@ class ConfigureMultiSigGroupTask {
       },
     };
     this.currentState = 'configure-multi-sig-index';
-    this.requireDelegator = config.requireDelegator;
+    this.requiredDelegator = config.requiredDelegator;
   }
 
   get imgSrc() {
@@ -29,16 +29,19 @@ class ConfigureMultiSigGroupTask {
   get component() {
     return this._component;
   }
+
+  get requireDelegator() {
+    return this.requiredDelegator !== undefined
+  }
 }
 
 class ConfigureMultiSigGroup {
-  constructor() {
+  constructor(vnode) {
     this.groupAlias = '';
     this.status = '';
     this.fractionallyWeighted = false;
     this.numSigners = 0; // Used only if fractionallyWeighted is false
     this.wits = Witnesses.witnessPools[0].wits;
-    Contacts.requestList();
     MultiSig.participants = [
       {
         id: '',
@@ -48,15 +51,22 @@ class ConfigureMultiSigGroup {
       },
     ];
 
-    MultiSig.delegator = null;
-    Contacts.list.forEach((contact) => {
-      if (contact.alias === 'GLEIF Root') {
-        MultiSig.delegator = contact;
-      }
-    });
-
+    if (vnode.attrs.parent.requireDelegator) {
+      MultiSig.delegator = null;
+      this.loadDelegator(vnode.attrs.parent.requiredDelegator);
+    }
     this.default = Profile.getDefaultAID();
     this.weight = '1/2';
+  }
+
+  loadDelegator(requiredDelegator) {
+      Contacts.requestList().then((e) => {
+        Contacts.list.forEach((contact) => {
+          if (contact.alias === requiredDelegator) {
+            MultiSig.delegator = contact;
+          }
+        });
+      })
   }
 
   ensureMultiSigSigned() {
@@ -83,6 +93,9 @@ class ConfigureMultiSigGroup {
               KERI.listIdentifiers()
                 .then((identifiers) => {
                   let icp = identifiers.find((e) => e.prefix === MultiSig.currentEvent['i']);
+                  if (icp.delegated && icp.anchored) {
+                    MultiSig.delegatorSigned = true
+                  }
                   if (icp.group.accepted) {
                     this.status = 'Inception Complete';
                   } else {
@@ -93,7 +106,9 @@ class ConfigureMultiSigGroup {
                 .catch((err) => {
                   console.log('listIdentifiers', err);
                 });
-              return;
+              if (MultiSig.delegator === null || MultiSig.delegatorSigned) {
+                return;
+              }
             }
             setTimeout(waitForSignatures, 2000);
           })
@@ -152,6 +167,26 @@ class ConfigureMultiSigGroup {
   view(vnode) {
     return (
       <>
+        {(vnode.attrs.parent.requireDelegator && MultiSig.delegator === null) && (
+            <>
+              <img src={secureMessaging} style={{ width: '268px', margin: '4rem 0 1rem 0' }} />
+              <h3>Required Delegator {vnode.attrs.parent.requiredDelegator} missing.</h3>
+              <p class="p-tag" style={{ margin: '2rem 0' }}>
+                You can not begin this process until the AID for {vnode.attrs.parent.requiredDelegator} has been
+                created.  Please click "Retry" to try again.
+              </p>
+              <div class="flex flex-justify-end">
+                <Button
+                    class="button--big button--no-transform"
+                    raised
+                    label="Retry"
+                    onclick={() => {
+                      this.loadDelegator(vnode.attrs.parent.requiredDelegator);
+                    }}
+                />
+              </div>
+            </>
+        )}
         {vnode.attrs.parent.currentState === 'configure-multi-sig-index' && (
           <>
             <img src={secureMessaging} style={{ width: '268px', margin: '4rem 0 1rem 0' }} />
@@ -455,11 +490,15 @@ class ConfigureMultiSigGroup {
               {this.fractionallyWeighted && <div class="uneditable-value">{this.weight}</div>}
             </div>
             {MultiSig.participants.map((signer) => {
+              let alias = signer.alias
+              if(signer.prefix === this.default.prefix) {
+                alias = signer.alias + ' (Your AID)';
+              }
               return (
                 <>
                   <div class="flex flex-align-center flex-justify-between" style={{ margin: '1rem 0' }}>
                     <div class="flex-1 uneditable-value" style={{ marginRight: '1rem' }}>
-                      {signer.alias}
+                      {alias}
                     </div>
                     {this.fractionallyWeighted && <div class="uneditable-value">{signer.weight}</div>}
                   </div>
@@ -583,8 +622,11 @@ class EventDetails {
                 </p>
               </div>
               <div style={{ margin: '0 0 0 .5rem' }}>
-                {/* TODO: Change from unchecked to checked when delegator signs */}
-                <img src={redX} style={{ width: '80%' }} />
+                {MultiSig.delegatorSigned ? (
+                    <img src={greenCheckMark} style={{ width: '80%' }} />
+                ) : (
+                    <img src={redX} style={{ width: '80%' }} />
+                )}
               </div>
             </div>
           </>

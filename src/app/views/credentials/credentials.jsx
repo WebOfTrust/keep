@@ -1,9 +1,9 @@
 import m from 'mithril';
-import {Card, Container, IconButton, NavRail, TextField, Button} from '../../components';
+import {Card, Container, IconButton, NavRail, Button} from '../../components';
 import CredentialList from "../credentials/credential-list/credential-list";
 import CredentialDetails from './credential-details/credential-details';
 
-import {KERI} from "../../services";
+import {KERI, Profile} from "../../services";
 import credentialGroup from '../../../assets/img/contact-group.svg';
 import './credentials.scss';
 
@@ -25,7 +25,7 @@ class Credentials {
                     this.contacts = new Map(contacts.map(c => {
                         return [c.id, c];
                     }));
-                    KERI.listCredentials('person', 'received')
+                    KERI.listCredentials(Profile.getDefaultAID().name, 'received')
                         .then((credentials) => {
                             this.credentials = credentials;
                         })
@@ -56,7 +56,7 @@ class Credentials {
                                         raised
                                         label="Received"
                                         onclick={() => {
-                                            KERI.listCredentials('person', 'received')
+                                            KERI.listCredentials(Profile.getDefaultAID().name, 'received')
                                                 .then((credentials) => {
                                                     this.credentials = credentials;
                                                 })
@@ -72,7 +72,7 @@ class Credentials {
                                         raised
                                         label="Issued"
                                         onclick={() => {
-                                            KERI.listCredentials('person', 'issued')
+                                            KERI.listCredentials(Profile.getDefaultAID().name, 'issued')
                                                 .then((credentials) => {
                                                     this.credentials = credentials;
                                                 })
