@@ -88,7 +88,7 @@ const createWindow = () => {
 
     keep = express().use("/keep", cors(corsOptions), function (_, res) {
         res.json(fs.existsSync(`${__dirname}${path.sep}ward${path.sep}keri${path.sep}ks${path.sep}keep-${config["USER_TYPE"]}-${config["API_PORT"]}`));
-    }).listen(8765);
+    }).listen(~~config["KEEP_PORT"]);
 
     const host = `${API_HOST}:${config["API_PORT"]}`
     retry((retry) => {

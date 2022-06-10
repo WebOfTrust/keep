@@ -65,6 +65,7 @@ typings/
 .parcel-cache
 .parcel-cache-dev
 .parcel-cache-dev-lead
+.person-cache-dev
 
 # next.js build output
 .next

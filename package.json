@@ -11,24 +11,15 @@
   "scripts": {
     "package:root-gar": "NODE_ENV=root-gar parcel build src/index.html --cache-dir ward/.parcel-cache-dev --dist-dir ward/build-ui",
     "package:lead-root-gar": "NODE_ENV=lead-root-gar parcel build src/index.html --cache-dir ward/.parcel-cache-dev --dist-dir ward/build-ui",
-    "set-tasks:root-gar": "plop tasks-index 'root-gar' --force",
-
     "package:external-gar": "NODE_ENV=external-gar parcel build src/index.html --cache-dir ward/.parcel-cache-dev --dist-dir ward/build-ui",
     "package:lead-external-gar": "NODE_ENV=lead-external-gar parcel build src/index.html --cache-dir ward/.parcel-cache-dev --dist-dir ward/build-ui",
-    "set-tasks:external-gar": "plop tasks-index 'external-gar' --force",
-
     "package:internal-gar": "NODE_ENV=internal-gar parcel build src/index.html --cache-dir ward/.parcel-cache-dev --dist-dir ward/build-ui",
     "package:lead-internal-gar": "NODE_ENV=lead-internal-gar parcel build src/index.html --cache-dir ward/.parcel-cache-dev --dist-dir ward/build-ui",
-    "set-tasks:internal-gar": "plop tasks-index 'internal-gar' --force",
-
     "package:qar": "NODE_ENV=qar parcel build src/index.html --cache-dir ward/.parcel-cache-dev --dist-dir ward/build-ui",
     "package:lead-qar": "NODE_ENV=lead-qar parcel build src/index.html --cache-dir ward/.parcel-cache-dev --dist-dir ward/build-ui",
-    "set-tasks:qar": "plop tasks-index 'qar' --force",
-
     "package:lar": "NODE_ENV=lar parcel build src/index.html --cache-dir ward/.parcel-cache-dev --dist-dir ward/build-ui",
     "package:lead-lar": "NODE_ENV=lead-lar parcel build src/index.html --cache-dir ward/.parcel-cache-dev --dist-dir ward/build-ui",
-    "set-tasks:lar": "plop tasks-index 'lar' --force",
-
+    "package:person": "NODE_ENV=person parcel build src/index.html --cache-dir ward/.person-cache-dev --dist-dir ward/build-ui",
     "build:generic": "yarn rm-build; yarn set-tasks:generic; parcel build src/index.html --cache-dir ward/.parcel-cache --dist-dir ward/build-ui --public-url ./",
     "start:generic": "parcel src/index.html --cache-dir ward/.parcel-cache-dev --dist-dir ward/build-ui",
     "start:lead-root-gar": "NODE_ENV=lead-root-gar parcel src/index.html --port 5520 --cache-dir .webcache/.lead-root-gar-cache-dev --dist-dir .webcache/lead-root-gar-build-dev",
@@ -96,8 +87,10 @@
     "emoji-picker-element": "^1.11.3",
     "json": "^11.0.0",
     "material-components-web": "^13.0.0",
+    "minimist": "^1.2.6",
     "mithril": "^2.0.4",
     "moment": "^2.29.1",
+    "pattern-matching-js": "^0.2.0",
     "picmo": "^5.0.0-beta.1"
   },
   "devDependencies": {

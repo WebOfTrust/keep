@@ -30,7 +30,7 @@ class Ward:
         servery = booting.Servery(port=int(args.admin))
         doers = booting.setup(servery=servery,
                               controller="E59KmDbpjK0tRf9Rmc7OlueZVz7LB94DdD3cjQVvPcng",
-                              configFile='demo-witness-oobis.json',
+                              configFile='demo-witness-oobis',
                               configDir=self.HeadDirPath,
                               insecure=True,
                               tcp=int(args.tcp),
