@@ -1,6 +1,11 @@
 {
   "name": "keep",
   "version": "1.0.2",
+  "description": "Electron based application for managing KERI identifiers",
+  "author": {
+    "name": "Kevin Griffin",
+    "email": "griffin.kev@gmail.com"
+  },
   "main": "index.js",
   "license": "Apache-2.0",
   "devDependencies": {

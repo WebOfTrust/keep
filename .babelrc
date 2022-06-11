@@ -132,6 +132,17 @@
         ]
       ]
     },
+    "win": {
+      "plugins": [
+        [
+          "@babel/plugin-transform-react-jsx",
+          {
+            "pragma": "m",
+            "pragmaFrag": "'['"
+          }
+        ]
+      ]
+    },
     "development": {
       "plugins": [
         [
