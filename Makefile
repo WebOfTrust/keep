@@ -20,6 +20,7 @@ endif
 	cd $(DIR)/ward; \
 	pip install -r requirements.txt --no-cache-dir; \
 	pyinstaller generic.spec --clean --noconfirm;
+
 	cd $(DIR)/app; \
 	cp -r $(DIR)/ward/dist/ward ./ward;
 

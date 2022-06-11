@@ -11,21 +11,15 @@
   "scripts": {
     "package:root-gar": "NODE_ENV=root-gar parcel build src/index.html --cache-dir ward/.parcel-cache-dev --dist-dir ward/build-ui",
     "package:lead-root-gar": "NODE_ENV=lead-root-gar parcel build src/index.html --cache-dir ward/.parcel-cache-dev --dist-dir ward/build-ui",
-
     "package:external-gar": "NODE_ENV=external-gar parcel build src/index.html --cache-dir ward/.parcel-cache-dev --dist-dir ward/build-ui",
     "package:lead-external-gar": "NODE_ENV=lead-external-gar parcel build src/index.html --cache-dir ward/.parcel-cache-dev --dist-dir ward/build-ui",
-
     "package:internal-gar": "NODE_ENV=internal-gar parcel build src/index.html --cache-dir ward/.parcel-cache-dev --dist-dir ward/build-ui",
     "package:lead-internal-gar": "NODE_ENV=lead-internal-gar parcel build src/index.html --cache-dir ward/.parcel-cache-dev --dist-dir ward/build-ui",
-
     "package:qar": "NODE_ENV=qar parcel build src/index.html --cache-dir ward/.parcel-cache-dev --dist-dir ward/build-ui",
     "package:lead-qar": "NODE_ENV=lead-qar parcel build src/index.html --cache-dir ward/.parcel-cache-dev --dist-dir ward/build-ui",
-
     "package:lar": "NODE_ENV=lar parcel build src/index.html --cache-dir ward/.parcel-cache-dev --dist-dir ward/build-ui",
     "package:lead-lar": "NODE_ENV=lead-lar parcel build src/index.html --cache-dir ward/.parcel-cache-dev --dist-dir ward/build-ui",
-
     "package:person": "NODE_ENV=person parcel build src/index.html --cache-dir ward/.parcel-cache-dev --dist-dir ward/build-ui",
-
     "build:generic": "yarn rm-build; yarn set-tasks:generic; parcel build src/index.html --cache-dir ward/.parcel-cache --dist-dir ward/build-ui --public-url ./",
     "start:generic": "parcel src/index.html --cache-dir ward/.parcel-cache-dev --dist-dir ward/build-ui",
     "start:lead-root-gar": "NODE_ENV=lead-root-gar parcel src/index.html --port 5520 --cache-dir .webcache/.lead-root-gar-cache-dev --dist-dir .webcache/lead-root-gar-build-dev",
@@ -91,6 +85,7 @@
     "electron-squirrel-startup": "^1.0.0",
     "emoji-button": "^2.2.2",
     "emoji-picker-element": "^1.11.3",
+    "fs-extra": "^10.1.0",
     "json": "^11.0.0",
     "material-components-web": "^13.0.0",
     "minimist": "^1.2.6",
