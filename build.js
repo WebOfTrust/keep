@@ -1,5 +1,6 @@
 const { execSync } = require("child_process");
 const fs = require('fs');
+const { PowerShell } = require('node-powershell');
 const fse = require('fs-extra');
 const argv = require('minimist')(process.argv.slice(2));
 const {when} = require("pattern-matching-js")
@@ -22,77 +23,72 @@ function parse(argv) {
         .case("qar", () => qar(argv));
 }
 
-function convertEnv(args) {
-    let en;
-    if ("lead" in args) {
-        en = './.env.lead-qar';
-    } else {
-        en = './.env.qar';
-    }
-
-    let data;
+function convertEnv(en) {
     try {
-        data = fs.readFileSync(en, 'utf8');
+        let data = fs.readFileSync(en, 'utf8');
+
+        let out = {};
+        data.split(/\r?\n/).forEach((line) => {
+            const l = line.split("=");
+            out[l[0]] = l[1];
+        });
+
+        fs.writeFileSync("ward/config.json", JSON.stringify(out));
     } catch (err) {
         console.error(err);
         process.exit(1);
     }
-
-    let envjson = {};
-    data.split(/\r?\n/).forEach((line) => {
-        const l = line.split("=");
-        envjson[l[0]] = l[1];
-    });
-
-    fs.writeFileSync("ward/config.json", JSON.stringify(envjson));
 }
 
-function qar(args) {
+async function qar(args) {
     clean();
 
-    if ("debug" in args) {
-        fs.writeFileSync("ward/debug.json", "true");
-    } else {
-        fs.writeFileSync("ward/debug.json", "false");
+    fs.writeFileSync("ward/debug.json", ("debug" in args).toString());
+
+    execy("yarn")
+
+    let en = "lead" in args ? '.env.lead-qar' : '.env.qar'
+    convertEnv(en);
+
+    let wardCache = "ward/build-ui";
+    if (fs.existsSync(wardCache)) {
+        fs.rmSync(wardCache, { recursive: true, force: true });
     }
 
-    const lead = args["lead"];
-    execwrapper("yarn")
+    execy(`mkdir "ward/build-ui"`);
 
-    convertEnv(args);
-    execwrapper("mkdir -p ward/build-ui");
-    
-    const yarncmd = lead ? "yarn package:lead-qar": "yarn package:qar";
-    execwrapper(yarncmd);
+    // execwrapper(`$env:NODE_ENV="${en}"`);
+    PowerShell.$`$env:NODE_ENV=${en}`;
+    execy("yarn package:win");
 
     process.chdir("ward");
-    execwrapper("pip install -r requirements.txt --no-cache-dir");
-    execwrapper("pyinstaller generic.spec --clean --noconfirm");
+    execy("pip install -r requirements.txt --no-cache-dir");
+    execy("pyinstaller generic.spec --clean --noconfirm");
 
     process.chdir(__dirname);
 
     fse.copySync(__dirname+"/ward/dist/ward", __dirname+"/app/ward", { overwrite: true });
 
     process.chdir(__dirname+"/app");
-    execwrapper("yarn");
-    execwrapper(`yarn json -I -f package.json -e 'this.name="keep-lead-external"'`);
-    execwrapper("yarn make");
-    execwrapper(`yarn json -I -f package.json -e 'this.name="keep"'`);
+    execy("yarn");
+    execy(`yarn json -I -f package.json -e 'this.name="keep-lead-external"'`);
+    execy("yarn make");
+    execy(`yarn json -I -f package.json -e 'this.name="keep"'`);
 
     console.log("done");
 }
 
-function execwrapper(cmd) {
+function execy(cmd) {
     execSync(cmd, (error, stdout, stderr) => {
         if (error) {
-            console.log(`error: ${error.message}`);
+            console.log(`error: ${ error.message }`);
             return;
         }
         if (stderr) {
-            console.log(`stderr: ${stderr}`);
+            console.log(`stderr: ${ stderr }`);
             return;
         }
-        console.log(`stdout: ${stdout}`);
+        console.log(`stdout: ${ stdout }`);
     });
 }
 
@@ -111,6 +107,6 @@ function clean() {
         "app/keep.log",
         "app/node_modules/",
         ".webcache/",].forEach((dir) => {
-        fs.rmSync(dir, {recursive: true, force: true});
-    })
+            fs.rmSync(dir, { recursive: true, force: true });
+        })
 }
