@@ -90,7 +90,6 @@ class Select {
 
   onupdate(vnode) {
     if (this.mdcInstance && this.optionsChanged) {
-      console.log('destroying');
       this.mdcInstance.destroy();
       this.mdcInstance = new MDCSelect(vnode.dom);
     }
