@@ -109,7 +109,6 @@ class ConfigureMultiSigGroup {
             setTimeout(waitForSignatures, 2000);
           })
           .catch((err) => {
-            reject();
             console.log('getContacts', err);
           });
       }, 2000);
@@ -358,7 +357,7 @@ class ConfigureMultiSigGroup {
                         };
                       })}
                       onchange={(id) => {
-                        let contact = Contacts.filterById(id)[0];
+                        let contact = Contacts.filterById(id);
                         signer.id = contact.id;
                         signer.alias = contact.alias;
                       }}

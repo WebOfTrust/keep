@@ -36,8 +36,7 @@ class JoinMultiSigGroup {
     let notif = Notify.findByType('multisig');
     this.aids = notif.data.aids;
     this.ked = notif.data.ked;
-    console.log(notif)
-    this.delegator = Contacts.filterById(this.ked.di)[0];
+    this.delegator = Contacts.filterById(this.ked.di);
     this.fractionallyWeighted = Array.isArray(this.ked.kt);
   }
 
@@ -50,7 +49,6 @@ class JoinMultiSigGroup {
       toad: Number(this.ked.bt),
       wits: this.ked.b,
     }).then(() => {
-      console.log('inception complete');
       vnode.attrs.parent.currentState = 'event-complete';
     });
   }
@@ -91,11 +89,10 @@ class JoinMultiSigGroup {
             )}
             <h4>Signers:</h4>
             {this.aids.map((signer, i) => {
-              console.log(signer);
               let name = '';
               let contact = Contacts.filterById(signer);
-              if (contact.length === 1) {
-                name = contact[0].alias;
+              if (contact !== undefined) {
+                name = contact.alias;
               } else if (signer === this.aid.prefix) {
                 name = this.aid.name + ' (Your AID)';
               } else {

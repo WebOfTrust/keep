@@ -46,7 +46,6 @@ class Participants {
     return (
       this.oobis.length > 0 &&
       this.oobis.every((oobi) => {
-        console.log("verified", oobi)
         return oobi.verified;
       })
     );
@@ -56,7 +55,6 @@ class Participants {
     return (
       this.oobis.length > 0 &&
       this.oobis.every((oobi) => {
-        console.log("confirmed", oobi)
         return oobi.confirmed;
       })
     );

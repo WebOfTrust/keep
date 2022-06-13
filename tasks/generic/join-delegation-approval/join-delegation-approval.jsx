@@ -41,7 +41,6 @@ class JoinDelegationApproval {
         } else {
             this.delegatorAlias = "Unknown Delegator AID"
         }
-        console.log(notif);
     }
 
     approveDelegation() {
@@ -102,8 +101,8 @@ class JoinDelegationApproval {
                         {this.aids.map((signer, i) => {
                             let name = '';
                             let contact = Contacts.filterById(signer);
-                            if (contact.length === 1) {
-                                name = contact[0].alias;
+                            if (contact !== undefined) {
+                                name = contact.alias;
                             } else {
                                 name = 'Unknown AID';
                             }
