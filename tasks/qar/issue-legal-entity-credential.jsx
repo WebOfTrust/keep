@@ -1,20 +1,60 @@
 import m, { vnode } from 'mithril';
 import moment from 'moment';
-import { Button, Select, TextField } from '../../../src/app/components';
-import { Contacts, KERI, Profile } from '../../../src/app/services';
-import approveRequest from '../../../src/assets/img/approve-request.svg';
-import loanApproved from '../../../src/assets/img/loan-approved.svg';
-import githubLogo from '../../../src/assets/img/github-logo.svg';
+import { Button, TextField } from '../../src/app/components';
+import { KERI, Profile, Schema } from '../../src/app/services';
+import approveRequest from '../../src/assets/img/approve-request.svg';
+import loanApproved from '../../src/assets/img/loan-approved.svg';
+import githubLogo from '../../src/assets/img/github-logo.svg';
 
-class CredentialIssuanceTask {
+
+const edges = {
+  "d": "",
+  "qvi": {
+    "n": "",
+    "s": Schema.QVICredentialSchema
+  },
+};
+
+const rules = {
+  "d": "EDIai3Wkd-Z_4cezz9nYEcCK3KNH5saLvZoS_84JL6NU",
+  "usageDisclaimer": "Usage of a valid Legal Entity vLEI Credential does not assert that the Legal Entity is trustworthy, honest, reputable in its business dealings, safe to do business with, or compliant with any laws.",
+  "issuanceDisclaimer": "Issuance of a valid Legal Entity vLEI Credential only establishes that the information in the requirements in the Identity Verification section 6.3 of the Credential Governance Framework were met in accordance with the vLEI Ecosystem Governance Framework."
+}
+
+class IssueLegalEntityCredentialTask {
   constructor(config) {
     this._label = config.label;
     this._component = {
       view: (vnode) => {
-        return <CredentialIssuance end={vnode.attrs.end} parent={this} />;
+        return <IssueLegalEntityCredential end={vnode.attrs.end} parent={this} />;
       },
     };
     this.currentState = 'issue-credential';
+  }
+
+  set recipient(recp) {
+    this._recipient = recp;
+    console.log(this._recipient);
+  }
+
+  get recipient() {
+    return this._recipient;
+  }
+
+  set qvi(cred) {
+    this._qvi = cred
+  }
+
+  get qvi() {
+    return this._qvi;
+  }
+
+  set lei(cred) {
+    this._lei = cred
+  }
+
+  get lei() {
+    return this._lei;
   }
 
   get imgSrc() {
@@ -30,16 +70,24 @@ class CredentialIssuanceTask {
   }
 }
 
-class CredentialIssuance {
+class IssueLegalEntityCredential {
   constructor(vnode) {
     this.contacts = [];
-    this.credentials = {
-      'EZKqORTA9nWpoC0fnJZE69uXLrJ1KhIphqqLynAh8Tbw': 'Legal Entity Engagement Context Role vLEI Credential',
-      'EfUao55W5P2JhyyGK7w_qAaXjq_Zy6a-v1zq3fjTpeJU': 'Legal Entity Official Organizational Role vLEI Credential',
-      'EN8i2i5ye0-xGS95pm5cg1j0GmFkarJe0zzsSrrf4XJY': 'Legal Entity vLEI Credential'
-    }
-    this.recipient = null;
-    this.credential = vnode.attrs.credential;
+
+    Profile.loadIdentifiers().then(e => {
+      vnode.attrs.parent.defaultAid = Profile.getDefaultAID("multi");
+      KERI.listCredentials(vnode.attrs.parent.defaultAid.name, 'received')
+          .then((credentials) => {
+            let qvi = credentials.find((cred) => {
+              return cred['sad']['s'] === Schema.QVICredentialSchema;
+            });
+            vnode.attrs.parent.qvi = qvi['sad']['d'];
+          })
+          .catch((err) => {
+            this.credentialList = [];
+          });
+    })
+
   }
 
   oninit() {
@@ -69,12 +117,17 @@ class CredentialIssuance {
   }
 
   issueCredential(vnode) {
-    KERI.issueCredential(Profile.getDefaultAID().name, {
-      credentialData: null,
-      recipient: Contacts.filterByAlias(this.recipient)[0].id,
-      registry: null,
-      schema: this.credential,
-      source: null,
+    let e = edges
+    e.qvi.n = vnode.attrs.parent.qvi
+    KERI.multisigIssueCredential(vnode.attrs.parent.defaultAid.name, {
+      credentialData: {
+        LEI: vnode.attrs.parent.lei
+      },
+      recipient: vnode.attrs.parent.recipient.id,
+      registry: vnode.attrs.parent.defaultAid.name,
+      schema: Schema.LECredentialSchema,
+      source: e,
+      rules: rules
     }).then(() => {
       vnode.attrs.parent.currentState = 'credential-issued';
     });
@@ -85,53 +138,54 @@ class CredentialIssuance {
       <>
         {vnode.attrs.parent.currentState === 'issue-credential' && (
           <>
-            <h3>Issue Credential</h3>
-            <p class="p-tag">Contact</p>
-            {/* <Select
-              outlined
-              fluid
-              style={{ marginBottom: '2rem' }}
-              options={this.contactsSelect}
-              value={this.contact}
-              onchange={(e) => {
-                this.contact = e;
-              }}
-            /> */}
+            <h3>Issue Legal Entity vLEI Credential</h3>
+            <p className="p-tag">
+              Ensure your Qualified vLEI Issuer vLEI Credential is selected to chain to the new Legal Entity Credential,
+              select the proper recipient from your list of contacts and provide the LEI number for the recipient.
+            </p>
+            <p className="p-tag-bold">Your Qualified vLEI Issuer vLEI Credential</p>
             <TextField
-              outlined
-              fluid
-              style={{ marginBottom: '2rem' }}
-              iconTrailing={{
-                icon: 'search',
-              }}
-              value={this.recipient}
-              oninput={(e) => {
-                this.recipient = e.target.value;
-              }}
+                outlined
+                fluid
+                style={{margin: '0 5px 0 0'}}
+                value={vnode.attrs.parent.qvi}
             />
-            <p class="p-tag">Credentials</p>
-            <Select
-              outlined
-              fluid
-              style={{ marginBottom: '2rem' }}
-              options={this.credentials}
-              value={this.credential}
-              onchange={(e) => {
-                this.credential = e;
-              }}
+            <p class="p-tag-bold">Legal Entity vLEI Credential Recipient</p>
+            <TextField
+                outlined
+                fluid
+                style={{ margin: '0 10px 0 0' }}
+                value={vnode.attrs.parent.recipient.alias}
             />
-            <div class="flex flex-justify-end" style={{ marginTop: '4rem' }}>
-              {/* <Button
+            <p></p>
+            <TextField
+                outlined
+                fluid
+                style={{ margin: '0 0 0 0' }}
+                value={vnode.attrs.parent.recipient.id}
+            />
+            <p className="p-tag-bold">Enter the LEI:</p>
+            <TextField
+                outlined
+                fluid
+                style={{ margin: '0 0 0 0' }}
+                oninput={(e) => {
+                  vnode.attrs.parent.lei = e.target.value;
+                }}
+                value={vnode.attrs.parent.lei}
+            />
+            <div class="flex flex-justify-between" style={{ marginTop: '4rem' }}>
+              <Button
                 raised
                 class="button--no-transform button--gray-dk button--big"
-                label="Go Back"
+                label="Cancel"
                 onclick={() => {
                   vnode.attrs.end();
                 }}
-              /> */}
+              />
               <Button
                 class="button--big button--no-transform"
-                disabled={!this.recipient || !this.credential}
+                disabled={!vnode.attrs.parent.lei || !vnode.attrs.parent.qvi || !vnode.attrs.parent.recipient}
                 raised
                 label="Preview"
                 onclick={() => {
@@ -211,7 +265,7 @@ class CredentialIssuance {
               <Button
                 class="button--big button--no-transform"
                 raised
-                label="Submit"
+                label="Issue"
                 onclick={() => {
                   this.issueCredential(vnode);
                 }}
@@ -242,4 +296,4 @@ class CredentialIssuance {
   }
 }
 
-module.exports = CredentialIssuanceTask;
+module.exports = IssueLegalEntityCredentialTask;

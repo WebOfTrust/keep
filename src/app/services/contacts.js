@@ -28,4 +28,4 @@ class Contacts {
   }
 }
 
-module.exports = Contacts;
+  module.exports = Contacts;

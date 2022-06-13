@@ -270,6 +270,54 @@ class KERI {
     });
   }
 
+  static multisigIssueCredential(alias, { credentialData, recipient, registry, schema, source, rules }) {
+    return m.request({
+      method: 'POST',
+      url: `${this.keriURL}/groups/${alias}/credentials`,
+      body: {
+        credentialData,
+        recipient,
+        registry,
+        schema,
+        source,
+        rules
+      },
+    });
+  }
+
+  static approveIssueCredential(alias, credential) {
+    return m.request({
+      method: 'PUT',
+      url: `${this.keriURL}/groups/${alias}/credentials`,
+      body: {
+        credential,
+      },
+    });
+  }
+
+  static listCredentialRegistries() {
+    return m.request({
+      method: 'GET',
+      url: `${this.keriURL}/registries`
+    });
+  }
+
+  static createCredentialRegistry({alias, name, nonce}) {
+    return m.request({
+      method: 'POST',
+      url: `${this.keriURL}/registries`,
+      body: {
+        alias,
+        nonce,
+        baks: [],
+        estOnly: false,
+        name: name,
+        noBackers: true,
+        toad: 0
+      },
+    });
+  }
+
   // EXPORT
 
   static exportCredential(alias, said) {

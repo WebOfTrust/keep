@@ -38,7 +38,7 @@ class Profile {
   }
 
   static loadIdentifiers() {
-    KERI.listIdentifiers()
+    return KERI.listIdentifiers()
       .then((identifiers) => {
         this._identifiers = identifiers;
         this._singleSigs = this.identifiers.filter((aid) => {

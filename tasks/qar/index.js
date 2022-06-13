@@ -22,6 +22,7 @@ import JoinManualKeyRotationTask from '../generic/join-manual-key-rotation/join-
 import JoinCredentialRevocationTask from '../generic/join-credential-revocation/join-credential-revocation';
 import JoinCredentialIssuanceTask from '../generic/join-credential-issuance/join-credential-issuance';
 import AcceptCredentialsTask from '../generic/accept-credentials/accept-credentials';
+import IssueLegalEntityCredentialTask from './issue-legal-entity-credential';
 
 const tasks = {
     'create-passcode': [
@@ -41,6 +42,7 @@ const tasks = {
         new VideoCallTask({initiate: false, label: 'Join QAR Multi-Sig AID Inception'}),
     ],
     'join-multisig': [new JoinMultiSigGroupTask('Join Multi-Sig Group')],
+    'join-multisig-issue': [new JoinCredentialIssuanceTask('Join Multi-Sig Credential Issuance')],
     'main': [
         new VideoCallTask({
             initiate: true,
@@ -54,7 +56,7 @@ const tasks = {
             label: 'Initiate LE Credential Issuance',
             aidToSend: variables.aidToSend,
             steps: variables.initiateLECredentialIssuance.steps,
-            next:new CredentialIssuanceTask({label: 'Initiate LE Credential Issuance'}),
+            next:new IssueLegalEntityCredentialTask({label: 'Initiate LE Credential Issuance'}),
         }),
         new JoinVideoCallTask({
             initiate: false,

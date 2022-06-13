@@ -7,6 +7,7 @@ import KERI from "../../../src/app/services/keri";
 
 const ViRASchema = "Ehwr6tZh6XakKBKWQW07otQ9uCwg0g7CF-dPz9qb_fwQ";
 const OORSchema = "E2RzmSCFmG2a5U2OqZF-yUobeSYkW-a3FsN82eZXMxY0"
+const RegistryName = "vLEI-person"
 
 const edges = {
     "d": "",
@@ -83,7 +84,7 @@ class SignXBRLReport {
         return KERI.issueCredential('person',
             {
                 credentialData: this.facts,
-                registry: 'vLEI-person',
+                registry: RegistryName,
                 schema: ViRASchema,
                 source: e,
             })
@@ -278,7 +279,7 @@ class SignXBRLReport {
                                 <div>
                                     <div style={{margin: '0 0 2rem 0'}}>
                                         <p className="p-tag-bold" style={{margin: '1rem 0 0 0'}}>
-                                            Sign Data from XBRL Report:
+                      0                      Sign Data from XBRL Report:
                                         </p>
                                         <code style="margin: 0 0 0 0;">{this.reportTitle}</code>
                                     </div>

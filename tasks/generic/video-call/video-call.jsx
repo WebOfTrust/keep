@@ -1,6 +1,6 @@
 import m from 'mithril';
 import { Button } from '../../../src/app/components';
-import { Profile, Participants, Tasks } from '../../../src/app/services';
+import {Profile, Participants, Tasks, KERI} from '../../../src/app/services';
 import { EnterChallengesForm, EnterOOBIsForm, SendChallengeForm, SendOOBIForm } from './forms';
 
 import addNewContacts from '../../../src/assets/img/add-new-contacts.svg';
@@ -61,6 +61,12 @@ class VideoCallTask {
 
   get component() {
     return this._component;
+  }
+
+  sendOobis() {
+    let aid = Profile.getDefaultAID(this.aidToSend);
+    KERI.sendOOBIs(aid.name, this.participants.oobis);
+    this.currentState = 'event-complete';
   }
 
   get lcomponent() {
@@ -268,7 +274,12 @@ class VideoCall {
                   // !(vnode.attrs.parent.participants.oobisVerified() && vnode.attrs.parent.participants.oobisConfirmed())
                 }
                 onclick={() => {
+                  let aid = Profile.getDefaultAID(vnode.attrs.parent.aidToSend);
+                  if (aid.group) {
+                    vnode.attrs.parent.sendOobis();
+                  }
                   if (vnode.attrs.parent.next !== undefined) {
+                    vnode.attrs.parent.next.recipient = vnode.attrs.parent.participants.oobis[0];
                     Tasks.active = vnode.attrs.parent.next;
                   } else {
                     vnode.attrs.parent.currentState = 'waiting-for-multisig';
