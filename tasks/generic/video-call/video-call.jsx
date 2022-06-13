@@ -270,8 +270,8 @@ class VideoCall {
                 class="button--big button--no-transform"
                 raised
                 label="Next"
-                disabled={ false
-                  // !(vnode.attrs.parent.participants.oobisVerified() && vnode.attrs.parent.participants.oobisConfirmed())
+                disabled={
+                  !(vnode.attrs.parent.participants.oobisVerified() && vnode.attrs.parent.participants.oobisConfirmed())
                 }
                 onclick={() => {
                   let aid = Profile.getDefaultAID(vnode.attrs.parent.aidToSend);
