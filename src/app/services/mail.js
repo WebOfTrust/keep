@@ -114,9 +114,9 @@ class Mail {
 
     if (rType === '/icp/complete') {
       Profile.loadIdentifiers().then(() => {
-        let aid = Profile.getDefaultMultiAID()
-        Registry.ensureRegistry(aid.name, aid.name, aid.prefix)
-      })
+        let aid = Profile.getDefaultMultiAID();
+        Registry.ensureRegistry(aid.name, aid.name, aid.prefix);
+      });
     }
 
     Notify.push({
@@ -139,13 +139,13 @@ class Mail {
 
   static receiptHandler = (e) => {
     console.log('receipt', e);
-    Toaster.success(`receipt: ${e}`);
+    // Toaster.success(`receipt: ${e}`);
     m.redraw();
   };
 
   static replayHandler = (e) => {
     console.log('replay', e);
-    Toaster.success(`replay: ${e}`);
+    // Toaster.success(`replay: ${e}`);
     m.redraw();
   };
 
