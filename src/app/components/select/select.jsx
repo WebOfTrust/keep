@@ -26,6 +26,7 @@ class Select {
       value: null,
     };
     this.options = null;
+    this.optionsChanged = false;
   }
 
   assignOptions(vnode) {
@@ -80,8 +81,20 @@ class Select {
   }
 
   onbeforeupdate(vnode) {
+    if (vnode.attrs.options && vnode.attrs.options !== this.options.options) {
+      this.optionsChanged = true;
+    }
     this.assignOptions(vnode);
     this.setClass();
+  }
+
+  onupdate(vnode) {
+    if (this.mdcInstance && this.optionsChanged) {
+      console.log('destroying');
+      this.mdcInstance.destroy();
+      this.mdcInstance = new MDCSelect(vnode.dom);
+    }
+    this.optionsChanged = false;
   }
 
   view(vnode) {
