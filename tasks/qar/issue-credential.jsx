@@ -36,14 +36,14 @@ const rules = {
   "issuanceDisclaimer": "Issuance of a valid Legal Entity vLEI Credential only establishes that the information in the requirements in the Identity Verification section 6.3 of the Credential Governance Framework were met in accordance with the vLEI Ecosystem Governance Framework."
 }
 
-class IssueLegalEntityCredentialTask {
+class IssueCredentialTask {
   constructor(config) {
     this._label = config.label;
     this._schema = config.schema;
     this.legalEntityCredentials = [];
     this._component = {
       view: (vnode) => {
-        return <IssueLegalEntityCredential end={vnode.attrs.end} parent={this} />;
+        return <IssueCredential end={vnode.attrs.end} parent={this} />;
       },
     };
     this.currentState = 'issue-credential';
@@ -131,7 +131,7 @@ class IssueLegalEntityCredentialTask {
   }
 }
 
-class IssueLegalEntityCredential {
+class IssueCredential {
   constructor(vnode) {
     this.contacts = [];
 
@@ -592,4 +592,4 @@ class IssueLegalEntityCredential {
   }
 }
 
-module.exports = IssueLegalEntityCredentialTask;
+module.exports = IssueCredentialTask;

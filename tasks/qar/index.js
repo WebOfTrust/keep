@@ -20,7 +20,7 @@ import ViewMultiSigEventLogsTask from '../generic/view-multi-sig-event-logs/view
 import JoinManualKeyRotationTask from '../generic/join-manual-key-rotation/join-manual-key-rotation';
 import JoinCredentialRevocationTask from '../generic/join-credential-revocation/join-credential-revocation';
 import AcceptCredentialsTask from '../generic/accept-credentials/accept-credentials';
-import IssueLegalEntityCredentialTask from './issue-legal-entity-credential';
+import IssueCredentialTask from './issue-credential';
 import JoinCredentailIssuanceTask from './join-credential-issuance'
 
 const tasks = {
@@ -55,7 +55,7 @@ const tasks = {
             label: 'Initiate LE Credential Issuance',
             aidToSend: variables.aidToSend,
             steps: variables.initiateLECredentialIssuance.steps,
-            next:new IssueLegalEntityCredentialTask({
+            next:new IssueCredentialTask({
                 label: 'Initiate LE Credential Issuance',
                 schema: Schema.LECredentialSchema
             }),
@@ -65,7 +65,7 @@ const tasks = {
             label: 'Initiate OOR Credential Issuance',
             aidToSend: variables.aidToSend,
             steps: variables.initiateLECredentialIssuance.steps,
-            next:new IssueLegalEntityCredentialTask({
+            next:new IssueCredentialTask({
                 label: 'Initiate OOR Credential Issuance',
                 schema: Schema.OORCredentialSchema
             }),
@@ -75,7 +75,7 @@ const tasks = {
             label: 'Initiate ECR Credential Issuance',
             aidToSend: variables.aidToSend,
             steps: variables.initiateLECredentialIssuance.steps,
-            next:new IssueLegalEntityCredentialTask({
+            next:new IssueCredentialTask({
                 label: 'Initiate ECR Credential Issuance',
                 schema: Schema.ECRCredentialSchema
             }),
