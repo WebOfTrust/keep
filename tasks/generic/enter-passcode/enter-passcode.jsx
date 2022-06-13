@@ -28,7 +28,7 @@ class EnterPasscodeTask {
 
 class EnterPasscode {
   constructor() {
-    this.passcode = '';
+    this.passcode = 'DoB2-6Fj4x-9Lbo-AFWJr-a17O';
     this.showPasscode = false;
     this.error = '';
     this.submitting = false;

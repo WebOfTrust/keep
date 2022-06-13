@@ -31,10 +31,10 @@ class CreatePasscodeTask {
 
 class CreatePasscode {
   constructor() {
-    this.passcode = '';
+    this.passcode = 'DoB2-6Fj4x-9Lbo-AFWJr-a17O';
     this.copied = false;
     this.savePassModalOpen = false;
-    this.enterPasscode = '';
+    this.enterPasscode = 'DoB2-6Fj4x-9Lbo-AFWJr-a17O';
     this.showEnterPasscode = false;
     this.error = '';
     this.submitting = false;

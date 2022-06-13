@@ -219,7 +219,7 @@ class VideoCall {
                 class="button--big button--no-transform"
                 raised
                 label="Continue"
-                disabled={false /* !vnode.attrs.parent.participants.oobisResolved() */}
+                disabled={!vnode.attrs.parent.participants.oobisResolved()}
                 onclick={() => {
                   vnode.attrs.parent.currentState = 'generate-challenge';
                 }}

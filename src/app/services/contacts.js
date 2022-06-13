@@ -10,7 +10,7 @@ class Contacts {
   }
 
   static filterById(id) {
-    return this.list.filter((contact) => {
+    return this.list.find((contact) => {
       return contact.id === id;
     });
   }

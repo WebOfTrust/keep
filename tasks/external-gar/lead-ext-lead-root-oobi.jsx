@@ -107,7 +107,7 @@ class LeadExtLeadRootOOBIRightPanel {
                         raised
                         label="Go Back"
                         onclick={() => {
-                            console.log("back to task list?")
+                            vnode.attrs.end
                         }}
                     />
                     <Button

@@ -100,7 +100,6 @@ class EditImage {
   emojiShow = false;
 
   oncreate(vnode) {
-    console.log('adding listener');
     document.querySelector('emoji-picker').addEventListener('emoji-click', (e) => {
       console.log(e.detail.unicode);
     });

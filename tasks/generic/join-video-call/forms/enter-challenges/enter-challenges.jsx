@@ -18,7 +18,6 @@ class EnterChallengesForm {
   }
 
   signChallengePromise(signer) {
-    console.log(this.alias, signer.id, signer.challengeMessage.split(' '))
     return KERI.signChallengeMessage(this.alias, signer.id, signer.challengeMessage.split(' '));
   }
 

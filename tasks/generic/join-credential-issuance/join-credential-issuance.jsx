@@ -61,7 +61,6 @@ class JoinCredentialIssuance {
     }
 
     approve(vnode) {
-        console.log(this.ked);
         KERI.approveIssueCredential(this.defaultAid.name, this.ked).then(() => {
             vnode.attrs.parent.currentState = 'credential-issued';
         });

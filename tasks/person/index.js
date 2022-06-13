@@ -1,4 +1,5 @@
 // Tasks
+import variables from './variables';
 import CreateYourAIDTask from '../generic/create-your-aid/create-your-aid';
 import CreatePasscodeTask from '../generic/create-your-passcode/create-your-passcode';
 import EnterPasscodeTask from '../generic/enter-passcode/enter-passcode';
@@ -15,7 +16,7 @@ const tasks = {
     ],
     'create-identifier': [
         new IntroToYourRoleTask({label: 'Intro to Your Role'}),
-        new CreateYourAIDTask({label: 'Create Your AID'}),
+        new CreateYourAIDTask({label: 'Create Your AID', variables: variables.createYourAid}),
     ],
     'main': [
         new VideoCallTask({
