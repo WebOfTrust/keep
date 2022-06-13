@@ -4,6 +4,7 @@ import { MDCRadio } from '@material/radio';
 
 class Radio {
   constructor() {
+    this.mdcInstance = null;
     this.radioClass = 'mdc-radio mdc-radio--touch';
     this.optionDefaults = {
       id: null,
@@ -34,7 +35,7 @@ class Radio {
 
   oncreate(vnode) {
     try {
-      this.radio = new MDCRadio(vnode.dom);
+      this.mdcInstance = new MDCRadio(vnode.dom);
     } catch (e) {
       console.log(e);
     }

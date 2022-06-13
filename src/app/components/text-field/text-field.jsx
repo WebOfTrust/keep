@@ -3,6 +3,7 @@ import { MDCTextField } from '@material/textfield';
 
 class TextField {
   constructor() {
+    this.mdcInstance = null;
     this.textfieldClass = 'mdc-text-field';
     this.optionDefaults = {
       cols: 40,
