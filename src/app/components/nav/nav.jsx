@@ -25,17 +25,32 @@ class Nav {
     return label;
   }
 
-  challengeNotificationClick(notification) {
+  challengeNotificationClick() {
     m.route.set('/contacts');
   }
 
-  multisigCompleteClick(notification) {
+  multisigCompleteClick() {
     m.route.set('/profile');
   }
 
-  multisigInitClick(notification) {
+  multisigInitClick() {
     this.notificationsVisible = false;
     Tasks.active = Tasks.find('join-multisig');
+  }
+
+  multisigIssueClick(notification) {
+    this.notificationsVisible = false;
+    Notify.selected = notification;
+    Tasks.active = Tasks.find('join-multisig-issue');
+    m.redraw()
+  }
+
+  issueCompleteClick() {
+    m.route.set('/credentials/issued');
+  }
+
+  credentialReceivedClick() {
+    m.route.set('/credentials');
   }
 
   delegationRequestClick(notification) {
@@ -114,8 +129,14 @@ class Nav {
                         } else if (rType === "/ixn/complete") {
 
                         } else if (rType.includes('/init')) {
-                          meta.title = 'New Multi-Sig Verification';
+                          meta.title = 'Multi-Sig Verification Request';
                           meta.clickHandler = this.multisigInitClick;
+                        } else if (rType === '/issue') {
+                          meta.title = "Credential Issuance Request"
+                          meta.clickHandler = this.multisigIssueClick
+                        } else if (rType === '/iss/complete') {
+                          meta.title = "Credential Issuance Complete"
+                          meta.clickHandler = this.issueCompleteClick
                         } else {
                           return undefined;
                         }
@@ -131,6 +152,32 @@ class Nav {
                               <u>View</u>
                             </p>
                           </div>
+                        );
+                      }
+                      if (notification.type === "credential") {
+                        let rType = notification.data.r;
+                        let meta = {
+                          title: '',
+                          clickHandler: null,
+                        };
+                        if (rType === '/credential/issue') {
+                          meta.title = `Credential Recieved`;
+                          meta.clickHandler = this.credentialReceivedClick;
+                        } else {
+                          return undefined;
+                        }
+                        return (
+                            <div
+                                class="pointer font-weight--bold font-color--battleship flex flex-align-center flex-justify-between"
+                                onclick={() => {
+                                  meta.clickHandler(notification);
+                                }}
+                            >
+                              <p>{meta.title}</p>
+                              <p>
+                                <u>View</u>
+                              </p>
+                            </div>
                         );
                       }
                       if (notification.type === 'delegate') {

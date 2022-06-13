@@ -90,8 +90,7 @@ class ConfigureMultiSigGroup {
               MultiSig.participants.forEach((sig) => {
                 sig.signed = true;
               });
-              KERI.listIdentifiers()
-                .then((identifiers) => {
+              Profile.identifiers.forEach((identifiers) => {
                   let icp = identifiers.find((e) => e.prefix === MultiSig.currentEvent['i']);
                   if (icp.delegated && icp.anchored) {
                     MultiSig.delegatorSigned = true
@@ -102,9 +101,6 @@ class ConfigureMultiSigGroup {
                     this.status = 'Failed: Event Timeout';
                   }
                   m.redraw();
-                })
-                .catch((err) => {
-                  console.log('listIdentifiers', err);
                 });
               if (MultiSig.delegator === null || MultiSig.delegatorSigned) {
                 return;

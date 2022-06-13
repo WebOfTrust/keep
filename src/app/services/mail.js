@@ -4,7 +4,7 @@ import Participants from './oobis';
 import Toaster from './toaster';
 import KERI from './keri';
 import Profile from './profile';
-import MultiSig from './multisig'
+import Registry from './registry';
 
 class Mail {
   static MINSNIFFSIZE = 30;
@@ -112,6 +112,13 @@ class Mail {
       return;
     }
 
+    if (rType === '/icp/complete') {
+      Profile.loadIdentifiers().then(() => {
+        let aid = Profile.getDefaultMultiAID()
+        Registry.ensureRegistry(aid.name, aid.name, aid.prefix)
+      })
+    }
+
     Notify.push({
       type: 'multisig',
       data,
@@ -121,8 +128,12 @@ class Mail {
   };
 
   static credentialHandler = (e) => {
-    console.log('credential', e);
-    Toaster.success(`credential: ${e}`);
+    let data = JSON.parse(e.data);
+    Notify.push({
+      type: 'credential',
+      data,
+    });
+
     m.redraw();
   };
 

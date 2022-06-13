@@ -55,6 +55,18 @@ m.route(root, '/dashboard', {
       );
     },
   },
+  '/credentials/issued': {
+    oninit: () => {
+      document.title = documentTitle + ' | Credentials';
+    },
+    view: () => {
+      return (
+        <MainLayout>
+          <Credentials type={"issued"}/>
+        </MainLayout>
+      );
+    },
+  },
   '/credentials': {
     oninit: () => {
       document.title = documentTitle + ' | Credentials';
@@ -62,7 +74,7 @@ m.route(root, '/dashboard', {
     view: () => {
       return (
         <MainLayout>
-          <Credentials />
+          <Credentials type={"received"}/>
         </MainLayout>
       );
     },

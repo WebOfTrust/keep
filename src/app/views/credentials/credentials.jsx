@@ -9,12 +9,13 @@ import './credentials.scss';
 
 
 class Credentials {
-    constructor() {
+    constructor(vnode) {
         this.credentials = [];
         this.activeCredential = null;
         this.schema = {}
         this.credentials = [];
         this.contacts = [];
+        this.type = vnode.attrs.type
 
         KERI.listSchema()
             .then((schema) => {
@@ -25,7 +26,7 @@ class Credentials {
                     this.contacts = new Map(contacts.map(c => {
                         return [c.id, c];
                     }));
-                    KERI.listCredentials(Profile.getDefaultAID().name, 'received')
+                    KERI.listCredentials(Profile.getDefaultAID().name, this.type)
                         .then((credentials) => {
                             this.credentials = credentials;
                         })
