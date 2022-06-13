@@ -3,6 +3,7 @@ import { MDCSelect } from '@material/select';
 
 class Select {
   constructor() {
+    this.mdcInstance = null;
     this.selectClass = 'mdc-select';
     this.optionDefaults = {
       class: null,
@@ -25,7 +26,6 @@ class Select {
       value: null,
     };
     this.options = null;
-    this.mdcInstance = null;
   }
 
   assignOptions(vnode) {

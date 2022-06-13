@@ -4,6 +4,7 @@ import { MDCCheckbox } from '@material/checkbox';
 
 class Checkbox {
   constructor() {
+    this.mdcInstance = null;
     this.checkboxClass = 'mdc-checkbox mdc-checkbox--touch';
     this.optionDefaults = {
       id: null,
@@ -33,7 +34,7 @@ class Checkbox {
 
   oncreate(vnode) {
     try {
-      this.checkbox = new MDCCheckbox(vnode.dom);
+      this.mdcInstance = new MDCCheckbox(vnode.dom);
     } catch (e) {
       console.log(e);
     }

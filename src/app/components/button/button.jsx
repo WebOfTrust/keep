@@ -3,6 +3,7 @@ import { MDCRipple } from '@material/ripple';
 
 class Button {
   constructor() {
+    this.mdcRipple = null;
     this.buttonClass = 'mdc-button';
     this.optionDefaults = {
       class: null,
@@ -17,7 +18,6 @@ class Button {
       style: null,
     };
     this.options = null;
-    this.mdcRipple = null;
   }
 
   assignOptions(vnode) {
