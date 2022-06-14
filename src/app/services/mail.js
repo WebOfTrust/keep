@@ -108,9 +108,6 @@ class Mail {
   static multisigHandler = (e) => {
     let data = JSON.parse(e.data);
     let rType = data.r;
-    if (rType === '/ixn/complete') {
-      return;
-    }
 
     if (rType === '/icp/complete') {
       Profile.loadIdentifiers().then(() => {

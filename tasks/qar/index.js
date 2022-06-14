@@ -2,7 +2,7 @@ import m from 'mithril';
 
 //Variables
 import variables from './variables';
-import { Schema } from '../../src/app/services';
+import {Schema} from '../../src/app/services';
 
 // Tasks
 import ConfigureMultiSigGroupTask from '../generic/configure-multi-sig-group/configure-multi-sig-group';
@@ -22,6 +22,7 @@ import JoinCredentialRevocationTask from '../generic/join-credential-revocation/
 import AcceptCredentialsTask from '../generic/accept-credentials/accept-credentials';
 import IssueCredentialTask from './issue-credential';
 import JoinCredentailIssuanceTask from './join-credential-issuance'
+import WaitForGLEIFInternal from './wait-for-gleif-internal'
 
 const tasks = {
     'create-passcode': [
@@ -33,12 +34,23 @@ const tasks = {
         new CreateYourAIDTask({label: 'Incept Local QAR Single-Sig AID', variables: variables.createYourAid}),
     ],
     'create-multisig': [
-        new VideoCallTask({
-            initiate: true,
-            label: 'Lead QAR Multi-Sig AID Inception',
-            next: new ConfigureMultiSigGroupTask({label: 'Configure Multi-Sig Group', requiredDelegator: "GLEIF External"}),
-        }),
-        new VideoCallTask({initiate: false, label: 'Join QAR Multi-Sig AID Inception'}),
+        new WaitForGLEIFInternal(
+            {
+                label: 'Lead QAR Multi-Sig AID Inception',
+                next: new VideoCallTask({
+                    initiate: true,
+                    label: 'Lead QAR Multi-Sig AID Inception',
+                    next: new ConfigureMultiSigGroupTask({
+                        label: 'Configure Multi-Sig Group',
+                        requiredDelegator: "GLEIF External"
+                    }),
+                })
+            }),
+        new WaitForGLEIFInternal(
+            {
+                label: 'Lead QAR Multi-Sig AID Inception',
+                next: new VideoCallTask({initiate: false, label: 'Join QAR Multi-Sig AID Inception'})
+            }),
     ],
     'join-multisig': [new JoinMultiSigGroupTask('Join Multi-Sig Group')],
     'join-multisig-issue': [new JoinCredentailIssuanceTask('Join Multi-Sig Credential Issuance')],
@@ -48,14 +60,14 @@ const tasks = {
             label: 'Accept Credential',
             oneToOne: true,
             acceptCredential: true,
-            next: new AcceptCredentialsTask({ label: 'Accept Credential' }),
+            next: new AcceptCredentialsTask({label: 'Accept Credential'}),
         }),
         new VideoCallTask({
             initiate: true,
             label: 'Initiate LE Credential Issuance',
             aidToSend: variables.aidToSend,
             steps: variables.initiateLECredentialIssuance.steps,
-            next:new IssueCredentialTask({
+            next: new IssueCredentialTask({
                 label: 'Initiate LE Credential Issuance',
                 schema: Schema.LECredentialSchema
             }),
@@ -65,7 +77,7 @@ const tasks = {
             label: 'Initiate OOR Credential Issuance',
             aidToSend: variables.aidToSend,
             steps: variables.initiateLECredentialIssuance.steps,
-            next:new IssueCredentialTask({
+            next: new IssueCredentialTask({
                 label: 'Initiate OOR Credential Issuance',
                 schema: Schema.OORCredentialSchema
             }),
@@ -75,7 +87,7 @@ const tasks = {
             label: 'Initiate ECR Credential Issuance',
             aidToSend: variables.aidToSend,
             steps: variables.initiateLECredentialIssuance.steps,
-            next:new IssueCredentialTask({
+            next: new IssueCredentialTask({
                 label: 'Initiate ECR Credential Issuance',
                 schema: Schema.ECRCredentialSchema
             }),
