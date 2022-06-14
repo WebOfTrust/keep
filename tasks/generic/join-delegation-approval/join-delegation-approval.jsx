@@ -149,7 +149,7 @@ class JoinDelegationApproval {
                         <img src={approveRequest} style={{width: '188px', margin: '0 0 2rem 0'}}/>
                         <h3>Delegation complete</h3>
                         <p class="p-tag">When enough members of {this.delegatorAlias} have approved the delegation you will
-                            receive a notification to create an alias for the new delegated AID.</p>
+                            receive a notification that the new delegated AID has been approved and created.</p>
                         <div class="flex flex-justify-end" style={{marginTop: '4rem'}}>
                             <Button
                                 class="button--big button--no-transform"

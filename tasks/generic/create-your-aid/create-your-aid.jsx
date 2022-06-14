@@ -46,7 +46,6 @@ class CreateYourAID {
           .then((ids) => {
             if (ids.length === 1) {
               Profile.setDefaultAID(ids[0]);
-              console.log(vnode.attrs);
               vnode.attrs.end();
             }
           })

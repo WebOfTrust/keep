@@ -23,7 +23,8 @@ class ContactDetails {
         </div>
          <div class="flex flex-justify-between">
           <p class="p-tag">AID:</p>
-             <TextField filled fluid placeholder={contact.id} style={{ width: '60%', height: '2.5rem' }} />
+             <code style="margin: 15px 0 0 0;">{contact.id}</code>
+             {/*<TextField filled fluid placeholder={contact.id} style={{ width: '60%', height: '2.5rem' }} />*/}
         </div>
           {/*<div class="flex flex-justify-between">
           <p class="p-tag">Company:</p>

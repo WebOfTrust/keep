@@ -63,10 +63,10 @@ const tasks = {
     'join-multisig': [new JoinMultiSigGroupTask({label: 'Join Multi-Sig Group'})],
     'approve-delegation': [new JoinDelegationApprovalTask({label: "Delegation Approval"})],
     'main': [
-        new InitiateManualKeyRotationTask({label: 'Initiate Manual Key Rotation'}),
-        new JoinManualKeyRotationTask({label: 'Join Manual Key Rotation'}),
         new LeadRootLeadOOBI({label: 'Challenge with External GARs', variables: variables.externalOobi}),
         new LeadRootLeadOOBI({label: 'Challenge with Internal GARs', variables: variables.internalOobi}),
+        new InitiateManualKeyRotationTask({label: 'Initiate Manual Key Rotation'}),
+        new JoinManualKeyRotationTask({label: 'Join Manual Key Rotation'}),
         new ViewMultiSigEventLogsTask({label: 'View Multi-Sig Event Logs'}),
     ],
 };

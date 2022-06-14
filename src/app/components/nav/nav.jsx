@@ -127,7 +127,8 @@ class Nav {
                           meta.title = `Multi-Sig Inception Complete`;
                           meta.clickHandler = this.multisigCompleteClick;
                         } else if (rType === "/ixn/complete") {
-
+                          meta.title = "Delegated Identifier Created"
+                          meta.clickHandler = this.challengeNotificationClick;
                         } else if (rType.includes('/init')) {
                           meta.title = 'Multi-Sig Verification Request';
                           meta.clickHandler = this.multisigInitClick;

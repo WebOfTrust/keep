@@ -62,7 +62,7 @@ class LeadRootLeadOOBISend {
     view(vnode) {
         return (
             <>
-                <h3>Accept OOBI from {vnode.attrs.parent.variables.type} GAR</h3>
+                <h3>Accept OOBI from {vnode.attrs.parent.variables.type} GARs</h3>
                 <EnterOOBIsForm
                     participants={vnode.attrs.parent.participants}
                 />
@@ -127,7 +127,7 @@ class LeadRootLeadOOBIRightPanel {
                 {vnode.attrs.parent.currentState === 'event-complete' && (
                     <>
                         <img src={todoList} style={{width: '188px', margin: '4rem 0 0 0'}}/>
-                        <h3>Inception Event Completed</h3>
+                        <h3>Authentication Stage Completed</h3>
                         <p class="p-tag">
                             Thank you for authenticating all members. You will receive a notification when
                             the {vnode.attrs.parent.variables.type} GARs have created their Multi-Sig AID and are requesting delegation.

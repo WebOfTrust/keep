@@ -53,8 +53,8 @@ class ConfigureMultiSigGroup {
 
     if (vnode.attrs.parent.requireDelegator) {
       MultiSig.delegator = null;
-      this.loadDelegator(vnode.attrs.parent.requiredDelegator);
     }
+    this.loadDelegator(vnode.attrs.parent.requiredDelegator);
     this.default = Profile.getDefaultAID();
     this.weight = '1/2';
   }
