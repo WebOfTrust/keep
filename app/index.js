@@ -57,7 +57,7 @@ const createWindow = () => {
     log.info("warding", ward, args);
 
     if (ward === null) {
-        ward = spawn(`./ward/ward`, args);
+        ward = spawn(`${__dirname}/ward/ward`, args);
         ward.on('error', function (err) {
             log.error('spawn error' + err);
         });
