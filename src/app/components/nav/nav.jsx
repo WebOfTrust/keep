@@ -34,15 +34,13 @@ class Nav {
   }
 
   multisigInitClick() {
-    this.notificationsVisible = false;
     Tasks.active = Tasks.find('join-multisig');
   }
 
   multisigIssueClick(notification) {
-    this.notificationsVisible = false;
     Notify.selected = notification;
     Tasks.active = Tasks.find('join-multisig-issue');
-    m.redraw()
+    m.redraw();
   }
 
   issueCompleteClick() {
@@ -54,10 +52,9 @@ class Nav {
   }
 
   delegationRequestClick(notification) {
-    this.notificationsVisible = false;
     Notify.selected = notification;
     Tasks.active = Tasks.find('approve-delegation');
-    m.redraw()
+    m.redraw();
   }
 
   view() {
@@ -126,18 +123,18 @@ class Nav {
                         if (rType === '/icp/complete') {
                           meta.title = `Multi-Sig Inception Complete`;
                           meta.clickHandler = this.multisigCompleteClick;
-                        } else if (rType === "/ixn/complete") {
-                          meta.title = "Delegated Identifier Created"
+                        } else if (rType === '/ixn/complete') {
+                          meta.title = 'Delegated Identifier Created';
                           meta.clickHandler = this.challengeNotificationClick;
                         } else if (rType.includes('/init')) {
                           meta.title = 'Multi-Sig Verification Request';
                           meta.clickHandler = this.multisigInitClick;
                         } else if (rType === '/issue') {
-                          meta.title = "Credential Issuance Request"
-                          meta.clickHandler = this.multisigIssueClick
+                          meta.title = 'Credential Issuance Request';
+                          meta.clickHandler = this.multisigIssueClick;
                         } else if (rType === '/iss/complete') {
-                          meta.title = "Credential Issuance Complete"
-                          meta.clickHandler = this.issueCompleteClick
+                          meta.title = 'Credential Issuance Complete';
+                          meta.clickHandler = this.issueCompleteClick;
                         } else {
                           return undefined;
                         }
@@ -145,6 +142,7 @@ class Nav {
                           <div
                             class="pointer font-weight--bold font-color--battleship flex flex-align-center flex-justify-between"
                             onclick={() => {
+                              this.notificationsVisible = false;
                               meta.clickHandler(notification);
                             }}
                           >
@@ -155,7 +153,7 @@ class Nav {
                           </div>
                         );
                       }
-                      if (notification.type === "credential") {
+                      if (notification.type === 'credential') {
                         let rType = notification.data.r;
                         let meta = {
                           title: '',
@@ -168,17 +166,18 @@ class Nav {
                           return undefined;
                         }
                         return (
-                            <div
-                                class="pointer font-weight--bold font-color--battleship flex flex-align-center flex-justify-between"
-                                onclick={() => {
-                                  meta.clickHandler(notification);
-                                }}
-                            >
-                              <p>{meta.title}</p>
-                              <p>
-                                <u>View</u>
-                              </p>
-                            </div>
+                          <div
+                            class="pointer font-weight--bold font-color--battleship flex flex-align-center flex-justify-between"
+                            onclick={() => {
+                              this.notificationsVisible = false;
+                              meta.clickHandler(notification);
+                            }}
+                          >
+                            <p>{meta.title}</p>
+                            <p>
+                              <u>View</u>
+                            </p>
+                          </div>
                         );
                       }
                       if (notification.type === 'delegate') {
@@ -192,20 +191,21 @@ class Nav {
                           meta.clickHandler = this.delegationRequestClick;
                         }
                         return (
-                            <div
-                                className="pointer font-weight--bold font-color--battleship flex flex-align-center flex-justify-between"
-                                onclick={() => {
-                                  meta.clickHandler(notification);
-                                }}
-                            >
-                              <p>{meta.title}</p>
-                              <p>
-                                <u>View</u>
-                              </p>
-                            </div>
+                          <div
+                            class="pointer font-weight--bold font-color--battleship flex flex-align-center flex-justify-between"
+                            onclick={() => {
+                              this.notificationsVisible = false;
+                              meta.clickHandler(notification);
+                            }}
+                          >
+                            <p>{meta.title}</p>
+                            <p>
+                              <u>View</u>
+                            </p>
+                          </div>
                         );
                       }
-                      return (<p>Unhandled notification type {notification.type}</p>);
+                      return <p>Unhandled notification type {notification.type}</p>;
                     })}
                   </Popover>
                 </div>
@@ -223,18 +223,26 @@ class Nav {
                 >
                   <ProfilePicture size="s" identifier={Profile.getDefaultAID()} />
                 </div>
-                <div style={{ color: '#0cbc8b', paddingLeft: '1rem', paddingRight: '1rem', fontWeight: 'bold', fontSize: '100%' }}>
+                <div
+                  style={{
+                    color: '#0cbc8b',
+                    paddingLeft: '1rem',
+                    paddingRight: '1rem',
+                    fontWeight: 'bold',
+                    fontSize: '100%',
+                  }}
+                >
                   {this.navLabel}
                 </div>
 
                 <IconButton
-                    icon="lock"
-                    onclick={() => {
-                      KERI.lockAgent().then(() => {
-                        Auth.removeAgent();
-                        m.route.set('/dashboard');
-                      })
-                    }}
+                  icon="lock"
+                  onclick={() => {
+                    KERI.lockAgent().then(() => {
+                      Auth.removeAgent();
+                      m.route.set('/dashboard');
+                    });
+                  }}
                 />
               </>
             )}
