@@ -8,14 +8,8 @@ const log = require('electron-log');
 const path = require('path')
 const express = require("express");
 const cors = require('cors');
-const todesktop = require("@todesktop/runtime");
 
 log.transports.file.resolvePath = () => `${__dirname}${path.sep}keep.log`
-
-todesktop.init({
-    customLogger: log,
-});
-
 
 let ward = null;
 let keep = null;
