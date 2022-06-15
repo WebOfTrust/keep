@@ -24,7 +24,7 @@
     "package:lar": "NODE_ENV=lar parcel build src/index.html --cache-dir ward/.parcel-cache-dev --dist-dir ward/build-ui",
     "package:lead-lar": "NODE_ENV=lead-lar parcel build src/index.html --cache-dir ward/.parcel-cache-dev --dist-dir ward/build-ui",
 
-    "package:person": "NODE_ENV=person parcel build src/index.html --cache-dir ward/.person-cache-dev --dist-dir ward/build-ui",
+    "package:person": "NODE_ENV=person parcel build src/index.html --cache-dir ward/.parcel-cache-dev --dist-dir ward/build-ui",
 
     "package:win": "parcel build src/index.html --cache-dir ward/.parcel-cache-dev --dist-dir ward/build-ui",
 
@@ -57,40 +57,8 @@
   "targets": {
     "main": false
   },
-  "config": {
-    "forge": {
-      "packagerConfig": {},
-      "makers": [
-        {
-          "name": "@electron-forge/maker-squirrel",
-          "config": {
-            "name": "keep"
-          }
-        },
-        {
-          "name": "@electron-forge/maker-zip",
-          "platforms": [
-            "darwin"
-          ]
-        },
-        {
-          "name": "@electron-forge/maker-deb",
-          "config": {}
-        },
-        {
-          "name": "@electron-forge/maker-rpm",
-          "config": {}
-        },
-        {
-          "name": "@electron-forge/maker-dmg",
-          "config": {}
-        }
-      ]
-    }
-  },
   "dependencies": {
     "@popperjs/core": "^2.11.5",
-    "electron-squirrel-startup": "^1.0.0",
     "emoji-button": "^2.2.2",
     "emoji-picker-element": "^1.11.3",
     "fs-extra": "^10.1.0",
@@ -106,15 +74,8 @@
   "devDependencies": {
     "@babel/plugin-transform-react-jsx": "^7.16.0",
     "@babel/preset-env": "^7.16.4",
-    "@electron-forge/cli": "^6.0.0-beta.60",
-    "@electron-forge/maker-deb": "^6.0.0-beta.60",
-    "@electron-forge/maker-dmg": "^6.0.0-beta.61",
-    "@electron-forge/maker-rpm": "^6.0.0-beta.60",
-    "@electron-forge/maker-squirrel": "^6.0.0-beta.60",
-    "@electron-forge/maker-zip": "^6.0.0-beta.60",
     "@parcel/transformer-sass": "^2.0.1",
     "babel-jest": "^27.2.4",
-    "electron": "^13.2.3",
     "eslint": "^8.0.1",
     "faker": "^5.5.3",
     "gh-pages": "^3.2.3",
