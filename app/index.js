@@ -24,25 +24,26 @@ const createWindow = () => {
     const win = new BrowserWindow({
         width: 1440,
         height: 1024,
-        icon: `${__dirname}${path.sep}assets${path.sep}icon.icns`
+        icon: `./assets/icon.icns`
     });
     win.webContents.openDevTools();
+    console.log("dir", __dirname)
     // noinspection JSIgnoredPromiseFromCall
-    log.info("create");
-    win.loadFile(`${__dirname}${path.sep}index.html`);
+    log.info("create", __dirname);
+    win.loadFile(`./index.html`);
     log.info("1");
     let config = {};
-    const configPath = `${__dirname}${path.sep}ward${path.sep}config.json`;
+    const configPath = `./ward/config.json`;
     if (fs.existsSync(configPath)) {
         config = JSON.parse(fs.readFileSync(configPath));
     }
     log.info("2");
     let args = [];
     const API_HOST = 'http://127.0.0.1';
-    args.push("--tcp", config["TCP_PORT"]);
-    args.push("--admin", config["API_PORT"]);
+    args.push("--tcp", "5721");
+    args.push("--admin", "5621");
     log.info("3");
-    const debugPath = `${__dirname}${path.sep}ward${path.sep}debug.json`;
+    const debugPath = `./ward/debug.json`;
     log.info("4");
     if (fs.existsSync(debugPath)) {
         log.info("5");
@@ -56,7 +57,7 @@ const createWindow = () => {
     log.info("warding", ward, args);
 
     if (ward === null) {
-        ward = spawn(`${__dirname}${path.sep}ward${path.sep}ward`, args);
+        ward = spawn(`./ward/ward`, args);
         ward.on('error', function (err) {
             log.error('spawn error' + err);
         });
@@ -86,15 +87,15 @@ const createWindow = () => {
     }
 
     let corsOptions = {
-        origin: `http://localhost:${config["API_PORT"]}`,
+        origin: "http://localhost:5621",
         optionsSuccessStatus: 200
     }
 
     keep = express().use("/keep", cors(corsOptions), function (_, res) {
-        res.json(fs.existsSync(`${__dirname}${path.sep}ward${path.sep}keri${path.sep}ks${path.sep}keep-${config["USER_TYPE"]}-${config["API_PORT"]}`));
-    }).listen(~~config["KEEP_PORT"]);
+        res.json(fs.existsSync(`./ward/keri/ks/keep-root-gar-5621`));
+    }).listen(6621);
 
-    const host = `${API_HOST}:${config["API_PORT"]}`
+    const host = "http://127.0.0.1:5621"
     retry((retry) => {
         log.info('⏳ launching...');
         return fetch(host).catch(retry);
