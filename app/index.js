@@ -10,7 +10,7 @@ const express = require("express");
 const cors = require('cors');
 const todesktop = require("@todesktop/runtime");
 
-log.transports.file.resolvePath = () => `./keep.log`
+log.transports.file.resolvePath = () => `${__dirname}${path.sep}keep.log`
 
 todesktop.init({
     customLogger: log,
@@ -24,15 +24,15 @@ const createWindow = () => {
     const win = new BrowserWindow({
         width: 1440,
         height: 1024,
-        icon: `./assets${path.sep}icon.icns`
+        icon: `${__dirname}${path.sep}assets${path.sep}icon.icns`
     });
     win.webContents.openDevTools();
     // noinspection JSIgnoredPromiseFromCall
     log.info("create");
-    win.loadFile(`./index.html`);
+    win.loadFile(`${__dirname}${path.sep}index.html`);
     log.info("1");
     let config = {};
-    const configPath = `./ward${path.sep}config.json`;
+    const configPath = `${__dirname}${path.sep}ward${path.sep}config.json`;
     if (fs.existsSync(configPath)) {
         config = JSON.parse(fs.readFileSync(configPath));
     }
@@ -42,7 +42,7 @@ const createWindow = () => {
     args.push("--tcp", config["TCP_PORT"]);
     args.push("--admin", config["API_PORT"]);
     log.info("3");
-    const debugPath = `./ward${path.sep}debug.json`;
+    const debugPath = `${__dirname}${path.sep}ward${path.sep}debug.json`;
     log.info("4");
     if (fs.existsSync(debugPath)) {
         log.info("5");
@@ -56,7 +56,7 @@ const createWindow = () => {
     log.info("warding", ward, args);
 
     if (ward === null) {
-        ward = spawn(`./ward${path.sep}ward`, args);
+        ward = spawn(`${__dirname}${path.sep}ward${path.sep}ward`, args);
         ward.on('error', function (err) {
             log.error('spawn error' + err);
         });
@@ -91,7 +91,7 @@ const createWindow = () => {
     }
 
     keep = express().use("/keep", cors(corsOptions), function (_, res) {
-        res.json(fs.existsSync(`./ward${path.sep}keri${path.sep}ks${path.sep}keep-${config["USER_TYPE"]}-${config["API_PORT"]}`));
+        res.json(fs.existsSync(`${__dirname}${path.sep}ward${path.sep}keri${path.sep}ks${path.sep}keep-${config["USER_TYPE"]}-${config["API_PORT"]}`));
     }).listen(~~config["KEEP_PORT"]);
 
     const host = `${API_HOST}:${config["API_PORT"]}`
