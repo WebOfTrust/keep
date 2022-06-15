@@ -4,18 +4,19 @@ import CredentialList from '../credentials/credential-list/credential-list';
 import CredentialDetails from './credential-details/credential-details';
 
 import { KERI, Profile } from '../../services';
-import credentialGroup from '../../../assets/img/contact-group.svg';
+import verifyCredentials from '../../../assets/img/verify-credentials.svg';
 import './credentials.scss';
 
 class Credentials {
   constructor(vnode) {
+    this.type = vnode.attrs.type;
+    this.showHelp = true;
     this.credentials = [];
     this.activeCredential = null;
     this.schema = {};
-    this.credentials = [];
     this.contacts = [];
-    this.type = vnode.attrs.type;
     this.activeTab = 'received';
+    this.search = '';
 
     KERI.listSchema().then((schema) => {
       this.schema = new Map(
@@ -58,7 +59,7 @@ class Credentials {
             <div class="flex flex-justify-between">
               <div class="flex-1" style={{ marginRight: '4rem' }}>
                 <Card class="card--fluid" padding="1.5rem">
-                  <TabBar style={{ marginBottom: '1rem' }}>
+                  <TabBar style={{ marginBottom: '2rem' }}>
                     <Tab
                       label="Received"
                       active={this.activeTab === 'received'}
@@ -76,42 +77,78 @@ class Credentials {
                       }}
                     />
                   </TabBar>
+                  <TextField
+                    filled
+                    fluid
+                    placeholder="Search for Credentials"
+                    style={{ marginBottom: '2rem' }}
+                    iconTrailing={{
+                      icon: 'search',
+                    }}
+                    value={this.search}
+                    oninput={(e) => {
+                      this.search = e.target.value;
+                    }}
+                  />
                   {this.credentials.map((credential) => {
                     let sad = credential['sad'];
                     let schema = this.schema.get(sad['s']);
+                    let active = this.activeCredential === credential;
                     return (
-                      <CredentialList credential={credential} schema={schema} setCredential={this.setCredential} />
+                      <CredentialList
+                        active={active}
+                        credential={credential}
+                        schema={schema}
+                        setCredential={this.setCredential}
+                      />
                     );
                   })}
                 </Card>
               </div>
               <div class="flex-1">
-                <Card class={'card--fluid'} style={{ position: 'relative' }} padding="4rem">
-                  <IconButton class="close-icon" icon="close" />
-                  {this.activeCredential !== null ? (
+                {this.activeCredential && (
+                  <Card fluid style={{ position: 'relative' }} padding="4rem">
+                    <IconButton
+                      class="close-icon"
+                      icon="close"
+                      onclick={() => {
+                        this.activeCredential = null;
+                      }}
+                    />
                     <CredentialDetails
                       credential={this.activeCredential}
                       schema={this.schema}
                       contacts={this.contacts}
                     />
-                  ) : (
-                    <>
-                      <h2>My Credentials</h2>
-                      <img src={credentialGroup} style={{ width: '50%', margin: '2rem 0 2rem 0' }} />
-                      <h3>View Your Credentials</h3>
-                      <p class="p-tag">
-                        Click on any of your credentials on the sidebar to update or edit information about them or
-                        their credentials.
-                      </p>
-                      <br />
-                      <br />
-                      <div class="flex flex-justify-end">
-                        {/* <Button class="button--gray-dk button--big button--no-transform" raised label="Skip" /> */}
-                        <Button class="button--big button--no-transform" raised label="Dismiss" />
-                      </div>
-                    </>
-                  )}
-                </Card>
+                  </Card>
+                )}
+                {!this.activeCredential && this.showHelp && (
+                  <Card fluid style={{ position: 'relative' }} padding="4rem">
+                    <IconButton
+                      class="close-icon"
+                      icon="close"
+                      onclick={() => {
+                        this.showHelp = false;
+                      }}
+                    />
+                    <h2>My Credentials</h2>
+                    <img src={verifyCredentials} style={{ width: '200px', margin: '5rem 0' }} />
+                    <h3>View Your Credentials</h3>
+                    <p class="p-tag">
+                      Click on any of your credentials on the sidebar to view the most up to date information on them.
+                    </p>
+                    <div class="flex flex-justify-end" style={{ marginTop: '4rem' }}>
+                      <Button
+                        class="button--big button--no-transform"
+                        raised
+                        label="Dismiss"
+                        onclick={() => {
+                          this.showHelp = false;
+                        }}
+                      />
+                    </div>
+                  </Card>
+                )}
               </div>
             </div>
           </Container>
