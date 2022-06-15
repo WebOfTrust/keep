@@ -87,7 +87,7 @@ const createWindow = () => {
     }
 
     let corsOptions = {
-        origin: "http://localhost:5621",
+        origin: "http://127.0.0.1:5621",
         optionsSuccessStatus: 200
     }
 
