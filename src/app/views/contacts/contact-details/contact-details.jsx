@@ -17,27 +17,17 @@ class ContactDetails {
             </h4> */}
           </div>
         </div>
-        <div class="flex flex-justify-between">
-          <p class="p-tag">Name:</p>
-          <TextField filled fluid placeholder={contact.alias} style={{ width: '60%', height: '2.5rem' }} />
+        <div style={{ margin: '2rem 0 2rem 0' }}>
+          <p class="p-tag-bold">Name:</p>
+          <p>{contact.alias}</p>
         </div>
-         <div class="flex flex-justify-between">
-          <p class="p-tag">AID:</p>
-             <code style="margin: 15px 0 0 0;">{contact.id}</code>
-             {/*<TextField filled fluid placeholder={contact.id} style={{ width: '60%', height: '2.5rem' }} />*/}
+        <div style={{ margin: '2rem 0 2rem 0' }}>
+          <p class="p-tag-bold">AID:</p>
+          <code>{contact.id}</code>
         </div>
-          {/*<div class="flex flex-justify-between">
-          <p class="p-tag">Company:</p>
-          <TextField filled fluid placeholder={contact.company} style={{ width: '60%', height: '2.5rem' }} />
-        </div>
-        <div class="flex flex-justify-between">
-          <p class="p-tag">Phone Number:</p>
-          <TextField filled fluid placeholder={contact.phoneNumber} style={{ width: '60%', height: '2.5rem' }} />
-        </div> */}
-        <div class="flex flex-justify-between" style={{ marginTop: '3rem' }}>
-          <Button class="button--gray-dk button--big button--no-transform" raised label="
-          Go Back" />
-          <Button class="button--big button--no-transform" raised label="Save" />
+        <div class="flex flex-justify-end" style={{ marginTop: '3rem' }}>
+          {/* <Button class="button--gray-dk button--big button--no-transform" raised label="Go Back" /> */}
+          <Button class="button--big button--no-transform" raised label="Close" />
         </div>
       </>
     );
