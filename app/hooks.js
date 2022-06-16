@@ -7,7 +7,7 @@ module.exports = {
         await signAsync({
             app: 'out/keep-darwin-arm64/keep.app/',
             entitlements: './entitlements.plist',
-            hardenedRuntime: true,
+            hardenedRuntime: false,
             gatekeeperAssess: false,
             identity: 'Developer ID Application: Kevin Griffin (WHU7A4EQ74)'
         }).then(() => {
