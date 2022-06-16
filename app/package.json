@@ -36,7 +36,9 @@
   "config": {
     "forge": {
       "packagerConfig": {
-        "icon": "assets/icon"
+        "appBundleId": "org.gleif.keep",
+        "icon": "assets/icon",
+        "overwrite": true
       },
       "hooks": "require:./hooks.js",
       "makers": [
@@ -49,8 +51,6 @@
         {
           "name": "@electron-forge/maker-dmg",
           "config": {
-            "background": "",
-            "format": "ULFO"
           }
         },
         {
