@@ -6,15 +6,15 @@ module.exports = {
         console.log("\nstart sign");
         await signAsync({
             app: 'out/keep-darwin-arm64/foo.app/',
-            entitlements: "./entitlements.plist",
-            'entitlements-inherit': "./entitlements.plist",
+            entitlements: "entitlements.plist",
+            'entitlements-inherit': "entitlements.plist",
             'signature-flags': "library",
             'hardened-runtime': true,
             identity: 'Developer ID Application: Kevin Griffin (WHU7A4EQ74)'
         }).then(() => {
             console.log("\nsigning done");
         }).catch((err) => {
-            console.log("\nnotarize err", err);
+            console.log("\nsigning err", err);
         });
         console.log("\nstart notarize");
         await notarize({
