@@ -1,7 +1,7 @@
 const electron = require('electron');
 const {app, BrowserWindow} = electron;
 const fs = require('fs');
-const {spawn} = require('child_process');
+const {execFile} = require('child_process');
 const retry = require('promise-retry');
 const fetch = (...args) => import('node-fetch').then(({default: fetch}) => fetch(...args));
 const log = require('electron-log');
@@ -25,33 +25,41 @@ const createWindow = () => {
     // noinspection JSIgnoredPromiseFromCall
     log.info("create", __dirname);
     win.loadFile(`./index.html`);
+
     log.info("1");
     let config = {};
-    const configPath = `./ward/config.json`;
-    if (fs.existsSync(configPath)) {
-        config = JSON.parse(fs.readFileSync(configPath));
+    try {
+        config = require("./ward/config.json");
+    } catch (err) {
+        console.log("config err", err);
+        process.exit();
     }
+
+    log.info(config);
     log.info("2");
+
     let args = [];
     const API_HOST = 'http://127.0.0.1';
     args.push("--tcp", "5721");
     args.push("--admin", "5621");
     log.info("3");
-    const debugPath = `./ward/debug.json`;
-    log.info("4");
-    if (fs.existsSync(debugPath)) {
-        log.info("5");
-        let debug = JSON.parse(fs.readFileSync(debugPath));
-        if (debug === true) {
-            win.webContents.openDevTools()
-            args.push("--debug")
-        }
+
+    let debug = false;
+    try {
+        debug = require("./ward/debug.json");
+    } catch (err) {
+        console.log("no debug");
+    }
+
+    if (debug === true) {
+        win.webContents.openDevTools()
+        args.push("--debug")
     }
 
     log.info("warding", ward, args);
 
     if (ward === null) {
-        ward = spawn(`${__dirname}/ward/ward`, args);
+        ward = execFile(path.join(__dirname, "ward", "ward"), args);
         ward.on('error', function (err) {
             log.error('spawn error' + err);
         });
@@ -69,7 +77,7 @@ const createWindow = () => {
                     err.match(/keri.kering.ConfigurationError/))
             ) {
                 // noinspection JSIgnoredPromiseFromCall
-                win.loadFile(`${__dirname}${path.sep}oops.html`);
+                win.loadFile(`./oops.html`);
                 ward.kill();
             }
             log.error('err:', err);
@@ -81,7 +89,8 @@ const createWindow = () => {
     }
 
     keep = express().use("/keep", cors(), function (_, res) {
-        res.json(fs.existsSync(`./ward${path.sep}keri${path.sep}ks${path.sep}keep-${config["USER_TYPE"]}-${config["API_PORT"]}`));
+        log.info(fs.existsSync(path.join("ward", "keri", "ks", `keep-${config["USER_TYPE"]}-${config["API_PORT"]}`)));
+        res.json(fs.existsSync(path.join("ward", "keri", "ks", `keep-${config["USER_TYPE"]}-${config["API_PORT"]}`)));
     }).listen(~~config["KEEP_PORT"]);
 
     const host = "http://127.0.0.1:5621"

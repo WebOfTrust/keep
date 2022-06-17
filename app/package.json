@@ -23,6 +23,7 @@
     "promise-retry": "^2.0.1"
   },
   "scripts": {
+    "start": "electron .",
     "dist": "electron-builder"
   },
   "build": {
@@ -32,7 +33,6 @@
       "icon": "assets/icon.icns",
       "identity": "Kevin Griffin (WHU7A4EQ74)",
       "entitlements": "entitlements.plist",
-      "entitlementsInherit": "entitlements.plist",
       "binaries": ["./ward/ward"],
       "hardenedRuntime": true,
       "gatekeeperAssess": false
