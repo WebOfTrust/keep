@@ -1,7 +1,7 @@
 import m from 'mithril';
 
 class KERI {
-  static keriURL = `${process.env.API_HOST}:${process.env.API_PORT}`;
+  static keriURL = `${process.env.API_ENDPOINT}`;
 
   // CODES
 

@@ -1,7 +1,6 @@
 import m from 'mithril';
 import Notify from './notify';
 import Participants from './oobis';
-import Toaster from './toaster';
 import KERI from './keri';
 import Profile from './profile';
 import Registry from './registry';
@@ -151,7 +150,7 @@ class Mail {
       return;
     }
     this.source = new EventSource(
-      `${process.env.API_HOST}:${process.env.API_PORT}/mbx?pre=E59KmDbpjK0tRf9Rmc7OlueZVz7LB94DdD3cjQVvPcng&topics=%2Fchallenge%3D0&topics=%2Fdelegate%3D0&topics=%2Fmultisig%3D0&topics=%2Fcredential%3D0&topics=%2Freceipt%3D0&topics=%2Freplay%3D0`
+      `${KERI.keriURL}/mbx?pre=E59KmDbpjK0tRf9Rmc7OlueZVz7LB94DdD3cjQVvPcng&topics=%2Fchallenge%3D0&topics=%2Fdelegate%3D0&topics=%2Fmultisig%3D0&topics=%2Fcredential%3D0&topics=%2Freceipt%3D0&topics=%2Freplay%3D0`
     );
     this.source.addEventListener('/challenge', this.challengeHandler, false);
     this.source.addEventListener('/delegate', this.delegateHandler, false);
