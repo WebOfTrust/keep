@@ -102,7 +102,7 @@ ward/src
 ward/debug.json
 ward/config.json
 build
-build-ui
+build-ui-*
 build-ui-dev
 build-ui-dev-lead
 dist
