@@ -155,6 +155,7 @@ class IssueCredential {
               });
 
               vnode.attrs.parent.leiMap = new Map();
+              vnode.attrs.parent.chainAliasMap = new Map();
               vnode.attrs.parent.legalEntityCredentials = creds.map((cred) => {
                 let recipientAid = cred['sad']['a']['i']
                 let lei = cred['sad']['a']['LEI'];
@@ -162,6 +163,8 @@ class IssueCredential {
                 let contact = Contacts.filterById(recipientAid);
 
                 vnode.attrs.parent.leiMap[said] = lei;
+                vnode.attrs.parent.chainAliasMap[said] = contact.alias;
+
                 return {
                   value: said,
                   label: "Legal Entity vLEI issued to " + contact.alias,
@@ -212,15 +215,18 @@ class IssueCredential {
     }
     let edges = {};
     if (schema === Schema.LECredentialSchema) {
+      vnode.attrs.parent.title = "Legal Entity vLEI Credential"
       edges = structuredClone(legalEntityEdges);
       edges.qvi.n = vnode.attrs.parent.qvi
     } else if (schema === Schema.OORCredentialSchema) {
+      vnode.attrs.parent.title = "Official Organizational Role vLEI Credential"
       edges = structuredClone(roleEdges)
       edges.qvi.n = vnode.attrs.parent.qvi
       edges.le.n = vnode.attrs.parent.legalEntity
       data['personLegalName'] = vnode.attrs.parent.personLegalName
       data['officialRole'] = vnode.attrs.parent.officialRole
     } else if (schema === Schema.ECRCredentialSchema) {
+      vnode.attrs.parent.title = "Engagement Context Role vLEI Credential"
       edges = structuredClone(roleEdges)
       edges.qvi.n = vnode.attrs.parent.qvi
       edges.le.n = vnode.attrs.parent.legalEntity
@@ -235,6 +241,7 @@ class IssueCredential {
       source: edges,
       rules: rules
     }).then(() => {
+      vnode.attrs.parent.issuedOn = new Date().getTime();
       vnode.attrs.parent.currentState = 'credential-issued';
     });
   }
@@ -345,6 +352,7 @@ class IssueCredential {
                 onchange={(said) => {
                   vnode.attrs.parent.lei = vnode.attrs.parent.leiMap[said];
                   vnode.attrs.parent.legalEntity = said;
+                  vnode.attrs.parent.chainAlias = vnode.attrs.parent.chainAliasMap[said]
                 }}
             />
             <p className="p-tag-bold">Verify the LEI:</p>
@@ -434,9 +442,10 @@ class IssueCredential {
                 style={{width: "100%"}}
                 outlined
                 options={vnode.attrs.parent.legalEntityCredentials}
-                onchange={(said) => {
+                onchange={(said, label) => {
                   vnode.attrs.parent.lei = vnode.attrs.parent.leiMap[said];
                   vnode.attrs.parent.legalEntity = said;
+                  vnode.attrs.parent.chainAlias = vnode.attrs.parent.chainAliasMap[said]
                 }}
             />
             <p className="p-tag-bold">Verify the LEI:</p>
@@ -491,75 +500,51 @@ class IssueCredential {
             </div>
           </>
         )}
-        {vnode.attrs.parent.currentState === 'review-credential' && (
+
+
+        {(vnode.attrs.parent.currentState === 'review-credential' &&
+            vnode.attrs.parent.schema === Schema.LECredentialSchema) && (
           <>
-            <h3 style={{ marginBottom: '2rem' }}>Review Credential</h3>
-            <p class="p-tag" style={{ fontSize: '20px' }}>
-              Please review credential prior to issuing and make sure it is correct.
+            <h3>Issue Legal Entity vLEI Credential</h3>
+            <p className="p-tag">
+              Confirm the values for the credential you are about to issue.
             </p>
-            <div class="flex flex-justify-start" style={{ margin: '3rem 0 3rem 0' }}>
-              <div class="flex" style={{ marginRight: '2rem', alignItems: 'center' }}>
-                <img src={githubLogo} style={{ width: '100px', height: '100px' }} />
-              </div>
-              <div>
-                <h3 style={{ fontSize: '20px', margin: '.5rem 0' }}>{this.recipient}</h3>
-                {/* <p class="p-tag" style={{ margin: '.5rem 0' }}>
-                  QAR for VeriTech
-                </p> */}
-                <p class="p-tag" style={{ fontSize: '20px', margin: '.5rem 0' }}>
-                  Issuing on {this.currentDate}
-                </p>
-              </div>
-            </div>
-            <p class="p-tag" style={{ fontSize: '20px' }}>
-              Provenance Chain
-            </p>
-            <div class="flex" style={{ flexDirection: 'column' }}>
-              <div class="flex" style={{ alignItems: 'center' }}>
-                <div class="flex">
-                  <img
-                    src={githubLogo}
-                    style={{ width: '50px', height: '50px', borderRadius: '50%', marginRight: '1rem' }}
-                  />
-                  <p class="p-tag">
-                    <b>
-                      <u>ACME Corp.</u>
-                    </b>{' '}
-                    granting QAR credentials to{' '}
-                    <b>
-                      <u>{this.recipient}</u>
-                    </b>{' '}
-                    on 11/2/20
-                  </p>
-                </div>
-              </div>
-              <div></div>
-              <div
-                style={{ height: '30px', borderLeft: '1px solid black', marginLeft: '1.5rem', marginTop: '-15px' }}
-              ></div>
-              <div class="flex">
-                <img
-                  src={githubLogo}
-                  style={{ width: '50px', height: '50px', borderRadius: '50%', marginRight: '1rem' }}
-                />
-                <p class="p-tag">
-                  <b>
-                    <u>GLEIF vLEI Credential to be issued on {this.currentDate}</u>
-                  </b>
-                </p>
-              </div>
-            </div>
+            <p className="p-tag-bold">Issue from Qualified vLEI Issuer vLEI Credential:</p>
+            <TextField
+                outlined
+                disabled
+                fluid
+                style={{margin: '0 5px 0 0'}}
+                value={vnode.attrs.parent.qvi}
+            />
+            <p class="p-tag-bold">Issue Legal Entity vLEI Credential to:</p>
+            <TextField
+                outlined
+                disabled
+                fluid
+                style={{ margin: '0 10px 0 0' }}
+                value={vnode.attrs.parent.recipient.alias}
+            />
+            <p className="p-tag-bold">Issue with LEI:</p>
+            <TextField
+                outlined
+                disabled
+                fluid
+                style={{ margin: '0 0 0 0' }}
+                value={vnode.attrs.parent.lei}
+            />
             <div class="flex flex-justify-between" style={{ marginTop: '4rem' }}>
               <Button
-                class="button--gray-dk button--big button--no-transform"
                 raised
-                label="Go Back"
+                class="button--no-transform button--gray-dk button--big"
+                label="Cancel"
                 onclick={() => {
-                  vnode.attrs.parent.currentState = 'issue-credential';
+                  vnode.attrs.end();
                 }}
               />
               <Button
                 class="button--big button--no-transform"
+                disabled={!vnode.attrs.parent.lei || !vnode.attrs.parent.qvi || !vnode.attrs.parent.recipient}
                 raised
                 label="Issue"
                 onclick={() => {
@@ -569,18 +554,174 @@ class IssueCredential {
             </div>
           </>
         )}
+        {(!vnode.attrs.parent.loading && vnode.attrs.parent.currentState === 'review-credential' &&
+            vnode.attrs.parent.schema === Schema.OORCredentialSchema) && (
+          <>
+            <h3>Issue Legal Official Organizational Role Entity vLEI Credential</h3>
+            <p className="p-tag">
+              Confirm the values for the credential you are about to issue.
+            </p>
+            <p className="p-tag-bold">Issue from Qualified vLEI Issuer vLEI Credential:</p>
+            <TextField
+                outlined
+                disabled
+                fluid
+                style={{margin: '0 5px 0 0'}}
+                value={vnode.attrs.parent.qvi}
+            />
+            <p class="p-tag-bold">Issue Legal Entity Official Organizational Role vLEI Credential to:</p>
+            <TextField
+                outlined
+                disabled
+                fluid
+                style={{ margin: '0 10px 0 0' }}
+                value={vnode.attrs.parent.recipient.alias}
+            />
+            <p className="p-tag-bold">Chain to Legal Entity Credental of Holder:</p>
+            <TextField
+                outlined
+                disabled
+                fluid
+                style={{ margin: '0 10px 0 0' }}
+                value={vnode.attrs.parent.chainAlias}
+            />
+            <p className="p-tag-bold">Issue with LEI:</p>
+            <TextField
+                outlined
+                disabled
+                fluid
+                style={{ margin: '0 0 0 0' }}
+                oninput={(e) => {
+
+                }}
+                value={vnode.attrs.parent.lei}
+            />
+            <p className="p-tag-bold">Issue with Person Legal Name:</p>
+            <TextField
+                outlined
+                fluid
+                style={{ margin: '0 0 0 0' }}
+                disabled
+                value={vnode.attrs.parent.personLegalName}
+            />
+            <p className="p-tag-bold">Issue with Official Organizational Role:</p>
+            <TextField
+                outlined
+                fluid
+                style={{ margin: '0 0 0 0' }}
+                disabled
+                value={vnode.attrs.parent.officialRole}
+            />
+            <div class="flex flex-justify-between" style={{ marginTop: '4rem' }}>
+              <Button
+                raised
+                class="button--no-transform button--gray-dk button--big"
+                label="Cancel"
+                onclick={() => {
+                  vnode.attrs.end();
+                }}
+              />
+              <Button
+                class="button--big button--no-transform"
+                disabled={!vnode.attrs.parent.lei || !vnode.attrs.parent.qvi || !vnode.attrs.parent.recipient}
+                raised
+                label="Issue"
+                onclick={() => {
+                  this.issueCredential(vnode);
+                }}
+              />
+            </div>
+          </>
+        )}
+        {(!vnode.attrs.parent.loading && vnode.attrs.parent.currentState === 'review-credential' &&
+            vnode.attrs.parent.schema === Schema.ECRCredentialSchema) && (
+          <>
+            <h3>Issue Legal Engagement Context Role Entity vLEI Credential</h3>
+            <p className="p-tag">
+              Confirm the values for the credential you are about to issue.
+            </p>
+            <p className="p-tag-bold">Issue from Qualified vLEI Issuer vLEI Credential:</p>
+            <TextField
+                outlined
+                disabled
+                fluid
+                style={{margin: '0 5px 0 0'}}
+                value={vnode.attrs.parent.qvi}
+            />
+            <p class="p-tag-bold">Issue Legal Entity Engagement Context Role vLEI Credential to:</p>
+            <TextField
+                outlined
+                disabled
+                fluid
+                style={{ margin: '0 10px 0 0' }}
+                value={vnode.attrs.parent.recipient.alias}
+            />
+            <p className="p-tag-bold">Chain to Legal Entity Credental of Holder:</p>
+            <TextField
+                outlined
+                disabled
+                fluid
+                style={{ margin: '0 10px 0 0' }}
+                value={vnode.attrs.parent.chainAlias}
+            />
+            <p className="p-tag-bold">Issue with LEI:</p>
+            <TextField
+                outlined
+                disabled
+                fluid
+                style={{ margin: '0 0 0 0' }}
+                value={vnode.attrs.parent.lei}
+            />
+            <p className="p-tag-bold">Issue with Person Legal Name:</p>
+            <TextField
+                outlined
+                fluid
+                disabled
+                style={{ margin: '0 0 0 0' }}
+                value={vnode.attrs.parent.personLegalName}
+            />
+            <p className="p-tag-bold">Issue with Engagement Context Role:</p>
+            <TextField
+                outlined
+                fluid
+                style={{ margin: '0 0 0 0' }}
+                disabled
+                value={vnode.attrs.parent.engagementContextRole}
+            />
+            <div class="flex flex-justify-between" style={{ marginTop: '4rem' }}>
+              <Button
+                raised
+                class="button--no-transform button--gray-dk button--big"
+                label="Cancel"
+                onclick={() => {
+                  vnode.attrs.end();
+                }}
+              />
+              <Button
+                class="button--big button--no-transform"
+                disabled={!vnode.attrs.parent.lei || !vnode.attrs.parent.qvi || !vnode.attrs.parent.recipient}
+                raised
+                label="Issue"
+                onclick={() => {
+                  this.issueCredential(vnode);
+                }}
+              />
+            </div>
+          </>
+        )}
+
         {vnode.attrs.parent.currentState === 'credential-issued' && (
           <>
             <img src={approveRequest} style={{ width: '230px', margin: '1.5rem 0 2rem 0' }} />
-            <h3>Credential Issued</h3>
+            <h3>{vnode.attrs.parent.title} Issued</h3>
             <div class="flex flex-justify-between" style={{ alignItems: 'center' }}>
               <p class="p-tag" style={{ fontSize: '20px' }}>
-                Issued 1:23pm on 12/7/21
+                Issued on {moment(vnode.attrs.parent.issuedOn).format('MMM DD h:mm A')}
               </p>
             </div>
             <p class="p-tag">
-              The issuance of Bob Smith's vLEI Credential is complete. The vLEI Credential is now in their credential
-              wallet.
+              The issuance of the vLEI Credential to {vnode.attrs.parent.recipient.alias} is complete.
+              The vLEI Credential is now in their credential wallet.
             </p>
             <div class="flex flex-justify-end" style={{ marginTop: '4rem' }}>
               <Button class="button--big button--no-transform" raised label="Close" onclick={vnode.attrs.end} />
