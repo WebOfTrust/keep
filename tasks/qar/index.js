@@ -50,7 +50,7 @@ const tasks = {
             }),
         new WaitForGLEIFInternal(
             {
-                label: 'Lead QAR Multi-Sig AID Inception',
+                label: 'Join QAR Multi-Sig AID Inception',
                 next: new VideoCallTask({initiate: false, label: 'Join QAR Multi-Sig AID Inception'})
             }),
     ],
