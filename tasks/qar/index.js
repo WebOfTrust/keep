@@ -35,7 +35,11 @@ const tasks = {
         new CreateYourAIDTask({label: 'Incept Local QAR Single-Sig AID', variables: variables.createYourAid}),
     ],
     'create-multisig': [
-        new LeadQARLeadExtOOBI({label: 'Challenge with GLEIF'}),
+        new WaitForGLEIFInternal(
+            {
+                label: 'Challenge with GLEIF',
+                next: new LeadQARLeadExtOOBI({label: 'Challenge with GLEIF'})
+            }),
         new WaitForGLEIFInternal(
             {
                 label: 'Lead QAR Multi-Sig AID Inception',
