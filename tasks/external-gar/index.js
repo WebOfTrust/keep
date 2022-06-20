@@ -20,6 +20,7 @@ import InitiateManualKeyRotationTask from '../generic/initiate-manual-key-rotati
 import VideoCallTask from '../generic/video-call/video-call';
 import ViewMultiSigEventLogsTask from '../generic/view-multi-sig-event-logs/view-multi-sig-event-logs';
 import LeadExtLeadRootOOBI from './lead-ext-lead-root-oobi'
+import LeadExtLeadQAROOBI from "./lead-ext-lead-qar";
 
 // dummy tasks
 import JoinManualKeyRotationTask from '../generic/join-manual-key-rotation/join-manual-key-rotation';
@@ -73,6 +74,7 @@ const tasks = {
   ],
   'join-multisig': [new JoinMultiSigGroupTask({ label: 'Join Multi-Sig Group' })],
   'main': [
+    new LeadExtLeadQAROOBI({label: 'Challenge with QAR'}),
     new InitiateManualKeyRotationTask({ label: 'Initiate Manual Key Rotation' }),
     new JoinManualKeyRotationTask({ label: 'Join Manual Key Rotation' }),
     new VideoCallTask({
