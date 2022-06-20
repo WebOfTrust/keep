@@ -1,6 +1,7 @@
 import m from 'mithril';
-import { KERI, Profile } from '../../../services';
+import { KERI } from '../../../services';
 import { Button, Card } from '../../../components';
+import moment from "moment";
 
 class CredentialDetails {
   constructor() {}
@@ -23,7 +24,25 @@ class CredentialDetails {
     let sad = vnode.attrs.credential['sad'];
     let schema = vnode.attrs.schema.get(sad['s']);
     let attrs = sad['a'];
-    let issuer = vnode.attrs.contacts.get(sad['i']);
+    let issuedTo = {};
+    let issuedOn = {};
+    let issuedBy = {};
+
+    if(vnode.attrs.type === "issued") {
+      if (attrs !== undefined) {
+        issuedTo = vnode.attrs.contacts.get(attrs['i']).alias;
+      }
+      issuedBy = vnode.attrs.identifiers.get(sad['i']).name;
+    } else {
+      if (attrs !== undefined) {
+        issuedTo = vnode.attrs.identifiers.get(attrs['i']).name;
+      }
+      issuedBy = vnode.attrs.contacts.get(sad['i']).alias;
+    }
+
+    if (attrs !== undefined) {
+      issuedOn = attrs['dt'];
+    }
 
     return (
       <>
@@ -32,8 +51,8 @@ class CredentialDetails {
           <Card class="" style={{ margin: '1px', padding: '0' }}>
             <div class="flex flex-justify-between">
               <div class="flex">
-                <div class="font-weight--medium" style={{ marginLeft: '1rem', marginTop: '1.25rem' }}>
-                  {schema['title']}
+                <div style={{ marginLeft: '-0.5rem', marginTop: '1.25rem' }}>
+                   <h3>{schema['title']}</h3>
                 </div>
               </div>
             </div>
@@ -87,21 +106,40 @@ class CredentialDetails {
                 </div>
               )}
 
-              {issuer !== undefined ? (
+              {issuedBy !== undefined && (
                 <div style={{ margin: '2rem 0 2rem 0' }}>
                   <p className="p-tag-bold" style={{ margin: '1rem 0 0 0' }}>
                     Issued By:
                   </p>
-                  <code style="margin: 0 0 0 0;">{issuer.alias}</code>
+                  <code style="margin: 0 0 0 0;">{issuedBy}</code>
                 </div>
-              ) : (
+              )}
+
+              {issuedTo !== undefined && (
+                  <div style={{ margin: '2rem 0 2rem 0' }}>
+                    <p className="p-tag-bold" style={{ margin: '1rem 0 0 0' }}>
+                      Issued To:
+                    </p>
+                    <code style="margin: 0 0 0 0;">{issuedTo}</code>
+                  </div>
+              )}
+
+              {issuedOn !== undefined && (
+                  <div style={{ margin: '2rem 0 2rem 0' }}>
+                    <p className="p-tag-bold" style={{ margin: '1rem 0 0 0' }}>
+                      Issued On:
+                    </p>
+                    <code style="margin: 0 0 0 0;">{moment(issuedOn).format('MMM DD h:mm A')}</code>
+                  </div>
+              )}
+            {/* TODO - FIX FOR XBRL SIGNING (
                 <div style={{ margin: '2rem 0 2rem 0' }}>
                   <p className="p-tag-bold" style={{ margin: '1rem 0 0 0' }}>
                     Data Attestation on Report:
                   </p>
                   <code style="margin: 0 0 0 0;">{attrs['rd']}</code>
                 </div>
-              )}
+              )*/}
             </div>
             <Button
               style={{ margin: '0 1rem 0 0' }}
