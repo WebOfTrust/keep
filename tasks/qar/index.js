@@ -59,13 +59,6 @@ const tasks = {
     'main': [
         new VideoCallTask({
             initiate: true,
-            label: 'Accept Credential',
-            oneToOne: true,
-            acceptCredential: true,
-            next: new AcceptCredentialsTask({label: 'Accept Credential'}),
-        }),
-        new VideoCallTask({
-            initiate: true,
             label: 'Initiate LE Credential Issuance',
             aidToSend: variables.aidToSend,
             steps: variables.initiateLECredentialIssuance.steps,
