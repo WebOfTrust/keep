@@ -11,7 +11,6 @@ class LeadExtLeadQAROobi {
         this._label = config.label;
         this.participants = new Participants();
         this.currentState = 'one-way-oobi-challenge';
-        this.variables = config.variables;
 
         this.sendOOBIPanel = {
             view: (vnode) => {
@@ -62,7 +61,7 @@ class LeadExtLeadQAROOBISend {
     view(vnode) {
         return (
             <>
-                <h3>Accept OOBI from {vnode.attrs.parent.variables.type} GARs</h3>
+                <h3>Accept OOBI from QARs</h3>
                 <EnterOOBIsForm
                     participants={vnode.attrs.parent.participants}
                 />
@@ -130,7 +129,7 @@ class LeadExtLeadQAROOBIRightPanel {
                         <h3>Authentication Stage Completed</h3>
                         <p class="p-tag">
                             Thank you for authenticating all members. You will receive a notification when
-                            the {vnode.attrs.parent.variables.type} GARs have created their Multi-Sig AID and are requesting delegation.
+                            the QARs have created their Multi-Sig AID and are requesting delegation.
                         </p>
                         <div class="flex flex-justify-end" style={{marginTop: '4rem'}}>
                             <Button class="button--big button--no-transform" raised label="Close"

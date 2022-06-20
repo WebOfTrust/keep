@@ -10,13 +10,13 @@ class LeadQARLeadExtOOBI {
     constructor(config) {
         this._label = config.label;
         this.wellknown = undefined;
-        this.rootIdentifier = [];
+        this.extIdentifier = [];
         this.currentState = 'loading';
 
         this.currentState = 'video-call';
         KERI.getContacts().then((contacts) => {
             contacts.forEach((contact) => {
-                if (contact.alias === 'GLEIF Root') {
+                if (contact.alias === 'GLEIF External') {
                     this.wellknown = contact;
                 }
             });
@@ -24,7 +24,7 @@ class LeadQARLeadExtOOBI {
             if (this.wellknown === undefined) {
             } else {
 
-                this.rootParticipant = {
+                this.extParticipant = {
                     oobis: [{
                         alias: this.wellknown.alias,
                         id: this.wellknown.id,
@@ -85,7 +85,7 @@ class LeadQARLeadExtOOBISend {
                 <img src={addNewContacts} style={{width: '200px', margin: '0 0 1rem 0'}} alt=""/>
                 <h3>Send OOBI for your {vnode.attrs.identifiers[0].name} AID</h3>
                 <p class="p-tag" style={{margin: '2rem 0 2rem 0'}}>
-                    Join a call with the Lead Root GAR.
+                    Join a call with the Lead External GAR.
 
                     Copy this OOBI URL for your default AID and paste it into the Video Call.
                 </p>
@@ -98,8 +98,8 @@ class LeadQARLeadExtOOBIRightPanel {
     view(vnode) {
         return (
             <>
-                <EnterChallengesForm identifiers={vnode.attrs.parent.rootIdentifier}
-                                     participants={vnode.attrs.parent.rootParticipant}/>
+                <EnterChallengesForm identifiers={vnode.attrs.parent.extIdentifier}
+                                     participants={vnode.attrs.parent.extParticipant}/>
                 <div class="flex flex-justify-between">
                     <Button
                         class="button--gray-dk button--big button--no-transform"
