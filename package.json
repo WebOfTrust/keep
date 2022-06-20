@@ -15,11 +15,8 @@
     "package:internal-gar": "NODE_ENV=internal-gar parcel build src/index.html --cache-dir ward/.parcel-cache-dev --dist-dir ward/build-ui-internal-gar",
     "package:person": "NODE_ENV=person parcel build src/index.html --public-url ./ --cache-dir ward/.parcel-cache-dev --dist-dir ward/build-ui-person",
     "package:lar": "NODE_ENV=lar parcel build src/index.html --public-url ./ --cache-dir ward/.parcel-cache-dev --dist-dir ward/build-ui-lar",
-
     "package:lead-lar": "NODE_ENV=lead-lar parcel build src/index.html --cache-dir ward/.parcel-cache-dev --dist-dir ward/build-ui-root-gar",
-
     "package:win": "parcel build src/index.html --cache-dir ward/.parcel-cache-dev --dist-dir ward/build-ui-root-gar",
-
     "build:generic": "yarn rm-build; yarn set-tasks:generic; parcel build src/index.html --cache-dir ward/.parcel-cache --dist-dir ward/build-ui-root-gar --public-url ./",
     "start:generic": "parcel src/index.html --cache-dir ward/.parcel-cache-dev --dist-dir ward/build-ui-root-gar",
     "start:lead-root-gar": "NODE_ENV=lead-root-gar parcel src/index.html --port 5520 --cache-dir .webcache/.lead-root-gar-cache-dev --dist-dir .webcache/lead-root-gar-build-dev",
@@ -58,7 +55,7 @@
     "material-components-web": "^13.0.0",
     "minimist": "^1.2.6",
     "mithril": "^2.0.4",
-    "moment": "^2.29.1",
+    "moment": "^2.29.3",
     "node-powershell": "^5.0.1",
     "pattern-matching-js": "^0.2.0",
     "picmo": "^5.0.0-beta.1"

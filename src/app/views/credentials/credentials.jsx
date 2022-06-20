@@ -14,8 +14,17 @@ class Credentials {
     this.schema = {};
     this.credentials = [];
     this.contacts = [];
+    this.identifiers = [];
     this.type = vnode.attrs.type;
     this.activeTab = 'received';
+
+    KERI.listIdentifiers().then((identifiers) => {
+      this.identifiers = new Map(
+          identifiers.map((i) => {
+            return [i.prefix, i];
+          })
+      );
+    });
 
     KERI.listSchema().then((schema) => {
       this.schema = new Map(
@@ -93,6 +102,8 @@ class Credentials {
                       credential={this.activeCredential}
                       schema={this.schema}
                       contacts={this.contacts}
+                      identifiers={this.identifiers}
+                      type={this.activeTab}
                     />
                   ) : (
                     <>
