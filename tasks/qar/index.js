@@ -15,6 +15,7 @@ import JoinMultiSigGroupTask from '../generic/join-multi-sig-group/join-multi-si
 import InitiateManualKeyRotationTask from '../generic/initiate-manual-key-rotation/initiate-manual-key-rotation';
 import VideoCallTask from '../generic/video-call/video-call';
 import ViewMultiSigEventLogsTask from '../generic/view-multi-sig-event-logs/view-multi-sig-event-logs';
+import LeadQARLeadExtOOBI from "./lead-qar-lead-ext-oobi";
 
 //dummy tasks
 import JoinManualKeyRotationTask from '../generic/join-manual-key-rotation/join-manual-key-rotation';
@@ -34,6 +35,7 @@ const tasks = {
         new CreateYourAIDTask({label: 'Incept Local QAR Single-Sig AID', variables: variables.createYourAid}),
     ],
     'create-multisig': [
+        new LeadQARLeadExtOOBI({label: 'Challenge with GLEIF'}),
         new WaitForGLEIFInternal(
             {
                 label: 'Lead QAR Multi-Sig AID Inception',
