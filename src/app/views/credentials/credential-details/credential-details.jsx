@@ -1,6 +1,7 @@
 import m from 'mithril';
-import { KERI, Profile } from '../../../services';
+import { KERI } from '../../../services';
 import { Button, Card } from '../../../components';
+import moment from "moment";
 
 class CredentialDetails {
   constructor() {}
@@ -21,9 +22,18 @@ class CredentialDetails {
   view(vnode) {
     let credential = vnode.attrs.credential;
     let sad = vnode.attrs.credential['sad'];
+    //let sad = `{"v": "ACDC10JSON00019e_", "d": "EP7dDSPrhUmimxkdOviGcLkBZAAMAUEluFaRIZbY-J9k", "i": "EK6D48txum2hcpGMG3yEAfyeg8r1_ftgsoayUfw_XFwU", "ri": "ECqDtMFz80lvKF-1tVuT1W9CH5apjfzZcj9PehgJdZcs", "s": "EWCeT9zTxaZkaC_3-amV2JtG6oUxNA36sCC0P5MI7Buw", "a": {"d": "EixCYiVGPZrxyeNCYlmMYylSEQ_Q4670gUoroL3a9-0c", "dt": "2022-06-20T17:45:59.603338+00:00", "i": "EQmseDjLOz0SzyQ0alinF9wIRpwFwiMYIHQexAghRAAQ", "LEI": "6383001AJTYIGC8Y1X37"}, "e": {}}`
     let schema = vnode.attrs.schema.get(sad['s']);
     let attrs = sad['a'];
-    let issuer = vnode.attrs.contacts.get(sad['i']);
+
+    let issuedBy = vnode.attrs.contacts.get(sad['i']);
+    let issuedTo;
+    let issuedOn;
+
+    if (attrs !== undefined) {
+      issuedTo = vnode.attrs.contacts.get(attrs['i']);
+       issuedOn = attrs['dt'];
+    }
 
     return (
       <>
@@ -87,21 +97,40 @@ class CredentialDetails {
                 </div>
               )}
 
-              {issuer !== undefined ? (
+              {issuedBy !== undefined (
                 <div style={{ margin: '2rem 0 2rem 0' }}>
                   <p className="p-tag-bold" style={{ margin: '1rem 0 0 0' }}>
                     Issued By:
                   </p>
-                  <code style="margin: 0 0 0 0;">{issuer.alias}</code>
+                  <code style="margin: 0 0 0 0;">{issuedBy.alias}</code>
                 </div>
-              ) : (
+              )}
+
+              {issuedTo !== undefined (
+                  <div style={{ margin: '2rem 0 2rem 0' }}>
+                    <p className="p-tag-bold" style={{ margin: '1rem 0 0 0' }}>
+                      Issued To:
+                    </p>
+                    <code style="margin: 0 0 0 0;">{issuedTo.alias}</code>
+                  </div>
+              )}
+
+              {issuedOn !== undefined (
+                  <div style={{ margin: '2rem 0 2rem 0' }}>
+                    <p className="p-tag-bold" style={{ margin: '1rem 0 0 0' }}>
+                      Issued On:
+                    </p>
+                    <code style="margin: 0 0 0 0;">{moment(issuedOn).format('MMM DD h:mm A')}</code>
+                  </div>
+              )}
+            {/* TODO - FIX FOR XBRL SIGNING (
                 <div style={{ margin: '2rem 0 2rem 0' }}>
                   <p className="p-tag-bold" style={{ margin: '1rem 0 0 0' }}>
                     Data Attestation on Report:
                   </p>
                   <code style="margin: 0 0 0 0;">{attrs['rd']}</code>
                 </div>
-              )}
+              )*/}
             </div>
             <Button
               style={{ margin: '0 1rem 0 0' }}
