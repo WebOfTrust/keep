@@ -52,7 +52,9 @@ class LeadQARLeadExtOOBI {
             view: (vnode) => {
                 return <LeadQARLeadExtOOBIRightPanel
                     parent={this}
-                    end={vnode.attrs.end}
+                    end={() => {
+                        Tasks.active = null;
+                    }}
                 />;
             },
         };
@@ -113,13 +115,7 @@ class LeadQARLeadExtOOBIRightPanel {
                         class="button--big button--no-transform"
                         raised
                         label="Finish"
-                        onclick={() => {
-                            if (vnode.attrs.parent.next !== undefined) {
-                                Tasks.active = vnode.attrs.parent.next;
-                            } else {
-                                vnode.attrs.parent.currentState = 'finished';
-                            }
-                        }}
+                        onclick={vnode.attrs.end}
                     />
                 </div>
             </>
