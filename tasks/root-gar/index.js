@@ -1,3 +1,4 @@
+import m from 'mithril';
 //Variables
 import variables from './variables';
 

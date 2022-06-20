@@ -10,28 +10,20 @@
   "license": "Apache-2.0",
   "scripts": {
     "package:root-gar": "NODE_ENV=root-gar parcel build src/index.html --public-url ./ --cache-dir ward/.parcel-cache-dev --dist-dir ward/build-ui-root-gar",
-    "package:lead-root-gar": "NODE_ENV=lead-root-gar parcel build src/index.html --public-url ./ --cache-dir ward/.parcel-cache-dev --dist-dir ward/build-ui-lead-root-gar",
+    "package:qar": "NODE_ENV=qar parcel build src/index.html --public-url ./ --cache-dir ward/.parcel-cache-dev --dist-dir ward/build-ui-qar",
+    "package:external-gar": "NODE_ENV=external-gar parcel build src/index.html --public-url ./ --cache-dir ward/.parcel-cache-dev --dist-dir ward/build-ui-external-gar",
+    "package:internal-gar": "NODE_ENV=internal-gar parcel build src/index.html --cache-dir ward/.parcel-cache-dev --dist-dir ward/build-ui-internal-gar",
+    "package:person": "NODE_ENV=person parcel build src/index.html --public-url ./ --cache-dir ward/.parcel-cache-dev --dist-dir ward/build-ui-person",
+    "package:lar": "NODE_ENV=lar parcel build src/index.html --public-url ./ --cache-dir ward/.parcel-cache-dev --dist-dir ward/build-ui-lar",
 
-    "package:external-gar": "NODE_ENV=external-gar parcel build src/index.html --cache-dir ward/.parcel-cache-dev --dist-dir ward/build-ui-root-gar",
-    "package:lead-external-gar": "NODE_ENV=lead-external-gar parcel build src/index.html --cache-dir ward/.parcel-cache-dev --dist-dir ward/build-ui-root-gar",
-
-    "package:internal-gar": "NODE_ENV=internal-gar parcel build src/index.html --cache-dir ward/.parcel-cache-dev --dist-dir ward/build-ui-root-gar",
-    "package:lead-internal-gar": "NODE_ENV=lead-internal-gar parcel build src/index.html --cache-dir ward/.parcel-cache-dev --dist-dir ward/build-ui-root-gar",
-
-    "package:qar": "NODE_ENV=qar parcel build src/index.html --cache-dir ward/.parcel-cache-dev --dist-dir ward/build-ui-root-gar",
-    "package:lead-qar": "NODE_ENV=lead-qar parcel build src/index.html --cache-dir ward/.parcel-cache-dev --dist-dir ward/build-ui-root-gar",
-
-    "package:lar": "NODE_ENV=lar parcel build src/index.html --cache-dir ward/.parcel-cache-dev --dist-dir ward/build-ui-root-gar",
     "package:lead-lar": "NODE_ENV=lead-lar parcel build src/index.html --cache-dir ward/.parcel-cache-dev --dist-dir ward/build-ui-root-gar",
-
-    "package:person": "NODE_ENV=person parcel build src/index.html --cache-dir ward/.parcel-cache-dev --dist-dir ward/build-ui-root-gar",
 
     "package:win": "parcel build src/index.html --cache-dir ward/.parcel-cache-dev --dist-dir ward/build-ui-root-gar",
 
     "build:generic": "yarn rm-build; yarn set-tasks:generic; parcel build src/index.html --cache-dir ward/.parcel-cache --dist-dir ward/build-ui-root-gar --public-url ./",
     "start:generic": "parcel src/index.html --cache-dir ward/.parcel-cache-dev --dist-dir ward/build-ui-root-gar",
     "start:lead-root-gar": "NODE_ENV=lead-root-gar parcel src/index.html --port 5520 --cache-dir .webcache/.lead-root-gar-cache-dev --dist-dir .webcache/lead-root-gar-build-dev",
-    "start:root-gar": "NODE_ENV=root-gar parcel src/index.html --port 5521 --cache-dir .webcache/.root-gar-cache-dev --dist-dir .webcache/root-gar-build-dev",
+    "start:root-gar": "NODE_ENV=root-gar-local parcel src/index.html --port 5521 --cache-dir .webcache/.root-gar-cache-dev --dist-dir .webcache/root-gar-build-dev",
     "start:lead-external-gar": "NODE_ENV=lead-external-gar parcel src/index.html --port 5522 --cache-dir .webcache/.lead-external-gar-cache-dev --dist-dir .webcache/lead-external-gar-build-dev",
     "start:external-gar": "NODE_ENV=external-gar parcel src/index.html --port 5523 --cache-dir .webcache/.external-gar-cache-dev --dist-dir .webcache/external-gar-build-dev",
     "start:lead-internal-gar": "NODE_ENV=lead-internal-gar parcel src/index.html --port 5524 --cache-dir .webcache/.lead-internal-gar-cache-dev --dist-dir .webcache/lead-internal-gar-build-dev",
