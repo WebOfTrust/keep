@@ -30,6 +30,30 @@ const QarVariables = {
         },
         oobiRecipient: "Legal Entity Multi-Sig AID"
     },
+    joinOORCredentialIssuance: {
+        steps: {
+            list: [
+                "Join a Video Call",
+                "Use an OOBI protocol to obtain the Person's AID.",
+                "Obtain the Challenge Message from the Lead.",
+                "Person signs and returns Challenge Message.",
+                "Approve the Official Organizational Role Credential proposed by the Lead."
+            ]
+        },
+        oobiRecipient: "Person AID"
+    },
+    joinECRCredentialIssuance: {
+        steps: {
+            list: [
+                "Join a Video Call",
+                "Use an OOBI protocol to obtain the Person's AID.",
+                "Obtain the Challenge Message from the Lead.",
+                "Person signs and returns Challenge Message.",
+                "Approve the Engagement Context Role Credential proposed by the Lead."
+            ]
+        },
+        oobiRecipient: "Person AID"
+    },
     createYourAid: {
         welcome: {
             title: (

@@ -215,7 +215,7 @@ class JoinVideoCall {
               <Button
                 class="button--big button--no-transform"
                 raised
-                label="Generate"
+                label="Continue"
                 onclick={() => {
                   vnode.attrs.parent.currentState = 'challenge-messages';
                 }}
@@ -243,23 +243,18 @@ class JoinVideoCall {
                   !(vnode.attrs.parent.participants.oobisVerified() && vnode.attrs.parent.participants.oobisConfirmed())
                 }
                 onclick={() => {
-                  if (vnode.attrs.parent.next !== undefined) {
-                    Tasks.active = vnode.attrs.parent.next;
-                  } else {
-                    vnode.attrs.parent.currentState = 'waiting-for-multisig';
-                  }
+                  vnode.attrs.parent.currentState = 'waiting-for-completion';
                 }}
               />
             </div>
           </>
         )}
-        {vnode.attrs.parent.currentState === 'waiting-for-multisig' && (
+        {vnode.attrs.parent.currentState === 'waiting-for-completion' && (
           <>
             <img src={uploadFile} style={{ width: '240px', margin: '1.5rem 0 2rem 0' }} />
-            <h3>Waiting for Multi-Sig Group Inception</h3>
+            <h3>Waiting for Credential Issuance Request</h3>
             <p class="p-tag" style={{ margin: '2rem 0 2rem 0' }}>
-              You will be notified when the Lead initiates the creation of the Multi-Sig Group. Clicking on the
-              notification will allow you to participate in the inception event.
+              You will be notified when the Lead initiates the credential issuance request.
             </p>
             <div class="flex flex-justify-between">
               <Button
@@ -274,25 +269,6 @@ class JoinVideoCall {
             </div>
           </>
         )}
-      </>
-    );
-  }
-}
-
-class SendOOBIPanel {
-  constructor() {}
-
-  view(vnode) {
-    return (
-      <>
-        <img src={addNewContacts} style={{ width: '200px', margin: '0 0 1rem 0' }} alt="" />
-        <h3>Send OOBI for your {} AID</h3>
-        <p class="p-tag" style={{ margin: '2rem 0 2rem 0' }}>
-          Copy this OOBI URL for your default AID and paste it into the Video Call to share your identifying
-          information. To use another AID for this transaction, go to your profile and set another default AID before
-          continuing.
-        </p>
-        <SendOOBIForm aidToSend={vnode.attrs.parent.aidToSend} />
       </>
     );
   }

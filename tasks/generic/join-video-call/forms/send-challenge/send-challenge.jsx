@@ -39,19 +39,11 @@ class SendChallengeForm {
           value={this.challengeMessage}
           oninput={(e) => {
               this.challengeMessage = e.target.value;
+              vnode.attrs.participants.updateWords(this.challengeMessage.split(' '));
           }}
         />
         <div class="flex flex-align-center flex-justify-between" style={{ margin: '1rem 0' }}>
-          <Button
-            raised
-            class="button--no-transform button--gray"
-            label="Copy"
-            iconLeading="content_copy"
-            onclick={(e) => {
-              this.copyMessage(vnode);
-            }}
-          />
-          <p class="font-color--green font-weight--medium">{this.copied ? 'Challenge message copied!' : <br />}</p>
+
         </div>
       </>
     );
