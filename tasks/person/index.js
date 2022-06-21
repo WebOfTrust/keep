@@ -15,7 +15,7 @@ const tasks = {
         new EnterPasscodeTask({label: 'Enter Your Passcode'}),
     ],
     'create-identifier': [
-        new IntroToYourRoleTask({label: 'Intro to Your Role'}),
+        new IntroToYourRoleTask({label: 'Intro to Your Role', variables: variables.introToYourRole}),
         new CreateYourAIDTask({label: 'Create Your AID', variables: variables.createYourAid}),
     ],
     'main': [

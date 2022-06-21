@@ -9,7 +9,7 @@ const PersonVariables = {
         welcome: {
             title: (
                 <>
-                    Welcome to your <TextTooltip label={<u>Holder</u>}>Individual Credential Holder</TextTooltip> Software
+                    Welcome to your <TextTooltip label={<u>Person</u>}>Individual Credential Holder</TextTooltip> Software
                 </>
             ),
             paragraph: (
@@ -54,14 +54,11 @@ const PersonVariables = {
     },
     introToYourRole: {
         main: {
-            title: 'Intro to the QAR Role',
+            title: 'Intro to the Person Role',
             paragraph: (
                 <>
-                    You have now created your identifier! Before you start the a real time OOBI session with the GLEIF
-                    Authorized
-                    Representative (GAR) and obtain your credentials, here is a brief introduction to some of the tasks
-                    you will
-                    be able to complete in your role.
+                    The person role is anyone in the vLEI ecosystem who might receive a vLEI Organization Official Role (OOR)
+                    or vLEI Engagement Context Role (ECR) credential.
                 </>
             ),
         },
@@ -71,22 +68,18 @@ const PersonVariables = {
                 image: addNewContacts,
                 paragraph: (
                     <>
-                        Once you are authorized to act on behalf of the QVI, you complete identity authentication with a
-                        GAR. A GAR
-                        and the QAR will complete a real-time OOBI session in which the GAR and the QAR are present to
-                        accomplish
-                        this.
+                        When being issued a credential in the vLEI Ecosystem a QVI Authorized Representative will complete
+                        Identity Assurance with you via a video call to verify with whom they are issuing a credential.
                     </>
                 ),
             },
             {
-                title: 'Grant Credentials',
+                title: 'Accept Credentials',
                 image: verifyCredentials,
                 paragraph: (
                     <>
-                        The GAR approves the issuance of the QVI vLEI Credential and the QVI receives the credential in
-                        its
-                        credential wallet. The QVI vLEI Credential may be added or revoked at any time.
+                        You will be notified when your ECR or OOR credentials have been issued, and you can view them
+                        in the "My Credentials" section.
                     </>
                 ),
             },
