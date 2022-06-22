@@ -80,14 +80,9 @@ const createWindow = () => {
         });
     }
 
-    let corsOptions = {
-        origin: "http://127.0.0.1:5621",
-        optionsSuccessStatus: 200
-    }
-
-    keep = express().use("/keep", cors(corsOptions), function (_, res) {
-        res.json(fs.existsSync(`./ward/keri/ks/keep-root-gar-5621`));
-    }).listen(6621);
+    keep = express().use("/keep", cors(), function (_, res) {
+        res.json(fs.existsSync(`./ward${path.sep}keri${path.sep}ks${path.sep}keep-${config["USER_TYPE"]}-${config["API_PORT"]}`));
+    }).listen(~~config["KEEP_PORT"]);
 
     const host = "http://127.0.0.1:5621"
     retry((retry) => {
