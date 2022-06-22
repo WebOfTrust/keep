@@ -45,19 +45,15 @@ a {
 }
 
 .noti-badge {
-  position: absolute;
-  width: 14px;
-  height: 14px;
-  top: 9px;
-  right: 40px;
-  // padding: 5px 10px;
-  border-radius: 50%;
   background: #d7e5ff;
-  // color: white;
+  border-radius: 16px;
+  padding: 2px 4px;
+  position: absolute;
+  right: 16px;
   p {
-    font-size: 75%;
+    font-size: 12px;
     color: #737b7d;
     font-weight: bold;
-    margin: 1px 0 0px 3px;
+    margin: 0;
   }
 }
