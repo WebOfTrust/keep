@@ -11,7 +11,7 @@ class Footer {
           <img src={keepLogo} />
           <p style={{ color: '#3c64b1', fontWeight: '600', margin: '6px 0 0 10px' }}>
             {' '}
-            The Keep for {Auth.title()}, v0.1.0. Built on 05/16/2022
+            The Keep for {Auth.title()}, v0.1.1. Built on 06/21/2022
           </p>
         </Container>
       </div>
