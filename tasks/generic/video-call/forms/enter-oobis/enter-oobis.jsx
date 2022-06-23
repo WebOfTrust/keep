@@ -99,30 +99,27 @@ class EnterOOBIsForm {
                   {oobi.status === 'started' && <p className="font-color--blue font-weight--medium">In Progress</p>}
                   {oobi.status === 'resolved' && <p className="font-color--green font-weight--medium">Complete!</p>}
                 </div>
-                <div class="flex flex-align-center flex-justify-between">
-                  <h5 style={{ minWidth: '100px' }}>Alias:</h5>
-                  <TextField
-                    outlined
-                    fluid
-                    style={{ backgroundColor: 'rgba(0, 0, 0, 0.04)', height: '44px' }}
-                    value={oobi.alias}
-                    oninput={(e) => {
-                      oobi.alias = e.target.value;
-                    }}
-                  />
-                </div>
-                <div class="flex flex-align-center flex-justify-between">
-                  <h5 style={{ minWidth: '100px' }}>URL:</h5>
-                  <TextField
-                    outlined
-                    fluid
-                    style={{ backgroundColor: 'rgba(0, 0, 0, 0.04)', height: '44px' }}
-                    value={oobi.url}
-                    oninput={(e) => {
-                      oobi.url = e.target.value;
-                    }}
-                  />
-                </div>
+                <h5 style={{ margin: '1rem 0 .5rem' }}>Alias:</h5>
+                <TextField
+                  outlined
+                  fluid
+                  style={{ backgroundColor: 'rgba(0, 0, 0, 0.04)', height: '44px' }}
+                  value={oobi.alias}
+                  oninput={(e) => {
+                    oobi.alias = e.target.value;
+                  }}
+                />
+                <h5 style={{ margin: '1rem 0 .5rem' }}>OOBI URL:</h5>
+                <TextField
+                  textarea
+                  outlined
+                  fluid
+                  style={{ backgroundColor: 'rgba(0, 0, 0, 0.04)' }}
+                  value={oobi.url}
+                  oninput={(e) => {
+                    oobi.url = e.target.value;
+                  }}
+                />
               </Card>
             );
           })}

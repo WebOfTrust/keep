@@ -1,5 +1,5 @@
 import m from 'mithril';
-import { TextField } from '../../../../../src/app/components';
+import { Button, TextField } from '../../../../../src/app/components';
 import { KERI, Profile } from '../../../../../src/app/services';
 
 /*
@@ -47,20 +47,26 @@ class SendOOBIForm {
   view(vnode) {
     return (
       <>
-        <h3>URL:</h3>
+        <h3>OOBI URL:</h3>
         <TextField
+          textarea
           outlined
           fluid
-          style={{ margin: '0 0 2rem 0', backgroundColor: 'rgba(0, 0, 0, 0.04)' }}
+          style={{ backgroundColor: 'rgba(0, 0, 0, 0.04)', margin: '0' }}
           value={this.oobi.url}
-          iconTrailing={{
-            icon: 'content_copy',
-            onclick: (e) => {
-              this.copyURL();
-            },
-          }}
         />
-        <p className="font-color--green font-weight--medium">{this.copied ? 'OOBI copied!' : <br />}</p>
+        <div class="flex flex-align-center flex-justify-between" style={{ margin: '1rem 0' }}>
+          <Button
+            raised
+            class="button--no-transform button--gray"
+            label="Copy"
+            iconLeading="content_copy"
+            onclick={(e) => {
+              this.copyURL();
+            }}
+          />
+          <p class="font-color--green font-weight--medium">{this.copied ? 'OOBI copied!' : <br />}</p>
+        </div>
       </>
     );
   }
