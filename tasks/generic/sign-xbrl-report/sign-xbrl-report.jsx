@@ -4,6 +4,8 @@ import createIdentifier from '../../../src/assets/img/create-identifier.svg';
 import passcodeImg from "../../../src/assets/img/passcode.svg";
 import verifyCredential from "../../../src/assets/img/verify-credentials.svg";
 import KERI from "../../../src/app/services/keri";
+import Profile from "../../../src/app/services/profile";
+import Registry from "../../../src/app/services/registry";
 
 const ViRASchema = "Ehwr6tZh6XakKBKWQW07otQ9uCwg0g7CF-dPz9qb_fwQ";
 const OORSchema = "E2RzmSCFmG2a5U2OqZF-yUobeSYkW-a3FsN82eZXMxY0"
@@ -56,6 +58,9 @@ class SignXBRLReport {
         this.reader.addEventListener('loadend', () => {
             this.facts = JSON.parse(this.reader.result);
         });
+        let aid = Profile.getDefaultSingleAID();
+        Registry.ensureRegistry(aid.name, RegistryName, aid.prefix);
+
         KERI.listSchema()
             .then((schema) => {
                 this.schema = new Map(schema.map(s => {
