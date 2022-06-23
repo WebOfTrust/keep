@@ -18,7 +18,7 @@ class EnterChallengesForm {
   }
 
   signChallengePromise(signer) {
-    return KERI.signChallengeMessage(this.alias, signer.id, signer.challengeMessage.split(' '));
+    return KERI.signChallengeMessage(this.alias, signer.id, signer.challengeMessage.trim().split(' '));
   }
 
   view(vnode) {

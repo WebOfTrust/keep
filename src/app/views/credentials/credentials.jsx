@@ -63,7 +63,7 @@ class Credentials {
       <>
         <div class="credentials">
           <NavRail />
-          <Container class="headspace" style={{ padding: '0 4rem' }}>
+          <Container class="headspace" style={{ padding: '0 rem' }}>
             <div class="flex flex-justify-between">
               <div class="flex-1" style={{ marginRight: '4rem' }}>
                 <Card class="card--fluid" padding="1.5rem">
@@ -89,7 +89,13 @@ class Credentials {
                     let sad = credential['sad'];
                     let schema = this.schema.get(sad['s']);
                     return (
-                      <CredentialList credential={credential} schema={schema} setCredential={this.setCredential} />
+                      <CredentialList
+                          credential={credential}
+                          schema={schema}
+                          contacts={this.contacts}
+                          identifiers={this.identifiers}
+                          setCredential={this.setCredential}
+                          type={this.activeTab} />
                     );
                   })}
                 </Card>
