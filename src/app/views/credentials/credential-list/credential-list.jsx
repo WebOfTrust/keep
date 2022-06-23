@@ -3,8 +3,6 @@ import m from 'mithril';
 class CredentialList {
   // handleClick = () => {};
   view(vnode) {
-      console.log(vnode.attrs);
-      console.log(vnode.attrs.type);
     return (
       <>
         <div
