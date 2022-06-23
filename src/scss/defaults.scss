@@ -57,3 +57,11 @@ a {
     margin: 0;
   }
 }
+
+.row {
+  background-color: #ffffff;
+}
+
+.row:nth-child(odd) {
+  background-color: #eeeeee;
+}
