@@ -2,7 +2,29 @@ import m from 'mithril';
 
 class CredentialList {
   // handleClick = () => {};
+
+    getIdentifierName(identifiers, aid) {
+        try {
+            return identifiers.get(aid).name
+        }catch (e) {
+            return "";
+        }
+    }
+
+    getContactAlias(contacts, aid) {
+        try {
+            return contacts.get(aid).alias
+        }catch (e) {
+            return "";
+        }
+    }
+
+    isSelfIssued(attrs, identifiers, aid) {
+        return attrs !== undefined && attrs["i"] === undefined && identifiers.has(aid);
+    }
+
   view(vnode) {
+      console.log(vnode.attrs.credential);
     return (
       <>
         <div
@@ -21,22 +43,42 @@ class CredentialList {
             <div class="flex flex-column">
               <div style={{ margin: '0 0 0 1rem', fontSize: '90%' }} >
                   <div style={{ fontWeight: 'bold', color:'#6C7476', paddingBottom: '0.5rem' }}>{vnode.attrs.schema['title']}</div>
-                  {vnode.attrs.type === 'issued' && (
+                  {vnode.attrs.type === 'issued'
+                      && this.isSelfIssued(vnode.attrs, vnode.attrs.identifiers, vnode.attrs.credential['sad']['i'])
+                      && (
+                          <>
+                              <div style={{ paddingLeft: '0.5rem'}}>Issued by you</div>
+                          </>
+                      )}
+                  {vnode.attrs.type === 'issued'
+                      && !this.isSelfIssued(vnode.attrs, vnode.attrs.identifiers, vnode.attrs.credential['sad']['i'])
+                      && (
                       <>
-                          <div style={{ paddingLeft: '0.5rem'}}>Issued from: {vnode.attrs.identifiers.get(vnode.attrs.credential['sad']['i']).name}</div>
+                          <div style={{ paddingLeft: '0.5rem'}}>Issued from: {
+                              this.getIdentifierName(vnode.attrs.identifiers, vnode.attrs.credential['sad']['i'])
+                          }</div>
                       </>
                   )}
-                  {vnode.attrs.type === 'issued' && vnode.attrs.credential['sad']['a'] !== undefined && (
+                  {vnode.attrs.type === 'issued'
+                      && !this.isSelfIssued(vnode.attrs, vnode.attrs.identifiers, vnode.attrs.credential['sad']['i'])
+                      && vnode.attrs.credential['sad']['a'] !== undefined
+                      && (
                       <>
-                          <div style={{ paddingLeft: '0.5rem'}}>Issued to: {vnode.attrs.contacts.get(vnode.attrs.credential['sad']['a']['i']).alias}</div>
+                          <div style={{ paddingLeft: '0.5rem'}}>Issued to: {
+                              this.getContactAlias(vnode.attrs.contacts, vnode.attrs.credential['sad']['a']['i'])
+                          }</div>
                       </>
                   )}
                   {vnode.attrs.type === 'received' && (
-                      <div style={{ paddingLeft: '0.5rem'}}>Issued to: {vnode.attrs.identifiers.get(vnode.attrs.credential['sad']['a']['i']).name}</div>
+                      <div style={{ paddingLeft: '0.5rem'}}>Issued to: {
+                          this.getIdentifierName(vnode.attrs.identifiers, vnode.attrs.credential['sad']['a']['i'])
+                      }</div>
                   )}
                   {vnode.attrs.type === 'received' && vnode.attrs.credential['sad']['a'] !== undefined && (
                       <>
-                          <div style={{ paddingLeft: '0.5rem'}}>Issued from: {vnode.attrs.contacts.get(vnode.attrs.credential['sad']['i']).alias}</div>
+                          <div style={{ paddingLeft: '0.5rem'}}>Issued from: {
+                              this.getContactAlias(vnode.attrs.contacts, vnode.attrs.credential['sad']['i'])
+                          }</div>
                       </>
                   )}
                   {vnode.attrs.schema['title'] === 'Qualified vLEI Issuer Credential' && (

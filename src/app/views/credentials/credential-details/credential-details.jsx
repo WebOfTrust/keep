@@ -19,29 +19,37 @@ class CredentialDetails {
     });
   }
 
+  isSelfIssued(attrs, identifiers, aid) {
+    return attrs !== undefined && attrs["i"] === undefined && identifiers.has(aid);
+  }
+
   view(vnode) {
     let credential = vnode.attrs.credential;
     let sad = vnode.attrs.credential['sad'];
     let schema = vnode.attrs.schema.get(sad['s']);
     let attrs = sad['a'];
+
     let issuedTo = {};
     let issuedOn = {};
     let issuedBy = {};
 
-    if(vnode.attrs.type === "issued") {
-      if (attrs !== undefined) {
-        issuedTo = vnode.attrs.contacts.get(attrs['i']).alias;
-      }
-      issuedBy = vnode.attrs.identifiers.get(sad['i']).name;
-    } else {
-      if (attrs !== undefined) {
-        issuedTo = vnode.attrs.identifiers.get(attrs['i']).name;
-      }
-      issuedBy = vnode.attrs.contacts.get(sad['i']).alias;
-    }
-
-    if (attrs !== undefined) {
+    // any form of self issued
+    if (this.isSelfIssued(vnode.attrs, vnode.attrs.identifiers, sad['i'])) {
       issuedOn = attrs['dt'];
+      issuedBy = "";
+      issuedTo = "";
+
+    } else {
+      if(vnode.attrs.type === "issued") {
+        if (attrs !== undefined) {
+          issuedTo = vnode.attrs.contacts.get(attrs['i']).alias;
+        }
+      } else {
+        if (attrs !== undefined) {
+          issuedTo = vnode.attrs.identifiers.get(attrs['i']).name;
+        }
+        issuedBy = vnode.attrs.contacts.get(sad['i']).alias;
+      }
     }
 
     return (
@@ -66,6 +74,7 @@ class CredentialDetails {
                   <code style="margin: 0 0 0 0;">{sad['d']}</code>
                 </div>
               </div>
+
               {'personLegalName' in attrs && (
                 <div>
                   <div style={{ margin: '0 0 2rem 0' }}>
@@ -76,6 +85,7 @@ class CredentialDetails {
                   </div>
                 </div>
               )}
+
               {'officialRole' in attrs && (
                 <div>
                   <div style={{ margin: '0 0 2rem 0' }}>
@@ -86,6 +96,7 @@ class CredentialDetails {
                   </div>
                 </div>
               )}
+
               {'engagementContextRole' in attrs && (
                 <div>
                   <div style={{ margin: '0 0 2rem 0' }}>
@@ -106,7 +117,7 @@ class CredentialDetails {
                 </div>
               )}
 
-              {issuedBy !== undefined && (
+              {issuedBy !== {} && issuedBy !== '' && (
                 <div style={{ margin: '2rem 0 2rem 0' }}>
                   <p className="p-tag-bold" style={{ margin: '1rem 0 0 0' }}>
                     Issued By:
@@ -115,7 +126,17 @@ class CredentialDetails {
                 </div>
               )}
 
-              {issuedTo !== undefined && (
+
+              {this.isSelfIssued(vnode.attrs, vnode.attrs.identifiers, sad['i'])   && (
+                  <div style={{ margin: '2rem 0 2rem 0' }}>
+                    <p className="p-tag-bold" style={{ margin: '1rem 0 0 0' }}>
+                      Issued By:
+                    </p>
+                    <code style="margin: 0 0 0 0;">You ({sad['i']})</code>
+                  </div>
+              )}
+
+              {issuedTo !== undefined && issuedTo !== '' && (
                   <div style={{ margin: '2rem 0 2rem 0' }}>
                     <p className="p-tag-bold" style={{ margin: '1rem 0 0 0' }}>
                       Issued To:
