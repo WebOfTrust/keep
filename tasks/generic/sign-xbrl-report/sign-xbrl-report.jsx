@@ -293,7 +293,13 @@ class SignXBRLReport {
                                                 Sign Full XBRL Report:
                                             </p>
                                         )}
-                                        <code style="margin: 0 0 0 0;">{this.reportTitle}</code>
+                                        <TextField
+                                            outlined
+                                            fluid
+                                            disabled
+                                            style={{ margin: '0 0 0 0' }}
+                                            value={this.reportTitle}
+                                        />
                                     </div>
                                 </div>
                                 <div style={{margin: '0 0 2rem 0'}}>
