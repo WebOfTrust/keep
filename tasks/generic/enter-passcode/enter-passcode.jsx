@@ -39,7 +39,9 @@ class EnterPasscode {
     this.submitting = true;
     Auth.login(this.passcode)
       .then(() => {
-        vnode.attrs.end();
+          setTimeout(() => {
+              vnode.attrs.end();
+          }, 3000)
       })
       .catch(() => {
         this.error = 'Unlock failed';
