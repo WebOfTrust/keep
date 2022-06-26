@@ -284,7 +284,7 @@ class SignXBRLReport {
                                 <div>
                                     <div style={{margin: '0 0 2rem 0'}}>
                                         <p className="p-tag-bold" style={{margin: '1rem 0 0 0'}}>
-                      0                      Sign Data from XBRL Report:
+                                             Sign {this.facts['f'].length} Facts from XBRL Report:
                                         </p>
                                         <code style="margin: 0 0 0 0;">{this.reportTitle}</code>
                                     </div>
