@@ -44,6 +44,7 @@ class Credentials {
   }
 
   listCredentials(type) {
+    this.activeCredential = null;
     KERI.listCredentials(Profile.getDefaultAID().name, type)
       .then((credentials) => {
         this.credentials = credentials;
