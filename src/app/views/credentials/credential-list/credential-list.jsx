@@ -24,7 +24,6 @@ class CredentialList {
     }
 
   view(vnode) {
-      console.log(vnode.attrs.credential);
     return (
       <>
         <div
