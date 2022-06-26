@@ -51,11 +51,11 @@ class Auth {
     return new Promise((resolve, reject) => {
       KERI.unlockAgent(Keep.getName(), passcode)
         .then((response) => {
-          this.setAgent(response.name);
-          this.isLoggedIn = true;
           setTimeout(() => {
+            this.setAgent(response.name);
+            this.isLoggedIn = true;
             Mail.initEventSource();
-          }, 1000);
+          }, 3000);
           resolve(response);
         })
         .catch((err) => {
