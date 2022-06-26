@@ -283,9 +283,16 @@ class SignXBRLReport {
                             <div>
                                 <div>
                                     <div style={{margin: '0 0 2rem 0'}}>
-                                        <p className="p-tag-bold" style={{margin: '1rem 0 0 0'}}>
-                                             Sign {this.facts['f'].length} Facts from XBRL Report:
-                                        </p>
+                                        { this.facts['f'].length > 0 && (
+                                            <p className="p-tag-bold" style={{margin: '1rem 0 0 0'}}>
+                                                Sign {this.facts['f'].length} Facts from XBRL Report:
+                                            </p>
+                                        )}
+                                        { this.facts['f'].length === 0 && (
+                                            <p className="p-tag-bold" style={{margin: '1rem 0 0 0'}}>
+                                                Sign Full XBRL Report:
+                                            </p>
+                                        )}
                                         <code style="margin: 0 0 0 0;">{this.reportTitle}</code>
                                     </div>
                                 </div>
