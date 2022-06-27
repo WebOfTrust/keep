@@ -6,8 +6,9 @@ import moment from "moment";
 class CredentialDetails {
   constructor() {}
 
-  exportCredential(credential) {
-    let alias = 'person';
+  exportCredential(identifiers, credential) {
+    let aid = Array.from(identifiers.keys())[0];
+    let alias = identifiers.get(aid).name;
     let said = credential['sad']['d'];
 
     KERI.exportCredential(alias, said).then((data) => {
@@ -168,7 +169,7 @@ class CredentialDetails {
               raised
               label="Export"
               onclick={() => {
-                this.exportCredential(credential);
+                this.exportCredential(vnode.attrs.identifiers, credential);
               }}
             />
           </Card>
