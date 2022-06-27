@@ -7,8 +7,7 @@ class CredentialDetails {
   constructor() {}
 
   exportCredential(identifiers, credential) {
-    let aid = Array.from(identifiers.keys())[0];
-    let alias = identifiers.get(aid).name;
+    let alias = identifiers.get(credential['sad']['i']).name;
     let said = credential['sad']['d'];
 
     KERI.exportCredential(alias, said).then((data) => {
@@ -163,15 +162,19 @@ class CredentialDetails {
                 </div>
               )*/}
             </div>
-            <Button
-              style={{ margin: '0 1rem 0 0' }}
-              class="button button--no-transform"
-              raised
-              label="Export"
-              onclick={() => {
-                this.exportCredential(vnode.attrs.identifiers, credential);
-              }}
-            />
+            {
+              this.isSelfIssued(vnode.attrs, vnode.attrs.identifiers, sad['i']) && (
+                    <Button
+                        style={{ margin: '0 1rem 0 0' }}
+                        class="button button--no-transform"
+                        raised
+                        label="Export"
+                        onclick={() => {
+                          this.exportCredential(vnode.attrs.identifiers, credential);
+                        }}
+                    />
+                )
+            }
           </Card>
         </div>
       </>
