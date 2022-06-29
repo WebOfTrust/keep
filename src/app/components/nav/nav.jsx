@@ -160,7 +160,7 @@ class Nav {
                           clickHandler: null,
                         };
                         if (rType === '/credential/issue') {
-                          meta.title = `Credential Recieved`;
+                          meta.title = `Credential Received`;
                           meta.clickHandler = this.credentialReceivedClick;
                         } else if (rType === '/iss/complete') {
                           meta.title = 'Credential Issuance Complete';

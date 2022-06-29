@@ -64,6 +64,10 @@ class EnterPasscode {
         <TextField
           outlined
           fluid
+          autocomplete="off"
+          autocorrect="off"
+          autocapitalize="off"
+          spellcheck="false"
           type={this.showPasscode ? 'text' : 'password'}
           value={this.passcode}
           oninput={(e) => {

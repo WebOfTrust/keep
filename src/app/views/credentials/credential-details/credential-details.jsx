@@ -90,7 +90,7 @@ class CredentialDetails {
                 <div>
                   <div style={{ margin: '0 0 2rem 0' }}>
                     <p class="p-tag-bold" style={{ margin: '1rem 0 0 0' }}>
-                      Official Role:
+                      Official Organizational Role:
                     </p>
                     <code style="margin: 0 0 0 0;">{attrs['officialRole']}</code>
                   </div>
@@ -101,7 +101,7 @@ class CredentialDetails {
                 <div>
                   <div style={{ margin: '0 0 2rem 0' }}>
                     <p class="p-tag-bold" style={{ margin: '1rem 0 0 0' }}>
-                      Person Legal Name:
+                      Engagement Context Role:
                     </p>
                     <code style="margin: 0 0 0 0;">{attrs['engagementContextRole']}</code>
                   </div>
