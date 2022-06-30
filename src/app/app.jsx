@@ -1,7 +1,7 @@
 import m from 'mithril';
 
 import { Nav, ToastOutlet, Footer } from './components';
-import { Auth, Mail, Tasks, Profile as ProfileSvc } from './services';
+import { Auth, Contacts as ContactsSvc, KERI, Mail, Tasks, Profile as ProfileSvc } from './services';
 import { Contacts, Dashboard, Error, Profile, Settings, Credentials } from './views';
 
 import tasks from '../../tasks';
@@ -13,6 +13,21 @@ import '../scss/nav-rail.scss';
 
 Tasks.all = tasks[process.env.USER_TYPE];
 ProfileSvc.loadIdentifiers();
+ContactsSvc.requestList();
+
+KERI.listIdentifiers()
+  .then((ids) => {
+    Auth.isLoggedIn = true;
+    Mail.initEventSource();
+    if (ProfileSvc.getDefaultAID() === null) {
+      if (ids.length > 0) {
+        ProfileSvc.setDefaultAID(ids[0]);
+      }
+    }
+  })
+  .catch((err) => {
+    Auth.isLoggedIn = false;
+  });
 
 let root = document.body;
 
@@ -62,7 +77,7 @@ m.route(root, '/dashboard', {
     view: () => {
       return (
         <MainLayout>
-          <Credentials type={"issued"}/>
+          <Credentials type={'issued'} />
         </MainLayout>
       );
     },
@@ -74,7 +89,7 @@ m.route(root, '/dashboard', {
     view: () => {
       return (
         <MainLayout>
-          <Credentials type={"received"}/>
+          <Credentials type={'received'} />
         </MainLayout>
       );
     },

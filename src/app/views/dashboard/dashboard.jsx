@@ -20,28 +20,11 @@ class Dashboard {
 
     this.existingKeystore = false;
 
-    Profile.loadIdentifiers();
-    Contacts.requestList();
-
     if (Keep.isPackaged()) {
-       Keep.check().then((resp) => {
-         this.existingKeystore = resp
+      Keep.check().then((resp) => {
+        this.existingKeystore = resp;
       });
     }
-
-    KERI.listIdentifiers()
-      .then((ids) => {
-        Auth.isLoggedIn = true;
-        Mail.initEventSource();
-        if (Profile.getDefaultAID() === null) {
-          if (ids.length > 0) {
-            Profile.setDefaultAID(ids[0]);
-          }
-        }
-      })
-      .catch((err) => {
-        Auth.isLoggedIn = false;
-      });
   }
 
   get tasksList() {
@@ -52,7 +35,7 @@ class Dashboard {
         }
         return [Tasks.all['create-passcode'][0]];
       }
-      return Tasks.all['create-passcode']
+      return Tasks.all['create-passcode'];
     }
 
     if (Profile.identifiers.length === 0) {
@@ -173,7 +156,7 @@ class Dashboard {
                             Contacts.requestList();
                             if (Keep.isPackaged()) {
                               Keep.check().then((resp) => {
-                                this.existingKeystore = resp
+                                this.existingKeystore = resp;
                                 m.redraw();
                               });
                             }
