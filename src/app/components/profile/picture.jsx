@@ -2,14 +2,13 @@ import m from 'mithril';
 import githubLogo from '../../../assets/img/github-logo.svg';
 
 class ProfilePicture {
-  constructor(vnode) {
+  constructor() {
+    this.initials = '';
   }
 
   view(vnode) {
-    let initials = '';
-
     if (vnode.attrs.identifier == null) {
-      return <div />;
+      return <div></div>;
     }
 
     if (vnode.attrs.identifier.hasOwnProperty('image')) {

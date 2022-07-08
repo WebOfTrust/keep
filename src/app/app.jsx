@@ -9,7 +9,6 @@ import tasks from '../../tasks';
 import '../scss/defaults.scss';
 import '../scss/typography.scss';
 import '../scss/globals.scss';
-import '../scss/nav-rail.scss';
 
 Tasks.all = tasks[process.env.USER_TYPE];
 ProfileSvc.loadIdentifiers();

@@ -1,4 +1,5 @@
 import m from 'mithril';
+import './nav-rail.scss';
 
 class NavRail {
   view(vnode) {
@@ -14,15 +15,6 @@ class NavRail {
             <i class="material-icons md-48">dashboard</i>
             <div class="nav-rail-item-text">Dashboard</div>
           </div>
-          {/* <div
-            class={`nav-rail-item ${vnode.attrs.selected === 'tasks' ? 'nav-rail-item--selected' : ''}`}
-            onclick={() => {
-              m.route.set('/tasks');
-            }}
-          >
-            <i class="material-icons md-48">assignment</i>
-            <div class="nav-rail-item-text">My Tasks</div>
-          </div> */}
           <div
             class={`nav-rail-item ${vnode.attrs.selected === 'contacts' ? 'nav-rail-item--selected' : ''}`}
             onclick={() => {
