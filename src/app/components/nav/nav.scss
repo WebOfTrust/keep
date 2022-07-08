@@ -32,6 +32,20 @@
       margin-left: 2rem;
     }
   }
+
+  .notification-badge {
+    background: #d7e5ff;
+    border-radius: 16px;
+    padding: 2px 4px;
+    position: absolute;
+    right: 16px;
+    p {
+      font-size: 12px;
+      color: #737b7d;
+      font-weight: bold;
+      margin: 0;
+    }
+  }
 }
 
 @media screen and (max-width: 680px) {

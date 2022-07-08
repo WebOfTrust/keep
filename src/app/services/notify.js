@@ -1,6 +1,9 @@
+import m from 'mithril';
+
 class Notify {
+  static isOpen = false;
   static notifications = [];
-  static _selected = {}
+  static _selected = {};
 
   static push(notification) {
     this.notifications.push(notification);
@@ -22,6 +25,11 @@ class Notify {
 
     let notif = this.notifications.splice(idx, 1);
     return notif[0];
+  }
+
+  static open() {
+    m.route.set('/dashboard');
+    this.isOpen = true;
   }
 }
 

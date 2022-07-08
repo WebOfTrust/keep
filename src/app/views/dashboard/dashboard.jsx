@@ -1,7 +1,8 @@
 import m from 'mithril';
 
 import { Button, Card, Container, IconButton, NavRail } from '../../components';
-import { Auth, Contacts, KERI, Mail, Keep, Profile, Tasks } from '../../services';
+import { Auth, Contacts, Keep, Notify, Profile, Tasks } from '../../services';
+import Notifications from './notifications/notifications.jsx';
 import './dashboard.scss';
 
 class Dashboard {
@@ -62,8 +63,10 @@ class Dashboard {
             {Auth.isLoggedIn && <NavRail selected="dashboard"></NavRail>}
             <Container class="headspace" style={{ marginBottom: '5rem', padding: '0 4rem' }}>
               <div class="flex flex-justify-between">
+                {/* Left Panel */}
                 <div class="flex-1" style={{ marginRight: '4rem' }}>
-                  {Tasks.active && Tasks.active.lcomponent !== undefined && (
+                  {/* Optional left component of active task (replaces task list) */}
+                  {Tasks.active && Tasks.active.lcomponent && (
                     <Card
                       class={'card--fluid' + (Tasks.active ? ' card--active' : null)}
                       style={{ position: 'relative' }}
@@ -78,21 +81,21 @@ class Dashboard {
                       )}
                     </Card>
                   )}
-                  {(!Tasks.active || Tasks.active.lcomponent === undefined) && (
+                  {/* Task list */}
+                  {(!Tasks.active || !Tasks.active.lcomponent) && (
                     <Card class="card--fluid" padding="1.5rem">
                       <div class="flex flex-align-center flex-justify-between">
                         <h1>Tasks</h1>
-                        {/* <Button raised iconLeading="add" label="New Task" /> */}
                       </div>
-                      {this.tasksSlice.map((task, i) => {
+                      {this.tasksSlice.map((task) => {
                         return (
                           <Card
                             class={'card--fluid card--hover' + (task === Tasks.active ? ' card--active' : '')}
                             padding="1.5rem"
                             style={{ marginBottom: '2.5rem' }}
                             onclick={() => {
-                              Profile.isLead = this.tasksSlice[i].lead;
-                              Tasks.active = this.tasksSlice[i];
+                              Profile.isLead = task.lead;
+                              Tasks.active = task;
                             }}
                           >
                             <div class="flex flex-align-center">
@@ -130,10 +133,11 @@ class Dashboard {
                     </Card>
                   )}
                 </div>
+                {/* Right Panel */}
                 <div class="flex-1">
-                  {(Tasks.active || (Auth.isLoggedIn && !this.aboutDismissed)) && (
+                  {(Notify.isOpen || Tasks.active || (Auth.isLoggedIn && !this.aboutDismissed)) && (
                     <Card
-                      class={'card--fluid' + (Tasks.active ? ' card--active' : null)}
+                      class={'card--fluid' + (!Notify.isOpen && Tasks.active ? ' card--active' : '')}
                       style={{ position: 'relative' }}
                       padding="4rem"
                     >
@@ -141,14 +145,19 @@ class Dashboard {
                         class="close-icon"
                         icon="close"
                         onclick={() => {
-                          if (Tasks.active) {
+                          if (Notify.isOpen) {
+                            Notify.isOpen = false;
+                          } else if (Tasks.active) {
                             Tasks.active = null;
                           } else {
                             this.aboutDismissed = true;
                           }
                         }}
                       />
-                      {Tasks.active && (
+                      {/* Notifications */}
+                      {Notify.isOpen && <Notifications />}
+                      {/* Active task */}
+                      {!Notify.isOpen && Tasks.active && (
                         <Tasks.active.component
                           end={() => {
                             Tasks.active = null;
@@ -163,7 +172,8 @@ class Dashboard {
                           }}
                         />
                       )}
-                      {!this.aboutDismissed && !Tasks.active && (
+                      {/* About Your Tasks */}
+                      {!Notify.isOpen && !Tasks.active && !this.aboutDismissed && (
                         <>
                           <h3>About Your Tasks</h3>
                           <p
