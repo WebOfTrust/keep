@@ -30,12 +30,20 @@
     "appId": "org.gleif.keep",
     "afterSign": "notarize.js",
     "mac": {
-      "icon": "assets/icon.icns",
+      "icon": "assets/icon.png",
       "identity": "Kevin Griffin (WHU7A4EQ74)",
       "entitlements": "entitlements.plist",
       "binaries": ["./ward/ward"],
       "hardenedRuntime": true,
       "gatekeeperAssess": false
+    },
+    "linux": {
+      "target": "AppImage",
+      "icon": "assets/icon.png"
+    },
+    "windows": {
+      "target": "msi",
+      "icon": "assets/icon.png"
     }
   }
 }
