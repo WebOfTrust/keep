@@ -1,5 +1,5 @@
 import m from 'mithril';
-import { Button, TextField } from '../../../src/app/components';
+import { Button, Spinner, TextField } from '../../../src/app/components';
 import { Auth } from '../../../src/app/services';
 import passcodeImg from '../../../src/assets/img/passcode.svg';
 
@@ -32,16 +32,19 @@ class EnterPasscode {
     this.showPasscode = false;
     this.error = '';
     this.submitting = false;
+    this.success = false;
   }
 
   login(vnode) {
     this.error = '';
     this.submitting = true;
+    this.success = false;
     Auth.login(this.passcode)
       .then(() => {
-          setTimeout(() => {
-              vnode.attrs.end();
-          }, 3000)
+        this.success = true;
+        setTimeout(() => {
+          vnode.attrs.end();
+        }, 3000);
       })
       .catch(() => {
         this.error = 'Unlock failed';
@@ -82,15 +85,19 @@ class EnterPasscode {
         />
         {this.error && <p class="error">{this.error}</p>}
         <div class="flex flex-justify-end" style={{ marginTop: '4rem' }}>
-          <Button
-            raised
-            class="button--no-transform button--big"
-            label="Login"
-            disabled={!this.passcode || this.submitting}
-            onclick={() => {
-              this.login(vnode);
-            }}
-          />
+          {this.submitting || this.success ? (
+            <Spinner />
+          ) : (
+            <Button
+              raised
+              class="button--no-transform button--big"
+              label="Login"
+              disabled={!this.passcode || this.submitting}
+              onclick={() => {
+                this.login(vnode);
+              }}
+            />
+          )}
         </div>
       </>
     );
