@@ -43,6 +43,7 @@ class EnterPasscode {
       .then(() => {
         this.success = true;
         setTimeout(() => {
+          this.success = false;
           vnode.attrs.end();
         }, 3000);
       })
