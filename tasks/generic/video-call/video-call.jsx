@@ -1,6 +1,6 @@
 import m from 'mithril';
 import { Button } from '../../../src/app/components';
-import {Profile, Participants, Tasks, KERI} from '../../../src/app/services';
+import { Profile, Participants, Tasks, KERI } from '../../../src/app/services';
 import { EnterChallengesForm, EnterOOBIsForm, SendChallengeForm, SendOOBIForm } from './forms';
 
 import addNewContacts from '../../../src/assets/img/add-new-contacts.svg';
@@ -13,8 +13,8 @@ class VideoCallTask {
     this._label = config.label;
     this.initiate = config.initiate;
     this.oneToOne = config.oneToOne;
-    this.skip = config.skip
-    this.acceptCredential = config.acceptCredential
+    this.skip = config.skip;
+    this.acceptCredential = config.acceptCredential;
     this.next = config.next;
 
     this.aidToSend = config.aidToSend;
@@ -28,7 +28,7 @@ class VideoCallTask {
     }
     this._component = {
       view: (vnode) => {
-        return <VideoCall end={vnode.attrs.end} parent={this} steps={this.steps}/>;
+        return <VideoCall end={vnode.attrs.end} parent={this} steps={this.steps} />;
       },
     };
     this.sendOOBIPanel = {
@@ -112,9 +112,7 @@ class VideoCall {
                   <li>Obtain and sign a Challenge Message</li>
                   <li>Generate and send a Challenge Message</li>
                   <li>User signs and returns Challenge Message</li>
-                  {vnode.attrs.parent.acceptCredential && (
-                      <li>Wait for credentials to be issued.</li>
-                  )}
+                  {vnode.attrs.parent.acceptCredential && <li>Wait for credentials to be issued.</li>}
                   {vnode.attrs.parent.initiate && !vnode.attrs.parent.oneToOne && (
                     <li>You initiate the Multi-Sig Group for all participants</li>
                   )}
@@ -203,51 +201,21 @@ class VideoCall {
         {vnode.attrs.parent.currentState === 'send-oobi' && (
           <>
             <h3>Accept OOBI from other person{vnode.attrs.parent.oneToOne ? '' : 's'}</h3>
-            <EnterOOBIsForm
-              participants={vnode.attrs.parent.participants}
-              oneToOne={vnode.attrs.parent.oneToOne}
-            />
+            <EnterOOBIsForm participants={vnode.attrs.parent.participants} oneToOne={vnode.attrs.parent.oneToOne} />
             <div class="flex flex-justify-between" style={{ marginTop: '4rem' }}>
               <Button
-                  class="button--gray-dk button--big button--no-transform"
-                  raised
-                  label="Go Back"
-                  onclick={() => {
-                    vnode.attrs.parent.currentState = 'join-call';
-                  }}
+                class="button--gray-dk button--big button--no-transform"
+                raised
+                label="Go Back"
+                onclick={() => {
+                  vnode.attrs.parent.currentState = 'join-call';
+                }}
               />
               <Button
                 class="button--big button--no-transform"
                 raised
                 label="Continue"
                 disabled={!vnode.attrs.parent.participants.oobisResolved()}
-                onclick={() => {
-                  vnode.attrs.parent.currentState = 'generate-challenge';
-                }}
-              />
-            </div>
-          </>
-        )}
-        {vnode.attrs.parent.currentState === 'generate-challenge' && (
-          <>
-            <img src={responseMessage} style={{ width: '240px', margin: '1.5rem 0 2rem 0' }} />
-            <h3>Generate and Send Challenge Message</h3>
-            <p class="p-tag" style={{ margin: '2rem 0 2rem 0' }}>
-              Click the Generate Button to create a Challenge Messages to each member of the signing group.
-            </p>
-            <div class="flex flex-justify-between">
-              <Button
-                class="button--gray-dk button--big button--no-transform"
-                raised
-                label="Go Back"
-                onclick={() => {
-                  vnode.attrs.parent.currentState = 'send-oobi';
-                }}
-              />
-              <Button
-                class="button--big button--no-transform"
-                raised
-                label="Generate"
                 onclick={() => {
                   vnode.attrs.parent.currentState = 'challenge-messages';
                 }}
@@ -257,14 +225,17 @@ class VideoCall {
         )}
         {vnode.attrs.parent.currentState === 'challenge-messages' && (
           <>
-            <EnterChallengesForm  aidToSend={vnode.attrs.parent.aidToSend} participants={vnode.attrs.parent.participants} />
+            <EnterChallengesForm
+              aidToSend={vnode.attrs.parent.aidToSend}
+              participants={vnode.attrs.parent.participants}
+            />
             <div class="flex flex-justify-between">
               <Button
                 class="button--gray-dk button--big button--no-transform"
                 raised
                 label="Go Back"
                 onclick={() => {
-                  vnode.attrs.parent.currentState = 'generate-challenge';
+                  vnode.attrs.parent.currentState = 'send-oobi';
                 }}
               />
               <Button
