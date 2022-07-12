@@ -6,6 +6,7 @@ class TextField {
     this.mdcInstance = null;
     this.textfieldClass = 'mdc-text-field';
     this.optionDefaults = {
+      id: '',
       cols: 40,
       class: null,
       disabled: false,
@@ -30,6 +31,7 @@ class TextField {
   }
 
   assignOptions(vnode) {
+    console.log(vnode.attrs)
     this.options = Object.assign({}, this.optionDefaults, vnode.attrs);
   }
 
@@ -143,6 +145,7 @@ class TextField {
             </span>
           ) : (
             <input
+              id={this.options.id}
               class="mdc-text-field__input"
               type={this.options.type}
               pattern={this.options.pattern}
