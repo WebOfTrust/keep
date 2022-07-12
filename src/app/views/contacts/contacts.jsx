@@ -28,7 +28,7 @@ class Contacts {
     return (
       <>
         <div class="contacts">
-          <NavRail></NavRail>
+          <NavRail selected="contacts" />
           <Container class="headspace" style={{ padding: '0 4rem' }}>
             <div class="flex flex-justify-between">
               <div class="flex-1" style={{ marginRight: '4rem' }}>

@@ -20,9 +20,9 @@ class Credentials {
 
     KERI.listIdentifiers().then((identifiers) => {
       this.identifiers = new Map(
-          identifiers.map((i) => {
-            return [i.prefix, i];
-          })
+        identifiers.map((i) => {
+          return [i.prefix, i];
+        })
       );
     });
 
@@ -63,7 +63,7 @@ class Credentials {
     return (
       <>
         <div class="credentials">
-          <NavRail />
+          <NavRail selected="credentials" />
           <Container class="headspace" style={{ padding: '0 rem' }}>
             <div class="flex flex-justify-between">
               <div class="flex-1" style={{ marginRight: '4rem' }}>
@@ -91,12 +91,13 @@ class Credentials {
                     let schema = this.schema.get(sad['s']);
                     return (
                       <CredentialList
-                          credential={credential}
-                          schema={schema}
-                          contacts={this.contacts}
-                          identifiers={this.identifiers}
-                          setCredential={this.setCredential}
-                          type={this.activeTab} />
+                        credential={credential}
+                        schema={schema}
+                        contacts={this.contacts}
+                        identifiers={this.identifiers}
+                        setCredential={this.setCredential}
+                        type={this.activeTab}
+                      />
                     );
                   })}
                 </Card>
