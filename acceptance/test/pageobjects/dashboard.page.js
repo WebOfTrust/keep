@@ -9,7 +9,6 @@ class DashboardPage extends Page {
     async lock() {
 
     }
-
 }
 
 module.exports = new DashboardPage();

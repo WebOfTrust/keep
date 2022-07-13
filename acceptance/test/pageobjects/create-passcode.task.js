@@ -34,7 +34,7 @@ class CreatePasscodeTask extends Page {
         await this.btnContinue.click();
     }
 
-    async generateNewPasscode () {
+    async   generateNewPasscode () {
         await this.btnGenerate.click();
     }
 
