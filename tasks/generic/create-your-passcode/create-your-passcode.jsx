@@ -7,6 +7,7 @@ import wait from '../../../src/assets/img/wait.svg';
 
 class CreatePasscodeTask {
   constructor(config) {
+    this._id = config.id;
     this._label = config.label;
     this._component = {
       view: (vnode) => {
@@ -18,6 +19,10 @@ class CreatePasscodeTask {
 
   get imgSrc() {
     return createYourPasscode;
+  }
+
+  get id() {
+    return this._id;
   }
 
   get label() {
@@ -85,7 +90,7 @@ class CreatePasscode {
       <>
         {vnode.attrs.parent.currentState === 'welcome' && (
           <>
-            <h3>Welcome to KEEP</h3>
+            <h3 id='welcome'>Welcome to KEEP</h3>
             <div class="flex flex-justify-center" style={{ margin: '4.5rem 0' }}>
               <img src={createYourPasscode} style={{ width: '205px' }} />
             </div>
@@ -98,6 +103,7 @@ class CreatePasscode {
             </p>
             <div class="flex flex-justify-end">
               <Button
+                id='continue'
                 class="button--no-transform button--big"
                 raised
                 label="Continue"
@@ -111,6 +117,7 @@ class CreatePasscode {
         {vnode.attrs.parent.currentState === 'create-passcode' && (
           <>
             <Modal
+              id='wait'
               isOpen={this.savePassModalOpen}
               onClose={() => {
                 this.savePassModalOpen = false;
@@ -132,6 +139,7 @@ class CreatePasscode {
                 <>
                   <div class="flex flex-justify-center" style={{ marginTop: '2rem' }}>
                     <Button
+                      id='passcode-saved'
                       raised
                       class="button--big button--extraPadding"
                       label="I Saved My Passcode"
@@ -144,7 +152,7 @@ class CreatePasscode {
                 </>
               }
             />
-            <h3>Generate Your Passcode</h3>
+            <h3 id='generate-passcode'>Generate Your Passcode</h3>
             <div class="flex flex-justify-center" style={{ margin: '3rem 0 2rem 0' }}>
               <img src={createYourPasscode} style={{ width: '205px' }} />
             </div>
@@ -153,6 +161,7 @@ class CreatePasscode {
               your desktop software and then copy into the following screen.
             </p>
             <TextField
+              id='passcode'
               outlined
               fluid
               placeholder="xxxx-xxxxx-xxxxx-xxxx-xxxxx"
@@ -170,6 +179,7 @@ class CreatePasscode {
             <div class="flex flex-justify-between" style={{ margin: '2.5rem 0 3rem 0' }}>
               <p class="font-color--green font-weight--medium">{this.copied ? 'Passcode copied!' : <br />}</p>
               <Button
+                id='generate'
                 raised
                 class="button--no-transform button--gray button--big"
                 label="Generate New"
@@ -188,6 +198,7 @@ class CreatePasscode {
                 }}
               />
               <Button
+                id='continue'
                 raised
                 class="button--no-transform button--big"
                 label="Continue"
@@ -200,7 +211,7 @@ class CreatePasscode {
         )}
         {vnode.attrs.parent.currentState === 'enter-passcode' && (
           <>
-            <h3>Please Enter Your Passcode</h3>
+            <h3 id=''>Please Enter Your Passcode</h3>
             <div class="flex flex-justify-center" style={{ margin: '5rem 0' }}>
               <img src={passcodeImg} style={{ width: '205px' }} />
             </div>
@@ -209,6 +220,7 @@ class CreatePasscode {
               Deposit Box) and entering it into the box below.
             </p>
             <TextField
+              id='confirm-passcode'
               outlined
               fluid
               type={this.showEnterPasscode ? 'text' : 'password'}
@@ -234,6 +246,7 @@ class CreatePasscode {
                 }}
               />
               <Button
+                id='initialize'
                 raised
                 class="button--no-transform button--big"
                 label="Continue"

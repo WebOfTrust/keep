@@ -42,10 +42,10 @@ class Profile {
       .then((identifiers) => {
         this._identifiers = identifiers;
         this._singleSigs = this.identifiers.filter((aid) => {
-            return !("group" in aid);
+          return !('group' in aid);
         });
         this._multiSigs = this.identifiers.filter((aid) => {
-            return "group" in aid;
+          return 'group' in aid;
         });
         this._default = this._identifiers.find((aid) => {
           return 'metadata' in aid && 'default' in aid.metadata;
@@ -81,11 +81,11 @@ class Profile {
   }
 
   static getDefaultAID(type) {
-      if (type === 'single' || this._defaultMulti === undefined) {
-          return this._defaultSingle
-      } else {
-          return this._defaultMulti
-      }
+    if (type === 'single' || this._defaultMulti === undefined) {
+      return this._defaultSingle;
+    } else {
+      return this._defaultMulti;
+    }
   }
 
   static getDefaultSingleAID() {

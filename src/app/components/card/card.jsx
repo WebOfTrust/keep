@@ -4,6 +4,7 @@ class Card {
   constructor() {
     this.cardClass = 'mdc-card';
     this.optionDefaults = {
+      id: '',
       class: null,
       outlined: false,
       padding: '16px',
@@ -43,18 +44,8 @@ class Card {
   view(vnode) {
     return (
       <>
-        <div class={this.cardClass} style={this.options.style} onclick={this.options.onclick}>
+        <div id={this.options.id} class={this.cardClass} style={this.options.style} onclick={this.options.onclick}>
           <div class="mdc-card__content">{vnode.children}</div>
-          {/*<div class="mdc-card__actions">
-            <div class="mdc-card__action-buttons">
-              <Button class="mdc-card__action mdc-card__action--button" label="Action 1" />
-              <Button class="mdc-card__action mdc-card__action--button" label="Action 2" />
-            </div>
-          </div>
-          <div class="mdc-card__action-icons">
-            <IconButton class="mdc-card__action mdc-card__action--icon" icon="share" title="Share" />
-            <IconButton class="mdc-card__action mdc-card__action--icon" icon="more_vert" title="More Options" />
-          </div>*/}
         </div>
       </>
     );

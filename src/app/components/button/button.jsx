@@ -6,6 +6,7 @@ class Button {
     this.mdcRipple = null;
     this.buttonClass = 'mdc-button';
     this.optionDefaults = {
+      id: '',
       class: null,
       disabled: false,
       iconLeading: null,
@@ -64,6 +65,7 @@ class Button {
   view(vnode) {
     return (
       <button
+        id={this.options.id}
         class={this.buttonClass}
         style={this.options.style}
         disabled={this.options.disabled}

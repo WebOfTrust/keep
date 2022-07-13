@@ -16,7 +16,7 @@ import ViewMultiSigEventLogsTask from './view-multi-sig-event-logs/view-multi-si
 
 const tasks = {
   'create-passcode': [
-    new CreatePasscodeTask({ label: 'Create Your Passcode' }),
+    new CreatePasscodeTask({ label: 'Create Your Passcode poop' }),
     new EnterPasscodeTask({ label: 'Enter Your Passcode' }),
   ],
   'create-identifier': [

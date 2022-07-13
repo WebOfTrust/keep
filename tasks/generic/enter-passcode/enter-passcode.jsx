@@ -5,6 +5,7 @@ import passcodeImg from '../../../src/assets/img/passcode.svg';
 
 class EnterPasscodeTask {
   constructor(config) {
+    this._id = config.id;
     this._label = config.label;
     this._component = {
       view: (vnode) => {
@@ -15,6 +16,10 @@ class EnterPasscodeTask {
 
   get imgSrc() {
     return passcodeImg;
+  }
+
+  get id() {
+    return this._id;
   }
 
   get label() {
@@ -58,7 +63,7 @@ class EnterPasscode {
   view(vnode) {
     return (
       <>
-        <h3>Welcome Back</h3>
+        <h3 id='welcome-back'>Welcome Back</h3>
         <div class="flex flex-justify-center" style={{ margin: '5rem 0' }}>
           <img src={passcodeImg} style={{ width: '192px' }} />
         </div>
@@ -66,6 +71,7 @@ class EnterPasscode {
           Enter your 22 character passcode to login to the portal.
         </p>
         <TextField
+          id='passcode'
           outlined
           fluid
           autocomplete="off"
@@ -90,15 +96,15 @@ class EnterPasscode {
             <Spinner />
           ) : (
             <Button
-              raised
-              class="button--no-transform button--big"
-              label="Login"
-              disabled={!this.passcode || this.submitting}
-              onclick={() => {
-                this.login(vnode);
-              }}
-            />
-          )}
+              id='login'
+            raised
+            class="button--no-transform button--big"
+            label="Login"
+            disabled={!this.passcode || this.submitting}
+            onclick={() => {
+              this.login(vnode);
+            }}
+          />)}
         </div>
       </>
     );

@@ -90,6 +90,7 @@ class Dashboard {
                       {this.tasksSlice.map((task) => {
                         return (
                           <Card
+                            id={task.id}
                             class={'card--fluid card--hover' + (task === Tasks.active ? ' card--active' : '')}
                             padding="1.5rem"
                             style={{ marginBottom: '2.5rem' }}
@@ -175,7 +176,7 @@ class Dashboard {
                       {/* About Your Tasks */}
                       {!Notify.isOpen && !Tasks.active && !this.aboutDismissed && (
                         <>
-                          <h3>About Your Tasks</h3>
+                          <h3 id='about-your-tasks'>About Your Tasks</h3>
                           <p
                             class="font-color--battleship"
                             style={{ lineHeight: '1.38', letterSpacing: '0.3px', margin: '3rem 0 4rem 0' }}

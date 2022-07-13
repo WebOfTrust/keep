@@ -5,16 +5,16 @@ class MultiSig {
   static _delegatorSigned = false;
 
   static get currentEvent() {
-    return self._currentEvent
+    return self._currentEvent;
   }
   static get participants() {
-    return self._participants
+    return self._participants;
   }
   static get delegator() {
-    return self._delegator
+    return self._delegator;
   }
   static get delegatorSigned() {
-    return self._delegatorSigned
+    return self._delegatorSigned;
   }
 
   static set currentEvent(v) {
@@ -29,7 +29,6 @@ class MultiSig {
   static set delegatorSigned(v) {
     self._delegatorSigned = v;
   }
-
 }
 
 module.exports = MultiSig;

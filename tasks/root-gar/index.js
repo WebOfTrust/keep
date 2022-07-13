@@ -46,8 +46,8 @@ class DelegationApprovalInProcessTask {
 
 const tasks = {
     'create-passcode': [
-        new CreatePasscodeTask({label: 'Create Your Passcode'}),
-        new EnterPasscodeTask({label: 'Enter Your Passcode'}),
+        new CreatePasscodeTask({id: 'create-passcode', label: 'Create Your Passcode'}),
+        new EnterPasscodeTask({id: 'enter-passcode', label: 'Enter Your Passcode'}),
     ],
     'create-identifier': [
         new IntroToYourRoleTask({label: 'Intro to Your Role', variables: variables.introToYourRole}),
