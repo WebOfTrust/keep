@@ -74,10 +74,10 @@ class KERI {
 
   static rotateIdentifier(alias) {
     return m.request({
-      method:'PUT',
+      method: 'PUT',
       url: `${this.keriURL}/ids/${alias}/rot`,
-      body: {}
-    })
+      body: {},
+    });
   }
 
   static listIdentifiers() {
@@ -94,15 +94,12 @@ class KERI {
     });
   }
 
-
   static listSchema() {
     return m.request({
       method: 'GET',
       url: `${this.keriURL}/schema`,
     });
   }
-
-
 
   // OOBI
 
@@ -129,13 +126,13 @@ class KERI {
 
   static sendOOBIs(alias, oobis) {
     let body = oobis.map((oobi) => {
-      return {alias: oobi.alias, url: oobi.url};
-    })
+      return { alias: oobi.alias, url: oobi.url };
+    });
     return m.request({
       method: 'POST',
       url: `${this.keriURL}/oobi/groups/${alias}/share`,
-      body: { oobis: body }
-    })
+      body: { oobis: body },
+    });
   }
 
   // CHALLENGE/RESPONSE
@@ -249,7 +246,7 @@ class KERI {
       url: `${this.keriURL}/groups/${alias}/ixn`,
       body: {
         aids,
-        data
+        data,
       },
     });
   }
@@ -280,7 +277,7 @@ class KERI {
         registry,
         schema,
         source,
-        rules
+        rules,
       },
     });
   }
@@ -298,11 +295,11 @@ class KERI {
   static listCredentialRegistries() {
     return m.request({
       method: 'GET',
-      url: `${this.keriURL}/registries`
+      url: `${this.keriURL}/registries`,
     });
   }
 
-  static createCredentialRegistry({alias, name, nonce}) {
+  static createCredentialRegistry({ alias, name, nonce }) {
     return m.request({
       method: 'POST',
       url: `${this.keriURL}/registries`,
@@ -313,7 +310,7 @@ class KERI {
         estOnly: false,
         name: name,
         noBackers: true,
-        toad: 0
+        toad: 0,
       },
     });
   }
@@ -324,7 +321,7 @@ class KERI {
     return m.request({
       method: 'GET',
       url: `${this.keriURL}/credentials/${alias}/${said}`,
-      responseType: "application/json+cesr"
+      responseType: 'application/json+cesr',
     });
   }
 }
