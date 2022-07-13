@@ -27,6 +27,7 @@ jobs:
 
       - name: build
         run: |
+          yarn
           yarn package:${{ matrix.build }}
 
 #      - uses: actions/upload-artifact@v3
