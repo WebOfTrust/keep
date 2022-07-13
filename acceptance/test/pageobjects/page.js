@@ -6,7 +6,7 @@ module.exports = class Page {
     /**
     * Opens a sub page of the page
     */
-    open () {
-        return browser.url(`http://localhost:5521`)
+    open (port) {
+        return browser.url(`http://localhost:${port}`)
     }
 }

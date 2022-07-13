@@ -6,9 +6,10 @@ class DashboardPage extends Page {
         return $('#about-your-tasks');
     }
 
-    open () {
-        return super.open('');
+    async lock() {
+
     }
+
 }
 
 module.exports = new DashboardPage();

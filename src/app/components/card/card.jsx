@@ -15,9 +15,6 @@ class Card {
   }
 
   assignOptions(vnode) {
-    console.log("assign options");
-    console.log(vnode);
-    console.log(vnode.attrs);
     this.options = Object.assign({}, this.optionDefaults, vnode.attrs);
     this.options.style = Object.assign({}, this.options.style, {
       padding: this.options.padding,
