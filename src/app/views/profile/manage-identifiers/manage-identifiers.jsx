@@ -2,7 +2,6 @@ import m from 'mithril';
 import githubLogo from '../../../../assets/img/github-logo.svg';
 import { Button, Card, Radio, TextField } from '../../../components';
 import uploadPhoto from '../../../../assets/img/upload-image.svg';
-import 'emoji-picker-element';
 import KERI from '../../../services/keri';
 import ProfilePicture from '../../../components/profile/picture';
 
@@ -97,21 +96,6 @@ class IdentifierEditPage {
 }
 
 class EditImage {
-  emojiShow = false;
-
-  oncreate(vnode) {
-    document.querySelector('emoji-picker').addEventListener('emoji-click', (e) => {
-      console.log(e.detail.unicode);
-    });
-  }
-
-  toggle() {
-    console.log('toggle');
-    this.emojiShow = !this.emojiShow;
-    console.log('toggle', this.emojiShow);
-    document.querySelector('emoji-container').style.display = this.emojiShow ? 'block' : 'none';
-  }
-
   view(vnode) {
     return (
       <>
@@ -128,17 +112,6 @@ class EditImage {
             <p />
             <input type="file" id="fileLoader" name="files" title="Load File" style={{ display: 'none' }} />
             <Button class="button--gray-dk button--big button--no-transform" raised label="+" />
-          </div>
-          {/*<input type="file" style={{margin: '0 0 1rem 0'}}/>*/}
-          <div className="flex flex-align-center" style={{ color: '#494949' }}>
-            <span className="material-icons md-48" style={{ marginRight: '1rem' }}>
-              mood
-            </span>
-            <h4>Use emoji</h4>
-            <Button onclick={this.toggle} label="me" />
-          </div>
-          <div id="emoji-container" style={{ display: 'none' }}>
-            <emoji-picker></emoji-picker>
           </div>
         </div>
       </>

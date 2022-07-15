@@ -48,9 +48,6 @@
         "main": false
     },
     "dependencies": {
-        "@popperjs/core": "^2.11.5",
-        "emoji-button": "^2.2.2",
-        "emoji-picker-element": "^1.11.3",
         "fs-extra": "^10.1.0",
         "json": "^11.0.0",
         "material-components-web": "^13.0.0",

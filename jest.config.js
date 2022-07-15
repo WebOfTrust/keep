@@ -9,6 +9,7 @@ module.exports = {
   globals: {
     NODE_ENV: 'test',
   },
+  modulePathIgnorePatterns: ["acceptance"],
   transform: {
     '.+\\.(svg|css|styl|less|sass|scss|png|jpg|ttf|woff|woff2)$': 'jest-transform-stub',
     '^.+\\.(js|jsx)$': 'babel-jest',
