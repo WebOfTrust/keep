@@ -71,8 +71,8 @@ async function qar(args) {
 
     process.chdir(__dirname+"/app");
     execy("yarn");
-    execy(`yarn json -I -f package.json -e 'this.name="keep-lead-external"'`);
-    execy("yarn make");
+    execy(`yarn json -I -f package.json -e 'this.name="keep-lead-qar"'`);
+    execy("yarn dist");
     execy(`yarn json -I -f package.json -e 'this.name="keep"'`);
 
     console.log("done");

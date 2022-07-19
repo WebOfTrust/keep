@@ -29,12 +29,17 @@
   "build": {
     "appId": "org.gleif.keep",
     "afterSign": "notarize.js",
-    "asarUnpack": ["**/app/ward/**/*", "**/app/keep.log"],
+    "asarUnpack": [
+      "**/app/ward/**/*",
+      "**/app/keep.log"
+    ],
     "mac": {
       "icon": "assets/icon.png",
       "identity": "Kevin Griffin (WHU7A4EQ74)",
       "entitlements": "entitlements.plist",
-      "binaries": ["./ward/ward"],
+      "binaries": [
+        "./ward/ward"
+      ],
       "hardenedRuntime": true,
       "gatekeeperAssess": false
     },

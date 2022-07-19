@@ -130,8 +130,6 @@ will be piped to a `app/keep.log`
 
 While the current Keep software is specific to the vLEI Ecosystem, it is designed to support generic task lists to support any ecosystem using [KERI](https://github.com/WebOfTrust/ietf-keri) and [ACDC](https://github.com/trustoverip/tswg-acdc-specification).
 
-#### windows / things that may be missing on clean checkout
-npm install --save-dev @babel/core @babel/node
+#### windows
 
-set env before build?
-$env:NODE_ENV=".env.qar"
+ node .\build.js qar --pkg --debug --lead
