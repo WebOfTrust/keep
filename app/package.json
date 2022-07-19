@@ -29,7 +29,7 @@
   "build": {
     "appId": "org.gleif.keep",
     "afterSign": "notarize.js",
-    "asar-unpack": ["**/app/ward/**/*", "**/app/keep.log"],
+    "asarUnpack": ["**/app/ward/**/*", "**/app/keep.log"],
     "mac": {
       "icon": "assets/icon.png",
       "identity": "Kevin Griffin (WHU7A4EQ74)",

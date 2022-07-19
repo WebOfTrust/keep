@@ -93,6 +93,7 @@ out/
 
 .idea
 ward/build
+ward/build-ui
 ward/dist
 ward/venv
 ward/keri
