@@ -41,7 +41,7 @@
       "target": "AppImage",
       "icon": "assets/icon.png"
     },
-    "windows": {
+    "win": {
       "target": "msi",
       "icon": "assets/icon.png"
     }
