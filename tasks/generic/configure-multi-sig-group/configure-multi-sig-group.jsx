@@ -1,6 +1,6 @@
 import m from 'mithril';
-import {Button, Checkbox, IconButton, Radio, Select, TextField, TextTooltip} from '../../../src/app/components';
-import {Contacts, KERI, MultiSig, Profile, Witnesses} from '../../../src/app/services';
+import { Button, Checkbox, IconButton, Radio, Select, TextField, TextTooltip } from '../../../src/app/components';
+import { Contacts, KERI, MultiSig, Profile, Witnesses } from '../../../src/app/services';
 
 import secureMessaging from '../../../src/assets/img/secure-messaging.svg';
 import greenCheckMark from '../../../src/assets/img/green-check-mark.svg';
@@ -31,7 +31,7 @@ class ConfigureMultiSigGroupTask {
   }
 
   get requireDelegator() {
-    return this.requiredDelegator !== undefined
+    return this.requiredDelegator !== undefined;
   }
 }
 
@@ -59,14 +59,18 @@ class ConfigureMultiSigGroup {
     this.weight = '1/2';
   }
 
+  oninit(vnode) {
+    vnode.attrs.parent.currentState = 'configure-multi-sig-index';
+  }
+
   loadDelegator(requiredDelegator) {
-      Contacts.requestList().then((e) => {
-        Contacts.list.forEach((contact) => {
-          if (contact.alias === requiredDelegator) {
-            MultiSig.delegator = contact;
-          }
-        });
-      })
+    Contacts.requestList().then((e) => {
+      Contacts.list.forEach((contact) => {
+        if (contact.alias === requiredDelegator) {
+          MultiSig.delegator = contact;
+        }
+      });
+    });
   }
 
   ensureMultiSigSigned() {
@@ -90,23 +94,22 @@ class ConfigureMultiSigGroup {
               MultiSig.participants.forEach((sig) => {
                 sig.signed = true;
               });
-              console.log("marked all signers, waiting for delegation...")
-              KERI.listIdentifiers()
-                  .then((identifiers) => {
-                    console.log(identifiers)
-                    console.log(MultiSig.currentEvent['i'])
-                    let icp = identifiers.find((e) => e.prefix === MultiSig.currentEvent['i']);
-                    console.log("we found icp", icp)
-                    if (icp.delegated && icp.anchored) {
-                      MultiSig.delegatorSigned = true
-                    }
-                    if (icp.group.accepted) {
-                      this.status = 'Inception Complete';
-                    } else {
-                      this.status = 'Failed: Event Timeout';
-                    }
-                  m.redraw();
-                });
+              console.log('marked all signers, waiting for delegation...');
+              KERI.listIdentifiers().then((identifiers) => {
+                console.log(identifiers);
+                console.log(MultiSig.currentEvent['i']);
+                let icp = identifiers.find((e) => e.prefix === MultiSig.currentEvent['i']);
+                console.log('we found icp', icp);
+                if (icp.delegated && icp.anchored) {
+                  MultiSig.delegatorSigned = true;
+                }
+                if (icp.group.accepted) {
+                  this.status = 'Inception Complete';
+                } else {
+                  this.status = 'Failed: Event Timeout';
+                }
+                m.redraw();
+              });
               if (MultiSig.delegator === null || MultiSig.delegatorSigned) {
                 return;
               }
@@ -167,25 +170,25 @@ class ConfigureMultiSigGroup {
   view(vnode) {
     return (
       <>
-        {(vnode.attrs.parent.requireDelegator && MultiSig.delegator === null) && (
-            <>
-              <img src={secureMessaging} style={{ width: '268px', margin: '4rem 0 1rem 0' }} />
-              <h3>Required Delegator {vnode.attrs.parent.requiredDelegator} missing.</h3>
-              <p class="p-tag" style={{ margin: '2rem 0' }}>
-                You can not begin this process until the AID for {vnode.attrs.parent.requiredDelegator} has been
-                created.  Please click "Retry" to try again.
-              </p>
-              <div class="flex flex-justify-end">
-                <Button
-                    class="button--big button--no-transform"
-                    raised
-                    label="Retry"
-                    onclick={() => {
-                      this.loadDelegator(vnode.attrs.parent.requiredDelegator);
-                    }}
-                />
-              </div>
-            </>
+        {vnode.attrs.parent.requireDelegator && MultiSig.delegator === null && (
+          <>
+            <img src={secureMessaging} style={{ width: '268px', margin: '4rem 0 1rem 0' }} />
+            <h3>Required Delegator {vnode.attrs.parent.requiredDelegator} missing.</h3>
+            <p class="p-tag" style={{ margin: '2rem 0' }}>
+              You can not begin this process until the AID for {vnode.attrs.parent.requiredDelegator} has been created.
+              Please click "Retry" to try again.
+            </p>
+            <div class="flex flex-justify-end">
+              <Button
+                class="button--big button--no-transform"
+                raised
+                label="Retry"
+                onclick={() => {
+                  this.loadDelegator(vnode.attrs.parent.requiredDelegator);
+                }}
+              />
+            </div>
+          </>
         )}
         {vnode.attrs.parent.currentState === 'configure-multi-sig-index' && (
           <>
@@ -446,7 +449,9 @@ class ConfigureMultiSigGroup {
             <p className="p-tag-bold">Delegator Alias:</p>
             <div className="uneditable-value">{MultiSig.delegator.alias}</div>
             <p className="p-tag-bold">Delegator AID:</p>
-            <div className="uneditable-value"><code>{MultiSig.delegator.id}</code></div>
+            <div className="uneditable-value">
+              <code>{MultiSig.delegator.id}</code>
+            </div>
 
             <p class="p-tag">
               See the Ecosystem Governance Framework for a full listing of available well known sources.
@@ -490,8 +495,8 @@ class ConfigureMultiSigGroup {
               {this.fractionallyWeighted && <div class="uneditable-value">{this.weight}</div>}
             </div>
             {MultiSig.participants.map((signer) => {
-              let alias = signer.alias
-              if(signer.prefix === this.default.prefix) {
+              let alias = signer.alias;
+              if (signer.prefix === this.default.prefix) {
                 alias = signer.alias + ' (Your AID)';
               }
               return (
@@ -623,9 +628,9 @@ class EventDetails {
               </div>
               <div style={{ margin: '0 0 0 .5rem' }}>
                 {MultiSig.delegatorSigned ? (
-                    <img src={greenCheckMark} style={{ width: '80%' }} />
+                  <img src={greenCheckMark} style={{ width: '80%' }} />
                 ) : (
-                    <img src={redX} style={{ width: '80%' }} />
+                  <img src={redX} style={{ width: '80%' }} />
                 )}
               </div>
             </div>

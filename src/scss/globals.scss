@@ -220,3 +220,16 @@ a:link {
     flex: 12;
   }
 }
+
+.margin {
+  &-v {
+    &-2 {
+      margin: 2rem 0;
+    }
+  }
+  &-top {
+    &-4 {
+      margin-top: 4rem;
+    }
+  }
+}

@@ -13,7 +13,6 @@ class VideoCallTask {
     this._label = config.label;
     this.initiate = config.initiate;
     this.oneToOne = config.oneToOne;
-    this.skip = config.skip;
     this.acceptCredential = config.acceptCredential;
     this.next = config.next;
 
@@ -82,13 +81,17 @@ class VideoCallTask {
 }
 
 class VideoCall {
+  oninit(vnode) {
+    vnode.attrs.parent.currentState = 'intro';
+  }
+
   view(vnode) {
     return (
       <>
         {vnode.attrs.parent.currentState === 'intro' && (
           <>
             <h3>Identity Authentication</h3>
-            <p className="p-tag" style={{ margin: '2rem 0' }}>
+            <p class="p-tag margin-v-2">
               {vnode.attrs.steps ? (
                 vnode.attrs.steps.paragraph
               ) : (
@@ -99,7 +102,7 @@ class VideoCall {
               )}
             </p>
             <h3>Steps to Identity Authentication</h3>
-            <ol className="styled-ol" style={{ margin: '2rem 0' }}>
+            <ol class="styled-ol margin-v-2">
               {vnode.attrs.steps ? (
                 vnode.attrs.steps.list.map((element) => {
                   return <li>{element}</li>;
@@ -122,8 +125,23 @@ class VideoCall {
                 </>
               )}
             </ol>
-            <div className="flex flex-justify-end" style={{ marginTop: '4rem' }}>
-              {/* <Button class="button--gray-dk button--big button--no-transform" raised label="Skip" /> */}
+            <div
+              class={`flex flex-align-center margin-top-4 ${
+                vnode.attrs.parent.next ? 'flex-justify-between' : 'flex-justify-end'
+              }`}
+            >
+              {vnode.attrs.parent.initiate && vnode.attrs.parent.next && (
+                <>
+                  <Button
+                    class="button--gray-dk button--big button--no-transform"
+                    raised
+                    label="Skip"
+                    onclick={() => {
+                      vnode.attrs.parent.currentState = 'skip-identity-authentication';
+                    }}
+                  />
+                </>
+              )}
               <Button
                 class="button--big button--no-transform"
                 raised
@@ -139,16 +157,43 @@ class VideoCall {
             </div>
           </>
         )}
+        {vnode.attrs.parent.currentState === 'skip-identity-authentication' && (
+          <>
+            <h3>Skip Identity Authentication</h3>
+            <p class="p-tag margin-v-2">
+              If you have already completed Identity Authentication with all participants you may continue to initiating
+              a Multi-Sig Group.
+            </p>
+            <div class="flex flex-align-center flex-justify-between margin-top-4">
+              <Button
+                raised
+                class="button--gray-dk button--big button--no-transform"
+                label="Go Back"
+                onclick={() => {
+                  vnode.attrs.parent.currentState = 'intro';
+                }}
+              />
+              <Button
+                raised
+                class="button--big button--no-transform"
+                label="Skip"
+                onclick={() => {
+                  Tasks.active = vnode.attrs.parent.next;
+                }}
+              />
+            </div>
+          </>
+        )}
         {vnode.attrs.parent.currentState === 'video-call' && (
           <>
             <img src={projectPlanning} style={{ marginBottom: '2rem', width: '240px' }} />
             <h3>Initiate a Video Call</h3>
-            <p class="p-tag" style={{ margin: '2rem 0' }}>
+            <p class="p-tag margin-v-2">
               In order to start the authentication process, you will need to initiate a real-time Out of Band
               Interaction (OOBI) session in which you and the other users are present. You will accept all their OOBI
               URLs on a Video Call so that you can receive their identifying information.
             </p>
-            <div class="flex flex-justify-between" style={{ marginTop: '4rem' }}>
+            <div class="flex flex-justify-between margin-top-4">
               <Button
                 class="button--gray-dk button--big button--no-transform"
                 raised
@@ -172,13 +217,13 @@ class VideoCall {
           <>
             <img src={responseMessage} style={{ marginBottom: '2rem', width: '240px' }} />
             <h3>Join a Video Call</h3>
-            <p class="p-tag" style={{ margin: '2rem 0' }}>
+            <p class="p-tag margin-v-2">
               In order to start the authentication process, you will need to initiate an real-time OOBI session in which
               you and the other participant are present, You will accept all their AID and URL on a Video Call so that
               you can receive their identifying information.
             </p>
             <h3>Generate OOBI</h3>
-            <div class="flex flex-justify-between" style={{ marginTop: '4rem' }}>
+            <div class="flex flex-justify-between margin-top-4">
               <Button
                 class="button--gray-dk button--big button--no-transform"
                 raised
@@ -202,7 +247,7 @@ class VideoCall {
           <>
             <h3>Accept OOBI from other person{vnode.attrs.parent.oneToOne ? '' : 's'}</h3>
             <EnterOOBIsForm participants={vnode.attrs.parent.participants} oneToOne={vnode.attrs.parent.oneToOne} />
-            <div class="flex flex-justify-between" style={{ marginTop: '4rem' }}>
+            <div class="flex flex-justify-between margin-top-4">
               <Button
                 class="button--gray-dk button--big button--no-transform"
                 raised
@@ -265,7 +310,7 @@ class VideoCall {
           <>
             <img src={uploadFile} style={{ width: '240px', margin: '1.5rem 0 2rem 0' }} />
             <h3>Waiting for Multi-Sig Group Inception</h3>
-            <p class="p-tag" style={{ margin: '2rem 0 2rem 0' }}>
+            <p class="p-tag margin-v-2">
               You will be notified when the Lead initiates the creation of the Multi-Sig Group. Clicking on the
               notification will allow you to participate in the inception event.
             </p>
@@ -295,7 +340,7 @@ class SendOOBIPanel {
       <>
         <img src={addNewContacts} style={{ width: '200px', margin: '0 0 1rem 0' }} alt="" />
         <h3>Send OOBI for your {} AID</h3>
-        <p class="p-tag" style={{ margin: '2rem 0 2rem 0' }}>
+        <p class="p-tag margin-v-2">
           Copy this OOBI (AID + URL) to share your identifying information with all parties on the call, and paste it
           into the Video Call.
         </p>
@@ -313,11 +358,11 @@ class CopyChallengePanel {
   view(vnode) {
     return (
       <>
-        <div className="flex flex-align-center flex-justify-between">
+        <div class="flex flex-align-center flex-justify-between">
           <img src={addNewContacts} style={{ width: '120px', margin: '1.5rem 0 1rem 0' }} />
           <h3>Challenge Message Recipients</h3>
         </div>
-        <p class="p-tag" style={{ margin: '2rem 0 2rem 0' }}>
+        <p class="p-tag margin-v-2">
           Paste the message into the video chat so that your contact{vnode.attrs.parent.oneToOne ? '' : 's'} can be
           verified
           <br />
@@ -328,14 +373,14 @@ class CopyChallengePanel {
           </strong>
         </p>
         <SendChallengeForm participants={vnode.attrs.parent.participants} />
-        <div className="flex flex-align-center flex-justify-between">
+        <div class="flex flex-align-center flex-justify-between">
           <p class="font-color--battleship">Participant</p>
           <p class="font-color--battleship">Status</p>
         </div>
         {vnode.attrs.parent.participants.oobis.map((signer, index) => {
           return (
             <>
-              <div className="flex flex-align-center flex-justify-between">
+              <div class="flex flex-align-center flex-justify-between">
                 <p>{signer.alias}</p>
                 {!signer.verified && <p class="font-color--blue">In Progress</p>}
                 {signer.verified && <p class="font-color--green">Verified!</p>}
