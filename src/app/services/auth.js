@@ -51,17 +51,41 @@ class Auth {
     return new Promise((resolve, reject) => {
       KERI.unlockAgent(Keep.getName(), passcode)
         .then((response) => {
-          setTimeout(() => {
+          this.statusPoll().then(() => {
             this.setAgent(response.name);
             this.isLoggedIn = true;
             Mail.initEventSource();
-          }, 3000);
-          resolve(response);
+            resolve();
+          });
         })
         .catch((err) => {
           console.log('unlockAgent', err);
           reject(err);
         });
+    });
+  }
+
+  static status() {
+    return KERI.listIdentifiers();
+  }
+
+  static statusRetry(resolve) {
+    this.status()
+      .then(() => {
+        resolve();
+      })
+      .catch(() => {
+        setTimeout(() => {
+          this.statusRetry(resolve);
+        }, 2000);
+      });
+  }
+
+  static statusPoll() {
+    return new Promise((resolve) => {
+      setTimeout(() => {
+        this.statusRetry(resolve);
+      }, 2000);
     });
   }
 

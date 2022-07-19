@@ -37,20 +37,14 @@ class EnterPasscode {
     this.showPasscode = false;
     this.error = '';
     this.submitting = false;
-    this.success = false;
   }
 
   login(vnode) {
     this.error = '';
     this.submitting = true;
-    this.success = false;
     Auth.login(this.passcode)
       .then(() => {
-        this.success = true;
-        setTimeout(() => {
-          this.success = false;
-          vnode.attrs.end();
-        }, 3000);
+        vnode.attrs.end();
       })
       .catch(() => {
         this.error = 'Unlock failed';
@@ -63,7 +57,7 @@ class EnterPasscode {
   view(vnode) {
     return (
       <>
-        <h3 id='welcome-back'>Welcome Back</h3>
+        <h3 id="welcome-back">Welcome Back</h3>
         <div class="flex flex-justify-center" style={{ margin: '5rem 0' }}>
           <img src={passcodeImg} style={{ width: '192px' }} />
         </div>
@@ -71,13 +65,10 @@ class EnterPasscode {
           Enter your 22 character passcode to login to the portal.
         </p>
         <TextField
-          id='passcode'
+          id="passcode"
           outlined
           fluid
           autocomplete="off"
-          autocorrect="off"
-          autocapitalize="off"
-          spellcheck="false"
           type={this.showPasscode ? 'text' : 'password'}
           value={this.passcode}
           oninput={(e) => {
@@ -92,19 +83,20 @@ class EnterPasscode {
         />
         {this.error && <p class="error">{this.error}</p>}
         <div class="flex flex-justify-end" style={{ marginTop: '4rem' }}>
-          {this.submitting || this.success ? (
+          {this.submitting ? (
             <Spinner />
           ) : (
             <Button
-              id='login'
-            raised
-            class="button--no-transform button--big"
-            label="Login"
-            disabled={!this.passcode || this.submitting}
-            onclick={() => {
-              this.login(vnode);
-            }}
-          />)}
+              id="login"
+              raised
+              class="button--no-transform button--big"
+              label="Login"
+              disabled={!this.passcode || this.submitting}
+              onclick={() => {
+                this.login(vnode);
+              }}
+            />
+          )}
         </div>
       </>
     );

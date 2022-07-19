@@ -24,6 +24,7 @@ class TextField {
       rows: 4,
       style: null,
       textarea: false,
+      autocomplete: null,
       type: 'text',
       value: '',
     };
@@ -31,7 +32,6 @@ class TextField {
   }
 
   assignOptions(vnode) {
-    console.log(vnode.attrs)
     this.options = Object.assign({}, this.optionDefaults, vnode.attrs);
   }
 
@@ -147,6 +147,7 @@ class TextField {
             <input
               id={this.options.id}
               class="mdc-text-field__input"
+              autocomplete={this.options.autocomplete}
               type={this.options.type}
               pattern={this.options.pattern}
               minlength={this.options.minlength}
