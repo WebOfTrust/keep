@@ -28,17 +28,17 @@ class Ward:
             sys.stdout.flush()
 
         servery = booting.Servery(port=int(args.admin))
-        doers = booting.setup(servery=servery,
-                              controller="E59KmDbpjK0tRf9Rmc7OlueZVz7LB94DdD3cjQVvPcng",
-                              configFile='demo-witness-oobis',
-                              configDir=self.HeadDirPath,
-                              insecure=True,
-                              tcp=int(args.tcp),
-                              adminHttpPort=int(args.admin),
-                              path=self.UiPath,
-                              headDirPath=self.HeadDirPath)
+        booting.setup(servery=servery,
+                      controller="E59KmDbpjK0tRf9Rmc7OlueZVz7LB94DdD3cjQVvPcng",
+                      configFile='demo-witness-oobis',
+                      configDir=self.HeadDirPath,
+                      insecure=True,
+                      tcp=int(args.tcp),
+                      adminHttpPort=int(args.admin),
+                      path=self.UiPath,
+                      headDirPath=self.HeadDirPath)
 
-        directing.runController(doers=doers+[servery], expire=0.0)
+        directing.runController(doers=[servery], expire=0.0)
 
 
 def main():
