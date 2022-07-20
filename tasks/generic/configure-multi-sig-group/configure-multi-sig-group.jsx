@@ -2,6 +2,8 @@ import m from 'mithril';
 import { Button, Checkbox, IconButton, Radio, Select, TextField, TextTooltip } from '../../../src/app/components';
 import { Contacts, KERI, MultiSig, Profile, Witnesses } from '../../../src/app/services';
 
+import AddSignerModal from './add-signer-modal';
+
 import secureMessaging from '../../../src/assets/img/secure-messaging.svg';
 import greenCheckMark from '../../../src/assets/img/green-check-mark.svg';
 import redX from '../../../src/assets/img/red-x.svg';
@@ -42,14 +44,8 @@ class ConfigureMultiSigGroup {
     this.fractionallyWeighted = false;
     this.numSigners = 0; // Used only if fractionallyWeighted is false
     this.wits = Witnesses.witnessPools[0].wits;
-    MultiSig.participants = [
-      {
-        id: '',
-        alias: '',
-        weight: '',
-        signed: false,
-      },
-    ];
+    this.addSignerOpen = false;
+    MultiSig.participants = [];
 
     if (vnode.attrs.parent.requireDelegator) {
       MultiSig.delegator = null;
@@ -174,7 +170,7 @@ class ConfigureMultiSigGroup {
           <>
             <img src={secureMessaging} style={{ width: '268px', margin: '4rem 0 1rem 0' }} />
             <h3>Required Delegator {vnode.attrs.parent.requiredDelegator} missing.</h3>
-            <p class="p-tag" style={{ margin: '2rem 0' }}>
+            <p class="p-tag margin-v-2">
               You can not begin this process until the AID for {vnode.attrs.parent.requiredDelegator} has been created.
               Please click "Retry" to try again.
             </p>
@@ -194,7 +190,7 @@ class ConfigureMultiSigGroup {
           <>
             <img src={secureMessaging} style={{ width: '268px', margin: '4rem 0 1rem 0' }} />
             <h3>Configure Multi-Sig Group</h3>
-            <p class="p-tag" style={{ margin: '2rem 0' }}>
+            <p class="p-tag margin-v-2">
               If you are seeing this, it is because you have verified contacts and can now configure the multi-sig
               group. You will now be tasked with creating the multi-sig group. Once this is completed, make sure that
               all members of the multi-sig group are available to sign the inception event of the multisig identifier.
@@ -215,12 +211,8 @@ class ConfigureMultiSigGroup {
           <>
             <h3>Create Your Multi-Sig Group Alias</h3>
             <img src={secureMessaging} style={{ width: '268px', margin: '4rem 0 2rem 0' }} />
-            <p class="p-tag" style={{ margin: '2rem 0 2rem 0' }}>
-              The alias should be an easy to remember name for your multi-sig group.
-            </p>
-            <p class="p-tag" style={{ margin: '2rem 0 2rem 0' }}>
-              What would you like your group's alias to be?
-            </p>
+            <p class="p-tag margin-v-2">The alias should be an easy to remember name for your multi-sig group.</p>
+            <p class="p-tag margin-v-2">What would you like your group's alias to be?</p>
             <TextField
               outlined
               fluid
@@ -229,7 +221,7 @@ class ConfigureMultiSigGroup {
                 this.groupAlias = e.target.value;
               }}
             />
-            <div class="flex flex-justify-between" style={{ marginTop: '4rem' }}>
+            <div class="flex flex-justify-between margin-top-4">
               <Button
                 class="button--gray-dk button--big button--no-transform"
                 raised
@@ -294,7 +286,7 @@ class ConfigureMultiSigGroup {
                 </label>
               </div>
             </div>
-            <div class="flex" style={{ alignItems: 'center', margin: '1rem 0' }}>
+            <div class="flex margin-v-1">
               <Checkbox checked={true} disabled={true} />
               <label class="font-weight--medium font-color--battleship">Create Credential Registry</label>
             </div>
@@ -335,7 +327,7 @@ class ConfigureMultiSigGroup {
               <div style={{ width: '48px', height: '48px', marginLeft: '1rem' }}></div>
             </div>
             <div style={{ marginBottom: '1rem', maxHeight: '320px', overflowY: 'auto' }}>
-              <div className="flex flex-align-center flex-justify-between" style={{ margin: '1rem 0' }}>
+              <div class="flex flex-align-center flex-justify-between margin-v-1">
                 <p class="font-color--battleship">
                   <b>{this.default.name}</b> (Your local identifier)
                 </p>
@@ -353,23 +345,27 @@ class ConfigureMultiSigGroup {
                 )}
                 <div style={{ width: '48px', height: '48px', marginLeft: '1rem' }}></div>
               </div>
+              <AddSignerModal
+                isOpen={this.addSignerOpen}
+                onClose={() => {
+                  this.addSignerOpen = false;
+                }}
+                onSave={(contact) => {
+                  MultiSig.participants.push({
+                    id: contact.id,
+                    alias: contact.alias,
+                    weight: '',
+                    signed: false,
+                  });
+                  this.addSignerOpen = false;
+                }}
+              />
               {MultiSig.participants.map((signer, index) => {
                 return (
-                  <div class="flex flex-align-center flex-justify-between" style={{ margin: '1rem 0' }}>
-                    <Select
-                      outlined
-                      options={Contacts.list.map((contact) => {
-                        return {
-                          label: contact.alias,
-                          value: contact.id,
-                        };
-                      })}
-                      onchange={(id) => {
-                        let contact = Contacts.filterById(id);
-                        signer.id = contact.id;
-                        signer.alias = contact.alias;
-                      }}
-                    />
+                  <div class="flex flex-align-center flex-justify-between margin-v-1">
+                    <p class="font-color--battleship">
+                      <b>{signer.alias}</b>
+                    </p>
                     <div class="flex-1"></div>
                     {this.fractionallyWeighted && (
                       <TextField
@@ -401,15 +397,10 @@ class ConfigureMultiSigGroup {
               label="Add Another"
               iconLeading="add"
               onclick={() => {
-                MultiSig.participants.push({
-                  id: '',
-                  alias: '',
-                  weight: '',
-                  signed: false,
-                });
+                this.addSignerOpen = true;
               }}
             />
-            <div class="flex flex-justify-between" style={{ marginTop: '4rem' }}>
+            <div class="flex flex-justify-between margin-top-4">
               <Button
                 class="button--gray-dk button--big button--no-transform"
                 raised
@@ -442,21 +433,19 @@ class ConfigureMultiSigGroup {
           <>
             <img src={secureMessaging} style={{ marginBottom: '1rem', width: '268px' }} />
             <h3>Confirm Delegator</h3>
-            <p class="p-tag" style={{ margin: '2rem 0' }}>
-              These details should be cross referenced with other well known sources.
-            </p>
+            <p class="p-tag margin-v-2">These details should be cross referenced with other well known sources.</p>
 
-            <p className="p-tag-bold">Delegator Alias:</p>
-            <div className="uneditable-value">{MultiSig.delegator.alias}</div>
-            <p className="p-tag-bold">Delegator AID:</p>
-            <div className="uneditable-value">
+            <p class="p-tag-bold">Delegator Alias:</p>
+            <div class="uneditable-value">{MultiSig.delegator.alias}</div>
+            <p class="p-tag-bold">Delegator AID:</p>
+            <div class="uneditable-value">
               <code>{MultiSig.delegator.id}</code>
             </div>
 
             <p class="p-tag">
               See the Ecosystem Governance Framework for a full listing of available well known sources.
             </p>
-            <div class="flex flex-justify-between" style={{ marginTop: '4rem' }}>
+            <div class="flex flex-justify-between margin-top-4">
               <Button
                 class="button--gray-dk button--big button--no-transform"
                 raised
@@ -482,13 +471,11 @@ class ConfigureMultiSigGroup {
             <h3 style={{ marginBottom: '2rem' }}>Review and Confirm</h3>
             <p class="font-weight--bold font-color--battleship">Group Alias:</p>
             <div class="uneditable-value">{this.groupAlias}</div>
-            <p className="font-weight--bold font-color--battleship">Witness Pool:</p>
-            <div className="uneditable-value">{Witnesses.witnessPools.find((p) => p.value === this.wits).label}</div>
-            <p class="font-color--battleship" style={{ margin: '2rem 0' }}>
-              Review signers to make sure the list is complete.
-            </p>
+            <p class="font-weight--bold font-color--battleship">Witness Pool:</p>
+            <div class="uneditable-value">{Witnesses.witnessPools.find((p) => p.value === this.wits).label}</div>
+            <p class="font-color--battleship margin-v-2">Review signers to make sure the list is complete.</p>
             <p class="font-weight--bold font-color--battleship">Signers (in order):</p>
-            <div class="flex flex-align-center flex-justify-between" style={{ margin: '1rem 0' }}>
+            <div class="flex flex-align-center flex-justify-between margin-v-1">
               <div class="flex-1 uneditable-value" style={{ marginRight: '1rem' }}>
                 {this.default.name}
               </div>
@@ -501,7 +488,7 @@ class ConfigureMultiSigGroup {
               }
               return (
                 <>
-                  <div class="flex flex-align-center flex-justify-between" style={{ margin: '1rem 0' }}>
+                  <div class="flex flex-align-center flex-justify-between margin-v-1">
                     <div class="flex-1 uneditable-value" style={{ marginRight: '1rem' }}>
                       {alias}
                     </div>
@@ -518,13 +505,13 @@ class ConfigureMultiSigGroup {
                 </div>
               </>
             )}
-            <div class="flex flex-justify-between" style={{ marginTop: '4rem' }}>
+            <div class="flex flex-justify-between margin-top-4">
               <Button
                 class="button--gray-dk button--big button--no-transform"
                 raised
                 label="Go Back"
                 onclick={() => {
-                  vnode.attrs.parent.currentState = 'create-group-alias';
+                  vnode.attrs.parent.currentState = 'configure-multisig-group';
                 }}
               />
               <Button
@@ -569,9 +556,7 @@ class EventDetails {
     return (
       <>
         <h3>{vnode.attrs.groupAlias} Inception:</h3>
-        <h4 class="p-tag" style={{ margin: '0 0 0 0' }}>
-          Status: {vnode.attrs.status}
-        </h4>
+        <h4 class="p-tag margin-clear">Status: {vnode.attrs.status}</h4>
 
         <div class="flex flex-justify-between">
           <p class="p-tag" style={{ margin: '2rem 0 1rem 4.5rem' }}>
@@ -585,12 +570,10 @@ class EventDetails {
           {MultiSig.participants.map((sig, i) => {
             return (
               <div
-                class="flex flex-justify-evenly "
-                style={{ alignItems: 'center', margin: '0 0 1rem 0', width: '100%' }}
+                class="flex flex-justify-evenly flex-justify-center "
+                style={{ margin: '0 0 1rem 0', width: '100%' }}
               >
-                <h4 class="p-tag" style={{ margin: '0 0 0 0' }}>
-                  {`#${i + 1}`}
-                </h4>
+                <h4 class="p-tag margin-clear">{`#${i + 1}`}</h4>
                 <div
                   class="flex flex-align-center"
                   style={{ width: '55%', backgroundColor: 'white', height: '40px', borderRadius: '3px' }}
@@ -636,7 +619,7 @@ class EventDetails {
             </div>
           </>
         )}
-        <div class="flex flex-justify-between" style={{ marginTop: '4rem' }}>
+        <div class="flex flex-justify-between margin-top-4">
           <Button
             class="button--gray-dk button--big button--no-transform"
             raised
