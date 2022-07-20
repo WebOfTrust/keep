@@ -124,17 +124,6 @@ class CreatePasscode {
               }}
               style={{ width: '680px' }}
               header={<h1 class="font-weight--medium">Wait! Did you save your passcode?</h1>}
-              content={
-                <>
-                  <div class="flex flex-align-center flex-justify-center">
-                    <img style={{ marginRight: '2rem' }} src={wait} />
-                    <h3 class="font-weight--light font-color--battleship" style={{ maxWidth: '280px' }}>
-                      If you forget your passcode, you lose access to your wallet. Make sure that you store it someplace
-                      safe.
-                    </h3>
-                  </div>
-                </>
-              }
               footer={
                 <>
                   <div class="flex flex-justify-center" style={{ marginTop: '2rem' }}>
@@ -151,7 +140,15 @@ class CreatePasscode {
                   </div>
                 </>
               }
-            />
+            >
+              <div class="flex flex-align-center flex-justify-center">
+                <img style={{ marginRight: '2rem' }} src={wait} />
+                <h3 class="font-weight--light font-color--battleship" style={{ maxWidth: '280px' }}>
+                  If you forget your passcode, you lose access to your wallet. Make sure that you store it someplace
+                  safe.
+                </h3>
+              </div>
+            </Modal>
             <h3 id="generate-passcode">Generate Your Passcode</h3>
             <div class="flex flex-justify-center" style={{ margin: '3rem 0 2rem 0' }}>
               <img src={createYourPasscode} style={{ width: '205px' }} />

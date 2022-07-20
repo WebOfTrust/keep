@@ -12,15 +12,12 @@ class ConfigureWitnesses {
             width: '680px',
           }}
           header={<h1>Add/Edit Witnesses</h1>}
-          content={
-            <>
-              <TextField fluid filled style={{ marginBottom: '1rem' }} />
-              <TextField fluid filled style={{ marginBottom: '1rem' }} />
-              <TextField fluid filled style={{ marginBottom: '1rem' }} />
-              <Button raised label="Add More" />
-            </>
-          }
-        />
+        >
+          <TextField fluid filled style={{ marginBottom: '1rem' }} />
+          <TextField fluid filled style={{ marginBottom: '1rem' }} />
+          <TextField fluid filled style={{ marginBottom: '1rem' }} />
+          <Button raised label="Add More" />
+        </Modal>
       </>
     );
   }
