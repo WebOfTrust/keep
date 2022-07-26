@@ -24,7 +24,7 @@ class AddSignerModal {
         <Modal
           isOpen={vnode.attrs.isOpen}
           onClose={vnode.attrs.onClose}
-          header={<h1>Add Signer</h1>}
+          header={<h3>Add Signer</h3>}
           style={{
             top: 'calc(50% - 150px)',
             width: '480px',

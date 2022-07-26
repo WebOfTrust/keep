@@ -5,4 +5,37 @@
   background-color: $background-blue;
   display: flex;
   min-height: calc(100vh - 138px);
+
+  &-list {
+    &-item {
+      align-items: center;
+      border-bottom: 1px solid $border;
+      cursor: pointer;
+      display: flex;
+      justify-content: between;
+      padding: 1rem 1.5rem;
+      transition: background-color 0.2s ease-in-out;
+
+      &-name {
+        margin: 0;
+      }
+
+      &--active {
+        background-color: $active-blue;
+      }
+
+      &:not(&--active) {
+        &:hover {
+          background-color: $gray-lter;
+        }
+      }
+    }
+  }
+
+  .help {
+    img {
+      margin: 2rem 0;
+      width: 210px;
+    }
+  }
 }

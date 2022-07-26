@@ -288,7 +288,9 @@ class ConfigureMultiSigGroup {
             </div>
             <div class="flex margin-v-1">
               <Checkbox checked={true} disabled={true} />
-              <label class="font-weight--medium font-color--battleship">Create Credential Registry</label>
+              <label class="font-weight--medium font-color--battleship" style={{ marginTop: '1rem' }}>
+                Create Credential Registry
+              </label>
             </div>
             {!this.fractionallyWeighted && (
               <>
