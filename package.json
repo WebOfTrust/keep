@@ -42,7 +42,8 @@
         "pages:build": "yarn pages:rm-build; parcel build pages/index.html --public-url ./",
         "prepages:deploy": "yarn pages:build",
         "pages:deploy": "gh-pages -d dist",
-        "wdio": "wdio run wdio.conf.js"
+        "wdio": "wdio run wdio.conf.js",
+        "rm-webcache": "rm -rf .webcache"
     },
     "targets": {
         "main": false
