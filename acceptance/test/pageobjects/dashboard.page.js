@@ -1,14 +1,11 @@
 const Page = require('./page');
 
 class DashboardPage extends Page {
+  get about() {
+    return $('#about-your-tasks');
+  }
 
-    get about () {
-        return $('#about-your-tasks');
-    }
-
-    async lock() {
-
-    }
+  async lock() {}
 }
 
 module.exports = new DashboardPage();

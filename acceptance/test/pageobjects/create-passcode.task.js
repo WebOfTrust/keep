@@ -1,68 +1,67 @@
 const Page = require('./page');
 
 class CreatePasscodeTask extends Page {
+  get welcome() {
+    return $('#welcome');
+  }
 
-    get welcome () {
-        return $('#welcome');
-    }
+  get generatePasscode() {
+    return $('#generate-passcode');
+  }
 
-    get generatePasscode() {
-        return $('#generate-passcode');
-    }
+  get passcode() {
+    return $('#passcode').getValue();
+  }
 
-    get passcode() {
-        return $('#passcode').getValue();
-    }
+  get passcodeAlert() {
+    return $('#wait');
+  }
 
-    get passcodeAlert() {
-        return $('#wait');
-    }
+  get btnContinue() {
+    return $('#continue');
+  }
 
-    get btnContinue () {
-        return $('#continue');
-    }
+  get btnGenerate() {
+    return $('#generate');
+  }
 
-    get btnGenerate () {
-        return $('#generate');
-    }
+  get confirmPasscode() {
+    return $('#confirm-passcode').getValue();
+  }
 
-    get confirmPasscode() {
-        return $('#confirm-passcode').getValue();
-    }
+  async continue() {
+    await this.btnContinue.click();
+  }
 
-    async continue () {
-        await this.btnContinue.click();
-    }
+  async generateNewPasscode() {
+    await this.btnGenerate.click();
+  }
 
-    async   generateNewPasscode () {
-        await this.btnGenerate.click();
-    }
+  async setPasscode(passcode) {
+    const p = await $('#passcode');
+    await p.doubleClick();
+    await browser.keys('Delete');
+    await p.setValue(passcode);
+  }
 
-    async setPasscode(passcode) {
-        const p = await $('#passcode');
-        await p.doubleClick();
-        await browser.keys("Delete");
-        await p.setValue(passcode);
-    }
+  async passcodeSaved() {
+    await $('#passcode-saved').click();
+  }
 
-    async passcodeSaved() {
-        await $('#passcode-saved').click();
-    }
+  async setConfirmPasscode(passcode) {
+    const pc = await $('#confirm-passcode');
+    await pc.doubleClick();
+    await browser.keys('Delete');
+    await pc.setValue(passcode);
+  }
 
-    async setConfirmPasscode(passcode) {
-        const pc = await $('#confirm-passcode');
-        await pc.doubleClick();
-        await browser.keys("Delete");
-        await pc.setValue(passcode);
-    }
+  async submit() {
+    await $('#initialize').click();
+  }
 
-    async submit () {
-        await $('#initialize').click();
-    }
-
-    open () {
-        return super.open('');
-    }
+  open() {
+    return super.open('');
+  }
 }
 
 module.exports = new CreatePasscodeTask();
