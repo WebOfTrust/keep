@@ -22,7 +22,7 @@ class StyleGuide {
 
   view() {
     return (
-      <Modal>
+      <>
         <Modal
           style={{
             animation: '0.4s slideInTop',
@@ -34,7 +34,8 @@ class StyleGuide {
           }}
           header={<h1>Header</h1>}
           footer={<p>Footer</p>}
-        ><p>Content</p>
+        >
+          <p>Content</p>
         </Modal>
         <Container>
           <Card class="headspace">
