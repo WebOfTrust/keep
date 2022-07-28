@@ -176,7 +176,7 @@ class Dashboard {
                       {/* About Your Tasks */}
                       {!Notify.isOpen && !Tasks.active && !this.aboutDismissed && (
                         <>
-                          <h3 id='about-your-tasks'>About Your Tasks</h3>
+                          <h3 id="about-your-tasks">About Your Tasks</h3>
                           <p
                             class="font-color--battleship"
                             style={{ lineHeight: '1.38', letterSpacing: '0.3px', margin: '3rem 0 4rem 0' }}

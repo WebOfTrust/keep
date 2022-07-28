@@ -10,6 +10,7 @@ import uploadFile from '../../../src/assets/img/upload-file.svg';
 
 class VideoCallTask {
   constructor(config) {
+    this._id = 'video-call';
     this._label = config.label;
     this.initiate = config.initiate;
     this.oneToOne = config.oneToOne;
@@ -52,6 +53,10 @@ class VideoCallTask {
     } else {
       return addNewContacts;
     }
+  }
+
+  get id() {
+    return this._id;
   }
 
   get label() {

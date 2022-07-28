@@ -37,5 +37,27 @@ describe('Launching a new Keep', () => {
 
     const DashboardPage = await EnterPassCodeTask.login();
     await expect(DashboardPage.about).toBeExisting();
+
+    // CreateYourAIDTask
+
+    const CreateYourAIDTask = await DashboardPage.launchCreateYourAIDTask();
+    await expect(CreateYourAIDTask.welcome).toBeExisting();
+
+    await CreateYourAIDTask.btnContinue.click();
+    await expect(CreateYourAIDTask.creatingYourAID).toBeExisting();
+
+    await CreateYourAIDTask.btnContinue.click();
+    await expect(CreateYourAIDTask.stepsToCreate).toBeExisting();
+
+    await CreateYourAIDTask.btnContinue.click();
+    await expect(CreateYourAIDTask.alias).toBeExisting();
+
+    await CreateYourAIDTask.alias.setValue('rootgar');
+
+    await CreateYourAIDTask.btnContinue.click();
+    await expect(CreateYourAIDTask.reviewAlias).toBeExisting();
+
+    await CreateYourAIDTask.createAID();
+    await expect(DashboardPage.createYourAIDTask).not.toBeExisting();
   });
 });

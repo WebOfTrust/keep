@@ -8,6 +8,7 @@ import uploadImage from '../../../src/assets/img/upload-image.svg';
 
 class CreateYourAIDTask {
   constructor(config) {
+    this._id = 'create-your-aid';
     this._label = config.label;
     this._component = {
       view: (vnode) => {
@@ -19,6 +20,10 @@ class CreateYourAIDTask {
 
   get imgSrc() {
     return createIdentifier;
+  }
+
+  get id() {
+    return this._id;
   }
 
   get label() {
@@ -63,7 +68,9 @@ class CreateYourAID {
       <>
         {vnode.attrs.parent.currentState === 'welcome' && (
           <>
-            <h3>{vnode.attrs.variables.welcome ? vnode.attrs.variables.welcome.title : 'Welcome To KEEP'}</h3>
+            <h3 id="welcome">
+              {vnode.attrs.variables.welcome ? vnode.attrs.variables.welcome.title : 'Welcome To KEEP'}
+            </h3>
             <img src={createIdentifier} style={{ display: 'block', margin: '5rem auto 0', width: '270px' }} />
             <p class="p-tag" style={{ margin: '4rem 0 4rem 0' }}>
               {vnode.attrs.variables.welcome ? (
@@ -81,6 +88,7 @@ class CreateYourAID {
             </p>
             <div class="flex flex-justify-between">
               <Button
+                id="skip"
                 class="button--gray-dk button--big button--no-transform"
                 raised
                 label="Skip"
@@ -89,6 +97,7 @@ class CreateYourAID {
                 }}
               />
               <Button
+                id="continue"
                 class="button--big button--no-transform"
                 raised
                 label="Continue"
@@ -101,7 +110,9 @@ class CreateYourAID {
         )}
         {vnode.attrs.parent.currentState === 'creating-aid' && (
           <>
-            <h3>{vnode.attrs.variables.creatingAID ? vnode.attrs.variables.creatingAID.title : 'Creating Your AID'}</h3>
+            <h3 id="creating-your-aid">
+              {vnode.attrs.variables.creatingAID ? vnode.attrs.variables.creatingAID.title : 'Creating Your AID'}
+            </h3>
             <img src={createIdentifier} style={{ display: 'block', margin: '5rem auto 0', width: '270px' }} />
             <p class="p-tag" style={{ margin: '4rem 0 4rem 0' }}>
               {vnode.attrs.variables.creatingAID ? (
@@ -115,6 +126,7 @@ class CreateYourAID {
             </p>
             <div class="flex flex-justify-between">
               <Button
+                id="skip"
                 class="button--gray-dk button--big button--no-transform"
                 raised
                 label="Skip"
@@ -123,6 +135,7 @@ class CreateYourAID {
                 }}
               />
               <Button
+                id="continue"
                 class="button--big button--no-transform"
                 raised
                 label="Continue"
@@ -135,7 +148,7 @@ class CreateYourAID {
         )}
         {vnode.attrs.parent.currentState === 'steps-to-create' && (
           <>
-            <h3>
+            <h3 id="steps-to-create">
               {vnode.attrs.variables.stepsToCreate
                 ? vnode.attrs.variables.stepsToCreate.title
                 : 'Steps to Create Your AID'}
@@ -148,6 +161,7 @@ class CreateYourAID {
             </ol>
             <div class="flex flex-justify-between">
               <Button
+                id="skip"
                 class="button--gray-dk button--big button--no-transform"
                 raised
                 label="Skip"
@@ -156,6 +170,7 @@ class CreateYourAID {
                 }}
               />
               <Button
+                id="continue"
                 class="button--big button--no-transform"
                 raised
                 label="Continue"
@@ -179,6 +194,7 @@ class CreateYourAID {
               <p className="p-tag-bold">What would you like your alias to be?</p>
             </p>
             <TextField
+              id="alias"
               outlined
               fluid
               style={{ margin: '0 0 0 0' }}
@@ -200,6 +216,7 @@ class CreateYourAID {
             />
             <div class="flex flex-justify-between">
               <Button
+                id="skip"
                 class="button--gray-dk button--big button--no-transform"
                 raised
                 label="Go Back"
@@ -208,6 +225,7 @@ class CreateYourAID {
                 }}
               />
               <Button
+                id="continue"
                 class="button--big button--no-transform"
                 raised
                 label="Continue"
@@ -292,7 +310,9 @@ class CreateYourAID {
                 }}
               />
             </div>
-            <div class="uneditable-value">{this.alias}</div>
+            <div id="review-alias" class="uneditable-value">
+              {this.alias}
+            </div>
             {/* <div class="flex flex-justify-between" style={{ alignItems: 'baseline', margin: '2rem 0' }}>
               <p class="p-tag">Alias Photo:</p>
               <Button
@@ -307,6 +327,7 @@ class CreateYourAID {
             <img src={this.aliasPhoto} style={{ height: '100px', marginBottom: '4rem', width: '100px' }} /> */}
             <div class="flex flex-justify-end" style={{ marginTop: '4rem' }}>
               <Button
+                id="create-aid"
                 class="button--big button--no-transform"
                 raised
                 label="Continue"
