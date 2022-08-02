@@ -5,6 +5,7 @@ import createIdentifier from '../../../src/assets/img/create-identifier.svg';
 
 class IntroToYourRoleTask {
   constructor(config) {
+    this._id = config.id;
     this._label = config.label;
     this._component = {
       view: (vnode) => {
@@ -15,6 +16,10 @@ class IntroToYourRoleTask {
 
   get imgSrc() {
     return createIdentifier;
+  }
+
+  get id() {
+    return this._id;
   }
 
   get label() {
@@ -32,7 +37,9 @@ class IntroToYourRole {
 
     this.steps = [
       <>
-        <h3>{vnode.attrs.variables.main ? vnode.attrs.variables.main.title : 'Intro to your Role'}</h3>
+        <h3 id="intro-header">
+          {vnode.attrs.variables.main ? vnode.attrs.variables.main.title : 'Intro to your Role'}
+        </h3>
         <img src={approveRequest} style={{ display: 'block', margin: '4rem auto', width: '244px' }} />
         <p class="p-tag">
           {vnode.attrs.variables.main ? (
@@ -46,6 +53,7 @@ class IntroToYourRole {
         </p>
         <div class="flex flex-justify-between" style={{ marginTop: '4rem' }}>
           <Button
+            id="skip"
             class="button--gray-dk button--big button--no-transform"
             raised
             label="Skip"
@@ -54,6 +62,7 @@ class IntroToYourRole {
             }}
           />
           <Button
+            id="continue"
             class="button--big button--no-transform"
             raised
             label="Continue"
@@ -68,11 +77,12 @@ class IntroToYourRole {
       vnode.attrs.variables.steps.forEach((step) => {
         this.steps.push(
           <>
-            <h3>{step.title}</h3>
+            <h3 id="steps-header">{step.title}</h3>
             <img src={step.image} style={{ display: 'block', width: '200px', margin: '4rem auto' }} />
             <p class="p-tag">{step.paragraph}</p>
             <div class="flex flex-justify-between" style={{ marginTop: '4rem' }}>
               <Button
+                id="steps-skip"
                 class="button--gray-dk button--big button--no-transform"
                 raised
                 label="Skip"
@@ -81,6 +91,7 @@ class IntroToYourRole {
                 }}
               />
               <Button
+                id="steps-continue"
                 class="button--big button--no-transform"
                 raised
                 label="Continue"

@@ -39,8 +39,7 @@ class CreatePasscodeTask extends Page {
 
   async setPasscode(passcode) {
     const p = await $('#passcode');
-    await p.doubleClick();
-    await browser.keys('Delete');
+    await p.clearValue();
     await p.setValue(passcode);
   }
 

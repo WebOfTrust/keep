@@ -8,7 +8,7 @@ import uploadImage from '../../../src/assets/img/upload-image.svg';
 
 class CreateYourAIDTask {
   constructor(config) {
-    this._id = 'create-your-aid';
+    this._id = config.id;
     this._label = config.label;
     this._component = {
       view: (vnode) => {

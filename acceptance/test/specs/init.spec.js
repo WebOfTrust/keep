@@ -1,7 +1,7 @@
 const LockedPage = require('../pageobjects/locked.page');
 
 describe('Launching a new Keep', () => {
-  it('should create a passcode', async () => {
+  it('should create a regular rootgar', async () => {
     const passcode = 'DoB2-6Fj4x-9Lbo-AFWJr-a17O';
     await LockedPage.open(5521);
 
@@ -9,55 +9,77 @@ describe('Launching a new Keep', () => {
 
     const CreatePasscodeTask = await LockedPage.launchCreateTask();
 
-    await expect(CreatePasscodeTask.welcome).toBeExisting();
+    expect(await CreatePasscodeTask.welcome).toBeExisting();
+
     await CreatePasscodeTask.continue();
-    await expect(CreatePasscodeTask.generatePasscode).toBeExisting();
+    expect(await CreatePasscodeTask.generatePasscode).toBeExisting();
 
     await CreatePasscodeTask.generateNewPasscode();
-    await expect(await CreatePasscodeTask.passcode).toHaveLength(26);
+    expect(await CreatePasscodeTask.passcode).toHaveLength(26);
 
     await CreatePasscodeTask.setPasscode(passcode);
-    await expect(await CreatePasscodeTask.passcode).toEqual(passcode);
+    expect(await CreatePasscodeTask.passcode).toEqual(passcode);
 
     await CreatePasscodeTask.continue();
-    await expect(CreatePasscodeTask.passcodeAlert).toBeExisting();
+    expect(await CreatePasscodeTask.passcodeAlert).toBeExisting();
     await CreatePasscodeTask.passcodeSaved();
 
     await CreatePasscodeTask.setConfirmPasscode(passcode);
-    await expect(await CreatePasscodeTask.confirmPasscode).toEqual(passcode);
+    expect(await CreatePasscodeTask.confirmPasscode).toEqual(passcode);
     await CreatePasscodeTask.submit();
 
     // EnterPassCodeTask
 
-    await expect(await LockedPage.enterPasscodeTask).toBeExisting();
+    expect(await LockedPage.enterPasscodeTask).toBeExisting();
     const EnterPassCodeTask = await LockedPage.launchEnterTask();
 
-    await expect(await EnterPassCodeTask.welcomeBack).toBeExisting();
+    expect(await EnterPassCodeTask.welcomeBack).toBeExisting();
     await EnterPassCodeTask.setPasscode(passcode);
 
     const DashboardPage = await EnterPassCodeTask.login();
-    await expect(DashboardPage.about).toBeExisting();
+    expect(await DashboardPage.about).toBeExisting();
+
+    // IntroToYourRoleTask
+
+    expect(await DashboardPage.introToYourRoleTask).toBeExisting();
+
+    const IntroToYourRoleTask = await DashboardPage.launchIntroToYourRoleTask();
+    expect(await IntroToYourRoleTask.introHeader).toBeExisting();
+
+    await IntroToYourRoleTask.btnContinue.click();
+    expect(await IntroToYourRoleTask.introHeader).not.toBeExisting();
+    expect(await IntroToYourRoleTask.stepsHeader).toBeExisting();
+
+    while (await IntroToYourRoleTask.btnStepsContinue.isExisting()) {
+      await IntroToYourRoleTask.btnStepsContinue.click();
+    }
+
+    expect(await DashboardPage.about).toBeExisting();
 
     // CreateYourAIDTask
 
+    expect(await DashboardPage.createYourAIDTask).toBeExisting();
+
     const CreateYourAIDTask = await DashboardPage.launchCreateYourAIDTask();
-    await expect(CreateYourAIDTask.welcome).toBeExisting();
+    expect(await CreateYourAIDTask.welcome).toBeExisting();
 
     await CreateYourAIDTask.btnContinue.click();
-    await expect(CreateYourAIDTask.creatingYourAID).toBeExisting();
+    expect(await CreateYourAIDTask.creatingYourAID).toBeExisting();
 
     await CreateYourAIDTask.btnContinue.click();
-    await expect(CreateYourAIDTask.stepsToCreate).toBeExisting();
+    expect(await CreateYourAIDTask.stepsToCreate).toBeExisting();
 
     await CreateYourAIDTask.btnContinue.click();
-    await expect(CreateYourAIDTask.alias).toBeExisting();
+    expect(await CreateYourAIDTask.alias).toBeExisting();
 
-    await CreateYourAIDTask.alias.setValue('rootgar');
+    await CreateYourAIDTask.alias.setValue('rootgar2');
 
     await CreateYourAIDTask.btnContinue.click();
-    await expect(CreateYourAIDTask.reviewAlias).toBeExisting();
+    expect(await CreateYourAIDTask.reviewAlias).toBeExisting();
 
     await CreateYourAIDTask.createAID();
-    await expect(DashboardPage.createYourAIDTask).not.toBeExisting();
+
+    expect(await DashboardPage.introToYourRoleTask).not.toBeExisting();
+    expect(await DashboardPage.createYourAIDTask).not.toBeExisting();
   });
 });

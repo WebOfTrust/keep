@@ -49,8 +49,16 @@ const tasks = {
     new EnterPasscodeTask({ id: 'enter-passcode', label: 'Enter Your Passcode' }),
   ],
   'create-identifier': [
-    new IntroToYourRoleTask({ label: 'Intro to Your Role', variables: variables.introToYourRole }),
-    new CreateYourAIDTask({ label: 'Incept Local GLEIF Single-Sig AID', variables: variables.createYourAid }),
+    new IntroToYourRoleTask({
+      id: 'intro-to-your-role',
+      label: 'Intro to Your Role',
+      variables: variables.introToYourRole,
+    }),
+    new CreateYourAIDTask({
+      id: 'create-your-aid',
+      label: 'Incept Local GLEIF Single-Sig AID',
+      variables: variables.createYourAid,
+    }),
   ],
   'create-multisig': [
     new VideoCallTask({
