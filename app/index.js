@@ -1,20 +1,15 @@
 'use strict';
 
-require('hazardous');
 const path = require('path');
 const electron = require('electron');
 const {app, BrowserWindow} = electron;
 const fs = require('fs');
-const {execFile} = require('child_process');
 const retry = require('promise-retry');
 const fetch = (...args) => import('node-fetch').then(({default: fetch}) => fetch(...args));
 const log = require('electron-log');
 const express = require("express");
-const cors = require('cors');
 
 log.transports.file.resolvePath = () => path.join(__dirname, 'keep.log');
-
-let keep = null;
 
 const createWindow = () => {
     const win = new BrowserWindow({
@@ -24,42 +19,51 @@ const createWindow = () => {
     });
 
     win.webContents.openDevTools();
-
     win.loadFile(path.join(__dirname, 'index.html'));
 
-    let config = {};
+    let KEEP_PORT = 5520;
+    let API_PORT = 5621;
+    let HOST = 'http://127.0.0.1';
 
-    let ADMIN_PORT = 5621
-    const API_HOST = 'http://127.0.0.1';
-    const configPath = path.join(__dirname, 'ward/config.json');
+    const configPath = path.join(__dirname, 'config.json');
+    const debugPath = path.join(__dirname, 'debug.json');
+
+    let config = {};
     if (fs.existsSync(configPath)) {
         config = JSON.parse(fs.readFileSync(configPath));
-        ADMIN_PORT = config['ADMIN_PORT']
+        API_PORT = config['API_PORT'];
+        KEEP_PORT = config['KEEP_PORT'];
     }
 
+    const serving = express();
 
     if (fs.existsSync(debugPath)) {
         let debug = JSON.parse(fs.readFileSync(debugPath));
         if (debug === true) {
-            win.webContents.openDevTools()
+            win.webContents.openDevTools();
         }
     }
 
-    const host = `${API_HOST}:${ADMIN_PORT}`
+    serving.listen(KEEP_PORT, () => {
+        console.log(`Serving UI on ${KEEP_PORT}`);
+    });
+    serving.use(express.static('static'));
+
+    const endpoint = `${HOST}:${API_PORT}`
     retry((retry) => {
-        log.info('⏳ connecting...');
-        return fetch(host).catch(retry);
+        log.info('⏳ connecting...', endpoint);
+        return fetch(endpoint).catch(retry);
     }).then(() => {
-        win.loadURL(host).then(() =>
-            log.info('🚀 connecting...'))
+        log.info('🚀 connected.')
+        win.loadURL(`${HOST}:${KEEP_PORT}`).then(() =>
+            log.info('🏰 loading Keep...'));
     }).catch(() => {
         app.quit();
-        keep.close();
     });
 }
 
 app.whenReady().then(() => {
-    createWindow()
+    createWindow();
 
     app.on('activate', () => {
         if (BrowserWindow.getAllWindows().length === 0) {
@@ -72,8 +76,4 @@ app.on('window-all-closed', () => {
     if (process.platform !== 'darwin') {
         app.quit();
     }
-});
-
-app.on('will-quit', () => {
-    keep.close();
 });
