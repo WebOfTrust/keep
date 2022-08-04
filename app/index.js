@@ -1,103 +1,58 @@
+'use strict';
+
+require('hazardous');
+const path = require('path');
 const electron = require('electron');
 const {app, BrowserWindow} = electron;
 const fs = require('fs');
-const {spawn} = require('child_process');
+const {execFile} = require('child_process');
 const retry = require('promise-retry');
 const fetch = (...args) => import('node-fetch').then(({default: fetch}) => fetch(...args));
 const log = require('electron-log');
-const path = require('path')
 const express = require("express");
 const cors = require('cors');
 
-log.transports.file.resolvePath = () => `${__dirname}${path.sep}keep.log`
+log.transports.file.resolvePath = () => path.join(__dirname, 'keep.log');
 
-let ward = null;
 let keep = null;
 
 const createWindow = () => {
     const win = new BrowserWindow({
         width: 1440,
         height: 1024,
-        icon: `./assets/icon.icns`
+        icon: `./assets/icon.png`
     });
+
     win.webContents.openDevTools();
-    console.log("dir", __dirname)
-    // noinspection JSIgnoredPromiseFromCall
-    log.info("create", __dirname);
-    win.loadFile(`./index.html`);
-    log.info("1");
+
+    win.loadFile(path.join(__dirname, 'index.html'));
+
     let config = {};
-    const configPath = `./ward/config.json`;
+
+    let ADMIN_PORT = 5621
+    const API_HOST = 'http://127.0.0.1';
+    const configPath = path.join(__dirname, 'ward/config.json');
     if (fs.existsSync(configPath)) {
         config = JSON.parse(fs.readFileSync(configPath));
+        ADMIN_PORT = config['ADMIN_PORT']
     }
-    log.info("2");
-    let args = [];
-    const API_HOST = 'http://127.0.0.1';
-    args.push("--tcp", "5721");
-    args.push("--admin", "5621");
-    log.info("3");
-    const debugPath = `./ward/debug.json`;
-    log.info("4");
+
+
     if (fs.existsSync(debugPath)) {
-        log.info("5");
         let debug = JSON.parse(fs.readFileSync(debugPath));
         if (debug === true) {
             win.webContents.openDevTools()
-            args.push("--debug")
         }
     }
 
-    log.info("warding", ward, args);
-
-    if (ward === null) {
-        ward = spawn(`${__dirname}/ward/ward`, args);
-        ward.on('error', function (err) {
-            log.error('spawn error' + err);
-        });
-
-        ward.stdout.on('data', (data) => {
-            let buffer = Buffer.from(data);
-            log.info('out:', buffer.toString());
-        });
-
-        ward.stderr.on('data', (data) => {
-            let buffer = Buffer.from(data);
-            let err = buffer.toString()
-            if (err.match(/Address already in use/) ||
-                err.match(/keri.kering.AuthError/ ||
-                    err.match(/keri.kering.ConfigurationError/))
-            ) {
-                // noinspection JSIgnoredPromiseFromCall
-                win.loadFile(`${__dirname}${path.sep}oops.html`);
-                ward.kill();
-            }
-            log.error('err:', err);
-        });
-
-        ward.on('close', (code) => {
-            log.info(`ward process exited with code ${code}`);
-        });
-    }
-
-    let corsOptions = {
-        origin: "http://127.0.0.1:5621",
-        optionsSuccessStatus: 200
-    }
-
-    keep = express().use("/keep", cors(corsOptions), function (_, res) {
-        res.json(fs.existsSync(`./ward/keri/ks/keep-root-gar-5621`));
-    }).listen(6621);
-
-    const host = "http://127.0.0.1:5621"
+    const host = `${API_HOST}:${ADMIN_PORT}`
     retry((retry) => {
-        log.info('⏳ launching...');
+        log.info('⏳ connecting...');
         return fetch(host).catch(retry);
     }).then(() => {
         win.loadURL(host).then(() =>
-            log.info('🚀 launched...'))
+            log.info('🚀 connecting...'))
     }).catch(() => {
-        ward.kill();
         app.quit();
         keep.close();
     });
@@ -120,6 +75,5 @@ app.on('window-all-closed', () => {
 });
 
 app.on('will-quit', () => {
-    ward.kill();
     keep.close();
 });

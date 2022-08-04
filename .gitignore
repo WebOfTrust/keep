@@ -92,16 +92,8 @@ typings/
 out/
 
 .idea
-ward/build
-ward/build-ui
-ward/dist
-ward/venv
-ward/keri
-ward/ui
-app/ward
-ward/src
-ward/debug.json
-ward/config.json
+app/debug.json
+app/config.json
 build
 build-ui-*
 build-ui-dev
