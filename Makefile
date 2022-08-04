@@ -1,26 +1,38 @@
 DIR = $(shell pwd)
 
 clean:
-	rm -rf .cache/ .parcel-cache/ node_modules/ .webcache/ app/static app/dist
+	rm -rf .cache/ .parcel-cache/ node_modules/ .webcache/
 
 root-gar: clean
 ifdef debug
-	echo "true" > app/debug.json;
+	echo "true" >> app/debug.json;
 else
-	echo "false" > app/debug.json;
+	echo "false" >> app/debug.json;
 endif
 	yarn
+ifdef lead
+	yarn package:lead-root-gar
+	python convert_env.py .env.lead-root-gar >> app/config.json
+else
 	yarn package:root-gar
-	python convert_env.py .env.root-gar > app/config.json
-	cd $(DIR)/app; \
-	yarn;
+	python convert_env.py .env.root-gar >> app/config.json
+endif
 
 run-root-gar: root-gar
 	cd $(DIR)/app; \
 	yarn; \
 	yarn start;
 
-pkg-mac-root-gar: root-gar
+pkg-root-gar: root-gar
 	cd $(DIR)/app; \
-	yarn; \
-	APP_ID=$(APP_ID) APPLE_ID=$(APPLE_ID) APPLE_ID_PASSWORD=$(APPLE_APP_PASSWORD) yarn dist;
+	yarn;
+ifdef lead
+	cd $(DIR)/app; \
+	yarn json -I -f package.json -e 'this.name="keep-lead-root"';
+else
+	cd $(DIR)/app; \
+	yarn json -I -f package.json -e 'this.name="keep-root"';
+endif
+	cd $(DIR)/app; \
+	yarn make; \
+	yarn json -I -f package.json -e 'this.name="keep"';
