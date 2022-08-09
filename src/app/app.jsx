@@ -1,7 +1,7 @@
 import m from 'mithril';
 
 import { Nav, ToastOutlet, Footer } from './components';
-import { Auth, Contacts as ContactsSvc, KERI, Mail, Tasks, Profile as ProfileSvc } from './services';
+import { Auth, KERI, Mail, Tasks, Profile as ProfileSvc, Notify } from './services';
 import { Contacts, Dashboard, Error, Profile, Settings, Credentials } from './views';
 
 import tasks from '../../tasks';
@@ -12,7 +12,7 @@ import '../scss/globals.scss';
 
 Tasks.all = tasks[process.env.USER_TYPE];
 ProfileSvc.loadIdentifiers();
-ContactsSvc.requestList();
+Notify.requestList();
 
 KERI.listIdentifiers()
   .then((ids) => {

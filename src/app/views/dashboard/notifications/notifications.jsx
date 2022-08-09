@@ -1,6 +1,6 @@
 import m from 'mithril';
-import { Button } from '../../../components';
-import { Notify, Tasks } from '../../../services';
+import {Button, Checkbox, IconButton} from '../../../components';
+import {MultiSig, Notify, Tasks} from '../../../services';
 
 class Notifications {
   challengeNotificationClick() {
@@ -11,8 +11,10 @@ class Notifications {
     m.route.set('/profile');
   }
 
-  multisigInitClick() {
-    Tasks.active = Tasks.find('join-multisig');
+  multisigInitClick(notification) {
+    let task = Tasks.find('join-multisig');
+    task.notification = notification;
+    Tasks.active = task
   }
 
   multisigIssueClick(notification) {
@@ -46,25 +48,24 @@ class Notifications {
       meta.clickHandler = this.challengeNotificationClick;
     }
     // Multisig
-    if (notification.type === 'multisig') {
-      let rType = notification.data.r;
-      if (rType === '/icp/complete') {
-        meta.title = `Multi-Sig Inception Complete`;
-        meta.clickHandler = this.multisigCompleteClick;
-      } else if (rType === '/ixn/complete') {
-        meta.title = 'Delegated Identifier Created';
-        meta.clickHandler = this.challengeNotificationClick;
-      } else if (rType.includes('/init')) {
-        meta.title = 'Multi-Sig Verification Request';
-        meta.clickHandler = this.multisigInitClick;
-      } else if (rType === '/issue') {
-        meta.title = 'Credential Issuance Request';
-        meta.clickHandler = this.multisigIssueClick;
-      } else if (rType === '/iss/complete') {
-        meta.title = 'Credential Issuance Complete';
-        meta.clickHandler = this.issueCompleteClick;
-      }
+    let rType = notification.a.r;
+    if (rType === '/multisig/icp/complete') {
+      meta.title = `Multi-Sig Inception Complete`;
+      meta.clickHandler = this.multisigCompleteClick;
+    } else if (rType === '/multisig/ixn/complete') {
+      meta.title = 'Delegated Identifier Created';
+      meta.clickHandler = this.challengeNotificationClick;
+    } else if (rType.includes('/init')) {
+      meta.title = 'Multi-Sig Verification Request';
+      meta.clickHandler = this.multisigInitClick;
+    } else if (rType === '/multisig/issue') {
+      meta.title = 'Credential Issuance Request';
+      meta.clickHandler = this.multisigIssueClick;
+    } else if (rType === '/multisig/iss/complete') {
+      meta.title = 'Credential Issuance Complete';
+      meta.clickHandler = this.issueCompleteClick;
     }
+
     // Credential
     if (notification.type === 'credential') {
       let rType = notification.data.r;
@@ -87,40 +88,63 @@ class Notifications {
     return meta;
   }
 
+  selectedNotifications() {
+    let found = Notify.notifications.find(notification => {
+      return notification.selected
+    })
+
+    return found !== undefined;
+  }
+
   view() {
     return (
       <>
-        <h3>Notifications</h3>
+        <div class="flex flex-row flex-align-left flex-justify-between">
+          <h3>Notifications</h3>
+          {this.selectedNotifications() &&
+              <a style={{paddingTop: "1rem "}} onclick={() => {
+                Notify.notifications.forEach((notification) => {
+                  Notify.deleteNotification(notification.i);
+                })
+              }}>Delete</a>
+          }
+        </div>
         {Notify.notifications.map((notification) => {
           let meta = this.getNotificationMeta(notification);
+          let bg = notification.selected ? "#c2dbff" : notification.r ? "#d5dbe1" : "#f7f9fa";
+          let weight = notification.r ? "normal" : "bold";
           return (
             <div
-              class="pointer font-weight--bold font-color--battleship flex flex-align-center flex-justify-between"
-              onclick={() => {
+              class="font-weight--bold font-color--battleship flex flex-align-left"
+              style={{ backgroundColor: bg, borderBottom: "1px solid #aaaaaa", fontWeight: weight, color: "#666666" }}
+            >
+              <Checkbox
+                checked={notification.selected}
+                onclick={() => {
+                  notification.selected = !notification.selected;
+                  m.redraw()
+                }}
+              />
+              <p class="pointer" onclick={() => {
                 Notify.isOpen = false;
+                Notify.markNotificationRead(notification.i);
                 if (meta.clickHandler) {
                   meta.clickHandler(notification);
                 }
               }}
-            >
-              <p>{meta.title}</p>
-              <a>
-                <u>View</u>
-              </a>
+              >{meta.title}</p>
             </div>
           );
         })}
-        <div class="flex flex-justify-end">
-          <Button
-            raised
-            class="button--big button--no-transform"
-            style={{ marginTop: '4rem' }}
-            label="Close"
-            onclick={() => {
-              Notify.isOpen = false;
-            }}
-          />
-        </div>
+
+        {Notify.notifications.length === 0 &&
+            <div
+                className="font-weight--bold font-color--battleship flex flex-align-left"
+
+            >
+              <i style={{marginLeft: "0.5rem"}}>No notifications</i>
+            </div>
+        }
       </>
     );
   }

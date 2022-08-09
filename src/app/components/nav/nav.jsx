@@ -43,9 +43,9 @@ class Nav {
                       Notify.open();
                     }}
                   />
-                  {Notify.notifications.length > 0 && (
+                  {Notify.unread.length > 0 && (
                     <span class="notification-badge">
-                      <p>{Notify.notifications.length}</p>
+                      <p>{Notify.unread.length}</p>
                     </span>
                   )}
                 </div>
