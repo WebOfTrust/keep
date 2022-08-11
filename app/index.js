@@ -1,15 +1,13 @@
 'use strict';
 
+const os = require("os");
 const path = require('path');
 const electron = require('electron');
 const {app, BrowserWindow} = electron;
 const fs = require('fs');
 const retry = require('promise-retry');
-const fetch = (...args) => import('node-fetch').then(({default: fetch}) => fetch(...args));
+const axios = require('axios').default;
 const log = require('electron-log');
-const express = require("express");
-
-log.transports.file.resolvePath = () => path.join(__dirname, 'keep.log');
 
 const createWindow = () => {
     const win = new BrowserWindow({
@@ -18,10 +16,15 @@ const createWindow = () => {
         icon: `./assets/icon.png`
     });
 
-    win.webContents.openDevTools();
-    win.loadFile(path.join(__dirname, 'index.html'));
+    const keep_home = path.join(os.homedir(), '.keep');
+    if (!fs.existsSync(keep_home)) {
+        log.info(`creating ${keep_home}`)
+        fs.mkdirSync(keep_home);
+    }
 
-    let KEEP_PORT = 5520;
+    log.transports.file.resolvePath = () => path.join(keep_home, 'keep.log');
+    win.loadFile('./index.html');
+
     let API_PORT = 5621;
     let HOST = 'http://127.0.0.1';
 
@@ -32,10 +35,7 @@ const createWindow = () => {
     if (fs.existsSync(configPath)) {
         config = JSON.parse(fs.readFileSync(configPath));
         API_PORT = config['API_PORT'];
-        KEEP_PORT = config['KEEP_PORT'];
     }
-
-    const serving = express();
 
     if (fs.existsSync(debugPath)) {
         let debug = JSON.parse(fs.readFileSync(debugPath));
@@ -44,19 +44,17 @@ const createWindow = () => {
         }
     }
 
-    serving.listen(KEEP_PORT, () => {
-        console.log(`Serving UI on ${KEEP_PORT}`);
-    });
-    serving.use(express.static('static'));
-
-    const endpoint = `${HOST}:${API_PORT}`
+    const endpoint = `${HOST}:${API_PORT}/codes`
     retry((retry) => {
         log.info('⏳ connecting...', endpoint);
-        return fetch(endpoint).catch(retry);
+        return axios.get(endpoint).catch(function (err) {
+            log.error("err", err);
+            retry(err);
+        });
     }).then(() => {
         log.info('🚀 connected.')
-        win.loadURL(`${HOST}:${KEEP_PORT}`).then(() =>
-            log.info('🏰 loading Keep...'));
+        win.loadFile('./static/index.html').then(() =>
+            log.info('🏰 loaded Keep on...'));
     }).catch(() => {
         app.quit();
     });
