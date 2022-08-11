@@ -1,7 +1,7 @@
 DIR = $(shell pwd)
 
 clean:
-	rm -rf .cache/ .parcel-cache/ node_modules/ .webcache/
+	rm -rf .cache/ .parcel-cache/ node_modules/ .webcache/ app/static app/dist
 
 root-gar: clean
 ifdef debug
@@ -12,6 +12,8 @@ endif
 	yarn
 	yarn package:root-gar
 	python convert_env.py .env.root-gar > app/config.json
+	cd $(DIR)/app; \
+	yarn;
 
 run-root-gar: root-gar
 	cd $(DIR)/app; \
