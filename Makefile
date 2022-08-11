@@ -20,7 +20,7 @@ run-root-gar: root-gar
 	yarn; \
 	yarn start;
 
-pkg-root-gar: root-gar
+pkg-mac-root-gar: root-gar
 	cd $(DIR)/app; \
 	yarn; \
-	APPLE_ID=$(APPLE_ID) APPLE_ID_PASSWORD=$(APPLE_APP_PASSWORD) yarn dist; \
+	APP_ID=$(APP_ID) APPLE_ID=$(APPLE_ID) APPLE_ID_PASSWORD=$(APPLE_APP_PASSWORD) yarn dist;
