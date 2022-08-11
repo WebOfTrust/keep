@@ -26,28 +26,51 @@ class JoinMultiSigGroupTask {
   get component() {
     return this._component;
   }
+  
+  set notification(notification) {
+    this._notification = notification
+    this._aids = notification.a.aids;
+    this._ked = notification.a.ked;
+    Contacts.requestList();
+    this._delegator = Contacts.filterById(this._ked.di);
+    this._fractionallyWeighted = Array.isArray(this._ked.kt);
+  }
+  
+  get notification() {
+    return this._notification;
+  }
+  
+  get aids() {
+    return this._aids;
+  }
+
+  get ked() {
+    return this._ked;
+  }
+  
+  get delegator() {
+    return this._delegator;
+  }
+  
+  get fractionallyWeighted() {
+    return this._fractionallyWeighted;
+  }
 }
 
 class JoinMultiSigGroup {
   constructor() {
     this.aid = Profile.getDefaultAID();
-    Contacts.requestList();
     this.groupAlias = '';
-    let notif = Notify.findByType('multisig');
-    this.aids = notif.data.aids;
-    this.ked = notif.data.ked;
-    this.delegator = Contacts.filterById(this.ked.di);
-    this.fractionallyWeighted = Array.isArray(this.ked.kt);
   }
 
   confirmAndSign(vnode) {
     KERI.participateGroupInception(this.groupAlias, {
-      delpre: this.ked.di,
-      aids: this.aids,
-      isith: this.ked.kt,
-      nsith: this.ked.nt,
-      toad: Number(this.ked.bt),
-      wits: this.ked.b,
+      delpre: vnode.attrs.parent.ked.di,
+      aids: vnode.attrs.parent.aids,
+      isith: vnode.attrs.parent.ked.kt,
+      nsith: vnode.attrs.parent.ked.nt,
+      toad: Number(vnode.attrs.parent.ked.bt),
+      wits: vnode.attrs.parent.ked.b,
     }).then(() => {
       vnode.attrs.parent.currentState = 'event-complete';
     });
@@ -77,18 +100,18 @@ class JoinMultiSigGroup {
           <>
             <h3>Review and Confirm</h3>
             <p>Review signers to make sure the list is complete.</p>
-            {this.ked.di && (
+            {vnode.attrs.parent.ked.di && (
               <>
                 <h4>Delegator:</h4>
                 <div class="flex flex-align-center flex-justify-between" style={{ margin: '1rem 0' }}>
                   <div class="flex-1 uneditable-value" style={{ minHeight: '48px' }}>
-                    {this.delegator?.alias}
+                    {vnode.attrs.parent.delegator?.alias}
                   </div>
                 </div>
               </>
             )}
             <h4>Signers:</h4>
-            {this.aids.map((signer, i) => {
+            {vnode.attrs.parent.aids.map((signer, i) => {
               let name = '';
               let contact = Contacts.filterById(signer);
               if (contact !== undefined) {
@@ -104,7 +127,7 @@ class JoinMultiSigGroup {
                     <div class="flex-1 uneditable-value" style={{ marginRight: '1rem' }}>
                       {name}
                     </div>
-                    {this.fractionallyWeighted && <div class="uneditable-value">{this.ked.kt[i]}</div>}
+                    {vnode.attrs.parent.fractionallyWeighted && <div class="uneditable-value">{vnode.attrs.parent.ked.kt[i]}</div>}
                   </div>
                 </>
               );

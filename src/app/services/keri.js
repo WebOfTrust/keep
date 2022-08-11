@@ -154,6 +154,28 @@ class KERI {
     });
   }
 
+  // Notifications
+  static getNotifications() {
+    return m.request({
+      method: 'GET',
+      url: `${this.keriURL}/notifications`,
+    });
+  }
+
+  static deleteNotification(rid) {
+    return m.request({
+      method: 'DELETE',
+      url: `${this.keriURL}/notifications/${rid}`
+    });
+  }
+
+  static putNotification(rid) {
+    return m.request({
+      method: 'PUT',
+      url: `${this.keriURL}/notifications/${rid}`
+    });
+  }
+
   // CONTACTS
 
   static getContacts() {
@@ -189,10 +211,17 @@ class KERI {
     });
   }
 
+  static getEvent(prefix, said) {
+    return m.request({
+      method: "GET",
+      url: `${this.keriURL}/escrows/${prefix}/${said}`,
+    })
+  }
+
   static updateContact(alias, aid, body) {
     return m.request({
       method: 'PUT',
-      url: `${this.keriURL}/contacts/${aid}/${alias}`,
+      url: `${this.keriURL}/contacts/${aid}`,
       body: body,
     });
   }

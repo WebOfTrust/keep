@@ -41,6 +41,7 @@ class ConfigureMultiSigGroup {
   constructor(vnode) {
     this.groupAlias = '';
     this.status = '';
+    this.sufficient = false;
     this.fractionallyWeighted = false;
     this.numSigners = 0; // Used only if fractionallyWeighted is false
     this.wits = Witnesses.witnessPools[0].wits;
@@ -70,53 +71,69 @@ class ConfigureMultiSigGroup {
   }
 
   ensureMultiSigSigned() {
+    let task = this;
     new Promise(function (resolve, reject) {
       setTimeout(function waitForSignatures() {
-        KERI.getEscrowsForIdentifier(MultiSig.currentEvent['i'])
-          .then((escrows) => {
-            if (escrows['partially-signed-events'].length > 0) {
-              let icp = escrows['partially-signed-events'][0];
-              let sigs = icp['signatures'];
-              sigs.every((sig) => {
-                let idx = sig.index;
-                MultiSig.participants[idx].signed = true;
-              });
-              this.status = 'Waiting for participant signatures...';
-              m.redraw();
-            } else if (escrows['partially-witnessed-events'].length > 0) {
-              this.status = 'Waiting for witness receipts...';
-              m.redraw();
-            } else {
-              MultiSig.participants.forEach((sig) => {
-                sig.signed = true;
-              });
-              console.log('marked all signers, waiting for delegation...');
-              KERI.listIdentifiers().then((identifiers) => {
-                console.log(identifiers);
-                console.log(MultiSig.currentEvent['i']);
-                let icp = identifiers.find((e) => e.prefix === MultiSig.currentEvent['i']);
-                console.log('we found icp', icp);
-                if (icp.delegated && icp.anchored) {
-                  MultiSig.delegatorSigned = true;
+        KERI.getEvent(MultiSig.currentEvent['i'], MultiSig.currentEvent['d'])
+          .then((event) => {
+            let sigs = event['signatures'];
+            sigs.forEach((sig) => {
+              let idx = sig.index;
+              MultiSig.participants[idx].signed = true;
+            });
+
+            if (event["stored"] === true) {
+              if(MultiSig.delegator === null || MultiSig.delegator === undefined) {
+                console.log("setting to icp complete")
+                task.status = 'Inception complete';
+              } else {
+                if(!task.sufficient) {
+                  console.log("setting to sufficient")
+                  task.status = 'Sufficient signatures received';
+                  task.sufficient = true;
                 }
-                if (icp.group.accepted) {
-                  this.status = 'Inception Complete';
-                } else {
-                  this.status = 'Failed: Event Timeout';
-                }
-                m.redraw();
-              });
-              if (MultiSig.delegator === null || MultiSig.delegatorSigned) {
-                return;
               }
+
+              let unsigned = MultiSig.participants.find((part) => {return !part.signed})
+              if (unsigned === undefined) {
+                m.redraw()
+                return
+              }
+            } else {
+              task.status = 'Waiting for sufficient signatures...';
             }
-            setTimeout(waitForSignatures, 2000);
+            m.redraw();
+            setTimeout(waitForSignatures, 3000);
           })
           .catch((err) => {
             console.log('getContacts', err);
           });
-      }, 2000);
+      }, 3000);
     });
+
+    new Promise(function (resolve, reject) {
+      let task = this;
+      setTimeout(function waitForDelegation() {
+        if (MultiSig.delegator === null || MultiSig.delegatorSigned) {
+          return;
+        }
+
+        KERI.listIdentifiers().then((identifiers) => {
+          let icp = identifiers.find((e) => e.prefix === MultiSig.currentEvent['i']);
+          if (icp.delegated && icp.anchored) {
+            MultiSig.delegatorSigned = true;
+          }
+          if (icp.group.accepted) {
+            this.status = 'Inception Complete';
+          } else {
+            this.status = 'Failed: Event Timeout';
+          }
+          m.redraw();
+          setTimeout(waitForDelegation, 3050);
+        });
+      }, 3050);
+    });
+
   }
 
   initiateGroupInception() {
@@ -558,7 +575,10 @@ class EventDetails {
     return (
       <>
         <h3>{vnode.attrs.groupAlias} Inception:</h3>
-        <h4 class="p-tag margin-clear">Status: {vnode.attrs.status}</h4>
+        <div class="flex flex-justify-start flex-al">
+          <h4 class="p-tag margin-clear">Status:</h4>
+          <h4 style={{color: "#000", marginLeft: "0.5rem", lineHeight: 1.38}}>{vnode.attrs.status}</h4>
+        </div>
 
         <div class="flex flex-justify-between">
           <p class="p-tag" style={{ margin: '2rem 0 1rem 4.5rem' }}>

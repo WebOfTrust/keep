@@ -1,12 +1,31 @@
 import m from 'mithril';
+import KERI from "./keri";
 
 class Notify {
   static isOpen = false;
   static notifications = [];
   static _selected = {};
 
-  static push(notification) {
-    this.notifications.push(notification);
+  static requestList() {
+    return KERI.getNotifications().then((notes) => {
+      this.notifications = notes;
+    });
+  }
+
+  static deleteNotification(rid) {
+    return KERI.deleteNotification(rid).then(() => {
+      this.requestList();
+    })
+  }
+
+  static markNotificationRead(rid) {
+    return KERI.putNotification(rid).then(() => {
+      this.requestList();
+    })
+  }
+
+  static get unread() {
+    return this.notifications.filter((notification) => { return !notification.r});
   }
 
   static set selected(notification) {
@@ -28,8 +47,10 @@ class Notify {
   }
 
   static open() {
-    m.route.set('/dashboard');
-    this.isOpen = true;
+    this.requestList().then(() => {
+      m.route.set('/dashboard');
+      this.isOpen = true;
+    })
   }
 }
 
