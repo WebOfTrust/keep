@@ -1,100 +1,72 @@
 # Keep
 
-A task orientated application for managing [AIDs](https://github.com/WebOfTrust/ietf-keri) in the [vLEI Ecosystem](https://www.gleif.org/en/lei-solutions/gleifs-digital-strategy-for-the-lei/introducing-the-verifiable-lei-vlei). 
+A task orientated application for managing [KERI AIDs](https://github.com/WebOfTrust/ietf-keri) in the [vLEI Ecosystem](https://www.gleif.org/en/lei-solutions/gleifs-digital-strategy-for-the-lei/introducing-the-verifiable-lei-vlei). 
 
-Keep can be used to: 
-
-* establish and manage local AIDs
-* create, join and manage distributed Multi-Sig AIDs (with or without delegation)
-* issue and revoke credentials specified within the vLEI Ecosystem
+Keep is designed to connect to an existing KERI agent. One macOS specific example is [Ward](https://github.com/weboftrust/ward)
 
 [![example workflow](https://github.com/WebOfTrust/keep/actions/workflows/build.yaml/badge.svg)](https://github.com/WebOfTrust/keep/actions?query=workflow%3ABuild)
 
 
 [![keri version](https://img.shields.io/badge/KERI-0.6.6-green.svg)](https://pypi.org/project/keri/)
 [![node version](https://img.shields.io/badge/node-17.7.1-blue.svg)](https://nodejs.org/en/download/)
-[![python version](https://img.shields.io/badge/python-3.10.4-blue.svg)](https://www.python.org/downloads/)
-
-Keep bundles together several moving parts: 
-
-* a JavaScript UI implemented in [MithrilJS](https://mithril.js.org)
-* a Pyinstaller wrapper around the Python implementation fo KERI called `ward` which serves the UI
-* an electron app that wraps the previous two
-
+ 
 ## Builds
     
-Keep can be built for the various participants in the vLEI ecosystem:
+Keep can be built/run for the various participants in the vLEI ecosystem:
 
 * root-gar
 * external-gar
 * internal-gar
 * qar
 * lar
+* person
 
 ## Developing
 
-Development builds can be run in two ways, packaged or unpackaged. Unpakcaged requires running your own KERIPy agent.
+Development builds require a KERI agent to be running and can be configured to attempt to connect to a specific port.
 Using the make commands `debug=true` will enable the dev tools console and specific to external-gar builds `lead=true` will provide the same functionality as the split yarn tasks.
 
-#### Unpackaged
-
 ```
+yarn start:lead-root-gar
+yarn start:root-gar
 yarn start:lead-external-gar
 yarn start:external-gar
+yarn start:lead-internal-gar
+yarn start:internal-gar
+yarn start:lead-qar
+yarn start:qar
+yarn start:lead-lar
+yarn start:lar
+yarn start:person
 ```
 
 #### Packaged    
 
-Each build can be packaged with:
+The root-gar build can be packaged with:
 
 ```
-make root-gar    
-make external-gar    
-make internal-gar    
-make qar    
-make lar    
+make root-gar 
 ```
 
-Running an instance of each can be done with:
+Running an instance can be done with:
 
 ```
 make run-root-gar    
-make run-external-gar    
-make run-internal-gar    
-make run-qar
-make run-lar    
 ```
-
-To create a packaged version for current OS, (dmg or deb (maybe windows if your dare try)) can be done with:
+                                                 
+To create a packaged version of the root-gar for macOS can be done with:
 
 ```
-make pkg-root-gar    
-make pkg-external-gar    
-make pkg-internal-gar    
-make pkg-qar    
-make pkg-lar    
+export APP_ID= ""; APPLE_ID=""; export APPLE_APP_PASSWORD=""; make pkg-mac-root-gar
 ```
+                                                
+`APP_ID` should match your Apple credentials
+`APPLE_ID` needs to be a valid Apple Developer Account
+`APPLE_APP_PASSWORD` needs to be a valid [App specific password](https://support.apple.com/en-us/HT204397)
 
-Outputs are in `keep/app/out/make` and can be run directly.
+The attribute `appID` is missing from `app/package.json` under the `build` property, this needs to be set specifically for an organization.
 
-#### Packaged with custom KERIPy    
-
-Prior to any build or run step, if you have changes to KERIPy, you need to activate the venv in ward:
-
-```
-cd ward && source venv/bin/activate;    
-```
-
-Then navigate to your KERIPy checkout and run 
-
-```
-pip install -e .
-```
-
-to add an editable copy of KERIPy to Ward
-
-
-### Debuging
+### Debugging
 
 Basic logging can be performed from each Keep component:
 
@@ -116,20 +88,10 @@ log.error
 
 will be piped to a `app/keep.log`
 
-the same goes for logging from KERIPy
-
-```python
-import sys
-sys.stdout.write("foo")
-sys.stdout.flush()
-```
-
-will be piped to a `app/keep.log`
-
 ### Disclaimer
 
 While the current Keep software is specific to the vLEI Ecosystem, it is designed to support generic task lists to support any ecosystem using [KERI](https://github.com/WebOfTrust/ietf-keri) and [ACDC](https://github.com/trustoverip/tswg-acdc-specification).
 
-#### windows
+#### windows (untested)
 
  node .\build.js qar --pkg --debug --lead

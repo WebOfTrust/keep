@@ -1,110 +1,67 @@
+'use strict';
+
+const os = require("os");
+const path = require('path');
 const electron = require('electron');
 const {app, BrowserWindow} = electron;
 const fs = require('fs');
-const {spawn} = require('child_process');
 const retry = require('promise-retry');
-const fetch = (...args) => import('node-fetch').then(({default: fetch}) => fetch(...args));
+const axios = require('axios').default;
 const log = require('electron-log');
-const path = require('path')
-const express = require("express");
-const cors = require('cors');
-
-log.transports.file.resolvePath = () => `${__dirname}${path.sep}keep.log`
-
-let ward = null;
-let keep = null;
 
 const createWindow = () => {
     const win = new BrowserWindow({
         width: 1440,
         height: 1024,
-        icon: `./assets/icon.icns`
+        icon: `./assets/icon.png`
     });
-    win.webContents.openDevTools();
-    console.log("dir", __dirname)
-    // noinspection JSIgnoredPromiseFromCall
-    log.info("create", __dirname);
-    win.loadFile(`./index.html`);
-    log.info("1");
+
+    const keep_home = path.join(os.homedir(), '.keep');
+    if (!fs.existsSync(keep_home)) {
+        log.info(`creating ${keep_home}`)
+        fs.mkdirSync(keep_home);
+    }
+
+    log.transports.file.resolvePath = () => path.join(keep_home, 'keep.log');
+    win.loadFile('./index.html');
+
+    let API_PORT = 5621;
+    let HOST = 'http://127.0.0.1';
+
+    const configPath = path.join(__dirname, 'config.json');
+    const debugPath = path.join(__dirname, 'debug.json');
+
     let config = {};
-    const configPath = `./ward/config.json`;
     if (fs.existsSync(configPath)) {
         config = JSON.parse(fs.readFileSync(configPath));
+        API_PORT = config['API_PORT'];
     }
-    log.info("2");
-    let args = [];
-    const API_HOST = 'http://127.0.0.1';
-    args.push("--tcp", "5721");
-    args.push("--admin", "5621");
-    log.info("3");
-    const debugPath = `./ward/debug.json`;
-    log.info("4");
+
     if (fs.existsSync(debugPath)) {
-        log.info("5");
         let debug = JSON.parse(fs.readFileSync(debugPath));
         if (debug === true) {
-            win.webContents.openDevTools()
-            args.push("--debug")
+            win.webContents.openDevTools();
         }
     }
 
-    log.info("warding", ward, args);
-
-    if (ward === null) {
-        ward = spawn(`${__dirname}/ward/ward`, args);
-        ward.on('error', function (err) {
-            log.error('spawn error' + err);
-        });
-
-        ward.stdout.on('data', (data) => {
-            let buffer = Buffer.from(data);
-            log.info('out:', buffer.toString());
-        });
-
-        ward.stderr.on('data', (data) => {
-            let buffer = Buffer.from(data);
-            let err = buffer.toString()
-            if (err.match(/Address already in use/) ||
-                err.match(/keri.kering.AuthError/ ||
-                    err.match(/keri.kering.ConfigurationError/))
-            ) {
-                // noinspection JSIgnoredPromiseFromCall
-                win.loadFile(`${__dirname}${path.sep}oops.html`);
-                ward.kill();
-            }
-            log.error('err:', err);
-        });
-
-        ward.on('close', (code) => {
-            log.info(`ward process exited with code ${code}`);
-        });
-    }
-
-    let corsOptions = {
-        origin: "http://127.0.0.1:5621",
-        optionsSuccessStatus: 200
-    }
-
-    keep = express().use("/keep", cors(corsOptions), function (_, res) {
-        res.json(fs.existsSync(`./ward/keri/ks/keep-root-gar-5621`));
-    }).listen(6621);
-
-    const host = "http://127.0.0.1:5621"
+    const endpoint = `${HOST}:${API_PORT}/codes`
     retry((retry) => {
-        log.info('⏳ launching...');
-        return fetch(host).catch(retry);
+        log.info('⏳ connecting...', endpoint);
+        return axios.get(endpoint).catch(function (err) {
+            log.error("err", err);
+            retry(err);
+        });
     }).then(() => {
-        win.loadURL(host).then(() =>
-            log.info('🚀 launched...'))
+        log.info('🚀 connected.')
+        win.loadFile('./static/index.html').then(() =>
+            log.info('🏰 loaded Keep on...'));
     }).catch(() => {
-        ward.kill();
         app.quit();
-        keep.close();
     });
 }
 
 app.whenReady().then(() => {
-    createWindow()
+    createWindow();
 
     app.on('activate', () => {
         if (BrowserWindow.getAllWindows().length === 0) {
@@ -117,9 +74,4 @@ app.on('window-all-closed', () => {
     if (process.platform !== 'darwin') {
         app.quit();
     }
-});
-
-app.on('will-quit', () => {
-    ward.kill();
-    keep.close();
 });

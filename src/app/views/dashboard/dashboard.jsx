@@ -20,22 +20,10 @@ class Dashboard {
     };
 
     this.existingKeystore = false;
-
-    if (Keep.isPackaged()) {
-      Keep.check().then((resp) => {
-        this.existingKeystore = resp;
-      });
-    }
   }
 
   get tasksList() {
     if (!Auth.isLoggedIn) {
-      if (Keep.isPackaged()) {
-        if (this.existingKeystore) {
-          return [Tasks.all['create-passcode'][1]];
-        }
-        return [Tasks.all['create-passcode'][0]];
-      }
       return Tasks.all['create-passcode'];
     }
 
@@ -164,12 +152,6 @@ class Dashboard {
                             Tasks.active = null;
                             Profile.loadIdentifiers();
                             Contacts.requestList();
-                            if (Keep.isPackaged()) {
-                              Keep.check().then((resp) => {
-                                this.existingKeystore = resp;
-                                m.redraw();
-                              });
-                            }
                           }}
                         />
                       )}
