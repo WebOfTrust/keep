@@ -23,6 +23,4 @@ run-root-gar: root-gar
 pkg-root-gar: root-gar
 	cd $(DIR)/app; \
 	yarn; \
-	yarn json -I -f package.json -e 'this.name="keep-root"'; \
-	yarn make; \
-	yarn json -I -f package.json -e 'this.name="keep"';
+	APPLE_ID=$(APPLE_ID) APPLE_ID_PASSWORD=$(APPLE_APP_PASSWORD) yarn dist; \

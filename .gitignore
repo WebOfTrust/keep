@@ -94,7 +94,7 @@ out/
 .idea
 app/debug.json
 app/config.json
-app/static
+app/static/
 build
 build-ui-*
 build-ui-dev

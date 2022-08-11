@@ -48,21 +48,13 @@ yarn start:external-gar
 Each build can be packaged with:
 
 ```
-make root-gar    
-make external-gar    
-make internal-gar    
-make qar    
-make lar    
+make root-gar 
 ```
 
 Running an instance of each can be done with:
 
 ```
 make run-root-gar    
-make run-external-gar    
-make run-internal-gar    
-make run-qar
-make run-lar    
 ```
 
 To create a packaged version for current OS, (dmg or deb (maybe windows if your dare try)) can be done with:
