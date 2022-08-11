@@ -1,7 +1,7 @@
 {
   "name": "keep",
   "version": "1.0.2",
-  "description": "Electron based application for managing KERI identifiers",
+  "description": "Electron based application for managing KERI AIDs in the vLEI Ecosystem",
   "author": {
     "name": "Kevin Griffin",
     "email": "griffin.kev@gmail.com"
@@ -26,7 +26,6 @@
     "dist": "electron-builder"
   },
   "build": {
-    "appId": "org.gleif.keep",
     "afterSign": "notarize.js",
     "mac": {
       "icon": "assets/icon.png",
