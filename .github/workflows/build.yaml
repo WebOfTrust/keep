@@ -11,7 +11,7 @@ jobs:
       fail-fast: false
       matrix:
         os: [macos-latest, ubuntu-latest]
-        build: [root-gar, external-gar, internal-gar]
+        build: [root-gar]
     steps:
       - name: Set up Python 3.10.4
         uses: actions/setup-python@v2
