@@ -113,10 +113,10 @@ class KERI {
     });
   }
 
-  static resolveOOBI(alias, oobialias, url) {
+  static resolveOOBI(oobialias, url) {
     return m.request({
       method: 'POST',
-      url: `${this.keriURL}/oobi/${alias}`,
+      url: `${this.keriURL}/oobi`,
       body: {
         oobialias,
         url,
@@ -165,14 +165,14 @@ class KERI {
   static deleteNotification(rid) {
     return m.request({
       method: 'DELETE',
-      url: `${this.keriURL}/notifications/${rid}`
+      url: `${this.keriURL}/notifications/${rid}`,
     });
   }
 
   static putNotification(rid) {
     return m.request({
       method: 'PUT',
-      url: `${this.keriURL}/notifications/${rid}`
+      url: `${this.keriURL}/notifications/${rid}`,
     });
   }
 
@@ -213,9 +213,9 @@ class KERI {
 
   static getEvent(prefix, said) {
     return m.request({
-      method: "GET",
+      method: 'GET',
       url: `${this.keriURL}/escrows/${prefix}/${said}`,
-    })
+    });
   }
 
   static updateContact(alias, aid, body) {

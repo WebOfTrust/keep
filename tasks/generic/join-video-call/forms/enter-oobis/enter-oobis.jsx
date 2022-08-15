@@ -16,7 +16,7 @@ class EnterOOBIsForm {
   }
 
   resolveOOBIPromise(oobi) {
-    return KERI.resolveOOBI(this.aliasToSign, oobi.alias, oobi.url);
+    return KERI.resolveOOBI(oobi.alias, oobi.url);
   }
 
   resolveAllOOBIs(vnode) {
@@ -100,26 +100,26 @@ class EnterOOBIsForm {
                   {oobi.status === 'resolved' && <p className="font-color--green font-weight--medium">Complete!</p>}
                 </div>
                 <h5 style={{ margin: '1rem 0 .5rem' }}>Alias:</h5>
-                  <TextField
-                    outlined
-                    fluid
-                    style={{ backgroundColor: 'rgba(0, 0, 0, 0.04)', height: '44px' }}
-                    value={oobi.alias}
-                    oninput={(e) => {
-                      oobi.alias = e.target.value;
-                    }}
-                  />
+                <TextField
+                  outlined
+                  fluid
+                  style={{ backgroundColor: 'rgba(0, 0, 0, 0.04)', height: '44px' }}
+                  value={oobi.alias}
+                  oninput={(e) => {
+                    oobi.alias = e.target.value;
+                  }}
+                />
                 <h5 style={{ margin: '1rem 0 .5rem' }}>OOBI URL:</h5>
-                  <TextField
+                <TextField
                   textarea
-                    outlined
-                    fluid
+                  outlined
+                  fluid
                   style={{ backgroundColor: 'rgba(0, 0, 0, 0.04)' }}
-                    value={oobi.url}
-                    oninput={(e) => {
-                      oobi.url = e.target.value;
-                    }}
-                  />
+                  value={oobi.url}
+                  oninput={(e) => {
+                    oobi.url = e.target.value;
+                  }}
+                />
               </Card>
             );
           })}

@@ -16,7 +16,7 @@ class EnterOOBIsForm {
   }
 
   resolveOOBIPromise(oobi) {
-    return KERI.resolveOOBI(this.aliasToSign, oobi.alias, oobi.url);
+    return KERI.resolveOOBI(oobi.alias, oobi.url);
   }
 
   resolveAllOOBIs(vnode) {
