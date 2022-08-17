@@ -39,6 +39,33 @@ class ProfilePicture {
           <div>{this.initials}</div>
         </div>
       );
+    } else if (vnode.attrs.identifier.hasOwnProperty('alias')) {
+      // same as "name" but for "alias"
+      const parts = vnode.attrs.identifier.alias.split(' ');
+      if (parts.length === 1) {
+        this.initials = vnode.attrs.identifier.alias.substring(0, 1);
+      } else if (parts.length >= 2) {
+        this.initials = parts[0].substring(0, 1) + parts[1].substring(0, 1);
+      }
+      return (
+        <div
+          style={{
+            display: 'inline-block',
+            fontSize: vnode.attrs.size === 's' ? '1rem' : '1.75rem',
+            width: vnode.attrs.size === 's' ? '2.25rem' : '3.75rem',
+            height: vnode.attrs.size === 's' ? '2.25rem' : '3.75rem',
+            lineHeight: vnode.attrs.size === 's' ? '2.25rem' : '3.75rem',
+            textAlign: 'center',
+            borderRadius: '50%',
+            background: 'grey',
+            verticalAlign: 'top',
+            color: 'white',
+            // visibility: (this.initials.length === 0 ? 'hidden' : 'visible')
+          }}
+        >
+          <div>{this.initials}</div>
+        </div>
+      );
     }
 
     return <div />;

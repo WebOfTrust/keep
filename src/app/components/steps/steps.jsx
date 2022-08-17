@@ -10,7 +10,6 @@ class Steps {
             return (
               <div
                 class={'step' + (idx === vnode.attrs.selected ? ' step--selected' : '')}
-                style={{ cursor: 'pointer' }}
                 onclick={() => {
                   vnode.attrs.selectedChange(idx);
                 }}
