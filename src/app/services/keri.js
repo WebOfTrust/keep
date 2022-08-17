@@ -197,6 +197,13 @@ class KERI {
     });
   }
 
+  static getGroupedContacts(groupField) {
+    return m.request({
+      method: 'GET',
+      url: `${this.keriURL}/contacts?group=${groupField}`,
+    });
+  }
+
   static getContact(prefix) {
     return m.request({
       method: 'GET',
@@ -218,7 +225,7 @@ class KERI {
     });
   }
 
-  static updateContact(alias, aid, body) {
+  static updateContact(aid, body) {
     return m.request({
       method: 'PUT',
       url: `${this.keriURL}/contacts/${aid}`,

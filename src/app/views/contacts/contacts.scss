@@ -6,19 +6,24 @@
   display: flex;
   min-height: calc(100vh - 138px);
 
+  &-tab-content {
+    padding: 1.5rem;
+  }
+
+  &-company {
+    &-name {
+      @include bold;
+    }
+  }
+
   &-list {
     &-item {
       align-items: center;
-      border-bottom: 1px solid $border;
       cursor: pointer;
       display: flex;
       justify-content: between;
       padding: 1rem 1.5rem;
       transition: background-color 0.2s ease-in-out;
-
-      &-name {
-        margin: 0;
-      }
 
       &--active {
         background-color: $active-blue;
@@ -29,10 +34,61 @@
           background-color: $gray-lter;
         }
       }
+
+      &:not(:last-of-type) {
+        border-bottom: 1px solid $border;
+      }
+
+      &-name {
+        @include bold;
+        margin: 0 0 0 1rem;
+      }
     }
   }
 
-  .help {
+  &-detail {
+    &-header {
+      align-items: center;
+      display: flex;
+    }
+
+    &-name {
+      @include bold;
+      margin-left: 1rem;
+    }
+
+    &-fields {
+      display: flex;
+      flex-direction: column;
+    }
+
+    &-field {
+      align-items: center;
+      display: flex;
+      justify-content: space-between;
+      margin-top: 1.5rem;
+
+      &-label {
+        @include bold;
+        width: 168px;
+      }
+    }
+
+    &-buttons {
+      align-items: center;
+      display: flex;
+      justify-content: flex-end;
+      margin-top: 1.5rem;
+
+      .mdc-button {
+        &:not(:last-of-type) {
+          margin-right: 1rem;
+        }
+      }
+    }
+  }
+
+  &-help {
     img {
       margin: 2rem 0;
       width: 210px;
