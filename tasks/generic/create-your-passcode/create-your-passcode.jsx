@@ -252,6 +252,7 @@ class CreatePasscode {
                 disabled={!this.enterPasscode || this.submitting}
                 onclick={() => {
                   this.initializeAgent(vnode);
+                  vnode.attrs.parent.currentState = 'initialized';
                 }}
               />
             </div>

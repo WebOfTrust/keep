@@ -1,7 +1,7 @@
 import m from 'mithril';
 
 import { Button, Card, Container, IconButton, NavRail } from '../../components';
-import { Auth, Contacts, Keep, Notify, Profile, Tasks } from '../../services';
+import { Auth, Contacts, Keep, KERI, Notify, Profile, Tasks } from '../../services';
 import Notifications from './notifications/notifications.jsx';
 import './dashboard.scss';
 
@@ -20,11 +20,22 @@ class Dashboard {
     };
 
     this.existingKeystore = false;
+    KERI.status(Keep.getName()).then(() => {
+      this.existingKeystore = true;
+    }).catch((err) => {
+      // todo: add API error pop up
+      console.log("err", err)
+    });
+
+    this.createTask = Tasks.all['create-passcode'][0];
   }
 
   get tasksList() {
     if (!Auth.isLoggedIn) {
-      return Tasks.all['create-passcode'];
+      if (this.existingKeystore || this.createTask.currentState === 'initialized') {
+        return Tasks.all['enter-passcode'];
+      }
+      return [this.createTask];
     }
 
     if (Profile.identifiers.length === 0) {

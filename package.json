@@ -9,7 +9,7 @@
     "homepage": "https://weboftrust.github.io/keep",
     "license": "Apache-2.0",
     "scripts": {
-        "package:root-gar": "NODE_ENV=root-gar-local parcel build src/index.html --public-url ./ --cache-dir ward/.parcel-cache-dev --dist-dir app/static",
+        "package:root-gar": "NODE_ENV=root-gar-local parcel build src/index.html --public-url ./ --cache-dir .webcache/.root-gar-cache-dev --dist-dir app/static",
 
         "build:generic": "yarn rm-build; yarn set-tasks:generic; parcel build src/index.html --cache-dir ward/.parcel-cache --dist-dir ward/build-ui-root-gar --public-url ./",
         "start:generic": "parcel src/index.html --cache-dir ward/.parcel-cache-dev --dist-dir ward/build-ui-root-gar",
