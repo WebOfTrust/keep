@@ -13,6 +13,7 @@ import {
 } from '../../components';
 import { KERI } from '../../services';
 import AddFieldModal from './add-field-modal';
+import EditContactModal from './edit-contact-modal';
 import './contacts.scss';
 import contactGroup from '../../../assets/img/contact-group.svg';
 
@@ -24,6 +25,8 @@ class Contacts {
     this.contacts = [];
     this.activeContact = null;
     this.addFieldOpen = false;
+    this.editDetailsOpen = false;
+    this.defaultKeys = ['id', 'alias', 'first_name', 'last_name', 'email', 'phone', 'organization', 'verified'];
   }
 
   oninit() {
@@ -35,7 +38,9 @@ class Contacts {
     this.contacts = [];
 
     if (this.selectedTab === 'company') {
-      KERI.getGroupedContacts('organization')
+      KERI.getContactsGrouped('organization', {
+        // organization: this.contactsSearch,
+      })
         .then((contacts) => {
           this.contacts = contacts;
         })
@@ -43,7 +48,9 @@ class Contacts {
           console.log('getContacts', err);
         });
     } else {
-      KERI.getContacts()
+      KERI.getContactsFiltered({
+        // alias: this.contactsSearch,
+      })
         .then((contacts) => {
           this.contacts = contacts;
         })
@@ -57,14 +64,37 @@ class Contacts {
     this.activeContact = contact;
   }
 
+  customKeys() {
+    return Object.keys(this.activeContact).filter((key) => {
+      return !this.defaultKeys.includes(key);
+    });
+  }
+
+  removeCustomKey(key) {
+    const keys = Object.keys(this.activeContact).filter((contactKey) => {
+      return key !== contactKey && key !== 'id';
+    });
+    let body = {};
+    keys.map((key) => {
+      body[key] = this.activeContact[key];
+    });
+    KERI.overwriteContact(this.activeContact.id, body).then(() => {
+      delete this.activeContact[key];
+    });
+  }
+
   saveContact() {
-    KERI.updateContact(this.activeContact.id, {
-      first_name: this.activeContact.first_name,
-      last_name: this.activeContact.last_name,
-      email: this.activeContact.email,
-      phone: this.activeContact.phone,
-      organization: this.activeContact.organization,
-    }).then(() => {});
+    let { first_name, last_name, email, phone } = this.activeContact;
+    let body = {
+      first_name,
+      last_name,
+      email,
+      phone,
+    };
+    this.customKeys().map((key) => {
+      body[key] = this.activeContact[key];
+    });
+    KERI.updateContact(this.activeContact.id, body).then(() => {});
   }
 
   view(vnode) {
@@ -177,68 +207,100 @@ class Contacts {
                               <p>{this.activeContact.organization}</p>
                             </div>
                             <div class="flex-1"></div>
-                            <Button raised class="button--gray button--no-transform" label="Edit" />
+                            <Button
+                              raised
+                              class="button--gray button--no-transform"
+                              label="Edit"
+                              onclick={() => {
+                                this.editDetailsOpen = true;
+                              }}
+                            />
                           </div>
                           <div class="contacts-detail-fields">
                             <div class="contacts-detail-field">
                               <label class="contacts-detail-field-label">Verified:</label>
-                              <Checkbox disabled checked={this.activeContact.verified === 'true'} />
+                              <div class="contacts-detail-field-input">
+                                <Checkbox disabled checked={this.activeContact.verified === 'true'} />
+                              </div>
                             </div>
                             <div class="contacts-detail-field">
                               <label class="contacts-detail-field-label">First Name:</label>
-                              <TextField
-                                filled
-                                fluid
-                                value={this.activeContact.first_name}
-                                oninput={(e) => {
-                                  this.activeContact.first_name = e.target.value;
-                                }}
-                              />
+                              <div class="contacts-detail-field-input">
+                                <TextField
+                                  filled
+                                  fluid
+                                  value={this.activeContact.first_name}
+                                  oninput={(e) => {
+                                    this.activeContact.first_name = e.target.value;
+                                  }}
+                                />
+                              </div>
                             </div>
                             <div class="contacts-detail-field">
                               <label class="contacts-detail-field-label">Last Name:</label>
-                              <TextField
-                                filled
-                                fluid
-                                value={this.activeContact.last_name}
-                                oninput={(e) => {
-                                  this.activeContact.last_name = e.target.value;
-                                }}
-                              />
+                              <div class="contacts-detail-field-input">
+                                <TextField
+                                  filled
+                                  fluid
+                                  value={this.activeContact.last_name}
+                                  oninput={(e) => {
+                                    this.activeContact.last_name = e.target.value;
+                                  }}
+                                />
+                              </div>
                             </div>
                             <div class="contacts-detail-field">
                               <label class="contacts-detail-field-label">Email:</label>
-                              <TextField
-                                filled
-                                fluid
-                                value={this.activeContact.email}
-                                oninput={(e) => {
-                                  this.activeContact.email = e.target.value;
-                                }}
-                              />
+                              <div class="contacts-detail-field-input">
+                                <TextField
+                                  filled
+                                  fluid
+                                  value={this.activeContact.email}
+                                  oninput={(e) => {
+                                    this.activeContact.email = e.target.value;
+                                  }}
+                                />
+                              </div>
                             </div>
                             <div class="contacts-detail-field">
                               <label class="contacts-detail-field-label">Phone:</label>
-                              <TextField
-                                filled
-                                fluid
-                                value={this.activeContact.phone}
-                                oninput={(e) => {
-                                  this.activeContact.phone = e.target.value;
-                                }}
-                              />
+                              <div class="contacts-detail-field-input">
+                                <TextField
+                                  filled
+                                  fluid
+                                  value={this.activeContact.phone}
+                                  oninput={(e) => {
+                                    this.activeContact.phone = e.target.value;
+                                  }}
+                                />
+                              </div>
                             </div>
-                            <div class="contacts-detail-field">
-                              <label class="contacts-detail-field-label">Organization:</label>
-                              <TextField
-                                filled
-                                fluid
-                                value={this.activeContact.organization}
-                                oninput={(e) => {
-                                  this.activeContact.organization = e.target.value;
-                                }}
-                              />
-                            </div>
+                            {this.customKeys().map((key) => {
+                              return (
+                                <>
+                                  <div class="contacts-detail-field">
+                                    <label class="contacts-detail-field-label">{key}:</label>
+                                    <div class="contacts-detail-field-input">
+                                      <TextField
+                                        filled
+                                        fluid
+                                        value={this.activeContact[key]}
+                                        oninput={(e) => {
+                                          this.activeContact[key] = e.target.value;
+                                        }}
+                                      />
+                                      <IconButton
+                                        class="margin-left-1"
+                                        icon="close"
+                                        onclick={() => {
+                                          this.removeCustomKey(key);
+                                        }}
+                                      />
+                                    </div>
+                                  </div>
+                                </>
+                              );
+                            })}
                           </div>
                           <div class="contacts-detail-buttons">
                             <Button
@@ -259,15 +321,19 @@ class Contacts {
                             />
                           </div>
                         </div>
+                        <EditContactModal
+                          isOpen={this.editDetailsOpen}
+                          onClose={() => {
+                            this.editDetailsOpen = false;
+                          }}
+                          contact={this.activeContact}
+                        />
                         <AddFieldModal
                           isOpen={this.addFieldOpen}
                           onClose={() => {
                             this.addFieldOpen = false;
                           }}
-                          onSave={(data) => {
-                            console.log(data);
-                            this.addFieldOpen = false;
-                          }}
+                          contact={this.activeContact}
                         />
                       </>
                     )}

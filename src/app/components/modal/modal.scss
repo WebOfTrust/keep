@@ -16,6 +16,7 @@
   }
 
   &__content {
+    animation: 0.4s scaleIn;
     background-color: #ffffff;
     border-radius: 4px;
     box-shadow: 0 3px 9px 0 rgba(0, 0, 0, 0.5);

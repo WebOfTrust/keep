@@ -3,26 +3,21 @@ import { Button, Modal, TextField } from '../../components';
 import { KERI } from '../../services';
 import './contacts.scss';
 
-class AddFieldModal {
+class EditContactModal {
   constructor() {
     this.contact = null;
-    this.key = '';
-    this.value = '';
   }
 
   oninit(vnode) {
-    this.key = '';
-    this.value = '';
     this.contact = vnode.attrs.contact;
   }
 
-  addField(vnode) {
-    KERI.updateContact(this.contact.id, {
-      [this.key]: this.value,
-    }).then(() => {
-      this.contact[this.key] = this.value;
-      vnode.attrs.onClose();
-    });
+  updateContact(vnode) {
+    KERI.updateContact(this.contact.id, { alias: this.contact.alias, organization: this.contact.organization }).then(
+      () => {
+        vnode.attrs.onClose();
+      }
+    );
   }
 
   view(vnode) {
@@ -31,7 +26,7 @@ class AddFieldModal {
         <Modal
           isOpen={vnode.attrs.isOpen}
           onClose={vnode.attrs.onClose}
-          header={<h3>Add New Field</h3>}
+          header={<h3>Edit Contact</h3>}
           style={{
             top: '8rem',
             width: '480px',
@@ -40,25 +35,25 @@ class AddFieldModal {
           <form
             onsubmit={(e) => {
               e.preventDefault();
-              this.addField(vnode);
+              this.updateContact(vnode);
             }}
           >
-            <label class="contacts-modal-label">Key:</label>
+            <label class="contacts-modal-label">Alias:</label>
             <TextField
               fluid
               outlined
-              value={this.key}
+              value={this.contact.alias}
               oninput={(e) => {
-                this.key = e.target.value;
+                this.contact.alias = e.target.value;
               }}
             />
-            <label class="contacts-modal-label">Value:</label>
+            <label class="contacts-modal-label">Organization:</label>
             <TextField
               fluid
               outlined
-              value={this.value}
+              value={this.contact.organization}
               oninput={(e) => {
-                this.value = e.target.value;
+                this.contact.organization = e.target.value;
               }}
             />
             <div class="flex flex-align-center flex-justify-between margin-top-4">
@@ -75,8 +70,8 @@ class AddFieldModal {
                 raised
                 type="submit"
                 class="button--big button--no-transform"
-                label="Add Field"
-                disabled={!this.key || !this.value}
+                label="Save"
+                disabled={!this.contact.alias}
               />
             </div>
           </form>
@@ -86,4 +81,4 @@ class AddFieldModal {
   }
 }
 
-module.exports = AddFieldModal;
+module.exports = EditContactModal;

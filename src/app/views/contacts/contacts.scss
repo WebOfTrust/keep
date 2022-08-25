@@ -60,17 +60,29 @@
     &-fields {
       display: flex;
       flex-direction: column;
+      max-height: 500px;
+      overflow-y: auto;
     }
 
     &-field {
       align-items: center;
       display: flex;
-      justify-content: space-between;
+      justify-content: flex-start;
       margin-top: 1.5rem;
 
       &-label {
         @include bold;
-        width: 168px;
+        color: rgba(0, 0, 0, 0.6);
+        font-size: 14px;
+        line-height: 2.5;
+        letter-spacing: 0.15px;
+        flex: 1;
+      }
+
+      &-input {
+        align-items: center;
+        display: flex;
+        flex: 2;
       }
     }
 
@@ -92,6 +104,15 @@
     img {
       margin: 2rem 0;
       width: 210px;
+    }
+  }
+
+  &-modal {
+    &-label {
+      @include bold;
+      color: rgba(0, 0, 0, 0.6);
+      line-height: 2.5;
+      letter-spacing: 0.15px;
     }
   }
 }

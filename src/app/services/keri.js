@@ -197,10 +197,28 @@ class KERI {
     });
   }
 
-  static getGroupedContacts(groupField) {
+  static getContactsFiltered(filters = {}) {
+    let filterParams = Object.keys(filters)
+      .map((filterKey, index) => {
+        return `${index !== 0 ? '&' : ''}filter_field=${filterKey}&filter_value=${filters[filterKey]}`;
+      })
+      .join('');
     return m.request({
       method: 'GET',
-      url: `${this.keriURL}/contacts?group=${groupField}`,
+      url: `${this.keriURL}/contacts?${filterParams}`,
+    });
+  }
+
+  static getContactsGrouped(groupBy, filters = {}) {
+    let filterParams = Object.keys(filters)
+      .map((filterKey, index) => {
+        return `${index !== 0 ? '&' : ''}filter_field=${filterKey}&filter_value=${filters[filterKey]}`;
+      })
+      .join('');
+    let groupParam = `&group=${groupBy}`;
+    return m.request({
+      method: 'GET',
+      url: `${this.keriURL}/contacts?${filterParams}${groupParam}`,
     });
   }
 
@@ -228,6 +246,14 @@ class KERI {
   static updateContact(aid, body) {
     return m.request({
       method: 'PUT',
+      url: `${this.keriURL}/contacts/${aid}`,
+      body: body,
+    });
+  }
+
+  static overwriteContact(aid, body) {
+    return m.request({
+      method: 'POST',
       url: `${this.keriURL}/contacts/${aid}`,
       body: body,
     });
