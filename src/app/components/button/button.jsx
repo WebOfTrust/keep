@@ -17,6 +17,7 @@ class Button {
       raised: false,
       ripple: true,
       style: null,
+      type: 'button',
     };
     this.options = null;
   }
@@ -66,6 +67,7 @@ class Button {
     return (
       <button
         id={this.options.id}
+        type={this.options.type}
         class={this.buttonClass}
         style={this.options.style}
         disabled={this.options.disabled}
