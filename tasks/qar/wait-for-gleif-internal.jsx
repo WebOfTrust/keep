@@ -1,6 +1,7 @@
 import m from 'mithril';
 import {Button, TextField} from '../../src/app/components';
-import {KERI, Notify, Profile, Schema, Tasks} from '../../src/app/services';
+import {KERI, Notify, Profile, Schema } from '../../src/app/services';
+import {Tasks} from '../../src/app/services/tasks';
 import createIdentifier from '../../src/assets/img/create-identifier.svg';
 import uploadFile from "../../src/assets/img/upload-file.svg";
 

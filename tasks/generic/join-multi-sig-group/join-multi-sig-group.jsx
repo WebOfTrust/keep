@@ -1,5 +1,5 @@
 import m, { vnode } from 'mithril';
-import { Button, TextField } from '../../../src/app/components';
+import {Button, Checkbox, TextField} from '../../../src/app/components';
 import { KERI, Profile, Notify, Contacts } from '../../../src/app/services';
 import todoList from '../../../src/assets/img/to-do-list.svg';
 import secureMessaging from '../../../src/assets/img/secure-messaging.svg';
@@ -7,6 +7,7 @@ import secureMessaging from '../../../src/assets/img/secure-messaging.svg';
 class JoinMultiSigGroupTask {
   constructor(config) {
     this._label = config.label;
+    this.setDefault = false;
     this._component = {
       view: (vnode) => {
         return <JoinMultiSigGroup end={vnode.attrs.end} parent={this} />;
@@ -163,6 +164,19 @@ class JoinMultiSigGroup {
             <p class="p-tag" style={{ margin: '2rem 0 2rem 0' }}>
               What would you like your group's alias to be?
             </p>
+            <div className="flex flex-justify-start" style={{margin: '0 0 3.5rem 0'}}>
+              <Checkbox
+                outlined
+                fluid
+                disabled={(Profile.identifiers === undefined || Profile.identifiers.length === 0)}
+                checked={this.setDefault}
+                style={{margin: '0 0 3.5rem 0'}}
+                onchange={(_default) => {
+                  this.setDefault = _default;
+                }}
+              />
+              <p className="p-tag-bold">Set new AID as Keep Default?</p>
+            </div>
             <TextField
               outlined
               fluid

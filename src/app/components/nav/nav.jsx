@@ -15,10 +15,7 @@ class Nav {
     if (Profile.getDefaultAID()) {
       label = '(' + Profile.getDefaultAID().name + ') ';
     }
-    if (Profile.isLead) {
-      label += 'Lead ';
-    }
-    label += Auth.title();
+    label += Profile.title();
     return label;
   }
 
@@ -33,7 +30,7 @@ class Nav {
               </m.route.Link>
             </h2>
             <div class="nav__spacer"></div>
-            {Auth.isLoggedIn && (
+            {Profile.isLoggedIn && (
               <>
                 <div class="relative">
                   <IconButton
@@ -49,12 +46,6 @@ class Nav {
                     </span>
                   )}
                 </div>
-                <IconButton
-                  icon="settings"
-                  onclick={() => {
-                    m.route.set('/settings');
-                  }}
-                />
                 <div
                   style={{ cursor: 'pointer', marginRight: '0.5rem', marginLeft: '1rem' }}
                   onclick={() => {
@@ -65,11 +56,15 @@ class Nav {
                 </div>
                 <div
                   style={{
+                    cursor: 'pointer',
                     color: '#0cbc8b',
                     paddingLeft: '1rem',
                     paddingRight: '1rem',
                     fontWeight: 'bold',
                     fontSize: '100%',
+                  }}
+                  onclick={() => {
+                    m.route.set('/profile');
                   }}
                 >
                   {this.navLabel}
@@ -79,7 +74,6 @@ class Nav {
                   icon="lock"
                   onclick={() => {
                     KERI.lockAgent().then(() => {
-                      Auth.removeAgent();
                       m.route.set('/dashboard');
                     });
                   }}

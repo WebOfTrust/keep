@@ -26,6 +26,7 @@ import AcceptCredentialsTask from '../generic/accept-credentials/accept-credenti
 import IssueCredentialTask from './issue-credential';
 import JoinCredentailIssuanceTask from './join-credential-issuance';
 import WaitForGLEIFInternal from './wait-for-gleif-internal';
+import {DefaultMapTask} from "../../src/app/services/tasks";
 
 const tasks = {
   'create-passcode': [
@@ -123,4 +124,4 @@ const tasks = {
   ],
 };
 
-module.exports = tasks;
+module.exports = new DefaultMapTask(tasks);

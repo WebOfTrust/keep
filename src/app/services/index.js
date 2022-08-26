@@ -1,4 +1,3 @@
-import Auth from './auth';
 import Contacts from './contacts';
 import KERI from './keri';
 import Mail from './mail';
@@ -9,12 +8,11 @@ import Participants from './oobis';
 import Keep from './keep';
 import WellKnown from './wellknown';
 import Schema from './schema';
-import Tasks from './tasks';
+import { Tasks } from './tasks';
 import Toaster from './toaster';
 import Witnesses from './witnesses';
 
 module.exports = {
-  Auth,
   Contacts,
   KERI,
   Mail,

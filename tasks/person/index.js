@@ -8,6 +8,7 @@ import ManualKeyRotationTask from "../generic/manual-key-rotation/manual-key-rot
 import AcceptCredentialsTask from "../generic/accept-credentials/accept-credentials";
 import SignXBRLReport from "../generic/sign-xbrl-report/sign-xbrl-report"
 import VideoCallTask from "../generic/video-call/video-call";
+import {DefaultMapTask} from "../../src/app/services/tasks";
 
 const tasks = {
     'create-passcode': [
@@ -31,4 +32,4 @@ const tasks = {
     ],
 };
 
-module.exports = tasks;
+module.exports = new DefaultMapTask(tasks);

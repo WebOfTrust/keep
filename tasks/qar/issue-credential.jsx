@@ -136,46 +136,44 @@ class IssueCredential {
   constructor(vnode) {
     this.contacts = [];
 
-    Profile.loadIdentifiers().then((e) => {
-      vnode.attrs.parent.defaultAid = Profile.getDefaultAID('multi');
-      KERI.listCredentials(vnode.attrs.parent.defaultAid.name, 'received')
+    vnode.attrs.parent.defaultAid = Profile.getDefaultAID('multi');
+    KERI.listCredentials(vnode.attrs.parent.defaultAid.name, 'received')
+      .then((credentials) => {
+        let qvi = credentials.find((cred) => {
+          return cred['sad']['s'] === Schema.QVICredentialSchema;
+        });
+        vnode.attrs.parent.qvi = qvi['sad']['d'];
+      })
+      .catch((err) => {});
+
+    Contacts.requestList().then((contacts) => {
+      KERI.listCredentials(vnode.attrs.parent.defaultAid.name, 'issued')
         .then((credentials) => {
-          let qvi = credentials.find((cred) => {
-            return cred['sad']['s'] === Schema.QVICredentialSchema;
+          let creds = credentials.filter((cred) => {
+            return cred['sad']['s'] === Schema.LECredentialSchema;
           });
-          vnode.attrs.parent.qvi = qvi['sad']['d'];
+
+          vnode.attrs.parent.leiMap = new Map();
+          vnode.attrs.parent.chainAliasMap = new Map();
+          vnode.attrs.parent.legalEntityCredentials = creds.map((cred) => {
+            let recipientAid = cred['sad']['a']['i'];
+            let lei = cred['sad']['a']['LEI'];
+            let said = cred['sad']['d'];
+            let contact = Contacts.filterById(recipientAid);
+
+            vnode.attrs.parent.leiMap[said] = lei;
+            vnode.attrs.parent.chainAliasMap[said] = contact.alias;
+
+            return {
+              value: said,
+              label: 'Legal Entity vLEI issued to ' + contact.alias,
+            };
+          });
+          vnode.attrs.parent.loading = false;
         })
-        .catch((err) => {});
-
-      Contacts.requestList().then((contacts) => {
-        KERI.listCredentials(vnode.attrs.parent.defaultAid.name, 'issued')
-          .then((credentials) => {
-            let creds = credentials.filter((cred) => {
-              return cred['sad']['s'] === Schema.LECredentialSchema;
-            });
-
-            vnode.attrs.parent.leiMap = new Map();
-            vnode.attrs.parent.chainAliasMap = new Map();
-            vnode.attrs.parent.legalEntityCredentials = creds.map((cred) => {
-              let recipientAid = cred['sad']['a']['i'];
-              let lei = cred['sad']['a']['LEI'];
-              let said = cred['sad']['d'];
-              let contact = Contacts.filterById(recipientAid);
-
-              vnode.attrs.parent.leiMap[said] = lei;
-              vnode.attrs.parent.chainAliasMap[said] = contact.alias;
-
-              return {
-                value: said,
-                label: 'Legal Entity vLEI issued to ' + contact.alias,
-              };
-            });
-            vnode.attrs.parent.loading = false;
-          })
-          .catch((err) => {
-            console.log(err);
-          });
-      });
+        .catch((err) => {
+          console.log(err);
+        });
     });
   }
 

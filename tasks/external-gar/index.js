@@ -4,7 +4,7 @@ import m from 'mithril';
 import variables from './variables';
 
 import { Button } from '../../src/app/components';
-import { Tasks } from '../../src/app/services';
+import { DefaultMapTask } from '../../src/app/services/tasks';
 
 // Tasks
 
@@ -93,4 +93,4 @@ const tasks = {
   ],
 };
 
-module.exports = tasks;
+module.exports = new DefaultMapTask(tasks);

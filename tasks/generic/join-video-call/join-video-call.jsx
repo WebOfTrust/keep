@@ -1,7 +1,7 @@
 import m from 'mithril';
 import { Button } from '../../../src/app/components';
-import { Profile, Participants, Tasks } from '../../../src/app/services';
-import { EnterChallengesForm, EnterOOBIsForm, SendChallengeForm, SendOOBIForm } from './forms';
+import { Participants } from '../../../src/app/services';
+import { EnterChallengesForm, EnterOOBIsForm, SendChallengeForm } from './forms';
 
 import addNewContacts from '../../../src/assets/img/add-new-contacts.svg';
 import projectPlanning from '../../../src/assets/img/project-planning.svg';

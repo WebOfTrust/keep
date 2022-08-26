@@ -13,6 +13,7 @@ import InitiateManualKeyRotationTask from '../generic/initiate-manual-key-rotati
 import JoinManualKeyRotationTask from '../generic/join-manual-key-rotation/join-manual-key-rotation';
 import VideoCallTask from './video-call/video-call';
 import ViewMultiSigEventLogsTask from './view-multi-sig-event-logs/view-multi-sig-event-logs';
+import {DefaultMapTask} from "../../src/app/services/tasks";
 
 const tasks = {
   'create-passcode': [
@@ -41,4 +42,4 @@ const tasks = {
   ],
 };
 
-module.exports = tasks;
+module.exports = new DefaultMapTask(tasks);
