@@ -227,8 +227,11 @@ class Contacts {
                               <label class="contacts-detail-field-label">First Name:</label>
                               <div class="contacts-detail-field-input">
                                 <TextField
-                                  filled
+                                  outlined
                                   fluid
+                                  style={{
+                                    height: '44px',
+                                  }}
                                   value={this.activeContact.first_name}
                                   oninput={(e) => {
                                     this.activeContact.first_name = e.target.value;
@@ -240,8 +243,11 @@ class Contacts {
                               <label class="contacts-detail-field-label">Last Name:</label>
                               <div class="contacts-detail-field-input">
                                 <TextField
-                                  filled
+                                  outlined
                                   fluid
+                                  style={{
+                                    height: '44px',
+                                  }}
                                   value={this.activeContact.last_name}
                                   oninput={(e) => {
                                     this.activeContact.last_name = e.target.value;
@@ -253,8 +259,11 @@ class Contacts {
                               <label class="contacts-detail-field-label">Email:</label>
                               <div class="contacts-detail-field-input">
                                 <TextField
-                                  filled
+                                  outlined
                                   fluid
+                                  style={{
+                                    height: '44px',
+                                  }}
                                   value={this.activeContact.email}
                                   oninput={(e) => {
                                     this.activeContact.email = e.target.value;
@@ -266,8 +275,11 @@ class Contacts {
                               <label class="contacts-detail-field-label">Phone:</label>
                               <div class="contacts-detail-field-input">
                                 <TextField
-                                  filled
+                                  outlined
                                   fluid
+                                  style={{
+                                    height: '44px',
+                                  }}
                                   value={this.activeContact.phone}
                                   oninput={(e) => {
                                     this.activeContact.phone = e.target.value;
@@ -282,8 +294,11 @@ class Contacts {
                                     <label class="contacts-detail-field-label">{key}:</label>
                                     <div class="contacts-detail-field-input">
                                       <TextField
-                                        filled
+                                        outlined
                                         fluid
+                                        style={{
+                                          height: '44px',
+                                        }}
                                         value={this.activeContact[key]}
                                         oninput={(e) => {
                                           this.activeContact[key] = e.target.value;
