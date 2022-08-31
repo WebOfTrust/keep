@@ -1,6 +1,6 @@
 import m from 'mithril';
 
-import { Button, Card, Container, IconButton, NavRail } from '../../components';
+import { Button, Card, Container, IconButton, NavRail, Progress } from '../../components';
 import { Auth, Contacts, Keep, Notify, Profile, Tasks } from '../../services';
 import Notifications from './notifications/notifications.jsx';
 import './dashboard.scss';

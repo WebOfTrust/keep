@@ -1,0 +1,51 @@
+@import '../../../scss/mixins';
+@import '../../../scss/variables';
+
+.progress {
+  background-color: $gray;
+  border-radius: 10px;
+  height: 16px;
+  position: relative;
+  margin-bottom: 4rem;
+  user-select: none;
+  width: 100%;
+
+  &-fill {
+    background-color: $blue;
+    border-radius: 10px;
+    height: 16px;
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 0%;
+  }
+
+  &-circle {
+    background-color: $blue;
+    border: 1px solid white;
+    border-radius: 50%;
+    height: 24px;
+    width: 24px;
+    position: absolute;
+    top: -4px;
+    left: 0;
+
+    &-text {
+      @include medium;
+      color: white;
+      font-size: 16px;
+      line-height: 1.5;
+      text-align: center;
+    }
+  }
+
+  &-text {
+    @include medium;
+    color: $blue;
+    font-size: 10px;
+    letter-spacing: 0.15px;
+    position: absolute;
+    top: 32px;
+    left: calc(20% - 32px);
+  }
+}

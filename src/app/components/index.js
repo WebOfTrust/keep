@@ -11,6 +11,7 @@ import Modal from './modal/modal.jsx';
 import Nav from './nav/nav.jsx';
 import NavRail from './nav-rail/nav-rail.jsx';
 import ProfilePicture from './profile/picture.jsx';
+import Progress from './progress/progress.jsx';
 import Popover from './popover/popover.jsx';
 import Radio from './radio/radio.jsx';
 import Select from './select/select.jsx';
@@ -36,6 +37,7 @@ module.exports = {
   Nav,
   NavRail,
   ProfilePicture,
+  Progress,
   Popover,
   Radio,
   Select,

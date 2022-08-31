@@ -1,5 +1,5 @@
 import m from 'mithril';
-import { Button } from '../../../src/app/components';
+import { Button, Progress } from '../../../src/app/components';
 import { Profile, Participants, Tasks, KERI } from '../../../src/app/services';
 import { EnterChallengesForm, EnterOOBIsForm, SendChallengeForm, SendOOBIForm } from './forms';
 
@@ -191,6 +191,7 @@ class VideoCall {
         )}
         {vnode.attrs.parent.currentState === 'video-call' && (
           <>
+            <Progress stepNum={1} totalSteps={6} stepLabel={'Join'} />
             <img src={projectPlanning} style={{ marginBottom: '2rem', width: '240px' }} />
             <h3>Initiate a Video Call</h3>
             <p class="p-tag margin-v-2">
@@ -220,6 +221,7 @@ class VideoCall {
         )}
         {vnode.attrs.parent.currentState === 'join-call' && (
           <>
+            <Progress stepNum={1} totalSteps={6} stepLabel={'Join'} />
             <img src={responseMessage} style={{ marginBottom: '2rem', width: '240px' }} />
             <h3>Join a Video Call</h3>
             <p class="p-tag margin-v-2">
@@ -250,6 +252,7 @@ class VideoCall {
         )}
         {vnode.attrs.parent.currentState === 'send-oobi' && (
           <>
+            <Progress stepNum={3} totalSteps={6} stepLabel={'Receive OOBI'} />
             <h3>Accept OOBI from other person{vnode.attrs.parent.oneToOne ? '' : 's'}</h3>
             <EnterOOBIsForm participants={vnode.attrs.parent.participants} oneToOne={vnode.attrs.parent.oneToOne} />
             <div class="flex flex-justify-between margin-top-4">
@@ -275,6 +278,7 @@ class VideoCall {
         )}
         {vnode.attrs.parent.currentState === 'challenge-messages' && (
           <>
+            <Progress stepNum={5} totalSteps={6} stepLabel={'Receive Challenge'} />
             <EnterChallengesForm
               aidToSend={vnode.attrs.parent.aidToSend}
               participants={vnode.attrs.parent.participants}
@@ -313,6 +317,7 @@ class VideoCall {
         )}
         {vnode.attrs.parent.currentState === 'waiting-for-multisig' && (
           <>
+            <Progress stepNum={6} totalSteps={6} stepLabel={'Configure'} />
             <img src={uploadFile} style={{ width: '240px', margin: '1.5rem 0 2rem 0' }} />
             <h3>Waiting for Multi-Sig Group Inception</h3>
             <p class="p-tag margin-v-2">
@@ -343,6 +348,7 @@ class SendOOBIPanel {
   view(vnode) {
     return (
       <>
+        <Progress stepNum={2} totalSteps={6} stepLabel={'Send OOBI'} />
         <img src={addNewContacts} style={{ width: '200px', margin: '0 0 1rem 0' }} alt="" />
         <h3>Send OOBI for your {} AID</h3>
         <p class="p-tag margin-v-2">
@@ -363,6 +369,7 @@ class CopyChallengePanel {
   view(vnode) {
     return (
       <>
+        <Progress stepNum={4} totalSteps={6} stepLabel={'Send Challenge'} />
         <div class="flex flex-align-center flex-justify-between">
           <img src={addNewContacts} style={{ width: '120px', margin: '1.5rem 0 1rem 0' }} />
           <h3>Challenge Message Recipients</h3>
