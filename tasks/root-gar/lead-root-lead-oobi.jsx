@@ -53,7 +53,7 @@ class LeadRootLeadOobi {
     }
 
     sendOobis() {
-        KERI.sendOOBIs(Profile.getDefaultMultiAID().name, this.participants.oobis);
+        KERI.sendOOBIs(Profile.getDefaultAID().name, this.participants.oobis);
         this.currentState = 'event-complete';
     }
 }

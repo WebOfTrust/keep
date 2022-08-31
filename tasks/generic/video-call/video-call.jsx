@@ -1,6 +1,7 @@
 import m from 'mithril';
 import { Button } from '../../../src/app/components';
-import { Profile, Participants, Tasks, KERI } from '../../../src/app/services';
+import { Profile, Participants, KERI } from '../../../src/app/services';
+import {Tasks} from '../../../src/app/services/tasks';
 import { EnterChallengesForm, EnterOOBIsForm, SendChallengeForm, SendOOBIForm } from './forms';
 
 import addNewContacts from '../../../src/assets/img/add-new-contacts.svg';

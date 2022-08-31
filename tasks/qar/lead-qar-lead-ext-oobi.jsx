@@ -1,5 +1,7 @@
 import m from 'mithril';
-import {Profile, Tasks} from '../../src/app/services';
+import {Profile} from '../../src/app/services';
+import {Tasks} from '../../src/app/services/tasks';
+
 import {EnterChallengesForm, SendOOBIForm} from '../generic/video-call/forms';
 import {Button} from '../../src/app/components';
 
@@ -14,6 +16,29 @@ class LeadQARLeadExtOOBI {
         this.currentState = 'loading';
 
         this.currentState = 'video-call';
+        this.sendOOBIPanel = {
+            view: (vnode) => {
+                return <LeadQARLeadExtOOBISend
+                    identifiers={Profile.identifiers}
+                    parent={this}
+                    end={vnode.attrs.end}
+                />;
+            },
+        };
+
+        this._component = {
+            view: (vnode) => {
+                return <LeadQARLeadExtOOBIRightPanel
+                    parent={this}
+                    end={() => {
+                        Tasks.active = null;
+                    }}
+                />;
+            },
+        };
+    }
+
+    oninit() {
         KERI.getContacts().then((contacts) => {
             contacts.forEach((contact) => {
                 if (contact.alias === 'GLEIF External') {
@@ -37,27 +62,6 @@ class LeadQARLeadExtOOBI {
                 };
             }
         });
-
-        this.sendOOBIPanel = {
-            view: (vnode) => {
-                return <LeadQARLeadExtOOBISend
-                    identifiers={Profile.identifiers}
-                    parent={this}
-                    end={vnode.attrs.end}
-                />;
-            },
-        };
-
-        this._component = {
-            view: (vnode) => {
-                return <LeadQARLeadExtOOBIRightPanel
-                    parent={this}
-                    end={() => {
-                        Tasks.active = null;
-                    }}
-                />;
-            },
-        };
     }
 
     get imgSrc() {

@@ -1,6 +1,6 @@
 import m from 'mithril';
 import { Button, Spinner, TextField } from '../../../src/app/components';
-import { Auth } from '../../../src/app/services';
+import {Mail, Notify, Profile} from '../../../src/app/services';
 import passcodeImg from '../../../src/assets/img/passcode.svg';
 
 class EnterPasscodeTask {
@@ -42,8 +42,10 @@ class EnterPasscode {
   login(vnode) {
     this.error = '';
     this.submitting = true;
-    Auth.login(this.passcode)
+    Profile.login(this.passcode)
       .then(() => {
+        Notify.requestList();
+        Mail.initEventSource();
         vnode.attrs.end();
       })
       .catch(() => {

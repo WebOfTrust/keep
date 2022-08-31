@@ -64,10 +64,18 @@ class KERI {
     });
   }
 
-  static updateIdentifier(alias, body) {
+  static updateIdentifierMetadata(alias, body) {
     return m.request({
       method: 'PUT',
-      url: `${this.keriURL}/ids/${alias}`,
+      url: `${this.keriURL}/ids/${alias}/metadata`,
+      body: body,
+    });
+  }
+
+  static replaceIdentifierMetadata(alias, body) {
+    return m.request({
+      method: 'POST',
+      url: `${this.keriURL}/ids/${alias}/metadata`,
       body: body,
     });
   }

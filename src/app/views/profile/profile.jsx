@@ -54,14 +54,6 @@ class Profile {
               </div>
               <div class="flex-1">
                 <Card class={'card--fluid'} style={{ position: 'relative' }} padding="4rem 4rem">
-                  <IconButton
-                    class="close-icon"
-                    icon="close"
-                    onclick={() => {
-                      this.currentState = null;
-                    }}
-                    style={`${this.currentState == null ? 'visibility: hidden;' : 'visibility: visible;'}`}
-                  />
                   {this.currentState === 'manage-identifiers' && <ManageIdentifiers />}
                   {this.currentState === 'manage-passcode' && <ManagePasscode />}
                 </Card>

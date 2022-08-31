@@ -1,7 +1,8 @@
 import m from 'mithril';
 
 import { Button, Card, Container, IconButton, NavRail } from '../../components';
-import { Auth, Contacts, Keep, Notify, Profile, Tasks } from '../../services';
+import { Notify, Profile } from '../../services';
+import {Tasks} from '../../services/tasks';
 import Notifications from './notifications/notifications.jsx';
 import './dashboard.scss';
 
@@ -23,17 +24,7 @@ class Dashboard {
   }
 
   get tasksList() {
-    if (!Auth.isLoggedIn) {
-      return Tasks.all['create-passcode'];
-    }
-
-    if (Profile.identifiers.length === 0) {
-      return Tasks.all['create-identifier'];
-    } else if (Profile.identifiers.length === 1 && 'create-multisig' in Tasks.all) {
-      return Tasks.all['create-multisig'];
-    } else {
-      return Tasks.all['main'];
-    }
+    return Tasks.tasksList
   }
 
   get tasksSlice() {
@@ -48,7 +39,11 @@ class Dashboard {
       <>
         <div style="position: relative">
           <div class="dashboard">
-            {Auth.isLoggedIn && <NavRail selected="dashboard"></NavRail>}
+            {(Profile.isLoggedIn && Profile.identifiers === undefined) && <div>
+              <H3>Loading...</H3>
+            </div>
+            }
+            {Profile.isLoggedIn && <NavRail selected="dashboard"></NavRail>}
             <Container class="headspace" style={{ marginBottom: '5rem', padding: '0 4rem' }}>
               <div class="flex flex-justify-between">
                 {/* Left Panel */}
@@ -124,7 +119,7 @@ class Dashboard {
                 </div>
                 {/* Right Panel */}
                 <div class="flex-1">
-                  {(Notify.isOpen || Tasks.active || (Auth.isLoggedIn && !this.aboutDismissed)) && (
+                  {(Notify.isOpen || Tasks.active || (Profile.isLoggedIn && !this.aboutDismissed)) && (
                     <Card
                       class={'card--fluid' + (!Notify.isOpen && Tasks.active ? ' card--active' : '')}
                       style={{ position: 'relative' }}
@@ -150,8 +145,6 @@ class Dashboard {
                         <Tasks.active.component
                           end={() => {
                             Tasks.active = null;
-                            Profile.loadIdentifiers();
-                            Contacts.requestList();
                           }}
                         />
                       )}

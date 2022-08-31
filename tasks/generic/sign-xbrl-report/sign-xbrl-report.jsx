@@ -58,7 +58,7 @@ class SignXBRLReport {
         this.reader.addEventListener('loadend', () => {
             this.facts = JSON.parse(this.reader.result);
         });
-        let aid = Profile.getDefaultSingleAID();
+        let aid = Profile.getDefaultAID();
         Registry.ensureRegistry(aid.name, RegistryName, aid.prefix);
 
         KERI.listSchema()

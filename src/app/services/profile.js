@@ -1,22 +1,39 @@
 import KERI from './keri';
+import Keep from "./keep";
 
 class Profile {
-  static _isLead = false;
+  static _locked = true;
+  static _created = undefined;
   static _default = undefined;
-  static _defaultSingle = undefined;
-  static _defaultMulti = undefined;
-  static _identifiers = [];
+  static _identifiers = undefined;
   static _singleSigs = [];
   static _multiSigs = [];
 
-  constructor() {}
-
-  static get isLead() {
-    return this._isLead;
+  constructor() {
   }
 
-  static set isLead(lead) {
-    this._isLead = lead;
+  static setAgent(name) {
+    sessionStorage.setItem('agent', name);
+  }
+
+  static removeAgent() {
+    sessionStorage.removeItem('agent');
+  }
+
+  static get isLoggedIn() {
+    return !this._locked
+  }
+
+  static get locked() {
+    return this._locked
+  }
+
+  static get created() {
+    return this._created;
+  }
+
+  static set created(_created) {
+    this._created = _created;
   }
 
   static get identifiers() {
@@ -31,70 +48,160 @@ class Profile {
     return this._multiSigs;
   }
 
+  static check() {
+    return new Promise((resolve, reject) => {
+      Profile.loadIdentifiers().then(() => {
+        if (Profile.isLoggedIn) {
+          resolve()
+        } else {
+          reject()
+        }
+      }, () => {
+        reject();
+      })
+    })
+  }
+
+  static login(passcode) {
+    return new Promise((resolve, reject) => {
+      KERI.unlockAgent(Keep.getName(), passcode)
+        .then((response) => {
+          Profile.statusPoll().then(() => {
+            Profile.setAgent(response.name);
+            resolve();
+          });
+        })
+        .catch((err) => {
+          console.log('unlockAgent', err);
+          reject(err);
+        });
+    });
+  }
+
+  static statusRetry(resolve) {
+    this.check()
+      .then(() => {
+        resolve();
+      })
+      .catch(() => {
+        setTimeout(() => {
+          Profile.statusRetry(resolve);
+        }, 2000);
+      });
+  }
+
+  static statusPoll() {
+    return new Promise((resolve) => {
+      setTimeout(() => {
+        this.statusRetry(resolve);
+      }, 2000);
+    });
+  }
+
   static filterIdentifiersById(id) {
     return this._identifiers.filter((identifier) => {
       return identifier.prefix === id;
     });
   }
 
-  static loadIdentifiers() {
-    return KERI.listIdentifiers()
-      .then((identifiers) => {
-        this._identifiers = identifiers;
-        this._singleSigs = this.identifiers.filter((aid) => {
-          return !('group' in aid);
+  static createIdentifier(alias, wits) {
+    return new Promise((resolve, reject) => {
+      KERI.createIdentifier(alias, wits)
+        .then(() => {
+          Profile.loadIdentifiers()
+            .then((ids) => {
+              let aid = ids.find(id => {
+                return id.name === alias
+              })
+              resolve(aid);
+            })
+            .catch((err) => {
+              console.log('listIdentfiers', err);
+              reject();
+            });
+        })
+        .catch((err) => {
+          console.log('createIdentifier', err);
+          reject();
         });
-        this._multiSigs = this.identifiers.filter((aid) => {
-          return 'group' in aid;
-        });
-        this._default = this._identifiers.find((aid) => {
-          return 'metadata' in aid && 'default' in aid.metadata;
-        });
-        this._defaultSingle = this._singleSigs.find((aid) => {
-          return 'metadata' in aid && 'default' in aid.metadata;
-        });
-        this._defaultMulti = this._multiSigs.find((aid) => {
-          return 'metadata' in aid && 'default' in aid.metadata;
-        });
-
-        if (this._default === undefined && this._identifiers.length > 0) {
-          this._default = this._identifiers[0];
-        }
-        if (this._defaultSingle === undefined && this._singleSigs.length > 0) {
-          this._defaultSingle = this._singleSigs[0];
-        }
-
-        if (this._defaultMulti === undefined && this._multiSigs.length > 0) {
-          this._defaultMulti = this._multiSigs[0];
-        }
-      })
-      .catch((err) => {
-        this._identifiers = [];
-        console.log('listIdentifiers', err);
-      });
-  }
-
-  static setDefaultAID(aid) {
-    KERI.updateIdentifier(aid.name, {
-      default: 'true',
     });
   }
 
-  static getDefaultAID(type) {
-    if (type === 'single' || this._defaultMulti === undefined) {
-      return this._defaultSingle;
-    } else {
-      return this._defaultMulti;
+  static loadIdentifiers() {
+    return new Promise((resolve, reject) => {
+      KERI.listIdentifiers()
+        .then((identifiers) => {
+          Profile._identifiers = identifiers;
+          Profile._singleSigs = Profile.identifiers.filter((aid) => {
+            return !('group' in aid);
+          });
+          Profile._multiSigs = Profile.identifiers.filter((aid) => {
+            return 'group' in aid;
+          });
+          Profile._default = Profile._identifiers.find((aid) => {
+            return 'metadata' in aid && 'default' in aid.metadata && aid.metadata.default === 'true';
+          });
+
+          Profile._locked = false;
+          Profile.created = true
+          resolve(identifiers)
+        })
+        .catch(() => {
+          KERI.status(Keep.getName()).then(() => {
+            Profile.created = true;
+          }).catch(() => {
+            Profile.created = false
+          }).finally(() => {
+            Profile._locked = true;
+            Profile._identifiers = undefined;
+            reject(undefined)
+          })
+        });
+    });
+  }
+
+  static setDefaultAID(aid) {
+    return KERI.updateIdentifierMetadata(aid.name, {
+      default: 'true',
+    }).then(() => {
+      if (Profile._default !== undefined) {
+        KERI.updateIdentifierMetadata(Profile._default.name, {
+          default: 'false',
+        }).then(Profile.loadIdentifiers)
+      } else {
+        return Profile.loadIdentifiers()
+      }
+      this._default = aid;
+    });
+  }
+
+  static getDefaultAID() {
+    return this._default
+  }
+
+  static title() {
+    switch (process.env.USER_TYPE) {
+      case 'external-gar':
+        return 'External GAR';
+      case 'generic':
+        return 'Generic';
+      case 'internal-gar':
+        return 'Internal GAR';
+      case 'lar':
+        return 'LAR';
+      case 'lead-external-gar':
+        return 'Lead External GAR';
+      case 'person':
+        return 'Person';
+      case 'qar':
+        return 'QAR';
+      case 'root-gar':
+        return 'Root GAR';
+      default:
+        return '';
     }
   }
 
-  static getDefaultSingleAID() {
-    return this._defaultSingle;
-  }
-
-  static getDefaultMultiAID() {
-    return this._defaultMulti;
-  }
 }
 
 module.exports = Profile;

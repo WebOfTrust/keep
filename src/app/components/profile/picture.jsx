@@ -25,9 +25,9 @@ class ProfilePicture {
           style={{
             display: 'inline-block',
             fontSize: vnode.attrs.size === 's' ? '1rem' : '1.75rem',
-            width: vnode.attrs.size === 's' ? '2.25rem' : '3.75rem',
+            width: vnode.attrs.size === 's' ? '2.3rem' : '3.85rem',
             height: vnode.attrs.size === 's' ? '2.25rem' : '3.75rem',
-            lineHeight: vnode.attrs.size === 's' ? '2.25rem' : '3.75rem',
+            lineHeight: vnode.attrs.size === 's' ? '2.55rem' : '4.2rem',
             textAlign: 'center',
             borderRadius: '50%',
             background: 'grey',
@@ -52,9 +52,9 @@ class ProfilePicture {
           style={{
             display: 'inline-block',
             fontSize: vnode.attrs.size === 's' ? '1rem' : '1.75rem',
-            width: vnode.attrs.size === 's' ? '2.25rem' : '3.75rem',
+            width: vnode.attrs.size === 's' ? '2.3rem' : '3.85rem',
             height: vnode.attrs.size === 's' ? '2.25rem' : '3.75rem',
-            lineHeight: vnode.attrs.size === 's' ? '2.25rem' : '3.75rem',
+            lineHeight: vnode.attrs.size === 's' ? '2.55rem' : '4.2rem',
             textAlign: 'center',
             borderRadius: '50%',
             background: 'grey',

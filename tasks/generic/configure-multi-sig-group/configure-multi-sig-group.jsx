@@ -43,6 +43,7 @@ class ConfigureMultiSigGroup {
     this.status = '';
     this.sufficient = false;
     this.fractionallyWeighted = false;
+    this.setDefault = Profile.identifiers.length === 0;
     this.numSigners = 0; // Used only if fractionallyWeighted is false
     this.wits = Witnesses.witnessPools[0].wits;
     this.addSignerOpen = false;
@@ -84,11 +85,9 @@ class ConfigureMultiSigGroup {
 
             if (event["stored"] === true) {
               if(MultiSig.delegator === null || MultiSig.delegator === undefined) {
-                console.log("setting to icp complete")
                 task.status = 'Inception complete';
               } else {
                 if(!task.sufficient) {
-                  console.log("setting to sufficient")
                   task.status = 'Sufficient signatures received';
                   task.sufficient = true;
                 }
@@ -96,7 +95,19 @@ class ConfigureMultiSigGroup {
 
               let unsigned = MultiSig.participants.find((part) => {return !part.signed})
               if (unsigned === undefined) {
-                m.redraw()
+                if (this.setDefault === true) {
+                  Profile.loadIdentifiers()
+                    .then((ids) => {
+                      let aid = ids.find(id => {
+                        return id.alias === task.groupAlias;
+                      })
+                      Profile.setDefaultAID(aid).then(() => {
+                        m.redraw()
+                      })
+                    })
+                } else {
+                  m.redraw()
+                }
                 return
               }
             } else {
@@ -238,6 +249,18 @@ class ConfigureMultiSigGroup {
                 this.groupAlias = e.target.value;
               }}
             />
+            <div className="flex flex-justify-start" style={{margin: '1rem 0 3.5rem 0'}}>
+              <Checkbox
+                outlined
+                fluid
+                checked={vnode.attrs.parent.setDefault}
+                style={{margin: '0 0 3.5rem 0'}}
+                onchange={(_default) => {
+                  vnode.attrs.parent.setDefault = _default;
+                }}
+              />
+              <p className="p-tag-bold">Set new AID as Keep Default?</p>
+            </div>
             <div class="flex flex-justify-between margin-top-4">
               <Button
                 class="button--gray-dk button--big button--no-transform"
