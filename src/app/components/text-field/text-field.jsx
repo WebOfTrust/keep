@@ -17,6 +17,8 @@ class TextField {
       label: null,
       maxlength: null,
       minlength: null,
+      min: null,
+      max: null,
       oninput: null,
       outlined: false,
       pattern: null,
@@ -152,6 +154,8 @@ class TextField {
               pattern={this.options.pattern}
               minlength={this.options.minlength}
               maxlength={this.options.maxlength}
+              min={this.options.min}
+              max={this.options.max}
               placeholder={this.options.placeholder}
               disabled={this.options.disabled}
               value={this.options.value}

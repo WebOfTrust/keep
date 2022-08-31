@@ -31,6 +31,12 @@ a:link {
     font-weight: 700;
     color: $battleship-grey;
   }
+
+  &-italic {
+    font-weight: 400;
+    font-style: italic;
+    color: $battleship-grey;
+  }
 }
 
 .styled-ol {

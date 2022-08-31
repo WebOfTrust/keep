@@ -54,12 +54,14 @@ class KERI {
 
   // IDENTIFIERS
 
-  static createIdentifier(alias, witnesses) {
+  static createIdentifier(alias, wits, toad, estOnly) {
     return m.request({
       method: 'POST',
       url: `${this.keriURL}/ids/${alias}`,
       body: {
-        wits: witnesses,
+        wits,
+        toad,
+        estOnly
       },
     });
   }
