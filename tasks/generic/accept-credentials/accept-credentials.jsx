@@ -5,7 +5,12 @@ import uploadFile from "../../../src/assets/img/upload-file.svg";
 
 class AcceptCredentialsTask {
   constructor(config) {
-    this._label = config.label;
+    this.config = config;
+    this.reset();
+  }
+
+  reset() {
+    this._label = this.config.label;
     this._component = {
       view: (vnode) => {
         return <AcceptCredentials end={vnode.attrs.end} parent={this} />;

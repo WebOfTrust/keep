@@ -5,8 +5,13 @@ import passcodeImg from '../../../src/assets/img/passcode.svg';
 
 class EnterPasscodeTask {
   constructor(config) {
-    this._id = config.id;
-    this._label = config.label;
+    this.config = config;
+    this.reset();
+  }
+
+  reset() {
+    this._id = this.config.id;
+    this._label = this.config.label;
     this._component = {
       view: (vnode) => {
         return <EnterPasscode end={vnode.attrs.end} parent={this} />;

@@ -3,16 +3,20 @@ import {Button, Select, TextField, Checkbox, Radio} from '../../../src/app/compo
 import {KERI, Profile, Witnesses} from '../../../src/app/services';
 import createIdentifier from '../../../src/assets/img/create-identifier.svg';
 import configureIdentifier from '../../../src/assets/img/configure-identifier.svg';
-import uploadImage from '../../../src/assets/img/upload-image.svg';
 import ProfilePicture from "../../../src/app/components/profile/picture";
 
 class CreateYourAIDTask {
   constructor(config) {
-    this._id = config.id;
-    this._label = config.label;
+    this.config = config;
+    this.reset();
+  }
+
+  reset() {
+    this._id = this.config.id;
+    this._label = this.config.label;
     this._component = {
       view: (vnode) => {
-        return <CreateYourAID end={vnode.attrs.end} parent={this} variables={config.variables}/>;
+        return <CreateYourAID end={vnode.attrs.end} parent={this} variables={this.config.variables}/>;
       },
     };
     this.currentState = 'create-your-alias';
@@ -44,37 +48,6 @@ class CreateYourAID {
     this.pool = '';
     this.wits = []
     this.witThold = 1;
-  }
-
-  recommendedThold(numWits) {
-    switch (numWits) {
-      case 1:
-        return 1;
-      case 2:
-      case 3:
-        return 2;
-      case 4:
-        return 3;
-      case 5:
-      case 6:
-        return 4;
-      case 7:
-        return 5;
-      case 8:
-      case 9:
-        return 7;
-      case 10:
-        return 8;
-    }
-  }
-
-  get poolName() {
-    let v = Witnesses.witnessPools.find((p) => {return p.value = this.pool})
-    if (v !== undefined) {
-      return v.label;
-    }
-
-    return ""
   }
 
   createAID(vnode) {
@@ -128,7 +101,7 @@ class CreateYourAID {
               onchange={(pool) => {
                 this.pool = pool;
                 this.wits = Witnesses.witnesses[this.pool];
-                this.witThold = this.recommendedThold(this.wits.length)
+                this.witThold = KERI.recommendedThold(this.wits.length)
               }}
             />
             { this.wits.length > 0 && <p className="p-tag-italic" style={{margin: '-0.5rem 0 0.25rem 1.5rem'}}>{this.wits.length} Witnesses in Pool</p> }
@@ -160,7 +133,7 @@ class CreateYourAID {
                   <TextField
                     outlined
                     type="number"
-                    min={this.recommendedThold(this.wits.length)}
+                    min={KERI.recommendedThold(this.wits.length)}
                     max={this.wits.length}
                     style={{ marginBottom: '2rem', width: '5rem' }}
                     value={this.witThold}
@@ -234,7 +207,7 @@ class CreateYourAID {
             </div>
             <div className="flex flex-justify-between" style={{margin: '2rem 0 0 0'}}>
               <p className="p-tag-bold">Witness Pool:</p>
-              <p className="p-tag">{this.poolName}</p>
+              <p className="p-tag">{Witnesses.poolName(this.pool)}</p>
             </div>
             <div className="flex flex-justify-between" style={{margin: '0'}}>
               <p className="p-tag-bold">Witness Threshold:</p>

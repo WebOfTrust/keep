@@ -3,7 +3,12 @@ import createIdentifier from '../../../src/assets/img/create-identifier.svg';
 
 class JoinManualKeyRotationTask {
   constructor(config) {
-    this._label = config.label;
+    this.config = config;
+    this.reset();
+  }
+
+  reset() {
+    this._label = this.config.label;
     this._component = {
       view: (vnode) => {
         return <JoinManualKeyRotation end={vnode.attrs.end} parent={this} />;

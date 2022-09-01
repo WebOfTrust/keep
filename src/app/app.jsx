@@ -55,6 +55,7 @@ m.route(root, '/dashboard', {
   '/contacts': {
     oninit: () => {
       document.title = documentTitle + ' | Contacts';
+      Notify.isOpen = false;
     },
     view: () => {
       return (
@@ -67,6 +68,7 @@ m.route(root, '/dashboard', {
   '/credentials/issued': {
     oninit: () => {
       document.title = documentTitle + ' | Credentials';
+      Notify.isOpen = false;
     },
     view: () => {
       return (
@@ -79,6 +81,7 @@ m.route(root, '/dashboard', {
   '/credentials': {
     oninit: () => {
       document.title = documentTitle + ' | Credentials';
+      Notify.isOpen = false;
     },
     view: () => {
       return (
@@ -91,6 +94,7 @@ m.route(root, '/dashboard', {
   '/profile': {
     oninit: () => {
       document.title = documentTitle + ' | Profile';
+      Notify.isOpen = false;
     },
     view: () => {
       return (
@@ -103,6 +107,7 @@ m.route(root, '/dashboard', {
   '/settings': {
     oninit: () => {
       document.title = documentTitle + ' | Settings';
+      Notify.isOpen = false;
     },
     view: () => {
       return (

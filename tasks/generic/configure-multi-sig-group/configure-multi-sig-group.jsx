@@ -10,14 +10,19 @@ import redX from '../../../src/assets/img/red-x.svg';
 
 class ConfigureMultiSigGroupTask {
   constructor(config) {
-    this._label = config.label;
+    this.config = config;
+    this.reset();
+  }
+
+  reset() {
+    this._label = this.config.label;
     this._component = {
       view: (vnode) => {
         return <ConfigureMultiSigGroup end={vnode.attrs.end} parent={this} />;
       },
     };
     this.currentState = 'configure-multi-sig-index';
-    this.requiredDelegator = config.requiredDelegator;
+    this.requiredDelegator = this.config.requiredDelegator;
   }
 
   get imgSrc() {

@@ -39,8 +39,13 @@ const rules = {
 
 class IssueCredentialTask {
   constructor(config) {
-    this._label = config.label;
-    this._schema = config.schema;
+    this.config = config;
+    this.reset();
+  }
+
+  reset() {
+    this._label = this.config.label;
+    this._schema = this.config.schema;
     this.legalEntityCredentials = [];
     this._component = {
       view: (vnode) => {

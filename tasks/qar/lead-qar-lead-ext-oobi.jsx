@@ -10,7 +10,12 @@ import KERI from "../../src/app/services/keri";
 
 class LeadQARLeadExtOOBI {
     constructor(config) {
-        this._label = config.label;
+        this.config = config;
+        this.reset();
+    }
+
+    reset() {
+        this._label = this.config.label;
         this.wellknown = undefined;
         this.extIdentifier = [];
         this.currentState = 'loading';

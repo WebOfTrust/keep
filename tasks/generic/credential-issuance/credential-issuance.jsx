@@ -8,7 +8,12 @@ import githubLogo from '../../../src/assets/img/github-logo.svg';
 
 class CredentialIssuanceTask {
   constructor(config) {
-    this._label = config.label;
+    this.config = config;
+    this.reset();
+  }
+
+  reset() {
+    this._label = this.config.label;
     this._component = {
       view: (vnode) => {
         return <CredentialIssuance end={vnode.attrs.end} parent={this} />;

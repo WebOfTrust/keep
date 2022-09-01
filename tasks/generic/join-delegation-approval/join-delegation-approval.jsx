@@ -5,7 +5,12 @@ import {KERI, Profile, Notify, Contacts} from '../../../src/app/services';
 
 class JoinDelegationApprovalTask {
     constructor(config) {
-        this._label = config.label;
+        this.config = config;
+        this.reset();
+    }
+
+    reset() {
+        this._label = this.config.label;
         this._component = {
             view: (vnode) => {
                 return <JoinDelegationApproval end={vnode.attrs.end} parent={this}/>;

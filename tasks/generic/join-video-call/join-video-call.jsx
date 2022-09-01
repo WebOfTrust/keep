@@ -10,18 +10,23 @@ import uploadFile from '../../../src/assets/img/upload-file.svg';
 
 class JoinVideoCallTask {
   constructor(config) {
-    this._label = config.label;
-    this.initiate = config.initiate;
-    this.oneToOne = config.oneToOne;
-    this.acceptCredential = config.acceptCredential
-    this.next = config.next;
-    this.oobiRecipient = config.oobiRecipient;
+    this.config = config;
+    this.reset();
+  }
 
-    this.aidToSend = config.aidToSend;
-    this.steps = config.steps;
+  reset() {
+    this._label = this.config.label;
+    this.initiate = this.config.initiate;
+    this.oneToOne = this.config.oneToOne;
+    this.acceptCredential = this.config.acceptCredential
+    this.next = this.config.next;
+    this.oobiRecipient = this.config.oobiRecipient;
+
+    this.aidToSend = this.config.aidToSend;
+    this.steps = this.config.steps;
     this.participants = new Participants();
 
-    if (config.skipIntro) {
+    if (this.config.skipIntro) {
       this.currentState = this.initiate ? 'video-call' : 'join-call';
     } else {
       this.currentState = 'intro';
