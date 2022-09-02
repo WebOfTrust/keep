@@ -62,11 +62,11 @@ const tasks = {
   ],
   'create-multisig': [
     new VideoCallTask({
-      initiate: true,
-      label: 'Lead GLEIF Root Multi-Sig AID Inception',
+      label: 'Create GLEIF RoOT Multisig AID',
       next: new ConfigureMultiSigGroupTask({ label: 'Configure Multi-Sig Group' }),
+      initialParticipants: 1,
+      canAddParticipants: false,
     }),
-    new VideoCallTask({ initiate: false, label: 'Join GLEIF Root Multi-Sig AID Inception' }),
   ],
   'join-multisig': [new JoinMultiSigGroupTask({ label: 'Join Multi-Sig Group' })],
   'approve-delegation': [new JoinDelegationApprovalTask({ label: 'Delegation Approval' })],
