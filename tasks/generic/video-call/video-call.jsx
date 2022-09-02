@@ -5,24 +5,21 @@ import { EnterChallengesForm, EnterOOBIsForm, SendChallengeForm, SendOOBIForm } 
 
 import addNewContacts from '../../../src/assets/img/add-new-contacts.svg';
 import projectPlanning from '../../../src/assets/img/project-planning.svg';
-import responseMessage from '../../../src/assets/img/response-message.svg';
-import uploadFile from '../../../src/assets/img/upload-file.svg';
 
 class VideoCallTask {
   constructor(config) {
     this._id = 'video-call';
     this._label = config.label;
-    this.initiate = config.initiate;
     this.oneToOne = config.oneToOne;
     this.acceptCredential = config.acceptCredential;
     this.next = config.next;
 
     this.aidToSend = config.aidToSend;
     this.steps = config.steps;
-    this.participants = new Participants();
+    this.participants = new Participants(config.initialParticipants || 1);
 
     if (config.skipIntro) {
-      this.currentState = this.initiate ? 'video-call' : 'join-call';
+      this.currentState = 'join-video-call';
     } else {
       this.currentState = 'intro';
     }
@@ -31,9 +28,14 @@ class VideoCallTask {
         return <VideoCall end={vnode.attrs.end} parent={this} steps={this.steps} />;
       },
     };
-    this.sendOOBIPanel = {
+    this.stayInCallPanel = {
       view: (vnode) => {
-        return <SendOOBIPanel end={vnode.attrs.end} parent={this} />;
+        return <StayInCallPanel parent={this} />;
+      },
+    };
+    this.acceptingIntroductionsPanel = {
+      view: (vnode) => {
+        return <AcceptingIntroductionsPanel parent={this} />;
       },
     };
     this.copyChallengePanel = {
@@ -41,18 +43,15 @@ class VideoCallTask {
         return <CopyChallengePanel parent={this} />;
       },
     };
-  }
-
-  get lead() {
-    return this.initiate;
+    this.receiveChallengePanel = {
+      view: (vnode) => {
+        return <ReceiveChallengePanel parent={this} />;
+      },
+    };
   }
 
   get imgSrc() {
-    if (this.initiate === true) {
-      return projectPlanning;
-    } else {
-      return addNewContacts;
-    }
+    return projectPlanning;
   }
 
   get id() {
@@ -76,9 +75,13 @@ class VideoCallTask {
   get lcomponent() {
     switch (this.currentState) {
       case 'send-oobi':
-        return this.sendOOBIPanel;
-      case 'challenge-messages':
+        return this.stayInCallPanel;
+      case 'receive-oobi':
+        return this.acceptingIntroductionsPanel;
+      case 'send-challenge':
         return this.copyChallengePanel;
+      case 'receive-challenge':
+        return this.receiveChallengePanel;
       default:
         return undefined;
     }
@@ -86,56 +89,27 @@ class VideoCallTask {
 }
 
 class VideoCall {
-  oninit(vnode) {
-    vnode.attrs.parent.currentState = 'intro';
-  }
-
   view(vnode) {
     return (
       <>
         {vnode.attrs.parent.currentState === 'intro' && (
           <>
-            <h3>Identity Authentication</h3>
-            <p class="p-tag margin-v-2">
-              {vnode.attrs.steps ? (
-                vnode.attrs.steps.paragraph
-              ) : (
-                <>
-                  This module will take you through the steps of how to authenticate a user's identity. Below are the
-                  steps for how to complete the process:
-                </>
-              )}
-            </p>
-            <h3>Steps to Identity Authentication</h3>
+            <h3>Create GLEIF RoOT Multi-sig AID</h3>
+            <p>Steps to create:</p>
             <ol class="styled-ol margin-v-2">
-              {vnode.attrs.steps ? (
-                vnode.attrs.steps.list.map((element) => {
-                  return <li>{element}</li>;
-                })
-              ) : (
-                <>
-                  <li>{vnode.attrs.parent.initiate ? 'Initiate' : 'Join'} a Video Call</li>
-                  <li>Use an OOBI protocol to obtain the user's AID</li>
-                  <li>Use an OOBI protocol to share your AID</li>
-                  <li>Obtain and sign a Challenge Message</li>
-                  <li>Generate and send a Challenge Message</li>
-                  <li>User signs and returns Challenge Message</li>
-                  {vnode.attrs.parent.acceptCredential && <li>Wait for credentials to be issued.</li>}
-                  {vnode.attrs.parent.initiate && !vnode.attrs.parent.oneToOne && (
-                    <li>You initiate the Multi-Sig Group for all participants</li>
-                  )}
-                  {!vnode.attrs.parent.initiate && !vnode.attrs.parent.oneToOne && (
-                    <li>Wait for invitation to join Multi-Sig Group</li>
-                  )}
-                </>
-              )}
+              <li>Join a Video Call with Root GARs.</li>
+              <li>Send your OOBI over video call.</li>
+              <li>Receive OOBIs over video call.</li>
+              <li>Send challenge message to others.</li>
+              <li>Receive challenge messages.</li>
+              <li>Configure RoOT (optional).</li>
             </ol>
             <div
               class={`flex flex-align-center margin-top-4 ${
                 vnode.attrs.parent.next ? 'flex-justify-between' : 'flex-justify-end'
               }`}
             >
-              {vnode.attrs.parent.initiate && vnode.attrs.parent.next && (
+              {vnode.attrs.parent.next && (
                 <>
                   <Button
                     class="button--gray-dk button--big button--no-transform"
@@ -152,11 +126,7 @@ class VideoCall {
                 raised
                 label="Continue"
                 onclick={() => {
-                  if (vnode.attrs.parent.initiate) {
-                    vnode.attrs.parent.currentState = 'video-call';
-                  } else {
-                    vnode.attrs.parent.currentState = 'join-call';
-                  }
+                  vnode.attrs.parent.currentState = 'join-video-call';
                 }}
               />
             </div>
@@ -189,47 +159,20 @@ class VideoCall {
             </div>
           </>
         )}
-        {vnode.attrs.parent.currentState === 'video-call' && (
+        {vnode.attrs.parent.currentState === 'join-video-call' && (
           <>
             <Progress stepNum={1} totalSteps={6} stepLabel={'Join'} />
             <img src={projectPlanning} style={{ marginBottom: '2rem', width: '240px' }} />
-            <h3>Initiate a Video Call</h3>
-            <p class="p-tag margin-v-2">
-              In order to start the authentication process, you will need to initiate a real-time Out of Band
-              Interaction (OOBI) session in which you and the other users are present. You will accept all their OOBI
-              URLs on a Video Call so that you can receive their identifying information.
-            </p>
-            <div class="flex flex-justify-between margin-top-4">
-              <Button
-                class="button--gray-dk button--big button--no-transform"
-                raised
-                label="Go Back"
-                onclick={() => {
-                  vnode.attrs.parent.currentState = 'intro';
-                }}
-              />
-              <Button
-                class="button--big button--no-transform"
-                raised
-                label="Continue"
-                onclick={() => {
-                  vnode.attrs.parent.currentState = 'send-oobi';
-                }}
-              />
-            </div>
-          </>
-        )}
-        {vnode.attrs.parent.currentState === 'join-call' && (
-          <>
-            <Progress stepNum={1} totalSteps={6} stepLabel={'Join'} />
-            <img src={responseMessage} style={{ marginBottom: '2rem', width: '240px' }} />
             <h3>Join a Video Call</h3>
-            <p class="p-tag margin-v-2">
-              In order to start the authentication process, you will need to initiate an real-time OOBI session in which
-              you and the other participant are present, You will accept all their AID and URL on a Video Call so that
-              you can receive their identifying information.
+            <p class="p-tag">
+              In order to start the creation of the multisig AID process, you will need to initiate an real-time Out of
+              Band Interaction (OOBI) session in which you and the other users are present, You will accept all their
+              OOBIs (URL + AID) on a Video Call so that you can create the GLEIF RoOT.
             </p>
-            <h3>Generate OOBI</h3>
+            <p class="p-tag-bold">
+              The ecosystem governance framework requires 11 additional GARs to join this process (total of 12
+              participants).
+            </p>
             <div class="flex flex-justify-between margin-top-4">
               <Button
                 class="button--gray-dk button--big button--no-transform"
@@ -252,8 +195,32 @@ class VideoCall {
         )}
         {vnode.attrs.parent.currentState === 'send-oobi' && (
           <>
+            <Progress stepNum={2} totalSteps={6} stepLabel={'Send OOBI'} />
+            <h3>Generate Out Of Band Introduction</h3>
+            <SendOOBIForm aidToSend={vnode.attrs.parent.aidToSend} />
+            <div class="flex flex-justify-between margin-top-4">
+              <Button
+                class="button--gray-dk button--big button--no-transform"
+                raised
+                label="Go Back"
+                onclick={() => {
+                  vnode.attrs.parent.currentState = 'join-video-call';
+                }}
+              />
+              <Button
+                class="button--big button--no-transform"
+                raised
+                label="Continue"
+                onclick={() => {
+                  vnode.attrs.parent.currentState = 'receive-oobi';
+                }}
+              />
+            </div>
+          </>
+        )}
+        {vnode.attrs.parent.currentState === 'receive-oobi' && (
+          <>
             <Progress stepNum={3} totalSteps={6} stepLabel={'Receive OOBI'} />
-            <h3>Accept OOBI from other person{vnode.attrs.parent.oneToOne ? '' : 's'}</h3>
             <EnterOOBIsForm participants={vnode.attrs.parent.participants} oneToOne={vnode.attrs.parent.oneToOne} />
             <div class="flex flex-justify-between margin-top-4">
               <Button
@@ -261,7 +228,7 @@ class VideoCall {
                 raised
                 label="Go Back"
                 onclick={() => {
-                  vnode.attrs.parent.currentState = 'join-call';
+                  vnode.attrs.parent.currentState = 'send-oobi';
                 }}
               />
               <Button
@@ -270,13 +237,38 @@ class VideoCall {
                 label="Continue"
                 disabled={!vnode.attrs.parent.participants.oobisResolved()}
                 onclick={() => {
-                  vnode.attrs.parent.currentState = 'challenge-messages';
+                  vnode.attrs.parent.currentState = 'send-challenge';
                 }}
               />
             </div>
           </>
         )}
-        {vnode.attrs.parent.currentState === 'challenge-messages' && (
+        {vnode.attrs.parent.currentState === 'send-challenge' && (
+          <>
+            <Progress stepNum={4} totalSteps={6} stepLabel={'Send Challenge'} />
+            <SendChallengeForm participants={vnode.attrs.parent.participants} />
+            <div class="flex flex-justify-between margin-top-4">
+              <Button
+                class="button--gray-dk button--big button--no-transform"
+                raised
+                label="Go Back"
+                onclick={() => {
+                  vnode.attrs.parent.currentState = 'receive-oobi';
+                }}
+              />
+              <Button
+                class="button--big button--no-transform"
+                raised
+                label="Continue"
+                disabled={!vnode.attrs.parent.participants.oobisResolved()}
+                onclick={() => {
+                  vnode.attrs.parent.currentState = 'receive-challenge';
+                }}
+              />
+            </div>
+          </>
+        )}
+        {vnode.attrs.parent.currentState === 'receive-challenge' && (
           <>
             <Progress stepNum={5} totalSteps={6} stepLabel={'Receive Challenge'} />
             <EnterChallengesForm
@@ -289,7 +281,7 @@ class VideoCall {
                 raised
                 label="Go Back"
                 onclick={() => {
-                  vnode.attrs.parent.currentState = 'send-oobi';
+                  vnode.attrs.parent.currentState = 'send-challenge';
                 }}
               />
               <Button
@@ -315,47 +307,36 @@ class VideoCall {
             </div>
           </>
         )}
-        {vnode.attrs.parent.currentState === 'waiting-for-multisig' && (
-          <>
-            <Progress stepNum={6} totalSteps={6} stepLabel={'Configure'} />
-            <img src={uploadFile} style={{ width: '240px', margin: '1.5rem 0 2rem 0' }} />
-            <h3>Waiting for Multi-Sig Group Inception</h3>
-            <p class="p-tag margin-v-2">
-              You will be notified when the Lead initiates the creation of the Multi-Sig Group. Clicking on the
-              notification will allow you to participate in the inception event.
-            </p>
-            <div class="flex flex-justify-between">
-              <Button
-                class="button--gray-dk button--big button--no-transform"
-                raised
-                label="Go Back"
-                onclick={() => {
-                  vnode.attrs.parent.currentState = 'challenge-messages';
-                }}
-              />
-              <Button class="button--big button--no-transform" raised label="Close" onclick={vnode.attrs.end} />
-            </div>
-          </>
-        )}
       </>
     );
   }
 }
 
-class SendOOBIPanel {
-  constructor() {}
-
+class StayInCallPanel {
   view(vnode) {
     return (
       <>
-        <Progress stepNum={2} totalSteps={6} stepLabel={'Send OOBI'} />
-        <img src={addNewContacts} style={{ width: '200px', margin: '0 0 1rem 0' }} alt="" />
-        <h3>Send OOBI for your {} AID</h3>
-        <p class="p-tag margin-v-2">
-          Copy this OOBI (AID + URL) to share your identifying information with all parties on the call, and paste it
-          into the Video Call.
+        <img src={projectPlanning} style={{ width: '200px', margin: '0 0 1rem 0' }} alt="" />
+        <h3>Stay in the Video Call</h3>
+        <p>
+          Stay in the Video Call after you have received introductions from the other participants because there will be
+          more steps coming up.
         </p>
-        <SendOOBIForm aidToSend={vnode.attrs.parent.aidToSend} />
+      </>
+    );
+  }
+}
+
+class AcceptingIntroductionsPanel {
+  view() {
+    return (
+      <>
+        <img src={projectPlanning} style={{ width: '200px', margin: '0 0 1rem 0' }} alt="" />
+        <h3>Accepting Out Of Band Introductions</h3>
+        <p>
+          For each of the N people in your multisig group, create an alias for them and verify their OOBI URL copied
+          from the video call chat using the right panel.
+        </p>
       </>
     );
   }
@@ -369,10 +350,29 @@ class CopyChallengePanel {
   view(vnode) {
     return (
       <>
-        <Progress stepNum={4} totalSteps={6} stepLabel={'Send Challenge'} />
+        <img src={projectPlanning} style={{ width: '200px', margin: '0 0 1.5rem 0' }} />
+        <h3>Copy Challenge Message</h3>
+        <p>
+          Click the copy button to copy your challenge message to your clipboard and then paste it into the video call
+          chat.
+        </p>
+        <p>The other participants in the group will use Keep to send this back to you as a challenge response.</p>
+      </>
+    );
+  }
+}
+
+class ReceiveChallengePanel {
+  view(vnode) {
+    return (
+      <>
         <div class="flex flex-align-center flex-justify-between">
           <img src={addNewContacts} style={{ width: '120px', margin: '1.5rem 0 1rem 0' }} />
           <h3>Challenge Message Recipients</h3>
+        </div>
+        <div class="flex flex-align-center flex-justify-between">
+          <p class="font-color--battleship">Participant</p>
+          <p class="font-color--battleship">Status</p>
         </div>
         <p class="p-tag margin-v-2">
           Paste the message into the video chat so that your contact{vnode.attrs.parent.oneToOne ? '' : 's'} can be
@@ -384,11 +384,6 @@ class CopyChallengePanel {
             place today.
           </strong>
         </p>
-        <SendChallengeForm participants={vnode.attrs.parent.participants} />
-        <div class="flex flex-align-center flex-justify-between">
-          <p class="font-color--battleship">Participant</p>
-          <p class="font-color--battleship">Status</p>
-        </div>
         {vnode.attrs.parent.participants.oobis.map((signer, index) => {
           return (
             <>

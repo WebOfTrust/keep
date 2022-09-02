@@ -1,18 +1,12 @@
 import m from 'mithril';
-import { Button, Card, IconButton, TextField } from '../../../../../src/app/components';
+import { Button, Card, CarouselControls, TextField } from '../../../../../src/app/components';
 import { KERI, Profile } from '../../../../../src/app/services';
-
-/*
- * EnterOOBIsForm
- *
- * attrs
- * identifiers - an array of agent identifiers
- */
 
 class EnterOOBIsForm {
   constructor(vnode) {
     this.complete = false;
     this.aliasToSign = Profile.getDefaultSingleAID().name;
+    this.selectedOobiIndex = 0;
   }
 
   resolveOOBIPromise(oobi) {
@@ -74,72 +68,54 @@ class EnterOOBIsForm {
   view(vnode) {
     return (
       <>
-        <div style={{ maxHeight: '512px', overflowY: 'auto', margin: '0 0 1rem 0', paddingRight: '1rem' }}>
-          <div class="flex flex-justify-between" style={{ alignItems: 'baseline' }}>
-            <p class="p-tag" style={{ margin: '2rem 0 2rem 0' }}>
-              While on the Video Call make sure to obtain {vnode.attrs.oneToOne ? `the other` : `each`} participant's{' '}
-              <b>URL</b> and give them an Alias that makes sense to you:
-            </p>
+        <Card class="card--fluid" style={{ margin: '0 0 1.5rem 0' }}>
+          <p>Paste URL from Video Call Chat</p>
+          <TextField
+            textarea
+            outlined
+            fluid
+            style={{ backgroundColor: 'rgba(0, 0, 0, 0.04)' }}
+            value={vnode.attrs.participants.oobis[this.selectedOobiIndex].url}
+            oninput={(e) => {
+              vnode.attrs.participants.oobis[this.selectedOobiIndex].url = e.target.value;
+            }}
+          />
+          <p>AID:</p>
+          <p></p>
+          <p>Assign Alias:</p>
+          <TextField
+            outlined
+            fluid
+            style={{ backgroundColor: 'rgba(0, 0, 0, 0.04)', height: '44px' }}
+            value={vnode.attrs.participants.oobis[this.selectedOobiIndex].alias}
+            oninput={(e) => {
+              vnode.attrs.participants.oobis[this.selectedOobiIndex].alias = e.target.value;
+            }}
+          />
+          <div class="flex flex-align-center flex-justify-end margin-top-1">
+            <div class="margin-right-1">
+              {vnode.attrs.participants.oobis[this.selectedOobiIndex].status === 'started' && (
+                <p className="font-color--blue font-weight--medium">In Progress</p>
+              )}
+              {vnode.attrs.participants.oobis[this.selectedOobiIndex].status === 'resolved' && (
+                <p className="font-color--green font-weight--medium">Complete!</p>
+              )}
+            </div>
+            {/* <Button raised class="button--no-transform" label="Verify OOBI" /> */}
           </div>
-          {vnode.attrs.participants.oobis.map((oobi) => {
-            return (
-              <Card class="card--fluid" style={{ margin: '0 0 1.5rem 0' }}>
-                {!vnode.attrs.oneToOne && (
-                  <IconButton
-                    class="close-icon"
-                    icon="close"
-                    onclick={() => {
-                      vnode.attrs.participants.oobis.splice(vnode.attrs.participants.oobis.indexOf(oobi), 1);
-                    }}
-                  />
-                )}
-                <div className="flex flex-align-center">
-                  <h5 style={{ minWidth: '100px' }}>Status:</h5>
-                  {oobi.status === 'none' && <p className="font-color--battleship font-weight--medium">Not Started</p>}
-                  {oobi.status === 'started' && <p className="font-color--blue font-weight--medium">In Progress</p>}
-                  {oobi.status === 'resolved' && <p className="font-color--green font-weight--medium">Complete!</p>}
-                </div>
-                <h5 style={{ margin: '1rem 0 .5rem' }}>Alias:</h5>
-                <TextField
-                  outlined
-                  fluid
-                  style={{ backgroundColor: 'rgba(0, 0, 0, 0.04)', height: '44px' }}
-                  value={oobi.alias}
-                  oninput={(e) => {
-                    oobi.alias = e.target.value;
-                  }}
-                />
-                <h5 style={{ margin: '1rem 0 .5rem' }}>OOBI URL:</h5>
-                <TextField
-                  textarea
-                  outlined
-                  fluid
-                  style={{ backgroundColor: 'rgba(0, 0, 0, 0.04)' }}
-                  value={oobi.url}
-                  oninput={(e) => {
-                    oobi.url = e.target.value;
-                  }}
-                />
-              </Card>
-            );
-          })}
-        </div>
-        <div class={`flex ${vnode.attrs.oneToOne ? ' flex-justify-end' : ' flex-justify-between'}`}>
-          {!vnode.attrs.oneToOne && (
-            <Button
-              raised
-              class="button--no-transform button--gray"
-              label="Add Another"
-              iconLeading="add"
-              onclick={() => {
-                vnode.attrs.participants.addOOBI('', '');
-              }}
-            />
-          )}
+        </Card>
+        <CarouselControls
+          items={vnode.attrs.participants.oobis.length}
+          active={this.selectedOobiIndex}
+          setActive={(idx) => {
+            this.selectedOobiIndex = idx;
+          }}
+        />
+        <div class={`flex flex-justify-end`}>
           <Button
             raised
             class="button--no-transform"
-            label="Resolve OOBIs"
+            label="Verify All"
             onclick={() => {
               this.resolveAllOOBIs(vnode);
             }}

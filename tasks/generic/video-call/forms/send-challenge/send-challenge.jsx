@@ -1,18 +1,19 @@
 import m from 'mithril';
 import { Button, TextField } from '../../../../../src/app/components';
 import { KERI } from '../../../../../src/app/services';
+import './send-challenge.scss';
 
 class SendChallengeForm {
   constructor() {
-    this.challengeMessage = '';
+    this.challengeWords = [];
     this.copied = false;
   }
 
   copyMessage(vnode) {
-    navigator.clipboard.writeText(this.challengeMessage).then(
+    navigator.clipboard.writeText(this.challengeWords.join(' ')).then(
       () => {
         this.copied = true;
-        vnode.attrs.participants.updateWords(this.challengeMessage.split(' '));
+        vnode.attrs.participants.updateWords(this.challengeWords);
         m.redraw();
       },
       () => {
@@ -25,7 +26,7 @@ class SendChallengeForm {
   oninit(vnode) {
     KERI.generateChallengeMessage()
       .then((res) => {
-        this.challengeMessage = res.words.join(' ');
+        this.challengeWords = res.words;
         vnode.attrs.participants.updateWords(res.words);
       })
       .catch((err) => {
@@ -36,15 +37,20 @@ class SendChallengeForm {
   view(vnode) {
     return (
       <>
-        <h4>Copy Challenge Message</h4>
-        <TextField
+        <h4>Challenge Message:</h4>
+        <div class="challenge-words">
+          {this.challengeWords.map((word) => {
+            return <div class="challenge-words-word">{word}</div>;
+          })}
+        </div>
+        {/* <TextField
           outlined
           textarea
           rows={2}
           fluid
           style={{ backgroundColor: 'rgba(0, 0, 0, 0.04)', margin: '0 0 0 0' }}
           value={this.challengeMessage}
-        />
+        /> */}
         <div class="flex flex-align-center flex-justify-between" style={{ margin: '1rem 0' }}>
           <Button
             raised
