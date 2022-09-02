@@ -21,8 +21,10 @@ import TabBar from './tab-bar/tab-bar.jsx';
 import TextField from './text-field/text-field.jsx';
 import TextTooltip from './text-tooltip/text-tooltip.jsx';
 import ToastOutlet from './toast-outlet/toast-outlet.jsx';
+import AID from './aid/aid.jsx';
 
 module.exports = {
+  AID,
   Button,
   Breadcrumb,
   Card,

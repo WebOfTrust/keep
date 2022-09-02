@@ -120,6 +120,7 @@ const tasks = {
       next: new ConfigureMultiSigGroupTask({ label: 'Configure Multi-Sig Group' }),
     }),
     new VideoCallTask({ initiate: false, label: 'Join GLEIF Root Multi-Sig AID Inception' }),
+    new ManualKeyRotationTask({label: "Perform Manual Key Rotation"})
   ],
   'join-multisig': [new JoinMultiSigGroupTask({ label: 'Join Multi-Sig Group' })],
   'approve-delegation': [new JoinDelegationApprovalTask({ label: 'Delegation Approval' })],

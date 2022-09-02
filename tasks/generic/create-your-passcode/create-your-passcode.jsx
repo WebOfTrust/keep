@@ -7,8 +7,13 @@ import wait from '../../../src/assets/img/wait.svg';
 
 class CreatePasscodeTask {
   constructor(config) {
-    this._id = config.id;
-    this._label = config.label;
+    this.config = config;
+    this.reset();
+  }
+
+  reset() {
+    this._id = this.config.id;
+    this._label = this.config.label;
     this._component = {
       view: (vnode) => {
         return <CreatePasscode end={vnode.attrs.end} parent={this} />;

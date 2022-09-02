@@ -7,8 +7,13 @@ import uploadFile from "../../src/assets/img/upload-file.svg";
 
 class WaitForGLEIFInternalTask {
     constructor(config) {
-        this._label = config.label;
-        this.next = config.next;
+        this.config = config;
+        this.reset();
+    }
+
+    reset() {
+        this._label = this.config.label;
+        this.next = this.config.next;
         this._component = {
             view: (vnode) => {
                 return <WaitForGLEIFInternal end={vnode.attrs.end} parent={this}/>;

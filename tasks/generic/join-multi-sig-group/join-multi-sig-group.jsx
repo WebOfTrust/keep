@@ -6,7 +6,12 @@ import secureMessaging from '../../../src/assets/img/secure-messaging.svg';
 
 class JoinMultiSigGroupTask {
   constructor(config) {
-    this._label = config.label;
+    this.config = config;
+    this.reset();
+  }
+
+  reset() {
+    this._label = this.config.label;
     this.setDefault = false;
     this._component = {
       view: (vnode) => {

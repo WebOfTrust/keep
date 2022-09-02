@@ -8,6 +8,7 @@ import './dashboard.scss';
 
 class Dashboard {
   constructor() {
+    this.resetTask()
     this.aboutDismissed = false;
     this.sliceStart = 0;
     this.sliceEnd = 4;
@@ -34,6 +35,13 @@ class Dashboard {
     return this.tasksList.slice(this.sliceStart, this.sliceEnd);
   }
 
+  resetTask() {
+    if (Tasks.active !== null) {
+      Tasks.active.reset();
+      Tasks.active = null;
+    }
+  }
+
   view() {
     return (
       <>
@@ -58,7 +66,7 @@ class Dashboard {
                       {Tasks.active && (
                         <Tasks.active.lcomponent
                           end={() => {
-                            Tasks.active = null;
+                            this.resetTask();
                           }}
                         />
                       )}
@@ -132,7 +140,7 @@ class Dashboard {
                           if (Notify.isOpen) {
                             Notify.isOpen = false;
                           } else if (Tasks.active) {
-                            Tasks.active = null;
+                            this.resetTask();
                           } else {
                             this.aboutDismissed = true;
                           }
@@ -144,7 +152,7 @@ class Dashboard {
                       {!Notify.isOpen && Tasks.active && (
                         <Tasks.active.component
                           end={() => {
-                            Tasks.active = null;
+                            this.resetTask();
                           }}
                         />
                       )}

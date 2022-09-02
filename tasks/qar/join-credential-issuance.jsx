@@ -6,7 +6,12 @@ import uploadFile from "../../src/assets/img/upload-file.svg";
 
 class JoinCredentailIssuanceTask {
     constructor(config) {
-        this._label = config.label;
+        this.config = config;
+        this.reset();
+    }
+
+    reset() {
+        this._label = this.config.label;
         this.currentState = "approve-issue";
         this._component = {
             view: (vnode) => {

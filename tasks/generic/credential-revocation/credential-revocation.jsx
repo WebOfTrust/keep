@@ -4,7 +4,12 @@ import declineRequest from '../../../src/assets/img/decline-request.svg';
 
 class CredentialRevocationTask {
   constructor(config) {
-    this._label = config.label;
+    this.config = config;
+    this.reset();
+  }
+
+  reset() {
+    this._label = this.config.label;
     this._component = {
       view: (vnode) => {
         return <CredentialRevocation end={vnode.attrs.end} parent={this} />;

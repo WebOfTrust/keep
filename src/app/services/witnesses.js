@@ -27,6 +27,16 @@ class Witnesses {
       'BHGK9Gem8PdiZ7PZ9WcIwxM7YnGaztYA65X3o5_RxFa8',
     ],
   };
+
+  static poolName(pool) {
+    let v = Witnesses.witnessPools.find((p) => {return p.value === pool})
+    if (v !== undefined) {
+      return v.label;
+    }
+
+    return ""
+  }
+
 }
 
 module.exports = Witnesses;

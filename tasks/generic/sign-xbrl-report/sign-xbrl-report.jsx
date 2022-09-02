@@ -21,7 +21,12 @@ const edges = {
 
 class SignXBRLReportTask {
     constructor(config) {
-        this._label = config.label;
+        this.config = config;
+        this.reset();
+    }
+
+    reset() {
+        this._label = this.config.label;
         this.currentState = 'intro'
         this._component = {
             view: (vnode) => {

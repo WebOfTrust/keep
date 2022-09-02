@@ -82,11 +82,14 @@ class KERI {
     });
   }
 
-  static rotateIdentifier(alias) {
+  static rotateIdentifier(alias, wits, toad) {
     return m.request({
       method: 'PUT',
       url: `${this.keriURL}/ids/${alias}/rot`,
-      body: {},
+      body: {
+        wits,
+        toad
+      },
     });
   }
 
@@ -396,6 +399,38 @@ class KERI {
       responseType: 'application/json+cesr',
     });
   }
+
+  // UTILITIES
+  static arrayEquals(ar1, ar2) {
+    return Array.isArray(ar1) &&
+      Array.isArray(ar2) &&
+      ar1.length === ar2.length &&
+      ar1.every((val, index) => val === ar2[index]);
+  }
+
+  static recommendedThold(numWits) {
+    switch (numWits) {
+      case 1:
+        return 1;
+      case 2:
+      case 3:
+        return 2;
+      case 4:
+        return 3;
+      case 5:
+      case 6:
+        return 4;
+      case 7:
+        return 5;
+      case 8:
+      case 9:
+        return 7;
+      case 10:
+        return 8;
+    }
+  }
+
+
 }
 
 module.exports = KERI;
