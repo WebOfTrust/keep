@@ -116,10 +116,9 @@ const tasks = {
   'create-multisig': [
     new VideoCallTask({
       initiate: true,
-      label: 'Lead GLEIF Root Multi-Sig AID Inception',
+      label: 'Create GLEIF Root Multi-Sig AID',
       next: new ConfigureMultiSigGroupTask({ label: 'Configure Multi-Sig Group' }),
     }),
-    new VideoCallTask({ initiate: false, label: 'Join GLEIF Root Multi-Sig AID Inception' }),
     new ManualKeyRotationTask({label: "Perform Manual Key Rotation"})
   ],
   'join-multisig': [new JoinMultiSigGroupTask({ label: 'Join Multi-Sig Group' })],
