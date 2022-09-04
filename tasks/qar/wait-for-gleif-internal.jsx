@@ -42,7 +42,6 @@ class WaitForGLEIFInternal {
     checkForExternal(vnode) {
         KERI.getContacts().then((contacts) => {
             let recipient = contacts.find((contact) => {
-                console.log(contact.alias);
                 return contact.alias === "GLEIF External";
             })
             if (recipient !== undefined) {

@@ -22,6 +22,7 @@ import TextField from './text-field/text-field.jsx';
 import TextTooltip from './text-tooltip/text-tooltip.jsx';
 import ToastOutlet from './toast-outlet/toast-outlet.jsx';
 import AID from './aid/aid.jsx';
+import AIDField from './aid-field/aid-field.jsx'
 
 module.exports = {
   AID,
@@ -29,6 +30,7 @@ module.exports = {
   Breadcrumb,
   Card,
   Checkbox,
+  AIDField,
   Container,
   DatePicker,
   DateRange,

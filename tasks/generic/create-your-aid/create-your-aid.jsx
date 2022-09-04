@@ -42,7 +42,7 @@ class CreateYourAIDTask {
 class CreateYourAID {
   constructor() {
     this.alias = '';
-    this.setDefault = (Profile.identifiers === undefined || Profile.identifiers.length === 0);
+    this.useAsDefault = (Profile.identifiers === undefined || Profile.identifiers.length === 0);
     this.showAdvancedOptions = false;
     this.estOnly = false;
     this.pool = '';
@@ -53,7 +53,7 @@ class CreateYourAID {
   createAID(vnode) {
     Profile.createIdentifier(this.alias, this.wits, this.witThold, this.estOnly)
       .then((aid) => {
-        if (this.setDefault) {
+        if (this.useAsDefault) {
           Profile.setDefaultAID(aid).then(() => {
             vnode.attrs.parent.currentState = 'created';
           })
@@ -111,10 +111,10 @@ class CreateYourAID {
                 outlined
                 fluid
                 disabled={(Profile.identifiers === undefined || Profile.identifiers.length === 0)}
-                checked={this.setDefault}
+                checked={this.useAsDefault}
                 style={{margin: '0 0 3.5rem 0'}}
-                onchange={(_default) => {
-                  this.setDefault = _default;
+                onclick={() => {
+                  this.useAsDefault = !this.useAsDefault;
                 }}
               />
               <p className="p-tag-bold">Set new AID as Keep Default?</p>
@@ -174,6 +174,12 @@ class CreateYourAID {
                     </div>
                   </div>
                 </div>
+              <div className="flex margin-v-1" style={{marginLeft: '-0.75rem'}}>
+                <Checkbox checked={true} disabled={true}/>
+                <label className="font-weight--medium font-color--battleship" style={{marginTop: '1rem'}}>
+                  Allow this Identifier to issue credentials
+                </label>
+              </div>
             </div>}
 
             <div class="flex flex-justify-end" style={{marginTop: '2.75rem'}}>

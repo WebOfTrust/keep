@@ -10,6 +10,7 @@ class TextField {
       cols: 40,
       class: null,
       disabled: false,
+      editable: true,
       filled: false,
       fluid: false,
       iconLeading: null,
@@ -134,7 +135,7 @@ class TextField {
                 pattern={this.options.pattern}
                 minlength={this.options.minlength}
                 maxlength={this.options.maxlength}
-                disabled={this.options.disabled}
+                disabled={this.options.disabled || !this.options.editable}
                 placeholder={this.options.placeholder}
                 oninput={(e) => {
                   if (this.options.oninput) {
@@ -157,7 +158,7 @@ class TextField {
               min={this.options.min}
               max={this.options.max}
               placeholder={this.options.placeholder}
-              disabled={this.options.disabled}
+              disabled={this.options.disabled || !this.options.editable}
               value={this.options.value}
               oninput={(e) => {
                 if (this.options.oninput) {
