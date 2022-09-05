@@ -1,4 +1,4 @@
-import m from 'mithril';
+import m, { vnode } from 'mithril';
 import { Button, Card, CarouselControls, TextField } from '../../../../../src/app/components';
 import { KERI, Profile } from '../../../../../src/app/services';
 
@@ -64,6 +64,15 @@ class EnterOOBIsForm {
     });
   }
 
+  parseAIDFromUrl(url) {
+    let indexStart = url.indexOf('/oobi/') + 6;
+    let indexEnd = url.indexOf('/witness/');
+    if (indexStart > -1 && indexEnd > -1) {
+      return url.substring(indexStart, indexEnd);
+    }
+    return null;
+  }
+
   view(vnode) {
     return (
       <>
@@ -80,7 +89,9 @@ class EnterOOBIsForm {
             }}
           />
           <p>AID:</p>
-          <p></p>
+          <p style={{ wordBreak: 'break-all' }}>
+            {this.parseAIDFromUrl(vnode.attrs.participants.oobis[this.selectedOobiIndex].url)}
+          </p>
           <p>Assign Alias:</p>
           <TextField
             outlined
