@@ -28,7 +28,7 @@ class VideoCallTask {
     if (this.config.skipIntro) {
       this.currentState = 'join-video-call';
     } else {
-      this.currentState = 'send-challenge';
+      this.currentState = 'intro';
     }
     this._component = {
       view: (vnode) => {
@@ -267,6 +267,7 @@ class VideoCall {
                 class="button--big button--no-transform"
                 raised
                 label="Continue"
+                disabled={!vnode.attrs.parent.participants.oobisResolved()}
                 onclick={() => {
                   vnode.attrs.parent.currentState = 'receive-challenge';
                 }}
