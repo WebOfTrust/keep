@@ -1,7 +1,8 @@
 import m from 'mithril';
 
 import { Nav, ToastOutlet, Footer } from './components';
-import { Auth, KERI, Mail, Tasks, Profile as ProfileSvc, Notify } from './services';
+import { Profile as ProfileSvc, Mail, Notify } from './services';
+import {Tasks} from './services/tasks';
 import { Contacts, Dashboard, Error, Profile, Settings, Credentials } from './views';
 
 import tasks from '../../tasks';
@@ -10,23 +11,17 @@ import '../scss/defaults.scss';
 import '../scss/typography.scss';
 import '../scss/globals.scss';
 
-Tasks.all = tasks[process.env.USER_TYPE];
-ProfileSvc.loadIdentifiers();
-Notify.requestList();
+Tasks.impl = tasks[process.env.USER_TYPE];
 
-KERI.listIdentifiers()
-  .then((ids) => {
-    Auth.isLoggedIn = true;
-    Mail.initEventSource();
-    if (ProfileSvc.getDefaultAID() === null) {
-      if (ids.length > 0) {
-        ProfileSvc.setDefaultAID(ids[0]);
-      }
-    }
-  })
-  .catch((err) => {
-    Auth.isLoggedIn = false;
-  });
+ProfileSvc.check().then(r => {
+  Notify.requestList();
+  Mail.initEventSource();
+}, () => {
+
+  if(m.route.get() !== "/dashboard") {
+    m.route.set("/dashboard")
+  }
+});
 
 let root = document.body;
 
@@ -60,6 +55,7 @@ m.route(root, '/dashboard', {
   '/contacts': {
     oninit: () => {
       document.title = documentTitle + ' | Contacts';
+      Notify.isOpen = false;
     },
     view: () => {
       return (
@@ -72,6 +68,7 @@ m.route(root, '/dashboard', {
   '/credentials/issued': {
     oninit: () => {
       document.title = documentTitle + ' | Credentials';
+      Notify.isOpen = false;
     },
     view: () => {
       return (
@@ -84,6 +81,7 @@ m.route(root, '/dashboard', {
   '/credentials': {
     oninit: () => {
       document.title = documentTitle + ' | Credentials';
+      Notify.isOpen = false;
     },
     view: () => {
       return (
@@ -96,6 +94,7 @@ m.route(root, '/dashboard', {
   '/profile': {
     oninit: () => {
       document.title = documentTitle + ' | Profile';
+      Notify.isOpen = false;
     },
     view: () => {
       return (
@@ -108,6 +107,7 @@ m.route(root, '/dashboard', {
   '/settings': {
     oninit: () => {
       document.title = documentTitle + ' | Settings';
+      Notify.isOpen = false;
     },
     view: () => {
       return (

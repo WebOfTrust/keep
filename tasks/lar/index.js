@@ -20,6 +20,7 @@ import ViewMultiSigEventLogsTask from '../generic/view-multi-sig-event-logs/view
 import JoinManualKeyRotationTask from '../generic/join-manual-key-rotation/join-manual-key-rotation';
 import JoinCredentialIssuanceTask from '../generic/join-credential-issuance/join-credential-issuance';
 import AcceptCredentialsTask from "../generic/accept-credentials/accept-credentials";
+import {DefaultMapTask} from "../../src/app/services/tasks";
 
 const tasks = {
   'create-passcode': [
@@ -57,4 +58,4 @@ const tasks = {
   ],
 };
 
-module.exports = tasks;
+module.exports = new DefaultMapTask(tasks);

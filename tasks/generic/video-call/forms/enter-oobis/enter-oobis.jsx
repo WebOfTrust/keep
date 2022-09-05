@@ -5,7 +5,6 @@ import { KERI, Profile } from '../../../../../src/app/services';
 class EnterOOBIsForm {
   constructor(vnode) {
     this.complete = false;
-    this.aliasToSign = Profile.getDefaultSingleAID().name;
     this.selectedOobiIndex = 0;
   }
 

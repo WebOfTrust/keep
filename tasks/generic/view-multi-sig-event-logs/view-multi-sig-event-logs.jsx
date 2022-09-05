@@ -8,7 +8,12 @@ import uploadFile from '../../../src/assets/img/upload-file.svg';
 
 class ViewMultiSigEventLogsTask {
   constructor(config) {
-    this._label = config.label;
+    this.config = config;
+    this.reset();
+  }
+
+  reset() {
+    this._label = this.config.label;
     this._component = {
       view: (vnode) => {
         return <ViewMultiSigEventLogs end={vnode.attrs.end} parent={this} />;

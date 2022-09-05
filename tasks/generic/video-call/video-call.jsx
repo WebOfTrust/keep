@@ -1,6 +1,8 @@
 import m from 'mithril';
+
 import { Button, Progress } from '../../../src/app/components';
-import { Profile, Participants, Tasks, KERI } from '../../../src/app/services';
+import { Profile, Participants, KERI } from '../../../src/app/services';
+import { Tasks } from '../../../src/app/services/tasks';
 import { EnterChallengesForm, EnterOOBIsForm, SendChallengeForm, SendOOBIForm } from './forms';
 
 import addNewContacts from '../../../src/assets/img/add-new-contacts.svg';
@@ -8,17 +10,22 @@ import projectPlanning from '../../../src/assets/img/project-planning.svg';
 
 class VideoCallTask {
   constructor(config) {
+    this.config = config;
+    this.reset();
+  }
+
+  reset() {
     this._id = 'video-call';
-    this._label = config.label;
-    this.oneToOne = config.oneToOne;
-    this.acceptCredential = config.acceptCredential;
-    this.next = config.next;
+    this._label = this.config.label;
+    this.oneToOne = this.config.oneToOne;
+    this.acceptCredential = this.config.acceptCredential;
+    this.next = this.config.next;
 
-    this.aidToSend = config.aidToSend;
-    this.steps = config.steps;
-    this.participants = new Participants(config.initialParticipants || 1);
+    this.aidToSend = this.config.aidToSend;
+    this.steps = this.config.steps;
+    this.participants = new Participants(this.config.initialParticipants || 1);
 
-    if (config.skipIntro) {
+    if (this.config.skipIntro) {
       this.currentState = 'join-video-call';
     } else {
       this.currentState = 'intro';

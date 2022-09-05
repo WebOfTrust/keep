@@ -8,10 +8,15 @@ import todoList from "../../src/assets/img/to-do-list.svg";
 
 class LeadRootLeadOobi {
     constructor(config) {
-        this._label = config.label;
+        this.config = config;
+        this.reset();
+    }
+
+    reset() {
+        this._label = this.config.label;
         this.participants = new Participants();
         this.currentState = 'one-way-oobi-challenge';
-        this.variables = config.variables;
+        this.variables = this.config.variables;
 
         this.sendOOBIPanel = {
             view: (vnode) => {
@@ -53,7 +58,7 @@ class LeadRootLeadOobi {
     }
 
     sendOobis() {
-        KERI.sendOOBIs(Profile.getDefaultMultiAID().name, this.participants.oobis);
+        KERI.sendOOBIs(Profile.getDefaultAID().name, this.participants.oobis);
         this.currentState = 'event-complete';
     }
 }

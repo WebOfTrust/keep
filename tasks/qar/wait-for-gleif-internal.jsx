@@ -1,13 +1,19 @@
 import m from 'mithril';
 import {Button, TextField} from '../../src/app/components';
-import {KERI, Notify, Profile, Schema, Tasks} from '../../src/app/services';
+import {KERI, Notify, Profile, Schema } from '../../src/app/services';
+import {Tasks} from '../../src/app/services/tasks';
 import createIdentifier from '../../src/assets/img/create-identifier.svg';
 import uploadFile from "../../src/assets/img/upload-file.svg";
 
 class WaitForGLEIFInternalTask {
     constructor(config) {
-        this._label = config.label;
-        this.next = config.next;
+        this.config = config;
+        this.reset();
+    }
+
+    reset() {
+        this._label = this.config.label;
+        this.next = this.config.next;
         this._component = {
             view: (vnode) => {
                 return <WaitForGLEIFInternal end={vnode.attrs.end} parent={this}/>;
@@ -36,7 +42,6 @@ class WaitForGLEIFInternal {
     checkForExternal(vnode) {
         KERI.getContacts().then((contacts) => {
             let recipient = contacts.find((contact) => {
-                console.log(contact.alias);
                 return contact.alias === "GLEIF External";
             })
             if (recipient !== undefined) {

@@ -38,7 +38,7 @@ class Mail {
 
   static multisigInceptHandler = () => {
     Profile.loadIdentifiers().then(() => {
-      let aid = Profile.getDefaultMultiAID();
+      let aid = Profile.getDefaultAID();
       Registry.ensureRegistry(aid.name, aid.name, aid.prefix);
       m.redraw();
     });

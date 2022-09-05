@@ -1,6 +1,7 @@
 import m from 'mithril';
-import {Button, Checkbox, IconButton} from '../../../components';
-import {MultiSig, Notify, Tasks} from '../../../services';
+import { Checkbox} from '../../../components';
+import { Notify} from '../../../services';
+import {Tasks} from '../../../services/tasks';
 
 class Notifications {
   challengeNotificationClick() {

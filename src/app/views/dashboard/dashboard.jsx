@@ -1,12 +1,14 @@
 import m from 'mithril';
 
 import { Button, Card, Container, IconButton, NavRail, Progress } from '../../components';
-import { Auth, Contacts, Keep, Notify, Profile, Tasks } from '../../services';
+import { Notify, Profile } from '../../services';
+import { Tasks } from '../../services/tasks';
 import Notifications from './notifications/notifications.jsx';
 import './dashboard.scss';
 
 class Dashboard {
   constructor() {
+    this.resetTask();
     this.aboutDismissed = false;
     this.sliceStart = 0;
     this.sliceEnd = 4;
@@ -23,17 +25,7 @@ class Dashboard {
   }
 
   get tasksList() {
-    if (!Auth.isLoggedIn) {
-      return Tasks.all['create-passcode'];
-    }
-
-    if (Profile.identifiers.length === 0) {
-      return Tasks.all['create-identifier'];
-    } else if (Profile.identifiers.length === 1 && 'create-multisig' in Tasks.all) {
-      return Tasks.all['create-multisig'];
-    } else {
-      return Tasks.all['main'];
-    }
+    return Tasks.tasksList;
   }
 
   get tasksSlice() {
@@ -43,12 +35,24 @@ class Dashboard {
     return this.tasksList.slice(this.sliceStart, this.sliceEnd);
   }
 
+  resetTask() {
+    if (Tasks.active !== null) {
+      Tasks.active.reset();
+      Tasks.active = null;
+    }
+  }
+
   view() {
     return (
       <>
         <div style="position: relative">
           <div class="dashboard">
-            {Auth.isLoggedIn && <NavRail selected="dashboard"></NavRail>}
+            {Profile.isLoggedIn && Profile.identifiers === undefined && (
+              <div>
+                <H3>Loading...</H3>
+              </div>
+            )}
+            {Profile.isLoggedIn && <NavRail selected="dashboard"></NavRail>}
             <Container class="headspace" style={{ marginBottom: '5rem', padding: '0 4rem' }}>
               <div class="flex flex-justify-between">
                 {/* Left Panel */}
@@ -63,7 +67,7 @@ class Dashboard {
                       {Tasks.active && (
                         <Tasks.active.lcomponent
                           end={() => {
-                            Tasks.active = null;
+                            this.resetTask();
                           }}
                         />
                       )}
@@ -124,7 +128,7 @@ class Dashboard {
                 </div>
                 {/* Right Panel */}
                 <div class="flex-1">
-                  {(Notify.isOpen || Tasks.active || (Auth.isLoggedIn && !this.aboutDismissed)) && (
+                  {(Notify.isOpen || Tasks.active || (Profile.isLoggedIn && !this.aboutDismissed)) && (
                     <Card
                       class={'card--fluid' + (!Notify.isOpen && Tasks.active ? ' card--active' : '')}
                       style={{ position: 'relative' }}
@@ -137,7 +141,7 @@ class Dashboard {
                           if (Notify.isOpen) {
                             Notify.isOpen = false;
                           } else if (Tasks.active) {
-                            Tasks.active = null;
+                            this.resetTask();
                           } else {
                             this.aboutDismissed = true;
                           }
@@ -149,9 +153,7 @@ class Dashboard {
                       {!Notify.isOpen && Tasks.active && (
                         <Tasks.active.component
                           end={() => {
-                            Tasks.active = null;
-                            Profile.loadIdentifiers();
-                            Contacts.requestList();
+                            this.resetTask();
                           }}
                         />
                       )}

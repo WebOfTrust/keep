@@ -1,14 +1,19 @@
 import m from 'mithril';
 import { Button, Modal, TextField } from '../../../src/app/components';
-import { KERI, Keep } from '../../../src/app/services';
+import { KERI, Keep, Profile } from '../../../src/app/services';
 import createYourPasscode from '../../../src/assets/img/create-your-passcode.svg';
 import passcodeImg from '../../../src/assets/img/passcode.svg';
 import wait from '../../../src/assets/img/wait.svg';
 
 class CreatePasscodeTask {
   constructor(config) {
-    this._id = config.id;
-    this._label = config.label;
+    this.config = config;
+    this.reset();
+  }
+
+  reset() {
+    this._id = this.config.id;
+    this._label = this.config.label;
     this._component = {
       view: (vnode) => {
         return <CreatePasscode end={vnode.attrs.end} parent={this} />;
@@ -75,7 +80,10 @@ class CreatePasscode {
   initializeAgent(vnode) {
     this.submitting = true;
     KERI.initializeAgent(Keep.getName(), this.enterPasscode)
-      .then(vnode.attrs.end)
+      .then(() => {
+        Profile.created = true
+        vnode.attrs.end()
+      })
       .catch((err) => {
         console.log('initializeAgent', err);
         this.error = 'Error creating keystore with passcode entered.';

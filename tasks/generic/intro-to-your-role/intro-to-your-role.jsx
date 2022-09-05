@@ -5,11 +5,16 @@ import createIdentifier from '../../../src/assets/img/create-identifier.svg';
 
 class IntroToYourRoleTask {
   constructor(config) {
-    this._id = config.id;
-    this._label = config.label;
+    this.config = config;
+    this.reset();
+  }
+
+  reset() {
+    this._id = this.config.id;
+    this._label = this.config.label;
     this._component = {
       view: (vnode) => {
-        return <IntroToYourRole end={vnode.attrs.end} parent={this} variables={config.variables} />;
+        return <IntroToYourRole end={vnode.attrs.end} parent={this} variables={this.config.variables} />;
       },
     };
   }

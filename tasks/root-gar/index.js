@@ -1,6 +1,7 @@
 import m from 'mithril';
 //Variables
 import variables from './variables';
+import { DefaultMapTask } from '../../src/app/services/tasks';
 
 import { Button } from '../../src/app/components';
 
@@ -14,6 +15,7 @@ import JoinMultiSigGroupTask from '../generic/join-multi-sig-group/join-multi-si
 import JoinDelegationApprovalTask from '../generic/join-delegation-approval/join-delegation-approval';
 import InitiateManualKeyRotationTask from '../generic/initiate-manual-key-rotation/initiate-manual-key-rotation';
 import VideoCallTask from '../generic/video-call/video-call';
+import ManualKeyRotationTask from '../generic/manual-key-rotation/manual-key-rotation';
 import ViewMultiSigEventLogsTask from '../generic/view-multi-sig-event-logs/view-multi-sig-event-logs';
 import LeadRootLeadOOBI from './lead-root-lead-oobi';
 
@@ -21,6 +23,7 @@ import loanApproved from '../../src/assets/img/loan-approved.svg';
 
 //dummy tasks
 import JoinManualKeyRotationTask from '../generic/join-manual-key-rotation/join-manual-key-rotation';
+import Profile from '../../src/app/services/profile';
 
 class DelegationApprovalInProcessTask {
   constructor() {
@@ -43,11 +46,56 @@ class DelegationApprovalInProcessTask {
   }
 }
 
+class RootGARTasks {
+  _all = [];
+
+  constructor(tasks) {
+    this._all = tasks;
+  }
+
+  find(name) {
+    let tasks = this._all[name];
+    if (tasks !== undefined) {
+      return tasks[0];
+    } else {
+      return undefined;
+    }
+  }
+
+  get all() {
+    return this._all;
+  }
+
+  get tasksList() {
+    if (Profile.created === undefined) {
+      return [];
+    }
+    if (!Profile.created) {
+      return this._all['create-passcode'];
+    }
+    if (!Profile.isLoggedIn) {
+      return this._all['login'];
+    }
+    if (Profile.identifiers.length === 0) {
+      return this._all['create-identifier'];
+    } else {
+      let defaultAID = Profile.getDefaultAID();
+      if (defaultAID !== undefined && 'group' in defaultAID) {
+        return this._all['multisig-selected'];
+      } else {
+        if (Profile.identifiers.length === 1) {
+          return this._all['create-multisig'];
+        } else {
+          return this._all['singlesig-selected'];
+        }
+      }
+    }
+  }
+}
+
 const tasks = {
-  'create-passcode': [
-    new CreatePasscodeTask({ id: 'create-passcode', label: 'Create Your Passcode' }),
-    new EnterPasscodeTask({ id: 'enter-passcode', label: 'Enter Your Passcode' }),
-  ],
+  'create-passcode': [new CreatePasscodeTask({ id: 'create-passcode', label: 'Create Your Passcode' })],
+  'login': [new EnterPasscodeTask({ id: 'enter-passcode', label: 'Enter Your Passcode' })],
   'create-identifier': [
     new IntroToYourRoleTask({
       id: 'intro-to-your-role',
@@ -62,15 +110,17 @@ const tasks = {
   ],
   'create-multisig': [
     new VideoCallTask({
-      label: 'Create GLEIF RoOT Multisig AID',
+      label: 'Create GLEIF Root Multi-Sig AID',
       next: new ConfigureMultiSigGroupTask({ label: 'Configure Multi-Sig Group' }),
       initialParticipants: 1,
       canAddParticipants: false,
     }),
+    new ManualKeyRotationTask({ label: 'Perform Manual Key Rotation' }),
   ],
   'join-multisig': [new JoinMultiSigGroupTask({ label: 'Join Multi-Sig Group' })],
   'approve-delegation': [new JoinDelegationApprovalTask({ label: 'Delegation Approval' })],
-  'main': [
+  'singlesig-selected': [new ManualKeyRotationTask({ label: 'Perform Manual Key Rotation' })],
+  'multisig-selected': [
     new LeadRootLeadOOBI({ label: 'Challenge with External GARs', variables: variables.externalOobi }),
     new LeadRootLeadOOBI({ label: 'Challenge with Internal GARs', variables: variables.internalOobi }),
     new InitiateManualKeyRotationTask({ label: 'Initiate Manual Key Rotation' }),
@@ -79,4 +129,4 @@ const tasks = {
   ],
 };
 
-module.exports = tasks;
+module.exports = new RootGARTasks(tasks);

@@ -5,7 +5,7 @@ import { KERI, Profile } from '../../../../../src/app/services';
 class SendOOBIForm {
   constructor(vnode) {
     this.copied = false;
-    this.aidToSend = Profile.getDefaultAID(vnode.attrs.aidToSend);
+    this.aidToSend = Profile.getDefaultAID();
 
     this.oobi = {
       alias: '',

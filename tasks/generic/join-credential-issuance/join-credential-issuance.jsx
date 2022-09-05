@@ -6,7 +6,12 @@ import uploadFile from "../../../src/assets/img/upload-file.svg";
 
 class JoinCredentialIssuanceTask {
     constructor(config) {
-        this._label = config.label;
+        this.config = config;
+        this.reset();
+    }
+
+    reset() {
+        this._label = this.config.label;
         this.currentState = "approve-issue";
         this._component = {
             view: (vnode) => {
@@ -44,19 +49,18 @@ class JoinCredentialIssuance {
                 return contact.id === this.recipient.id;
             })
         })
-        Profile.loadIdentifiers().then(e => {
-            this.defaultAid = Profile.getDefaultAID("multi");
-            KERI.listCredentials(this.defaultAid.name, 'received')
-                .then((credentials) => {
-                    let qvi = credentials.find((cred) => {
-                        return cred['sad']['s'] === Schema.QVICredentialSchema;
-                    });
-                    this.qvi = qvi['sad']['d'];
-                })
-                .catch(() => {
-                    this.credentialList = [];
+
+        this.defaultAid = Profile.getDefaultAID("multi");
+        KERI.listCredentials(this.defaultAid.name, 'received')
+            .then((credentials) => {
+                let qvi = credentials.find((cred) => {
+                    return cred['sad']['s'] === Schema.QVICredentialSchema;
                 });
-        })
+                this.qvi = qvi['sad']['d'];
+            })
+            .catch(() => {
+                this.credentialList = [];
+            });
 
     }
 

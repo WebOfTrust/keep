@@ -127,20 +127,6 @@ class EnterPasscode {
     this.showPasscode = false;
   }
 
-  initializeAgent(vnode) {
-    KERI.initializeAgent('keep', this.passcode)
-      .then(() => {
-        KERI.unlockAgent('keep', this.passcode)
-          .then(vnode.attrs.continue)
-          .catch((err) => {
-            console.log('unlockAgent err: ', err);
-          });
-      })
-      .catch((err) => {
-        console.log('initializeAgent err: ', err);
-      });
-  }
-
   view(vnode) {
     return (
       <>

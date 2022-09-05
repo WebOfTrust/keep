@@ -41,8 +41,8 @@ const RootGarVariables = {
     createYourAlias: {
       paragraph: (
         <>
-          The alias should be an easy to remember name for your GLEIF AID as a member of the GLEIF Root AID signing
-          group (e.g. My Qualified vLEI Authorized Representative Identifier).
+          The alias should be an easy to remember name for your AID as a member of the GLEIF RoOT signing
+          group (e.g. Your full name).
         </>
       ),
     },
