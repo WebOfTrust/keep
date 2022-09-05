@@ -1,12 +1,24 @@
 import m from 'mithril';
-import { Button, TextField } from '../../../../../src/app/components';
+import { Button, Modal } from '../../../../../src/app/components';
 import { KERI } from '../../../../../src/app/services';
 import './send-challenge.scss';
 
 class SendChallengeForm {
   constructor() {
     this.challengeWords = [];
+    this.copyOpen = false;
     this.copied = false;
+  }
+
+  oninit(vnode) {
+    KERI.generateChallengeMessage()
+      .then((res) => {
+        this.challengeWords = res.words;
+        vnode.attrs.participants.updateWords(res.words);
+      })
+      .catch((err) => {
+        console.log('generateChallengeMessage', err);
+      });
   }
 
   copyMessage(vnode) {
@@ -23,17 +35,6 @@ class SendChallengeForm {
     );
   }
 
-  oninit(vnode) {
-    KERI.generateChallengeMessage()
-      .then((res) => {
-        this.challengeWords = res.words;
-        vnode.attrs.participants.updateWords(res.words);
-      })
-      .catch((err) => {
-        console.log('generateChallengeMessage', err);
-      });
-  }
-
   view(vnode) {
     return (
       <>
@@ -43,26 +44,49 @@ class SendChallengeForm {
             return <div class="challenge-words-word">{word}</div>;
           })}
         </div>
-        {/* <TextField
-          outlined
-          textarea
-          rows={2}
-          fluid
-          style={{ backgroundColor: 'rgba(0, 0, 0, 0.04)', margin: '0 0 0 0' }}
-          value={this.challengeMessage}
-        /> */}
-        <div class="flex flex-align-center flex-justify-between" style={{ margin: '1rem 0' }}>
+        <div class="flex flex-align-center margin-v-1">
           <Button
             raised
             class="button--no-transform button--gray"
             label="Copy"
             iconLeading="content_copy"
-            onclick={(e) => {
-              this.copyMessage(vnode);
+            onclick={() => {
+              this.copyOpen = true;
+              this.copied = false;
             }}
           />
-          <p class="font-color--green font-weight--medium">{this.copied ? 'Challenge message copied!' : <br />}</p>
         </div>
+        <Modal
+          isOpen={this.copyOpen}
+          onClose={() => {
+            this.copyOpen = false;
+          }}
+          style={{
+            width: '512px',
+          }}
+        >
+          <h3>Paste the URL below into the Video Call Chat</h3>
+          <div
+            class="uneditable-value"
+            onclick={() => {
+              this.copyMessage(vnode);
+            }}
+          >
+            {this.challengeWords.join(' ')}
+          </div>
+          <p class="font-color--green font-weight--medium">
+            {this.copied ? 'Words copied to clipboard. Paste this into the video call chat!' : <br />}
+          </p>
+          <Button
+            raised
+            class="button--big"
+            style={{ width: '100%' }}
+            label="I Pasted It Into The Chat"
+            onclick={() => {
+              this.copyOpen = false;
+            }}
+          />
+        </Modal>
       </>
     );
   }

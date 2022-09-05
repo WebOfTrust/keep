@@ -1,5 +1,5 @@
 import m from 'mithril';
-import { Button, Modal, TextField } from '../../../../../src/app/components';
+import { Button, Modal } from '../../../../../src/app/components';
 import { KERI, Profile } from '../../../../../src/app/services';
 
 class SendOOBIForm {
@@ -48,11 +48,12 @@ class SendOOBIForm {
           raised
           class="button--no-transform"
           label="Generate & Copy"
+          style={{ width: '100%' }}
           onclick={() => {
+            this.copied = false;
             this.copyOpen = true;
           }}
         />
-
         <Modal
           isOpen={this.copyOpen}
           onClose={() => {
@@ -63,18 +64,26 @@ class SendOOBIForm {
           }}
         >
           <h3>Paste the URL below into the Video Call Chat</h3>
-          <TextField
-            textarea
-            outlined
-            fluid
-            style={{ backgroundColor: 'rgba(0, 0, 0, 0.04)', margin: '0' }}
-            value={this.oobi.url}
+          <div
+            class="uneditable-value"
             onclick={() => {
               this.copyURL();
             }}
+          >
+            {this.oobi.url}
+          </div>
+          <p class="font-color--green font-weight--medium">
+            {this.copied ? 'URL copied to clipboard. Paste this into the video call chat!' : <br />}
+          </p>
+          <Button
+            raised
+            class="button--big"
+            style={{ width: '100%' }}
+            label="I Pasted It Into The Chat"
+            onclick={() => {
+              this.copyOpen = false;
+            }}
           />
-          <p class="font-color--green font-weight--medium">{this.copied ? 'OOBI copied!' : <br />}</p>
-          <Button raised label="I Pasted It Into The Chat" />
         </Modal>
       </>
     );
