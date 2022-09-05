@@ -28,7 +28,7 @@ class VideoCallTask {
     if (this.config.skipIntro) {
       this.currentState = 'join-video-call';
     } else {
-      this.currentState = 'intro';
+      this.currentState = 'send-challenge';
     }
     this._component = {
       view: (vnode) => {
@@ -267,7 +267,6 @@ class VideoCall {
                 class="button--big button--no-transform"
                 raised
                 label="Continue"
-                disabled={!vnode.attrs.parent.participants.oobisResolved()}
                 onclick={() => {
                   vnode.attrs.parent.currentState = 'receive-challenge';
                 }}
@@ -303,11 +302,38 @@ class VideoCall {
                   if (aid.group) {
                     vnode.attrs.parent.sendOobis();
                   }
+                  vnode.attrs.parent.currentState = 'configure-group';
+                }}
+              />
+            </div>
+          </>
+        )}
+        {vnode.attrs.parent.currentState === 'configure-group' && (
+          <>
+            <Progress stepNum={6} totalSteps={6} stepLabel={'Configure'} />
+            <img src={projectPlanning} style={{ marginBottom: '1.5rem', width: '120px' }} />
+            <h3>Are you configuring the multi-sig group?</h3>
+            <p>
+              If you have been designated to configure the multi-sig group click Yes to continue to provide the group
+              alias and select the participants. Otherwise click no and enjoy the wait.
+            </p>
+            <div class="flex flex-align-center flex-justify-end margin-top-4">
+              <Button
+                raised
+                class="button--gray button--no-transform margin-right-1"
+                label="No"
+                onclick={() => {
+                  Tasks.active = null;
+                }}
+              />
+              <Button
+                raised
+                class="button--no-transform"
+                label="Yes"
+                onclick={() => {
                   if (vnode.attrs.parent.next !== undefined) {
                     vnode.attrs.parent.next.recipient = vnode.attrs.parent.participants.oobis[0];
                     Tasks.active = vnode.attrs.parent.next;
-                  } else {
-                    vnode.attrs.parent.currentState = 'waiting-for-multisig';
                   }
                 }}
               />
