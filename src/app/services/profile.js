@@ -28,6 +28,10 @@ class Profile {
     return this._locked
   }
 
+  static set locked(_locked) {
+    this._locked = _locked;
+  }
+
   static get created() {
     return this._created;
   }

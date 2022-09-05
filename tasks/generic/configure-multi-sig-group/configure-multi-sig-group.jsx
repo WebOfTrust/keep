@@ -1,12 +1,11 @@
 import m from 'mithril';
 import { Button, Checkbox, IconButton, Radio, Select, TextField, TextTooltip, AID, AIDField } from '../../../src/app/components';
-import { Contacts, KERI, MultiSig, Profile, Witnesses } from '../../../src/app/services';
+import {Contacts, KERI, MultiSig, Participants, Profile, Witnesses} from '../../../src/app/services';
 
 import AddSignerModal from './add-signer-modal';
+import EventDetails from '../multisig-event-details/multisig-event-details'
 
 import secureMessaging from '../../../src/assets/img/secure-messaging.svg';
-import greenCheckMark from '../../../src/assets/img/green-check-mark.svg';
-import redX from '../../../src/assets/img/red-x.svg';
 import configureIdentifier from "../../../src/assets/img/configure-identifier.svg";
 
 class ConfigureMultiSigGroupTask {
@@ -17,7 +16,6 @@ class ConfigureMultiSigGroupTask {
 
   reset() {
     this._label = this.config.label;
-    Contacts.requestList();
     this._component = {
       view: (vnode) => {
         return <ConfigureMultiSigGroup end={vnode.attrs.end} parent={this} />;
@@ -48,14 +46,26 @@ class ConfigureMultiSigGroup {
   constructor(vnode) {
     this.groupAlias = '';
     this.status = '';
-    this.sufficient = false;
     this.fractionallyWeighted = true;
-    this.useAsDefault = false;
+    this.useAsDefault = true;
     this.addSignerOpen = false;
     this.addSignerIdx = 0;
     if (MultiSig.participants === undefined) {
       MultiSig.participants = [];
     }
+
+    if (Participants.instance !== undefined) {
+      Participants.instance.oobis.forEach((oobi) => {
+        MultiSig.participants.push({
+          id: oobi.id,
+          alias: oobi.alias,
+          contact: oobi.contact,
+          weight: '',
+          signed: false,
+        })
+      })
+    }
+
     this.minParticipants = MultiSig.participants.length;
     this.numSigners = this.minParticipants + 1;
 
@@ -72,25 +82,30 @@ class ConfigureMultiSigGroup {
     this.estOnly = false;
   }
 
-  oninit(vnode) {
-    vnode.attrs.parent.currentState = 'create-multisig-alias';
-  }
-
   get validSigners() {
     return MultiSig.participants.every((signer) => {
       return (signer.id !== '' && signer.id !== undefined && signer.id !== null) &&
-        (!this.fractionallyWeighted || this.validFraction(signer.weight))
+        (!this.fractionallyWeighted || this.validThreshold(signer.weight))
     })
   }
 
-  validFraction(s) {
+  validThreshold(s) {
+    if (s === "") {
+      return false;
+    }
+
+    let t = Number(s)
+    if (!isNaN(t)) {
+      return true
+    }
+
     let p = s.split('/')
     if (p.length !== 2) {
       return false
     }
 
-    let num = parseInt(p[0]);
-    let dem = parseInt(p[1]);
+    let num = Number(p[0]);
+    let dem = Number(p[1]);
 
     return !isNaN(num) && !isNaN(dem) && 0 < num < dem && dem > 0;
   }
@@ -103,82 +118,6 @@ class ConfigureMultiSigGroup {
         }
       });
     });
-  }
-
-  ensureMultiSigSigned() {
-    let task = this;
-    new Promise(function (resolve, reject) {
-      setTimeout(function waitForSignatures() {
-        KERI.getEvent(MultiSig.currentEvent['i'], MultiSig.currentEvent['d'])
-          .then((event) => {
-            let sigs = event['signatures'];
-            sigs.forEach((sig) => {
-              let idx = sig.index;
-              MultiSig.participants[idx].signed = true;
-            });
-
-            if (event["stored"] === true) {
-              if(MultiSig.delegator === null || MultiSig.delegator === undefined) {
-                task.status = 'Inception complete';
-              } else {
-                if(!task.sufficient) {
-                  task.status = 'Sufficient signatures received';
-                  task.sufficient = true;
-                }
-              }
-
-              let unsigned = MultiSig.participants.find((part) => {return !part.signed})
-              if (unsigned === undefined) {
-                if (this.useAsDefault === true) {
-                  Profile.loadIdentifiers()
-                    .then((ids) => {
-                      let aid = ids.find(id => {
-                        return id.alias === task.groupAlias;
-                      })
-                      Profile.setDefaultAID(aid).then(() => {
-                        m.redraw()
-                      })
-                    })
-                } else {
-                  m.redraw()
-                }
-                return
-              }
-            } else {
-              task.status = 'Waiting for sufficient signatures...';
-            }
-            m.redraw();
-            setTimeout(waitForSignatures, 3000);
-          })
-          .catch((err) => {
-            console.log('getContacts', err);
-          });
-      }, 3000);
-    });
-
-    new Promise(function (resolve, reject) {
-      let task = this;
-      setTimeout(function waitForDelegation() {
-        if (MultiSig.delegator === null || MultiSig.delegatorSigned) {
-          return;
-        }
-
-        KERI.listIdentifiers().then((identifiers) => {
-          let icp = identifiers.find((e) => e.prefix === MultiSig.currentEvent['i']);
-          if (icp.delegated && icp.anchored) {
-            MultiSig.delegatorSigned = true;
-          }
-          if (icp.group.accepted) {
-            this.status = 'Inception Complete';
-          } else {
-            this.status = 'Failed: Event Timeout';
-          }
-          m.redraw();
-          setTimeout(waitForDelegation, 3050);
-        });
-      }, 3050);
-    });
-
   }
 
   initiateGroupInception() {
@@ -218,11 +157,9 @@ class ConfigureMultiSigGroup {
       .then((incept) => {
         this.status = 'Event Submitted';
         MultiSig.currentEvent = incept;
-        this.ensureMultiSigSigned();
       })
       .catch((err) => {
-        this.status = 'Failed: Invalid Event';
-        console.log('initiateGroupInception', err);
+        this.status = 'Failed: ' + err.response.msg;
       });
   }
 
@@ -251,7 +188,7 @@ class ConfigureMultiSigGroup {
         )}
         {vnode.attrs.parent.currentState === 'create-multisig-alias' && (
           <>
-            <h3>Create Your Alias and Configure Your AID</h3>
+            <h3>Create Your Alias and Configure Your Multi-Sig Group</h3>
             <img src={configureIdentifier} style={{display: 'block', margin: '4rem auto 0', width: '172px'}}/>
             <p class="p-tag" style={{marginTop: '2rem', marginBottom: '2rem'}}>
               The alias should be an easy to remember name for your AID.
@@ -379,7 +316,7 @@ class ConfigureMultiSigGroup {
                 class="button--big button--no-transform"
                 raised
                 label="Continue"
-                disabled={this.wits.length === 0 || this.groupAlias.length === 0}
+                disabled={this.wits.length === 0 || this.groupAlias.length === 0 || MultiSig.participants.length === 0}
                 onclick={() => {
                   vnode.attrs.parent.currentState = 'configure-multisig-participants';
                 }}
@@ -663,101 +600,35 @@ class ConfigureMultiSigGroup {
           <EventDetails
             parent={vnode.attrs.parent}
             groupAlias={this.groupAlias}
+            default={this.default}
+            fractionallyWeighted={this.fractionallyWeighted}
             status={this.status}
             back={() => {
-              vnode.attrs.parent.currentState = 'event-log';
+              MultiSig.participants.shift();
+              if (vnode.attrs.parent.requireDelegator) {
+                vnode.attrs.parent.currentState = 'select-delegator';
+              } else {
+                vnode.attrs.parent.currentState = 'configure-multisig-participants';
+              }
+            }}
+            finish={() => {
+              Profile.loadIdentifiers()
+                .then((ids) => {
+                  if (this.useAsDefault === true) {
+                    let aid = ids.find(id => {
+                      return id.name === this.groupAlias;
+                    })
+                    Profile.setDefaultAID(aid).then(() => {
+                      m.redraw()
+                    })
+                  } else {
+                    m.redraw()
+                  }
+                })
             }}
             continue={vnode.attrs.end}
           />
         )}
-      </>
-    );
-  }
-}
-
-class EventDetails {
-  constructor(vnode) {
-    /*
-     *
-     * We have the AIDS.  Use them to get the KELs and to determine
-     * the order of the signatures so we can match up with Signatures.
-     *
-     * */
-  }
-
-  view(vnode) {
-    return (
-      <>
-        <h3>{vnode.attrs.groupAlias} Inception:</h3>
-        <div class="flex flex-justify-start flex-al">
-          <h4 class="p-tag margin-clear">Status:</h4>
-          <h4 style={{color: "#000", marginLeft: "0.5rem", lineHeight: 1.38}}>{vnode.attrs.status}</h4>
-        </div>
-
-        <div class="flex flex-justify-between">
-          <p class="p-tag" style={{ margin: '2rem 0 1rem 4.5rem' }}>
-            Name:
-          </p>
-          <p class="p-tag" style={{ margin: '2rem 1rem 1rem 0' }}>
-            Signed?
-          </p>
-        </div>
-        <div style={{ maxHeight: '350px', overflowY: 'scroll', margin: '0 0 1rem 0' }}>
-          {MultiSig.participants.map((sig, i) => {
-            return (
-              <div
-                class="flex flex-justify-evenly flex-justify-center "
-                style={{ margin: '0 0 1rem 0', width: '100%' }}
-              >
-                <h4 class="p-tag margin-clear">{`#${i + 1}`}</h4>
-                <div
-                  class="flex flex-align-center"
-                  style={{ width: '55%', backgroundColor: 'white', height: '40px', borderRadius: '3px' }}
-                >
-                  <p class="p-tag-bold" style={{ margin: '0 0 0 .5rem', fontSize: '80%' }}>
-                    {sig.alias}
-                  </p>
-                </div>
-
-                <div style={{ margin: '0 0 0 .5rem' }}>
-                  {sig.signed ? (
-                    <img src={greenCheckMark} style={{ width: '80%' }} />
-                  ) : (
-                    <img src={redX} style={{ width: '80%' }} />
-                  )}
-                </div>
-              </div>
-            );
-          })}
-        </div>
-        {vnode.attrs.parent.requireDelegator && (
-          <>
-            <h3>Delegation Approval:</h3>
-            <div
-              class="flex flex-justify-evenly "
-              style={{ alignItems: 'center', margin: '0 0 1rem 0', width: '100%' }}
-            >
-              <div
-                class="flex flex-align-center"
-                style={{ width: '55%', backgroundColor: 'white', height: '40px', borderRadius: '3px' }}
-              >
-                <p class="p-tag-bold" style={{ margin: '0 0 0 .5rem', fontSize: '80%' }}>
-                  {MultiSig.delegator.alias}
-                </p>
-              </div>
-              <div style={{ margin: '0 0 0 .5rem' }}>
-                {MultiSig.delegatorSigned ? (
-                  <img src={greenCheckMark} style={{ width: '80%' }} />
-                ) : (
-                  <img src={redX} style={{ width: '80%' }} />
-                )}
-              </div>
-            </div>
-          </>
-        )}
-        <div class="flex flex-justify-end margin-top-4">
-          <Button class="button--big button--no-transform" raised label="Continue" onclick={vnode.attrs.continue} />
-        </div>
       </>
     );
   }

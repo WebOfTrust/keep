@@ -1,5 +1,5 @@
 import m from 'mithril';
-import {Button, Select, TextField, Checkbox, Radio} from '../../../src/app/components';
+import {Button, Select, TextField, Checkbox, Radio, AID} from '../../../src/app/components';
 import {KERI, Profile, Witnesses} from '../../../src/app/services';
 import createIdentifier from '../../../src/assets/img/create-identifier.svg';
 import configureIdentifier from '../../../src/assets/img/configure-identifier.svg';
@@ -48,11 +48,13 @@ class CreateYourAID {
     this.pool = '';
     this.wits = []
     this.witThold = 1;
+    this.aid = undefined;
   }
 
   createAID(vnode) {
     Profile.createIdentifier(this.alias, this.wits, this.witThold, this.estOnly)
       .then((aid) => {
+        this.aid = aid;
         if (this.useAsDefault) {
           Profile.setDefaultAID(aid).then(() => {
             vnode.attrs.parent.currentState = 'created';
@@ -114,7 +116,9 @@ class CreateYourAID {
                 checked={this.useAsDefault}
                 style={{margin: '0 0 3.5rem 0'}}
                 onclick={() => {
-                  this.useAsDefault = !this.useAsDefault;
+                  if (!(Profile.identifiers === undefined || Profile.identifiers.length === 0)) {
+                    this.useAsDefault = !this.useAsDefault;
+                  }
                 }}
               />
               <p className="p-tag-bold">Set new AID as Keep Default?</p>
@@ -258,7 +262,7 @@ class CreateYourAID {
               <div style={{margin: "0 0 0 1rem"}}>
                 <p className="p-tag-bold" style={{margin: '0 0 0.5rem 0'}}>Alias:</p>
                 <div id="review-alias" className="p-tag">
-                  {this.alias}
+                  <AID aid={this.aid}/>
                 </div>
               </div>
             </div>

@@ -1,7 +1,7 @@
 import m from 'mithril';
 
-import { Button, Progress } from '../../../src/app/components';
-import { Profile, Participants, KERI } from '../../../src/app/services';
+import {Button, Progress, TextField} from '../../../src/app/components';
+import {Profile, Participants, KERI, MultiSig} from '../../../src/app/services';
 import { Tasks } from '../../../src/app/services/tasks';
 import { EnterChallengesForm, EnterOOBIsForm, SendChallengeForm, SendOOBIForm } from './forms';
 import './video-call.scss';
@@ -21,6 +21,7 @@ class VideoCallTask {
     this.oneToOne = this.config.oneToOne;
     this.acceptCredential = this.config.acceptCredential;
     this.next = this.config.next;
+    this.variables = this.config.variables;
 
     this.aidToSend = this.config.aidToSend;
     this.steps = this.config.steps;
@@ -102,16 +103,9 @@ class VideoCall {
       <>
         {vnode.attrs.parent.currentState === 'intro' && (
           <>
-            <h4 class="text--underline margin-bottom-2">Create GLEIF RoOT Multi-sig AID</h4>
+            <h4 class="text--underline margin-bottom-2">{vnode.attrs.parent.variables.title}</h4>
             <p class="steps-header">Steps to create:</p>
-            <ol class="styled-ol margin-v-2">
-              <li>Join a Video Call with Root GARs.</li>
-              <li>Send your OOBI over video call.</li>
-              <li>Receive OOBIs over video call.</li>
-              <li>Send challenge message to others.</li>
-              <li>Receive challenge messages.</li>
-              <li>Configure RoOT (optional).</li>
-            </ol>
+            {vnode.attrs.parent.variables.steps}
             <div class="flex flex-align-center flex-justify-end margin-top-4">
               {vnode.attrs.parent.next && (
                 <Button
@@ -138,8 +132,8 @@ class VideoCall {
           <>
             <h3>Skip Identity Authentication</h3>
             <p class="font-color--battleship margin-v-2">
-              If you have already completed Identity Authentication with all participants you may continue to initiating
-              a Multi-Sig Group.
+              If you have already completed Identity Authentication with all participants you may continue to the next
+              step.
             </p>
             <div class="flex flex-align-center flex-justify-end margin-top-4">
               <Button
@@ -167,14 +161,23 @@ class VideoCall {
             <img src={projectPlanning} style={{ width: '100px' }} />
             <h4>Join a Video Call</h4>
             <p class="font-color--battleship font-size--14">
-              In order to start the creation of the multisig AID process, you will need to initiate an real-time Out of
-              Band Interaction (OOBI) session in which you and the other users are present, You will accept all their
-              OOBIs (URL + AID) on a Video Call so that you can create the GLEIF RoOT.
+              {vnode.attrs.parent.variables.joinCallIntro}
             </p>
             <p class="font-weight--semi-bold">
-              The ecosystem governance framework requires 11 additional GARs to join this process (total of 12
-              participants).
+              {vnode.attrs.parent.variables.joinCallSubIntro}
             </p>
+              <p className="p-tag-bold">{vnode.attrs.parent.variables.howManyParticipantsPrompt}</p>
+              <TextField
+                outlined
+                type="number"
+                min={1}
+                style={{marginBottom: '2rem', width: '4rem', height: "44px"}}
+                value={vnode.attrs.parent.participants.length}
+                oninput={(e) => {
+                  let num = parseInt(e.target.value);
+                  vnode.attrs.parent.participants = new Participants(num);
+                }}
+              />
             <div class="flex flex-justify-end margin-top-4">
               <Button
                 class="button--gray-dk button--no-transform margin-right-1"

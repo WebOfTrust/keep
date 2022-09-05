@@ -247,7 +247,7 @@ class Contacts {
                               </div>
                             </div>
                             <div class="contacts-detail-field">
-                              <label class="contacts-detail-field-label">Verified:</label>
+                              <label class="contacts-detail-field-label">Authenticated:</label>
                               <div class="contacts-detail-field-input">
                                 <Checkbox disabled checked={this.activeContact.verified === 'true'}/>
                               </div>

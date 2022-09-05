@@ -2,7 +2,7 @@ import m from 'mithril';
 import createYourPasscode from '../../../../assets/img/create-your-passcode.svg';
 import passcodeImg from '../../../../assets/img/passcode.svg';
 import { Button, TextField } from '../../../components';
-import { KERI } from '../../../../app/services';
+import {Keep, KERI, Profile} from '../../../services';
 
 class ChangingPasscode {
   view(vnode) {
@@ -11,7 +11,7 @@ class ChangingPasscode {
         <div>
           <h3>Changing Your Passcode</h3>
           <div class="flex flex-justify-center" style={{ margin: '4.5rem 0' }}>
-            <img src={createYourPasscode} style={{ width: '192px' }} />
+            <img src={createYourPasscode} style={{ width: '100px' }} />
           </div>
           <p class="p-tag" style={{ margin: '2rem 0 2rem 0' }}>
             Before you change your passcode, remember that your passcode is your only way to enter the software, and
@@ -68,7 +68,7 @@ class GeneratePasscode {
       <>
         <h3>Generate Your Passcode</h3>
         <div class="flex flex-justify-center" style={{ margin: '4.5rem 0' }}>
-          <img src={createYourPasscode} style={{ width: '192px' }} />
+          <img src={createYourPasscode} style={{ width: '100px' }} />
         </div>
         <p class="p-tag" style={{ margin: '0 0 2.5rem 0' }}>
           Generate your passcode here or in your password management app such as 1Password or Last Pass to encrypt your
@@ -123,21 +123,55 @@ class GeneratePasscode {
 }
 class EnterPasscode {
   constructor() {
+    this.current = '';
     this.passcode = '';
+    this.showCurrent = false;
     this.showPasscode = false;
+    this.submitting = false;
+  }
+
+  changePasscode(vnode) {
+    this.submitting = true;
+    KERI.resetPasscode(this.current, this.passcode)
+      .then(() => {
+        vnode.attrs.continue();
+      })
+      .catch((err) => {
+        console.log('changePasscode', err);
+        this.error = 'Error changing passcode with passcode entered.';
+      })
+      .finally(() => {
+        this.submitting = false;
+      });
   }
 
   view(vnode) {
     return (
       <>
-        <h3>Please Enter Your Passcode</h3>
+        <h3>Please Enter Your Current and New Passcodes</h3>
         <div class="flex flex-justify-center" style={{ margin: '5rem 0' }}>
-          <img src={passcodeImg} style={{ width: '192px' }} />
+          <img src={passcodeImg} style={{ width: '100px' }} />
         </div>
         <p class="p-tag" style={{ margin: '0 0 3rem 0' }}>
-          You can find your 22-character passcode by referring back to your storage spot (1Password, Last Pass, Safe
+          You can find your current 22-character passcode by referring back to your storage spot (1Password, Last Pass, Safe
           Deposit Box) and entering it into the box below.
         </p>
+        <TextField
+          outlined
+          fluid
+          type={this.showCurrent ? 'text' : 'password'}
+          value={this.current}
+          oninput={(e) => {
+            this.current = e.target.value;
+          }}
+          iconTrailing={{
+            icon: this.showCurrent ? 'visibility' : 'visibility_off',
+            onclick: () => {
+              this.showCurrent = !this.showCurrent;
+            },
+          }}
+        />
+        <p className="p-tag" style={{margin: '3rem 0 1rem 0'}}>New Passcode:</p>
         <TextField
           outlined
           fluid
@@ -153,6 +187,7 @@ class EnterPasscode {
             },
           }}
         />
+        {this.error && <p class="error">{this.error}</p>}
         <div class="flex flex-justify-between" style={{ marginTop: '4rem' }}>
           <Button
             raised
@@ -164,10 +199,10 @@ class EnterPasscode {
             raised
             class="button--no-transform button--big"
             label="Continue"
-            // onclick={() => {
-            //   this.initializeAgent(vnode);
-            // }}
-            onclick={vnode.attrs.continue}
+            disabled={!this.current || !this.passcode || this.submitting}
+            onclick={() => {
+              this.changePasscode(vnode);
+            }}
           />
         </div>
       </>
@@ -181,7 +216,7 @@ class PasscodeFinished {
       <>
         <h3>You are All Set!</h3>
         <div class="flex flex-justify-center" style={{ margin: '4.5rem 0' }}>
-          <img src={passcodeImg} style={{ width: '50%' }} />
+          <img src={passcodeImg} style={{ width: '100px' }} />
         </div>
         <p class="p-tag" style={{ margin: '2rem 0 0 0' }}>
           Your passcode has been changed. You are no longer able to use the old passcode to enter the software..

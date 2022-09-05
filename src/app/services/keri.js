@@ -47,8 +47,19 @@ class KERI {
 
   static lockAgent() {
     return m.request({
-      method: 'GET',
+      method: 'POST',
       url: `${this.keriURL}/lock`,
+    });
+  }
+
+  static resetPasscode(current, passcode) {
+    return m.request({
+      method: 'POST',
+      url: `${this.keriURL}/codes`,
+      body: {
+        current,
+        passcode,
+      },
     });
   }
 
@@ -274,7 +285,7 @@ class KERI {
 
   // GROUPS
 
-  static initiateGroupInception(alias, { aids, isith, nsith, toad, wits, delpre }) {
+  static initiateGroupInception(alias, { aids, isith, nsith, toad, wits, delpre, estOnly }) {
     return m.request({
       method: 'POST',
       url: `${this.keriURL}/groups/${alias}/icp`,
@@ -285,11 +296,12 @@ class KERI {
         toad,
         wits,
         delpre,
+        estOnly
       },
     });
   }
 
-  static participateGroupInception(alias, { aids, isith, nsith, toad, wits, delpre }) {
+  static participateGroupInception(alias, { aids, isith, nsith, toad, wits, delpre, estOnly }) {
     return m.request({
       method: 'PUT',
       url: `${this.keriURL}/groups/${alias}/icp`,
@@ -300,6 +312,7 @@ class KERI {
         toad,
         wits,
         delpre,
+        estOnly
       },
     });
   }
