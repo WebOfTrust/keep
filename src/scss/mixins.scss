@@ -9,6 +9,10 @@
   font-family: 'Lato', Helvetica, Arial, sans-serif;
 }
 
+@mixin mono {
+  font-family: monospace;
+}
+
 @mixin light {
   font-weight: 300;
 }
@@ -17,6 +21,9 @@
 }
 @mixin medium {
   font-weight: 500;
+}
+@mixin semi-bold {
+  font-weight: 600;
 }
 @mixin bold {
   font-weight: 700;
