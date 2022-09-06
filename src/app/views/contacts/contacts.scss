@@ -76,7 +76,6 @@
         color: rgba(0, 0, 0, 0.6);
         font-size: 14px;
         line-height: 2.5;
-        letter-spacing: 0.15px;
         flex: 1;
       }
 
@@ -113,7 +112,6 @@
       @include bold;
       color: rgba(0, 0, 0, 0.6);
       line-height: 2.5;
-      letter-spacing: 0.15px;
     }
   }
 }
