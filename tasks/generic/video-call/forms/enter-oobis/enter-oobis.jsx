@@ -77,7 +77,7 @@ class EnterOOBIsForm {
     return (
       <>
         <Card class="card--fluid" style={{ margin: '0 0 1.5rem 0' }}>
-          <p>Paste URL from Video Call Chat</p>
+          <p class="font-color--battleship font-size--12 font-weight--bold">Paste URL from Video Call Chat</p>
           <TextField
             textarea
             outlined
@@ -88,11 +88,15 @@ class EnterOOBIsForm {
               vnode.attrs.participants.oobis[this.selectedOobiIndex].url = e.target.value;
             }}
           />
-          <p>AID:</p>
-          <p style={{ wordBreak: 'break-all' }}>
-            {this.parseAIDFromUrl(vnode.attrs.participants.oobis[this.selectedOobiIndex].url)}
-          </p>
-          <p>Assign Alias:</p>
+          {vnode.attrs.participants.oobis[this.selectedOobiIndex].url && (
+            <>
+              <p class="font-color--battleship font-size--12 font-weight--bold">AID:</p>
+              <p class="mono-aid text--underline">
+                {this.parseAIDFromUrl(vnode.attrs.participants.oobis[this.selectedOobiIndex].url)}
+              </p>
+            </>
+          )}
+          <p class="font-color--battleship font-size--12 font-weight--bold">Assign Alias:</p>
           <TextField
             outlined
             fluid

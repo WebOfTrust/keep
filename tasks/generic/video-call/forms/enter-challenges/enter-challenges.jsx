@@ -19,14 +19,19 @@ class EnterChallengesForm {
     const signer = vnode.attrs.participants.oobis[this.selectedOobiIndex];
     return (
       <>
+        <h4>Receive Challenge Messages</h4>
         <div style={{ maxHeight: '512px', overflowY: 'auto', margin: '0 0 1rem 0', paddingRight: '1rem' }}>
           <Card class="card--fluid" style={{ margin: '0 0 1.5rem 0' }}>
             <div class="flex flex-align-center">
-              <h5 style={{ minWidth: '100px' }}>Alias:</h5>
+              <p class="font-color--battleship font-size--12 font-weight--bold" style={{ minWidth: '100px' }}>
+                Alias:
+              </p>
               <p class="p-tag-bold">{signer.alias}</p>
             </div>
             <div class="flex flex-justify-between">
-              <h5 style={{ minWidth: '100px' }}>Message:</h5>
+              <p class="font-color--battleship font-size--12 font-weight--bold" style={{ minWidth: '100px' }}>
+                Message:
+              </p>
               <TextField
                 outlined
                 fluid

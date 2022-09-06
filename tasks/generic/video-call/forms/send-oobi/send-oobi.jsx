@@ -1,5 +1,5 @@
 import m from 'mithril';
-import { Button, Modal } from '../../../../../src/app/components';
+import { Button, Checkbox, Modal } from '../../../../../src/app/components';
 import { KERI, Profile } from '../../../../../src/app/services';
 
 class SendOOBIForm {
@@ -42,8 +42,8 @@ class SendOOBIForm {
   view(vnode) {
     return (
       <>
-        <p>Alias: {this.oobi.alias}</p>
-        <p>{this.oobi.prefix}</p>
+        <p class="font-weight--semi-bold">Alias: {this.oobi.alias}</p>
+        <p class="mono-aid font-weight--bold font-color--battleship">{this.oobi.prefix}</p>
         <Button
           raised
           class="button--no-transform"
@@ -65,21 +65,29 @@ class SendOOBIForm {
         >
           <h3>Paste the URL below into the Video Call Chat</h3>
           <div
-            class="uneditable-value"
+            class="copy-value margin-bottom-1"
             onclick={() => {
               this.copyURL();
             }}
           >
             {this.oobi.url}
           </div>
-          <p class="font-color--green font-weight--medium">
-            {this.copied ? 'URL copied to clipboard. Paste this into the video call chat!' : <br />}
-          </p>
+          {this.copied && (
+            <div class="flex margin-bottom-1">
+              <Checkbox checked={this.copied} />
+              <p class="copied-label">
+                URL copied to clipboard.
+                <br />
+                Paste this into the video call chat!
+              </p>
+            </div>
+          )}
           <Button
             raised
             class="button--big"
             style={{ width: '100%' }}
             label="I Pasted It Into The Chat"
+            disabled={!this.copied}
             onclick={() => {
               this.copyOpen = false;
             }}

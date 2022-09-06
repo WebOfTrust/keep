@@ -1,5 +1,5 @@
 import m from 'mithril';
-import { Button, Modal } from '../../../../../src/app/components';
+import { Button, Checkbox, Modal } from '../../../../../src/app/components';
 import { KERI } from '../../../../../src/app/services';
 import './send-challenge.scss';
 
@@ -65,23 +65,31 @@ class SendChallengeForm {
             width: '512px',
           }}
         >
-          <h3>Paste the URL below into the Video Call Chat</h3>
+          <h3>Paste the Challenge Message in the Video Call</h3>
           <div
-            class="uneditable-value"
+            class="copy-value margin-bottom-1"
             onclick={() => {
               this.copyMessage(vnode);
             }}
           >
             {this.challengeWords.join(' ')}
           </div>
-          <p class="font-color--green font-weight--medium">
-            {this.copied ? 'Words copied to clipboard. Paste this into the video call chat!' : <br />}
-          </p>
+          {this.copied && (
+            <div class="flex margin-bottom-1">
+              <Checkbox checked={this.copied} />
+              <p class="copied-label">
+                Words copied to clipboard.
+                <br />
+                Paste this into the video call chat!
+              </p>
+            </div>
+          )}
           <Button
             raised
             class="button--big"
             style={{ width: '100%' }}
             label="I Pasted It Into The Chat"
+            disabled={!this.copied}
             onclick={() => {
               this.copyOpen = false;
             }}
