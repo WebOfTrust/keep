@@ -2,7 +2,7 @@
 @import '../../../scss/variables';
 
 .progress {
-  background-color: $gray;
+  background-color: #d9d9d9;
   border-radius: 10px;
   height: 16px;
   position: relative;
@@ -30,6 +30,15 @@
     top: -4px;
     left: 0;
 
+    &--end {
+      background-color: #e5e5e5;
+      left: calc(100% - 12px);
+
+      .progress-circle-text {
+        color: #737b7d;
+      }
+    }
+
     &-text {
       @include medium;
       color: white;
@@ -39,11 +48,10 @@
     }
   }
 
-  &-text {
+  &-label {
     @include medium;
     color: $blue;
     font-size: 10px;
-    letter-spacing: 0.15px;
     position: absolute;
     top: 32px;
     left: calc(20% - 32px);

@@ -16,7 +16,7 @@ class Progress {
             }}
           ></div>
           <div
-            class="progress-text"
+            class="progress-label"
             style={{
               left: textLeft,
             }}
@@ -31,6 +31,11 @@ class Progress {
           >
             <div class="progress-circle-text">{vnode.attrs.stepNum}</div>
           </div>
+          {vnode.attrs.stepNum !== vnode.attrs.totalSteps && (
+            <div class="progress-circle progress-circle--end">
+              <div class="progress-circle-text">{vnode.attrs.totalSteps}</div>
+            </div>
+          )}
         </div>
       </>
     );
