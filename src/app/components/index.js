@@ -1,5 +1,4 @@
 import Button from './button/button.jsx';
-import Breadcrumb from './breadcrumb/breadcrumb.jsx';
 import Card from './card/card.jsx';
 import CarouselControls from './carousel-controls/carousel-controls.jsx';
 import Checkbox from './checkbox/checkbox.jsx';
@@ -24,12 +23,11 @@ import TextField from './text-field/text-field.jsx';
 import TextTooltip from './text-tooltip/text-tooltip.jsx';
 import ToastOutlet from './toast-outlet/toast-outlet.jsx';
 import AID from './aid/aid.jsx';
-import AIDField from './aid-field/aid-field.jsx'
+import AIDField from './aid-field/aid-field.jsx';
 
 module.exports = {
   AID,
   Button,
-  Breadcrumb,
   Card,
   CarouselControls,
   Checkbox,

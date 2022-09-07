@@ -2,7 +2,6 @@ import m from 'mithril';
 import moment from 'moment';
 import {
   Button,
-  Breadcrumb,
   Card,
   Container,
   DateRange,
@@ -85,13 +84,6 @@ class StyleGuide {
               endDateChange={(date) => {
                 this.dateRangeEnd = date;
               }}
-            />
-            <h3>Breadcrumb</h3>
-            <Breadcrumb
-              items={[
-                { href: '/', text: 'Home' },
-                { href: null, text: 'Style Guide' },
-              ]}
             />
             <h3>Spinner</h3>
             <Spinner />
