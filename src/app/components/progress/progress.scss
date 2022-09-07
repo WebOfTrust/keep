@@ -11,7 +11,7 @@
   width: 100%;
 
   &-fill {
-    background-color: $blue;
+    background-color: $primary;
     border-radius: 10px;
     height: 16px;
     position: absolute;
@@ -21,7 +21,7 @@
   }
 
   &-circle {
-    background-color: $blue;
+    background-color: $primary;
     border: 1px solid white;
     border-radius: 50%;
     height: 24px;
@@ -50,7 +50,7 @@
 
   &-label {
     @include medium;
-    color: $blue;
+    color: $primary;
     font-size: 10px;
     position: absolute;
     top: 32px;

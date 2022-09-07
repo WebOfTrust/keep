@@ -2,7 +2,7 @@
 @import '../../../scss/variables';
 
 .contacts {
-  background-color: $background-blue;
+  background-color: $background;
   display: flex;
   min-height: calc(100vh - 138px);
 
@@ -26,7 +26,7 @@
       transition: background-color 0.2s ease-in-out;
 
       &--active {
-        background-color: $active-blue;
+        background-color: $primary-active;
       }
 
       &:not(&--active) {

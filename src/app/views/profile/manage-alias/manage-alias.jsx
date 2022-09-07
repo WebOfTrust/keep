@@ -34,7 +34,7 @@ class AliasToEdit {
         <div class="flex flex-justify-between" style={{ margin: '0 0 2rem 0' }}>
           <div>
             <p class="p-tag">Octocat</p>
-            <p style={{ fontStyle: 'italic', color: '#3c64b1', fontSize: '80%' }}>External GAR </p>
+            <p class="font-color--blue font-style--italic font-size--12">External GAR </p>
           </div>
           <div>
             <input style={{ marginTop: '1rem' }} type="radio" name="aliasRadio" checked></input>
@@ -77,7 +77,7 @@ class AliasToUpdate {
         <div class="flex flex-justify-between" style={{ margin: '0 0 2rem 0' }}>
           <div>
             <p class="p-tag">Octocat</p>
-            <p style={{ fontStyle: 'italic', color: '#3c64b1', fontSize: '80%' }}>External GAR </p>
+            <p class="font-color--blue font-style--italic font-size--12">External GAR </p>
           </div>
         </div>
         <div class="flex flex-justify-between">

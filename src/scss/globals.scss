@@ -9,12 +9,12 @@
 a,
 a:visited,
 a:link {
-  color: $blue;
+  color: $primary;
   transition: color 0.4s ease;
 
   &:active,
   &:hover {
-    color: darken($blue, 10%);
+    color: darken($primary, 10%);
   }
 }
 
@@ -109,12 +109,12 @@ a:link {
   }
   &--hover {
     &:hover {
-      background-color: $active-blue;
+      background-color: $primary-active;
       cursor: pointer;
     }
   }
   &--active {
-    background-color: $active-blue;
+    background-color: $primary-active;
   }
 }
 

@@ -25,12 +25,12 @@
     }
 
     &:hover {
-      background-color: $active-blue;
+      background-color: $primary-active;
       cursor: pointer;
     }
 
     &--selected {
-      background-color: $active-blue;
+      background-color: $primary-active;
     }
   }
 }

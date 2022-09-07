@@ -1,7 +1,7 @@
 // Theme
 @use '@material/theme/index' with (
-  $primary: $blue,
-  $secondary: $blue,
+  $primary: $primary,
+  $secondary: $primary,
   $on-primary: #ffffff,
   $on-secondary: #ffffff
 );
@@ -85,7 +85,7 @@
 }
 .material-icons.md-blue,
 .material-icons-outlined.md-blue {
-  color: $blue;
+  color: $primary;
 }
 
 .button {
