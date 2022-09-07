@@ -1,18 +1,11 @@
 class Participants {
   static instances = [];
 
-  constructor() {
-    this.oobis = [
-      {
-        alias: '',
-        url: '',
-        status: 'none',
-        challengeMessage: '',
-        verified: false,
-        sent: false,
-        confirmed: false,
-      },
-    ];
+  constructor(count = 1) {
+    this.oobis = [];
+    for (let i = 0; i < count; i++) {
+      this.addOOBI('', '');
+    }
     this.words = [];
     Participants.instances.push(this);
   }

@@ -1,14 +1,14 @@
 import m from 'mithril';
 
-import { Button, Card, Container, IconButton, NavRail } from '../../components';
+import { Button, Card, Container, IconButton, NavRail, Progress } from '../../components';
 import { Notify, Profile } from '../../services';
-import {Tasks} from '../../services/tasks';
+import { Tasks } from '../../services/tasks';
 import Notifications from './notifications/notifications.jsx';
 import './dashboard.scss';
 
 class Dashboard {
   constructor() {
-    this.resetTask()
+    this.resetTask();
     this.aboutDismissed = false;
     this.sliceStart = 0;
     this.sliceEnd = 4;
@@ -25,7 +25,7 @@ class Dashboard {
   }
 
   get tasksList() {
-    return Tasks.tasksList
+    return Tasks.tasksList;
   }
 
   get tasksSlice() {
@@ -47,15 +47,16 @@ class Dashboard {
       <>
         <div style="position: relative">
           <div class="dashboard">
-            {(Profile.isLoggedIn && Profile.identifiers === undefined) && <div>
-              <H3>Loading...</H3>
-            </div>
-            }
+            {Profile.isLoggedIn && Profile.identifiers === undefined && (
+              <div>
+                <H3>Loading...</H3>
+              </div>
+            )}
             {Profile.isLoggedIn && <NavRail selected="dashboard"></NavRail>}
-            <Container class="headspace" style={{ marginBottom: '5rem', padding: '0 4rem' }}>
+            <Container class="margin-v-2" style={{ padding: '0 4rem' }}>
               <div class="flex flex-justify-between">
                 {/* Left Panel */}
-                <div class="flex-1" style={{ marginRight: '4rem' }}>
+                <div class="flex-1 margin-right-2">
                   {/* Optional left component of active task (replaces task list) */}
                   {Tasks.active && Tasks.active.lcomponent && (
                     <Card
@@ -76,15 +77,16 @@ class Dashboard {
                   {(!Tasks.active || !Tasks.active.lcomponent) && (
                     <Card class="card--fluid" padding="1.5rem">
                       <div class="flex flex-align-center flex-justify-between">
-                        <h1>Tasks</h1>
+                        <h2>Tasks</h2>
                       </div>
                       {this.tasksSlice.map((task) => {
                         return (
                           <Card
                             id={task.id}
-                            class={'card--fluid card--hover' + (task === Tasks.active ? ' card--active' : '')}
+                            class={
+                              'card--fluid card--hover margin-bottom-1' + (task === Tasks.active ? ' card--active' : '')
+                            }
                             padding="1.5rem"
-                            style={{ marginBottom: '2.5rem' }}
                             onclick={() => {
                               Profile.isLead = task.lead;
                               Tasks.active = task;
@@ -92,13 +94,13 @@ class Dashboard {
                           >
                             <div class="flex flex-align-center">
                               <img src={task.imgSrc} alt={task.label} style={{ marginRight: '1rem', width: '72px' }} />
-                              <h3>{task.label}</h3>
+                              <h4>{task.label}</h4>
                             </div>
                           </Card>
                         );
                       })}
                       <div>
-                        <div class="flex flex-justify-between" style={{ alignItems: 'center' }}>
+                        <div class="flex flex-align-center flex-justify-between">
                           {this.sliceStart != 0 && (
                             <Button
                               class="button--white"
@@ -160,10 +162,7 @@ class Dashboard {
                       {!Notify.isOpen && !Tasks.active && !this.aboutDismissed && (
                         <>
                           <h3 id="about-your-tasks">About Your Tasks</h3>
-                          <p
-                            class="font-color--battleship"
-                            style={{ lineHeight: '1.38', letterSpacing: '0.3px', margin: '3rem 0 4rem 0' }}
-                          >
+                          <p class="font-color--battleship" style={{ margin: '3rem 0 4rem 0' }}>
                             This section is designed to help you navigate Keep and learn how to complete tasks required
                             for your role. Click on one of the tasks on the left and this panel will provide more
                             information.

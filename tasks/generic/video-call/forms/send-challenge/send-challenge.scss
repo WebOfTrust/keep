@@ -1,0 +1,15 @@
+.challenge-words {
+  display: flex;
+  flex-wrap: wrap;
+  &-word {
+    background-color: white;
+    font-family: monospace;
+    letter-spacing: 0.2px;
+    line-height: 1.5;
+    padding: 4px;
+    margin: 8px 4px;
+    flex: 26%;
+    text-align: center;
+    text-transform: uppercase;
+  }
+}

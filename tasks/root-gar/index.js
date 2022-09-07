@@ -1,7 +1,7 @@
 import m from 'mithril';
 //Variables
 import variables from './variables';
-import {DefaultMapTask} from "../../src/app/services/tasks"
+import { DefaultMapTask } from '../../src/app/services/tasks';
 
 import { Button } from '../../src/app/components';
 
@@ -23,7 +23,7 @@ import loanApproved from '../../src/assets/img/loan-approved.svg';
 
 //dummy tasks
 import JoinManualKeyRotationTask from '../generic/join-manual-key-rotation/join-manual-key-rotation';
-import Profile from "../../src/app/services/profile";
+import Profile from '../../src/app/services/profile';
 
 class DelegationApprovalInProcessTask {
   constructor() {
@@ -50,7 +50,7 @@ class RootGARTasks {
   _all = [];
 
   constructor(tasks) {
-    this._all = tasks
+    this._all = tasks;
   }
 
   find(name) {
@@ -68,7 +68,7 @@ class RootGARTasks {
 
   get tasksList() {
     if (Profile.created === undefined) {
-      return []
+      return [];
     }
     if (!Profile.created) {
       return this._all['create-passcode'];
@@ -79,28 +79,23 @@ class RootGARTasks {
     if (Profile.identifiers.length === 0) {
       return this._all['create-identifier'];
     } else {
-      let defaultAID = Profile.getDefaultAID()
-      if (defaultAID !== undefined && "group" in defaultAID) {
-        return this._all['multisig-selected']
+      let defaultAID = Profile.getDefaultAID();
+      if (defaultAID !== undefined && 'group' in defaultAID) {
+        return this._all['multisig-selected'];
       } else {
         if (Profile.identifiers.length === 1) {
-          return this._all['create-multisig']
+          return this._all['create-multisig'];
         } else {
-          return this._all['singlesig-selected']
+          return this._all['singlesig-selected'];
         }
       }
     }
   }
 }
 
-
 const tasks = {
-  'create-passcode': [
-    new CreatePasscodeTask({ id: 'create-passcode', label: 'Create Your Passcode' }),
-  ],
-  'login': [
-    new EnterPasscodeTask({ id: 'enter-passcode', label: 'Enter Your Passcode' }),
-  ],
+  'create-passcode': [new CreatePasscodeTask({ id: 'create-passcode', label: 'Create Your Passcode' })],
+  'login': [new EnterPasscodeTask({ id: 'enter-passcode', label: 'Enter Your Passcode' })],
   'create-identifier': [
     new IntroToYourRoleTask({
       id: 'intro-to-your-role',
@@ -115,15 +110,16 @@ const tasks = {
   ],
   'create-multisig': [
     new VideoCallTask({
-      initiate: true,
       label: 'Create GLEIF Root Multi-Sig AID',
       next: new ConfigureMultiSigGroupTask({ label: 'Configure Multi-Sig Group' }),
+      initialParticipants: 1,
+      canAddParticipants: false,
     }),
-    new ManualKeyRotationTask({label: "Perform Manual Key Rotation"})
+    new ManualKeyRotationTask({ label: 'Perform Manual Key Rotation' }),
   ],
   'join-multisig': [new JoinMultiSigGroupTask({ label: 'Join Multi-Sig Group' })],
   'approve-delegation': [new JoinDelegationApprovalTask({ label: 'Delegation Approval' })],
-  'singlesig-selected': [new ManualKeyRotationTask({label: "Perform Manual Key Rotation"})],
+  'singlesig-selected': [new ManualKeyRotationTask({ label: 'Perform Manual Key Rotation' })],
   'multisig-selected': [
     new LeadRootLeadOOBI({ label: 'Challenge with External GARs', variables: variables.externalOobi }),
     new LeadRootLeadOOBI({ label: 'Challenge with Internal GARs', variables: variables.internalOobi }),

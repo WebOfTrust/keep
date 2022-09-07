@@ -43,11 +43,11 @@ a:link {
   list-style-type: none;
 
   li {
-    @include medium;
+    @include semi-bold;
     color: rgba(0, 0, 0, 0.87);
     counter-increment: li;
-    letter-spacing: 0.15px;
-    line-height: 2;
+    font-size: 14px;
+    line-height: 30px;
     margin-bottom: 1rem;
     margin-left: 2rem;
     position: relative;
@@ -58,10 +58,12 @@ a:link {
     }
 
     &::before {
+      @include semi-bold;
       background-color: white;
       border-radius: 50%;
       box-shadow: 0 4px 4px rgba(black, 0.25);
-      content: counter(li) '.';
+      content: counter(li);
+      font-size: 16px;
       height: 30px;
       left: -64px;
       line-height: 30px;

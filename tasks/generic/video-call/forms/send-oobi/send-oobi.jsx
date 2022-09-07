@@ -1,27 +1,22 @@
 import m from 'mithril';
-import { Button, TextField } from '../../../../../src/app/components';
+import { Button, Checkbox, Modal } from '../../../../../src/app/components';
 import { KERI, Profile } from '../../../../../src/app/services';
-
-/*
- * SendOOBIForm
- *
- * attrs
- * identifiers - an array of agent identifiers
- */
 
 class SendOOBIForm {
   constructor(vnode) {
     this.copied = false;
-    this.aidToSend = Profile.getDefaultAID(vnode.attrs.aidToSend);
+    this.aidToSend = Profile.getDefaultAID();
 
     this.oobi = {
       alias: '',
+      prefix: '',
       url: '',
     };
   }
 
   oninit(vnode) {
     this.oobi.alias = this.aidToSend.name;
+    this.oobi.prefix = this.aidToSend.prefix;
     KERI.getOOBI(this.aidToSend.name, 'witness')
       .then((oobi) => {
         this.oobi.url = oobi.oobis[0];
@@ -47,26 +42,57 @@ class SendOOBIForm {
   view(vnode) {
     return (
       <>
-        <h3>OOBI URL:</h3>
-        <TextField
-          textarea
-          outlined
-          fluid
-          style={{ backgroundColor: 'rgba(0, 0, 0, 0.04)', margin: '0' }}
-          value={this.oobi.url}
+        <p class="font-weight--semi-bold">Alias: {this.oobi.alias}</p>
+        <p class="mono-aid font-weight--bold font-color--battleship">{this.oobi.prefix}</p>
+        <Button
+          raised
+          class="button--no-transform"
+          label="Generate & Copy"
+          style={{ width: '100%' }}
+          onclick={() => {
+            this.copied = false;
+            this.copyOpen = true;
+          }}
         />
-        <div class="flex flex-align-center flex-justify-between" style={{ margin: '1rem 0' }}>
-          <Button
-            raised
-            class="button--no-transform button--gray"
-            label="Copy"
-            iconLeading="content_copy"
-            onclick={(e) => {
+        <Modal
+          isOpen={this.copyOpen}
+          onClose={() => {
+            this.copyOpen = false;
+          }}
+          style={{
+            width: '512px',
+          }}
+        >
+          <h3>Paste the URL below into the Video Call Chat</h3>
+          <div
+            class="copy-value margin-bottom-1"
+            onclick={() => {
               this.copyURL();
             }}
+          >
+            {this.oobi.url}
+          </div>
+          {this.copied && (
+            <div class="flex margin-bottom-1">
+              <Checkbox checked={this.copied} />
+              <p class="copied-label">
+                URL copied to clipboard.
+                <br />
+                Paste this into the video call chat!
+              </p>
+            </div>
+          )}
+          <Button
+            raised
+            class="button--big"
+            style={{ width: '100%' }}
+            label="I Pasted It Into The Chat"
+            disabled={!this.copied}
+            onclick={() => {
+              this.copyOpen = false;
+            }}
           />
-          <p class="font-color--green font-weight--medium">{this.copied ? 'OOBI copied!' : <br />}</p>
-        </div>
+        </Modal>
       </>
     );
   }
