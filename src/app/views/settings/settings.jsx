@@ -16,7 +16,7 @@ class Settings {
           <NavRail></NavRail>
           <Container class="headspace" style={{ padding: '0 4rem' }}>
             <div class="flex flex-justify-between">
-              <div class="flex-1" style={{ marginRight: '4rem' }}>
+              <div class="flex-1 margin-right-2">
                 <Card class="card--fluid" padding="1.5rem">
                   <Card
                     class={`card--fluid card--hover ${this.currentState === 'edit-witnesses' ? 'card--active' : ''}`}

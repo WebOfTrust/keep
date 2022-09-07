@@ -66,7 +66,7 @@ class Credentials {
           <NavRail selected="credentials" />
           <Container class="headspace" style={{ padding: '0 rem' }}>
             <div class="flex flex-justify-between">
-              <div class="flex-1" style={{ marginRight: '4rem' }}>
+              <div class="flex-1 margin-right-2">
                 <Card class="card--fluid" padding="1.5rem">
                   <TabBar style={{ marginBottom: '1rem' }}>
                     <Tab

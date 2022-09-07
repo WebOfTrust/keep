@@ -11,7 +11,7 @@ import {
   Tab,
   TextField,
 } from '../../components';
-import {KERI} from '../../services';
+import { KERI } from '../../services';
 import AddFieldModal from './add-field-modal';
 import EditContactModal from './edit-contact-modal';
 import './contacts.scss';
@@ -35,12 +35,11 @@ class Contacts {
 
   setSelectedTab(tab) {
     this.selectedTab = tab;
-    this.contactsSearch = "";
+    this.contactsSearch = '';
     this.contacts = [];
 
     if (this.selectedTab === 'company') {
-      KERI.getContactsGrouped('organization', {
-      })
+      KERI.getContactsGrouped('organization', {})
         .then((contacts) => {
           this.contacts = contacts;
         })
@@ -106,7 +105,7 @@ class Contacts {
   }
 
   saveContact() {
-    let {first_name, last_name, email, phone} = this.activeContact;
+    let { first_name, last_name, email, phone } = this.activeContact;
     let body = {
       first_name,
       last_name,
@@ -116,18 +115,17 @@ class Contacts {
     this.customKeys().map((key) => {
       body[key] = this.activeContact[key];
     });
-    KERI.updateContact(this.activeContact.id, body).then(() => {
-    });
+    KERI.updateContact(this.activeContact.id, body).then(() => {});
   }
 
   view(vnode) {
     return (
       <>
         <div class="contacts">
-          <NavRail selected="contacts"/>
+          <NavRail selected="contacts" />
           <Container class="headspace">
             <div class="flex flex-justify-between">
-              <div class="flex-1 margin-right-4">
+              <div class="flex-1 margin-right-2">
                 <Card class="card--fluid" padding="1rem">
                   <TabBar>
                     <Tab
@@ -176,7 +174,7 @@ class Contacts {
                                       this.setActiveContact(contact);
                                     }}
                                   >
-                                    <ProfilePicture identifier={contact}/>
+                                    <ProfilePicture identifier={contact} />
                                     <p class="contacts-list-item-name">{contact.alias}</p>
                                   </div>
                                 );
@@ -196,7 +194,7 @@ class Contacts {
                               this.setActiveContact(contact);
                             }}
                           >
-                            <ProfilePicture identifier={contact}/>
+                            <ProfilePicture identifier={contact} />
                             <div class="contacts-list-item-name">
                               <p>{contact.alias}</p>
                               <p>{contact.organization}</p>
@@ -225,17 +223,19 @@ class Contacts {
                       <>
                         <div class="contacts-detail">
                           <div class="contacts-detail-header">
-                            <ProfilePicture identifier={this.activeContact}/>
+                            <ProfilePicture identifier={this.activeContact} />
                             <div class="contacts-detail-name">
                               <p>{this.activeContact.alias}</p>
                               <p>{this.activeContact.organization}</p>
                             </div>
-                            <span className="material-icons-outlined md-24"
-                                  style={{cursor: 'pointer', marginBottom: '1.5rem', marginLeft: '1rem'}}
-                                  onclick={() => {
-                                    console.log(this.editDetailsOpen)
-                                    this.editDetailsOpen = true;
-                                  }}>
+                            <span
+                              className="material-icons-outlined md-24"
+                              style={{ cursor: 'pointer', marginBottom: '1.5rem', marginLeft: '1rem' }}
+                              onclick={() => {
+                                console.log(this.editDetailsOpen);
+                                this.editDetailsOpen = true;
+                              }}
+                            >
                               edit
                             </span>
                           </div>
@@ -249,7 +249,7 @@ class Contacts {
                             <div class="contacts-detail-field">
                               <label class="contacts-detail-field-label">Verified:</label>
                               <div class="contacts-detail-field-input">
-                                <Checkbox disabled checked={this.activeContact.verified === 'true'}/>
+                                <Checkbox disabled checked={this.activeContact.verified === 'true'} />
                               </div>
                             </div>
                             <div class="contacts-detail-field">
@@ -384,7 +384,7 @@ class Contacts {
                     {!this.activeContact && this.showHelp && (
                       <div class="contacts-help">
                         <h2>My Contacts</h2>
-                        <img src={contactGroup}/>
+                        <img src={contactGroup} />
                         <h3>View Your Contacts</h3>
                         <p class="p-tag">
                           Click on any of your contacts on the sidebar to update or edit information about them or their
