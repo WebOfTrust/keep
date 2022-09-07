@@ -123,7 +123,7 @@ class Contacts {
       <>
         <div class="contacts">
           <NavRail selected="contacts" />
-          <Container class="headspace">
+          <Container class="margin-v-2">
             <div class="flex flex-justify-between">
               <div class="flex-1 margin-right-2">
                 <Card class="card--fluid" padding="1rem">

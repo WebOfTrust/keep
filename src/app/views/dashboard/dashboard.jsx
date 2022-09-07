@@ -53,7 +53,7 @@ class Dashboard {
               </div>
             )}
             {Profile.isLoggedIn && <NavRail selected="dashboard"></NavRail>}
-            <Container class="margin-v-2" style={{ padding: '0 4rem' }}>
+            <Container class="margin-v-2">
               <div class="flex flex-justify-between">
                 {/* Left Panel */}
                 <div class="flex-1 margin-right-2">
