@@ -5,6 +5,7 @@
   background-color: $background-blue;
   display: flex;
   min-height: calc(100vh - 138px);
+  position: relative;
 }
 
 .close-icon {

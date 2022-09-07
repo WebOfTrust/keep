@@ -12,7 +12,7 @@ class ProfilePicture {
     }
 
     if (vnode.attrs.identifier.hasOwnProperty('image')) {
-      return <img src={githubLogo} style={{ width: '35%', borderRadius: '50%', position: 'relative' }} alt="" />;
+      return <img class="relative" src={githubLogo} style={{ width: '35%', borderRadius: '50%' }} alt="" />;
     } else if (vnode.attrs.identifier.hasOwnProperty('name')) {
       const parts = vnode.attrs.identifier.name.split(' ');
       if (parts.length === 1) {

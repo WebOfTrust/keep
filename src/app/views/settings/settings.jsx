@@ -47,7 +47,7 @@ class Settings {
                 </Card>
               </div>
               <div class="flex-1">
-                <Card class={'card--fluid'} style={{ position: 'relative' }} padding="4rem">
+                <Card class={'card--fluid relative'} padding="2.5rem">
                   <IconButton class="close-icon" icon="close" />
                   {this.currentState === 'edit-witnesses' && <EditWitnesses />}
                   {this.currentState === 'edit-watchers' && <EditWatchers />}

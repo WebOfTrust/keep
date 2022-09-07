@@ -103,7 +103,7 @@ class Credentials {
                 </Card>
               </div>
               <div class="flex-1">
-                <Card class={'card--fluid'} style={{ position: 'relative' }} padding="4rem">
+                <Card class={'relative card--fluid'} padding="2.5rem">
                   <IconButton class="close-icon" icon="close" />
                   {this.activeCredential !== null ? (
                     <CredentialDetails

@@ -207,7 +207,7 @@ class Contacts {
               </div>
               <div class="flex-1">
                 {(this.activeContact || this.showHelp) && (
-                  <Card class="card--fluid relative" padding="4rem">
+                  <Card class="card--fluid relative" padding="2.5rem">
                     <IconButton
                       class="close-icon"
                       icon="close"
