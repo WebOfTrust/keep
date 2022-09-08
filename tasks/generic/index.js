@@ -28,7 +28,7 @@ const tasks = {
     new VideoCallTask({
       initiate: true,
       label: 'Lead Multi-Sig AID Inception',
-      next: new ConfigureMultiSigGroupTask('Configure Multi-Sig Group'),
+      next: new ConfigureMultiSigGroupTask({label: 'Configure Multi-Sig Group'}),
     }),
     new VideoCallTask({ initiate: false, label: 'Join Multi-Sig AID Inception' }),
   ],

@@ -80,13 +80,17 @@ const tasks = {
     new CreateYourAIDTask({
       id: 'create-your-aid',
       label: 'Incept Local GLEIF Single-Sig AID',
-      variables: variables.createYourAid,
+      variables: variables.createYourAid, delegatable: true, DnD: false
     }),
   ],
   'create-multisig': [
     new VideoCallTask({
       label: 'Create GLEIF Root Multi-Sig AID',
-      next: new ConfigureMultiSigGroupTask({ label: 'Configure Multi-Sig Group' }),
+      next: new ConfigureMultiSigGroupTask({
+        label: 'Configure Multi-Sig Group',
+        delegatable: false, DnD: false,
+        establishable: false, estOnly: true,
+      }),
       initialParticipants: 6,
       canAddParticipants: false,
       variables: variables.createGLEIFRoot,

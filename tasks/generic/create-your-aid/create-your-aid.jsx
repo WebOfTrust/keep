@@ -14,6 +14,10 @@ class CreateYourAIDTask {
   reset() {
     this._id = this.config.id;
     this._label = this.config.label;
+    this.establishable = "establishable" in this.config ? this.config.establishable : true;
+    this.delegatable = "delegatable" in this.config ? this.config.delegatable : true;
+    this.DnD = "DnD" in this.config ? this.config.DnD : false;
+    this.estOnly = "estOnly" in this.config ? this.config.estOnly : false;
     this._component = {
       view: (vnode) => {
         return <CreateYourAID end={vnode.attrs.end} parent={this} variables={this.config.variables}/>;
@@ -40,11 +44,12 @@ class CreateYourAIDTask {
 }
 
 class CreateYourAID {
-  constructor() {
+  constructor(vnode) {
     this.alias = '';
     this.useAsDefault = (Profile.identifiers === undefined || Profile.identifiers.length === 0);
     this.showAdvancedOptions = false;
-    this.estOnly = false;
+    this.estOnly = vnode.attrs.parent.estOnly;
+    this.DnD = vnode.attrs.parent.DnD;
     this.pool = '';
     this.wits = []
     this.witThold = 1;
@@ -52,7 +57,7 @@ class CreateYourAID {
   }
 
   createAID(vnode) {
-    Profile.createIdentifier(this.alias, this.wits, this.witThold, this.estOnly)
+    Profile.createIdentifier(this.alias, this.wits, this.witThold, this.estOnly, this.DnD)
       .then((aid) => {
         this.aid = aid;
         if (this.useAsDefault) {
@@ -152,8 +157,9 @@ class CreateYourAID {
                   <div className="flex flex-justify-end">
                     <div className="flex flex-align-center" style={{marginRight: '2rem'}}>
                       <Radio
-                        id="weighted-yes"
-                        name="weighted"
+                        id="estonly-yes"
+                        name="estonly"
+                        disabled={!vnode.attrs.parent.establishable}
                         checked={this.estOnly}
                         onclick={() => {
                           this.estOnly = true;
@@ -165,11 +171,45 @@ class CreateYourAID {
                     </div>
                     <div className="flex flex-align-center">
                       <Radio
-                        id="weighted-no"
-                        name="weighted"
+                        id="estonly-no"
+                        name="estonly"
+                        disabled={!vnode.attrs.parent.establishable}
                         checked={!this.estOnly}
                         onclick={() => {
                           this.estOnly = false;
+                        }}
+                      />
+                      <label className="font-weight--bold font-color--battleship" htmlFor="weighted-no">
+                        No
+                      </label>
+                    </div>
+                  </div>
+                </div>
+                <div className="flex flex-justify-between" style={{margin: '0'}}>
+                  <p class="p-tag">Allow this identifier to delegate?</p>
+                  <div className="flex flex-justify-end">
+                    <div className="flex flex-align-center" style={{marginRight: '2rem'}}>
+                      <Radio
+                        id="dnd-yes"
+                        name="dnd"
+                        disabled={!vnode.attrs.parent.delegatable}
+                        checked={!this.DnD}
+                        onclick={() => {
+                          this.DnD = false;
+                        }}
+                      />
+                      <label className="font-weight--bold font-color--battleship" htmlFor="weighted-yes">
+                        Yes
+                      </label>
+                    </div>
+                    <div className="flex flex-align-center">
+                      <Radio
+                        id="dnd-no"
+                        name="dnd"
+                        disabled={!vnode.attrs.parent.delegatable}
+                        checked={this.DnD}
+                        onclick={() => {
+                          this.DnD = true;
                         }}
                       />
                       <label className="font-weight--bold font-color--battleship" htmlFor="weighted-no">
@@ -226,6 +266,10 @@ class CreateYourAID {
             <div className="flex flex-justify-between" style={{margin: '0'}}>
               <p className="p-tag-bold">Establishment Only:</p>
               <p className="p-tag">{this.estOnly ? "Yes" : "No"}</p>
+            </div>
+            <div className="flex flex-justify-between" style={{margin: '0'}}>
+              <p className="p-tag-bold">Allow Delegation:</p>
+              <p className="p-tag">{this.DnD ? "No" : "Yes"}</p>
             </div>
               <div className="flex flex-justify-between" style={{marginTop: '3rem'}}>
               <Button
