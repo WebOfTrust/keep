@@ -45,7 +45,12 @@ class Credentials {
 
   listCredentials(type) {
     this.activeCredential = null;
-    KERI.listCredentials(Profile.getDefaultAID().name, type)
+    let aid = Profile.getDefaultAID()
+    if (aid === undefined) {
+      this.credentals = [];
+      return;
+    }
+    KERI.listCredentials(aid.name, type)
       .then((credentials) => {
         this.credentials = credentials;
       })
@@ -86,6 +91,15 @@ class Credentials {
                       }}
                     />
                   </TabBar>
+                  {this.credentials === undefined || this.credentials.length === 0 &&
+                    <div
+                      className="font-weight--bold font-color--battleship flex flex-align-left"
+                      style={{margin: '2.5rem 0'}}
+                    >
+                      <i style={{marginLeft: "0.5rem"}}>No {this.activeTab} credentials</i>
+                    </div>
+                  }
+
                   {this.credentials.map((credential) => {
                     let sad = credential['sad'];
                     let schema = this.schema.get(sad['s']);

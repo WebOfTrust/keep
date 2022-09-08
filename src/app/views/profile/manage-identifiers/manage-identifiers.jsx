@@ -193,14 +193,14 @@ class ListIdentifiers {
         <div className="flex flex-row flex-align-left flex-justify-between">
           <h3>Local Identifiers</h3>
         </div>
-        {Profile.identifiers === undefined || Profile.identifiers.length === 0 &&
-          <div
-            className="font-weight--bold font-color--battleship flex flex-align-left"
-
-          >
-            <i style={{marginLeft: "0.5rem"}}>No identifiers</i>
-          </div>
-        }
+          {Profile.identifiers === undefined || Profile.identifiers.length === 0 &&
+            <div
+              className="font-weight--bold font-color--battleship flex flex-align-left"
+              style={{margin: '1rem 0'}}
+            >
+              <i style={{marginLeft: "0.5rem"}}>No identifiers</i>
+            </div>
+          }
 
         {Profile.identifiers && <div style={{height: '624px', overflowY: 'scroll', margin: '0 0 0 0'}}>
           {Profile.identifiers.map((aid) => {

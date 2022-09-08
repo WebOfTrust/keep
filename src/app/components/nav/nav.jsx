@@ -1,5 +1,5 @@
 import m from 'mithril';
-import { Auth, KERI, Notify, Profile } from '../../services';
+import { Tasks, KERI, Notify, Profile } from '../../services';
 import Container from '../container/container.jsx';
 import IconButton from '../icon-button/icon-button.jsx';
 import ProfilePicture from '../profile/picture.jsx';
@@ -74,6 +74,11 @@ class Nav {
                   icon="lock"
                   onclick={() => {
                     KERI.lockAgent().then(() => {
+                      if (Tasks.active !== null) {
+                        Tasks.active.reset();
+                        Tasks.active = null;
+                      }
+                      Profile.locked = true;
                       m.route.set('/dashboard');
                     });
                   }}

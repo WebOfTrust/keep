@@ -48,6 +48,7 @@ class EnterOOBIsForm {
                 if (contact.alias === oobi.alias) {
                   oobi.status = 'resolved';
                   oobi.id = contact.id;
+                  oobi.contact = contact;
                   return true;
                 }
                 return false;
