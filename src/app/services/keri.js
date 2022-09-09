@@ -65,14 +65,15 @@ class KERI {
 
   // IDENTIFIERS
 
-  static createIdentifier(alias, wits, toad, estOnly) {
+  static createIdentifier(alias, wits, toad, estOnly, DnD) {
     return m.request({
       method: 'POST',
       url: `${this.keriURL}/ids/${alias}`,
       body: {
         wits,
         toad,
-        estOnly
+        estOnly,
+        DnD
       },
     });
   }

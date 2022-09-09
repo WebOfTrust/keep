@@ -108,9 +108,9 @@ class Profile {
     });
   }
 
-  static createIdentifier(alias, wits, toad, estOnly) {
+  static createIdentifier(alias, wits, toad, estOnly, DnD) {
     return new Promise((resolve, reject) => {
-      KERI.createIdentifier(alias, wits, toad, estOnly)
+      KERI.createIdentifier(alias, wits, toad, estOnly, DnD)
         .then(() => {
           Profile.loadIdentifiers()
             .then((ids) => {

@@ -16,6 +16,10 @@ class ConfigureMultiSigGroupTask {
 
   reset() {
     this._label = this.config.label;
+    this.establishable = "establishable" in this.config ? this.config.establishable : true;
+    this.delegatable = "delegatable" in this.config ? this.config.delegatable : true;
+    this.DnD = "DnD" in this.config ? this.config.DnD : false;
+    this.estOnly = "estOnly" in this.config ? this.config.estOnly : false;
     this._component = {
       view: (vnode) => {
         return <ConfigureMultiSigGroup end={vnode.attrs.end} parent={this} />;
@@ -79,7 +83,8 @@ class ConfigureMultiSigGroup {
     this.pool = '';
     this.wits = []
     this.witThold = 1;
-    this.estOnly = false;
+    this.estOnly = vnode.attrs.parent.estOnly;
+    this.DnD = vnode.attrs.parent.DnD;
   }
 
   get validSigners() {
@@ -129,6 +134,7 @@ class ConfigureMultiSigGroup {
       toad: this.witThold,
       wits: this.wits,
       estOnly: this.estOnly,
+      DnD: this.DnD,
     };
     if (!this.fractionallyWeighted) {
       let sith = this.numSigners.toString();
@@ -278,6 +284,7 @@ class ConfigureMultiSigGroup {
                     <Radio
                       id="weighted-yes"
                       name="weighted"
+                      disabled={!vnode.attrs.parent.establishable}
                       checked={this.estOnly}
                       onclick={() => {
                         this.estOnly = true;
@@ -291,9 +298,43 @@ class ConfigureMultiSigGroup {
                     <Radio
                       id="weighted-no"
                       name="weighted"
+                      disabled={!vnode.attrs.parent.establishable}
                       checked={!this.estOnly}
                       onclick={() => {
                         this.estOnly = false;
+                      }}
+                    />
+                    <label className="font-weight--bold font-color--battleship" htmlFor="weighted-no">
+                      No
+                    </label>
+                  </div>
+                </div>
+              </div>
+              <div className="flex flex-justify-between" style={{margin: '0'}}>
+                <p className="p-tag">Allow this identifier to delegate?</p>
+                <div className="flex flex-justify-end">
+                  <div className="flex flex-align-center" style={{marginRight: '2rem'}}>
+                    <Radio
+                      id="dnd-yes"
+                      name="dnd"
+                      disabled={!vnode.attrs.parent.delegatable}
+                      checked={!this.DnD}
+                      onclick={() => {
+                        this.DnD = false;
+                      }}
+                    />
+                    <label className="font-weight--bold font-color--battleship" htmlFor="weighted-yes">
+                      Yes
+                    </label>
+                  </div>
+                  <div className="flex flex-align-center">
+                    <Radio
+                      id="dnd-no"
+                      name="dnd"
+                      disabled={!vnode.attrs.parent.delegatable}
+                      checked={this.DnD}
+                      onclick={() => {
+                        this.DnD = true;
                       }}
                     />
                     <label className="font-weight--bold font-color--battleship" htmlFor="weighted-no">
@@ -568,6 +609,8 @@ class ConfigureMultiSigGroup {
             <div className="uneditable-value">{this.witThold}</div>
             <p className="font-weight--bold font-color--battleship">Establishment Only:</p>
             <div className="uneditable-value">{this.estOnly ? 'Yes' : 'No'}</div>
+            <p className="font-weight--bold font-color--battleship">Allow Delegation:</p>
+            <div className="uneditable-value">{this.DnD ? 'No' : 'Yes'}</div>
             <p className="font-weight--bold font-color--battleship">Issue Credentials:</p>
             <div className="uneditable-value">Yes</div>
 

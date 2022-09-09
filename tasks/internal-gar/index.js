@@ -36,12 +36,12 @@ const tasks = {
     new VideoCallTask({
       initiate: true,
       label: 'Join One Way OOBI/Challenge with Lead Root GAR',
-      next: new ConfigureMultiSigGroupTask('Configure Multi-Sig Group'),
+      next: new ConfigureMultiSigGroupTask({label: 'Configure Multi-Sig Group'}),
     }),
     new VideoCallTask({
       initiate: true,
       label: 'Lead GLEIF External Multi-Sig AID Inception',
-      next: new ConfigureMultiSigGroupTask('Configure Multi-Sig Group'),
+      next: new ConfigureMultiSigGroupTask({label: 'Configure Multi-Sig Group'}),
     }),
     new VideoCallTask({ initiate: false, label: 'Join GLEIF External Multi-Sig AID Inception' }),
   ],
