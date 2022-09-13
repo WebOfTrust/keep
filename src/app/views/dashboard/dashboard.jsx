@@ -24,6 +24,18 @@ class Dashboard {
     this.existingKeystore = false;
   }
 
+  oninit() {
+    const u = new URL(m.route.get(), window.location);
+    let name = u.searchParams.get("task");
+    if (name !== null) {
+      let task = Tasks.find('spot-check');
+      if (task !== undefined) {
+        task.reset();
+        Tasks.active = task;
+      }
+    }
+  }
+
   get tasksList() {
     return Tasks.tasksList;
   }
@@ -88,6 +100,7 @@ class Dashboard {
                             }
                             padding="1.5rem"
                             onclick={() => {
+                              Notify.isOpen = false;
                               Profile.isLead = task.lead;
                               Tasks.active = task;
                             }}

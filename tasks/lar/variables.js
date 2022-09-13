@@ -42,7 +42,7 @@ const LarVariables = {
       ),
       paragraph: (
         <>
-          In order to provide authorization, you will first have to create your own AID within the software and a
+          In order to provide authentication, you will first have to create your own AID within the software and a
           Qualified vLEI Issuer will verify your identity and issue your Legal Entity Credential.
         </>
       ),

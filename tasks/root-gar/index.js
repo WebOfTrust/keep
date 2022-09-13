@@ -15,9 +15,11 @@ import JoinMultiSigGroupTask from '../generic/join-multi-sig-group/join-multi-si
 import JoinDelegationApprovalTask from '../generic/join-delegation-approval/join-delegation-approval';
 import InitiateManualKeyRotationTask from '../generic/initiate-manual-key-rotation/initiate-manual-key-rotation';
 import VideoCallTask from '../generic/video-call/video-call';
+import SpotCheckTask from '../generic/video-call/spot-check';
 import ManualKeyRotationTask from '../generic/manual-key-rotation/manual-key-rotation';
 import ViewMultiSigEventLogsTask from '../generic/view-multi-sig-event-logs/view-multi-sig-event-logs';
 import WaitForDelegationRequestTask from '../generic/wait-for-delegation-request/wait-for-delegation-request';
+import JoinManualKeyRotation from '../generic/join-manual-key-rotation/join-manual-key-rotation';
 
 import Profile from '../../src/app/services/profile';
 
@@ -98,17 +100,30 @@ const tasks = {
     new ManualKeyRotationTask({ label: 'Perform Manual Key Rotation' }),
   ],
   'join-multisig': [new JoinMultiSigGroupTask({ label: 'Join Multi-Sig Group' })],
+  'join-multisig-rotation': [new JoinManualKeyRotation({ label: 'Join Multi-Sig Group' })],
   'approve-delegation': [new JoinDelegationApprovalTask({ label: 'Delegation Approval' })],
   'singlesig-selected': [new ManualKeyRotationTask({ label: 'Perform Manual Key Rotation' })],
+  "view-event-logs": [new ViewMultiSigEventLogsTask({ label: 'View Multi-Sig Event Logs' })],
+  'spot-check': [new SpotCheckTask({
+    label: 'Spot Check'
+  })],
   'multisig-selected': [
     new VideoCallTask({
       label: 'Approve Delegation Request',
       next: new WaitForDelegationRequestTask({ label: 'Wait for Delegation Request' }),
+      nextOptional: false,
       initialParticipants: 3,
       canAddParticipants: false,
       variables: variables.approveDelegation,
     }),
-    new InitiateManualKeyRotationTask({ label: 'Perform Manual Key Rotation' }),
+    new VideoCallTask({
+      label: 'Perform Manual Key Rotation',
+      next: new InitiateManualKeyRotationTask({ label: 'Perform Manual Key Rotation' }),
+      nextOptional: false,
+      initialParticipants: 3,
+      canAddParticipants: false,
+      variables: variables.manualKeyRotation,
+    }),
     new ViewMultiSigEventLogsTask({ label: 'View Multi-Sig Event Logs' }),
   ],
 };

@@ -60,7 +60,7 @@ class ConfigureMultiSigGroup {
   constructor(vnode) {
     this.groupAlias = '';
     this.status = '';
-    this.fractionallyWeighted = true;
+    MultiSig.fractionallyWeighted = true;
     this.useAsDefault = true;
     this.addSignerOpen = false;
     this.addSignerIdx = 0;
@@ -103,30 +103,9 @@ class ConfigureMultiSigGroup {
         signer.id !== '' &&
         signer.id !== undefined &&
         signer.id !== null &&
-        (!this.fractionallyWeighted || this.validThreshold(signer.weight))
+        (!MultiSig.fractionallyWeighted || MultiSig.validThreshold(signer.weight))
       );
     });
-  }
-
-  validThreshold(s) {
-    if (s === '') {
-      return false;
-    }
-
-    let t = Number(s);
-    if (!isNaN(t)) {
-      return true;
-    }
-
-    let p = s.split('/');
-    if (p.length !== 2) {
-      return false;
-    }
-
-    let num = Number(p[0]);
-    let dem = Number(p[1]);
-
-    return !isNaN(num) && !isNaN(dem) && 0 < num < dem && dem > 0;
   }
 
   loadDelegator(requiredDelegator) {
@@ -150,12 +129,12 @@ class ConfigureMultiSigGroup {
       estOnly: this.estOnly,
       DnD: this.DnD,
     };
-    if (!this.fractionallyWeighted) {
+    if (!MultiSig.fractionallyWeighted) {
       let sith = this.numSigners.toString();
       inceptData.isith = sith;
       inceptData.nsith = sith;
     }
-    if (this.fractionallyWeighted) {
+    else {
       let vals = MultiSig.participants.map((obj) => {
         return obj.weight;
       });
@@ -400,9 +379,9 @@ class ConfigureMultiSigGroup {
                 <Radio
                   id="weighted-yes"
                   name="weighted"
-                  checked={this.fractionallyWeighted}
+                  checked={MultiSig.fractionallyWeighted}
                   onclick={() => {
-                    this.fractionallyWeighted = true;
+                    MultiSig.fractionallyWeighted = true;
                   }}
                 />
                 <label class="font-weight--bold font-color--battleship" for="weighted-yes">
@@ -413,9 +392,9 @@ class ConfigureMultiSigGroup {
                 <Radio
                   id="weighted-no"
                   name="weighted"
-                  checked={!this.fractionallyWeighted}
+                  checked={!MultiSig.fractionallyWeighted}
                   onclick={() => {
-                    this.fractionallyWeighted = false;
+                    MultiSig.fractionallyWeighted = false;
                   }}
                 />
                 <label class="font-weight--bold font-color--battleship" for="weighted-no">
@@ -423,7 +402,7 @@ class ConfigureMultiSigGroup {
                 </label>
               </div>
             </div>
-            {!this.fractionallyWeighted && (
+            {!MultiSig.fractionallyWeighted && (
               <>
                 <label>
                   <p class="p-tag-bold">How many signers are required to sign?</p>
@@ -458,14 +437,14 @@ class ConfigureMultiSigGroup {
                 </>
               </label>
               <div class="flex-1" />
-              {this.fractionallyWeighted && <b class="font-color--battleship">Weight</b>}
+              {MultiSig.fractionallyWeighted && <b class="font-color--battleship">Weight</b>}
               <div style={{ width: '48px', height: '48px', marginLeft: '1rem' }} />
             </div>
             <div style={{ marginBottom: '1rem' }}>
               <div class="flex flex-align-center flex-justify-between margin-v-1">
                 <AIDField aid={this.default} />
                 <div class="flex-1" />
-                {this.fractionallyWeighted && (
+                {MultiSig.fractionallyWeighted && (
                   <TextField
                     outlined
                     style={{ marginLeft: '1rem', width: '75px' }}
@@ -508,7 +487,7 @@ class ConfigureMultiSigGroup {
                       }}
                     />
                     <div class="flex-1" />
-                    {this.fractionallyWeighted && (
+                    {MultiSig.fractionallyWeighted && (
                       <TextField
                         outlined
                         style={{ marginLeft: '1rem', width: '75px' }}
@@ -601,7 +580,7 @@ class ConfigureMultiSigGroup {
             <div class="uneditable-value">{this.groupAlias}</div>
             <p class="font-weight--bold font-color--battleship">Witness Pool:</p>
             <div class="uneditable-value">{Witnesses.witnessPools.find((p) => p.value === this.pool).label}</div>
-            {!this.fractionallyWeighted && (
+            {!MultiSig.fractionallyWeighted && (
               <div>
                 <p class="font-weight--bold font-color--battleship">Number of Required Signers:</p>
                 <div class="uneditable-value">{this.numSigners}</div>
@@ -613,7 +592,7 @@ class ConfigureMultiSigGroup {
               <div class="flex-1 uneditable-value" style={{ marginRight: '1rem' }}>
                 <AID aid={this.default} />
               </div>
-              {this.fractionallyWeighted && <div class="uneditable-value">{this.weight}</div>}
+              {MultiSig.fractionallyWeighted && <div class="uneditable-value">{this.weight}</div>}
             </div>
             {MultiSig.participants.map((signer) => {
               return (
@@ -622,7 +601,7 @@ class ConfigureMultiSigGroup {
                     <div class="flex-1 uneditable-value" style={{ marginRight: '1rem' }}>
                       <AID contact={signer.contact} />
                     </div>
-                    {this.fractionallyWeighted && <div class="uneditable-value">{signer.weight}</div>}
+                    {MultiSig.fractionallyWeighted && <div class="uneditable-value">{signer.weight}</div>}
                   </div>
                 </>
               );
@@ -631,7 +610,7 @@ class ConfigureMultiSigGroup {
               <>
                 <p class="font-weight--bold font-color--battleship">Delegator:</p>
                 <div class="flex flex-align-center flex-justify-between" style={{ margin: '0 0 4rem 0' }}>
-                  <div class="flex-1 uneditable-value">{MultiSig.delegator.alias}</div>
+                  <AID contact={MultiSig.delegator}/>
                 </div>
               </>
             )}
@@ -675,7 +654,7 @@ class ConfigureMultiSigGroup {
             parent={vnode.attrs.parent}
             groupAlias={this.groupAlias}
             default={this.default}
-            fractionallyWeighted={this.fractionallyWeighted}
+            fractionallyWeighted={MultiSig.fractionallyWeighted}
             status={this.status}
             back={() => {
               MultiSig.participants.shift();

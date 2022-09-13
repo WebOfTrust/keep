@@ -11,7 +11,7 @@ import {
   Tab,
   TextField,
 } from '../../components';
-import { KERI } from '../../services';
+import { KERI , Contacts as ContactSvc} from '../../services';
 import AddFieldModal from './add-field-modal';
 import EditContactModal from './edit-contact-modal';
 import './contacts.scss';
@@ -22,12 +22,14 @@ class Contacts {
     this.params = {};
     this.selectedTab = '';
     this.showHelp = true;
+    this.aidCopied = false;
+    this.oobiCopied = false;
     this.contactsSearch = '';
     this.contacts = [];
     this.activeContact = null;
     this.addFieldOpen = false;
     this.editDetailsOpen = false;
-    this.defaultKeys = ['id', 'alias', 'first_name', 'last_name', 'email', 'phone', 'organization', 'verified'];
+    this.defaultKeys = ['id', 'alias', 'first_name', 'last_name', 'email', 'phone', 'organization', 'verified', 'oobi'];
   }
 
   oninit() {
@@ -109,6 +111,45 @@ class Contacts {
     KERI.overwriteContact(this.activeContact.id, body).then(() => {
       delete this.activeContact[key];
     });
+  }
+
+  copyAID() {
+    navigator.clipboard.writeText(this.activeContact.id).then(
+      () => {
+        this.aidCopied = true;
+        setTimeout(() => {
+          this.aidCopied = false
+          m.redraw();
+        }, 2000)
+        m.redraw();
+      },
+      () => {
+        this.aidCopied = false;
+        m.redraw();
+      }
+    );
+  }
+
+  copyOOBI() {
+    navigator.clipboard.writeText(this.activeContact.oobi).then(
+      () => {
+        this.oobiCopied = true;
+        setTimeout(() => {
+          this.oobiCopied = false
+          m.redraw();
+        }, 2000)
+        m.redraw();
+      },
+      () => {
+        this.oobiCopied = false;
+        m.redraw();
+      }
+    );
+  }
+
+  spotCheck() {
+    ContactSvc.selected = this.activeContact;
+    m.route.set("/dashboard?task=spot-check")
   }
 
   saveContact() {
@@ -203,8 +244,8 @@ class Contacts {
                           >
                             <ProfilePicture identifier={contact} />
                             <div class="contacts-list-item-name">
-                              <p>{contact.alias}</p>
-                              <p>{contact.organization}</p>
+                              <p style={{marginBottom:'4px'}}>{contact.alias}</p>
+                              <p style={{marginTop:'4px'}}>{contact.organization}</p>
                             </div>
                           </div>
                         );
@@ -235,14 +276,11 @@ class Contacts {
                               <p>{this.activeContact.alias}</p>
                               <p>{this.activeContact.organization}</p>
                             </div>
-                            <span
-                              className="material-icons-outlined md-24"
-                              style={{ cursor: 'pointer', marginBottom: '1.5rem', marginLeft: '1rem' }}
-                              onclick={() => {
-                                console.log(this.editDetailsOpen);
-                                this.editDetailsOpen = true;
-                              }}
-                            >
+                            <span className="material-icons-outlined md-24"
+                                  style={{cursor: 'pointer', marginBottom: '1.5rem', marginLeft: '1rem'}}
+                                  onclick={() => {
+                                    this.editDetailsOpen = true;
+                                  }}>
                               edit
                             </span>
                           </div>
@@ -252,12 +290,67 @@ class Contacts {
                               <div className="contacts-detail-field-input">
                                 <code style="margin: 0 0 0 0;">{this.activeContact.id}</code>
                               </div>
+                              <span className="material-icons-outlined md-24 p-tag" title="Copy AID"
+                                    style={{cursor: 'pointer', marginBottom: '0.5rem', marginLeft: '1rem'}}
+                                    onclick={() => {
+                                      this.copyAID();
+                                    }}>
+                                copy
+                              </span>
                             </div>
+                            {this.aidCopied && (
+                              <div class="flex margin-bottom-1 flex-justify-end">
+                                <p class="copied-label">
+                                  AID copied!
+                                </p>
+                              </div>
+                            )}
+                            <div className="contacts-detail-field">
+                              <label className="contacts-detail-field-label">OOBI:</label>
+                              <div className="contacts-detail-field-input">
+                                <TextField
+                                  outlined
+                                  fluid
+                                  style={{
+                                    height: '44px',
+                                  }}
+                                  value={this.activeContact.oobi}
+                                />
+                              </div>
+                              <span className="material-icons-outlined md-24 p-tag" title="Copy OOBI"
+                                    style={{cursor: 'pointer', marginBottom: '0.5rem', marginLeft: '1rem'}}
+                                    onclick={() => {
+                                      this.copyOOBI();
+                                    }}>
+                                copy
+                              </span>
+                            </div>
+                            {this.oobiCopied && (
+                              <div class="flex margin-bottom-1 flex-justify-end">
+                                <p class="copied-label">
+                                  OOBI copied!
+                                </p>
+                              </div>
+                            )}
                             <div class="contacts-detail-field">
                               <label class="contacts-detail-field-label">Authenticated:</label>
-                              <div class="contacts-detail-field-input">
-                                <Checkbox disabled checked={this.activeContact.verified === 'true'} />
+                              <div className="contacts-detail-field-input">
+                                <div>
+                                  {this.activeContact.verified === 'true' && <span className="material-icons-outlined md-24 matched-label">
+                                    done_outline
+                                  </span>}
+                                  {this.activeContact.verified !== 'true' && <span className="material-icons-outlined md-24 missed-label">
+                                    disabled_by_default
+                                  </span>}
+                                </div>
                               </div>
+                              <span className="material-icons-outlined md-24 p-tag" title="Spot Check"
+                                    style={{cursor: 'pointer', marginBottom: '0.5rem', marginLeft: '1rem'}}
+                                    onclick={() => {
+                                      this.spotCheck();
+                                    }}>
+                                key
+                              </span>
                             </div>
                             <div class="contacts-detail-field">
                               <label class="contacts-detail-field-label">First Name:</label>

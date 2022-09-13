@@ -93,13 +93,13 @@ class EnterChallengesForm {
               </div>
             )}
           </Card>
-          <CarouselControls
+          {vnode.attrs.participants.oobis.length > 1 && <CarouselControls
             items={vnode.attrs.participants.oobis.length}
             active={this.selectedOobiIndex}
             setActive={(idx) => {
               this.selectedOobiIndex = idx;
             }}
-          />
+          />}
         </div>
       </>
     );

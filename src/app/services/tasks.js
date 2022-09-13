@@ -21,10 +21,15 @@ class DefaultMapTask {
   }
 
   get tasksList() {
-    if (!Profile.isLoggedIn) {
+    if (Profile.created === undefined) {
+      return [];
+    }
+    if (!Profile.created) {
       return this._all['create-passcode'];
     }
-
+    if (!Profile.isLoggedIn) {
+      return this._all['login'];
+    }
     if (Profile.identifiers.length === 0) {
       return this._all['create-identifier'];
     } else if (Profile.identifiers.length === 1 && 'create-multisig' in this._all) {

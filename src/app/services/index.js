@@ -1,4 +1,5 @@
 import Contacts from './contacts';
+import Delegation from './delegate'
 import KERI from './keri';
 import Mail from './mail';
 import MultiSig from './multisig';
@@ -14,6 +15,7 @@ import Witnesses from './witnesses';
 
 module.exports = {
   Contacts,
+  Delegation,
   KERI,
   Mail,
   MultiSig,

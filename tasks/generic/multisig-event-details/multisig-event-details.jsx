@@ -1,7 +1,5 @@
 import {Button, AID} from '../../../src/app/components';
-import { Contacts, KERI, MultiSig, Profile, Witnesses } from '../../../src/app/services';
-import greenCheckMark from "../../../src/assets/img/green-check-mark.svg";
-import redX from "../../../src/assets/img/red-x.svg";
+import { KERI, MultiSig } from '../../../src/app/services';
 import m from "mithril";
 
 class EventDetails {
@@ -114,7 +112,10 @@ class EventDetails {
                 {vnode.attrs.fractionallyWeighted && <div className="uneditable-value">{sig.weight}</div>}
                 <div style={{width: '1rem'}}></div>
                 <div style={{margin: '0 0 0 .5rem'}}>
-                  <img src={greenCheckMark}/>
+                  <span className="material-icons-outlined md-24 matched-label"
+                        style={{margin: '0 0 .4rem 0.75rem'}}>
+                    check_circle
+                  </span>
                 </div>
               </div>
             );
@@ -128,9 +129,15 @@ class EventDetails {
               <div style={{width: '1rem'}}></div>
               <div style={{ margin: '0 0 0 .5rem' }}>
                 {sig.signed ? (
-                  <img src={greenCheckMark} />
+                  <span className="material-icons-outlined md-24 matched-label"
+                        style={{margin: '0 0 .4rem 0.75rem'}}>
+                    check_circle
+                  </span>
                 ) : (
-                  <img src={redX}/>
+                  <span className="material-icons-outlined md-24 missed-label"
+                        style={{margin: '0 0 .4rem 0.75rem'}}>
+                     cancel
+                  </span>
                 )}
               </div>
             </div>
@@ -147,9 +154,15 @@ class EventDetails {
               <div style={{width: '1rem'}}></div>
               <div style={{ margin: '0 0 0 .5rem' }}>
                 {MultiSig.delegatorSigned ? (
-                  <img src={greenCheckMark} />
+                  <span className="material-icons-outlined md-24 matched-label"
+                        style={{margin: '0 0 .4rem 0.75rem'}}>
+                    check_circle
+                  </span>
                 ) : (
-                  <img src={redX}/>
+                  <span className="material-icons-outlined md-24 missed-label"
+                        style={{margin: '0 0 .4rem 0.75rem'}}>
+                     cancel
+                  </span>
                 )}
               </div>
             </div>
