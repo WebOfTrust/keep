@@ -2,7 +2,7 @@ import m from 'mithril';
 import createYourPasscode from '../../../../assets/img/create-your-passcode.svg';
 import passcodeImg from '../../../../assets/img/passcode.svg';
 import { Button, TextField } from '../../../components';
-import {Keep, KERI, Profile} from '../../../services';
+import { Keep, KERI, Profile } from '../../../services';
 
 class ChangingPasscode {
   view(vnode) {
@@ -153,8 +153,8 @@ class EnterPasscode {
           <img src={passcodeImg} style={{ width: '100px' }} />
         </div>
         <p class="p-tag" style={{ margin: '0 0 3rem 0' }}>
-          You can find your current 22-character passcode by referring back to your storage spot (1Password, Last Pass, Safe
-          Deposit Box) and entering it into the box below.
+          You can find your current 21 character passcode by referring back to your storage spot (1Password, Last Pass,
+          Safe Deposit Box) and entering it into the box below.
         </p>
         <TextField
           outlined
@@ -171,7 +171,9 @@ class EnterPasscode {
             },
           }}
         />
-        <p className="p-tag" style={{margin: '3rem 0 1rem 0'}}>New Passcode:</p>
+        <p className="p-tag" style={{ margin: '3rem 0 1rem 0' }}>
+          New Passcode:
+        </p>
         <TextField
           outlined
           fluid
