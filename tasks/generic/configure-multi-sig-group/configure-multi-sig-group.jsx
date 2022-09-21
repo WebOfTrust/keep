@@ -1,12 +1,22 @@
 import m from 'mithril';
-import { Button, Checkbox, IconButton, Radio, Select, TextField, TextTooltip, AID, AIDField } from '../../../src/app/components';
-import {Contacts, KERI, MultiSig, Participants, Profile, Witnesses} from '../../../src/app/services';
+import {
+  Button,
+  Checkbox,
+  IconButton,
+  Radio,
+  Select,
+  TextField,
+  TextTooltip,
+  AID,
+  AIDField,
+} from '../../../src/app/components';
+import { Contacts, KERI, MultiSig, Participants, Profile, Witnesses } from '../../../src/app/services';
 
 import AddSignerModal from './add-signer-modal';
-import EventDetails from '../multisig-event-details/multisig-event-details'
+import EventDetails from '../multisig-event-details/multisig-event-details';
 
 import secureMessaging from '../../../src/assets/img/secure-messaging.svg';
-import configureIdentifier from "../../../src/assets/img/configure-identifier.svg";
+import configureIdentifier from '../../../src/assets/img/configure-identifier.svg';
 
 class ConfigureMultiSigGroupTask {
   constructor(config) {
@@ -16,10 +26,10 @@ class ConfigureMultiSigGroupTask {
 
   reset() {
     this._label = this.config.label;
-    this.establishable = "establishable" in this.config ? this.config.establishable : true;
-    this.delegatable = "delegatable" in this.config ? this.config.delegatable : true;
-    this.DnD = "DnD" in this.config ? this.config.DnD : false;
-    this.estOnly = "estOnly" in this.config ? this.config.estOnly : false;
+    this.establishable = 'establishable' in this.config ? this.config.establishable : true;
+    this.delegatable = 'delegatable' in this.config ? this.config.delegatable : true;
+    this.DnD = 'DnD' in this.config ? this.config.DnD : false;
+    this.estOnly = 'estOnly' in this.config ? this.config.estOnly : false;
     this._component = {
       view: (vnode) => {
         return <ConfigureMultiSigGroup end={vnode.attrs.end} parent={this} />;
@@ -66,8 +76,8 @@ class ConfigureMultiSigGroup {
           contact: oobi.contact,
           weight: '',
           signed: false,
-        })
-      })
+        });
+      });
     }
 
     this.minParticipants = MultiSig.participants.length;
@@ -81,7 +91,7 @@ class ConfigureMultiSigGroup {
     this.weight = '1/2';
     this.showAdvancedOptions = false;
     this.pool = '';
-    this.wits = []
+    this.wits = [];
     this.witThold = 1;
     this.estOnly = vnode.attrs.parent.estOnly;
     this.DnD = vnode.attrs.parent.DnD;
@@ -89,24 +99,28 @@ class ConfigureMultiSigGroup {
 
   get validSigners() {
     return MultiSig.participants.every((signer) => {
-      return (signer.id !== '' && signer.id !== undefined && signer.id !== null) &&
+      return (
+        signer.id !== '' &&
+        signer.id !== undefined &&
+        signer.id !== null &&
         (!this.fractionallyWeighted || this.validThreshold(signer.weight))
-    })
+      );
+    });
   }
 
   validThreshold(s) {
-    if (s === "") {
+    if (s === '') {
       return false;
     }
 
-    let t = Number(s)
+    let t = Number(s);
     if (!isNaN(t)) {
-      return true
+      return true;
     }
 
-    let p = s.split('/')
+    let p = s.split('/');
     if (p.length !== 2) {
-      return false
+      return false;
     }
 
     let num = Number(p[0]);
@@ -195,18 +209,18 @@ class ConfigureMultiSigGroup {
         {vnode.attrs.parent.currentState === 'create-multisig-alias' && (
           <>
             <h3>Create Your Alias and Configure Your Multi-Sig Group</h3>
-            <img src={configureIdentifier} style={{display: 'block', margin: '4rem auto 0', width: '172px'}}/>
-            <p class="p-tag" style={{marginTop: '2rem', marginBottom: '2rem'}}>
+            <img src={configureIdentifier} style={{ display: 'block', margin: '4rem auto 0', width: '172px' }} />
+            <p class="p-tag" style={{ marginTop: '2rem', marginBottom: '2rem' }}>
               The alias should be an easy to remember name for your AID.
-              <br/>
-              <br/>
+              <br />
+              <br />
             </p>
             <p className="p-tag-bold">What would you like your alias to be?</p>
             <TextField
               id="alias"
               outlined
               fluid
-              style={{margin: '0 0 0 0'}}
+              style={{ margin: '0 0 0 0' }}
               oninput={(e) => {
                 this.groupAlias = e.target.value;
               }}
@@ -217,141 +231,151 @@ class ConfigureMultiSigGroup {
               outlined
               fluid
               value={this.pool}
-              style={{margin: '0 0 1.5rem 0'}}
+              style={{ margin: '0 0 1.5rem 0' }}
               options={Witnesses.witnessPools}
               onchange={(pool) => {
                 this.pool = pool;
                 this.wits = Witnesses.witnesses[this.pool];
-                this.witThold = KERI.recommendedThold(this.wits.length)
+                this.witThold = KERI.recommendedThold(this.wits.length);
               }}
             />
-            { this.wits.length > 0 && <p className="p-tag-italic" style={{margin: '-0.5rem 0 0.25rem 1.5rem'}}>{this.wits.length} Witnesses in Pool</p> }
+            {this.wits.length > 0 && (
+              <p className="p-tag-italic" style={{ margin: '-0.5rem 0 0.25rem 1.5rem' }}>
+                {this.wits.length} Witnesses in Pool
+              </p>
+            )}
 
             <p className="p-tag-bold">How many other participants will be in the group:</p>
             <TextField
               outlined
               type="number"
               min={this.minParticipants}
-              style={{marginBottom: '2rem', width: '5rem'}}
+              style={{ marginBottom: '2rem', width: '5rem' }}
               value={MultiSig.participants.length}
               oninput={(e) => {
-                 let num = parseInt(e.target.value);
-                 MultiSig.updateParticipantLength(num)
+                let num = parseInt(e.target.value);
+                MultiSig.updateParticipantLength(num);
               }}
             />
 
-            <div className="flex flex-justify-start" style={{margin: '0 0 0 -0.75rem'}}>
+            <div className="flex flex-justify-start" style={{ margin: '0 0 0 -0.75rem' }}>
               <Checkbox
                 outlined
                 fluid
-                disabled={(Profile.identifiers === undefined || Profile.identifiers.length === 0)}
+                disabled={Profile.identifiers === undefined || Profile.identifiers.length === 0}
                 checked={this.useAsDefault}
-                style={{margin: '0 0 3.5rem 0'}}
+                style={{ margin: '0 0 3.5rem 0' }}
                 onclick={() => {
                   this.useAsDefault = !this.useAsDefault;
                 }}
               />
               <p className="p-tag-bold">Set new AID as Keep Default?</p>
             </div>
-            <div className="flex flex-justify-between" style={{margin: '0 0 0 0'}}>
+            <div className="flex flex-justify-between" style={{ margin: '0 0 0 0' }}>
               <p className="p-tag-bold">Advanced Options: </p>
-              <span className="material-icons-outlined md-24 p-tag-bold"
-                    style={{cursor: 'pointer', marginTop: '0.5rem'}}
-                    onclick={() => {
-                      this.showAdvancedOptions = !this.showAdvancedOptions;
-                    }}>{this.showAdvancedOptions ? 'keyboard_double_arrow_up' : 'keyboard_double_arrow_down'}</span>
+              <span
+                className="material-icons-outlined md-24 p-tag-bold"
+                style={{ cursor: 'pointer', marginTop: '0.5rem' }}
+                onclick={() => {
+                  this.showAdvancedOptions = !this.showAdvancedOptions;
+                }}
+              >
+                {this.showAdvancedOptions ? 'keyboard_double_arrow_up' : 'keyboard_double_arrow_down'}
+              </span>
             </div>
-            {this.showAdvancedOptions && <div style={{marginTop: '1.5rem'}}>
-              <div className="flex flex-justify-between" style={{margin: '0'}}>
-                <p class="p-tag">Witness Threshold:</p>
-                <TextField
-                  outlined
-                  type="number"
-                  min={KERI.recommendedThold(this.wits.length)}
-                  max={this.wits.length}
-                  style={{ marginBottom: '2rem', width: '5rem' }}
-                  value={this.witThold}
-                  oninput={(e) => {
-                    this.witThold = parseInt(e.target.value);
-                  }}
-                />
-              </div>
+            {this.showAdvancedOptions && (
+              <div style={{ marginTop: '1.5rem' }}>
+                <div className="flex flex-justify-between" style={{ margin: '0' }}>
+                  <p class="p-tag">Witness Threshold:</p>
+                  <TextField
+                    outlined
+                    type="number"
+                    min={KERI.recommendedThold(this.wits.length)}
+                    max={this.wits.length}
+                    style={{ marginBottom: '2rem', width: '5rem' }}
+                    value={this.witThold}
+                    oninput={(e) => {
+                      this.witThold = parseInt(e.target.value);
+                    }}
+                  />
+                </div>
 
-              <div className="flex flex-justify-between" style={{margin: '0'}}>
-                <p class="p-tag">Establishment Only:</p>
-                <div className="flex flex-justify-end">
-                  <div className="flex flex-align-center" style={{marginRight: '2rem'}}>
-                    <Radio
-                      id="weighted-yes"
-                      name="weighted"
-                      disabled={!vnode.attrs.parent.establishable}
-                      checked={this.estOnly}
-                      onclick={() => {
-                        this.estOnly = true;
-                      }}
-                    />
-                    <label className="font-weight--bold font-color--battleship" htmlFor="weighted-yes">
-                      Yes
-                    </label>
-                  </div>
-                  <div className="flex flex-align-center">
-                    <Radio
-                      id="weighted-no"
-                      name="weighted"
-                      disabled={!vnode.attrs.parent.establishable}
-                      checked={!this.estOnly}
-                      onclick={() => {
-                        this.estOnly = false;
-                      }}
-                    />
-                    <label className="font-weight--bold font-color--battleship" htmlFor="weighted-no">
-                      No
-                    </label>
+                <div className="flex flex-justify-between" style={{ margin: '0' }}>
+                  <p class="p-tag">Establishment Only:</p>
+                  <div className="flex flex-justify-end">
+                    <div className="flex flex-align-center" style={{ marginRight: '2rem' }}>
+                      <Radio
+                        id="weighted-yes"
+                        name="weighted"
+                        disabled={!vnode.attrs.parent.establishable}
+                        checked={this.estOnly}
+                        onclick={() => {
+                          this.estOnly = true;
+                        }}
+                      />
+                      <label className="font-weight--bold font-color--battleship" htmlFor="weighted-yes">
+                        Yes
+                      </label>
+                    </div>
+                    <div className="flex flex-align-center">
+                      <Radio
+                        id="weighted-no"
+                        name="weighted"
+                        disabled={!vnode.attrs.parent.establishable}
+                        checked={!this.estOnly}
+                        onclick={() => {
+                          this.estOnly = false;
+                        }}
+                      />
+                      <label className="font-weight--bold font-color--battleship" htmlFor="weighted-no">
+                        No
+                      </label>
+                    </div>
                   </div>
                 </div>
-              </div>
-              <div className="flex flex-justify-between" style={{margin: '0'}}>
-                <p className="p-tag">Allow this identifier to delegate?</p>
-                <div className="flex flex-justify-end">
-                  <div className="flex flex-align-center" style={{marginRight: '2rem'}}>
-                    <Radio
-                      id="dnd-yes"
-                      name="dnd"
-                      disabled={!vnode.attrs.parent.delegatable}
-                      checked={!this.DnD}
-                      onclick={() => {
-                        this.DnD = false;
-                      }}
-                    />
-                    <label className="font-weight--bold font-color--battleship" htmlFor="weighted-yes">
-                      Yes
-                    </label>
-                  </div>
-                  <div className="flex flex-align-center">
-                    <Radio
-                      id="dnd-no"
-                      name="dnd"
-                      disabled={!vnode.attrs.parent.delegatable}
-                      checked={this.DnD}
-                      onclick={() => {
-                        this.DnD = true;
-                      }}
-                    />
-                    <label className="font-weight--bold font-color--battleship" htmlFor="weighted-no">
-                      No
-                    </label>
+                <div className="flex flex-justify-between" style={{ margin: '0' }}>
+                  <p className="p-tag">Allow this identifier to delegate?</p>
+                  <div className="flex flex-justify-end">
+                    <div className="flex flex-align-center" style={{ marginRight: '2rem' }}>
+                      <Radio
+                        id="dnd-yes"
+                        name="dnd"
+                        disabled={!vnode.attrs.parent.delegatable}
+                        checked={!this.DnD}
+                        onclick={() => {
+                          this.DnD = false;
+                        }}
+                      />
+                      <label className="font-weight--bold font-color--battleship" htmlFor="weighted-yes">
+                        Yes
+                      </label>
+                    </div>
+                    <div className="flex flex-align-center">
+                      <Radio
+                        id="dnd-no"
+                        name="dnd"
+                        disabled={!vnode.attrs.parent.delegatable}
+                        checked={this.DnD}
+                        onclick={() => {
+                          this.DnD = true;
+                        }}
+                      />
+                      <label className="font-weight--bold font-color--battleship" htmlFor="weighted-no">
+                        No
+                      </label>
+                    </div>
                   </div>
                 </div>
+                <div className="flex margin-v-1" style={{ marginLeft: '-0.75rem' }}>
+                  <Checkbox checked={true} disabled={true} />
+                  <label className="font-weight--medium font-color--battleship" style={{ marginTop: '1rem' }}>
+                    Allow this Identifier to issue credentials
+                  </label>
+                </div>
               </div>
-              <div className="flex margin-v-1" style={{marginLeft: '-0.75rem'}}>
-                <Checkbox checked={true} disabled={true}/>
-                <label className="font-weight--medium font-color--battleship" style={{marginTop: '1rem'}}>
-                  Allow this Identifier to issue credentials
-                </label>
-              </div>
-            </div>}
+            )}
 
-            <div class="flex flex-justify-end" style={{marginTop: '2.75rem'}}>
+            <div class="flex flex-justify-end" style={{ marginTop: '2.75rem' }}>
               <Button
                 id="continue"
                 class="button--big button--no-transform"
@@ -408,7 +432,7 @@ class ConfigureMultiSigGroup {
                   outlined
                   type="number"
                   min={1}
-                  max={MultiSig.participants.length+1}
+                  max={MultiSig.participants.length + 1}
                   style={{ marginBottom: '2rem' }}
                   value={this.numSigners}
                   oninput={(e) => {
@@ -433,18 +457,18 @@ class ConfigureMultiSigGroup {
                   </TextTooltip>
                 </>
               </label>
-              <div class="flex-1"/>
+              <div class="flex-1" />
               {this.fractionallyWeighted && <b class="font-color--battleship">Weight</b>}
-              <div style={{ width: '48px', height: '48px', marginLeft: '1rem' }}/>
+              <div style={{ width: '48px', height: '48px', marginLeft: '1rem' }} />
             </div>
-            <div style={{ marginBottom: '1rem'}}>
+            <div style={{ marginBottom: '1rem' }}>
               <div class="flex flex-align-center flex-justify-between margin-v-1">
-                <AIDField aid={this.default}/>
-                <div class="flex-1"/>
+                <AIDField aid={this.default} />
+                <div class="flex-1" />
                 {this.fractionallyWeighted && (
                   <TextField
                     outlined
-                    style={{ width: '75px' }}
+                    style={{ marginLeft: '1rem', width: '75px' }}
                     placeholder="1/3"
                     value={this.weight}
                     oninput={(e) => {
@@ -452,8 +476,10 @@ class ConfigureMultiSigGroup {
                     }}
                   />
                 )}
-                <div style={{ height: '48px', marginLeft: '2.2rem'}}/>
-                <span className="p-tag-bold" style={{fontSize: '1rem'}}>You</span>
+                <div style={{ height: '48px', marginLeft: '2.2rem' }} />
+                <span className="p-tag-bold" style={{ fontSize: '1rem' }}>
+                  You
+                </span>
               </div>
               <AddSignerModal
                 isOpen={this.addSignerOpen}
@@ -474,15 +500,18 @@ class ConfigureMultiSigGroup {
               {MultiSig.participants.map((signer, index) => {
                 return (
                   <div class="flex flex-align-center flex-justify-between margin-v-1">
-                    <AIDField contact={signer.contact} onclick={() => {
-                      this.addSignerIdx = index;
-                      this.addSignerOpen = true;
-                    }}/>
-                    <div class="flex-1"/>
+                    <AIDField
+                      contact={signer.contact}
+                      onclick={() => {
+                        this.addSignerIdx = index;
+                        this.addSignerOpen = true;
+                      }}
+                    />
+                    <div class="flex-1" />
                     {this.fractionallyWeighted && (
                       <TextField
                         outlined
-                        style={{ width: '75px' }}
+                        style={{ marginLeft: '1rem', width: '75px' }}
                         placeholder="1/3"
                         value={signer.weight}
                         oninput={(e) => {
@@ -516,9 +545,7 @@ class ConfigureMultiSigGroup {
                 class="button--big button--no-transform"
                 raised
                 label="Continue"
-                disabled={
-                  !this.validSigners
-                }
+                disabled={!this.validSigners}
                 onclick={() => {
                   if (vnode.attrs.parent.requireDelegator) {
                     vnode.attrs.parent.currentState = 'select-delegator';
@@ -574,13 +601,17 @@ class ConfigureMultiSigGroup {
             <div class="uneditable-value">{this.groupAlias}</div>
             <p class="font-weight--bold font-color--battleship">Witness Pool:</p>
             <div class="uneditable-value">{Witnesses.witnessPools.find((p) => p.value === this.pool).label}</div>
-            {!this.fractionallyWeighted && <div><p class="font-weight--bold font-color--battleship">Number of Required Signers:</p>
-              <div class="uneditable-value">{this.numSigners}</div></div>}
+            {!this.fractionallyWeighted && (
+              <div>
+                <p class="font-weight--bold font-color--battleship">Number of Required Signers:</p>
+                <div class="uneditable-value">{this.numSigners}</div>
+              </div>
+            )}
             <p class="font-color--battleship margin-v-2">Review signers to make sure the list is complete.</p>
             <p class="font-weight--bold font-color--battleship">Signers (in order):</p>
             <div class="flex flex-align-center flex-justify-between margin-v-1">
               <div class="flex-1 uneditable-value" style={{ marginRight: '1rem' }}>
-                <AID aid={this.default}/>
+                <AID aid={this.default} />
               </div>
               {this.fractionallyWeighted && <div class="uneditable-value">{this.weight}</div>}
             </div>
@@ -589,7 +620,7 @@ class ConfigureMultiSigGroup {
                 <>
                   <div class="flex flex-align-center flex-justify-between margin-v-1">
                     <div class="flex-1 uneditable-value" style={{ marginRight: '1rem' }}>
-                      <AID contact={signer.contact}/>
+                      <AID contact={signer.contact} />
                     </div>
                     {this.fractionallyWeighted && <div class="uneditable-value">{signer.weight}</div>}
                   </div>
@@ -655,19 +686,18 @@ class ConfigureMultiSigGroup {
               }
             }}
             finish={() => {
-              Profile.loadIdentifiers()
-                .then((ids) => {
-                  if (this.useAsDefault === true) {
-                    let aid = ids.find(id => {
-                      return id.name === this.groupAlias;
-                    })
-                    Profile.setDefaultAID(aid).then(() => {
-                      m.redraw()
-                    })
-                  } else {
-                    m.redraw()
-                  }
-                })
+              Profile.loadIdentifiers().then((ids) => {
+                if (this.useAsDefault === true) {
+                  let aid = ids.find((id) => {
+                    return id.name === this.groupAlias;
+                  });
+                  Profile.setDefaultAID(aid).then(() => {
+                    m.redraw();
+                  });
+                } else {
+                  m.redraw();
+                }
+              });
             }}
             continue={vnode.attrs.end}
           />
