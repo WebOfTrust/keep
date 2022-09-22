@@ -1,6 +1,6 @@
 import m from 'mithril';
 import { Button, Spinner, TextField } from '../../../src/app/components';
-import {Mail, Notify, Profile} from '../../../src/app/services';
+import { Mail, Notify, Profile } from '../../../src/app/services';
 import passcodeImg from '../../../src/assets/img/passcode.svg';
 
 class EnterPasscodeTask {
@@ -69,7 +69,7 @@ class EnterPasscode {
           <img src={passcodeImg} style={{ width: '192px' }} />
         </div>
         <p class="p-tag" style={{ margin: '0 0 3rem 0' }}>
-          Enter your 22 character passcode to login to the portal.
+          Enter your 21 character passcode to login to the portal.
         </p>
         <TextField
           id="passcode"

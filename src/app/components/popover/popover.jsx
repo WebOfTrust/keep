@@ -17,7 +17,8 @@ class Popover {
           </div>
           <div
             class="popover__overlay"
-            onclick={() => {
+            onclick={(e) => {
+              e.stopPropagation();
               this.close(vnode);
             }}
           ></div>

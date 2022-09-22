@@ -1,5 +1,19 @@
+.aidField {
+  border: 1px solid rgba(black, 0.38);
+  border-radius: 4px;
+  cursor: pointer;
+  height: 56px;
+  padding: 1rem 3rem 1rem 1rem;
+  position: relative;
+  width: 100%;
 
+  &:hover {
+    border-color: rgba(black, 0.87);
+  }
 
-.aid {
-
+  &__search {
+    position: absolute;
+    right: 1rem;
+    top: 1rem;
+  }
 }
