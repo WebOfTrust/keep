@@ -6,15 +6,12 @@ import EnterPasscodeTask from '../generic/enter-passcode/enter-passcode';
 import IntroToYourRoleTask from '../generic/intro-to-your-role/intro-to-your-role';
 import ManualKeyRotationTask from "../generic/manual-key-rotation/manual-key-rotation";
 import AcceptCredentialsTask from "../generic/accept-credentials/accept-credentials";
-import SignXBRLReport from "../generic/sign-xbrl-report/sign-xbrl-report"
 import VideoCallTask from "../generic/video-call/video-call";
 import {DefaultMapTask} from "../../src/app/services/tasks";
 
 const tasks = {
-    'create-passcode': [
-        new CreatePasscodeTask({label: 'Create Your Passcode'}),
-        new EnterPasscodeTask({label: 'Enter Your Passcode'}),
-    ],
+    'create-passcode': [new CreatePasscodeTask({ id: 'create-passcode', label: 'Create Your Passcode' })],
+    'login': [new EnterPasscodeTask({ id: 'enter-passcode', label: 'Enter Your Passcode' })],
     'create-identifier': [
         new IntroToYourRoleTask({label: 'Intro to Your Role', variables: variables.introToYourRole}),
         new CreateYourAIDTask({label: 'Create Your AID', variables: variables.createYourAid}),
@@ -25,10 +22,10 @@ const tasks = {
             label: 'Accept Credential',
             oneToOne: true,
             acceptCredential: true,
+            variables: variables.acceptCredential,
             next: new AcceptCredentialsTask({ label: 'Accept Credential' }),
         }),
-        new ManualKeyRotationTask({label: 'Perform Manual Key Rotation'}),
-        new SignXBRLReport({label: 'Sign XBRL Report'}),
+        new ManualKeyRotationTask({label: 'Perform Manual Key Rotation'})
     ],
 };
 

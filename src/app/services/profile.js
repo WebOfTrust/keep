@@ -103,9 +103,14 @@ class Profile {
   }
 
   static filterIdentifiersById(id) {
-    return this._identifiers.filter((identifier) => {
+    let ids = this._identifiers.filter((identifier) => {
       return identifier.prefix === id;
     });
+    if (ids.length === 0) {
+      return undefined;
+    } else {
+      return ids[0];
+    }
   }
 
   static createIdentifier(alias, wits, toad, estOnly, DnD) {

@@ -79,7 +79,6 @@ const tasks = {
     new JoinManualKeyRotationTask({ label: 'Join Manual Key Rotation' }),
     new VideoCallTask({
       initiate: false,
-      skipIntro: true,
       oneToOne: true,
       label: 'Initiate Delegation Approval',
       next: new DelegationApprovalInProcessTask(),

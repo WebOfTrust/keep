@@ -87,7 +87,7 @@ const QarVariables = {
             ),
             paragraph: (
                 <>
-                    In order to provide authorization, you will first have to create your own AID within the software
+                    In order to provide authentication, you will first have to create your own AID within the software
                     and GLEIF
                     will verify you as an authorized party to act on your QVI’s behalf.
                 </>

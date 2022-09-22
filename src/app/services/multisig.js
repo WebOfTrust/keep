@@ -3,6 +3,8 @@ class MultiSig {
   static _participants = [];
   static _delegator = null;
   static _delegatorSigned = false;
+  static _fractionallyWeighted = false;
+  static _rotation = {};
 
   static get currentEvent() {
     return this._currentEvent;
@@ -30,6 +32,24 @@ class MultiSig {
     this._delegatorSigned = v;
   }
 
+  static get fractionallyWeighted() {
+    return this._fractionallyWeighted;
+  }
+
+  static set fractionallyWeighted(value) {
+    this._fractionallyWeighted = value;
+  }
+
+  static get rotation() {
+    return this._rotation;
+  }
+
+  static set rotation(value) {
+    this._rotation = value;
+    console.log(this._rotation)
+    this.fractionallyWeighted = Array.isArray(this._rotation.isith);
+  }
+
   static updateParticipantLength(num) {
     if(num < this._participants.length) {
       this._participants.length = num
@@ -45,6 +65,29 @@ class MultiSig {
       }
     }
   }
+
+  static validThreshold(s) {
+    if (s === "") {
+      return false;
+    }
+
+    let t = Number(s)
+    if (!isNaN(t)) {
+      return true
+    }
+
+    let p = s.split('/')
+    if (p.length !== 2) {
+      return false
+    }
+
+    let num = Number(p[0]);
+    let dem = Number(p[1]);
+
+    return !isNaN(num) && !isNaN(dem) && 0 < num < dem && dem > 0;
+  }
+
+
 }
 
 module.exports = MultiSig;

@@ -75,7 +75,8 @@ class JoinMultiSigGroupTask {
       }
     }
     this.witThold = this.ked.bt
-    this.estOnly = "eo" in this.ked.c;
+    this.estOnly = this.ked.c.indexOf("EO") !== -1;
+    this.DnD = this.ked.c.indexOf("DND") !== -1;
     this.status = 'Event signed and submitted'
   }
   
@@ -116,6 +117,7 @@ class JoinMultiSigGroup {
       toad: Number(vnode.attrs.parent.ked.bt),
       wits: vnode.attrs.parent.ked.b,
       estOnly: vnode.attrs.parent.estOnly,
+      DnD: vnode.attrs.parent.DnD,
     }).then(() => {
       vnode.attrs.parent.currentState = 'setup-complete';
     });
@@ -128,7 +130,7 @@ class JoinMultiSigGroup {
           <>
             <img src={todoList} style={{ width: '188px', margin: '0 0 2rem 0' }} />
             <h3>New Multi-Sig Group</h3>
-            <p class="p-tag">View the multi-sig group and confirm that these individuals are authorized.</p>
+            <p class="p-tag">View the multi-sig group and confirm that these individuals are authenticated.</p>
             <div class="flex flex-justify-end" style={{ marginTop: '4rem' }}>
               <Button
                 class="button--big button--no-transform"
@@ -180,6 +182,8 @@ class JoinMultiSigGroup {
             <div className="uneditable-value">{vnode.attrs.parent.witThold}</div>
             <p className="font-weight--bold font-color--battleship">Establishment Only:</p>
             <div className="uneditable-value">{vnode.attrs.parent.estOnly ? 'Yes' : 'No'}</div>
+            <p className="font-weight--bold font-color--battleship">Allow Delegation:</p>
+            <div className="uneditable-value">{vnode.attrs.parent.DnD ? 'No' : 'Yes'}</div>
             <p className="font-weight--bold font-color--battleship">Issue Credentials:</p>
             <div className="uneditable-value">Yes</div>
 

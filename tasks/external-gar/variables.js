@@ -34,7 +34,7 @@ const ExternalGarVariables = {
       ),
       paragraph: (
         <>
-          In order to provide authorization, you will first have to create your own GLEIF Delegated AID within the
+          In order to provide authentication, you will first have to create your own GLEIF Delegated AID within the
           software and GLEIF will verify you as an authorized representative (GAR) to act on their behalf.
         </>
       ),

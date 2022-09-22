@@ -20,7 +20,7 @@ class Mail {
 
   static challengeHandler = (e) => {
     let data = JSON.parse(e.data);
-    const participantInstances = [Participants.instance];
+    let participantInstances = [Participants.instance];
     participantInstances.forEach((instance) => {
       const oobi = instance.oobis.find((oobi) => {
         return data.a.signer === oobi.id;
