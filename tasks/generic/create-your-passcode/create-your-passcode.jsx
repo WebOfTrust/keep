@@ -112,7 +112,6 @@ class CreatePasscode {
             <div class="flex flex-justify-end">
               <Button
                 id="continue"
-                class="button--no-transform button--big"
                 raised
                 label="Continue"
                 onclick={() => {
@@ -138,7 +137,6 @@ class CreatePasscode {
                     <Button
                       id="passcode-saved"
                       raised
-                      class="button--big button--extraPadding"
                       label="I Saved My Passcode"
                       onclick={() => {
                         this.savePassModalOpen = false;
@@ -187,7 +185,7 @@ class CreatePasscode {
               <Button
                 id="generate"
                 raised
-                class="button--no-transform button--gray button--big"
+                class="button--gray"
                 label="Generate New"
                 onclick={() => {
                   this.generatePasscode();
@@ -197,7 +195,7 @@ class CreatePasscode {
             <div class="flex flex-justify-between">
               <Button
                 raised
-                class="button--no-transform button--gray-dk button--big"
+                class="button--gray-dk"
                 label="Go Back"
                 onclick={() => {
                   vnode.attrs.parent.currentState = 'welcome';
@@ -206,7 +204,6 @@ class CreatePasscode {
               <Button
                 id="continue"
                 raised
-                class="button--no-transform button--big"
                 label="Continue"
                 onclick={() => {
                   this.savePassModalOpen = true;
@@ -246,7 +243,7 @@ class CreatePasscode {
             <div class="flex flex-justify-between" style={{ marginTop: '4rem' }}>
               <Button
                 raised
-                class="button--no-transform button--gray-dk button--big"
+                class="button--gray-dk"
                 label="Go Back"
                 onclick={() => {
                   vnode.attrs.parent.currentState = 'create-passcode';
@@ -255,7 +252,6 @@ class CreatePasscode {
               <Button
                 id="initialize"
                 raised
-                class="button--no-transform button--big"
                 label="Continue"
                 disabled={!this.enterPasscode || this.submitting}
                 onclick={() => {

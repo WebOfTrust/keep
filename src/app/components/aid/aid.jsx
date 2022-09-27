@@ -79,7 +79,7 @@ class AID {
     return (
       <>
         <div class="aid" style={vnode.attrs.style}>
-          <p class="p-tag" style={{ margin: '0 0.5rem 0 0' , whiteSpace: "nowrap"}}>
+          <p class="p-tag" style={{ margin: '0 0.5rem 0 0', whiteSpace: 'nowrap' }}>
             {this.aid.name}
           </p>
           <div
@@ -105,7 +105,6 @@ class AID {
               </div>
               <div class="aid__popover__nameContainer__spacer"></div>
               <Button
-                class="button--no-transform"
                 label={vnode.attrs.contact ? 'View Contact' : 'View Identifier'}
                 style={{ marginLeft: '1rem' }}
                 onclick={() => {
@@ -153,9 +152,7 @@ class AID {
                   Authenticated <span class="md-16 material-icons">check</span>
                 </p>
               )}
-              {vnode.attrs.contact && !this.aid.verified && (
-                <Button raised class="button--no-transform" label="Spot Check" />
-              )}
+              {vnode.attrs.contact && !this.aid.verified && <Button raised label="Spot Check" />}
             </div>
           </Popover>
         </div>

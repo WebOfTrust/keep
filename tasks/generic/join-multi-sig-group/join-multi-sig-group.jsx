@@ -1,9 +1,9 @@
 import m, { vnode } from 'mithril';
-import {Button, Checkbox, TextField, AID} from '../../../src/app/components';
-import {KERI, Profile, Contacts, Witnesses, MultiSig} from '../../../src/app/services';
+import { Button, Checkbox, TextField, AID } from '../../../src/app/components';
+import { KERI, Profile, Contacts, Witnesses, MultiSig } from '../../../src/app/services';
 import todoList from '../../../src/assets/img/to-do-list.svg';
 import secureMessaging from '../../../src/assets/img/secure-messaging.svg';
-import EventDetails from "../multisig-event-details/multisig-event-details";
+import EventDetails from '../multisig-event-details/multisig-event-details';
 
 class JoinMultiSigGroupTask {
   constructor(config) {
@@ -34,56 +34,55 @@ class JoinMultiSigGroupTask {
   get component() {
     return this._component;
   }
-  
+
   set notification(notification) {
-    this._notification = notification
+    this._notification = notification;
     this._aids = notification.a.aids;
     this._ked = notification.a.ked;
     Contacts.requestList().then(() => {
-      MultiSig.currentEvent = notification.a.ked
+      MultiSig.currentEvent = notification.a.ked;
       MultiSig.participants = this.aids.map((aid, index) => {
-        let contact = Contacts.filterById(aid)
+        let contact = Contacts.filterById(aid);
         if (contact !== undefined) {
           return {
             id: contact.aid,
             alias: contact.alias.name,
             contact: contact,
-            weight: Array.isArray(this.ked.kt) ? this.ked.kt[index] : "",
+            weight: Array.isArray(this.ked.kt) ? this.ked.kt[index] : '',
             signed: false,
-          }
+          };
         }
         this.default = Profile.identifiers.find((id) => {
-          return id.prefix === aid
+          return id.prefix === aid;
         });
         return {
           id: this.default.prefix,
           alias: this.default.name,
-          weight: Array.isArray(this.ked.kt) ? this.ked.kt[index] : "",
+          weight: Array.isArray(this.ked.kt) ? this.ked.kt[index] : '',
           signed: false,
-        }
-
-      })
+        };
+      });
     });
     this._delegator = Contacts.filterById(this.ked.di);
     this._fractionallyWeighted = Array.isArray(this.ked.kt);
-    this.wits = this.ked.b
-    this.pool = ""
+    this.wits = this.ked.b;
+    this.pool = '';
     for (const poolName in Witnesses.witnesses) {
       if (KERI.arrayEquals(Witnesses.witnesses[poolName], this.wits)) {
         this.pool = poolName;
         break;
       }
     }
-    this.witThold = this.ked.bt
-    this.estOnly = this.ked.c.indexOf("EO") !== -1;
-    this.DnD = this.ked.c.indexOf("DND") !== -1;
-    this.status = 'Event signed and submitted'
+    this.witThold = this.ked.bt;
+    this.estOnly = this.ked.c.indexOf('EO') !== -1;
+    this.DnD = this.ked.c.indexOf('DND') !== -1;
+    this.status = 'Event signed and submitted';
   }
-  
+
   get notification() {
     return this._notification;
   }
-  
+
   get aids() {
     return this._aids;
   }
@@ -91,11 +90,11 @@ class JoinMultiSigGroupTask {
   get ked() {
     return this._ked;
   }
-  
+
   get delegator() {
     return this._delegator;
   }
-  
+
   get fractionallyWeighted() {
     return this._fractionallyWeighted;
   }
@@ -133,7 +132,6 @@ class JoinMultiSigGroup {
             <p class="p-tag">View the multi-sig group and confirm that these individuals are authenticated.</p>
             <div class="flex flex-justify-end" style={{ marginTop: '4rem' }}>
               <Button
-                class="button--big button--no-transform"
                 raised
                 label="View"
                 onclick={() => {
@@ -152,27 +150,41 @@ class JoinMultiSigGroup {
                 <h4>Delegator:</h4>
                 <div class="flex flex-align-center flex-justify-between" style={{ margin: '1rem 0' }}>
                   <div class="flex-1 uneditable-value" style={{ minHeight: '48px' }}>
-                    <AID contact={vnode.attrs.parent.delegator}/>
+                    <AID contact={vnode.attrs.parent.delegator} />
                   </div>
                 </div>
               </>
             )}
             <p className="font-weight--bold font-color--battleship">Witness Pool:</p>
-            <div className="uneditable-value">{Witnesses.witnessPools.find((p) => p.value === vnode.attrs.parent.pool).label}</div>
+            <div className="uneditable-value">
+              {Witnesses.witnessPools.find((p) => p.value === vnode.attrs.parent.pool).label}
+            </div>
             <p className="font-weight--bold font-color--battleship">Signers:</p>
             {vnode.attrs.parent.aids.map((signer, i) => {
               let contact = Contacts.filterById(signer);
               return (
                 <>
                   <div class="flex flex-align-center flex-justify-between  margin-v-1">
-                    <div class="flex-3 uneditable-value" style={{ marginRight: '1rem'}}>
-                      {signer === this.aid.prefix && <AID aid={this.aid}/>}
-                      {contact !== undefined && <AID contact={contact}/>}
-                      {(contact === undefined && signer !== this.aid.prefix) && <span>Unknown AID</span>}
+                    <div class="flex-3 uneditable-value" style={{ marginRight: '1rem' }}>
+                      {signer === this.aid.prefix && <AID aid={this.aid} />}
+                      {contact !== undefined && <AID contact={contact} />}
+                      {contact === undefined && signer !== this.aid.prefix && <span>Unknown AID</span>}
                     </div>
-                    {vnode.attrs.parent.fractionallyWeighted && <div class="uneditable-value" style={{ marginRight: '1rem' }}>{vnode.attrs.parent.ked.kt[i]}</div>}
-                    {signer === this.aid.prefix && <span className="flex-1 p-tag-bold" style={{fontSize: '1rem'}}>You</span>}
-                    {signer !== this.aid.prefix && <span className="flex-1 p-tag-bold" style={{fontSize: '1rem'}}>&nbsp;</span>}
+                    {vnode.attrs.parent.fractionallyWeighted && (
+                      <div class="uneditable-value" style={{ marginRight: '1rem' }}>
+                        {vnode.attrs.parent.ked.kt[i]}
+                      </div>
+                    )}
+                    {signer === this.aid.prefix && (
+                      <span className="flex-1 p-tag-bold" style={{ fontSize: '1rem' }}>
+                        You
+                      </span>
+                    )}
+                    {signer !== this.aid.prefix && (
+                      <span className="flex-1 p-tag-bold" style={{ fontSize: '1rem' }}>
+                        &nbsp;
+                      </span>
+                    )}
                   </div>
                 </>
               );
@@ -189,7 +201,7 @@ class JoinMultiSigGroup {
 
             <div class="flex flex-justify-between" style={{ marginTop: '4rem' }}>
               <Button
-                class="button--gray-dk button--big button--no-transform"
+                class="button--gray-dk"
                 raised
                 label="Go Back"
                 onclick={() => {
@@ -197,7 +209,6 @@ class JoinMultiSigGroup {
                 }}
               />
               <Button
-                class="button--big button--no-transform"
                 raised
                 label="Confirm"
                 onclick={() => {
@@ -217,13 +228,13 @@ class JoinMultiSigGroup {
             <p class="p-tag" style={{ margin: '2rem 0 2rem 0' }}>
               What would you like your group's alias to be?
             </p>
-            <div className="flex flex-justify-start" style={{margin: '0 0 3.5rem 0'}}>
+            <div className="flex flex-justify-start" style={{ margin: '0 0 3.5rem 0' }}>
               <Checkbox
                 outlined
                 fluid
-                disabled={(Profile.identifiers === undefined || Profile.identifiers.length === 0)}
+                disabled={Profile.identifiers === undefined || Profile.identifiers.length === 0}
                 checked={this.useAsDefault}
-                style={{margin: '0 0 3.5rem 0'}}
+                style={{ margin: '0 0 3.5rem 0' }}
                 onchange={(_default) => {
                   this.useAsDefault = _default;
                 }}
@@ -240,7 +251,6 @@ class JoinMultiSigGroup {
             />
             <div class="flex flex-justify-end" style={{ marginTop: '4rem' }}>
               <Button
-                class="button--big button--no-transform"
                 raised
                 label="Continue"
                 disabled={!this.groupAlias}
@@ -259,19 +269,18 @@ class JoinMultiSigGroup {
             fractionallyWeighted={vnode.attrs.parent.fractionallyWeighted}
             status={vnode.attrs.parent.status}
             finish={() => {
-                Profile.loadIdentifiers()
-                  .then((ids) => {
-                    if (this.useAsDefault === true) {
-                      let aid = ids.find(id => {
-                        return id.name === this.groupAlias;
-                      })
-                      Profile.setDefaultAID(aid).then(() => {
-                        m.redraw()
-                      })
-                    } else {
-                      m.redraw()
-                    }
-                  })
+              Profile.loadIdentifiers().then((ids) => {
+                if (this.useAsDefault === true) {
+                  let aid = ids.find((id) => {
+                    return id.name === this.groupAlias;
+                  });
+                  Profile.setDefaultAID(aid).then(() => {
+                    m.redraw();
+                  });
+                } else {
+                  m.redraw();
+                }
+              });
             }}
             continue={vnode.attrs.end}
           />
@@ -284,7 +293,7 @@ class JoinMultiSigGroup {
               Thank you for confirming the Inception Event. You will receive a notification when it is completed.
             </p>
             <div class="flex flex-justify-end" style={{ marginTop: '4rem' }}>
-              <Button class="button--big button--no-transform" raised label="Close" onclick={vnode.attrs.end} />
+              <Button raised label="Close" onclick={vnode.attrs.end} />
             </div>
           </>
         )}

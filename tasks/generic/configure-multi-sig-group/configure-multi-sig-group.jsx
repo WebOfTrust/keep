@@ -133,8 +133,7 @@ class ConfigureMultiSigGroup {
       let sith = this.numSigners.toString();
       inceptData.isith = sith;
       inceptData.nsith = sith;
-    }
-    else {
+    } else {
       let vals = MultiSig.participants.map((obj) => {
         return obj.weight;
       });
@@ -175,7 +174,6 @@ class ConfigureMultiSigGroup {
             </p>
             <div class="flex flex-justify-end">
               <Button
-                class="button--big button--no-transform"
                 raised
                 label="Retry"
                 onclick={() => {
@@ -357,7 +355,6 @@ class ConfigureMultiSigGroup {
             <div class="flex flex-justify-end" style={{ marginTop: '2.75rem' }}>
               <Button
                 id="continue"
-                class="button--big button--no-transform"
                 raised
                 label="Continue"
                 disabled={this.wits.length === 0 || this.groupAlias.length === 0 || MultiSig.participants.length === 0}
@@ -513,7 +510,7 @@ class ConfigureMultiSigGroup {
             </div>
             <div class="flex flex-justify-between margin-top-4">
               <Button
-                class="button--gray-dk button--big button--no-transform"
+                class="button--gray-dk"
                 raised
                 label="Go Back"
                 onclick={() => {
@@ -521,7 +518,6 @@ class ConfigureMultiSigGroup {
                 }}
               />
               <Button
-                class="button--big button--no-transform"
                 raised
                 label="Continue"
                 disabled={!this.validSigners}
@@ -554,7 +550,7 @@ class ConfigureMultiSigGroup {
             </p>
             <div class="flex flex-justify-between margin-top-4">
               <Button
-                class="button--gray-dk button--big button--no-transform"
+                class="button--gray-dk"
                 raised
                 label="Go Back"
                 onclick={() => {
@@ -562,7 +558,6 @@ class ConfigureMultiSigGroup {
                 }}
               />
               <Button
-                class="button--big button--no-transform"
                 raised
                 label="Continue"
                 disabled={!MultiSig.delegator}
@@ -610,7 +605,7 @@ class ConfigureMultiSigGroup {
               <>
                 <p class="font-weight--bold font-color--battleship">Delegator:</p>
                 <div class="flex flex-align-center flex-justify-between" style={{ margin: '0 0 4rem 0' }}>
-                  <AID contact={MultiSig.delegator}/>
+                  <AID contact={MultiSig.delegator} />
                 </div>
               </>
             )}
@@ -626,7 +621,7 @@ class ConfigureMultiSigGroup {
 
             <div class="flex flex-justify-between margin-top-4">
               <Button
-                class="button--gray-dk button--big button--no-transform"
+                class="button--gray-dk"
                 raised
                 label="Go Back"
                 onclick={() => {
@@ -638,7 +633,6 @@ class ConfigureMultiSigGroup {
                 }}
               />
               <Button
-                class="button--big button--no-transform"
                 raised
                 label="Complete"
                 onclick={() => {

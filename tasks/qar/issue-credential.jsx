@@ -282,14 +282,13 @@ class IssueCredential {
               <div class="flex flex-justify-between" style={{ marginTop: '4rem' }}>
                 <Button
                   raised
-                  class="button--no-transform button--gray-dk button--big"
+                  class="button--gray-dk"
                   label="Cancel"
                   onclick={() => {
                     vnode.attrs.end();
                   }}
                 />
                 <Button
-                  class="button--big button--no-transform"
                   disabled={!vnode.attrs.parent.lei || !vnode.attrs.parent.qvi || !vnode.attrs.parent.recipient}
                   raised
                   label="Preview"
@@ -359,14 +358,13 @@ class IssueCredential {
               <div class="flex flex-justify-between" style={{ marginTop: '4rem' }}>
                 <Button
                   raised
-                  class="button--no-transform button--gray-dk button--big"
+                  class="button--gray-dk"
                   label="Cancel"
                   onclick={() => {
                     vnode.attrs.end();
                   }}
                 />
                 <Button
-                  class="button--big button--no-transform"
                   disabled={!vnode.attrs.parent.lei || !vnode.attrs.parent.qvi || !vnode.attrs.parent.recipient}
                   raised
                   label="Preview"
@@ -436,14 +434,13 @@ class IssueCredential {
               <div class="flex flex-justify-between" style={{ marginTop: '4rem' }}>
                 <Button
                   raised
-                  class="button--no-transform button--gray-dk button--big"
+                  class="button--gray-dk"
                   label="Cancel"
                   onclick={() => {
                     vnode.attrs.end();
                   }}
                 />
                 <Button
-                  class="button--big button--no-transform"
                   disabled={!vnode.attrs.parent.lei || !vnode.attrs.parent.qvi || !vnode.attrs.parent.recipient}
                   raised
                   label="Preview"
@@ -475,14 +472,13 @@ class IssueCredential {
               <div class="flex flex-justify-between" style={{ marginTop: '4rem' }}>
                 <Button
                   raised
-                  class="button--no-transform button--gray-dk button--big"
+                  class="button--gray-dk"
                   label="Go Back"
                   onclick={() => {
                     vnode.attrs.parent.currentState = 'issue-credential';
                   }}
                 />
                 <Button
-                  class="button--big button--no-transform"
                   disabled={!vnode.attrs.parent.lei || !vnode.attrs.parent.qvi || !vnode.attrs.parent.recipient}
                   raised
                   label="Issue"
@@ -545,14 +541,13 @@ class IssueCredential {
               <div class="flex flex-justify-between" style={{ marginTop: '4rem' }}>
                 <Button
                   raised
-                  class="button--no-transform button--gray-dk button--big"
+                  class="button--gray-dk"
                   label="Go Back"
                   onclick={() => {
                     vnode.attrs.parent.currentState = 'issue-credential';
                   }}
                 />
                 <Button
-                  class="button--big button--no-transform"
                   disabled={!vnode.attrs.parent.lei || !vnode.attrs.parent.qvi || !vnode.attrs.parent.recipient}
                   raised
                   label="Issue"
@@ -608,14 +603,13 @@ class IssueCredential {
               <div class="flex flex-justify-between" style={{ marginTop: '4rem' }}>
                 <Button
                   raised
-                  class="button--no-transform button--gray-dk button--big"
+                  class="button--gray-dk"
                   label="Go Back"
                   onclick={() => {
                     vnode.attrs.parent.currentState = 'issue-credential';
                   }}
                 />
                 <Button
-                  class="button--big button--no-transform"
                   disabled={!vnode.attrs.parent.lei || !vnode.attrs.parent.qvi || !vnode.attrs.parent.recipient}
                   raised
                   label="Issue"
@@ -641,7 +635,7 @@ class IssueCredential {
               Credential is now in their credential wallet.
             </p>
             <div class="flex flex-justify-end" style={{ marginTop: '4rem' }}>
-              <Button class="button--big button--no-transform" raised label="Close" onclick={vnode.attrs.end} />
+              <Button raised label="Close" onclick={vnode.attrs.end} />
             </div>
           </>
         )}

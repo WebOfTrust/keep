@@ -45,7 +45,7 @@ class Credentials {
 
   listCredentials(type) {
     this.activeCredential = null;
-    let aid = Profile.getDefaultAID()
+    let aid = Profile.getDefaultAID();
     if (aid === undefined) {
       this.credentals = [];
       return;
@@ -91,14 +91,15 @@ class Credentials {
                       }}
                     />
                   </TabBar>
-                  {this.credentials === undefined || this.credentials.length === 0 &&
-                    <div
-                      className="font-weight--bold font-color--battleship flex flex-align-left"
-                      style={{margin: '2.5rem 0'}}
-                    >
-                      <i style={{marginLeft: "0.5rem"}}>No {this.activeTab} credentials</i>
-                    </div>
-                  }
+                  {this.credentials === undefined ||
+                    (this.credentials.length === 0 && (
+                      <div
+                        className="font-weight--bold font-color--battleship flex flex-align-left"
+                        style={{ margin: '2.5rem 0' }}
+                      >
+                        <i style={{ marginLeft: '0.5rem' }}>No {this.activeTab} credentials</i>
+                      </div>
+                    ))}
 
                   {this.credentials.map((credential) => {
                     let sad = credential['sad'];
@@ -139,8 +140,8 @@ class Credentials {
                       <br />
                       <br />
                       <div class="flex flex-justify-end">
-                        {/* <Button class="button--gray-dk button--big button--no-transform" raised label="Skip" /> */}
-                        <Button class="button--big button--no-transform" raised label="Dismiss" />
+                        {/* <Button class="button--gray-dk" raised label="Skip" /> */}
+                        <Button raised label="Dismiss" />
                       </div>
                     </>
                   )}

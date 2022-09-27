@@ -64,7 +64,7 @@ class Settings {
                       <br></br>
 
                       <div class="flex flex-justify-end">
-                        <Button class="button--big button--no-transform" raised label="Close" />
+                        <Button raised label="Close" />
                       </div>
                     </>
                   )}

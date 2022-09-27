@@ -458,7 +458,7 @@ class Contacts {
                           <div class="contacts-detail-buttons">
                             <Button
                               raised
-                              class="button--gray button--no-transform"
+                              class="button--gray"
                               label="Add New Field"
                               onclick={() => {
                                 this.addFieldOpen = true;
@@ -466,7 +466,6 @@ class Contacts {
                             />
                             <Button
                               raised
-                              class="button--no-transform"
                               label="Save"
                               onclick={() => {
                                 this.saveContact();
@@ -501,7 +500,6 @@ class Contacts {
                         </p>
                         <div class="flex flex-justify-end margin-top-4">
                           <Button
-                            class="button--big button--no-transform"
                             raised
                             label="Dismiss"
                             onclick={() => {

@@ -41,8 +41,8 @@ class CredentialIssuance {
     this.credentials = {
       'EZKqORTA9nWpoC0fnJZE69uXLrJ1KhIphqqLynAh8Tbw': 'Legal Entity Engagement Context Role vLEI Credential',
       'EfUao55W5P2JhyyGK7w_qAaXjq_Zy6a-v1zq3fjTpeJU': 'Legal Entity Official Organizational Role vLEI Credential',
-      'EN8i2i5ye0-xGS95pm5cg1j0GmFkarJe0zzsSrrf4XJY': 'Legal Entity vLEI Credential'
-    }
+      'EN8i2i5ye0-xGS95pm5cg1j0GmFkarJe0zzsSrrf4XJY': 'Legal Entity vLEI Credential',
+    };
     this.recipient = null;
     this.credential = vnode.attrs.credential;
   }
@@ -128,14 +128,13 @@ class CredentialIssuance {
             <div class="flex flex-justify-end" style={{ marginTop: '4rem' }}>
               {/* <Button
                 raised
-                class="button--no-transform button--gray-dk button--big"
+                class="button--gray-dk"
                 label="Go Back"
                 onclick={() => {
                   vnode.attrs.end();
                 }}
               /> */}
               <Button
-                class="button--big button--no-transform"
                 disabled={!this.recipient || !this.credential}
                 raised
                 label="Preview"
@@ -206,7 +205,7 @@ class CredentialIssuance {
             </div>
             <div class="flex flex-justify-between" style={{ marginTop: '4rem' }}>
               <Button
-                class="button--gray-dk button--big button--no-transform"
+                class="button--gray-dk"
                 raised
                 label="Go Back"
                 onclick={() => {
@@ -214,7 +213,6 @@ class CredentialIssuance {
                 }}
               />
               <Button
-                class="button--big button--no-transform"
                 raised
                 label="Submit"
                 onclick={() => {
@@ -238,7 +236,7 @@ class CredentialIssuance {
               wallet.
             </p>
             <div class="flex flex-justify-end" style={{ marginTop: '4rem' }}>
-              <Button class="button--big button--no-transform" raised label="Close" onclick={vnode.attrs.end} />
+              <Button raised label="Close" onclick={vnode.attrs.end} />
             </div>
           </>
         )}

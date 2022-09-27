@@ -1,7 +1,7 @@
 import m from 'mithril';
 
-import {Button, Progress, TextField} from '../../../src/app/components';
-import {Profile, Participants, KERI, MultiSig} from '../../../src/app/services';
+import { Button, Progress, TextField } from '../../../src/app/components';
+import { Profile, Participants, KERI, MultiSig } from '../../../src/app/services';
 import { Tasks } from '../../../src/app/services/tasks';
 import { EnterChallengesForm, EnterOOBIsForm, SendChallengeForm, SendOOBIForm } from './forms';
 import './video-call.scss';
@@ -23,7 +23,7 @@ class VideoCallTask {
     this.oneToOne = this.config.oneToOne;
     this.acceptCredential = this.config.acceptCredential;
     this.next = this.config.next;
-    this.nextOptional = "nextOptional" in this.config ? this.config.nextOptional : true;
+    this.nextOptional = 'nextOptional' in this.config ? this.config.nextOptional : true;
     this.variables = this.config.variables;
 
     this.aidToSend = this.config.aidToSend;
@@ -84,7 +84,7 @@ class VideoCallTask {
         this.next.recipient = this.participants.oobis[0];
         Tasks.active = this.next;
       } else {
-        vnode.attrs.end()
+        vnode.attrs.end();
       }
     });
   }
@@ -111,14 +111,12 @@ class VideoCall {
       <>
         {vnode.attrs.parent.currentState === 'skip' && (
           <>
-            <img src={verifyCredentials} style={{width: '100px'}}/>
+            <img src={verifyCredentials} style={{ width: '100px' }} />
             <h4>{vnode.attrs.parent.variables.shouldSkipTitle}</h4>
-            <p className="font-color--battleship font-size--14">
-              {vnode.attrs.parent.variables.shouldSkipIntro}
-            </p>
+            <p className="font-color--battleship font-size--14">{vnode.attrs.parent.variables.shouldSkipIntro}</p>
             <div className="flex flex-justify-end margin-top-4">
               <Button
-                class="button--gray-dk button--no-transform margin-right-4"
+                class="button--gray-dk margin-right-4"
                 raised
                 label="No"
                 onclick={() => {
@@ -126,7 +124,6 @@ class VideoCall {
                 }}
               />
               <Button
-                class="button--no-transform"
                 raised
                 label="Yes"
                 onclick={() => {
@@ -134,20 +131,17 @@ class VideoCall {
                 }}
               />
             </div>
-
           </>
         )}
         {vnode.attrs.parent.currentState === 'skip-identity-authentication' && (
           <>
-            <img src={toDoList} style={{width: '100px'}}/>
+            <img src={toDoList} style={{ width: '100px' }} />
             <h4>{vnode.attrs.parent.variables.skipTitle}</h4>
-            <p className="font-color--battleship font-size--14">
-              {vnode.attrs.parent.variables.skipIntro}
-            </p>
+            <p className="font-color--battleship font-size--14">{vnode.attrs.parent.variables.skipIntro}</p>
             <div class="flex flex-align-center flex-justify-end margin-top-4">
               <Button
                 raised
-                class="button--gray-dk button--no-transform margin-right-1"
+                class="button--gray-dk margin-right-1"
                 label="Go Back"
                 onclick={() => {
                   vnode.attrs.parent.currentState = 'skip';
@@ -155,7 +149,6 @@ class VideoCall {
               />
               <Button
                 raised
-                class="button--no-transform"
                 label="Continue"
                 onclick={() => {
                   Participants.instance.oobis = [];
@@ -168,15 +161,13 @@ class VideoCall {
         )}
         {vnode.attrs.parent.currentState === 'perform-identity-authentication' && (
           <>
-            <img src={addNewContacts} style={{width: '100px'}}/>
+            <img src={addNewContacts} style={{ width: '100px' }} />
             <h4>{vnode.attrs.parent.variables.performTitle}</h4>
-            <p className="font-color--battleship font-size--14">
-              {vnode.attrs.parent.variables.performIntro}
-            </p>
+            <p className="font-color--battleship font-size--14">{vnode.attrs.parent.variables.performIntro}</p>
             <div class="flex flex-align-center flex-justify-end margin-top-4">
               <Button
                 raised
-                class="button--gray-dk button--no-transform margin-right-1"
+                class="button--gray-dk margin-right-1"
                 label="Go Back"
                 onclick={() => {
                   vnode.attrs.parent.currentState = 'skip';
@@ -184,7 +175,6 @@ class VideoCall {
               />
               <Button
                 raised
-                class="button--no-transform"
                 label="Continue"
                 onclick={() => {
                   vnode.attrs.parent.currentState = 'intro';
@@ -196,12 +186,14 @@ class VideoCall {
         {vnode.attrs.parent.currentState === 'intro' && (
           <>
             <h3 class="text--underline margin-bottom-2">{vnode.attrs.parent.variables.title}</h3>
-            <p class="steps-header">{vnode.attrs.parent.variables.subtitle ? vnode.attrs.parent.variables.subtitle : "Steps to create:"}</p>
+            <p class="steps-header">
+              {vnode.attrs.parent.variables.subtitle ? vnode.attrs.parent.variables.subtitle : 'Steps to create:'}
+            </p>
             {vnode.attrs.parent.variables.steps}
             <div class="flex flex-align-center flex-justify-end margin-top-4">
               {vnode.attrs.parent.next && (
                 <Button
-                  class="button--gray-dk button--no-transform margin-right-1"
+                  class="button--gray-dk margin-right-1"
                   raised
                   label="Go Back"
                   onclick={() => {
@@ -210,7 +202,6 @@ class VideoCall {
                 />
               )}
               <Button
-                class="button--no-transform"
                 raised
                 label="Continue"
                 onclick={() => {
@@ -225,27 +216,23 @@ class VideoCall {
             <Progress stepNum={1} totalSteps={6} stepLabel={'Join'} />
             <img src={projectPlanning} style={{ width: '100px' }} />
             <h4>Join a Video Call</h4>
-            <p class="font-color--battleship font-size--14">
-              {vnode.attrs.parent.variables.joinCallIntro}
-            </p>
-            <p class="font-weight--semi-bold">
-              {vnode.attrs.parent.variables.joinCallSubIntro}
-            </p>
-              <p className="p-tag-bold">{vnode.attrs.parent.variables.howManyParticipantsPrompt}</p>
-              <TextField
-                outlined
-                type="number"
-                min={1}
-                style={{marginBottom: '2rem', width: '4rem', height: "44px"}}
-                value={vnode.attrs.parent.participants.length}
-                oninput={(e) => {
-                  let num = parseInt(e.target.value);
-                  vnode.attrs.parent.participants = new Participants(num);
-                }}
-              />
+            <p class="font-color--battleship font-size--14">{vnode.attrs.parent.variables.joinCallIntro}</p>
+            <p class="font-weight--semi-bold">{vnode.attrs.parent.variables.joinCallSubIntro}</p>
+            <p className="p-tag-bold">{vnode.attrs.parent.variables.howManyParticipantsPrompt}</p>
+            <TextField
+              outlined
+              type="number"
+              min={1}
+              style={{ marginBottom: '2rem', width: '4rem', height: '44px' }}
+              value={vnode.attrs.parent.participants.length}
+              oninput={(e) => {
+                let num = parseInt(e.target.value);
+                vnode.attrs.parent.participants = new Participants(num);
+              }}
+            />
             <div class="flex flex-justify-end margin-top-4">
               <Button
-                class="button--gray-dk button--no-transform margin-right-1"
+                class="button--gray-dk margin-right-1"
                 raised
                 label="Go Back"
                 onclick={() => {
@@ -253,7 +240,6 @@ class VideoCall {
                 }}
               />
               <Button
-                class="button--no-transform"
                 raised
                 label="Continue"
                 onclick={() => {
@@ -270,7 +256,7 @@ class VideoCall {
             <SendOOBIForm aidToSend={vnode.attrs.parent.aidToSend} />
             <div class="flex flex-justify-end margin-top-4">
               <Button
-                class="button--gray-dk button--no-transform margin-right-1"
+                class="button--gray-dk margin-right-1"
                 raised
                 label="Go Back"
                 onclick={() => {
@@ -278,7 +264,6 @@ class VideoCall {
                 }}
               />
               <Button
-                class="button--no-transform"
                 raised
                 label="Continue"
                 onclick={() => {
@@ -294,7 +279,7 @@ class VideoCall {
             <EnterOOBIsForm participants={vnode.attrs.parent.participants} oneToOne={vnode.attrs.parent.oneToOne} />
             <div class="flex flex-justify-end margin-top-4">
               <Button
-                class="button--gray-dk button--no-transform margin-right-1"
+                class="button--gray-dk margin-right-1"
                 raised
                 label="Go Back"
                 onclick={() => {
@@ -302,7 +287,6 @@ class VideoCall {
                 }}
               />
               <Button
-                class="button--no-transform"
                 raised
                 label="Continue"
                 disabled={!vnode.attrs.parent.participants.oobisResolved()}
@@ -319,7 +303,7 @@ class VideoCall {
             <SendChallengeForm participants={vnode.attrs.parent.participants} />
             <div class="flex flex-justify-end margin-top-4">
               <Button
-                class="button--gray-dk button--no-transform margin-right-1"
+                class="button--gray-dk margin-right-1"
                 raised
                 label="Go Back"
                 onclick={() => {
@@ -327,7 +311,6 @@ class VideoCall {
                 }}
               />
               <Button
-                class="button--no-transform"
                 raised
                 label="Continue"
                 disabled={!vnode.attrs.parent.participants.oobisResolved()}
@@ -347,7 +330,7 @@ class VideoCall {
             />
             <div class="flex flex-justify-end">
               <Button
-                class="button--gray-dk button--no-transform margin-right-1"
+                class="button--gray-dk margin-right-1"
                 raised
                 label="Go Back"
                 onclick={() => {
@@ -355,7 +338,6 @@ class VideoCall {
                 }}
               />
               <Button
-                class="button--no-transform"
                 raised
                 label="Next"
                 disabled={
@@ -372,7 +354,7 @@ class VideoCall {
                     Tasks.active = vnode.attrs.parent.next;
                     vnode.attrs.parent.reset();
                   } else {
-                    vnode.attrs.end()
+                    vnode.attrs.end();
                   }
                 }}
               />
@@ -385,13 +367,13 @@ class VideoCall {
             <img src={projectPlanning} style={{ width: '120px' }} />
             <h4>Would you like to share OOBIs with your multi-sig group?</h4>
             <p class="font-size--14 font-color--battleship">
-              You just perform an OOBI Exchange / Challenge Response using a multi-sig group AID.  Would you
-              like to share your new contacts with the other participants of your multi-sig group?
+              You just perform an OOBI Exchange / Challenge Response using a multi-sig group AID. Would you like to
+              share your new contacts with the other participants of your multi-sig group?
             </p>
             <div class="flex flex-align-center flex-justify-end margin-top-4">
               <Button
                 raised
-                class="button--gray button--no-transform margin-right-1"
+                class="button--gray margin-right-1"
                 label="No"
                 onclick={() => {
                   if (vnode.attrs.parent.nextOptional) {
@@ -401,13 +383,12 @@ class VideoCall {
                     Tasks.active = vnode.attrs.parent.next;
                     vnode.attrs.parent.reset();
                   } else {
-                    vnode.attrs.end()
+                    vnode.attrs.end();
                   }
                 }}
               />
               <Button
                 raised
-                class="button--no-transform"
                 label="Yes"
                 onclick={() => {
                   vnode.attrs.parent.sendOobis();
@@ -421,13 +402,11 @@ class VideoCall {
             <Progress stepNum={6} totalSteps={6} stepLabel={'Configure'} />
             <img src={projectPlanning} style={{ width: '120px' }} />
             <h4>{vnode.attrs.parent.variables.nextTaskTitle}</h4>
-            <p class="font-size--14 font-color--battleship">
-              {vnode.attrs.parent.variables.nextTaskBody}
-            </p>
+            <p class="font-size--14 font-color--battleship">{vnode.attrs.parent.variables.nextTaskBody}</p>
             <div class="flex flex-align-center flex-justify-end margin-top-4">
               <Button
                 raised
-                class="button--gray button--no-transform margin-right-1"
+                class="button--gray margin-right-1"
                 label="No"
                 onclick={() => {
                   vnode.attrs.end();
@@ -435,7 +414,6 @@ class VideoCall {
               />
               <Button
                 raised
-                class="button--no-transform"
                 label="Yes"
                 onclick={() => {
                   if (vnode.attrs.parent.next !== undefined) {

@@ -47,7 +47,7 @@ class SendChallengeForm {
         <div class="flex flex-align-center margin-v-1">
           <Button
             raised
-            class="button--no-transform button--gray"
+            class="button--gray"
             label="Copy"
             iconLeading="content_copy"
             onclick={() => {
@@ -86,7 +86,6 @@ class SendChallengeForm {
           )}
           <Button
             raised
-            class="button--big"
             style={{ width: '100%' }}
             label="I Pasted It Into The Chat"
             disabled={!this.copied}

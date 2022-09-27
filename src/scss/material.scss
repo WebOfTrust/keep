@@ -7,7 +7,7 @@
 );
 
 @use '@material/typography/index' as typography with (
-  $font-family: unquote('AvenirNext, Helvetica, Arial, sans-serif')
+  $font-family: unquote('Facundo, Helvetica, Arial, sans-serif')
 );
 
 // Button
@@ -88,6 +88,10 @@
   color: $primary;
 }
 
+.mdc-button__label {
+  text-transform: none;
+}
+
 .button {
   &--white {
     @include button.ink-color($default-text);
@@ -110,14 +114,5 @@
   &--big {
     @include button.height(3rem);
     @include button.horizontal-padding(3rem);
-  }
-
-  &--extra-padding {
-    @include button.horizontal-padding(4rem);
-  }
-  &--no-transform {
-    .mdc-button__label {
-      text-transform: none;
-    }
   }
 }

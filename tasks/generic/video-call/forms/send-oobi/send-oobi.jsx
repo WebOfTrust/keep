@@ -46,7 +46,6 @@ class SendOOBIForm {
         <p class="mono-aid font-weight--bold font-color--battleship">{this.oobi.prefix}</p>
         <Button
           raised
-          class="button--no-transform"
           label="Generate & Copy"
           style={{ width: '100%' }}
           onclick={() => {
@@ -84,7 +83,6 @@ class SendOOBIForm {
           )}
           <Button
             raised
-            class="button--big"
             style={{ width: '100%' }}
             label="I Pasted It Into The Chat"
             disabled={!this.copied}

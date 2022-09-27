@@ -46,7 +46,6 @@ class EnterChallengesForm {
             {!signer.sent ? (
               <div class="flex flex-justify-end" style={{ marginTop: '1rem' }}>
                 <Button
-                  class="button--no-transform"
                   raised
                   label="Send"
                   onclick={() => {
@@ -77,7 +76,6 @@ class EnterChallengesForm {
                   />
                 </div>
                 <Button
-                  class="button--no-transform"
                   raised
                   label="Resend"
                   onclick={() => {
@@ -93,13 +91,15 @@ class EnterChallengesForm {
               </div>
             )}
           </Card>
-          {vnode.attrs.participants.oobis.length > 1 && <CarouselControls
-            items={vnode.attrs.participants.oobis.length}
-            active={this.selectedOobiIndex}
-            setActive={(idx) => {
-              this.selectedOobiIndex = idx;
-            }}
-          />}
+          {vnode.attrs.participants.oobis.length > 1 && (
+            <CarouselControls
+              items={vnode.attrs.participants.oobis.length}
+              active={this.selectedOobiIndex}
+              setActive={(idx) => {
+                this.selectedOobiIndex = idx;
+              }}
+            />
+          )}
         </div>
       </>
     );

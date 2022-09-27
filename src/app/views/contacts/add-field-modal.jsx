@@ -65,19 +65,13 @@ class AddFieldModal {
               <Button
                 raised
                 type="button"
-                class="button--gray-dk button--big button--no-transform"
+                class="button--gray-dk"
                 label="Cancel"
                 onclick={() => {
                   vnode.attrs.onClose();
                 }}
               />
-              <Button
-                raised
-                type="submit"
-                class="button--big button--no-transform"
-                label="Add Field"
-                disabled={!this.key || !this.value}
-              />
+              <Button raised type="submit" label="Add Field" disabled={!this.key || !this.value} />
             </div>
           </form>
         </Modal>

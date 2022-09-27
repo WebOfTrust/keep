@@ -42,7 +42,7 @@ class AddSignerModal {
           <div class="flex flex-align-center flex-justify-between margin-top-4">
             <Button
               raised
-              class="button--gray-dk button--big button--no-transform"
+              class="button--gray-dk"
               label="Cancel"
               onclick={() => {
                 vnode.attrs.onClose();
@@ -50,7 +50,6 @@ class AddSignerModal {
             />
             <Button
               raised
-              class="button--big button--no-transform"
               label="Save"
               disabled={!this.contactSelected}
               onclick={() => {

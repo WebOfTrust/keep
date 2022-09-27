@@ -1,7 +1,7 @@
 import m from 'mithril';
 import { KERI } from '../../../services';
 import { Button, Card } from '../../../components';
-import moment from "moment";
+import moment from 'moment';
 
 class CredentialDetails {
   constructor() {}
@@ -20,7 +20,7 @@ class CredentialDetails {
   }
 
   isSelfIssued(attrs, identifiers, aid) {
-    return attrs !== undefined && attrs["i"] === undefined && identifiers.has(aid);
+    return attrs !== undefined && attrs['i'] === undefined && identifiers.has(aid);
   }
 
   view(vnode) {
@@ -36,11 +36,10 @@ class CredentialDetails {
     // any form of self issued
     if (this.isSelfIssued(vnode.attrs, vnode.attrs.identifiers, sad['i'])) {
       issuedOn = attrs['dt'];
-      issuedBy = "";
-      issuedTo = "";
-
+      issuedBy = '';
+      issuedTo = '';
     } else {
-      if(vnode.attrs.type === "issued") {
+      if (vnode.attrs.type === 'issued') {
         if (attrs !== undefined) {
           issuedTo = vnode.attrs.contacts.get(attrs['i']).alias;
         }
@@ -60,7 +59,7 @@ class CredentialDetails {
             <div class="flex flex-justify-between">
               <div class="flex">
                 <div style={{ marginLeft: '-0.5rem', marginTop: '1.25rem' }}>
-                   <h3>{schema['title']}</h3>
+                  <h3>{schema['title']}</h3>
                 </div>
               </div>
             </div>
@@ -126,34 +125,33 @@ class CredentialDetails {
                 </div>
               )}
 
-
-              {this.isSelfIssued(vnode.attrs, vnode.attrs.identifiers, sad['i'])   && (
-                  <div style={{ margin: '2rem 0 2rem 0' }}>
-                    <p className="p-tag-bold" style={{ margin: '1rem 0 0 0' }}>
-                      Issued By:
-                    </p>
-                    <code style="margin: 0 0 0 0;">You ({sad['i']})</code>
-                  </div>
+              {this.isSelfIssued(vnode.attrs, vnode.attrs.identifiers, sad['i']) && (
+                <div style={{ margin: '2rem 0 2rem 0' }}>
+                  <p className="p-tag-bold" style={{ margin: '1rem 0 0 0' }}>
+                    Issued By:
+                  </p>
+                  <code style="margin: 0 0 0 0;">You ({sad['i']})</code>
+                </div>
               )}
 
               {issuedTo !== undefined && issuedTo !== '' && (
-                  <div style={{ margin: '2rem 0 2rem 0' }}>
-                    <p className="p-tag-bold" style={{ margin: '1rem 0 0 0' }}>
-                      Issued To:
-                    </p>
-                    <code style="margin: 0 0 0 0;">{issuedTo}</code>
-                  </div>
+                <div style={{ margin: '2rem 0 2rem 0' }}>
+                  <p className="p-tag-bold" style={{ margin: '1rem 0 0 0' }}>
+                    Issued To:
+                  </p>
+                  <code style="margin: 0 0 0 0;">{issuedTo}</code>
+                </div>
               )}
 
               {issuedOn !== undefined && (
-                  <div style={{ margin: '2rem 0 2rem 0' }}>
-                    <p className="p-tag-bold" style={{ margin: '1rem 0 0 0' }}>
-                      Issued On:
-                    </p>
-                    <code style="margin: 0 0 0 0;">{moment(issuedOn).format('MMM DD h:mm A')}</code>
-                  </div>
+                <div style={{ margin: '2rem 0 2rem 0' }}>
+                  <p className="p-tag-bold" style={{ margin: '1rem 0 0 0' }}>
+                    Issued On:
+                  </p>
+                  <code style="margin: 0 0 0 0;">{moment(issuedOn).format('MMM DD h:mm A')}</code>
+                </div>
               )}
-            {/* TODO - FIX FOR XBRL SIGNING (
+              {/* TODO - FIX FOR XBRL SIGNING (
                 <div style={{ margin: '2rem 0 2rem 0' }}>
                   <p className="p-tag-bold" style={{ margin: '1rem 0 0 0' }}>
                     Data Attestation on Report:
@@ -162,19 +160,16 @@ class CredentialDetails {
                 </div>
               )*/}
             </div>
-            {
-              this.isSelfIssued(vnode.attrs, vnode.attrs.identifiers, sad['i']) && (
-                    <Button
-                        style={{ margin: '0 1rem 0 0' }}
-                        class="button button--no-transform"
-                        raised
-                        label="Export"
-                        onclick={() => {
-                          this.exportCredential(vnode.attrs.identifiers, credential);
-                        }}
-                    />
-                )
-            }
+            {this.isSelfIssued(vnode.attrs, vnode.attrs.identifiers, sad['i']) && (
+              <Button
+                style={{ margin: '0 1rem 0 0' }}
+                raised
+                label="Export"
+                onclick={() => {
+                  this.exportCredential(vnode.attrs.identifiers, credential);
+                }}
+              />
+            )}
           </Card>
         </div>
       </>

@@ -96,7 +96,6 @@ class EnterPasscode {
             <Button
               id="login"
               raised
-              class="button--no-transform button--big"
               label="Login"
               disabled={!this.passcode || this.submitting}
               onclick={() => {

@@ -1,91 +1,89 @@
 import m from 'mithril';
-import {Button, TextField} from '../../src/app/components';
-import {KERI, Notify, Profile, Schema } from '../../src/app/services';
-import {Tasks} from '../../src/app/services/tasks';
+import { Button, TextField } from '../../src/app/components';
+import { KERI, Notify, Profile, Schema } from '../../src/app/services';
+import { Tasks } from '../../src/app/services/tasks';
 import createIdentifier from '../../src/assets/img/create-identifier.svg';
-import uploadFile from "../../src/assets/img/upload-file.svg";
+import uploadFile from '../../src/assets/img/upload-file.svg';
 
 class WaitForGLEIFInternalTask {
-    constructor(config) {
-        this.config = config;
-        this.reset();
-    }
+  constructor(config) {
+    this.config = config;
+    this.reset();
+  }
 
-    reset() {
-        this._label = this.config.label;
-        this.next = this.config.next;
-        this._component = {
-            view: (vnode) => {
-                return <WaitForGLEIFInternal end={vnode.attrs.end} parent={this}/>;
-            },
-        };
-    }
+  reset() {
+    this._label = this.config.label;
+    this.next = this.config.next;
+    this._component = {
+      view: (vnode) => {
+        return <WaitForGLEIFInternal end={vnode.attrs.end} parent={this} />;
+      },
+    };
+  }
 
-    get imgSrc() {
-        return createIdentifier;
-    }
+  get imgSrc() {
+    return createIdentifier;
+  }
 
-    get label() {
-        return this._label;
-    }
+  get label() {
+    return this._label;
+  }
 
-    get component() {
-        return this._component;
-    }
+  get component() {
+    return this._component;
+  }
 }
 
 class WaitForGLEIFInternal {
-    constructor(vnode) {
-        this.checkForExternal(vnode)
-    }
+  constructor(vnode) {
+    this.checkForExternal(vnode);
+  }
 
-    checkForExternal(vnode) {
-        KERI.getContacts().then((contacts) => {
-            let recipient = contacts.find((contact) => {
-                return contact.alias === "GLEIF External";
-            })
-            if (recipient !== undefined) {
-                Tasks.active = vnode.attrs.parent.next;
-            }
-        })
-    }
+  checkForExternal(vnode) {
+    KERI.getContacts().then((contacts) => {
+      let recipient = contacts.find((contact) => {
+        return contact.alias === 'GLEIF External';
+      });
+      if (recipient !== undefined) {
+        Tasks.active = vnode.attrs.parent.next;
+      }
+    });
+  }
 
-    view(vnode) {
-        return (
-            <>
-                <h3>Wait for GLEIF External AID Inception</h3>
-                <p
-                    class="font-color--battleship"
-                    style={{ lineHeight: '1.38', letterSpacing: '0.3px', margin: '3rem 0 4rem 0' }}
-                >
-                    You are required by the vLEI Ecosystem Governance Framework to have your Qualified vLEI Issuer AID
-                    delegated from the GLEIF External AID.  You must wait until the GLEIF External AID is created and
-                    published to the well known address.
-                    <br />
-                    <br />
-                    Please contact GLEIF and try again later.
-                </p>
-                <div class="flex flex-justify-between">
-                    <Button
-                        class="button--no-transform button--big"
-                        raised
-                        label="Dismiss"
-                        onclick={() => {
-                            vnode.attrs.end();
-                        }}
-                    />
-                    <Button
-                        class="button--no-transform button--big"
-                        raised
-                        label="Try Again"
-                        onclick={() => {
-                            this.checkForExternal(vnode);
-                        }}
-                    />
-                </div>
-            </>
-        );
-    }
+  view(vnode) {
+    return (
+      <>
+        <h3>Wait for GLEIF External AID Inception</h3>
+        <p
+          class="font-color--battleship"
+          style={{ lineHeight: '1.38', letterSpacing: '0.3px', margin: '3rem 0 4rem 0' }}
+        >
+          You are required by the vLEI Ecosystem Governance Framework to have your Qualified vLEI Issuer AID delegated
+          from the GLEIF External AID. You must wait until the GLEIF External AID is created and published to the well
+          known address.
+          <br />
+          <br />
+          Please contact GLEIF and try again later.
+        </p>
+        <div class="flex flex-justify-between">
+          <Button
+            raised
+            label="Dismiss"
+            onclick={() => {
+              vnode.attrs.end();
+            }}
+          />
+          <Button
+            raised
+            label="Try Again"
+            onclick={() => {
+              this.checkForExternal(vnode);
+            }}
+          />
+        </div>
+      </>
+    );
+  }
 }
 
 module.exports = WaitForGLEIFInternalTask;

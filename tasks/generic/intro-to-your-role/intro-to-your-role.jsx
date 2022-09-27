@@ -59,7 +59,7 @@ class IntroToYourRole {
         <div class="flex flex-justify-between" style={{ marginTop: '4rem' }}>
           <Button
             id="skip"
-            class="button--gray-dk button--big button--no-transform"
+            class="button--gray-dk"
             raised
             label="Skip"
             onclick={(e) => {
@@ -68,7 +68,6 @@ class IntroToYourRole {
           />
           <Button
             id="continue"
-            class="button--big button--no-transform"
             raised
             label="Continue"
             onclick={() => {
@@ -88,7 +87,7 @@ class IntroToYourRole {
             <div class="flex flex-justify-between" style={{ marginTop: '4rem' }}>
               <Button
                 id="steps-skip"
-                class="button--gray-dk button--big button--no-transform"
+                class="button--gray-dk"
                 raised
                 label="Skip"
                 onclick={(e) => {
@@ -97,7 +96,6 @@ class IntroToYourRole {
               />
               <Button
                 id="steps-continue"
-                class="button--big button--no-transform"
                 raised
                 label="Continue"
                 onclick={() => {

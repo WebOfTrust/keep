@@ -179,7 +179,6 @@ class Dashboard {
                         </p>
                         <div class="flex flex-justify-end">
                           <Button
-                            class="button--no-transform"
                             raised
                             label="Dismiss"
                             onclick={() => {

@@ -14,7 +14,7 @@ class EnterOOBIsForm {
 
   canVerify(vnode) {
     if (!vnode.attrs.aid) {
-      return true
+      return true;
     }
 
     return vnode.attrs.aid === KERI.parseAIDFromUrl(vnode.attrs.participants.oobis[this.selectedOobiIndex].url);
@@ -90,40 +90,36 @@ class EnterOOBIsForm {
           />
           {vnode.attrs.participants.oobis[this.selectedOobiIndex].url && (
             <>
-            <p class="font-color--battleship font-size--12 font-weight--bold">OOBI AID:</p>
-            <p class="mono-aid text--underline">
+              <p class="font-color--battleship font-size--12 font-weight--bold">OOBI AID:</p>
+              <p class="mono-aid text--underline">
                 {KERI.parseAIDFromUrl(vnode.attrs.participants.oobis[this.selectedOobiIndex].url)}
-            </p>
+              </p>
             </>
           )}
           {vnode.attrs.aid && (
             <>
               <p class="font-color--battleship font-size--12 font-weight--bold">AID:</p>
-              <p class="mono-aid text--underline">
-                {vnode.attrs.aid}
-              </p>
-              {vnode.attrs.participants.oobis[this.selectedOobiIndex].url && <>
-                  {vnode.attrs.aid === KERI.parseAIDFromUrl(vnode.attrs.participants.oobis[this.selectedOobiIndex].url) ? (
-                    <div className="flex flex-justify-start flex-align-center" style={{marginTop: '1.5rem'}}>
-                      <span className="material-icons-outlined md-24 matched-label">
-                      check_circle
+              <p class="mono-aid text--underline">{vnode.attrs.aid}</p>
+              {vnode.attrs.participants.oobis[this.selectedOobiIndex].url && (
+                <>
+                  {vnode.attrs.aid ===
+                  KERI.parseAIDFromUrl(vnode.attrs.participants.oobis[this.selectedOobiIndex].url) ? (
+                    <div className="flex flex-justify-start flex-align-center" style={{ marginTop: '1.5rem' }}>
+                      <span className="material-icons-outlined md-24 matched-label">check_circle</span>
+                      <span className="matched-label" style={{ marginTop: '0.2rem', marginLeft: '0.4rem' }}>
+                        AIDs Matched!
                       </span>
-                      <span className="matched-label" style={{marginTop: '0.2rem', marginLeft: '0.4rem'}}>
-                        AIDs Matched!</span>
                     </div>
                   ) : (
-                    <div class="flex flex-justify-start flex-align-center" style={{marginTop: '1.5rem'}}>
-                      <span className="material-icons-outlined md-24 missed-label">
-                       cancel
-                      </span>
-                      <span className="missed-label" style={{marginTop: '0.2rem', marginLeft: '0.4rem'}}>
+                    <div class="flex flex-justify-start flex-align-center" style={{ marginTop: '1.5rem' }}>
+                      <span className="material-icons-outlined md-24 missed-label">cancel</span>
+                      <span className="missed-label" style={{ marginTop: '0.2rem', marginLeft: '0.4rem' }}>
                         AIDs Do Not Match
                       </span>
                     </div>
                   )}
-              </>
-              }
-
+                </>
+              )}
             </>
           )}
           <p class="font-color--battleship font-size--12 font-weight--bold">Assign Alias:</p>
@@ -148,21 +144,22 @@ class EnterOOBIsForm {
                 <p className="font-color--green font-weight--medium">Complete!</p>
               )}
             </div>
-            {/* <Button raised class="button--no-transform" label="Verify OOBI" /> */}
+            {/* <Button raised  label="Verify OOBI" /> */}
           </div>
         </Card>
-        {vnode.attrs.participants.oobis.length > 1 && <CarouselControls
-          items={vnode.attrs.participants.oobis.length}
-          active={this.selectedOobiIndex}
-          setActive={(idx) => {
-            this.selectedOobiIndex = idx;
-          }}
-        />}
+        {vnode.attrs.participants.oobis.length > 1 && (
+          <CarouselControls
+            items={vnode.attrs.participants.oobis.length}
+            active={this.selectedOobiIndex}
+            setActive={(idx) => {
+              this.selectedOobiIndex = idx;
+            }}
+          />
+        )}
         <div class={`flex flex-justify-end`}>
           <Button
             raised
             disabled={!this.canVerify(vnode)}
-            class="button--no-transform"
             label={vnode.attrs.participants.oobis.length > 1 ? 'Verify All' : 'Verify'}
             onclick={() => {
               this.resolveAllOOBIs(vnode);
