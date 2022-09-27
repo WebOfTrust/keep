@@ -49,7 +49,7 @@ class Nav {
                 </div>
                 {Profile.getDefaultAID() && (
                   <div
-                    style={{ cursor: 'pointer', marginRight: '2rem' }}
+                    class="nav__profile-image"
                     onclick={() => {
                       m.route.set('/profile');
                     }}
@@ -58,13 +58,7 @@ class Nav {
                   </div>
                 )}
                 <div
-                  style={{
-                    cursor: 'pointer',
-                    color: '#0cbc8b',
-                    marginRight: '2rem',
-                    fontWeight: 'bold',
-                    fontSize: '100%',
-                  }}
+                  class="nav__label"
                   onclick={() => {
                     m.route.set('/profile');
                   }}
@@ -73,6 +67,7 @@ class Nav {
                 </div>
                 <IconButton
                   icon="lock"
+                  iconOutlined={true}
                   onclick={() => {
                     KERI.lockAgent().then(() => {
                       if (Tasks.active !== null) {

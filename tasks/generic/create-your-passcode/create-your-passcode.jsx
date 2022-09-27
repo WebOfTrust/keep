@@ -125,25 +125,27 @@ class CreatePasscode {
               onClose={() => {
                 this.savePassModalOpen = false;
               }}
-              style={{ width: '480px' }}
+              style={{ top: '5rem', left: '16rem', width: '416px' }}
             >
               <h3>Wait! Did you save your passcode?</h3>
-              <div class="flex flex-justify-center">
-                <img class="margin-right-2" style={{ width: '90px' }} src={wait} />
-                <p class="p-tag">
-                  If you forget your passcode, you lose access to Keep. Make sure that you store it someplace safe.
-                </p>
-              </div>
-              <div class="flex flex-justify-center margin-top-2">
-                <Button
-                  id="passcode-saved"
-                  raised
-                  label="I saved my passcode"
-                  onclick={() => {
-                    this.savePassModalOpen = false;
-                    vnode.attrs.parent.currentState = 'enter-passcode';
-                  }}
-                />
+              <div class="flex flex-align-center">
+                <div class="margin-right-2">
+                  <img style={{ minWidth: '90px' }} src={wait} />
+                </div>
+                <div>
+                  <p class="body-text-2 font-color--battleship" style={{ marginTop: 0 }}>
+                    If you forget your passcode, you lose access to Keep. Make sure that you store it someplace safe.
+                  </p>
+                  <Button
+                    id="passcode-saved"
+                    raised
+                    label="I saved my passcode"
+                    onclick={() => {
+                      this.savePassModalOpen = false;
+                      vnode.attrs.parent.currentState = 'enter-passcode';
+                    }}
+                  />
+                </div>
               </div>
             </Modal>
             <h3 id="generate-passcode">Generate Your Passcode</h3>

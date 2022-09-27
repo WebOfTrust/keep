@@ -46,6 +46,18 @@
     }
   }
 
+  &__profile-image {
+    cursor: pointer;
+    margin-right: 2rem;
+  }
+
+  &__label {
+    @include bold;
+    cursor: pointer;
+    color: $turquoise;
+    margin-right: 2rem;
+  }
+
   .notification-badge {
     background: $turquoise-light;
     border-radius: 50%;
