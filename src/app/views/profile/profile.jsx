@@ -54,7 +54,7 @@ class Profile {
                 </Card>
               </div>
               <div class="flex-1">
-                <Card class={'relative card--fluid'} padding="2.5rem">
+                <Card class={'relative card--fluid'} padding="2rem">
                   {this.currentState === 'manage-identifiers' && <ManageIdentifiers />}
                   {this.currentState === 'manage-passcode' && <ManagePasscode />}
                 </Card>

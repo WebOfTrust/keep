@@ -200,10 +200,10 @@ class ListIdentifiers {
           ))}
 
         {Profile.identifiers && (
-          <div style={{ height: '624px', overflowY: 'scroll', margin: '0 0 0 0' }}>
+          <div style={{ height: '640px', overflowY: 'auto', margin: '0 0 0 0' }}>
             {Profile.identifiers.map((aid) => {
               return (
-                <Card class="fun" style={{ margin: '10px 5px 10px 5px', padding: '0', width: '500px' }}>
+                <Card style={{ margin: '10px 5px 10px 5px', padding: '0' }}>
                   <div class="flex flex-justify-between">
                     <div class="flex">
                       <ProfilePicture identifier={aid} />
