@@ -8,6 +8,7 @@ class IconButton {
     this.optionDefaults = {
       class: null,
       icon: '',
+      iconOutlined: false,
       onclick: null,
       ripple: true,
       title: null,
@@ -21,9 +22,14 @@ class IconButton {
   }
 
   setClass() {
-    this.buttonClass = `material-icons mdc-icon-button`;
+    this.buttonClass = `mdc-icon-button`;
     if (this.options.class) {
       this.buttonClass += ` ${this.options.class}`;
+    }
+    if (this.options.iconOutlined) {
+      this.buttonClass += ' material-icons-outlined';
+    } else {
+      this.buttonClass += ' material-icons';
     }
   }
 
