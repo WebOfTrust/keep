@@ -4,7 +4,7 @@ import Container from '../container/container.jsx';
 import IconButton from '../icon-button/icon-button.jsx';
 import ProfilePicture from '../profile/picture.jsx';
 
-import keepLogo from '../../../assets/img/logo/keep.png';
+import gleifLogo from '../../../assets/img/logo/gleif.svg';
 import './nav.scss';
 
 class Nav {
@@ -24,18 +24,19 @@ class Nav {
       <div class="nav">
         <Container>
           <div class="nav__content">
-            <h2 class="nav__title">
-              <m.route.Link class="nav__link" href="/">
-                <img src={keepLogo} />
+            <div class="nav__logo">
+              <m.route.Link href="/" class="nav__logo__link">
+                <img src={gleifLogo} />
+                <h1>KEEP</h1>
               </m.route.Link>
-            </h2>
+            </div>
             <div class="nav__spacer"></div>
             {Profile.isLoggedIn && (
               <>
-                <div class="relative">
+                <div class="relative" style={{ marginRight: '2rem' }}>
                   <IconButton
                     icon="notifications"
-                    style={{ marginRight: '1rem' }}
+                    iconOutlined={true}
                     onclick={() => {
                       Notify.open();
                     }}
@@ -46,20 +47,21 @@ class Nav {
                     </span>
                   )}
                 </div>
-                <div
-                  style={{ cursor: 'pointer', marginRight: '0.5rem', marginLeft: '1rem' }}
-                  onclick={() => {
-                    m.route.set('/profile');
-                  }}
-                >
-                  <ProfilePicture size="s" identifier={Profile.getDefaultAID()} />
-                </div>
+                {Profile.getDefaultAID() && (
+                  <div
+                    style={{ cursor: 'pointer', marginRight: '2rem' }}
+                    onclick={() => {
+                      m.route.set('/profile');
+                    }}
+                  >
+                    <ProfilePicture size="s" identifier={Profile.getDefaultAID()} />
+                  </div>
+                )}
                 <div
                   style={{
                     cursor: 'pointer',
                     color: '#0cbc8b',
-                    paddingLeft: '1rem',
-                    paddingRight: '1rem',
+                    marginRight: '2rem',
                     fontWeight: 'bold',
                     fontSize: '100%',
                   }}
@@ -69,7 +71,6 @@ class Nav {
                 >
                   {this.navLabel}
                 </div>
-
                 <IconButton
                   icon="lock"
                   onclick={() => {

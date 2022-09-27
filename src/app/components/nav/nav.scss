@@ -3,6 +3,7 @@
 
 .nav {
   background-color: white;
+
   &__content {
     align-items: center;
     display: flex;
@@ -15,12 +16,24 @@
     flex: 1;
   }
 
-  &__title {
-    @include lato;
-    @include bold;
-    line-height: 1.33;
-    letter-spacing: 0.2px;
-    margin: 0;
+  &__logo {
+    &__link {
+      align-items: center;
+      display: flex;
+      text-decoration: none;
+
+      img {
+        margin-right: 1.5rem;
+        height: 40px;
+        width: 40px;
+      }
+
+      h1 {
+        @include bold;
+        color: $cyprus;
+        font-size: 24px;
+      }
+    }
   }
 
   &__link {
@@ -34,16 +47,19 @@
   }
 
   .notification-badge {
-    background: #d7e5ff;
-    border-radius: 16px;
-    padding: 1px 6px;
+    background: $turquoise-light;
+    border-radius: 50%;
+    padding: 0 8px;
     position: absolute;
-    right: 16px;
+    left: 4px;
+    top: 4px;
+
     p {
-      font-size: 12px;
-      color: #737b7d;
-      font-weight: bold;
-      margin: 1px 0 0 0;
+      @include bold;
+      color: $cyprus;
+      font-size: 10px;
+      line-height: 20px;
+      margin: 0;
     }
   }
 }

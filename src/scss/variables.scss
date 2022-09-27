@@ -27,11 +27,12 @@ $blue: $french-blue;
 $green: #4d979b;
 $yellow: #fcc419;
 
-$background: #f9fbfd;
+$background: #fefdff;
 
 $cyprus: #123235;
 $turquoise: #4d969b;
-$hover-turquoise: rgba(#bcebe2, 0.29);
+$turquoise-light: #bcebe2;
+$hover-turquoise: rgba($turquoise-light, 0.29);
 
 $primary: $cyprus;
 $on-primary: white;
