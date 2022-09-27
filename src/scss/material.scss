@@ -1,9 +1,9 @@
 // Theme
 @use '@material/theme/index' with (
   $primary: $primary,
-  $secondary: $primary,
-  $on-primary: #ffffff,
-  $on-secondary: #ffffff
+  $secondary: $secondary,
+  $on-primary: $on-primary,
+  $on-secondary: $on-secondary
 );
 
 @use '@material/typography/index' as typography with (
@@ -92,24 +92,22 @@
   text-transform: none;
 }
 
+.mdc-text-field--outlined {
+  height: 48px;
+}
+
 .button {
-  &--white {
-    @include button.ink-color($default-text);
-    @include button.icon-color($default-text);
-    @include button.container-fill-color(white);
-    @include button.outline-color($gray-lt);
-  }
   &--gray {
-    @include button.ink-color($default-text);
-    @include button.icon-color($default-text);
-    @include button.container-fill-color($gray-lter);
-    @include button.outline-color($gray-lter);
+    @include button.ink-color(#003336);
+    @include button.icon-color(#003336);
+    @include button.container-fill-color(#51dac5);
+    @include button.outline-color(#51dac5);
   }
   &--gray-dk {
-    @include button.ink-color(white);
-    @include button.icon-color($default-text);
-    @include button.container-fill-color($gray-dk);
-    @include button.outline-color($gray-dk);
+    @include button.ink-color(#003336);
+    @include button.icon-color(#003336);
+    @include button.container-fill-color(#51dac5);
+    @include button.outline-color(#51dac5);
   }
   &--big {
     @include button.height(3rem);

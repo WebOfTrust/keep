@@ -70,7 +70,7 @@ class Dashboard {
               <div class="flex-1 margin-right-2">
                 {/* Optional left component of active task (replaces task list) */}
                 {Tasks.active && Tasks.active.lcomponent && (
-                  <Card class={'relative card--fluid' + (Tasks.active ? ' card--active' : null)} padding="2.5rem">
+                  <Card class={'relative card--fluid' + (Tasks.active ? ' card--active' : null)} padding="2rem">
                     {Tasks.active && (
                       <Tasks.active.lcomponent
                         end={() => {
@@ -101,7 +101,7 @@ class Dashboard {
                           }}
                         >
                           <div class="flex flex-align-center">
-                            <img src={task.imgSrc} alt={task.label} style={{ marginRight: '1rem', width: '72px' }} />
+                            <img src={task.imgSrc} alt={task.label} style={{ marginRight: '2rem', width: '72px' }} />
                             <h4>{task.label}</h4>
                           </div>
                         </Card>
@@ -111,7 +111,6 @@ class Dashboard {
                       <div class="flex flex-align-center flex-justify-between">
                         {this.sliceStart != 0 && (
                           <Button
-                            class="button--white"
                             iconLeading="arrow_back_ios"
                             label="Previous Tasks"
                             onclick={() => {
@@ -122,7 +121,6 @@ class Dashboard {
                         {this.sliceStart === 0 && <div></div>}
                         {this.sliceEnd < this.tasksList.length && (
                           <Button
-                            class="button--white"
                             iconTrailing="arrow_forward_ios"
                             label="Next Tasks"
                             onclick={() => {
@@ -138,10 +136,7 @@ class Dashboard {
               {/* Right Panel */}
               <div class="flex-1">
                 {(Notify.isOpen || Tasks.active || (Profile.isLoggedIn && !this.aboutDismissed)) && (
-                  <Card
-                    class={'relative card--fluid' + (!Notify.isOpen && Tasks.active ? ' card--active' : '')}
-                    padding="2.5rem"
-                  >
+                  <Card class="relative card--fluid" padding="2rem">
                     <IconButton
                       class="close-icon"
                       icon="close"

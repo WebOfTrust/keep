@@ -15,29 +15,31 @@ body {
 h1 {
   @include bold;
   font-size: 32px;
-  line-height: 40px;
   letter-spacing: 0.1px;
 
   &.lg {
     @include bold;
     font-size: 44px;
-    line-height: 56px;
     letter-spacing: 0.2px;
   }
+}
+
+h3 {
+  @include bold;
+  font-size: 18px;
 }
 
 h4 {
   @include bold;
   font-size: 16px;
-  line-height: 20px;
-  letter-spacing: 0.1px;
+  letter-spacing: 0.15px;
 }
 
 .error {
-  @include medium;
+  @include normal;
   color: $red;
-  font-size: 14px;
-  margin: 0.75rem 0 0;
+  font-size: 12px;
+  margin: 0.5rem 0 0;
 }
 
 .hint {
@@ -48,6 +50,11 @@ h4 {
   @include mono;
   font-size: 12px;
   word-break: break-all;
+}
+
+.body-text-2 {
+  @include normal;
+  font-size: 12px;
 }
 
 .font {
@@ -80,6 +87,9 @@ h4 {
     }
     &--blue {
       color: $blue;
+    }
+    &--info {
+      color: $info-blue;
     }
   }
   &-size {

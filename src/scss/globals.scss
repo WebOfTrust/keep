@@ -24,8 +24,8 @@ a:link {
 
 .p-tag {
   color: $battleship-grey;
-  letter-spacing: 0.15px;
-  line-height: 1.38;
+  font-size: 14px;
+  // letter-spacing: 0.15px;
 
   &-bold {
     font-weight: 700;
@@ -36,6 +36,27 @@ a:link {
     font-weight: 400;
     font-style: italic;
     color: $battleship-grey;
+  }
+}
+
+.task-img {
+  display: block;
+  margin: 2rem 0;
+  width: 192px;
+
+  &--centered {
+    margin: 2rem auto;
+  }
+}
+
+.info {
+  align-items: center;
+  color: $info-blue;
+  display: flex;
+  margin: 2rem 0;
+
+  &-icon {
+    margin-right: 1rem;
   }
 }
 
