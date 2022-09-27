@@ -16,12 +16,10 @@ import InitiateManualKeyRotationTask from '../generic/initiate-manual-key-rotati
 import VideoCallTask from '../generic/video-call/video-call';
 import ViewMultiSigEventLogsTask from '../generic/view-multi-sig-event-logs/view-multi-sig-event-logs';
 import LeadQARLeadExtOOBI from './lead-qar-lead-ext-oobi';
-import JoinVideoCallTask from '../generic/join-video-call/join-video-call';
 
 //dummy tasks
 import JoinManualKeyRotationTask from '../generic/join-manual-key-rotation/join-manual-key-rotation';
 import JoinCredentialRevocationTask from '../generic/join-credential-revocation/join-credential-revocation';
-import JoinCredentialIssuanceTask from '../generic/join-credential-issuance/join-credential-issuance';
 import AcceptCredentialsTask from '../generic/accept-credentials/accept-credentials';
 import IssueCredentialTask from './issue-credential';
 import JoinCredentailIssuanceTask from './join-credential-issuance';
@@ -63,7 +61,7 @@ const tasks = {
   'main': [
     new VideoCallTask({
       initiate: true,
-      label: 'Initiate LE Credential Issuance',
+      label: 'Issue LE Credential',
       aidToSend: variables.aidToSend,
       steps: variables.initiateLECredentialIssuance.steps,
       next: new IssueCredentialTask({
@@ -71,17 +69,9 @@ const tasks = {
         schema: Schema.LECredentialSchema,
       }),
     }),
-    new JoinVideoCallTask({
-      initiate: false,
-      oneToOne: true,
-      label: 'Join LE Credential Issuance',
-      steps: variables.joinLECredentialIssuance.steps,
-      oobiRecipient: variables.joinLECredentialIssuance.oobiRecipient,
-      next: new JoinCredentialIssuanceTask({ label: 'Join LE Credential Issuance' }),
-    }),
     new VideoCallTask({
       initiate: true,
-      label: 'Initiate OOR Credential Issuance',
+      label: 'Issue OOR Credential',
       aidToSend: variables.aidToSend,
       steps: variables.initiateLECredentialIssuance.steps,
       next: new IssueCredentialTask({
@@ -89,31 +79,15 @@ const tasks = {
         schema: Schema.OORCredentialSchema,
       }),
     }),
-    new JoinVideoCallTask({
-      initiate: false,
-      oneToOne: true,
-      label: 'Join OOR Credential Issuance',
-      steps: variables.joinOORCredentialIssuance.steps,
-      oobiRecipient: variables.joinOORCredentialIssuance.oobiRecipient,
-      next: new JoinCredentialIssuanceTask({ label: 'Join OOR Credential Issuance' }),
-    }),
     new VideoCallTask({
       initiate: true,
-      label: 'Initiate ECR Credential Issuance',
+      label: 'Issue ECR Credential',
       aidToSend: variables.aidToSend,
       steps: variables.initiateLECredentialIssuance.steps,
       next: new IssueCredentialTask({
         label: 'Initiate ECR Credential Issuance',
         schema: Schema.ECRCredentialSchema,
       }),
-    }),
-    new JoinVideoCallTask({
-      initiate: false,
-      oneToOne: true,
-      label: 'Join ECR Credential Issuance',
-      steps: variables.joinECRCredentialIssuance.steps,
-      oobiRecipient: variables.joinECRCredentialIssuance.oobiRecipient,
-      next: new JoinCredentialIssuanceTask({ label: 'Join ECR Credential Issuance' }),
     }),
     new CredentialRevocationTask({ label: 'Initiate Credential Revocation' }),
     new JoinCredentialRevocationTask({ label: 'Join Credential Revocation' }),

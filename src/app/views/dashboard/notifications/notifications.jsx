@@ -18,6 +18,16 @@ class Notifications {
     Tasks.active = task;
   }
 
+  rotationCompleteClick(notification) {
+    let task = Tasks.find('view-event-logs');
+    Tasks.active = task;
+  }
+
+  joinManualKeyRotation(notification) {
+    MultiSig.rotation = notification.a;
+    Tasks.active = Tasks.find('join-multisig-rotation');
+  }
+
   multisigIssueClick(notification) {
     Notify.selected = notification;
     Tasks.active = Tasks.find('join-multisig-issue');
@@ -33,7 +43,9 @@ class Notifications {
   }
 
   delegationRequestClick(notification) {
-    Notify.selected = notification;
+    Delegation.aids = notification.a.aids;
+    Delegation.ked = notification.a.ked;
+    Delegation.delegator = Profile.filterIdentifiersById(notification.a.delpre);
     Tasks.active = Tasks.find('approve-delegation');
     m.redraw();
   }
@@ -56,6 +68,12 @@ class Notifications {
     } else if (rType === '/multisig/ixn/complete') {
       meta.title = 'Delegated Identifier Created';
       meta.clickHandler = this.challengeNotificationClick;
+    } else if (rType === '/multisig/rot') {
+      meta.title = 'Multi-Sig Rotation Signed';
+      meta.clickHandler = this.joinManualKeyRotation;
+    } else if (rType === '/multisig/rot/complete') {
+      meta.title = 'Multi-Sig Rotation Complete';
+      meta.clickHandler = this.rotationCompleteClick;
     } else if (rType.includes('/init')) {
       meta.title = 'Multi-Sig Verification Request';
       meta.clickHandler = this.multisigInitClick;
@@ -65,6 +83,9 @@ class Notifications {
     } else if (rType === '/multisig/iss/complete') {
       meta.title = 'Credential Issuance Complete';
       meta.clickHandler = this.issueCompleteClick;
+    } else if (rType === '/delegate/request') {
+      meta.title = `Delegation Request`;
+      meta.clickHandler = this.delegationRequestClick;
     }
 
     // Credential
@@ -78,13 +99,13 @@ class Notifications {
         meta.clickHandler = this.issueCompleteClick;
       }
     }
-    // Delegate
-    if (notification.type === 'delegate') {
-      let rType = notification.data.r;
-      if (rType.includes('/request')) {
-        meta.title = `Delegation Request`;
-        meta.clickHandler = this.delegationRequestClick;
-      }
+
+    // Contacts
+    if (rType === '/oobi') {
+      meta.title = `New Shared Contact`;
+      meta.clickHandler = () => {
+        m.route.set('/contacts');
+      };
     }
     return meta;
   }
@@ -107,7 +128,9 @@ class Notifications {
               style={{ paddingTop: '1rem ' }}
               onclick={() => {
                 Notify.notifications.forEach((notification) => {
-                  Notify.deleteNotification(notification.i);
+                  if (notification.selected) {
+                    Notify.deleteNotification(notification.i);
+                  }
                 });
               }}
             >

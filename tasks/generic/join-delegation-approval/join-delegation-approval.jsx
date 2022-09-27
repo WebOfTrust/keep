@@ -1,7 +1,7 @@
 import m from 'mithril';
 import approveRequest from '../../../src/assets/img/approve-request.svg';
-import {Button} from '../../../src/app/components';
-import {KERI, Profile, Notify, Contacts} from '../../../src/app/services';
+import {AID, Button} from '../../../src/app/components';
+import {Contacts, Delegation, KERI, Tasks} from '../../../src/app/services';
 
 class JoinDelegationApprovalTask {
     constructor(config) {
@@ -35,17 +35,38 @@ class JoinDelegationApprovalTask {
 
 class JoinDelegationApproval {
     constructor() {
-        let notif = Notify.selected;
-        this.aids = notif.data.aids;
-        this.ked = notif.data.ked;
-        this.delegatorAID = notif.data.delpre;
-        this.aid = Profile.filterIdentifiersById(this.delegatorAID);
-
-        if (this.aid.length === 1) {
-            this.delegatorAlias = this.aid[0].name
-        } else {
-            this.delegatorAlias = "Unknown Delegator AID"
+        let task = this;
+        this.aids = Delegation.aids;
+        this.ked = Delegation.ked;
+        this.fractionallyWeighted = Array.isArray(this.ked.kt);
+        if (this.fractionallyWeighted) {
+            this.weights = this.ked.kt;
         }
+        this.delegator = Delegation.delegator;
+        this.signers = [];
+        if (Contacts.list.length === 0) {
+            Contacts.requestList().then(() => {
+                task.loadSigners();
+            })
+        } else {
+            task.loadSigners();
+        }
+    }
+
+    loadSigners() {
+        this.aids.forEach((aid, idx) => {
+            let contact = Contacts.filterById(aid);
+            if (contact === undefined) {
+                this.signers.push({});
+            } else {
+                if (this.fractionallyWeighted) {
+                    let weight = this.weights[idx];
+                    this.signers.push({contact:contact, weight: weight})
+                } else {
+                    this.signers.push({contact:contact})
+                }
+            }
+        })
     }
 
     approveDelegation() {
@@ -55,11 +76,18 @@ class JoinDelegationApproval {
             d: this.ked['d']
         }]
 
-        let aids = this.aid[0].group.aids
-        return KERI.initiateGroupInteraction(this.delegatorAlias, {
-            aids: aids,
-            data: data
-        } )
+        let aids = this.delegator.group.aids
+        if (this.delegator.estOnly) {
+            return KERI.initiateGroupRotation(this.delegator.name, {
+                aids: aids,
+                data: data
+            })
+        } else {
+            return KERI.initiateGroupInteraction(this.delegator.name, {
+                aids: aids,
+                data: data
+            })
+        }
     }
 
     view(vnode) {
@@ -70,62 +98,59 @@ class JoinDelegationApproval {
                         <img src={approveRequest} style={{width: '188px', margin: '0 0 2rem 0'}}/>
                         <h3>Initiate Delegation Approval</h3>
                         <p class="p-tag">View the delegation request and confirm that these individuals are
-                            authorized.</p>
+                            authenticated.</p>
                         <div class="flex flex-justify-end" style={{marginTop: '4rem'}}>
                             <Button
                                 class="button--big button--no-transform"
                                 raised
                                 label="View"
                                 onclick={() => {
-                                    vnode.attrs.parent.currentState = 'review-members';
+                                    vnode.attrs.parent.currentState = 'review-and-confirm';
                                 }}
                             />
                         </div>
                     </>
                 )}
-                {vnode.attrs.parent.currentState === 'review-members' && (
+                {vnode.attrs.parent.currentState === 'review-and-confirm' && (
                     <>
                         <h3>Review and Confirm Delegation Request</h3>
+
                         <p>Review signers to make sure the list is complete.</p>
                         {this.ked.di && (
                             <>
-                                <h4>Delegator:</h4>
-                                <div class="flex flex-align-center flex-justify-between" style={{margin: '1rem 0'}}>
-                                    <div class="flex-1 uneditable-value" style={{minHeight: '48px'}}>
-                                        {this.delegatorAlias}
-                                    </div>
-                                </div>
-                                <div class="flex flex-align-center flex-justify-between" style={{margin: '1rem 0'}}>
-                                    <div class="flex-1 uneditable-value" style={{minHeight: '48px'}}>
-                                        {this.delegatorAID}
-                                    </div>
+                                <p className="font-weight--bold font-color--battleship">Delegator:</p>
+                                <div className="flex flex-align-center flex-justify-between"
+                                     style={{margin: '0 0 4rem 0'}}>
+                                    <AID aid={this.delegator}/>
                                 </div>
                             </>
                         )}
-                        <h4>Signers:</h4>
-                        {this.aids.map((signer, i) => {
-                            let name = '';
-                            let contact = Contacts.filterById(signer);
-                            if (contact !== undefined) {
-                                name = contact.alias;
-                            } else {
-                                name = 'Unknown AID';
-                            }
+                        <p class="font-weight--bold font-color--battleship">Signers (in order):</p>
+                        {this.signers.map((signer) => {
                             return (
-                                <>
-                                    <div class="flex flex-align-center flex-justify-between" style={{margin: '1rem 0'}}>
-                                        <div class="flex-1 uneditable-value" style={{marginRight: '1rem'}}>
-                                            {name}
-                                        </div>
-                                    </div>
-                                    <div class="flex flex-align-center flex-justify-between" style={{margin: '1rem 0'}}>
-                                        <div class="flex-1 uneditable-value" style={{marginRight: '1rem'}}>
-                                            {signer}
-                                        </div>
-                                    </div>
-                                </>
+                              <>
+                                  <div class="flex flex-align-center flex-justify-between margin-v-1">
+                                      <div class="flex-1 uneditable-value" style={{ marginRight: '1rem' }}>
+                                          <AID contact={signer.contact}/>
+                                      </div>
+                                      {this.fractionallyWeighted && <div class="uneditable-value">{signer.weight}</div>}
+                                  </div>
+                              </>
                             );
                         })}
+                        {(!this.fractionallyWeighted) && <>
+                            <p className="font-weight--bold font-color--battleship">Signature Threshold:</p>
+                            <div className="uneditable-value">{this.ked.kt}</div>
+                        </>}
+                        <p className="font-weight--bold font-color--battleship">Witness Count:</p>
+                        <div className="uneditable-value">{this.ked.b.length}</div>
+                        <p className="font-color--battleship margin-v-2">Advanced Options.</p>
+                        <p className="font-weight--bold font-color--battleship">Witness Threshold:</p>
+                        <div className="uneditable-value">{this.ked.bt}</div>
+                        <p className="font-weight--bold font-color--battleship">Establishment Only:</p>
+                        <div className="uneditable-value">{"EO" in this.ked.c ? 'Yes' : 'No'}</div>
+                        <p className="font-weight--bold font-color--battleship">Allow Delegation:</p>
+                        <div className="uneditable-value">{"DND" in this.ked.c ? 'No' : 'Yes'}</div>
 
                         <div class="flex flex-justify-between" style={{marginTop: '4rem'}}>
                             <Button
@@ -154,8 +179,18 @@ class JoinDelegationApproval {
                         <img src={approveRequest} style={{width: '188px', margin: '0 0 2rem 0'}}/>
                         <h3>Delegation complete</h3>
                         <p class="p-tag">When enough members of {this.delegatorAlias} have approved the delegation you will
-                            receive a notification that the new delegated AID has been approved and created.</p>
-                        <div class="flex flex-justify-end" style={{marginTop: '4rem'}}>
+                            receive a notification that the new delegated AID has been approved and created.  You can
+                            also check the status of the anchoring event in the Multi-Sig Event Logs using the
+                            status button below.</p>
+                        <div class="flex flex-justify-between" style={{marginTop: '4rem'}}>
+                            <Button
+                              class="button--big button--no-transform"
+                              raised
+                              label="Status"
+                              onclick={() => {
+                                  Tasks.active = Tasks.find('view-event-logs');
+                              }}
+                            />
                             <Button
                                 class="button--big button--no-transform"
                                 raised

@@ -36,14 +36,14 @@
   .notification-badge {
     background: #d7e5ff;
     border-radius: 16px;
-    padding: 2px 4px;
+    padding: 1px 6px;
     position: absolute;
     right: 16px;
     p {
       font-size: 12px;
       color: #737b7d;
       font-weight: bold;
-      margin: 0;
+      margin: 1px 0 0 0;
     }
   }
 }

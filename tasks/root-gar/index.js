@@ -15,36 +15,13 @@ import JoinMultiSigGroupTask from '../generic/join-multi-sig-group/join-multi-si
 import JoinDelegationApprovalTask from '../generic/join-delegation-approval/join-delegation-approval';
 import InitiateManualKeyRotationTask from '../generic/initiate-manual-key-rotation/initiate-manual-key-rotation';
 import VideoCallTask from '../generic/video-call/video-call';
+import SpotCheckTask from '../generic/video-call/spot-check';
 import ManualKeyRotationTask from '../generic/manual-key-rotation/manual-key-rotation';
 import ViewMultiSigEventLogsTask from '../generic/view-multi-sig-event-logs/view-multi-sig-event-logs';
-import LeadRootLeadOOBI from './lead-root-lead-oobi';
+import WaitForDelegationRequestTask from '../generic/wait-for-delegation-request/wait-for-delegation-request';
+import JoinManualKeyRotation from '../generic/join-manual-key-rotation/join-manual-key-rotation';
 
-import loanApproved from '../../src/assets/img/loan-approved.svg';
-
-//dummy tasks
-import JoinManualKeyRotationTask from '../generic/join-manual-key-rotation/join-manual-key-rotation';
 import Profile from '../../src/app/services/profile';
-
-class DelegationApprovalInProcessTask {
-  constructor() {
-    this.label = '';
-    this.imgSrc = null;
-    this.component = {
-      view: (vnode) => {
-        return (
-          <>
-            <img src={loanApproved} style={{ marginBottom: '1rem', width: '240px' }} />
-            <h3 style={{ marginBottom: '2rem' }}>Delegation Approval in Progress</h3>
-            <p class="p-tag">You will be notified when it is time for you to sign</p>
-            <div class="flex flex-justify-end" style={{ marginTop: '4rem' }}>
-              <Button raised class="button--big button--no-transform" label="Close" onclick={vnode.attrs.end} />
-            </div>
-          </>
-        );
-      },
-    };
-  }
-}
 
 class RootGARTasks {
   _all = [];
@@ -105,26 +82,48 @@ const tasks = {
     new CreateYourAIDTask({
       id: 'create-your-aid',
       label: 'Incept Local GLEIF Single-Sig AID',
-      variables: variables.createYourAid,
+      variables: variables.createYourAid, delegatable: true, DnD: false
     }),
   ],
   'create-multisig': [
     new VideoCallTask({
       label: 'Create GLEIF Root Multi-Sig AID',
-      next: new ConfigureMultiSigGroupTask({ label: 'Configure Multi-Sig Group' }),
-      initialParticipants: 1,
+      next: new ConfigureMultiSigGroupTask({
+        label: 'Configure Multi-Sig Group',
+        delegatable: false, DnD: false,
+        establishable: false, estOnly: true,
+      }),
+      initialParticipants: 6,
       canAddParticipants: false,
+      variables: variables.createGLEIFRoot,
     }),
     new ManualKeyRotationTask({ label: 'Perform Manual Key Rotation' }),
   ],
   'join-multisig': [new JoinMultiSigGroupTask({ label: 'Join Multi-Sig Group' })],
+  'join-multisig-rotation': [new JoinManualKeyRotation({ label: 'Join Multi-Sig Group' })],
   'approve-delegation': [new JoinDelegationApprovalTask({ label: 'Delegation Approval' })],
   'singlesig-selected': [new ManualKeyRotationTask({ label: 'Perform Manual Key Rotation' })],
+  "view-event-logs": [new ViewMultiSigEventLogsTask({ label: 'View Multi-Sig Event Logs' })],
+  'spot-check': [new SpotCheckTask({
+    label: 'Spot Check'
+  })],
   'multisig-selected': [
-    new LeadRootLeadOOBI({ label: 'Challenge with External GARs', variables: variables.externalOobi }),
-    new LeadRootLeadOOBI({ label: 'Challenge with Internal GARs', variables: variables.internalOobi }),
-    new InitiateManualKeyRotationTask({ label: 'Initiate Manual Key Rotation' }),
-    new JoinManualKeyRotationTask({ label: 'Join Manual Key Rotation' }),
+    new VideoCallTask({
+      label: 'Approve Delegation Request',
+      next: new WaitForDelegationRequestTask({ label: 'Wait for Delegation Request' }),
+      nextOptional: false,
+      initialParticipants: 3,
+      canAddParticipants: false,
+      variables: variables.approveDelegation,
+    }),
+    new VideoCallTask({
+      label: 'Perform Manual Key Rotation',
+      next: new InitiateManualKeyRotationTask({ label: 'Perform Manual Key Rotation' }),
+      nextOptional: false,
+      initialParticipants: 3,
+      canAddParticipants: false,
+      variables: variables.manualKeyRotation,
+    }),
     new ViewMultiSigEventLogsTask({ label: 'View Multi-Sig Event Logs' }),
   ],
 };

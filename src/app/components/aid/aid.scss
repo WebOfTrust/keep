@@ -1,5 +1,98 @@
-
+@import '~/src/scss/mixins';
+@import '~/src/scss/variables';
 
 .aid {
+  align-items: center;
+  display: flex;
+  position: relative;
 
+  &__icon {
+    @include bold;
+    background-color: $gray-dk;
+    border-radius: 50%;
+    color: white;
+    cursor: pointer;
+    display: inline-block;
+    font-size: 12px;
+    height: 18px;
+    line-height: 18px;
+    text-align: center;
+    width: 18px;
+
+    &--authenticated {
+      background-color: #11604a;
+    }
+  }
+
+  &__popover {
+    &__type {
+      @include light;
+      font-size: 12px;
+    }
+
+    &__nameContainer {
+      align-items: center;
+      display: flex;
+
+      &__spacer {
+        flex: 1;
+      }
+    }
+
+    &__name {
+      @include bold;
+      font-size: 14px;
+      margin: 0 0 4px 0;
+    }
+
+    &__organization {
+      @include light;
+      font-size: 14px;
+      margin: 0;
+    }
+
+    &__field {
+      align-items: center;
+      display: flex;
+      margin: 1rem 0;
+    }
+
+    &__label {
+      @include normal;
+      font-size: 14px;
+      min-width: 52px;
+    }
+
+    &__value {
+      @include medium;
+      font-size: 12px;
+      margin-right: 1rem;
+      overflow: hidden;
+      min-width: 340px;
+      max-width: 340px;
+      text-overflow: ellipsis;
+      white-space: nowrap;
+    }
+
+    &__footer {
+      align-items: center;
+      display: flex;
+      justify-content: space-between;
+
+      &__copied {
+        color: $green;
+        margin: 0;
+      }
+    }
+  }
+
+  .popover {
+    @include normal;
+    background-color: white;
+    padding: 1rem;
+    top: 32px;
+    left: 0;
+    overflow-x: hidden;
+    width: 490px;
+  }
 }

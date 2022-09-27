@@ -28,6 +28,10 @@ class Profile {
     return this._locked
   }
 
+  static set locked(_locked) {
+    this._locked = _locked;
+  }
+
   static get created() {
     return this._created;
   }
@@ -99,14 +103,19 @@ class Profile {
   }
 
   static filterIdentifiersById(id) {
-    return this._identifiers.filter((identifier) => {
+    let ids = this._identifiers.filter((identifier) => {
       return identifier.prefix === id;
     });
+    if (ids.length === 0) {
+      return undefined;
+    } else {
+      return ids[0];
+    }
   }
 
-  static createIdentifier(alias, wits, toad, estOnly) {
+  static createIdentifier(alias, wits, toad, estOnly, DnD) {
     return new Promise((resolve, reject) => {
-      KERI.createIdentifier(alias, wits, toad, estOnly)
+      KERI.createIdentifier(alias, wits, toad, estOnly, DnD)
         .then(() => {
           Profile.loadIdentifiers()
             .then((ids) => {

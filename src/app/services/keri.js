@@ -47,21 +47,33 @@ class KERI {
 
   static lockAgent() {
     return m.request({
-      method: 'GET',
+      method: 'POST',
       url: `${this.keriURL}/lock`,
+    });
+  }
+
+  static resetPasscode(current, passcode) {
+    return m.request({
+      method: 'POST',
+      url: `${this.keriURL}/codes`,
+      body: {
+        current,
+        passcode,
+      },
     });
   }
 
   // IDENTIFIERS
 
-  static createIdentifier(alias, wits, toad, estOnly) {
+  static createIdentifier(alias, wits, toad, estOnly, DnD) {
     return m.request({
       method: 'POST',
       url: `${this.keriURL}/ids/${alias}`,
       body: {
         wits,
         toad,
-        estOnly
+        estOnly,
+        DnD
       },
     });
   }
@@ -97,6 +109,13 @@ class KERI {
     return m.request({
       method: 'GET',
       url: `${this.keriURL}/ids`,
+    });
+  }
+
+  static findEvent(pubkey) {
+    return m.request({
+      method: 'GET',
+      url: `${this.keriURL}/keystate/pubkey/${pubkey}`,
     });
   }
 
@@ -139,7 +158,7 @@ class KERI {
 
   static sendOOBIs(alias, oobis) {
     let body = oobis.map((oobi) => {
-      return { alias: oobi.alias, url: oobi.url };
+      return oobi.url + "?name=" + oobi.alias;
     });
     return m.request({
       method: 'POST',
@@ -167,7 +186,7 @@ class KERI {
     });
   }
 
-  // Notifications
+  // NOTIFICATIONS
   static getNotifications() {
     return m.request({
       method: 'GET',
@@ -186,6 +205,7 @@ class KERI {
     return m.request({
       method: 'PUT',
       url: `${this.keriURL}/notifications/${rid}`,
+    }).catch((e) => {
     });
   }
 
@@ -249,6 +269,13 @@ class KERI {
     });
   }
 
+  static getKeyStateForIdentifier(prefix) {
+    return m.request({
+      method: "GET",
+      url: `${this.keriURL}/keystate/${prefix}`
+    })
+  }
+
   static getEvent(prefix, said) {
     return m.request({
       method: 'GET',
@@ -274,7 +301,7 @@ class KERI {
 
   // GROUPS
 
-  static initiateGroupInception(alias, { aids, isith, nsith, toad, wits, delpre }) {
+  static initiateGroupInception(alias, { aids, isith, nsith, toad, wits, delpre, estOnly }) {
     return m.request({
       method: 'POST',
       url: `${this.keriURL}/groups/${alias}/icp`,
@@ -285,11 +312,12 @@ class KERI {
         toad,
         wits,
         delpre,
+        estOnly
       },
     });
   }
 
-  static participateGroupInception(alias, { aids, isith, nsith, toad, wits, delpre }) {
+  static participateGroupInception(alias, { aids, isith, nsith, toad, wits, delpre, estOnly }) {
     return m.request({
       method: 'PUT',
       url: `${this.keriURL}/groups/${alias}/icp`,
@@ -300,6 +328,35 @@ class KERI {
         toad,
         wits,
         delpre,
+        estOnly
+      },
+    });
+  }
+
+  static initiateGroupRotation(alias, { aids, wits, toad, isith, data }) {
+    return m.request({
+      method: 'POST',
+      url: `${this.keriURL}/groups/${alias}/rot`,
+      body: {
+        aids,
+        wits,
+        toad,
+        isith,
+        data,
+      },
+    });
+  }
+
+  static participateGroupRotation(alias, { aids, wits, toad, isith, data }) {
+    return m.request({
+      method: 'PUT',
+      url: `${this.keriURL}/groups/${alias}/rot`,
+      body: {
+        aids,
+        wits,
+        toad,
+        isith,
+        data,
       },
     });
   }
@@ -428,6 +485,15 @@ class KERI {
       case 10:
         return 8;
     }
+  }
+
+  static parseAIDFromUrl(url) {
+    let indexStart = url.indexOf('/oobi/') + 6;
+    let indexEnd = url.indexOf('/witness/');
+    if (indexStart > -1 && indexEnd > -1) {
+      return url.substring(indexStart, indexEnd);
+    }
+    return null;
   }
 
 

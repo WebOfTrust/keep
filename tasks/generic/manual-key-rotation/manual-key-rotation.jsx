@@ -161,7 +161,7 @@ class ManualKeyRotation {
                 raised
                 label="Go Back"
                 onclick={() => {
-                  vnode.attrs.parent.currentState = 'create-your-alias';
+                  vnode.attrs.parent.currentState = 'manual-key-rotation';
                 }}
               />
               <Button

@@ -1,8 +1,9 @@
 import m, { vnode } from 'mithril';
-import {Button, Checkbox, TextField} from '../../../src/app/components';
-import { KERI, Profile, Notify, Contacts } from '../../../src/app/services';
+import {Button, Checkbox, TextField, AID} from '../../../src/app/components';
+import {KERI, Profile, Contacts, Witnesses, MultiSig} from '../../../src/app/services';
 import todoList from '../../../src/assets/img/to-do-list.svg';
 import secureMessaging from '../../../src/assets/img/secure-messaging.svg';
+import EventDetails from "../multisig-event-details/multisig-event-details";
 
 class JoinMultiSigGroupTask {
   constructor(config) {
@@ -12,7 +13,8 @@ class JoinMultiSigGroupTask {
 
   reset() {
     this._label = this.config.label;
-    this.setDefault = false;
+    this.useAsDefault = false;
+    this.default = undefined;
     this._component = {
       view: (vnode) => {
         return <JoinMultiSigGroup end={vnode.attrs.end} parent={this} />;
@@ -37,9 +39,45 @@ class JoinMultiSigGroupTask {
     this._notification = notification
     this._aids = notification.a.aids;
     this._ked = notification.a.ked;
-    Contacts.requestList();
-    this._delegator = Contacts.filterById(this._ked.di);
-    this._fractionallyWeighted = Array.isArray(this._ked.kt);
+    Contacts.requestList().then(() => {
+      MultiSig.currentEvent = notification.a.ked
+      MultiSig.participants = this.aids.map((aid, index) => {
+        let contact = Contacts.filterById(aid)
+        if (contact !== undefined) {
+          return {
+            id: contact.aid,
+            alias: contact.alias.name,
+            contact: contact,
+            weight: Array.isArray(this.ked.kt) ? this.ked.kt[index] : "",
+            signed: false,
+          }
+        }
+        this.default = Profile.identifiers.find((id) => {
+          return id.prefix === aid
+        });
+        return {
+          id: this.default.prefix,
+          alias: this.default.name,
+          weight: Array.isArray(this.ked.kt) ? this.ked.kt[index] : "",
+          signed: false,
+        }
+
+      })
+    });
+    this._delegator = Contacts.filterById(this.ked.di);
+    this._fractionallyWeighted = Array.isArray(this.ked.kt);
+    this.wits = this.ked.b
+    this.pool = ""
+    for (const poolName in Witnesses.witnesses) {
+      if (KERI.arrayEquals(Witnesses.witnesses[poolName], this.wits)) {
+        this.pool = poolName;
+        break;
+      }
+    }
+    this.witThold = this.ked.bt
+    this.estOnly = this.ked.c.indexOf("EO") !== -1;
+    this.DnD = this.ked.c.indexOf("DND") !== -1;
+    this.status = 'Event signed and submitted'
   }
   
   get notification() {
@@ -66,6 +104,7 @@ class JoinMultiSigGroupTask {
 class JoinMultiSigGroup {
   constructor() {
     this.aid = Profile.getDefaultAID();
+    this.useAsDefault = true;
     this.groupAlias = '';
   }
 
@@ -77,8 +116,10 @@ class JoinMultiSigGroup {
       nsith: vnode.attrs.parent.ked.nt,
       toad: Number(vnode.attrs.parent.ked.bt),
       wits: vnode.attrs.parent.ked.b,
+      estOnly: vnode.attrs.parent.estOnly,
+      DnD: vnode.attrs.parent.DnD,
     }).then(() => {
-      vnode.attrs.parent.currentState = 'event-complete';
+      vnode.attrs.parent.currentState = 'setup-complete';
     });
   }
 
@@ -89,7 +130,7 @@ class JoinMultiSigGroup {
           <>
             <img src={todoList} style={{ width: '188px', margin: '0 0 2rem 0' }} />
             <h3>New Multi-Sig Group</h3>
-            <p class="p-tag">View the multi-sig group and confirm that these individuals are authorized.</p>
+            <p class="p-tag">View the multi-sig group and confirm that these individuals are authenticated.</p>
             <div class="flex flex-justify-end" style={{ marginTop: '4rem' }}>
               <Button
                 class="button--big button--no-transform"
@@ -105,39 +146,46 @@ class JoinMultiSigGroup {
         {vnode.attrs.parent.currentState === 'review-members' && (
           <>
             <h3>Review and Confirm</h3>
-            <p>Review signers to make sure the list is complete.</p>
+            <p>Review to make sure the signer list is complete and configuration information is accurate.</p>
             {vnode.attrs.parent.ked.di && (
               <>
                 <h4>Delegator:</h4>
                 <div class="flex flex-align-center flex-justify-between" style={{ margin: '1rem 0' }}>
                   <div class="flex-1 uneditable-value" style={{ minHeight: '48px' }}>
-                    {vnode.attrs.parent.delegator?.alias}
+                    <AID contact={vnode.attrs.parent.delegator}/>
                   </div>
                 </div>
               </>
             )}
-            <h4>Signers:</h4>
+            <p className="font-weight--bold font-color--battleship">Witness Pool:</p>
+            <div className="uneditable-value">{Witnesses.witnessPools.find((p) => p.value === vnode.attrs.parent.pool).label}</div>
+            <p className="font-weight--bold font-color--battleship">Signers:</p>
             {vnode.attrs.parent.aids.map((signer, i) => {
-              let name = '';
               let contact = Contacts.filterById(signer);
-              if (contact !== undefined) {
-                name = contact.alias;
-              } else if (signer === this.aid.prefix) {
-                name = this.aid.name + ' (Your AID)';
-              } else {
-                name = 'Unknown AID';
-              }
               return (
                 <>
-                  <div class="flex flex-align-center flex-justify-between" style={{ margin: '1rem 0' }}>
-                    <div class="flex-1 uneditable-value" style={{ marginRight: '1rem' }}>
-                      {name}
+                  <div class="flex flex-align-center flex-justify-between  margin-v-1">
+                    <div class="flex-3 uneditable-value" style={{ marginRight: '1rem'}}>
+                      {signer === this.aid.prefix && <AID aid={this.aid}/>}
+                      {contact !== undefined && <AID contact={contact}/>}
+                      {(contact === undefined && signer !== this.aid.prefix) && <span>Unknown AID</span>}
                     </div>
-                    {vnode.attrs.parent.fractionallyWeighted && <div class="uneditable-value">{vnode.attrs.parent.ked.kt[i]}</div>}
+                    {vnode.attrs.parent.fractionallyWeighted && <div class="uneditable-value" style={{ marginRight: '1rem' }}>{vnode.attrs.parent.ked.kt[i]}</div>}
+                    {signer === this.aid.prefix && <span className="flex-1 p-tag-bold" style={{fontSize: '1rem'}}>You</span>}
+                    {signer !== this.aid.prefix && <span className="flex-1 p-tag-bold" style={{fontSize: '1rem'}}>&nbsp;</span>}
                   </div>
                 </>
               );
             })}
+            <p className="font-color--battleship margin-v-2">Advanced Options.</p>
+            <p className="font-weight--bold font-color--battleship">Witness Threshold:</p>
+            <div className="uneditable-value">{vnode.attrs.parent.witThold}</div>
+            <p className="font-weight--bold font-color--battleship">Establishment Only:</p>
+            <div className="uneditable-value">{vnode.attrs.parent.estOnly ? 'Yes' : 'No'}</div>
+            <p className="font-weight--bold font-color--battleship">Allow Delegation:</p>
+            <div className="uneditable-value">{vnode.attrs.parent.DnD ? 'No' : 'Yes'}</div>
+            <p className="font-weight--bold font-color--battleship">Issue Credentials:</p>
+            <div className="uneditable-value">Yes</div>
 
             <div class="flex flex-justify-between" style={{ marginTop: '4rem' }}>
               <Button
@@ -174,10 +222,10 @@ class JoinMultiSigGroup {
                 outlined
                 fluid
                 disabled={(Profile.identifiers === undefined || Profile.identifiers.length === 0)}
-                checked={this.setDefault}
+                checked={this.useAsDefault}
                 style={{margin: '0 0 3.5rem 0'}}
                 onchange={(_default) => {
-                  this.setDefault = _default;
+                  this.useAsDefault = _default;
                 }}
               />
               <p className="p-tag-bold">Set new AID as Keep Default?</p>
@@ -202,6 +250,31 @@ class JoinMultiSigGroup {
               />
             </div>
           </>
+        )}
+        {vnode.attrs.parent.currentState === 'setup-complete' && (
+          <EventDetails
+            parent={vnode.attrs.parent}
+            groupAlias={this.groupAlias}
+            default={vnode.attrs.parent.default}
+            fractionallyWeighted={vnode.attrs.parent.fractionallyWeighted}
+            status={vnode.attrs.parent.status}
+            finish={() => {
+                Profile.loadIdentifiers()
+                  .then((ids) => {
+                    if (this.useAsDefault === true) {
+                      let aid = ids.find(id => {
+                        return id.name === this.groupAlias;
+                      })
+                      Profile.setDefaultAID(aid).then(() => {
+                        m.redraw()
+                      })
+                    } else {
+                      m.redraw()
+                    }
+                  })
+            }}
+            continue={vnode.attrs.end}
+          />
         )}
         {vnode.attrs.parent.currentState === 'event-complete' && (
           <>

@@ -81,8 +81,8 @@ class CreatePasscode {
     this.submitting = true;
     KERI.initializeAgent(Keep.getName(), this.enterPasscode)
       .then(() => {
-        Profile.created = true
-        vnode.attrs.end()
+        Profile.created = true;
+        vnode.attrs.end();
       })
       .catch((err) => {
         console.log('initializeAgent', err);
@@ -222,7 +222,7 @@ class CreatePasscode {
               <img src={passcodeImg} style={{ width: '205px' }} />
             </div>
             <p class="p-tag" style={{ margin: '0 0 3rem 0' }}>
-              You can find your 22-character passcode by referring back to your storage spot (1Password, Last Pass, Safe
+              You can find your 21 character passcode by referring back to your storage spot (1Password, Last Pass, Safe
               Deposit Box) and entering it into the box below.
             </p>
             <TextField

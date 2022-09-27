@@ -1,40 +1,29 @@
 import m from 'mithril';
 
-import {Button, Progress, TextField} from '../../../src/app/components';
-import {Profile, Participants, KERI, MultiSig} from '../../../src/app/services';
-import { Tasks } from '../../../src/app/services/tasks';
+import {Button, Progress} from '../../../src/app/components';
+import {Profile, KERI, Contacts, Participants} from '../../../src/app/services';
 import { EnterChallengesForm, EnterOOBIsForm, SendChallengeForm, SendOOBIForm } from './forms';
 import './video-call.scss';
 
-import toDoList from '../../../src/assets/img/to-do-list.svg';
 import addNewContacts from '../../../src/assets/img/add-new-contacts.svg';
 import projectPlanning from '../../../src/assets/img/project-planning.svg';
-import verifyCredentials from '../../../src/assets/img/verify-credentials.svg';
 
-class VideoCallTask {
+class SpotCheckTask {
   constructor(config) {
     this.config = config;
     this.reset();
   }
 
   reset() {
-    this._id = 'video-call';
+    this._id = 'spot-check';
     this._label = this.config.label;
-    this.oneToOne = this.config.oneToOne;
-    this.acceptCredential = this.config.acceptCredential;
-    this.next = this.config.next;
-    this.nextOptional = "nextOptional" in this.config ? this.config.nextOptional : true;
     this.variables = this.config.variables;
 
-    this.aidToSend = this.config.aidToSend;
-    this.steps = this.config.steps;
-    this.participants = new Participants(this.config.initialParticipants || 1);
-
-    this.currentState = 'skip';
+    this.currentState = 'intro';
 
     this._component = {
       view: (vnode) => {
-        return <VideoCall end={vnode.attrs.end} parent={this} steps={this.steps} />;
+        return <SpotCheck end={vnode.attrs.end} parent={this} steps={this.steps} />;
       },
     };
     this.stayInCallPanel = {
@@ -75,20 +64,6 @@ class VideoCallTask {
     return this._component;
   }
 
-  sendOobis(vnode) {
-    let aid = Profile.getDefaultAID(this.aidToSend);
-    KERI.sendOOBIs(aid.name, this.participants.oobis).then(() => {
-      if (this.nextOptional) {
-        this.currentState = 'configure-group';
-      } else if (this.next !== undefined) {
-        this.next.recipient = this.participants.oobis[0];
-        Tasks.active = this.next;
-      } else {
-        vnode.attrs.end()
-      }
-    });
-  }
-
   get lcomponent() {
     switch (this.currentState) {
       case 'send-oobi':
@@ -105,110 +80,30 @@ class VideoCallTask {
   }
 }
 
-class VideoCall {
+class SpotCheck {
+  constructor(vnode) {
+    this.contact = Contacts.selected;
+    this.participants = new Participants(1);
+    this.participants.oobis[0].alias = this.contact.alias
+    this.aid = KERI.parseAIDFromUrl(this.contact.oobi);
+  }
+
   view(vnode) {
     return (
       <>
-        {vnode.attrs.parent.currentState === 'skip' && (
-          <>
-            <img src={verifyCredentials} style={{width: '100px'}}/>
-            <h4>{vnode.attrs.parent.variables.shouldSkipTitle}</h4>
-            <p className="font-color--battleship font-size--14">
-              {vnode.attrs.parent.variables.shouldSkipIntro}
-            </p>
-            <div className="flex flex-justify-end margin-top-4">
-              <Button
-                class="button--gray-dk button--no-transform margin-right-4"
-                raised
-                label="No"
-                onclick={() => {
-                  vnode.attrs.parent.currentState = 'skip-identity-authentication';
-                }}
-              />
-              <Button
-                class="button--no-transform"
-                raised
-                label="Yes"
-                onclick={() => {
-                  vnode.attrs.parent.currentState = 'perform-identity-authentication';
-                }}
-              />
-            </div>
-
-          </>
-        )}
-        {vnode.attrs.parent.currentState === 'skip-identity-authentication' && (
-          <>
-            <img src={toDoList} style={{width: '100px'}}/>
-            <h4>{vnode.attrs.parent.variables.skipTitle}</h4>
-            <p className="font-color--battleship font-size--14">
-              {vnode.attrs.parent.variables.skipIntro}
-            </p>
-            <div class="flex flex-align-center flex-justify-end margin-top-4">
-              <Button
-                raised
-                class="button--gray-dk button--no-transform margin-right-1"
-                label="Go Back"
-                onclick={() => {
-                  vnode.attrs.parent.currentState = 'skip';
-                }}
-              />
-              <Button
-                raised
-                class="button--no-transform"
-                label="Continue"
-                onclick={() => {
-                  Participants.instance.oobis = [];
-                  Tasks.active = vnode.attrs.parent.next;
-                  vnode.attrs.parent.reset();
-                }}
-              />
-            </div>
-          </>
-        )}
-        {vnode.attrs.parent.currentState === 'perform-identity-authentication' && (
-          <>
-            <img src={addNewContacts} style={{width: '100px'}}/>
-            <h4>{vnode.attrs.parent.variables.performTitle}</h4>
-            <p className="font-color--battleship font-size--14">
-              {vnode.attrs.parent.variables.performIntro}
-            </p>
-            <div class="flex flex-align-center flex-justify-end margin-top-4">
-              <Button
-                raised
-                class="button--gray-dk button--no-transform margin-right-1"
-                label="Go Back"
-                onclick={() => {
-                  vnode.attrs.parent.currentState = 'skip';
-                }}
-              />
-              <Button
-                raised
-                class="button--no-transform"
-                label="Continue"
-                onclick={() => {
-                  vnode.attrs.parent.currentState = 'intro';
-                }}
-              />
-            </div>
-          </>
-        )}
         {vnode.attrs.parent.currentState === 'intro' && (
           <>
-            <h3 class="text--underline margin-bottom-2">{vnode.attrs.parent.variables.title}</h3>
-            <p class="steps-header">{vnode.attrs.parent.variables.subtitle ? vnode.attrs.parent.variables.subtitle : "Steps to create:"}</p>
-            {vnode.attrs.parent.variables.steps}
+            <h4 class="text--underline margin-bottom-2">Perform Identifiy Authentication Spot Check with {this.contact.alias}</h4>
+            <p class="steps-header">Steps to Spot Check a Contact:</p>
+            <ol className="styled-ol margin-v-2">
+              <li>Join a Video Call with a {this.contact.alias} to spot check.</li>
+              <li>Send your OOBI over video call.</li>
+              <li>Receive their OOBI over video call.</li>
+              <li>Send challenge message to other.</li>
+              <li>Receive challenge messages.</li>
+              <li>{this.contact.alias} will be marked as authenticated.</li>
+            </ol>
             <div class="flex flex-align-center flex-justify-end margin-top-4">
-              {vnode.attrs.parent.next && (
-                <Button
-                  class="button--gray-dk button--no-transform margin-right-1"
-                  raised
-                  label="Go Back"
-                  onclick={() => {
-                    vnode.attrs.parent.currentState = 'skip';
-                  }}
-                />
-              )}
               <Button
                 class="button--no-transform"
                 raised
@@ -226,23 +121,13 @@ class VideoCall {
             <img src={projectPlanning} style={{ width: '100px' }} />
             <h4>Join a Video Call</h4>
             <p class="font-color--battleship font-size--14">
-              {vnode.attrs.parent.variables.joinCallIntro}
+              In order to spot check another AID, you will need to initiate an real-time Out of Band Interaction (OOBI)
+              session in which you and the other user is present, You will accept their OOBI (URL + AID) on a Video Call
+              so that you can complete 2-factor identity authentication.
             </p>
             <p class="font-weight--semi-bold">
-              {vnode.attrs.parent.variables.joinCallSubIntro}
+
             </p>
-              <p className="p-tag-bold">{vnode.attrs.parent.variables.howManyParticipantsPrompt}</p>
-              <TextField
-                outlined
-                type="number"
-                min={1}
-                style={{marginBottom: '2rem', width: '4rem', height: "44px"}}
-                value={vnode.attrs.parent.participants.length}
-                oninput={(e) => {
-                  let num = parseInt(e.target.value);
-                  vnode.attrs.parent.participants = new Participants(num);
-                }}
-              />
             <div class="flex flex-justify-end margin-top-4">
               <Button
                 class="button--gray-dk button--no-transform margin-right-1"
@@ -267,7 +152,7 @@ class VideoCall {
           <div class="send-oobi">
             <Progress stepNum={2} totalSteps={6} stepLabel={'Send OOBI'} />
             <h4>Generate Out Of Band Introduction</h4>
-            <SendOOBIForm aidToSend={vnode.attrs.parent.aidToSend} />
+            <SendOOBIForm aidToSend={Profile.getDefaultAID()} />
             <div class="flex flex-justify-end margin-top-4">
               <Button
                 class="button--gray-dk button--no-transform margin-right-1"
@@ -291,7 +176,7 @@ class VideoCall {
         {vnode.attrs.parent.currentState === 'receive-oobi' && (
           <>
             <Progress stepNum={3} totalSteps={6} stepLabel={'Receive OOBI'} />
-            <EnterOOBIsForm participants={vnode.attrs.parent.participants} oneToOne={vnode.attrs.parent.oneToOne} />
+            <EnterOOBIsForm participants={this.participants} oneToOne={true} aliasDisabled={true} aid={this.aid}/>
             <div class="flex flex-justify-end margin-top-4">
               <Button
                 class="button--gray-dk button--no-transform margin-right-1"
@@ -305,7 +190,7 @@ class VideoCall {
                 class="button--no-transform"
                 raised
                 label="Continue"
-                disabled={!vnode.attrs.parent.participants.oobisResolved()}
+                disabled={!this.participants.oobisResolved()}
                 onclick={() => {
                   vnode.attrs.parent.currentState = 'send-challenge';
                 }}
@@ -316,7 +201,7 @@ class VideoCall {
         {vnode.attrs.parent.currentState === 'send-challenge' && (
           <>
             <Progress stepNum={4} totalSteps={6} stepLabel={'Send Challenge'} />
-            <SendChallengeForm participants={vnode.attrs.parent.participants} />
+            <SendChallengeForm participants={this.participants} />
             <div class="flex flex-justify-end margin-top-4">
               <Button
                 class="button--gray-dk button--no-transform margin-right-1"
@@ -330,7 +215,7 @@ class VideoCall {
                 class="button--no-transform"
                 raised
                 label="Continue"
-                disabled={!vnode.attrs.parent.participants.oobisResolved()}
+                disabled={!this.participants.oobisResolved()}
                 onclick={() => {
                   vnode.attrs.parent.currentState = 'receive-challenge';
                 }}
@@ -342,8 +227,8 @@ class VideoCall {
           <>
             <Progress stepNum={5} totalSteps={6} stepLabel={'Receive Challenge'} />
             <EnterChallengesForm
-              aidToSend={vnode.attrs.parent.aidToSend}
-              participants={vnode.attrs.parent.participants}
+              aidToSend={Profile.getDefaultAID()}
+              participants={this.participants}
             />
             <div class="flex flex-justify-end">
               <Button
@@ -359,90 +244,31 @@ class VideoCall {
                 raised
                 label="Next"
                 disabled={
-                  !(vnode.attrs.parent.participants.oobisVerified() && vnode.attrs.parent.participants.oobisConfirmed())
+                  !(this.participants.oobisVerified() && this.participants.oobisConfirmed())
                 }
                 onclick={() => {
-                  let aid = Profile.getDefaultAID();
-                  if (aid.group) {
-                    vnode.attrs.parent.currentState = 'share-oobis';
-                  } else if (vnode.attrs.parent.nextOptional) {
-                    vnode.attrs.parent.currentState = 'configure-group';
-                  } else if (vnode.attrs.parent.next !== undefined) {
-                    vnode.attrs.parent.next.recipient = vnode.attrs.parent.participants.oobis[0];
-                    Tasks.active = vnode.attrs.parent.next;
-                    vnode.attrs.parent.reset();
-                  } else {
-                    vnode.attrs.end()
-                  }
+                  vnode.attrs.parent.currentState = 'authorized';
                 }}
               />
             </div>
           </>
         )}
-        {vnode.attrs.parent.currentState === 'share-oobis' && (
+        {vnode.attrs.parent.currentState === 'authorized' && (
           <>
-            <Progress stepNum={6} totalSteps={6} stepLabel={'Configure'} />
+            <Progress stepNum={6} totalSteps={6} stepLabel={'Authenticated'} />
             <img src={projectPlanning} style={{ width: '120px' }} />
-            <h4>Would you like to share OOBIs with your multi-sig group?</h4>
+            <h4>{this.contact.alias} Has been Authenticated</h4>
             <p class="font-size--14 font-color--battleship">
-              You just perform an OOBI Exchange / Challenge Response using a multi-sig group AID.  Would you
-              like to share your new contacts with the other participants of your multi-sig group?
+              The contact for {this.contact.alias} has been authenticated will now appear in your
+              Contacts list as an authrozied contact.
             </p>
             <div class="flex flex-align-center flex-justify-end margin-top-4">
-              <Button
-                raised
-                class="button--gray button--no-transform margin-right-1"
-                label="No"
-                onclick={() => {
-                  if (vnode.attrs.parent.nextOptional) {
-                    vnode.attrs.parent.currentState = 'configure-group';
-                  } else if (vnode.attrs.parent.next !== undefined) {
-                    vnode.attrs.parent.next.recipient = vnode.attrs.parent.participants.oobis[0];
-                    Tasks.active = vnode.attrs.parent.next;
-                    vnode.attrs.parent.reset();
-                  } else {
-                    vnode.attrs.end()
-                  }
-                }}
-              />
               <Button
                 raised
                 class="button--no-transform"
-                label="Yes"
-                onclick={() => {
-                  vnode.attrs.parent.sendOobis();
-                }}
-              />
-            </div>
-          </>
-        )}
-        {vnode.attrs.parent.currentState === 'configure-group' && (
-          <>
-            <Progress stepNum={6} totalSteps={6} stepLabel={'Configure'} />
-            <img src={projectPlanning} style={{ width: '120px' }} />
-            <h4>{vnode.attrs.parent.variables.nextTaskTitle}</h4>
-            <p class="font-size--14 font-color--battleship">
-              {vnode.attrs.parent.variables.nextTaskBody}
-            </p>
-            <div class="flex flex-align-center flex-justify-end margin-top-4">
-              <Button
-                raised
-                class="button--gray button--no-transform margin-right-1"
-                label="No"
+                label="Finished"
                 onclick={() => {
                   vnode.attrs.end();
-                }}
-              />
-              <Button
-                raised
-                class="button--no-transform"
-                label="Yes"
-                onclick={() => {
-                  if (vnode.attrs.parent.next !== undefined) {
-                    vnode.attrs.parent.next.recipient = vnode.attrs.parent.participants.oobis[0];
-                    Tasks.active = vnode.attrs.parent.next;
-                    vnode.attrs.parent.reset();
-                  }
                 }}
               />
             </div>
@@ -527,7 +353,7 @@ class ReceiveChallengePanel {
           <p class="font-size--14 font-weight--bold font-color--battleship">Participant</p>
           <p class="font-size--14 font-weight--bold font-color--battleship">Status</p>
         </div>
-        {vnode.attrs.parent.participants.oobis.map((signer, index) => {
+        {Participants.instance.oobis.map((signer, index) => {
           return (
             <>
               <div class="flex flex-align-center flex-justify-between">
@@ -543,4 +369,4 @@ class ReceiveChallengePanel {
   }
 }
 
-module.exports = VideoCallTask;
+module.exports = SpotCheckTask;

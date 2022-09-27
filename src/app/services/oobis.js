@@ -1,5 +1,5 @@
 class Participants {
-  static instances = [];
+  static instance = undefined;
 
   constructor(count = 1) {
     this.oobis = [];
@@ -7,7 +7,11 @@ class Participants {
       this.addOOBI('', '');
     }
     this.words = [];
-    Participants.instances.push(this);
+    Participants.instance = this;
+  }
+
+  get length() {
+    return this.oobis.length
   }
 
   updateWords(words) {
