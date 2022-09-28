@@ -1,5 +1,5 @@
 import m from 'mithril';
-import { Button, Select, TextField, Checkbox, Radio, AID } from '../../../src/app/components';
+import { Button, Select, TextField, Checkbox, Radio, AID, IconButton } from '../../../src/app/components';
 import { KERI, Profile, Witnesses } from '../../../src/app/services';
 import createIdentifier from '../../../src/assets/img/create-identifier.svg';
 import configureIdentifier from '../../../src/assets/img/configure-identifier.svg';
@@ -79,20 +79,17 @@ class CreateYourAID {
         {vnode.attrs.parent.currentState === 'create-your-alias' && (
           <>
             <h3>Create Your Alias and Configure Your AID</h3>
-            <img src={configureIdentifier} style={{ display: 'block', margin: '4rem auto 0', width: '172px' }} />
-            <p class="p-tag" style={{ marginTop: '2rem', marginBottom: '2rem' }}>
+            <img class="task-img task-img--centered" src={configureIdentifier} />
+            <p class="p-tag">
               {vnode.attrs.variables.createYourAlias
                 ? vnode.attrs.variables.createYourAlias.paragraph
                 : 'The alias should be an easy to remember name for your AID.'}
-              <br />
-              <br />
             </p>
             <p className="p-tag-bold">What would you like your alias to be?</p>
             <TextField
               id="alias"
               outlined
               fluid
-              style={{ margin: '0 0 0 0' }}
               oninput={(e) => {
                 this.alias = e.target.value;
               }}
@@ -103,7 +100,6 @@ class CreateYourAID {
               outlined
               fluid
               value={this.pool}
-              style={{ margin: '0 0 1.5rem 0' }}
               options={Witnesses.witnessPools}
               onchange={(pool) => {
                 this.pool = pool;
@@ -112,12 +108,12 @@ class CreateYourAID {
               }}
             />
             {this.wits.length > 0 && (
-              <p className="p-tag-italic" style={{ margin: '-0.5rem 0 0.25rem 1.5rem' }}>
+              <p className="p-tag-italic" style={{ margin: '0.5rem 0 0 1.5rem' }}>
                 {this.wits.length} Witnesses in Pool
               </p>
             )}
 
-            <div className="flex flex-justify-start" style={{ margin: '0 0 0 -0.75rem' }}>
+            <div className="flex flex-align-center flex-justify-start" style={{ margin: '0 0 0 -0.75rem' }}>
               <Checkbox
                 outlined
                 fluid
@@ -132,17 +128,14 @@ class CreateYourAID {
               />
               <p className="p-tag-bold">Set new AID as Keep Default?</p>
             </div>
-            <div className="flex flex-justify-between" style={{ margin: '0 0 0 0' }}>
+            <div className="flex flex-align-center flex-justify-between" style={{ margin: '0 0 0 0' }}>
               <p className="p-tag-bold">Advanced Options: </p>
-              <span
-                className="material-icons-outlined md-24 p-tag-bold"
-                style={{ cursor: 'pointer', marginTop: '0.5rem' }}
+              <IconButton
+                icon={this.showAdvancedOptions ? 'expand_less' : 'expand_more'}
                 onclick={() => {
                   this.showAdvancedOptions = !this.showAdvancedOptions;
                 }}
-              >
-                {this.showAdvancedOptions ? 'keyboard_double_arrow_up' : 'keyboard_double_arrow_down'}
-              </span>
+              />
             </div>
             {this.showAdvancedOptions && (
               <div style={{ marginTop: '1.5rem' }}>

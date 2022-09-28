@@ -45,8 +45,8 @@ class IntroToYourRole {
         <h3 id="intro-header">
           {vnode.attrs.variables.main ? vnode.attrs.variables.main.title : 'Intro to your Role'}
         </h3>
-        <img src={approveRequest} style={{ display: 'block', margin: '4rem auto', width: '244px' }} />
-        <p class="p-tag">
+        <img class="task-img task-img--centered" src={approveRequest} />
+        <p class="body-text-2 font-color--battleship">
           {vnode.attrs.variables.main ? (
             vnode.attrs.variables.main.paragraph
           ) : (
@@ -56,10 +56,10 @@ class IntroToYourRole {
             </>
           )}
         </p>
-        <div class="flex flex-justify-between" style={{ marginTop: '4rem' }}>
+        <div class="flex flex-justify-end margin-top-2">
           <Button
             id="skip"
-            class="button--gray-dk"
+            class="button--gray-dk margin-right-1"
             raised
             label="Skip"
             onclick={(e) => {
@@ -82,12 +82,12 @@ class IntroToYourRole {
         this.steps.push(
           <>
             <h3 id="steps-header">{step.title}</h3>
-            <img src={step.image} style={{ display: 'block', width: '200px', margin: '4rem auto' }} />
-            <p class="p-tag">{step.paragraph}</p>
-            <div class="flex flex-justify-between" style={{ marginTop: '4rem' }}>
+            <img class="task-img task-img--centered" src={step.image} />
+            <p class="body-text-2 font-color--battleship">{step.paragraph}</p>
+            <div class="flex flex-justify-end margin-top-2">
               <Button
                 id="steps-skip"
-                class="button--gray-dk"
+                class="button--gray-dk margin-right-1"
                 raised
                 label="Skip"
                 onclick={(e) => {

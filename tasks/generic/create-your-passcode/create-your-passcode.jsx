@@ -185,10 +185,10 @@ class CreatePasscode {
                 }}
               />
             </div>
-            <div class="flex flex-justify-between margin-top-2">
+            <div class="flex flex-justify-end margin-top-2">
               <Button
                 raised
-                class="button--gray-dk"
+                class="button--gray-dk margin-right-1"
                 label="Go Back"
                 onclick={() => {
                   vnode.attrs.parent.currentState = 'welcome';
@@ -232,10 +232,10 @@ class CreatePasscode {
               <span class="info-icon material-icons-outlined">info</span>
               <p class="body-text-2">Make sure this passcode matches the one you stored.</p>
             </div>
-            <div class="flex flex-justify-between margin-top-2">
+            <div class="flex flex-justify-end margin-top-2">
               <Button
                 raised
-                class="button--gray-dk"
+                class="button--gray-dk margin-right-1"
                 label="Go Back"
                 onclick={() => {
                   vnode.attrs.parent.currentState = 'create-passcode';
