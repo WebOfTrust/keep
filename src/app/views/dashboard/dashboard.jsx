@@ -1,6 +1,6 @@
 import m from 'mithril';
 
-import { Button, Card, Container, IconButton, NavRail, Progress } from '../../components';
+import { Button, Card, Container, IconButton, NavRail } from '../../components';
 import { Notify, Profile } from '../../services';
 import { Tasks } from '../../services/tasks';
 import Notifications from './notifications/notifications.jsx';
@@ -164,15 +164,15 @@ class Dashboard {
                     {!Notify.isOpen && !Tasks.active && !this.aboutDismissed && (
                       <>
                         <h3 id="about-your-tasks">About Your Tasks</h3>
-                        <p class="font-color--battleship" style={{ margin: '3rem 0 4rem 0' }}>
+                        <p class="p-tag">
                           This section is designed to help you navigate Keep and learn how to complete tasks required
                           for your role. Click on one of the tasks on the left and this panel will provide more
                           information.
-                          <br />
-                          <br />
+                        </p>
+                        <p class="p-tag">
                           If you are already familiar with the software, feel free to select the “Dismiss” button.
                         </p>
-                        <div class="flex flex-justify-end">
+                        <div class="flex flex-justify-end margin-top-2">
                           <Button
                             raised
                             label="Dismiss"
