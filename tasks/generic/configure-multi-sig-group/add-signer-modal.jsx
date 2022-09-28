@@ -42,7 +42,7 @@ class AddSignerModal {
           <div class="flex flex-align-center flex-justify-between margin-top-4">
             <Button
               raised
-              class="button--gray-dk"
+              class="button--secondary"
               label="Cancel"
               onclick={() => {
                 vnode.attrs.onClose();

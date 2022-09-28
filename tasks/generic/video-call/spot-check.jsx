@@ -129,7 +129,7 @@ class SpotCheck {
             <p class="font-weight--semi-bold"></p>
             <div class="flex flex-justify-end margin-top-4">
               <Button
-                class="button--gray-dk margin-right-1"
+                class="button--secondary margin-right-1"
                 raised
                 label="Go Back"
                 onclick={() => {
@@ -153,7 +153,7 @@ class SpotCheck {
             <SendOOBIForm aidToSend={Profile.getDefaultAID()} />
             <div class="flex flex-justify-end margin-top-4">
               <Button
-                class="button--gray-dk margin-right-1"
+                class="button--secondary margin-right-1"
                 raised
                 label="Go Back"
                 onclick={() => {
@@ -176,7 +176,7 @@ class SpotCheck {
             <EnterOOBIsForm participants={this.participants} oneToOne={true} aliasDisabled={true} aid={this.aid} />
             <div class="flex flex-justify-end margin-top-4">
               <Button
-                class="button--gray-dk margin-right-1"
+                class="button--secondary margin-right-1"
                 raised
                 label="Go Back"
                 onclick={() => {
@@ -200,7 +200,7 @@ class SpotCheck {
             <SendChallengeForm participants={this.participants} />
             <div class="flex flex-justify-end margin-top-4">
               <Button
-                class="button--gray-dk margin-right-1"
+                class="button--secondary margin-right-1"
                 raised
                 label="Go Back"
                 onclick={() => {
@@ -224,7 +224,7 @@ class SpotCheck {
             <EnterChallengesForm aidToSend={Profile.getDefaultAID()} participants={this.participants} />
             <div class="flex flex-justify-end">
               <Button
-                class="button--gray-dk margin-right-1"
+                class="button--secondary margin-right-1"
                 raised
                 label="Go Back"
                 onclick={() => {

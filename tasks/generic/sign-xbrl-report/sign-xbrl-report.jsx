@@ -147,7 +147,7 @@ class SignXBRLReport {
               )}
             </ol>
             <div className="flex flex-justify-end" style={{ marginTop: '4rem' }}>
-              {/* <Button class="button--gray-dk" raised label="Skip" /> */}
+              {/* <Button class="button--secondary" raised label="Skip" /> */}
               <Button
                 raised
                 label="Continue"
@@ -256,7 +256,7 @@ class SignXBRLReport {
             </div>
             <div className="flex flex-justify-between" style={{ marginTop: '4rem' }}>
               <Button
-                class="button--gray-dk"
+                class="button--secondary"
                 raised
                 label="Go Back"
                 onclick={() => {
@@ -364,7 +364,7 @@ class SignXBRLReport {
             </div>
             <div className="flex flex-justify-between" style={{ marginTop: '4rem' }}>
               <Button
-                class="button--gray-dk"
+                class="button--secondary"
                 raised
                 label="Go Back"
                 onclick={() => {

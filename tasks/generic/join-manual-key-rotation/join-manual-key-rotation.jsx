@@ -168,7 +168,7 @@ class JoinManualKeyRotation {
 
             <div class="flex flex-justify-between" style={{ marginTop: '4rem' }}>
               <Button
-                class="button--gray-dk"
+                class="button--secondary"
                 raised
                 label="Cancel"
                 onclick={() => {

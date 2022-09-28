@@ -458,7 +458,7 @@ class Contacts {
                           <div class="contacts-detail-buttons">
                             <Button
                               raised
-                              class="button--gray"
+                              class="button--secondary"
                               label="Add New Field"
                               onclick={() => {
                                 this.addFieldOpen = true;

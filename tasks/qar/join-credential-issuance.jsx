@@ -106,7 +106,7 @@ class JoinCredentailIssuance {
             <div class="flex flex-justify-between" style={{ marginTop: '4rem' }}>
               <Button
                 raised
-                class="button--gray-dk"
+                class="button--secondary"
                 label="Cancel"
                 onclick={() => {
                   vnode.attrs.end();
@@ -146,7 +146,7 @@ class JoinCredentailIssuance {
             <div class="flex flex-justify-between" style={{ marginTop: '4rem' }}>
               <Button
                 raised
-                class="button--gray-dk"
+                class="button--secondary"
                 label="Cancel"
                 onclick={() => {
                   vnode.attrs.end();
@@ -192,7 +192,7 @@ class JoinCredentailIssuance {
             <div class="flex flex-justify-between" style={{ marginTop: '4rem' }}>
               <Button
                 raised
-                class="button--gray-dk"
+                class="button--secondary"
                 label="Cancel"
                 onclick={() => {
                   vnode.attrs.end();

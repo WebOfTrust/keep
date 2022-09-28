@@ -166,7 +166,7 @@ class EventDetails {
         )}
         <div class="flex flex-justify-between margin-top-4">
           <Button
-            class="button--gray-dk"
+            class="button--secondary"
             raised
             label="Go Back"
             onclick={() => {

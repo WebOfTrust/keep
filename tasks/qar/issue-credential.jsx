@@ -282,7 +282,7 @@ class IssueCredential {
               <div class="flex flex-justify-between" style={{ marginTop: '4rem' }}>
                 <Button
                   raised
-                  class="button--gray-dk"
+                  class="button--secondary"
                   label="Cancel"
                   onclick={() => {
                     vnode.attrs.end();
@@ -358,7 +358,7 @@ class IssueCredential {
               <div class="flex flex-justify-between" style={{ marginTop: '4rem' }}>
                 <Button
                   raised
-                  class="button--gray-dk"
+                  class="button--secondary"
                   label="Cancel"
                   onclick={() => {
                     vnode.attrs.end();
@@ -434,7 +434,7 @@ class IssueCredential {
               <div class="flex flex-justify-between" style={{ marginTop: '4rem' }}>
                 <Button
                   raised
-                  class="button--gray-dk"
+                  class="button--secondary"
                   label="Cancel"
                   onclick={() => {
                     vnode.attrs.end();
@@ -472,7 +472,7 @@ class IssueCredential {
               <div class="flex flex-justify-between" style={{ marginTop: '4rem' }}>
                 <Button
                   raised
-                  class="button--gray-dk"
+                  class="button--secondary"
                   label="Go Back"
                   onclick={() => {
                     vnode.attrs.parent.currentState = 'issue-credential';
@@ -541,7 +541,7 @@ class IssueCredential {
               <div class="flex flex-justify-between" style={{ marginTop: '4rem' }}>
                 <Button
                   raised
-                  class="button--gray-dk"
+                  class="button--secondary"
                   label="Go Back"
                   onclick={() => {
                     vnode.attrs.parent.currentState = 'issue-credential';
@@ -603,7 +603,7 @@ class IssueCredential {
               <div class="flex flex-justify-between" style={{ marginTop: '4rem' }}>
                 <Button
                   raised
-                  class="button--gray-dk"
+                  class="button--secondary"
                   label="Go Back"
                   onclick={() => {
                     vnode.attrs.parent.currentState = 'issue-credential';

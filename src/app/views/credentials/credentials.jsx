@@ -140,7 +140,7 @@ class Credentials {
                       <br />
                       <br />
                       <div class="flex flex-justify-end">
-                        {/* <Button class="button--gray-dk" raised label="Skip" /> */}
+                        {/* <Button class="button--secondary" raised label="Skip" /> */}
                         <Button raised label="Dismiss" />
                       </div>
                     </>

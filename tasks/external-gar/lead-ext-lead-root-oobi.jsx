@@ -104,7 +104,7 @@ class LeadExtLeadRootOOBIRightPanel {
         />
         <div class="flex flex-justify-between">
           <Button
-            class="button--gray-dk"
+            class="button--secondary"
             raised
             label="Go Back"
             onclick={() => {

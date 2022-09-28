@@ -52,7 +52,7 @@ class EditAliasModal {
               <Button
                 raised
                 type="button"
-                class="button--gray-dk"
+                class="button--secondary"
                 label="Cancel"
                 onclick={() => {
                   vnode.attrs.onClose();

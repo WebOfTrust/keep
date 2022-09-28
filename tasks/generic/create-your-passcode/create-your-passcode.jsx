@@ -188,7 +188,7 @@ class CreatePasscode {
             <div class="flex flex-justify-end margin-top-2">
               <Button
                 raised
-                class="button--gray-dk margin-right-1"
+                class="button--secondary margin-right-1"
                 label="Go Back"
                 onclick={() => {
                   vnode.attrs.parent.currentState = 'welcome';
@@ -235,7 +235,7 @@ class CreatePasscode {
             <div class="flex flex-justify-end margin-top-2">
               <Button
                 raised
-                class="button--gray-dk margin-right-1"
+                class="button--secondary margin-right-1"
                 label="Go Back"
                 onclick={() => {
                   vnode.attrs.parent.currentState = 'create-passcode';

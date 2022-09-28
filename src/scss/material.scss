@@ -106,17 +106,11 @@
 }
 
 .button {
-  &--gray {
-    @include button.ink-color(#003336);
-    @include button.icon-color(#003336);
-    @include button.container-fill-color(#51dac5);
-    @include button.outline-color(#51dac5);
-  }
-  &--gray-dk {
-    @include button.ink-color(#003336);
-    @include button.icon-color(#003336);
-    @include button.container-fill-color(#51dac5);
-    @include button.outline-color(#51dac5);
+  &--secondary {
+    @include button.ink-color($on-secondary);
+    @include button.icon-color($on-secondary);
+    @include button.container-fill-color($secondary);
+    @include button.outline-color($secondary);
   }
   &--big {
     @include button.height(3rem);

@@ -128,7 +128,7 @@ class CredentialIssuance {
             <div class="flex flex-justify-end" style={{ marginTop: '4rem' }}>
               {/* <Button
                 raised
-                class="button--gray-dk"
+                class="button--secondary"
                 label="Go Back"
                 onclick={() => {
                   vnode.attrs.end();
@@ -205,7 +205,7 @@ class CredentialIssuance {
             </div>
             <div class="flex flex-justify-between" style={{ marginTop: '4rem' }}>
               <Button
-                class="button--gray-dk"
+                class="button--secondary"
                 raised
                 label="Go Back"
                 onclick={() => {

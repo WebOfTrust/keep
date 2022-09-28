@@ -377,7 +377,7 @@ class InitiateManualKeyRotation {
             </div>
             <div class="flex flex-justify-between margin-top-4">
               <Button
-                class="button--gray-dk"
+                class="button--secondary"
                 raised
                 label="Go Back"
                 onclick={() => {
@@ -447,7 +447,7 @@ class InitiateManualKeyRotation {
             <div className="flex flex-justify-between" style={{ marginTop: '3rem' }}>
               <Button
                 id="skip"
-                class="button--gray-dk"
+                class="button--secondary"
                 raised
                 label="Go Back"
                 onclick={() => {

@@ -48,7 +48,7 @@ class Identifier {
         </div>
         <div class="flex flex-justify-between" style={{ margin: '4rem 0 0 0' }}>
           <Button
-            class="button--gray-dk"
+            class="button--secondary"
             raised
             label="
                                  Go Back"
@@ -85,7 +85,7 @@ class IdentifierEditPage {
         </div>
         <div className="flex flex-justify-between" style={{ marginTop: '3rem' }}>
           <Button
-            class="button--gray-dk"
+            class="button--secondary"
             raised
             label="
                          Go Back"
@@ -129,7 +129,7 @@ class EditImage {
             <h4>Update picture</h4>
             <p />
             <input type="file" id="fileLoader" name="files" title="Load File" style={{ display: 'none' }} />
-            <Button class="button--gray-dk" raised label="+" />
+            <Button class="button--secondary" raised label="+" />
           </div>
           {/*<input type="file" style={{margin: '0 0 1rem 0'}}/>*/}
           <div className="flex flex-align-center" style={{ color: '#494949' }}>
@@ -380,7 +380,7 @@ class ListIdentifiers {
                     <div className="contacts-detail-buttons">
                       <Button
                         raised
-                        class="button--gray"
+                        class="button--secondary"
                         label="Add New Field"
                         onclick={() => {
                           this.addFieldOpen = true;

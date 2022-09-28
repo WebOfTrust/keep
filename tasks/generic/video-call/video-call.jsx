@@ -116,7 +116,7 @@ class VideoCall {
             <p className="font-color--battleship font-size--14">{vnode.attrs.parent.variables.shouldSkipIntro}</p>
             <div className="flex flex-justify-end margin-top-4">
               <Button
-                class="button--gray-dk margin-right-4"
+                class="button--secondary margin-right-4"
                 raised
                 label="No"
                 onclick={() => {
@@ -141,7 +141,7 @@ class VideoCall {
             <div class="flex flex-align-center flex-justify-end margin-top-4">
               <Button
                 raised
-                class="button--gray-dk margin-right-1"
+                class="button--secondary margin-right-1"
                 label="Go Back"
                 onclick={() => {
                   vnode.attrs.parent.currentState = 'skip';
@@ -167,7 +167,7 @@ class VideoCall {
             <div class="flex flex-align-center flex-justify-end margin-top-4">
               <Button
                 raised
-                class="button--gray-dk margin-right-1"
+                class="button--secondary margin-right-1"
                 label="Go Back"
                 onclick={() => {
                   vnode.attrs.parent.currentState = 'skip';
@@ -193,7 +193,7 @@ class VideoCall {
             <div class="flex flex-align-center flex-justify-end margin-top-4">
               {vnode.attrs.parent.next && (
                 <Button
-                  class="button--gray-dk margin-right-1"
+                  class="button--secondary margin-right-1"
                   raised
                   label="Go Back"
                   onclick={() => {
@@ -232,7 +232,7 @@ class VideoCall {
             />
             <div class="flex flex-justify-end margin-top-4">
               <Button
-                class="button--gray-dk margin-right-1"
+                class="button--secondary margin-right-1"
                 raised
                 label="Go Back"
                 onclick={() => {
@@ -256,7 +256,7 @@ class VideoCall {
             <SendOOBIForm aidToSend={vnode.attrs.parent.aidToSend} />
             <div class="flex flex-justify-end margin-top-4">
               <Button
-                class="button--gray-dk margin-right-1"
+                class="button--secondary margin-right-1"
                 raised
                 label="Go Back"
                 onclick={() => {
@@ -279,7 +279,7 @@ class VideoCall {
             <EnterOOBIsForm participants={vnode.attrs.parent.participants} oneToOne={vnode.attrs.parent.oneToOne} />
             <div class="flex flex-justify-end margin-top-4">
               <Button
-                class="button--gray-dk margin-right-1"
+                class="button--secondary margin-right-1"
                 raised
                 label="Go Back"
                 onclick={() => {
@@ -303,7 +303,7 @@ class VideoCall {
             <SendChallengeForm participants={vnode.attrs.parent.participants} />
             <div class="flex flex-justify-end margin-top-4">
               <Button
-                class="button--gray-dk margin-right-1"
+                class="button--secondary margin-right-1"
                 raised
                 label="Go Back"
                 onclick={() => {
@@ -330,7 +330,7 @@ class VideoCall {
             />
             <div class="flex flex-justify-end">
               <Button
-                class="button--gray-dk margin-right-1"
+                class="button--secondary margin-right-1"
                 raised
                 label="Go Back"
                 onclick={() => {
@@ -373,7 +373,7 @@ class VideoCall {
             <div class="flex flex-align-center flex-justify-end margin-top-4">
               <Button
                 raised
-                class="button--gray margin-right-1"
+                class="button--secondary margin-right-1"
                 label="No"
                 onclick={() => {
                   if (vnode.attrs.parent.nextOptional) {
@@ -406,7 +406,7 @@ class VideoCall {
             <div class="flex flex-align-center flex-justify-end margin-top-4">
               <Button
                 raised
-                class="button--gray margin-right-1"
+                class="button--secondary margin-right-1"
                 label="No"
                 onclick={() => {
                   vnode.attrs.end();

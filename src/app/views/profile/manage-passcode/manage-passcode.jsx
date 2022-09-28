@@ -93,7 +93,7 @@ class GeneratePasscode {
           <p class="font-color--green font-weight--medium">{this.copied ? 'Passcode copied!' : <br />}</p>
           <Button
             raised
-            class="button--gray"
+            class="button--secondary"
             label="Generate New"
             onclick={() => {
               this.generatePasscode();
@@ -101,7 +101,7 @@ class GeneratePasscode {
           />
         </div>
         <div class="flex flex-justify-between">
-          <Button raised class="button--gray-dk" label="Go Back" onclick={vnode.attrs.back} />
+          <Button raised class="button--secondary" label="Go Back" onclick={vnode.attrs.back} />
           <Button
             raised
             label="Continue"
@@ -185,7 +185,7 @@ class EnterPasscode {
         />
         {this.error && <p class="error">{this.error}</p>}
         <div class="flex flex-justify-between" style={{ marginTop: '4rem' }}>
-          <Button raised class="button--gray-dk" label="Go Back" onclick={vnode.attrs.back} />
+          <Button raised class="button--secondary" label="Go Back" onclick={vnode.attrs.back} />
           <Button
             raised
             label="Continue"

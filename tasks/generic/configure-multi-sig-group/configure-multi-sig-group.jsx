@@ -510,7 +510,7 @@ class ConfigureMultiSigGroup {
             </div>
             <div class="flex flex-justify-between margin-top-4">
               <Button
-                class="button--gray-dk"
+                class="button--secondary"
                 raised
                 label="Go Back"
                 onclick={() => {
@@ -550,7 +550,7 @@ class ConfigureMultiSigGroup {
             </p>
             <div class="flex flex-justify-between margin-top-4">
               <Button
-                class="button--gray-dk"
+                class="button--secondary"
                 raised
                 label="Go Back"
                 onclick={() => {
@@ -621,7 +621,7 @@ class ConfigureMultiSigGroup {
 
             <div class="flex flex-justify-between margin-top-4">
               <Button
-                class="button--gray-dk"
+                class="button--secondary"
                 raised
                 label="Go Back"
                 onclick={() => {

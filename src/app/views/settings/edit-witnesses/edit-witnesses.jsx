@@ -28,7 +28,7 @@ class EnterWitnessURLs {
           </div>
         </div>
         <div class="flex flex-justify-between" style={{ margin: '4rem 0 0 0' }}>
-          <Button class="button--gray-dk" raised label="Go Back" />
+          <Button class="button--secondary" raised label="Go Back" />
           <Button raised label="Save" onclick={vnode.attrs.continue} />
         </div>
       </>
@@ -54,7 +54,7 @@ class EditWitnessURLs {
           </p>
         </div>
         <div class="flex flex-justify-between" style={{ margin: '4rem 0 0 0' }}>
-          <Button class="button--gray-dk" raised label="Go Back" />
+          <Button class="button--secondary" raised label="Go Back" />
           <Button raised label="Edit" onclick={vnode.attrs.continue} />
         </div>
       </>

@@ -63,7 +63,7 @@ class CredentialRevocation {
               </Card>
             </div>
             <div class="flex flex-justify-between">
-              <Button class="button--gray-dk" raised label="Go Back" vnode={vnode.attrs.end} />
+              <Button class="button--secondary" raised label="Go Back" vnode={vnode.attrs.end} />
               <Button
                 raised
                 label="Continue"
@@ -87,7 +87,7 @@ class CredentialRevocation {
             </div>
             <div class="flex flex-justify-between">
               <Button
-                class="button--gray-dk"
+                class="button--secondary"
                 raised
                 label="Go Back"
                 onclick={() => {

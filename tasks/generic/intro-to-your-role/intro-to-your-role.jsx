@@ -59,7 +59,7 @@ class IntroToYourRole {
         <div class="flex flex-justify-end margin-top-2">
           <Button
             id="skip"
-            class="button--gray-dk margin-right-1"
+            class="button--secondary margin-right-1"
             raised
             label="Skip"
             onclick={(e) => {
@@ -87,7 +87,7 @@ class IntroToYourRole {
             <div class="flex flex-justify-end margin-top-2">
               <Button
                 id="steps-skip"
-                class="button--gray-dk margin-right-1"
+                class="button--secondary margin-right-1"
                 raised
                 label="Skip"
                 onclick={(e) => {

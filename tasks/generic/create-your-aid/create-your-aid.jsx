@@ -278,7 +278,7 @@ class CreateYourAID {
             <div className="flex flex-justify-between" style={{ marginTop: '3rem' }}>
               <Button
                 id="skip"
-                class="button--gray-dk"
+                class="button--secondary"
                 raised
                 label="Go Back"
                 onclick={() => {
