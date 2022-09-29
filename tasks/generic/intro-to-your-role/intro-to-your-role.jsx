@@ -45,7 +45,7 @@ class IntroToYourRole {
         <h3 id="intro-header">
           {vnode.attrs.variables.main ? vnode.attrs.variables.main.title : 'Intro to your Role'}
         </h3>
-        <img class="task-img task-img--centered" src={approveRequest} />
+        <img class="task-img task-img--center" src={approveRequest} />
         <p class="body-text-2 font-color--battleship">
           {vnode.attrs.variables.main ? (
             vnode.attrs.variables.main.paragraph
@@ -82,7 +82,7 @@ class IntroToYourRole {
         this.steps.push(
           <>
             <h3 id="steps-header">{step.title}</h3>
-            <img class="task-img task-img--centered" src={step.image} />
+            <img class="task-img task-img--center" src={step.image} />
             <p class="body-text-2 font-color--battleship">{step.paragraph}</p>
             <div class="flex flex-justify-end margin-top-2">
               <Button

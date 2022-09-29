@@ -99,7 +99,7 @@ class CreatePasscode {
         {vnode.attrs.parent.currentState === 'welcome' && (
           <>
             <h3 id="welcome">Welcome to KEEP</h3>
-            <img class="task-img task-img--centered" src={createYourPasscode} />
+            <img class="task-img task-img--center" src={createYourPasscode} />
             <p class="p-tag">To get started, you will need to generate a passcode.</p>
             <p class="p-tag">
               Make sure to store your password somewhere safe: a password management app, or printed and in a safe
@@ -149,7 +149,7 @@ class CreatePasscode {
               </div>
             </Modal>
             <h3 id="generate-passcode">Generate Your Passcode</h3>
-            <img class="task-img task-img--centered" src={createYourPasscode} />
+            <img class="task-img task-img--center" src={createYourPasscode} />
             <p class="p-tag">
               Generate your passcode here or in your password management app such as 1Password or Last Pass to encrypt
               your desktop software. After you have generated your passcode, copy the text to paste into the next
@@ -208,7 +208,7 @@ class CreatePasscode {
         {vnode.attrs.parent.currentState === 'enter-passcode' && (
           <>
             <h3 id="">Please Enter Your Passcode</h3>
-            <img class="task-img task-img--centered" src={passcodeImg} />
+            <img class="task-img task-img--center" src={passcodeImg} />
             <p class="p-tag">Paste your passcode below or retrieve it from your password management app.</p>
             <TextField
               id="confirm-passcode"
@@ -228,9 +228,9 @@ class CreatePasscode {
               }}
             />
             {this.error && <p class="error">{this.error}</p>}
-            <div class="info">
-              <span class="info-icon material-icons-outlined">info</span>
-              <p class="body-text-2">Make sure this passcode matches the one you stored.</p>
+            <div class="task-info">
+              <span class="task-info-icon material-icons-outlined">info</span>
+              <p class="task-info-text">Make sure this passcode matches the one you stored.</p>
             </div>
             <div class="flex flex-justify-end margin-top-2">
               <Button

@@ -39,6 +39,7 @@ const RootGarVariables = {
       title: 'Steps to Create Your GLEIF AID',
     },
     createYourAlias: {
+      title: 'Create Your GLEIF AID',
       paragraph: (
         <>
           The alias should be an easy to remember name for your AID as a member of the GLEIF RoOT signing group (e.g.

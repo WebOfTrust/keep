@@ -65,7 +65,7 @@ class EnterPasscode {
     return (
       <>
         <h3 id="welcome-back">Welcome Back</h3>
-        <img class="task-img task-img--centered" src={passcodeImg} />
+        <img class="task-img task-img--center" src={passcodeImg} />
         <p class="p-tag">Enter your passcode to unlock Keep.</p>
         <TextField
           id="passcode"

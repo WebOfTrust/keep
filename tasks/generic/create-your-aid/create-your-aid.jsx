@@ -1,5 +1,15 @@
 import m from 'mithril';
-import { Button, Select, TextField, Checkbox, Radio, AID, IconButton } from '../../../src/app/components';
+import {
+  Button,
+  Card,
+  Counter,
+  Select,
+  TextField,
+  Checkbox,
+  Radio,
+  AID,
+  IconButton,
+} from '../../../src/app/components';
 import { KERI, Profile, Witnesses } from '../../../src/app/services';
 import createIdentifier from '../../../src/assets/img/create-identifier.svg';
 import configureIdentifier from '../../../src/assets/img/configure-identifier.svg';
@@ -78,158 +88,164 @@ class CreateYourAID {
       <>
         {vnode.attrs.parent.currentState === 'create-your-alias' && (
           <>
-            <h3>Create Your Alias and Configure Your AID</h3>
-            <img class="task-img task-img--centered" src={configureIdentifier} />
-            <p class="p-tag">
+            <h3>
+              {vnode.attrs.variables.createYourAlias.title
+                ? vnode.attrs.variables.createYourAlias.title
+                : 'Create Your Alias and Configure Your AID'}
+            </h3>
+            <img class="task-img task-img--center" src={configureIdentifier} />
+            <p class="font-color--battleship">
               {vnode.attrs.variables.createYourAlias
                 ? vnode.attrs.variables.createYourAlias.paragraph
                 : 'The alias should be an easy to remember name for your AID.'}
             </p>
-            <p className="p-tag-bold">What would you like your alias to be?</p>
-            <TextField
-              id="alias"
-              outlined
-              fluid
-              oninput={(e) => {
-                this.alias = e.target.value;
-              }}
-              value={this.alias}
-            />
-            <p className="p-tag-bold">Select your witness pool:</p>
-            <Select
-              outlined
-              fluid
-              value={this.pool}
-              options={Witnesses.witnessPools}
-              onchange={(pool) => {
-                this.pool = pool;
-                this.wits = Witnesses.witnesses[this.pool];
-                this.witThold = KERI.recommendedThold(this.wits.length);
-              }}
-            />
+            <div class="task-form-group">
+              <label for="alias" class="task-form-label">
+                What would you like your alias to be?
+              </label>
+              <TextField
+                id="alias"
+                outlined
+                fluid
+                oninput={(e) => {
+                  this.alias = e.target.value;
+                }}
+                value={this.alias}
+              />
+            </div>
+            <div class="task-form-group">
+              <label for="witness-pool" class="task-form-label">
+                Select Your Witness Pool:
+              </label>
+              <Select
+                id="witness-pool"
+                outlined
+                fluid
+                value={this.pool}
+                options={Witnesses.witnessPools}
+                onchange={(pool) => {
+                  this.pool = pool;
+                  this.wits = Witnesses.witnesses[this.pool];
+                  this.witThold = KERI.recommendedThold(this.wits.length);
+                }}
+              />
+            </div>
+
             {this.wits.length > 0 && (
-              <p className="p-tag-italic" style={{ margin: '0.5rem 0 0 1.5rem' }}>
+              <p class="p-tag-italic" style={{ margin: '0.5rem 0 0 1.5rem' }}>
                 {this.wits.length} Witnesses in Pool
               </p>
             )}
 
-            <div className="flex flex-align-center flex-justify-start" style={{ margin: '0 0 0 -0.75rem' }}>
+            <div
+              class="task-form-checkbox-container"
+              onclick={() => {
+                if (!(Profile.identifiers === undefined || Profile.identifiers.length === 0)) {
+                  this.useAsDefault = !this.useAsDefault;
+                }
+              }}
+            >
               <Checkbox
+                id="use-as-default"
                 outlined
                 fluid
                 disabled={Profile.identifiers === undefined || Profile.identifiers.length === 0}
                 checked={this.useAsDefault}
-                style={{ margin: '0 0 3.5rem 0' }}
-                onclick={() => {
-                  if (!(Profile.identifiers === undefined || Profile.identifiers.length === 0)) {
-                    this.useAsDefault = !this.useAsDefault;
-                  }
-                }}
               />
-              <p className="p-tag-bold">Set new AID as Keep Default?</p>
+              <label for="use-as-default" class="task-form-label">
+                Set new AID as Keep Default?
+              </label>
             </div>
-            <div className="flex flex-align-center flex-justify-between" style={{ margin: '0 0 0 0' }}>
-              <p className="p-tag-bold">Advanced Options: </p>
-              <IconButton
-                icon={this.showAdvancedOptions ? 'expand_less' : 'expand_more'}
-                onclick={() => {
-                  this.showAdvancedOptions = !this.showAdvancedOptions;
-                }}
-              />
+            <div
+              class="task-form-more"
+              onclick={() => {
+                this.showAdvancedOptions = !this.showAdvancedOptions;
+              }}
+            >
+              <label class="task-form-more-label">Advanced Options:</label>
+              <IconButton icon={this.showAdvancedOptions ? 'expand_less' : 'expand_more'} />
             </div>
             {this.showAdvancedOptions && (
-              <div style={{ marginTop: '1.5rem' }}>
-                <div className="flex flex-justify-between" style={{ margin: '0' }}>
-                  <p class="p-tag">Witness Threshold:</p>
-                  <TextField
-                    outlined
-                    type="number"
+              <>
+                <div class="task-form-group task-form-group--between">
+                  <label class="task-form-label">Witness Threshold:</label>
+                  <Counter
+                    value={this.witThold}
+                    disabled={!this.pool}
                     min={KERI.recommendedThold(this.wits.length)}
                     max={this.wits.length}
-                    style={{ marginBottom: '2rem', width: '5rem' }}
-                    value={this.witThold}
-                    oninput={(e) => {
-                      this.witThold = parseInt(e.target.value);
+                    onchange={(value) => {
+                      this.witThold = value;
                     }}
                   />
                 </div>
-
-                <div className="flex flex-justify-between" style={{ margin: '0' }}>
-                  <p class="p-tag">Establishment Only:</p>
-                  <div className="flex flex-justify-end">
-                    <div className="flex flex-align-center" style={{ marginRight: '2rem' }}>
-                      <Radio
-                        id="estonly-yes"
-                        name="estonly"
-                        disabled={!vnode.attrs.parent.establishable}
-                        checked={this.estOnly}
-                        onclick={() => {
-                          this.estOnly = true;
-                        }}
-                      />
-                      <label className="font-weight--bold font-color--battleship" htmlFor="weighted-yes">
-                        Yes
-                      </label>
-                    </div>
-                    <div className="flex flex-align-center">
-                      <Radio
-                        id="estonly-no"
-                        name="estonly"
-                        disabled={!vnode.attrs.parent.establishable}
-                        checked={!this.estOnly}
-                        onclick={() => {
-                          this.estOnly = false;
-                        }}
-                      />
-                      <label className="font-weight--bold font-color--battleship" htmlFor="weighted-no">
-                        No
-                      </label>
-                    </div>
+                <div class="task-form-group task-form-group--between">
+                  <label class="task-form-label">Establishment Only:</label>
+                  <div class="task-form-radio-group">
+                    <Radio
+                      id="estonly-yes"
+                      name="estonly"
+                      disabled={!vnode.attrs.parent.establishable}
+                      checked={this.estOnly}
+                      onclick={() => {
+                        this.estOnly = true;
+                      }}
+                    />
+                    <label class="task-form-label" for="estonly-yes">
+                      Yes
+                    </label>
+                    <Radio
+                      id="estonly-no"
+                      name="estonly"
+                      disabled={!vnode.attrs.parent.establishable}
+                      checked={!this.estOnly}
+                      onclick={() => {
+                        this.estOnly = false;
+                      }}
+                    />
+                    <label class="task-form-label" for="estonly-no">
+                      No
+                    </label>
                   </div>
                 </div>
-                <div className="flex flex-justify-between" style={{ margin: '0' }}>
-                  <p class="p-tag">Allow this identifier to delegate?</p>
-                  <div className="flex flex-justify-end">
-                    <div className="flex flex-align-center" style={{ marginRight: '2rem' }}>
-                      <Radio
-                        id="dnd-yes"
-                        name="dnd"
-                        disabled={!vnode.attrs.parent.delegatable}
-                        checked={!this.DnD}
-                        onclick={() => {
-                          this.DnD = false;
-                        }}
-                      />
-                      <label className="font-weight--bold font-color--battleship" htmlFor="weighted-yes">
-                        Yes
-                      </label>
-                    </div>
-                    <div className="flex flex-align-center">
-                      <Radio
-                        id="dnd-no"
-                        name="dnd"
-                        disabled={!vnode.attrs.parent.delegatable}
-                        checked={this.DnD}
-                        onclick={() => {
-                          this.DnD = true;
-                        }}
-                      />
-                      <label className="font-weight--bold font-color--battleship" htmlFor="weighted-no">
-                        No
-                      </label>
-                    </div>
+                <div class="task-form-group task-form-group--between">
+                  <label class="task-form-label">Allow this identifier to delegate?</label>
+                  <div class="task-form-radio-group">
+                    <Radio
+                      id="dnd-yes"
+                      name="dnd"
+                      disabled={!vnode.attrs.parent.delegatable}
+                      checked={!this.DnD}
+                      onclick={() => {
+                        this.DnD = false;
+                      }}
+                    />
+                    <label class="task-form-label" for="dnd-yes">
+                      Yes
+                    </label>
+                    <Radio
+                      id="dnd-no"
+                      name="dnd"
+                      disabled={!vnode.attrs.parent.delegatable}
+                      checked={this.DnD}
+                      onclick={() => {
+                        this.DnD = true;
+                      }}
+                    />
+                    <label class="task-form-label" for="dnd-no">
+                      No
+                    </label>
                   </div>
                 </div>
-                <div className="flex margin-v-1" style={{ marginLeft: '-0.75rem' }}>
+                <div class="task-form-checkbox-container">
                   <Checkbox checked={true} disabled={true} />
-                  <label className="font-weight--medium font-color--battleship" style={{ marginTop: '1rem' }}>
+                  <label for="use-as-default" class="task-form-label">
                     Allow this Identifier to issue credentials
                   </label>
                 </div>
-              </div>
+              </>
             )}
-
-            <div class="flex flex-justify-end" style={{ marginTop: '2.75rem' }}>
+            <div class="task-actions">
               <Button
                 id="continue"
                 raised
@@ -246,41 +262,36 @@ class CreateYourAID {
         {vnode.attrs.parent.currentState === 'review-and-confirm' && (
           <>
             <h3>Review and Confirm</h3>
-            <img src={configureIdentifier} style={{ display: 'block', margin: '4rem auto 0', width: '172px' }} />
-            <p className="p-tag-bold">Review and confirm your selections below:</p>
-            <div className="flex flex-justify-start flex-align-center" style={{ marginTop: '2rem' }}>
+            <img class="task-img task-img--center" src={configureIdentifier} />
+            <p class="font-color--battleship">Review and confirm your selections below:</p>
+            <div class="flex flex-justify-start flex-align-center margin-v-2">
               <ProfilePicture identifier={{ name: this.alias }} />
-              <div style={{ margin: '0 0 0 1rem' }}>
-                <p className="p-tag-bold" style={{ margin: '0 0 0.5rem 0' }}>
-                  Alias:
-                </p>
-                <div id="review-alias" className="p-tag">
-                  {this.alias}
-                </div>
-              </div>
+              <p id="review-alias" class="font-weight--medium margin-left-1">
+                {this.alias}
+              </p>
             </div>
-            <div className="flex flex-justify-between" style={{ margin: '2rem 0 0 0' }}>
-              <p className="p-tag-bold">Witness Pool:</p>
-              <p className="p-tag">{Witnesses.poolName(this.pool)}</p>
+            <div class="task-form-group task-form-group--between">
+              <label class="task-form-label">Witness Pool:</label>
+              <p>{Witnesses.poolName(this.pool)}</p>
             </div>
-            <div className="flex flex-justify-between" style={{ margin: '0' }}>
-              <p className="p-tag-bold">Witness Threshold:</p>
-              <p className="p-tag">{this.witThold}</p>
+            <div class="task-form-group task-form-group--between">
+              <label class="task-form-label">Witness Threshold:</label>
+              <p>{this.witThold}</p>
             </div>
-            <div className="flex flex-justify-between" style={{ margin: '0' }}>
-              <p className="p-tag-bold">Establishment Only:</p>
-              <p className="p-tag">{this.estOnly ? 'Yes' : 'No'}</p>
+            <div class="task-form-group task-form-group--between">
+              <label class="task-form-label">Establishment Only:</label>
+              <p>{this.estOnly ? 'Yes' : 'No'}</p>
             </div>
-            <div className="flex flex-justify-between" style={{ margin: '0' }}>
-              <p className="p-tag-bold">Allow Delegation:</p>
-              <p className="p-tag">{this.DnD ? 'No' : 'Yes'}</p>
+            <div class="task-form-group task-form-group--between">
+              <label class="task-form-label">Allow Delegation:</label>
+              <p>{this.DnD ? 'No' : 'Yes'}</p>
             </div>
-            <div className="flex flex-justify-between" style={{ marginTop: '3rem' }}>
+            <div class="task-actions">
               <Button
                 id="skip"
-                class="button--secondary"
+                class="button--secondary margin-right-1"
                 raised
-                label="Go Back"
+                label="Edit"
                 onclick={() => {
                   vnode.attrs.parent.currentState = 'create-your-alias';
                 }}
@@ -300,27 +311,18 @@ class CreateYourAID {
         {vnode.attrs.parent.currentState === 'created' && (
           <>
             <h3>Your AID is Created!</h3>
-            <img src={configureIdentifier} style={{ display: 'block', margin: '4rem auto 0', width: '172px' }} />
-
-            <div
-              className="flex flex-justify-start flex-align-center"
-              style={{ margin: '5rem 0 7rem', boxShadow: '0 3px 9px 0 rgba(0, 0, 0, 0.5)', padding: '3rem' }}
-            >
-              <ProfilePicture identifier={{ name: this.alias }} />
-              <div style={{ margin: '0 0 0 1rem' }}>
-                <p className="p-tag-bold" style={{ margin: '0 0 0.5rem 0' }}>
-                  Alias:
-                </p>
-                <div id="review-alias" className="p-tag">
-                  <AID aid={this.aid} />
-                </div>
+            <img class="task-img task-img--center" src={configureIdentifier} />
+            <Card padding="1.5rem">
+              <div class="flex flex-align-center">
+                <ProfilePicture identifier={{ name: this.alias }} />
+                <AID style={{ marginLeft: '1rem' }} aid={this.aid} />
               </div>
-            </div>
-            <div className="flex flex-justify-end" style={{ marginTop: '3rem' }}>
+            </Card>
+            <div class="task-actions">
               <Button
                 id="create-aid"
                 raised
-                label="Finished"
+                label="Close"
                 onclick={(e) => {
                   vnode.attrs.end();
                 }}
