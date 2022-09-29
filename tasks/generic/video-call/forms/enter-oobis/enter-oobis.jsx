@@ -156,9 +156,9 @@ class EnterOOBIsForm {
             }}
           />
         )}
-        <div class={`flex flex-justify-end`}>
+        <div class="flex flex-justify-end">
           <Button
-            raised
+            outlined
             disabled={!this.canVerify(vnode)}
             label={vnode.attrs.participants.oobis.length > 1 ? 'Verify All' : 'Verify'}
             onclick={() => {

@@ -2,10 +2,9 @@
 @import '~/src/scss/variables';
 
 .steps-header {
-  @include semi-bold;
+  @include bold;
   color: rgba(0, 0, 0, 0.87);
-  font-size: 16px;
-  line-height: 1.75;
+  font-size: 14px;
 }
 
 .copy-value {

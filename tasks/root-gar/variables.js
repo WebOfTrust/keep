@@ -53,7 +53,7 @@ const RootGarVariables = {
     shouldSkipIntro:
       'If you have not yet exchanged OOBIs with the other participants of the GLEIF RoOT AID, you must perform identity authentication to add them to your contact list.' +
       '  Will you be need to perform identity authentication?',
-    skipTitle: 'Proceed to Create GLEIR RoOT AID',
+    skipTitle: 'Proceed to Create GLEIF RoOT AID',
     skipIntro: 'You can now proceed to creating the GLEIF RoOT AID from existing authenticated contacts.',
     performTitle: 'Proceed to OOBI Exchange',
     performIntro:

@@ -46,7 +46,7 @@ class EnterChallengesForm {
             {!signer.sent ? (
               <div class="flex flex-justify-end" style={{ marginTop: '1rem' }}>
                 <Button
-                  raised
+                  outlined
                   label="Send"
                   onclick={() => {
                     this.signChallengePromise(signer)

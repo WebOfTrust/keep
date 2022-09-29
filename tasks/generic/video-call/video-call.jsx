@@ -1,6 +1,6 @@
 import m from 'mithril';
 
-import { Button, Progress, TextField } from '../../../src/app/components';
+import { Button, Counter, Progress, TextField } from '../../../src/app/components';
 import { Profile, Participants, KERI, MultiSig } from '../../../src/app/services';
 import { Tasks } from '../../../src/app/services/tasks';
 import { EnterChallengesForm, EnterOOBIsForm, SendChallengeForm, SendOOBIForm } from './forms';
@@ -111,12 +111,12 @@ class VideoCall {
       <>
         {vnode.attrs.parent.currentState === 'skip' && (
           <>
-            <img src={verifyCredentials} style={{ width: '100px' }} />
+            <img class="task-img task-img--small" src={verifyCredentials} />
             <h4>{vnode.attrs.parent.variables.shouldSkipTitle}</h4>
-            <p className="font-color--battleship font-size--14">{vnode.attrs.parent.variables.shouldSkipIntro}</p>
-            <div className="flex flex-justify-end margin-top-4">
+            <p class="font-color--battleship">{vnode.attrs.parent.variables.shouldSkipIntro}</p>
+            <div class="task-actions">
               <Button
-                class="button--secondary margin-right-4"
+                class="button--secondary margin-right-1"
                 raised
                 label="No"
                 onclick={() => {
@@ -135,10 +135,10 @@ class VideoCall {
         )}
         {vnode.attrs.parent.currentState === 'skip-identity-authentication' && (
           <>
-            <img src={toDoList} style={{ width: '100px' }} />
+            <img class="task-img task-img--small" src={toDoList} />
             <h4>{vnode.attrs.parent.variables.skipTitle}</h4>
-            <p className="font-color--battleship font-size--14">{vnode.attrs.parent.variables.skipIntro}</p>
-            <div class="flex flex-align-center flex-justify-end margin-top-4">
+            <p class="font-color--battleship">{vnode.attrs.parent.variables.skipIntro}</p>
+            <div class="task-actions">
               <Button
                 raised
                 class="button--secondary margin-right-1"
@@ -161,10 +161,10 @@ class VideoCall {
         )}
         {vnode.attrs.parent.currentState === 'perform-identity-authentication' && (
           <>
-            <img src={addNewContacts} style={{ width: '100px' }} />
+            <img class="task-img task-img--small" src={addNewContacts} />
             <h4>{vnode.attrs.parent.variables.performTitle}</h4>
-            <p className="font-color--battleship font-size--14">{vnode.attrs.parent.variables.performIntro}</p>
-            <div class="flex flex-align-center flex-justify-end margin-top-4">
+            <p class="font-color--battleship">{vnode.attrs.parent.variables.performIntro}</p>
+            <div class="task-actions">
               <Button
                 raised
                 class="button--secondary margin-right-1"
@@ -185,12 +185,12 @@ class VideoCall {
         )}
         {vnode.attrs.parent.currentState === 'intro' && (
           <>
-            <h3 class="text--underline margin-bottom-2">{vnode.attrs.parent.variables.title}</h3>
+            <h3 class="margin-bottom-2">{vnode.attrs.parent.variables.title}</h3>
             <p class="steps-header">
-              {vnode.attrs.parent.variables.subtitle ? vnode.attrs.parent.variables.subtitle : 'Steps to create:'}
+              {vnode.attrs.parent.variables.subtitle ? vnode.attrs.parent.variables.subtitle : 'Steps to Create:'}
             </p>
             {vnode.attrs.parent.variables.steps}
-            <div class="flex flex-align-center flex-justify-end margin-top-4">
+            <div class="task-actions">
               {vnode.attrs.parent.next && (
                 <Button
                   class="button--secondary margin-right-1"
@@ -214,23 +214,19 @@ class VideoCall {
         {vnode.attrs.parent.currentState === 'join-video-call' && (
           <>
             <Progress stepNum={1} totalSteps={6} stepLabel={'Join'} />
-            <img src={projectPlanning} style={{ width: '100px' }} />
+            <img class="task-img task-img--small" src={projectPlanning} />
             <h4>Join a Video Call</h4>
-            <p class="font-color--battleship font-size--14">{vnode.attrs.parent.variables.joinCallIntro}</p>
-            <p class="font-weight--semi-bold">{vnode.attrs.parent.variables.joinCallSubIntro}</p>
-            <p className="p-tag-bold">{vnode.attrs.parent.variables.howManyParticipantsPrompt}</p>
-            <TextField
-              outlined
-              type="number"
+            <p class="font-color--battleship font-size--12">{vnode.attrs.parent.variables.joinCallIntro}</p>
+            <h4>{vnode.attrs.parent.variables.joinCallSubIntro}</h4>
+            <p class="font-weight--semi-bold">{vnode.attrs.parent.variables.howManyParticipantsPrompt}</p>
+            <Counter
               min={1}
-              style={{ marginBottom: '2rem', width: '4rem', height: '44px' }}
               value={vnode.attrs.parent.participants.length}
-              oninput={(e) => {
-                let num = parseInt(e.target.value);
-                vnode.attrs.parent.participants = new Participants(num);
+              onchange={(value) => {
+                vnode.attrs.parent.participants = new Participants(value);
               }}
             />
-            <div class="flex flex-justify-end margin-top-4">
+            <div class="task-actions">
               <Button
                 class="button--secondary margin-right-1"
                 raised
@@ -254,7 +250,7 @@ class VideoCall {
             <Progress stepNum={2} totalSteps={6} stepLabel={'Send OOBI'} />
             <h4>Generate Out Of Band Introduction</h4>
             <SendOOBIForm aidToSend={vnode.attrs.parent.aidToSend} />
-            <div class="flex flex-justify-end margin-top-4">
+            <div class="task-actions">
               <Button
                 class="button--secondary margin-right-1"
                 raised
@@ -277,7 +273,7 @@ class VideoCall {
           <>
             <Progress stepNum={3} totalSteps={6} stepLabel={'Receive OOBI'} />
             <EnterOOBIsForm participants={vnode.attrs.parent.participants} oneToOne={vnode.attrs.parent.oneToOne} />
-            <div class="flex flex-justify-end margin-top-4">
+            <div class="task-actions">
               <Button
                 class="button--secondary margin-right-1"
                 raised
@@ -301,7 +297,7 @@ class VideoCall {
           <>
             <Progress stepNum={4} totalSteps={6} stepLabel={'Send Challenge'} />
             <SendChallengeForm participants={vnode.attrs.parent.participants} />
-            <div class="flex flex-justify-end margin-top-4">
+            <div class="task-actions">
               <Button
                 class="button--secondary margin-right-1"
                 raised
@@ -328,7 +324,7 @@ class VideoCall {
               aidToSend={vnode.attrs.parent.aidToSend}
               participants={vnode.attrs.parent.participants}
             />
-            <div class="flex flex-justify-end">
+            <div class="task-actions">
               <Button
                 class="button--secondary margin-right-1"
                 raised
@@ -364,13 +360,13 @@ class VideoCall {
         {vnode.attrs.parent.currentState === 'share-oobis' && (
           <>
             <Progress stepNum={6} totalSteps={6} stepLabel={'Configure'} />
-            <img src={projectPlanning} style={{ width: '120px' }} />
+            <img class="task-img task-img--small" src={projectPlanning} />
             <h4>Would you like to share OOBIs with your multi-sig group?</h4>
-            <p class="font-size--14 font-color--battleship">
-              You just perform an OOBI Exchange / Challenge Response using a multi-sig group AID. Would you like to
+            <p class="font-size--12 font-color--battleship">
+              You just performed an OOBI Exchange / Challenge Response using a multi-sig group AID. Would you like to
               share your new contacts with the other participants of your multi-sig group?
             </p>
-            <div class="flex flex-align-center flex-justify-end margin-top-4">
+            <div class="task-actions">
               <Button
                 raised
                 class="button--secondary margin-right-1"
@@ -400,10 +396,10 @@ class VideoCall {
         {vnode.attrs.parent.currentState === 'configure-group' && (
           <>
             <Progress stepNum={6} totalSteps={6} stepLabel={'Configure'} />
-            <img src={projectPlanning} style={{ width: '120px' }} />
+            <img class="task-img task-img--small" src={projectPlanning} />
             <h4>{vnode.attrs.parent.variables.nextTaskTitle}</h4>
-            <p class="font-size--14 font-color--battleship">{vnode.attrs.parent.variables.nextTaskBody}</p>
-            <div class="flex flex-align-center flex-justify-end margin-top-4">
+            <p class="font-size--12 font-color--battleship">{vnode.attrs.parent.variables.nextTaskBody}</p>
+            <div class="task-actions">
               <Button
                 raised
                 class="button--secondary margin-right-1"
@@ -435,9 +431,9 @@ class StayInCallPanel {
   view(vnode) {
     return (
       <>
-        <img src={projectPlanning} style={{ width: '120px', margin: '0 0 1rem 0' }} alt="" />
+        <img class="task-img task-img--small" src={projectPlanning} alt="" />
         <h4>Stay in the Video Call</h4>
-        <p class="font-size--14 font-color--battleship">
+        <p class="font-size--12 font-color--battleship">
           Stay in the Video Call after you have received introductions from the other participants because there will be
           more steps coming up.
         </p>
@@ -450,9 +446,9 @@ class AcceptingIntroductionsPanel {
   view() {
     return (
       <>
-        <img src={projectPlanning} style={{ width: '120px', margin: '0 0 1rem 0' }} alt="" />
+        <img class="task-img task-img--small" src={projectPlanning} alt="" />
         <h4>Accepting Out Of Band Introductions</h4>
-        <p class="font-size--14 font-color--battleship">
+        <p class="font-size--12 font-color--battleship">
           For each of the N people in your multisig group, create an alias for them and verify their OOBI URL copied
           from the video call chat using the right panel.
         </p>
@@ -469,13 +465,13 @@ class CopyChallengePanel {
   view(vnode) {
     return (
       <>
-        <img src={projectPlanning} style={{ width: '120px', margin: '0 0 1rem 0' }} />
+        <img class="task-img task-img--small" src={projectPlanning} alt="" />
         <h4>Copy Challenge Message</h4>
-        <p class="font-size--14 font-color--battleship">
+        <p class="font-size--12 font-color--battleship">
           Click the copy button to copy your challenge message to your clipboard and then paste it into the video call
           chat.
         </p>
-        <p class="font-size--14 font-color--battleship">
+        <p class="font-size--12 font-color--battleship">
           The other participants in the group will use Keep to send this back to you as a challenge response.
         </p>
       </>
@@ -488,10 +484,10 @@ class ReceiveChallengePanel {
     return (
       <>
         <div class="flex flex-align-center flex-justify-between">
-          <img src={addNewContacts} style={{ width: '120px', margin: '1.5rem 0 1rem 0' }} />
+          <img class="task-img task-img--small" src={addNewContacts} alt="" />
           <h3>Challenge Message Recipients</h3>
         </div>
-        <p class="font-size--14 font-color--battleship margin-v-2">
+        <p class="font-size--12 font-color--battleship margin-v-2">
           Paste the message into the video chat so that your contact{vnode.attrs.parent.oneToOne ? '' : 's'} can be
           verified
           <br />
@@ -502,16 +498,16 @@ class ReceiveChallengePanel {
           </strong>
         </p>
         <div class="flex flex-align-center flex-justify-between">
-          <p class="font-size--14 font-weight--bold font-color--battleship">Participant</p>
-          <p class="font-size--14 font-weight--bold font-color--battleship">Status</p>
+          <p class="font-weight--bold font-color--battleship">Participant</p>
+          <p class="font-weight--bold font-color--battleship">Status</p>
         </div>
         {vnode.attrs.parent.participants.oobis.map((signer, index) => {
           return (
             <>
               <div class="flex flex-align-center flex-justify-between">
-                <p class="font-size--14 font-weight--semi-bold">{signer.alias}</p>
-                {!signer.verified && <p class="font-size--14 font-color--blue">In Progress</p>}
-                {signer.verified && <p class="font-size--14 font-color--green">Verified!</p>}
+                <p class="font-weight--semi-bold">{signer.alias}</p>
+                {!signer.verified && <p class="font-color--blue">In Progress</p>}
+                {signer.verified && <p class="font-color--green">Verified!</p>}
               </div>
             </>
           );

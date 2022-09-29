@@ -98,7 +98,9 @@
 
 .mdc-text-field--outlined,
 .mdc-text-field--filled {
-  height: 48px;
+  &:not(.mdc-text-field--textarea) {
+    height: 48px;
+  }
 }
 
 .mdc-select .mdc-select__anchor {

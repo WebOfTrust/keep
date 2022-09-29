@@ -46,8 +46,7 @@ class SendChallengeForm {
         </div>
         <div class="flex flex-align-center margin-v-1">
           <Button
-            raised
-            class="button--secondary"
+            outlined
             label="Copy"
             iconLeading="content_copy"
             onclick={() => {
