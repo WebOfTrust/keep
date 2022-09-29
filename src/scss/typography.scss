@@ -9,7 +9,7 @@ body {
   @include sans;
   @include normal;
   color: $default-text;
-  font-size: 100%; // 16px in most browsers.
+  font-size: 14px; // 16px in most browsers.
 }
 
 h1 {
