@@ -7,6 +7,7 @@ class IconButton {
     this.buttonClass = `material-icons mdc-icon-button`;
     this.optionDefaults = {
       class: null,
+      disabled: false,
       icon: '',
       iconOutlined: false,
       onclick: null,
@@ -56,6 +57,7 @@ class IconButton {
     return (
       <button
         class={this.buttonClass}
+        disabled={this.options.disabled}
         onclick={this.options.onclick}
         aria-label={this.options.title}
         title={this.options.title}

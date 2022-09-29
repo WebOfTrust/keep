@@ -6,6 +6,7 @@ class Select {
     this.mdcInstance = null;
     this.selectClass = 'mdc-select';
     this.optionDefaults = {
+      id: null,
       class: null,
       disabled: false,
       filled: false,
@@ -99,7 +100,11 @@ class Select {
   view(vnode) {
     return (
       <>
-        <div class={this.selectClass} style={{ width: this.options.fluid ? '100%' : 'auto', ...this.options.style }}>
+        <div
+          id={this.options.id}
+          class={this.selectClass}
+          style={{ width: this.options.fluid ? '100%' : 'auto', ...this.options.style }}
+        >
           <div class="mdc-select__anchor" role="button">
             {this.options.filled && <span class="mdc-select__ripple"></span>}
             {this.options.filled && this.options.label && (

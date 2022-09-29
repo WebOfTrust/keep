@@ -1,0 +1,17 @@
+@import '../../../scss/mixins';
+@import '../../../scss/variables';
+
+.counter {
+  align-items: center;
+  display: flex;
+
+  &-value {
+    @include medium;
+    color: $cyprus;
+    margin: 0 1rem;
+
+    &--disabled {
+      color: rgba($cyprus, 0.38);
+    }
+  }
+}

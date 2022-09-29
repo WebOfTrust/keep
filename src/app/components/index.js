@@ -3,6 +3,7 @@ import Card from './card/card.jsx';
 import CarouselControls from './carousel-controls/carousel-controls.jsx';
 import Checkbox from './checkbox/checkbox.jsx';
 import Container from './container/container.jsx';
+import Counter from './counter/counter.jsx';
 import DatePicker from './date-picker/date-picker.jsx';
 import DateRange from './date-range/date-range.jsx';
 import Footer from './footer/footer.jsx';
@@ -33,6 +34,7 @@ module.exports = {
   Checkbox,
   AIDField,
   Container,
+  Counter,
   DatePicker,
   DateRange,
   Footer,

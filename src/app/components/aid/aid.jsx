@@ -79,7 +79,7 @@ class AID {
     return (
       <>
         <div class="aid" style={vnode.attrs.style}>
-          <p class="p-tag" style={{ margin: '0 0.5rem 0 0', whiteSpace: 'nowrap' }}>
+          <p class="font-weight--medium" style={{ margin: '0 0.5rem 0 0', whiteSpace: 'nowrap' }}>
             {this.aid.name}
           </p>
           <div
