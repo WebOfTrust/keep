@@ -45,6 +45,10 @@ a:link {
     margin: 2rem 0;
     width: 192px;
 
+    &--small {
+      width: 96px;
+    }
+
     &--center {
       margin: 2rem auto;
     }
@@ -132,11 +136,9 @@ a:link {
   list-style-type: none;
 
   li {
-    @include semi-bold;
-    color: rgba(0, 0, 0, 0.87);
     counter-increment: li;
     font-size: 14px;
-    line-height: 30px;
+    line-height: 36px;
     margin-bottom: 1rem;
     margin-left: 2rem;
     position: relative;
@@ -148,18 +150,17 @@ a:link {
 
     &::before {
       @include semi-bold;
-      background-color: white;
+      background-color: $hover-turquoise;
       border-radius: 50%;
-      box-shadow: 0 4px 4px rgba(black, 0.25);
       content: counter(li);
       font-size: 16px;
-      height: 30px;
+      height: 36px;
       left: -64px;
-      line-height: 30px;
+      line-height: 36px;
       position: absolute;
       text-align: center;
       top: 0px;
-      width: 30px;
+      width: 36px;
     }
   }
 }
