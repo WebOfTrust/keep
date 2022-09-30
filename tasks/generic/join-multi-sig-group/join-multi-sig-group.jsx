@@ -127,10 +127,10 @@ class JoinMultiSigGroup {
       <>
         {vnode.attrs.parent.currentState === 'new-multi-sig-group' && (
           <>
-            <img src={todoList} style={{ width: '188px', margin: '0 0 2rem 0' }} />
+            <img class="task-img" src={todoList} />
             <h3>New Multi-Sig Group</h3>
             <p class="p-tag">View the multi-sig group and confirm that these individuals are authenticated.</p>
-            <div class="flex flex-justify-end" style={{ marginTop: '4rem' }}>
+            <div class="task-actions">
               <Button
                 raised
                 label="View"
@@ -144,64 +144,71 @@ class JoinMultiSigGroup {
         {vnode.attrs.parent.currentState === 'review-members' && (
           <>
             <h3>Review and Confirm</h3>
-            <p>Review to make sure the signer list is complete and configuration information is accurate.</p>
+            <p class="p-tag">
+              Review to make sure the signer list is complete and configuration information is accurate.
+            </p>
             {vnode.attrs.parent.ked.di && (
-              <>
-                <h4>Delegator:</h4>
-                <div class="flex flex-align-center flex-justify-between" style={{ margin: '1rem 0' }}>
-                  <div class="flex-1 uneditable-value" style={{ minHeight: '48px' }}>
-                    <AID contact={vnode.attrs.parent.delegator} />
-                  </div>
+              <div class="task-form-group">
+                <label class="task-form-label">Delegator:</label>
+                <div class="flex-1 uneditable-value">
+                  <AID contact={vnode.attrs.parent.delegator} />
                 </div>
-              </>
+              </div>
             )}
-            <p className="font-weight--bold font-color--battleship">Witness Pool:</p>
-            <div className="uneditable-value">
-              {Witnesses.witnessPools.find((p) => p.value === vnode.attrs.parent.pool).label}
+            <div class="task-form-group">
+              <label className="task-form-label">Witness Pool:</label>
+              <div className="uneditable-value">
+                {Witnesses.witnessPools.find((p) => p.value === vnode.attrs.parent.pool).label}
+              </div>
             </div>
-            <p className="font-weight--bold font-color--battleship">Signers:</p>
+            <label className="task-form-label">Signers:</label>
             {vnode.attrs.parent.aids.map((signer, i) => {
               let contact = Contacts.filterById(signer);
               return (
-                <>
-                  <div class="flex flex-align-center flex-justify-between  margin-v-1">
-                    <div class="flex-3 uneditable-value" style={{ marginRight: '1rem' }}>
-                      {signer === this.aid.prefix && <AID aid={this.aid} />}
-                      {contact !== undefined && <AID contact={contact} />}
-                      {contact === undefined && signer !== this.aid.prefix && <span>Unknown AID</span>}
-                    </div>
-                    {vnode.attrs.parent.fractionallyWeighted && (
-                      <div class="uneditable-value" style={{ marginRight: '1rem' }}>
-                        {vnode.attrs.parent.ked.kt[i]}
-                      </div>
-                    )}
-                    {signer === this.aid.prefix && (
-                      <span className="flex-1 p-tag-bold" style={{ fontSize: '1rem' }}>
-                        You
-                      </span>
-                    )}
-                    {signer !== this.aid.prefix && (
-                      <span className="flex-1 p-tag-bold" style={{ fontSize: '1rem' }}>
-                        &nbsp;
-                      </span>
-                    )}
+                <div class="flex flex-align-center flex-justify-between  margin-v-1">
+                  <div class="flex-3 uneditable-value" style={{ marginRight: '1rem' }}>
+                    {signer === this.aid.prefix && <AID aid={this.aid} />}
+                    {contact !== undefined && <AID contact={contact} />}
+                    {contact === undefined && signer !== this.aid.prefix && <span>Unknown AID</span>}
                   </div>
-                </>
+                  {vnode.attrs.parent.fractionallyWeighted && (
+                    <div class="uneditable-value" style={{ marginRight: '1rem' }}>
+                      {vnode.attrs.parent.ked.kt[i]}
+                    </div>
+                  )}
+                  {signer === this.aid.prefix && <span className="flex-1 p-tag-bold">You</span>}
+                  {signer !== this.aid.prefix && <span className="flex-1 p-tag-bold">&nbsp;</span>}
+                </div>
               );
             })}
-            <p className="font-color--battleship margin-v-2">Advanced Options.</p>
-            <p className="font-weight--bold font-color--battleship">Witness Threshold:</p>
-            <div className="uneditable-value">{vnode.attrs.parent.witThold}</div>
-            <p className="font-weight--bold font-color--battleship">Establishment Only:</p>
-            <div className="uneditable-value">{vnode.attrs.parent.estOnly ? 'Yes' : 'No'}</div>
-            <p className="font-weight--bold font-color--battleship">Allow Delegation:</p>
-            <div className="uneditable-value">{vnode.attrs.parent.DnD ? 'No' : 'Yes'}</div>
-            <p className="font-weight--bold font-color--battleship">Issue Credentials:</p>
-            <div className="uneditable-value">Yes</div>
-
-            <div class="flex flex-justify-between" style={{ marginTop: '4rem' }}>
+            <label className="task-form-more-label margin-v-2">Advanced Options:</label>
+            <div class="task-form-group task-form-group--between">
+              <label className="task-form-label">Witness Threshold:</label>
+              <div className="uneditable-value" style={{ width: '75px' }}>
+                {vnode.attrs.parent.witThold}
+              </div>
+            </div>
+            <div class="task-form-group task-form-group--between">
+              <label className="task-form-label">Establishment Only:</label>
+              <div className="uneditable-value" style={{ width: '75px' }}>
+                {vnode.attrs.parent.estOnly ? 'Yes' : 'No'}
+              </div>
+            </div>
+            <div class="task-form-group task-form-group--between">
+              <label className="task-form-label">Allow Delegation:</label>
+              <div className="uneditable-value" style={{ width: '75px' }}>
+                {vnode.attrs.parent.DnD ? 'No' : 'Yes'}
+              </div>
+            </div>
+            <div class="task-form-group task-form-group--between">
+              <label className="task-form-label">Issue Credentials:</label>
+              <div className="uneditable-value" style={{ width: '75px' }}>
+                Yes
+              </div>
+            </div>
+            <div class="task-actions">
               <Button
-                class="button--secondary"
+                class="button--secondary margin-right-1"
                 raised
                 label="Go Back"
                 onclick={() => {
@@ -221,35 +228,38 @@ class JoinMultiSigGroup {
         {vnode.attrs.parent.currentState === 'create-group-alias' && (
           <>
             <h3>Create Your Multi-Sig Group Alias</h3>
-            <img src={secureMessaging} style={{ width: '268px', margin: '4rem 0 2rem 0' }} />
-            <p class="p-tag" style={{ margin: '2rem 0 2rem 0' }}>
-              The alias should be an easy to remember name for your multi-sig group?
-            </p>
-            <p class="p-tag" style={{ margin: '2rem 0 2rem 0' }}>
-              What would you like your group's alias to be?
-            </p>
-            <div className="flex flex-justify-start" style={{ margin: '0 0 3.5rem 0' }}>
+            <img class="task-img" src={secureMessaging} />
+            <p class="p-tag">The alias should be an easy to remember name for your multi-sig group?</p>
+            <div class="task-form-group">
+              <label class="task-form-label" for="alias">
+                What would you like your group's alias to be?
+              </label>
+              <TextField
+                id="alias"
+                outlined
+                fluid
+                value={this.groupAlias}
+                oninput={(e) => {
+                  this.groupAlias = e.target.value;
+                }}
+              />
+            </div>
+            <div className="task-form-checkbox-container">
               <Checkbox
+                id="set-default"
                 outlined
                 fluid
                 disabled={Profile.identifiers === undefined || Profile.identifiers.length === 0}
                 checked={this.useAsDefault}
-                style={{ margin: '0 0 3.5rem 0' }}
                 onchange={(_default) => {
                   this.useAsDefault = _default;
                 }}
               />
-              <p className="p-tag-bold">Set new AID as Keep Default?</p>
+              <label className="task-form-label" for="set-default">
+                Set new AID as Keep Default?
+              </label>
             </div>
-            <TextField
-              outlined
-              fluid
-              value={this.groupAlias}
-              oninput={(e) => {
-                this.groupAlias = e.target.value;
-              }}
-            />
-            <div class="flex flex-justify-end" style={{ marginTop: '4rem' }}>
+            <div class="task-actions">
               <Button
                 raised
                 label="Continue"
@@ -287,12 +297,12 @@ class JoinMultiSigGroup {
         )}
         {vnode.attrs.parent.currentState === 'event-complete' && (
           <>
-            <img src={todoList} style={{ width: '188px', margin: '4rem 0 0 0' }} />
+            <img class="task-img" src={todoList} />
             <h3>Inception Event Completed</h3>
             <p class="p-tag">
               Thank you for confirming the Inception Event. You will receive a notification when it is completed.
             </p>
-            <div class="flex flex-justify-end" style={{ marginTop: '4rem' }}>
+            <div class="task-actions">
               <Button raised label="Close" onclick={vnode.attrs.end} />
             </div>
           </>
