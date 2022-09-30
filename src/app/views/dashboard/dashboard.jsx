@@ -101,7 +101,7 @@ class Dashboard {
                           }}
                         >
                           <div class="flex flex-align-center">
-                            <img src={task.imgSrc} alt={task.label} style={{ marginRight: '2rem', width: '72px' }} />
+                            <img src={task.imgSrc} alt={task.label} style={{ marginRight: '1rem', width: '72px' }} />
                             <h4>{task.label}</h4>
                           </div>
                         </Card>
