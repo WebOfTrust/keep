@@ -39,10 +39,10 @@ class AddSignerModal {
               this.contactSelected = contact;
             }}
           />
-          <div class="flex flex-align-center flex-justify-between margin-top-4">
+          <div class="task-actions">
             <Button
               raised
-              class="button--secondary"
+              class="button--secondary margin-right-1"
               label="Cancel"
               onclick={() => {
                 vnode.attrs.onClose();

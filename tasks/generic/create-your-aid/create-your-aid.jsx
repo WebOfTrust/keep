@@ -238,8 +238,8 @@ class CreateYourAID {
                   </div>
                 </div>
                 <div class="task-form-checkbox-container">
-                  <Checkbox checked={true} disabled={true} />
-                  <label for="use-as-default" class="task-form-label">
+                  <Checkbox id="issue-credentials" checked={true} disabled={true} />
+                  <label for="issue-credentials" class="task-form-label">
                     Allow this Identifier to issue credentials
                   </label>
                 </div>
