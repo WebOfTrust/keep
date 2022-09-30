@@ -72,6 +72,10 @@ a:link {
     &-radio-group {
       align-items: center;
       display: flex;
+
+      .task-form-label {
+        margin-bottom: 0;
+      }
     }
 
     &-label {
@@ -210,8 +214,12 @@ a:link {
 
 .uneditable-value {
   background-color: white;
+  border-radius: 4px;
+  border: 1px solid #d1d5db;
   color: $battleship-grey;
+  font-size: 14px;
   font-weight: 500;
+  min-height: 48px;
   padding: 1rem;
 }
 
