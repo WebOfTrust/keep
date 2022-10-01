@@ -14,9 +14,9 @@ class Settings {
       <>
         <div class="settings">
           <NavRail></NavRail>
-          <Container class="headspace" style={{ padding: '0 4rem' }}>
+          <Container class="margin-v-2">
             <div class="flex flex-justify-between">
-              <div class="flex-1" style={{ marginRight: '4rem' }}>
+              <div class="flex-1 margin-right-2">
                 <Card class="card--fluid" padding="1.5rem">
                   <Card
                     class={`card--fluid card--hover ${this.currentState === 'edit-witnesses' ? 'card--active' : ''}`}
@@ -47,7 +47,7 @@ class Settings {
                 </Card>
               </div>
               <div class="flex-1">
-                <Card class={'card--fluid'} style={{ position: 'relative' }} padding="4rem">
+                <Card class={'card--fluid relative'} padding="2.5rem">
                   <IconButton class="close-icon" icon="close" />
                   {this.currentState === 'edit-witnesses' && <EditWitnesses />}
                   {this.currentState === 'edit-watchers' && <EditWatchers />}
@@ -64,7 +64,7 @@ class Settings {
                       <br></br>
 
                       <div class="flex flex-justify-end">
-                        <Button class="button--big button--no-transform" raised label="Close" />
+                        <Button raised label="Close" />
                       </div>
                     </>
                   )}

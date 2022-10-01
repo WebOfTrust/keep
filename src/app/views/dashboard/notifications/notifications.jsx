@@ -1,7 +1,7 @@
 import m from 'mithril';
-import {Checkbox} from '../../../components';
-import {Delegation, MultiSig, Notify, Profile} from '../../../services';
-import {Tasks} from '../../../services/tasks';
+import { Checkbox } from '../../../components';
+import { Notify } from '../../../services';
+import { Tasks } from '../../../services/tasks';
 
 class Notifications {
   challengeNotificationClick() {
@@ -15,17 +15,17 @@ class Notifications {
   multisigInitClick(notification) {
     let task = Tasks.find('join-multisig');
     task.notification = notification;
-    Tasks.active = task
+    Tasks.active = task;
   }
 
   rotationCompleteClick(notification) {
     let task = Tasks.find('view-event-logs');
-    Tasks.active = task
+    Tasks.active = task;
   }
 
   joinManualKeyRotation(notification) {
-    MultiSig.rotation = notification.a
-    Tasks.active = Tasks.find('join-multisig-rotation')
+    MultiSig.rotation = notification.a;
+    Tasks.active = Tasks.find('join-multisig-rotation');
   }
 
   multisigIssueClick(notification) {
@@ -111,9 +111,9 @@ class Notifications {
   }
 
   selectedNotifications() {
-    let found = Notify.notifications.find(notification => {
-      return notification.selected
-    })
+    let found = Notify.notifications.find((notification) => {
+      return notification.selected;
+    });
 
     return found !== undefined;
   }
@@ -123,52 +123,58 @@ class Notifications {
       <>
         <div class="flex flex-row flex-align-left flex-justify-between">
           <h3>Notifications</h3>
-          {this.selectedNotifications() &&
-              <a style={{paddingTop: "1rem "}} onclick={() => {
+          {this.selectedNotifications() && (
+            <a
+              style={{ paddingTop: '1rem ' }}
+              onclick={() => {
                 Notify.notifications.forEach((notification) => {
                   if (notification.selected) {
                     Notify.deleteNotification(notification.i);
                   }
-                })
-              }}>Delete</a>
-          }
+                });
+              }}
+            >
+              Delete
+            </a>
+          )}
         </div>
         {Notify.notifications.map((notification) => {
           let meta = this.getNotificationMeta(notification);
-          let bg = notification.selected ? "#c2dbff" : notification.r ? "#d5dbe1" : "#f7f9fa";
-          let weight = notification.r ? "normal" : "bold";
+          let bg = notification.selected ? '#c2dbff' : notification.r ? '#d5dbe1' : '#f7f9fa';
+          let weight = notification.r ? 'normal' : 'bold';
           return (
             <div
               class="font-weight--bold font-color--battleship flex flex-align-left"
-              style={{ backgroundColor: bg, borderBottom: "1px solid #aaaaaa", fontWeight: weight, color: "#666666" }}
+              style={{ backgroundColor: bg, borderBottom: '1px solid #aaaaaa', fontWeight: weight, color: '#666666' }}
             >
               <Checkbox
                 checked={notification.selected}
                 onclick={() => {
                   notification.selected = !notification.selected;
-                  m.redraw()
+                  m.redraw();
                 }}
               />
-              <p class="pointer" onclick={() => {
-                Notify.isOpen = false;
-                Notify.markNotificationRead(notification.i);
-                if (meta.clickHandler) {
-                  meta.clickHandler(notification);
-                }
-              }}
-              >{meta.title}</p>
+              <p
+                class="pointer"
+                onclick={() => {
+                  Notify.isOpen = false;
+                  Notify.markNotificationRead(notification.i);
+                  if (meta.clickHandler) {
+                    meta.clickHandler(notification);
+                  }
+                }}
+              >
+                {meta.title}
+              </p>
             </div>
           );
         })}
 
-        {Notify.notifications.length === 0 &&
-            <div
-                className="font-weight--bold font-color--battleship flex flex-align-left"
-
-            >
-              <i style={{marginLeft: "0.5rem"}}>No notifications</i>
-            </div>
-        }
+        {Notify.notifications.length === 0 && (
+          <div className="font-weight--bold font-color--battleship flex flex-align-left">
+            <i style={{ marginLeft: '0.5rem' }}>No notifications</i>
+          </div>
+        )}
       </>
     );
   }

@@ -34,15 +34,15 @@ class AliasToEdit {
         <div class="flex flex-justify-between" style={{ margin: '0 0 2rem 0' }}>
           <div>
             <p class="p-tag">Octocat</p>
-            <p style={{ fontStyle: 'italic', color: '#3c64b1', fontSize: '80%' }}>External GAR </p>
+            <p class="font-color--blue font-style--italic font-size--12">External GAR </p>
           </div>
           <div>
             <input style={{ marginTop: '1rem' }} type="radio" name="aliasRadio" checked></input>
           </div>
         </div>
         <div class="flex flex-justify-between">
-          <Button class="button--gray-dk button--big button--no-transform" raised label="New Alias" />
-          <Button class="button--big button--no-transform" raised label="Edit Alias" onclick={vnode.attrs.continue} />
+          <Button class="button--secondary" raised label="New Alias" />
+          <Button raised label="Edit Alias" onclick={vnode.attrs.continue} />
         </div>
       </>
     );
@@ -77,12 +77,12 @@ class AliasToUpdate {
         <div class="flex flex-justify-between" style={{ margin: '0 0 2rem 0' }}>
           <div>
             <p class="p-tag">Octocat</p>
-            <p style={{ fontStyle: 'italic', color: '#3c64b1', fontSize: '80%' }}>External GAR </p>
+            <p class="font-color--blue font-style--italic font-size--12">External GAR </p>
           </div>
         </div>
         <div class="flex flex-justify-between">
-          <Button class="button--gray-dk button--big button--no-transform" raised label="New Alias" />
-          <Button class="button--big button--no-transform" raised label="Edit Alias" onclick={vnode.attrs.continue} />
+          <Button class="button--secondary" raised label="New Alias" />
+          <Button raised label="Edit Alias" onclick={vnode.attrs.continue} />
         </div>
       </>
     );
@@ -106,8 +106,8 @@ class ReviewAndConfirm {
         </div>
 
         <div class="flex flex-justify-between">
-          <Button class="button--gray-dk button--big button--no-transform" raised label="Go Back" />
-          <Button class="button--big button--no-transform" raised label="Submit" onclick={vnode.attrs.continue} />
+          <Button class="button--secondary" raised label="Go Back" />
+          <Button raised label="Submit" onclick={vnode.attrs.continue} />
         </div>
       </>
     );
@@ -133,8 +133,8 @@ class SelectAliasCred {
         <Select options={[{ label: 'Octocat', value: 'Octocat' }]} value={'Octocat'} />
 
         <div class="flex flex-justify-between" style={{ margin: '4rem 0 0 0' }}>
-          <Button class="button--gray-dk button--big button--no-transform" raised label="Go Back" />
-          <Button class="button--big button--no-transform" raised label="Submit" onclick={vnode.attrs.continue} />
+          <Button class="button--secondary" raised label="Go Back" />
+          <Button raised label="Submit" onclick={vnode.attrs.continue} />
         </div>
       </>
     );
@@ -152,14 +152,8 @@ class SelectPhoto {
         </p>
         <input type="file" style={{ margin: '0 0 10rem 0' }} onchange={vnode.attrs.aliasPhotoChange} />
         <div class="flex flex-justify-between">
+          <Button class="button--secondary" raised label="Go Back" onclick={vnode.attrs.back} />
           <Button
-            class="button--gray-dk button--big button--no-transform"
-            raised
-            label="Go Back"
-            onclick={vnode.attrs.back}
-          />
-          <Button
-            class="button--big button--no-transform"
             raised
             label="Continue"
             // disabled={!vnode.attrs.aliasPhoto}
@@ -191,8 +185,8 @@ class EditProfileAlias {
         <p class="p-tag">Octocat</p>
 
         <div class="flex flex-justify-between" style={{ margin: '4rem 0 0 0' }}>
-          <Button class="button--gray-dk button--big button--no-transform" raised label="New Alias" />
-          <Button class="button--big button--no-transform" raised label="Edit Alias" onclick={vnode.attrs.continue} />
+          <Button class="button--secondary" raised label="New Alias" />
+          <Button raised label="Edit Alias" onclick={vnode.attrs.continue} />
         </div>
       </>
     );

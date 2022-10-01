@@ -13,7 +13,6 @@ class Splash {
               streamline your KYC process when facilitating business transactions.
             </p>
             <Button
-              class="button--big"
               raised
               label="Start Here"
               onclick={() => {

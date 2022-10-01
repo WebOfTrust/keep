@@ -6,21 +6,19 @@ import '../../contacts/contacts.scss';
 class EditAliasModal {
   constructor() {
     this.aid = null;
-    this.alias = ""
+    this.alias = '';
   }
 
   oninit(vnode) {
     this.aid = vnode.attrs.aid;
-    this.alias = this.aid.name
+    this.alias = this.aid.name;
   }
 
   updateContact(vnode) {
-    KERI.updateIdentifierMetadata(this.aid.name, { alias: this.alias }).then(
-      () => {
-        this.aid.name = this.alias;
-        vnode.attrs.onClose();
-      }
-    );
+    KERI.updateIdentifierMetadata(this.aid.name, { alias: this.alias }).then(() => {
+      this.aid.name = this.alias;
+      vnode.attrs.onClose();
+    });
   }
 
   view(vnode) {
@@ -54,19 +52,13 @@ class EditAliasModal {
               <Button
                 raised
                 type="button"
-                class="button--gray-dk button--big button--no-transform"
+                class="button--secondary"
                 label="Cancel"
                 onclick={() => {
                   vnode.attrs.onClose();
                 }}
               />
-              <Button
-                raised
-                type="submit"
-                class="button--big button--no-transform"
-                label="Save"
-                disabled={!this.alias}
-              />
+              <Button raised type="submit" label="Save" disabled={!this.alias} />
             </div>
           </form>
         </Modal>

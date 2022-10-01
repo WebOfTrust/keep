@@ -1,6 +1,6 @@
-import {Button, AID} from '../../../src/app/components';
+import { Button, AID } from '../../../src/app/components';
 import { KERI, MultiSig } from '../../../src/app/services';
-import m from "mithril";
+import m from 'mithril';
 
 class EventDetails {
   constructor(vnode) {
@@ -10,7 +10,7 @@ class EventDetails {
      * the order of the signatures so we can match up with Signatures.
      *
      * */
-    this.finish = vnode.attrs.finish
+    this.finish = vnode.attrs.finish;
   }
 
   oninit() {
@@ -29,20 +29,22 @@ class EventDetails {
               MultiSig.participants[idx].signed = true;
             });
 
-            if (event["stored"] === true) {
-              if(MultiSig.delegator === null || MultiSig.delegator === undefined) {
+            if (event['stored'] === true) {
+              if (MultiSig.delegator === null || MultiSig.delegator === undefined) {
                 task.status = 'Inception complete';
               } else {
-                if(!task.sufficient) {
+                if (!task.sufficient) {
                   task.status = 'Sufficient signatures received';
                   task.sufficient = true;
                 }
               }
 
-              let unsigned = MultiSig.participants.find((part) => {return !part.signed})
+              let unsigned = MultiSig.participants.find((part) => {
+                return !part.signed;
+              });
               if (unsigned === undefined) {
                 task.finish();
-                return
+                return;
               }
             } else {
               task.status = 'Waiting for sufficient signatures...';
@@ -78,66 +80,55 @@ class EventDetails {
         });
       }, 3050);
     });
-
   }
 
   view(vnode) {
     return (
       <>
         <h3>{vnode.attrs.groupAlias} Inception:</h3>
-        <div class="flex flex-justify-start flex-align-start">
-          <h4 class="p-tag-bold margin-clear">Status:</h4>
-          <h4 class="p-tag margin-clear" style={{lineHeight: 1.38}}>{vnode.attrs.status}</h4>
+        <div class="flex flex-align-center">
+          <h4>Status:</h4>
+          <p class="p-tag margin-left-1">{vnode.attrs.status}</p>
         </div>
 
         <div class="flex flex-justify-between">
-          <p class="p-tag" style={{ margin: '2rem 0 1rem 0' }}>
-            Signer:
-          </p>
-          <div className="flex-1"></div>
-          <p class="p-tag" style={{ margin: '2rem 0 1rem 3rem' }}>
-            Signed?
-          </p>
-        </div>
-        <div style={{ margin: '0 0 1rem 0' }}>
-
+          <label class="task-form-label">Signer:</label>
+          <div class="flex-1"></div>
+          <label class="task-form-label">Signed?</label>
         </div>
         {MultiSig.participants.map((sig, i) => {
           if (sig.id === vnode.attrs.default.prefix) {
             return (
-              <div className="flex flex-align-center flex-justify-between margin-v-1">
-                <div className="flex-1 uneditable-value" style={{marginRight: '1rem'}}>
-                  <AID aid={vnode.attrs.default}/>
+              <div class="flex flex-align-center flex-justify-between margin-v-1">
+                <div class="flex-1 uneditable-value" style={{ marginRight: '1rem' }}>
+                  <AID aid={vnode.attrs.default} />
                 </div>
-                {vnode.attrs.fractionallyWeighted && <div className="uneditable-value">{sig.weight}</div>}
-                <div style={{width: '1rem'}}></div>
-                <div style={{margin: '0 0 0 .5rem'}}>
-                  <span className="material-icons-outlined md-24 matched-label"
-                        style={{margin: '0 0 .4rem 0.75rem'}}>
-                    check_circle
-                  </span>
+                {vnode.attrs.fractionallyWeighted && (
+                  <div class="uneditable-value" style={{ width: '75px' }}>
+                    {sig.weight}
+                  </div>
+                )}
+                <div style={{ marginLeft: '1rem', width: '54px', textAlign: 'center' }}>
+                  <span class="material-icons-outlined md-24 matched-label">check_circle</span>
                 </div>
               </div>
             );
           }
           return (
-            <div className="flex flex-align-center flex-justify-between margin-v-1">
-              <div className="flex-1 uneditable-value" style={{marginRight: '1rem'}}>
-                <AID contact={sig.contact}/>
+            <div class="flex flex-align-center flex-justify-between margin-v-1">
+              <div class="flex-1 uneditable-value" style={{ marginRight: '1rem' }}>
+                <AID contact={sig.contact} />
               </div>
-              {vnode.attrs.fractionallyWeighted && <div className="uneditable-value">{sig.weight}</div>}
-              <div style={{width: '1rem'}}></div>
-              <div style={{ margin: '0 0 0 .5rem' }}>
+              {vnode.attrs.fractionallyWeighted && (
+                <div class="uneditable-value" style={{ width: '75px' }}>
+                  {sig.weight}
+                </div>
+              )}
+              <div style={{ marginLeft: '1rem', width: '54px', textAlign: 'center' }}>
                 {sig.signed ? (
-                  <span className="material-icons-outlined md-24 matched-label"
-                        style={{margin: '0 0 .4rem 0.75rem'}}>
-                    check_circle
-                  </span>
+                  <span class="material-icons-outlined md-24 matched-label">check_circle</span>
                 ) : (
-                  <span className="material-icons-outlined md-24 missed-label"
-                        style={{margin: '0 0 .4rem 0.75rem'}}>
-                     cancel
-                  </span>
+                  <span class="material-icons-outlined md-24 missed-label">cancel</span>
                 )}
               </div>
             </div>
@@ -145,43 +136,36 @@ class EventDetails {
         })}
         {vnode.attrs.parent.requireDelegator && (
           <>
-            <h3>Delegation Approval:</h3>
-            <div className="flex flex-align-center flex-justify-between margin-v-1">
-              <div className="flex-1 uneditable-value" style={{marginRight: '1rem'}}>
-                <AID contact={MultiSig.delegator}/>
+            <label class="task-form-label">Delegation Approval:</label>
+            <div class="flex flex-align-center flex-justify-between margin-v-1">
+              <div class="flex-1 uneditable-value" style={{ marginRight: '1rem' }}>
+                <AID contact={MultiSig.delegator} />
               </div>
-              {vnode.attrs.fractionallyWeighted && <div className="flex-1"></div>}
-              <div style={{width: '1rem'}}></div>
-              <div style={{ margin: '0 0 0 .5rem' }}>
+              {vnode.attrs.fractionallyWeighted && <div style={{ width: '75px' }}></div>}
+              <div style={{ marginLeft: '1rem', width: '54px', textAlign: 'center' }}>
                 {MultiSig.delegatorSigned ? (
-                  <span className="material-icons-outlined md-24 matched-label"
-                        style={{margin: '0 0 .4rem 0.75rem'}}>
-                    check_circle
-                  </span>
+                  <span class="material-icons-outlined md-24 matched-label">check_circle</span>
                 ) : (
-                  <span className="material-icons-outlined md-24 missed-label"
-                        style={{margin: '0 0 .4rem 0.75rem'}}>
-                     cancel
-                  </span>
+                  <span class="material-icons-outlined md-24 missed-label">cancel</span>
                 )}
               </div>
             </div>
           </>
         )}
-        <div class="flex flex-justify-between margin-top-4">
+        <div class="task-actions">
           <Button
-            class="button--gray-dk button--big button--no-transform"
+            class="button--secondary margin-right-1"
             raised
             label="Go Back"
             onclick={() => {
               vnode.attrs.back();
             }}
           />
-          <Button class="button--big button--no-transform" raised label="Continue" onclick={vnode.attrs.continue} />
+          <Button raised label="Continue" onclick={vnode.attrs.continue} />
         </div>
       </>
     );
   }
 }
 
-module.exports = EventDetails
+module.exports = EventDetails;

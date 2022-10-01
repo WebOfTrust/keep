@@ -45,7 +45,7 @@ class Credentials {
 
   listCredentials(type) {
     this.activeCredential = null;
-    let aid = Profile.getDefaultAID()
+    let aid = Profile.getDefaultAID();
     if (aid === undefined) {
       this.credentals = [];
       return;
@@ -69,9 +69,9 @@ class Credentials {
       <>
         <div class="credentials">
           <NavRail selected="credentials" />
-          <Container class="headspace" style={{ padding: '0 rem' }}>
+          <Container class="margin-v-2">
             <div class="flex flex-justify-between">
-              <div class="flex-1" style={{ marginRight: '4rem' }}>
+              <div class="flex-1 margin-right-2">
                 <Card class="card--fluid" padding="1.5rem">
                   <TabBar style={{ marginBottom: '1rem' }}>
                     <Tab
@@ -91,14 +91,15 @@ class Credentials {
                       }}
                     />
                   </TabBar>
-                  {this.credentials === undefined || this.credentials.length === 0 &&
-                    <div
-                      className="font-weight--bold font-color--battleship flex flex-align-left"
-                      style={{margin: '2.5rem 0'}}
-                    >
-                      <i style={{marginLeft: "0.5rem"}}>No {this.activeTab} credentials</i>
-                    </div>
-                  }
+                  {this.credentials === undefined ||
+                    (this.credentials.length === 0 && (
+                      <div
+                        className="font-weight--bold font-color--battleship flex flex-align-left"
+                        style={{ margin: '2.5rem 0' }}
+                      >
+                        <i style={{ marginLeft: '0.5rem' }}>No {this.activeTab} credentials</i>
+                      </div>
+                    ))}
 
                   {this.credentials.map((credential) => {
                     let sad = credential['sad'];
@@ -117,7 +118,7 @@ class Credentials {
                 </Card>
               </div>
               <div class="flex-1">
-                <Card class={'card--fluid'} style={{ position: 'relative' }} padding="4rem">
+                <Card class={'relative card--fluid'} padding="2.5rem">
                   <IconButton class="close-icon" icon="close" />
                   {this.activeCredential !== null ? (
                     <CredentialDetails
@@ -139,8 +140,8 @@ class Credentials {
                       <br />
                       <br />
                       <div class="flex flex-justify-end">
-                        {/* <Button class="button--gray-dk button--big button--no-transform" raised label="Skip" /> */}
-                        <Button class="button--big button--no-transform" raised label="Dismiss" />
+                        {/* <Button class="button--secondary" raised label="Skip" /> */}
+                        <Button raised label="Dismiss" />
                       </div>
                     </>
                   )}

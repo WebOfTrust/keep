@@ -22,7 +22,7 @@ class ChangingPasscode {
             box.
           </p>
           <div class="flex flex-justify-end">
-            <Button class="button--no-transform button--big" raised label="Continue" onclick={vnode.attrs.continue} />
+            <Button raised label="Continue" onclick={vnode.attrs.continue} />
           </div>
         </div>
       </>
@@ -93,7 +93,7 @@ class GeneratePasscode {
           <p class="font-color--green font-weight--medium">{this.copied ? 'Passcode copied!' : <br />}</p>
           <Button
             raised
-            class="button--no-transform button--gray button--big"
+            class="button--secondary"
             label="Generate New"
             onclick={() => {
               this.generatePasscode();
@@ -101,15 +101,9 @@ class GeneratePasscode {
           />
         </div>
         <div class="flex flex-justify-between">
+          <Button raised class="button--secondary" label="Go Back" onclick={vnode.attrs.back} />
           <Button
             raised
-            class="button--no-transform button--gray-dk button--big"
-            label="Go Back"
-            onclick={vnode.attrs.back}
-          />
-          <Button
-            raised
-            class="button--no-transform button--big"
             label="Continue"
             // onclick={() => {
             //   this.savePassModalOpen = true;
@@ -191,15 +185,9 @@ class EnterPasscode {
         />
         {this.error && <p class="error">{this.error}</p>}
         <div class="flex flex-justify-between" style={{ marginTop: '4rem' }}>
+          <Button raised class="button--secondary" label="Go Back" onclick={vnode.attrs.back} />
           <Button
             raised
-            class="button--no-transform button--gray-dk button--big"
-            label="Go Back"
-            onclick={vnode.attrs.back}
-          />
-          <Button
-            raised
-            class="button--no-transform button--big"
             label="Continue"
             disabled={!this.current || !this.passcode || this.submitting}
             onclick={() => {
@@ -224,7 +212,7 @@ class PasscodeFinished {
           Your passcode has been changed. You are no longer able to use the old passcode to enter the software..
         </p>
         <div class="flex flex-justify-end" style={{ margin: '4rem 0 0 0' }}>
-          <Button class="button--no-transform button--big" raised label="Close" onclick={vnode.attrs.continue} />
+          <Button raised label="Close" onclick={vnode.attrs.continue} />
         </div>
       </>
     );

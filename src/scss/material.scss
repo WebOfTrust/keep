@@ -1,13 +1,13 @@
 // Theme
 @use '@material/theme/index' with (
-  $primary: $blue,
-  $secondary: $blue,
-  $on-primary: #ffffff,
-  $on-secondary: #ffffff
+  $primary: $primary,
+  $secondary: $secondary,
+  $on-primary: $on-primary,
+  $on-secondary: $on-secondary
 );
 
 @use '@material/typography/index' as typography with (
-  $font-family: unquote('AvenirNext, Helvetica, Arial, sans-serif')
+  $font-family: unquote('Facundo, Helvetica, Arial, sans-serif')
 );
 
 // Button
@@ -71,6 +71,10 @@
 .material-icons-outlined.md-24 {
   font-size: 24px;
 }
+.material-icons.md-32,
+.material-icons-outlined.md-32 {
+  font-size: 32px;
+}
 .material-icons.md-36,
 .material-icons-outlined.md-36 {
   font-size: 36px;
@@ -85,39 +89,33 @@
 }
 .material-icons.md-blue,
 .material-icons-outlined.md-blue {
-  color: $blue;
+  color: $primary;
+}
+
+.mdc-button__label {
+  text-transform: none;
+}
+
+.mdc-text-field--outlined,
+.mdc-text-field--filled {
+  &:not(.mdc-text-field--textarea) {
+    height: 48px;
+  }
+}
+
+.mdc-select .mdc-select__anchor {
+  height: 48px;
 }
 
 .button {
-  &--white {
-    @include button.ink-color($default-text);
-    @include button.icon-color($default-text);
-    @include button.container-fill-color(white);
-    @include button.outline-color($gray-lt);
-  }
-  &--gray {
-    @include button.ink-color($default-text);
-    @include button.icon-color($default-text);
-    @include button.container-fill-color($gray-lter);
-    @include button.outline-color($gray-lter);
-  }
-  &--gray-dk {
-    @include button.ink-color(white);
-    @include button.icon-color($default-text);
-    @include button.container-fill-color($gray-dk);
-    @include button.outline-color($gray-dk);
+  &--secondary {
+    @include button.ink-color($on-secondary);
+    @include button.icon-color($on-secondary);
+    @include button.container-fill-color($secondary);
+    @include button.outline-color($secondary);
   }
   &--big {
     @include button.height(3rem);
     @include button.horizontal-padding(3rem);
-  }
-
-  &--extra-padding {
-    @include button.horizontal-padding(4rem);
-  }
-  &--no-transform {
-    .mdc-button__label {
-      text-transform: none;
-    }
   }
 }

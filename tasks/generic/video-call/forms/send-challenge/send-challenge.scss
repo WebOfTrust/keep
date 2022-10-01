@@ -1,11 +1,12 @@
 .challenge-words {
   display: flex;
   flex-wrap: wrap;
+
   &-word {
     background-color: white;
+    border: 1px solid #d1d5db;
+    border-radius: 4px;
     font-family: monospace;
-    letter-spacing: 0.2px;
-    line-height: 1.5;
     padding: 4px;
     margin: 8px 4px;
     flex: 26%;

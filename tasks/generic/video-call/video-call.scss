@@ -2,14 +2,13 @@
 @import '~/src/scss/variables';
 
 .steps-header {
-  @include semi-bold;
+  @include bold;
   color: rgba(0, 0, 0, 0.87);
-  font-size: 16px;
-  line-height: 1.75;
+  font-size: 14px;
 }
 
 .copy-value {
-  border: 2px solid $blue;
+  border: 2px solid $primary;
   border-radius: 4px;
   cursor: pointer;
   font-family: monospace;

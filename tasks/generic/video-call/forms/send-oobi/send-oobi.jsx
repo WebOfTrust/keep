@@ -42,18 +42,18 @@ class SendOOBIForm {
   view(vnode) {
     return (
       <>
-        <p class="font-weight--semi-bold">Alias: {this.oobi.alias}</p>
-        <p class="mono-aid font-weight--bold font-color--battleship">{this.oobi.prefix}</p>
-        <Button
-          raised
-          class="button--no-transform"
-          label="Generate & Copy"
-          style={{ width: '100%' }}
-          onclick={() => {
-            this.copied = false;
-            this.copyOpen = true;
-          }}
-        />
+        <p class="font-color--battleship">Alias: {this.oobi.alias}</p>
+        <p class="mono-aid font-color--battleship">{this.oobi.prefix}</p>
+        <div class="flex flex-justify-end margin-top-2">
+          <Button
+            outlined
+            label="Generate & Copy"
+            onclick={() => {
+              this.copied = false;
+              this.copyOpen = true;
+            }}
+          />
+        </div>
         <Modal
           isOpen={this.copyOpen}
           onClose={() => {
@@ -84,7 +84,6 @@ class SendOOBIForm {
           )}
           <Button
             raised
-            class="button--big"
             style={{ width: '100%' }}
             label="I Pasted It Into The Chat"
             disabled={!this.copied}

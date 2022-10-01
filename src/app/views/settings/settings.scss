@@ -2,7 +2,7 @@
 @import '../../../scss/variables';
 
 .settings {
-  background-color: $background-blue;
+  background-color: $background;
   display: flex;
-  min-height: calc(100vh - 138px);
+  min-height: calc(100vh - 128px);
 }

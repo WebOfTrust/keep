@@ -20,12 +20,26 @@ $gray-lter: #f4f5f4;
 
 $default-text: rgba(0, 0, 0, 0.87);
 $light-text: $gray-dk;
-$border: #b2b2b2;
+$border: #e2e5e6;
 
-$red: #c92a2a;
+$red: #c62828;
 $blue: $french-blue;
-$blue-006: rgba($blue, 0.06);
-$active-blue: #f1f8ff;
-$background-blue: #f9fbfd;
-$green: #2b8a3e;
+$green: #4d979b;
 $yellow: #fcc419;
+
+$background: #fefdff;
+
+$cyprus: #123235;
+$turquoise: #4d969b;
+$turquoise-light: #bcebe2;
+$hover-turquoise: rgba($turquoise-light, 0.29);
+
+$primary: $cyprus;
+$on-primary: white;
+$primary-006: $hover-turquoise;
+$primary-active: $hover-turquoise;
+
+$secondary: #51dac5;
+$on-secondary: $cyprus;
+
+$info-blue: #4ea2f8;

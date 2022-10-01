@@ -65,12 +65,8 @@ class EnterPasscode {
     return (
       <>
         <h3 id="welcome-back">Welcome Back</h3>
-        <div class="flex flex-justify-center" style={{ margin: '5rem 0' }}>
-          <img src={passcodeImg} style={{ width: '192px' }} />
-        </div>
-        <p class="p-tag" style={{ margin: '0 0 3rem 0' }}>
-          Enter your 21 character passcode to login to the portal.
-        </p>
+        <img class="task-img task-img--center" src={passcodeImg} />
+        <p class="p-tag">Enter your passcode to unlock Keep.</p>
         <TextField
           id="passcode"
           outlined
@@ -89,14 +85,13 @@ class EnterPasscode {
           }}
         />
         {this.error && <p class="error">{this.error}</p>}
-        <div class="flex flex-justify-end" style={{ marginTop: '4rem' }}>
+        <div class="flex flex-justify-end margin-top-2">
           {this.submitting ? (
             <Spinner />
           ) : (
             <Button
               id="login"
               raised
-              class="button--no-transform button--big"
               label="Login"
               disabled={!this.passcode || this.submitting}
               onclick={() => {

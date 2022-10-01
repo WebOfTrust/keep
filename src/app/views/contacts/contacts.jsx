@@ -11,7 +11,7 @@ import {
   Tab,
   TextField,
 } from '../../components';
-import { KERI , Contacts as ContactSvc} from '../../services';
+import { KERI, Contacts as ContactSvc } from '../../services';
 import AddFieldModal from './add-field-modal';
 import EditContactModal from './edit-contact-modal';
 import './contacts.scss';
@@ -118,9 +118,9 @@ class Contacts {
       () => {
         this.aidCopied = true;
         setTimeout(() => {
-          this.aidCopied = false
+          this.aidCopied = false;
           m.redraw();
-        }, 2000)
+        }, 2000);
         m.redraw();
       },
       () => {
@@ -135,9 +135,9 @@ class Contacts {
       () => {
         this.oobiCopied = true;
         setTimeout(() => {
-          this.oobiCopied = false
+          this.oobiCopied = false;
           m.redraw();
-        }, 2000)
+        }, 2000);
         m.redraw();
       },
       () => {
@@ -149,7 +149,7 @@ class Contacts {
 
   spotCheck() {
     ContactSvc.selected = this.activeContact;
-    m.route.set("/dashboard?task=spot-check")
+    m.route.set('/dashboard?task=spot-check');
   }
 
   saveContact() {
@@ -171,9 +171,9 @@ class Contacts {
       <>
         <div class="contacts">
           <NavRail selected="contacts" />
-          <Container class="headspace">
+          <Container class="margin-v-2">
             <div class="flex flex-justify-between">
-              <div class="flex-1 margin-right-4">
+              <div class="flex-1 margin-right-2">
                 <Card class="card--fluid" padding="1rem">
                   <TabBar>
                     <Tab
@@ -244,8 +244,8 @@ class Contacts {
                           >
                             <ProfilePicture identifier={contact} />
                             <div class="contacts-list-item-name">
-                              <p style={{marginBottom:'4px'}}>{contact.alias}</p>
-                              <p style={{marginTop:'4px'}}>{contact.organization}</p>
+                              <p style={{ marginBottom: '4px' }}>{contact.alias}</p>
+                              <p style={{ marginTop: '4px' }}>{contact.organization}</p>
                             </div>
                           </div>
                         );
@@ -255,7 +255,7 @@ class Contacts {
               </div>
               <div class="flex-1">
                 {(this.activeContact || this.showHelp) && (
-                  <Card class="card--fluid relative" padding="4rem">
+                  <Card class="card--fluid relative" padding="2.5rem">
                     <IconButton
                       class="close-icon"
                       icon="close"
@@ -276,11 +276,13 @@ class Contacts {
                               <p>{this.activeContact.alias}</p>
                               <p>{this.activeContact.organization}</p>
                             </div>
-                            <span className="material-icons-outlined md-24"
-                                  style={{cursor: 'pointer', marginBottom: '1.5rem', marginLeft: '1rem'}}
-                                  onclick={() => {
-                                    this.editDetailsOpen = true;
-                                  }}>
+                            <span
+                              className="material-icons-outlined md-24"
+                              style={{ cursor: 'pointer', marginBottom: '1.5rem', marginLeft: '1rem' }}
+                              onclick={() => {
+                                this.editDetailsOpen = true;
+                              }}
+                            >
                               edit
                             </span>
                           </div>
@@ -290,19 +292,20 @@ class Contacts {
                               <div className="contacts-detail-field-input">
                                 <code style="margin: 0 0 0 0;">{this.activeContact.id}</code>
                               </div>
-                              <span className="material-icons-outlined md-24 p-tag" title="Copy AID"
-                                    style={{cursor: 'pointer', marginBottom: '0.5rem', marginLeft: '1rem'}}
-                                    onclick={() => {
-                                      this.copyAID();
-                                    }}>
+                              <span
+                                className="material-icons-outlined md-24 p-tag"
+                                title="Copy AID"
+                                style={{ cursor: 'pointer', marginBottom: '0.5rem', marginLeft: '1rem' }}
+                                onclick={() => {
+                                  this.copyAID();
+                                }}
+                              >
                                 copy
                               </span>
                             </div>
                             {this.aidCopied && (
                               <div class="flex margin-bottom-1 flex-justify-end">
-                                <p class="copied-label">
-                                  AID copied!
-                                </p>
+                                <p class="copied-label">AID copied!</p>
                               </div>
                             )}
                             <div className="contacts-detail-field">
@@ -317,38 +320,44 @@ class Contacts {
                                   value={this.activeContact.oobi}
                                 />
                               </div>
-                              <span className="material-icons-outlined md-24 p-tag" title="Copy OOBI"
-                                    style={{cursor: 'pointer', marginBottom: '0.5rem', marginLeft: '1rem'}}
-                                    onclick={() => {
-                                      this.copyOOBI();
-                                    }}>
+                              <span
+                                className="material-icons-outlined md-24 p-tag"
+                                title="Copy OOBI"
+                                style={{ cursor: 'pointer', marginBottom: '0.5rem', marginLeft: '1rem' }}
+                                onclick={() => {
+                                  this.copyOOBI();
+                                }}
+                              >
                                 copy
                               </span>
                             </div>
                             {this.oobiCopied && (
                               <div class="flex margin-bottom-1 flex-justify-end">
-                                <p class="copied-label">
-                                  OOBI copied!
-                                </p>
+                                <p class="copied-label">OOBI copied!</p>
                               </div>
                             )}
                             <div class="contacts-detail-field">
                               <label class="contacts-detail-field-label">Authenticated:</label>
                               <div className="contacts-detail-field-input">
                                 <div>
-                                  {this.activeContact.verified === 'true' && <span className="material-icons-outlined md-24 matched-label">
-                                    done_outline
-                                  </span>}
-                                  {this.activeContact.verified !== 'true' && <span className="material-icons-outlined md-24 missed-label">
-                                    disabled_by_default
-                                  </span>}
+                                  {this.activeContact.verified === 'true' && (
+                                    <span className="material-icons-outlined md-24 matched-label">done_outline</span>
+                                  )}
+                                  {this.activeContact.verified !== 'true' && (
+                                    <span className="material-icons-outlined md-24 missed-label">
+                                      disabled_by_default
+                                    </span>
+                                  )}
                                 </div>
                               </div>
-                              <span className="material-icons-outlined md-24 p-tag" title="Spot Check"
-                                    style={{cursor: 'pointer', marginBottom: '0.5rem', marginLeft: '1rem'}}
-                                    onclick={() => {
-                                      this.spotCheck();
-                                    }}>
+                              <span
+                                className="material-icons-outlined md-24 p-tag"
+                                title="Spot Check"
+                                style={{ cursor: 'pointer', marginBottom: '0.5rem', marginLeft: '1rem' }}
+                                onclick={() => {
+                                  this.spotCheck();
+                                }}
+                              >
                                 key
                               </span>
                             </div>
@@ -449,7 +458,7 @@ class Contacts {
                           <div class="contacts-detail-buttons">
                             <Button
                               raised
-                              class="button--gray button--no-transform"
+                              class="button--secondary"
                               label="Add New Field"
                               onclick={() => {
                                 this.addFieldOpen = true;
@@ -457,7 +466,6 @@ class Contacts {
                             />
                             <Button
                               raised
-                              class="button--no-transform"
                               label="Save"
                               onclick={() => {
                                 this.saveContact();
@@ -492,7 +500,6 @@ class Contacts {
                         </p>
                         <div class="flex flex-justify-end margin-top-4">
                           <Button
-                            class="button--big button--no-transform"
                             raised
                             label="Dismiss"
                             onclick={() => {

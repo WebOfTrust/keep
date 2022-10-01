@@ -19,8 +19,8 @@ import JoinMultiSigGroupTask from '../generic/join-multi-sig-group/join-multi-si
 import InitiateManualKeyRotationTask from '../generic/initiate-manual-key-rotation/initiate-manual-key-rotation';
 import VideoCallTask from '../generic/video-call/video-call';
 import ViewMultiSigEventLogsTask from '../generic/view-multi-sig-event-logs/view-multi-sig-event-logs';
-import LeadExtLeadRootOOBI from './lead-ext-lead-root-oobi'
-import LeadExtLeadQAROOBI from "./lead-ext-lead-qar";
+import LeadExtLeadRootOOBI from './lead-ext-lead-root-oobi';
+import LeadExtLeadQAROOBI from './lead-ext-lead-qar';
 
 // dummy tasks
 import JoinManualKeyRotationTask from '../generic/join-manual-key-rotation/join-manual-key-rotation';
@@ -42,7 +42,7 @@ class DelegationApprovalInProcessTask {
             <h3 style={{ marginBottom: '2rem' }}>Delegation Approval in Progress</h3>
             <p class="p-tag">You will be notified when it is time for you to sign</p>
             <div class="flex flex-justify-end" style={{ marginTop: '4rem' }}>
-              <Button raised class="button--big button--no-transform" label="Close" onclick={vnode.attrs.end} />
+              <Button raised label="Close" onclick={vnode.attrs.end} />
             </div>
           </>
         );
@@ -61,7 +61,7 @@ const tasks = {
     new CreateYourAIDTask({ label: 'Incept Local GLEIF Single-Sig AID', variables: variables.createYourAid }),
   ],
   'create-multisig': [
-    new LeadExtLeadRootOOBI({label: "Challenge with Lead Root GAR "}),
+    new LeadExtLeadRootOOBI({ label: 'Challenge with Lead Root GAR ' }),
     new VideoCallTask({
       initiate: true,
       label: 'Lead GLEIF External Multi-Sig AID Inception',
@@ -74,7 +74,7 @@ const tasks = {
   ],
   'join-multisig': [new JoinMultiSigGroupTask({ label: 'Join Multi-Sig Group' })],
   'main': [
-    new LeadExtLeadQAROOBI({label: 'Challenge with QAR'}),
+    new LeadExtLeadQAROOBI({ label: 'Challenge with QAR' }),
     new InitiateManualKeyRotationTask({ label: 'Initiate Manual Key Rotation' }),
     new JoinManualKeyRotationTask({ label: 'Join Manual Key Rotation' }),
     new VideoCallTask({

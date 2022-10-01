@@ -60,19 +60,13 @@ class EditContactModal {
               <Button
                 raised
                 type="button"
-                class="button--gray-dk button--big button--no-transform"
+                class="button--secondary"
                 label="Cancel"
                 onclick={() => {
                   vnode.attrs.onClose();
                 }}
               />
-              <Button
-                raised
-                type="submit"
-                class="button--big button--no-transform"
-                label="Save"
-                disabled={!this.contact.alias}
-              />
+              <Button raised type="submit" label="Save" disabled={!this.contact.alias} />
             </div>
           </form>
         </Modal>

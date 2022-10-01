@@ -2,6 +2,7 @@ import m from 'mithril';
 import {
   Button,
   Checkbox,
+  Counter,
   IconButton,
   Radio,
   Select,
@@ -133,8 +134,7 @@ class ConfigureMultiSigGroup {
       let sith = this.numSigners.toString();
       inceptData.isith = sith;
       inceptData.nsith = sith;
-    }
-    else {
+    } else {
       let vals = MultiSig.participants.map((obj) => {
         return obj.weight;
       });
@@ -167,15 +167,14 @@ class ConfigureMultiSigGroup {
       <>
         {vnode.attrs.parent.requireDelegator && MultiSig.delegator === null && (
           <>
-            <img src={secureMessaging} style={{ width: '268px', margin: '4rem 0 1rem 0' }} />
+            <img class="task-img task-img--center" src={secureMessaging} />
             <h3>Required Delegator {vnode.attrs.parent.requiredDelegator} missing.</h3>
-            <p class="p-tag margin-v-2">
+            <p class="p-tag">
               You can not begin this process until the AID for {vnode.attrs.parent.requiredDelegator} has been created.
               Please click "Retry" to try again.
             </p>
-            <div class="flex flex-justify-end">
+            <div class="task-actions">
               <Button
-                class="button--big button--no-transform"
                 raised
                 label="Retry"
                 onclick={() => {
@@ -188,176 +187,165 @@ class ConfigureMultiSigGroup {
         {vnode.attrs.parent.currentState === 'create-multisig-alias' && (
           <>
             <h3>Create Your Alias and Configure Your Multi-Sig Group</h3>
-            <img src={configureIdentifier} style={{ display: 'block', margin: '4rem auto 0', width: '172px' }} />
-            <p class="p-tag" style={{ marginTop: '2rem', marginBottom: '2rem' }}>
-              The alias should be an easy to remember name for your AID.
-              <br />
-              <br />
-            </p>
-            <p className="p-tag-bold">What would you like your alias to be?</p>
-            <TextField
-              id="alias"
-              outlined
-              fluid
-              style={{ margin: '0 0 0 0' }}
-              oninput={(e) => {
-                this.groupAlias = e.target.value;
-              }}
-              value={this.groupAlias}
-            />
-            <p className="p-tag-bold">Select your witness pool:</p>
-            <Select
-              outlined
-              fluid
-              value={this.pool}
-              style={{ margin: '0 0 1.5rem 0' }}
-              options={Witnesses.witnessPools}
-              onchange={(pool) => {
-                this.pool = pool;
-                this.wits = Witnesses.witnesses[this.pool];
-                this.witThold = KERI.recommendedThold(this.wits.length);
-              }}
-            />
+            <img class="task-img task-img--center" src={configureIdentifier} />
+            <p class="p-tag">The alias should be an easy to remember name for your AID.</p>
+            <div class="task-form-group">
+              <label class="task-form-label" for="alias">
+                What would you like your alias to be?
+              </label>
+              <TextField
+                id="alias"
+                outlined
+                fluid
+                style={{ margin: '0 0 0 0' }}
+                oninput={(e) => {
+                  this.groupAlias = e.target.value;
+                }}
+                value={this.groupAlias}
+              />
+            </div>
+            <div class="task-form-group">
+              <label class="task-form-label" for="pool">
+                Select Your Witness Pool:
+              </label>
+              <Select
+                id="pool"
+                outlined
+                fluid
+                value={this.pool}
+                options={Witnesses.witnessPools}
+                onchange={(pool) => {
+                  this.pool = pool;
+                  this.wits = Witnesses.witnesses[this.pool];
+                  this.witThold = KERI.recommendedThold(this.wits.length);
+                }}
+              />
+            </div>
+
             {this.wits.length > 0 && (
-              <p className="p-tag-italic" style={{ margin: '-0.5rem 0 0.25rem 1.5rem' }}>
+              <p class="p-tag-italic" style={{ margin: '0.5rem 0 0 1.5rem' }}>
                 {this.wits.length} Witnesses in Pool
               </p>
             )}
 
-            <p className="p-tag-bold">How many other participants will be in the group:</p>
-            <TextField
-              outlined
-              type="number"
-              min={this.minParticipants}
-              style={{ marginBottom: '2rem', width: '5rem' }}
-              value={MultiSig.participants.length}
-              oninput={(e) => {
-                let num = parseInt(e.target.value);
-                MultiSig.updateParticipantLength(num);
-              }}
-            />
-
-            <div className="flex flex-justify-start" style={{ margin: '0 0 0 -0.75rem' }}>
+            <div class="task-form-group">
+              <label class="task-form-label">How many other participants will be in the group:</label>
+              <Counter
+                min={this.minParticipants}
+                value={MultiSig.participants.length}
+                onchange={(value) => {
+                  MultiSig.updateParticipantLength(value);
+                }}
+              />
+            </div>
+            <div class="task-form-checkbox-container">
               <Checkbox
+                id="default"
                 outlined
                 fluid
                 disabled={Profile.identifiers === undefined || Profile.identifiers.length === 0}
                 checked={this.useAsDefault}
-                style={{ margin: '0 0 3.5rem 0' }}
                 onclick={() => {
                   this.useAsDefault = !this.useAsDefault;
                 }}
               />
-              <p className="p-tag-bold">Set new AID as Keep Default?</p>
+              <label class="task-form-label" for="default">
+                Set new AID as Keep Default?
+              </label>
             </div>
-            <div className="flex flex-justify-between" style={{ margin: '0 0 0 0' }}>
-              <p className="p-tag-bold">Advanced Options: </p>
-              <span
-                className="material-icons-outlined md-24 p-tag-bold"
-                style={{ cursor: 'pointer', marginTop: '0.5rem' }}
-                onclick={() => {
-                  this.showAdvancedOptions = !this.showAdvancedOptions;
-                }}
-              >
-                {this.showAdvancedOptions ? 'keyboard_double_arrow_up' : 'keyboard_double_arrow_down'}
-              </span>
+            <div
+              class="task-form-more"
+              onclick={() => {
+                this.showAdvancedOptions = !this.showAdvancedOptions;
+              }}
+            >
+              <label class="task-form-more-label">Advanced Options:</label>
+              <IconButton icon={this.showAdvancedOptions ? 'expand_less' : 'expand_more'} />
             </div>
             {this.showAdvancedOptions && (
-              <div style={{ marginTop: '1.5rem' }}>
-                <div className="flex flex-justify-between" style={{ margin: '0' }}>
-                  <p class="p-tag">Witness Threshold:</p>
-                  <TextField
-                    outlined
-                    type="number"
+              <>
+                <div class="task-form-group task-form-group--between">
+                  <label class="task-form-label">Witness Threshold:</label>
+                  <Counter
+                    value={this.witThold}
+                    disabled={!this.pool}
                     min={KERI.recommendedThold(this.wits.length)}
                     max={this.wits.length}
-                    style={{ marginBottom: '2rem', width: '5rem' }}
-                    value={this.witThold}
-                    oninput={(e) => {
-                      this.witThold = parseInt(e.target.value);
+                    onchange={(value) => {
+                      this.witThold = value;
                     }}
                   />
                 </div>
 
-                <div className="flex flex-justify-between" style={{ margin: '0' }}>
-                  <p class="p-tag">Establishment Only:</p>
-                  <div className="flex flex-justify-end">
-                    <div className="flex flex-align-center" style={{ marginRight: '2rem' }}>
-                      <Radio
-                        id="weighted-yes"
-                        name="weighted"
-                        disabled={!vnode.attrs.parent.establishable}
-                        checked={this.estOnly}
-                        onclick={() => {
-                          this.estOnly = true;
-                        }}
-                      />
-                      <label className="font-weight--bold font-color--battleship" htmlFor="weighted-yes">
-                        Yes
-                      </label>
-                    </div>
-                    <div className="flex flex-align-center">
-                      <Radio
-                        id="weighted-no"
-                        name="weighted"
-                        disabled={!vnode.attrs.parent.establishable}
-                        checked={!this.estOnly}
-                        onclick={() => {
-                          this.estOnly = false;
-                        }}
-                      />
-                      <label className="font-weight--bold font-color--battleship" htmlFor="weighted-no">
-                        No
-                      </label>
-                    </div>
+                <div class="task-form-group task-form-group--between">
+                  <label class="task-form-label">Establishment Only:</label>
+                  <div class="task-form-radio-group">
+                    <Radio
+                      id="weighted-yes"
+                      name="weighted"
+                      disabled={!vnode.attrs.parent.establishable}
+                      checked={this.estOnly}
+                      onclick={() => {
+                        this.estOnly = true;
+                      }}
+                    />
+                    <label class="task-form-label" for="weighted-yes">
+                      Yes
+                    </label>
+                    <Radio
+                      id="weighted-no"
+                      name="weighted"
+                      disabled={!vnode.attrs.parent.establishable}
+                      checked={!this.estOnly}
+                      onclick={() => {
+                        this.estOnly = false;
+                      }}
+                    />
+                    <label class="task-form-label" for="weighted-no">
+                      No
+                    </label>
                   </div>
                 </div>
-                <div className="flex flex-justify-between" style={{ margin: '0' }}>
-                  <p className="p-tag">Allow this identifier to delegate?</p>
-                  <div className="flex flex-justify-end">
-                    <div className="flex flex-align-center" style={{ marginRight: '2rem' }}>
-                      <Radio
-                        id="dnd-yes"
-                        name="dnd"
-                        disabled={!vnode.attrs.parent.delegatable}
-                        checked={!this.DnD}
-                        onclick={() => {
-                          this.DnD = false;
-                        }}
-                      />
-                      <label className="font-weight--bold font-color--battleship" htmlFor="weighted-yes">
-                        Yes
-                      </label>
-                    </div>
-                    <div className="flex flex-align-center">
-                      <Radio
-                        id="dnd-no"
-                        name="dnd"
-                        disabled={!vnode.attrs.parent.delegatable}
-                        checked={this.DnD}
-                        onclick={() => {
-                          this.DnD = true;
-                        }}
-                      />
-                      <label className="font-weight--bold font-color--battleship" htmlFor="weighted-no">
-                        No
-                      </label>
-                    </div>
+                <div class="task-form-group task-form-group--between">
+                  <label class="task-form-label">Allow this identifier to delegate?</label>
+                  <div class="task-form-radio-group">
+                    <Radio
+                      id="dnd-yes"
+                      name="dnd"
+                      disabled={!vnode.attrs.parent.delegatable}
+                      checked={!this.DnD}
+                      onclick={() => {
+                        this.DnD = false;
+                      }}
+                    />
+                    <label class="task-form-label" for="dnd-yes">
+                      Yes
+                    </label>
+                    <Radio
+                      id="dnd-no"
+                      name="dnd"
+                      disabled={!vnode.attrs.parent.delegatable}
+                      checked={this.DnD}
+                      onclick={() => {
+                        this.DnD = true;
+                      }}
+                    />
+                    <label class="task-form-label" for="dnd-no">
+                      No
+                    </label>
                   </div>
                 </div>
-                <div className="flex margin-v-1" style={{ marginLeft: '-0.75rem' }}>
-                  <Checkbox checked={true} disabled={true} />
-                  <label className="font-weight--medium font-color--battleship" style={{ marginTop: '1rem' }}>
+                <div class="task-form-checkbox-container">
+                  <Checkbox id="issue-credentials" checked={true} disabled={true} />
+                  <label for="issue-credentials" class="task-form-label">
                     Allow this Identifier to issue credentials
                   </label>
                 </div>
-              </div>
+              </>
             )}
-
-            <div class="flex flex-justify-end" style={{ marginTop: '2.75rem' }}>
+            <div class="task-actions">
               <Button
                 id="continue"
-                class="button--big button--no-transform"
                 raised
                 label="Continue"
                 disabled={this.wits.length === 0 || this.groupAlias.length === 0 || MultiSig.participants.length === 0}
@@ -371,11 +359,11 @@ class ConfigureMultiSigGroup {
 
         {vnode.attrs.parent.currentState === 'configure-multisig-participants' && (
           <>
-            <h3 style={{ marginBottom: '2rem' }}>Configure Participants for Multi-Sig Group</h3>
-            <p class="p-tag-bold">Are your signatures fractionally weighted?</p>
-            <p class="p-tag">ex. Each signer equals 1/3 of the group.</p>
-            <div class="flex flex-align-center">
-              <div class="flex flex-align-center" style={{ marginRight: '2rem' }}>
+            <h3>Configure Participants for Multi-Sig Group</h3>
+            <div class="task-form-group">
+              <label class="task-form-label">Are your signatures fractionally weighted?</label>
+              <p class="p-tag">ex. Each signer equals 1/3 of the group.</p>
+              <div class="task-form-radio-group">
                 <Radio
                   id="weighted-yes"
                   name="weighted"
@@ -384,11 +372,9 @@ class ConfigureMultiSigGroup {
                     MultiSig.fractionallyWeighted = true;
                   }}
                 />
-                <label class="font-weight--bold font-color--battleship" for="weighted-yes">
+                <label class="task-form-label" for="weighted-yes">
                   Yes
                 </label>
-              </div>
-              <div class="flex flex-align-center">
                 <Radio
                   id="weighted-no"
                   name="weighted"
@@ -397,123 +383,116 @@ class ConfigureMultiSigGroup {
                     MultiSig.fractionallyWeighted = false;
                   }}
                 />
-                <label class="font-weight--bold font-color--battleship" for="weighted-no">
+                <label class="task-form-label" for="weighted-no">
                   No
                 </label>
               </div>
             </div>
             {!MultiSig.fractionallyWeighted && (
               <>
-                <label>
-                  <p class="p-tag-bold">How many signers are required to sign?</p>
-                </label>
-                <TextField
-                  outlined
-                  type="number"
-                  min={1}
-                  max={MultiSig.participants.length + 1}
-                  style={{ marginBottom: '2rem' }}
-                  value={this.numSigners}
-                  oninput={(e) => {
-                    this.numSigners = parseInt(e.target.value);
-                  }}
-                />
+                <div class="task-form-group">
+                  <label class="task-form-label">How many signers are required to sign?</label>
+                  <Counter
+                    min={1}
+                    max={MultiSig.participants.length + 1}
+                    value={this.numSigners}
+                    onchange={(value) => {
+                      this.numSigners = value;
+                    }}
+                  />
+                </div>
               </>
             )}
             <div class="flex flex-align-center flex-justify-between">
-              <label class="font-color--battleship">
-                <>
-                  <b>Enter Signers </b>
-                  <TextTooltip
-                    label={
-                      <u>
-                        <b>(in order):</b>
-                      </u>
-                    }
-                  >
-                    Order must be consistent (same exact list everytime). If fractionally weighted it should be highest
-                    to lowest weight.
-                  </TextTooltip>
-                </>
+              <label class="task-form-label">
+                Enter Signers{' '}
+                <TextTooltip label={<u>(in order):</u>}>
+                  Order must be consistent (same exact list everytime). If fractionally weighted it should be highest to
+                  lowest weight.
+                </TextTooltip>
               </label>
               <div class="flex-1" />
-              {MultiSig.fractionallyWeighted && <b class="font-color--battleship">Weight</b>}
-              <div style={{ width: '48px', height: '48px', marginLeft: '1rem' }} />
+              {MultiSig.fractionallyWeighted && <b class="task-form-label">Weight</b>}
+              <div style={{ width: '56px', marginLeft: '1rem' }} />
             </div>
-            <div style={{ marginBottom: '1rem' }}>
-              <div class="flex flex-align-center flex-justify-between margin-v-1">
-                <AIDField aid={this.default} />
-                <div class="flex-1" />
-                {MultiSig.fractionallyWeighted && (
-                  <TextField
-                    outlined
-                    style={{ marginLeft: '1rem', width: '75px' }}
-                    placeholder="1/3"
-                    value={this.weight}
-                    oninput={(e) => {
-                      this.weight = e.target.value;
+            <div class="flex flex-align-center flex-justify-between margin-v-1">
+              <AIDField aid={this.default} />
+              <div class="flex-1" />
+              {MultiSig.fractionallyWeighted && (
+                <TextField
+                  outlined
+                  style={{ marginLeft: '1rem', width: '75px' }}
+                  placeholder="1/3"
+                  value={this.weight}
+                  oninput={(e) => {
+                    this.weight = e.target.value;
+                  }}
+                />
+              )}
+              <span
+                class="p-tag-bold"
+                style={{
+                  textAlign: 'center',
+                  marginLeft: '1rem',
+                  minWidth: '48px',
+                }}
+              >
+                You
+              </span>
+            </div>
+            <AddSignerModal
+              isOpen={this.addSignerOpen}
+              onClose={() => {
+                this.addSignerOpen = false;
+              }}
+              onSave={(contact) => {
+                MultiSig.participants[this.addSignerIdx] = {
+                  id: contact.id,
+                  alias: contact.alias,
+                  contact: contact,
+                  weight: '',
+                  signed: false,
+                };
+                this.addSignerOpen = false;
+              }}
+            />
+            {MultiSig.participants.map((signer, index) => {
+              return (
+                <div class="flex flex-align-center flex-justify-between margin-v-1">
+                  <AIDField
+                    contact={signer.contact}
+                    onclick={() => {
+                      this.addSignerIdx = index;
+                      this.addSignerOpen = true;
                     }}
                   />
-                )}
-                <div style={{ height: '48px', marginLeft: '2.2rem' }} />
-                <span className="p-tag-bold" style={{ fontSize: '1rem' }}>
-                  You
-                </span>
-              </div>
-              <AddSignerModal
-                isOpen={this.addSignerOpen}
-                onClose={() => {
-                  this.addSignerOpen = false;
-                }}
-                onSave={(contact) => {
-                  MultiSig.participants[this.addSignerIdx] = {
-                    id: contact.id,
-                    alias: contact.alias,
-                    contact: contact,
-                    weight: '',
-                    signed: false,
-                  };
-                  this.addSignerOpen = false;
-                }}
-              />
-              {MultiSig.participants.map((signer, index) => {
-                return (
-                  <div class="flex flex-align-center flex-justify-between margin-v-1">
-                    <AIDField
-                      contact={signer.contact}
-                      onclick={() => {
-                        this.addSignerIdx = index;
-                        this.addSignerOpen = true;
+                  <div class="flex-1" />
+                  {MultiSig.fractionallyWeighted && (
+                    <TextField
+                      outlined
+                      style={{ marginLeft: '1rem', width: '75px' }}
+                      placeholder="1/3"
+                      value={signer.weight}
+                      oninput={(e) => {
+                        signer.weight = e.target.value;
                       }}
                     />
-                    <div class="flex-1" />
-                    {MultiSig.fractionallyWeighted && (
-                      <TextField
-                        outlined
-                        style={{ marginLeft: '1rem', width: '75px' }}
-                        placeholder="1/3"
-                        value={signer.weight}
-                        oninput={(e) => {
-                          signer.weight = e.target.value;
-                        }}
-                      />
-                    )}
-                    <IconButton
-                      icon="close"
-                      style={{
-                        marginLeft: '1rem',
-                      }}
-                      onclick={() => {
-                        MultiSig.participants.splice(index, 1);
-                      }}
-                    />
-                  </div>
-                );
-              })}
-            </div>
-            <div class="flex flex-justify-between margin-top-4">
+                  )}
+                  <IconButton
+                    icon="close"
+                    style={{
+                      marginLeft: '1rem',
+                    }}
+                    onclick={() => {
+                      MultiSig.participants.splice(index, 1);
+                    }}
+                  />
+                </div>
+              );
+            })}
+            <div class="task-actions">
               <Button
-                class="button--gray-dk button--big button--no-transform"
+                class="button--secondary margin-right-1"
                 raised
                 label="Go Back"
                 onclick={() => {
@@ -521,7 +500,6 @@ class ConfigureMultiSigGroup {
                 }}
               />
               <Button
-                class="button--big button--no-transform"
                 raised
                 label="Continue"
                 disabled={!this.validSigners}
@@ -540,21 +518,23 @@ class ConfigureMultiSigGroup {
           <>
             <img src={secureMessaging} style={{ marginBottom: '1rem', width: '268px' }} />
             <h3>Confirm Delegator</h3>
-            <p class="p-tag margin-v-2">These details should be cross referenced with other well known sources.</p>
-
-            <p class="p-tag-bold">Delegator Alias:</p>
-            <div class="uneditable-value">{MultiSig.delegator.alias}</div>
-            <p class="p-tag-bold">Delegator AID:</p>
-            <div class="uneditable-value">
-              <code>{MultiSig.delegator.id}</code>
+            <p class="p-tag">These details should be cross referenced with other well known sources.</p>
+            <div class="task-form-group">
+              <label class="task-form-label">Delegator Alias:</label>
+              <div class="uneditable-value">{MultiSig.delegator?.alias}</div>
             </div>
-
+            <div class="task-form-group">
+              <p class="task-form-label">Delegator AID:</p>
+              <div class="uneditable-value">
+                <code>{MultiSig.delegator?.id}</code>
+              </div>
+            </div>
             <p class="p-tag">
               See the Ecosystem Governance Framework for a full listing of available well known sources.
             </p>
-            <div class="flex flex-justify-between margin-top-4">
+            <div class="task-actions">
               <Button
-                class="button--gray-dk button--big button--no-transform"
+                class="button--secondary margin-right-1"
                 raised
                 label="Go Back"
                 onclick={() => {
@@ -562,7 +542,6 @@ class ConfigureMultiSigGroup {
                 }}
               />
               <Button
-                class="button--big button--no-transform"
                 raised
                 label="Continue"
                 disabled={!MultiSig.delegator}
@@ -575,24 +554,34 @@ class ConfigureMultiSigGroup {
         )}
         {vnode.attrs.parent.currentState === 'review-and-confirm' && (
           <>
-            <h3 style={{ marginBottom: '2rem' }}>Review and Confirm</h3>
-            <p class="font-weight--bold font-color--battleship">Group Alias:</p>
-            <div class="uneditable-value">{this.groupAlias}</div>
-            <p class="font-weight--bold font-color--battleship">Witness Pool:</p>
-            <div class="uneditable-value">{Witnesses.witnessPools.find((p) => p.value === this.pool).label}</div>
-            {!MultiSig.fractionallyWeighted && (
-              <div>
-                <p class="font-weight--bold font-color--battleship">Number of Required Signers:</p>
-                <div class="uneditable-value">{this.numSigners}</div>
+            <h3>Review and Confirm</h3>
+            <div class="task-form-group">
+              <label class="task-form-label">Group Alias:</label>
+              <div class="uneditable-value">{this.groupAlias}</div>
+            </div>
+            <div class="task-form-group">
+              <label class="task-form-label">Witness Pool:</label>
+              <div class="uneditable-value">{Witnesses.witnessPools.find((p) => p.value === this.pool)?.label}</div>
+            </div>
+            {/* {!MultiSig.fractionallyWeighted && ( */}
+            <div class="task-form-group task-form-group--between">
+              <label class="task-form-label">Number of Required Signers:</label>
+              <div class="uneditable-value" style={{ width: '75px' }}>
+                {this.numSigners}
               </div>
-            )}
-            <p class="font-color--battleship margin-v-2">Review signers to make sure the list is complete.</p>
-            <p class="font-weight--bold font-color--battleship">Signers (in order):</p>
+            </div>
+            {/* )} */}
+            <p class="p-tag">Review signers to make sure the list is complete.</p>
+            <label class="task-form-label">Signers (in order):</label>
             <div class="flex flex-align-center flex-justify-between margin-v-1">
               <div class="flex-1 uneditable-value" style={{ marginRight: '1rem' }}>
                 <AID aid={this.default} />
               </div>
-              {MultiSig.fractionallyWeighted && <div class="uneditable-value">{this.weight}</div>}
+              {MultiSig.fractionallyWeighted && (
+                <div class="uneditable-value" style={{ width: '75px' }}>
+                  {this.weight}
+                </div>
+              )}
             </div>
             {MultiSig.participants.map((signer) => {
               return (
@@ -601,32 +590,51 @@ class ConfigureMultiSigGroup {
                     <div class="flex-1 uneditable-value" style={{ marginRight: '1rem' }}>
                       <AID contact={signer.contact} />
                     </div>
-                    {MultiSig.fractionallyWeighted && <div class="uneditable-value">{signer.weight}</div>}
+                    {MultiSig.fractionallyWeighted && (
+                      <div class="uneditable-value" style={{ width: '75px' }}>
+                        {signer.weight}
+                      </div>
+                    )}
                   </div>
                 </>
               );
             })}
             {vnode.attrs.parent.requireDelegator && (
-              <>
-                <p class="font-weight--bold font-color--battleship">Delegator:</p>
-                <div class="flex flex-align-center flex-justify-between" style={{ margin: '0 0 4rem 0' }}>
-                  <AID contact={MultiSig.delegator}/>
+              <div class="task-form-group">
+                <label class="task-form-label">Delegator:</label>
+                <div class="uneditable-value">
+                  <AID contact={MultiSig.delegator} />
                 </div>
-              </>
+              </div>
             )}
-            <p className="font-color--battleship margin-v-2">Advanced Options.</p>
-            <p className="font-weight--bold font-color--battleship">Witness Threshold:</p>
-            <div className="uneditable-value">{this.witThold}</div>
-            <p className="font-weight--bold font-color--battleship">Establishment Only:</p>
-            <div className="uneditable-value">{this.estOnly ? 'Yes' : 'No'}</div>
-            <p className="font-weight--bold font-color--battleship">Allow Delegation:</p>
-            <div className="uneditable-value">{this.DnD ? 'No' : 'Yes'}</div>
-            <p className="font-weight--bold font-color--battleship">Issue Credentials:</p>
-            <div className="uneditable-value">Yes</div>
-
-            <div class="flex flex-justify-between margin-top-4">
+            <label class="task-form-more-label margin-v-2">Advanced Options:</label>
+            <div class="task-form-group task-form-group--between">
+              <label class="task-form-label">Witness Threshold:</label>
+              <div class="uneditable-value" style={{ width: '75px' }}>
+                {this.witThold}
+              </div>
+            </div>
+            <div class="task-form-group task-form-group--between">
+              <label class="task-form-label">Establishment Only:</label>
+              <div class="uneditable-value" style={{ width: '75px' }}>
+                {this.estOnly ? 'Yes' : 'No'}
+              </div>
+            </div>
+            <div class="task-form-group task-form-group--between">
+              <label class="task-form-label">Allow Delegation:</label>
+              <div class="uneditable-value" style={{ width: '75px' }}>
+                {this.DnD ? 'No' : 'Yes'}
+              </div>
+            </div>
+            <div class="task-form-group task-form-group--between">
+              <label class="task-form-label">Issue Credentials:</label>
+              <div class="uneditable-value" style={{ width: '75px' }}>
+                Yes
+              </div>
+            </div>
+            <div class="task-actions">
               <Button
-                class="button--gray-dk button--big button--no-transform"
+                class="button--secondary margin-right-1"
                 raised
                 label="Go Back"
                 onclick={() => {
@@ -638,7 +646,6 @@ class ConfigureMultiSigGroup {
                 }}
               />
               <Button
-                class="button--big button--no-transform"
                 raised
                 label="Complete"
                 onclick={() => {

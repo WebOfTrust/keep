@@ -1,7 +1,7 @@
 import m from 'mithril';
 
-import {Button, Progress} from '../../../src/app/components';
-import {Profile, KERI, Contacts, Participants} from '../../../src/app/services';
+import { Button, Progress } from '../../../src/app/components';
+import { Profile, KERI, Contacts, Participants } from '../../../src/app/services';
 import { EnterChallengesForm, EnterOOBIsForm, SendChallengeForm, SendOOBIForm } from './forms';
 import './video-call.scss';
 
@@ -84,7 +84,7 @@ class SpotCheck {
   constructor(vnode) {
     this.contact = Contacts.selected;
     this.participants = new Participants(1);
-    this.participants.oobis[0].alias = this.contact.alias
+    this.participants.oobis[0].alias = this.contact.alias;
     this.aid = KERI.parseAIDFromUrl(this.contact.oobi);
   }
 
@@ -93,7 +93,9 @@ class SpotCheck {
       <>
         {vnode.attrs.parent.currentState === 'intro' && (
           <>
-            <h4 class="text--underline margin-bottom-2">Perform Identifiy Authentication Spot Check with {this.contact.alias}</h4>
+            <h4 class="text--underline margin-bottom-2">
+              Perform Identifiy Authentication Spot Check with {this.contact.alias}
+            </h4>
             <p class="steps-header">Steps to Spot Check a Contact:</p>
             <ol className="styled-ol margin-v-2">
               <li>Join a Video Call with a {this.contact.alias} to spot check.</li>
@@ -105,7 +107,6 @@ class SpotCheck {
             </ol>
             <div class="flex flex-align-center flex-justify-end margin-top-4">
               <Button
-                class="button--no-transform"
                 raised
                 label="Continue"
                 onclick={() => {
@@ -125,12 +126,10 @@ class SpotCheck {
               session in which you and the other user is present, You will accept their OOBI (URL + AID) on a Video Call
               so that you can complete 2-factor identity authentication.
             </p>
-            <p class="font-weight--semi-bold">
-
-            </p>
+            <p class="font-weight--semi-bold"></p>
             <div class="flex flex-justify-end margin-top-4">
               <Button
-                class="button--gray-dk button--no-transform margin-right-1"
+                class="button--secondary margin-right-1"
                 raised
                 label="Go Back"
                 onclick={() => {
@@ -138,7 +137,6 @@ class SpotCheck {
                 }}
               />
               <Button
-                class="button--no-transform"
                 raised
                 label="Continue"
                 onclick={() => {
@@ -155,7 +153,7 @@ class SpotCheck {
             <SendOOBIForm aidToSend={Profile.getDefaultAID()} />
             <div class="flex flex-justify-end margin-top-4">
               <Button
-                class="button--gray-dk button--no-transform margin-right-1"
+                class="button--secondary margin-right-1"
                 raised
                 label="Go Back"
                 onclick={() => {
@@ -163,7 +161,6 @@ class SpotCheck {
                 }}
               />
               <Button
-                class="button--no-transform"
                 raised
                 label="Continue"
                 onclick={() => {
@@ -176,10 +173,10 @@ class SpotCheck {
         {vnode.attrs.parent.currentState === 'receive-oobi' && (
           <>
             <Progress stepNum={3} totalSteps={6} stepLabel={'Receive OOBI'} />
-            <EnterOOBIsForm participants={this.participants} oneToOne={true} aliasDisabled={true} aid={this.aid}/>
+            <EnterOOBIsForm participants={this.participants} oneToOne={true} aliasDisabled={true} aid={this.aid} />
             <div class="flex flex-justify-end margin-top-4">
               <Button
-                class="button--gray-dk button--no-transform margin-right-1"
+                class="button--secondary margin-right-1"
                 raised
                 label="Go Back"
                 onclick={() => {
@@ -187,7 +184,6 @@ class SpotCheck {
                 }}
               />
               <Button
-                class="button--no-transform"
                 raised
                 label="Continue"
                 disabled={!this.participants.oobisResolved()}
@@ -204,7 +200,7 @@ class SpotCheck {
             <SendChallengeForm participants={this.participants} />
             <div class="flex flex-justify-end margin-top-4">
               <Button
-                class="button--gray-dk button--no-transform margin-right-1"
+                class="button--secondary margin-right-1"
                 raised
                 label="Go Back"
                 onclick={() => {
@@ -212,7 +208,6 @@ class SpotCheck {
                 }}
               />
               <Button
-                class="button--no-transform"
                 raised
                 label="Continue"
                 disabled={!this.participants.oobisResolved()}
@@ -226,13 +221,10 @@ class SpotCheck {
         {vnode.attrs.parent.currentState === 'receive-challenge' && (
           <>
             <Progress stepNum={5} totalSteps={6} stepLabel={'Receive Challenge'} />
-            <EnterChallengesForm
-              aidToSend={Profile.getDefaultAID()}
-              participants={this.participants}
-            />
+            <EnterChallengesForm aidToSend={Profile.getDefaultAID()} participants={this.participants} />
             <div class="flex flex-justify-end">
               <Button
-                class="button--gray-dk button--no-transform margin-right-1"
+                class="button--secondary margin-right-1"
                 raised
                 label="Go Back"
                 onclick={() => {
@@ -240,12 +232,9 @@ class SpotCheck {
                 }}
               />
               <Button
-                class="button--no-transform"
                 raised
                 label="Next"
-                disabled={
-                  !(this.participants.oobisVerified() && this.participants.oobisConfirmed())
-                }
+                disabled={!(this.participants.oobisVerified() && this.participants.oobisConfirmed())}
                 onclick={() => {
                   vnode.attrs.parent.currentState = 'authorized';
                 }}
@@ -259,13 +248,12 @@ class SpotCheck {
             <img src={projectPlanning} style={{ width: '120px' }} />
             <h4>{this.contact.alias} Has been Authenticated</h4>
             <p class="font-size--14 font-color--battleship">
-              The contact for {this.contact.alias} has been authenticated will now appear in your
-              Contacts list as an authrozied contact.
+              The contact for {this.contact.alias} has been authenticated will now appear in your Contacts list as an
+              authrozied contact.
             </p>
             <div class="flex flex-align-center flex-justify-end margin-top-4">
               <Button
                 raised
-                class="button--no-transform"
                 label="Finished"
                 onclick={() => {
                   vnode.attrs.end();

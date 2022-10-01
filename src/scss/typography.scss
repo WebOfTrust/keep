@@ -9,35 +9,37 @@ body {
   @include sans;
   @include normal;
   color: $default-text;
-  font-size: 100%; // 16px in most browsers.
+  font-size: 14px; // 16px in most browsers.
 }
 
 h1 {
   @include bold;
   font-size: 32px;
-  line-height: 40px;
   letter-spacing: 0.1px;
 
   &.lg {
     @include bold;
     font-size: 44px;
-    line-height: 56px;
     letter-spacing: 0.2px;
   }
+}
+
+h3 {
+  @include bold;
+  font-size: 18px;
 }
 
 h4 {
   @include bold;
   font-size: 16px;
-  line-height: 20px;
-  letter-spacing: 0.1px;
+  letter-spacing: 0.15px;
 }
 
 .error {
-  @include medium;
+  @include normal;
   color: $red;
-  font-size: 14px;
-  margin: 0.75rem 0 0;
+  font-size: 12px;
+  margin: 0.5rem 0 0;
 }
 
 .hint {
@@ -48,6 +50,11 @@ h4 {
   @include mono;
   font-size: 12px;
   word-break: break-all;
+}
+
+.body-text-2 {
+  @include normal;
+  font-size: 12px;
 }
 
 .font {
@@ -80,6 +87,9 @@ h4 {
     }
     &--blue {
       color: $blue;
+    }
+    &--info {
+      color: $info-blue;
     }
   }
   &-size {
@@ -154,43 +164,43 @@ h4 {
 $font-path: '../assets/fonts';
 
 @font-face {
-  font-family: 'AvenirNext';
+  font-family: 'Facundo';
   font-style: normal;
   font-weight: 400;
-  src: url('../assets/fonts/avenir-next-lt-pro/AvenirNextLTPro-Regular.otf') format('truetype');
+  src: url('../assets/fonts/facundo/FacundoRegular.otf') format('truetype');
 }
 
 @font-face {
-  font-family: 'AvenirNext';
+  font-family: 'Facundo';
   font-style: normal;
   font-weight: normal;
-  src: url('../assets/fonts/avenir-next-lt-pro/AvenirNextLTPro-Regular.otf') format('truetype');
+  src: url('../assets/fonts/facundo/FacundoRegular.otf') format('truetype');
 }
 
 @font-face {
-  font-family: 'AvenirNext';
+  font-family: 'Facundo';
   font-style: normal;
   font-weight: 500;
-  src: url('../assets/fonts/avenir-next-lt-pro/AvenirNextLTPro-Demi.otf') format('truetype');
+  src: url('../assets/fonts/facundo/FacundoSemiBold.otf') format('truetype');
 }
 
 @font-face {
-  font-family: 'AvenirNext';
+  font-family: 'Facundo';
   font-style: normal;
   font-weight: 600;
-  src: url('../assets/fonts/avenir-next-lt-pro/AvenirNextLTPro-Demi.otf') format('truetype');
+  src: url('../assets/fonts/facundo/FacundoBold.otf') format('truetype');
 }
 
 @font-face {
-  font-family: 'AvenirNext';
+  font-family: 'Facundo';
   font-style: normal;
   font-weight: bold;
-  src: url('../assets/fonts/avenir-next-lt-pro/AvenirNextLTPro-Bold.otf') format('truetype');
+  src: url('../assets/fonts/facundo/FacundoBlack.otf') format('truetype');
 }
 
 @font-face {
-  font-family: 'AvenirNext';
+  font-family: 'Facundo';
   font-style: normal;
   font-weight: 700;
-  src: url('../assets/fonts/avenir-next-lt-pro/AvenirNextLTPro-Bold.otf') format('truetype');
+  src: url('../assets/fonts/facundo/FacundoBlack.otf') format('truetype');
 }

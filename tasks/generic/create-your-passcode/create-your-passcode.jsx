@@ -99,20 +99,15 @@ class CreatePasscode {
         {vnode.attrs.parent.currentState === 'welcome' && (
           <>
             <h3 id="welcome">Welcome to KEEP</h3>
-            <div class="flex flex-justify-center" style={{ margin: '4.5rem 0' }}>
-              <img src={createYourPasscode} style={{ width: '205px' }} />
-            </div>
-            <p class="p-tag" style={{ margin: '2rem 0 2rem 0' }}>
-              To get started and enter the software, you will need to generate a passcode.
-              <br />
-              <br />
+            <img class="task-img task-img--center" src={createYourPasscode} />
+            <p class="p-tag">To get started, you will need to generate a passcode.</p>
+            <p class="p-tag">
               Make sure to store your password somewhere safe: a password management app, or printed and in a safe
               deposit box.
             </p>
-            <div class="flex flex-justify-end">
+            <div class="flex flex-justify-end margin-top-2">
               <Button
                 id="continue"
-                class="button--no-transform button--big"
                 raised
                 label="Continue"
                 onclick={() => {
@@ -130,46 +125,41 @@ class CreatePasscode {
               onClose={() => {
                 this.savePassModalOpen = false;
               }}
-              style={{ width: '680px' }}
-              header={<h1 class="font-weight--medium">Wait! Did you save your passcode?</h1>}
-              footer={
-                <>
-                  <div class="flex flex-justify-center" style={{ marginTop: '2rem' }}>
-                    <Button
-                      id="passcode-saved"
-                      raised
-                      class="button--big button--extraPadding"
-                      label="I Saved My Passcode"
-                      onclick={() => {
-                        this.savePassModalOpen = false;
-                        vnode.attrs.parent.currentState = 'enter-passcode';
-                      }}
-                    />
-                  </div>
-                </>
-              }
+              style={{ top: '5rem', left: '16rem', width: '416px' }}
             >
-              <div class="flex flex-align-center flex-justify-center">
-                <img style={{ marginRight: '2rem' }} src={wait} />
-                <h3 class="font-weight--light font-color--battleship" style={{ maxWidth: '280px' }}>
-                  If you forget your passcode, you lose access to your wallet. Make sure that you store it someplace
-                  safe.
-                </h3>
+              <h3>Wait! Did you save your passcode?</h3>
+              <div class="flex flex-align-center">
+                <div class="margin-right-2">
+                  <img style={{ minWidth: '90px' }} src={wait} />
+                </div>
+                <div>
+                  <p class="body-text-2 font-color--battleship" style={{ marginTop: 0 }}>
+                    If you forget your passcode, you lose access to Keep. Make sure that you store it someplace safe.
+                  </p>
+                  <Button
+                    id="passcode-saved"
+                    raised
+                    label="I saved my passcode"
+                    onclick={() => {
+                      this.savePassModalOpen = false;
+                      vnode.attrs.parent.currentState = 'enter-passcode';
+                    }}
+                  />
+                </div>
               </div>
             </Modal>
             <h3 id="generate-passcode">Generate Your Passcode</h3>
-            <div class="flex flex-justify-center" style={{ margin: '3rem 0 2rem 0' }}>
-              <img src={createYourPasscode} style={{ width: '205px' }} />
-            </div>
-            <p class="p-tag" style={{ margin: '0 0 2.5rem 0' }}>
+            <img class="task-img task-img--center" src={createYourPasscode} />
+            <p class="p-tag">
               Generate your passcode here or in your password management app such as 1Password or Last Pass to encrypt
-              your desktop software and then copy into the following screen.
+              your desktop software. After you have generated your passcode, copy the text to paste into the next
+              screen.
             </p>
             <TextField
               id="passcode"
               outlined
               fluid
-              placeholder="xxxx-xxxxx-xxxxx-xxxx-xxxxx"
+              placeholder="xxxx-xxxxx-xxxxx-xxxx-xxx"
               autocomplete="off"
               value={this.passcode}
               oninput={(e) => {
@@ -182,22 +172,23 @@ class CreatePasscode {
                 },
               }}
             />
-            <div class="flex flex-justify-between" style={{ margin: '2.5rem 0 3rem 0' }}>
-              <p class="font-color--green font-weight--medium">{this.copied ? 'Passcode copied!' : <br />}</p>
+            <div class="flex flex-justify-end flex-align-center margin-top-1">
+              <p class="font-size--12 font-color--green font-weight--semi-bold margin-right-2">
+                {this.copied ? 'Passcode copied!' : <br />}
+              </p>
               <Button
                 id="generate"
-                raised
-                class="button--no-transform button--gray button--big"
-                label="Generate New"
+                outlined
+                label="Generate"
                 onclick={() => {
                   this.generatePasscode();
                 }}
               />
             </div>
-            <div class="flex flex-justify-between">
+            <div class="flex flex-justify-end margin-top-2">
               <Button
                 raised
-                class="button--no-transform button--gray-dk button--big"
+                class="button--secondary margin-right-1"
                 label="Go Back"
                 onclick={() => {
                   vnode.attrs.parent.currentState = 'welcome';
@@ -206,7 +197,6 @@ class CreatePasscode {
               <Button
                 id="continue"
                 raised
-                class="button--no-transform button--big"
                 label="Continue"
                 onclick={() => {
                   this.savePassModalOpen = true;
@@ -218,13 +208,8 @@ class CreatePasscode {
         {vnode.attrs.parent.currentState === 'enter-passcode' && (
           <>
             <h3 id="">Please Enter Your Passcode</h3>
-            <div class="flex flex-justify-center" style={{ margin: '5rem 0' }}>
-              <img src={passcodeImg} style={{ width: '205px' }} />
-            </div>
-            <p class="p-tag" style={{ margin: '0 0 3rem 0' }}>
-              You can find your 21 character passcode by referring back to your storage spot (1Password, Last Pass, Safe
-              Deposit Box) and entering it into the box below.
-            </p>
+            <img class="task-img task-img--center" src={passcodeImg} />
+            <p class="p-tag">Paste your passcode below or retrieve it from your password management app.</p>
             <TextField
               id="confirm-passcode"
               outlined
@@ -243,10 +228,14 @@ class CreatePasscode {
               }}
             />
             {this.error && <p class="error">{this.error}</p>}
-            <div class="flex flex-justify-between" style={{ marginTop: '4rem' }}>
+            <div class="task-info">
+              <span class="task-info-icon material-icons-outlined">info</span>
+              <p class="task-info-text">Make sure this passcode matches the one you stored.</p>
+            </div>
+            <div class="flex flex-justify-end margin-top-2">
               <Button
                 raised
-                class="button--no-transform button--gray-dk button--big"
+                class="button--secondary margin-right-1"
                 label="Go Back"
                 onclick={() => {
                   vnode.attrs.parent.currentState = 'create-passcode';
@@ -255,8 +244,7 @@ class CreatePasscode {
               <Button
                 id="initialize"
                 raised
-                class="button--no-transform button--big"
-                label="Continue"
+                label="Login"
                 disabled={!this.enterPasscode || this.submitting}
                 onclick={() => {
                   this.initializeAgent(vnode);

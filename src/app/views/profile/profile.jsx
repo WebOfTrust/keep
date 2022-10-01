@@ -14,9 +14,9 @@ class Profile {
       <>
         <div class="profile">
           <NavRail></NavRail>
-          <Container class="headspace" style={{ padding: '0 4rem' }}>
+          <Container class="margin-v-2">
             <div class="flex flex-justify-between">
-              <div class="flex-1" style={{ marginRight: '4rem' }}>
+              <div class="flex-1 margin-right-2">
                 <Card class="card--fluid" padding="1.5rem">
                   <Card
                     class={`card--fluid card--hover ${
@@ -36,9 +36,10 @@ class Profile {
                     </div>
                   </Card>
                   <Card
-                    class={`card--fluid card--hover ${this.currentState === 'manage-passcode' ? 'card--active' : ''}`}
+                    class={`margin-bottom-1 card--fluid card--hover ${
+                      this.currentState === 'manage-passcode' ? 'card--active' : ''
+                    }`}
                     padding="1.5rem"
-                    style={{ marginBottom: '2.5rem' }}
                     onclick={() => {
                       this.currentState = 'manage-passcode';
                     }}
@@ -53,7 +54,7 @@ class Profile {
                 </Card>
               </div>
               <div class="flex-1">
-                <Card class={'card--fluid'} style={{ position: 'relative' }} padding="4rem 4rem">
+                <Card class={'relative card--fluid'} padding="2rem">
                   {this.currentState === 'manage-identifiers' && <ManageIdentifiers />}
                   {this.currentState === 'manage-passcode' && <ManagePasscode />}
                 </Card>

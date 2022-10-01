@@ -2,20 +2,19 @@
 @import '../../../scss/mixins';
 
 .nav-rail {
-  background-color: white;
-  border-right: 1px solid #e5e5e5;
+  background-color: #fefdff;
   display: flex;
   flex-direction: column;
 
   &-item {
     align-items: center;
-    color: #737373;
+    border-radius: 4px;
+    color: $cyprus;
     display: flex;
-    height: 120px;
+    height: 96px;
     flex-direction: column;
     justify-content: center;
-    // width: 96px;
-    width: 120px;
+    width: 96px;
 
     &-text {
       font-size: 14px;
@@ -25,12 +24,13 @@
     }
 
     &:hover {
-      background-color: $active-blue;
+      background-color: $primary-active;
       cursor: pointer;
     }
 
     &--selected {
-      background-color: $active-blue;
+      background-color: $primary-active;
+      color: $turquoise;
     }
   }
 }
