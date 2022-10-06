@@ -49,7 +49,7 @@ const RootGarVariables = {
     },
   },
   createGLEIFRoot: {
-    shouldSkipTitle: 'Do you need to perform identifiy authentication with members of the GLEIF RoOT AID?',
+    shouldSkipTitle: 'Do you need to perform identify authentication with members of the GLEIF RoOT AID?',
     shouldSkipIntro:
       'If you have not yet exchanged OOBIs with the other participants of the GLEIF RoOT AID, you must perform identity authentication to add them to your contact list.' +
       '  Will you be need to perform identity authentication?',
@@ -79,7 +79,7 @@ const RootGarVariables = {
       'If you have been designated to configure the multi-sig group click Yes to continue to provide the group alias and select the participants. Otherwise click no and enjoy the wait.',
   },
   approveDelegation: {
-    shouldSkipTitle: 'Do you need to perform identifiy authentication with members of the Delegated AID?',
+    shouldSkipTitle: 'Do you need to perform identify authentication with members of the Delegated AID?',
     shouldSkipIntro:
       'If you have not yet exchanged OOBIs with participants of the new Delegated AID, you must perform identity authentication to add them to your contact list.' +
       '  Will you be need to perform identity authentication?',
