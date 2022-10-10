@@ -20,6 +20,7 @@ class Mail {
 
   static challengeHandler = (e) => {
     let data = JSON.parse(e.data);
+    let aid = Profile.getDefaultAID();
     let participantInstances = [Participants.instance];
     participantInstances.forEach((instance) => {
       const oobi = instance.oobis.find((oobi) => {
@@ -28,7 +29,7 @@ class Mail {
       if (oobi !== undefined) {
         if (data.a.words.length === instance.words.length && data.a.words.every((v, i) => v === instance.words[i])) {
           oobi.verified = true;
-          KERI.updateContact(oobi.id, { verified: 'true' });
+          KERI.acceptChallengeMessage(aid.name, { aid: data.a.signer, said: data.a.said });
           m.redraw();
         }
       }

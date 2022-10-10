@@ -20,7 +20,12 @@ class Witnesses {
       'BLskRTInXnMxWaGqcpSyMgo0nYbalW99cGZESrz3zapM',
       'BIKKuvBwpmDVA4Ds-EpL5bt9OqPzWPja2LigFYZN2YfX',
     ],
-    gleif: ['BGGEhf-fxOpmashJo1IU0Hrq4CpwXvaL5TFesoMhG3dc', 'BBTyHdGnL3knmazWlhP58zDcco7-vr10sl5T9SuoIdYQ'],
+    gleif: [
+      "BILZrnru0e-0MUmnnjOdWTrZ7OW3sCuk_C_67uYeLsN_",
+      "BN6TBUuiDY_m87govmYhQ2ryYP2opJROqjDkZToxuxS2",
+      "BBD748wGFn9-1nfVEtfwd97wc-HCw0LRF2xeIujmqJOQ",
+      "BHeD7WvSDGwm0glBHGTuHpGeMRq7HyCOAJ8h_epQyHkR"
+    ],
     pilot: [
       'B4tbPLI_TEze0pzAA-X-gewpdg22yfzN8CdKKIF5wETM',
       'Boq71an-vhU6DtlZzzJF7yIqbQxb56rcxeB0LppxeDOA',
