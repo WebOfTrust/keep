@@ -65,7 +65,7 @@ class AID {
         organization: vnode.attrs.contact.organization,
       };
       this.type = 'Connection Identifier';
-      this.authenticated = vnode.attrs.contact.verified;
+      this.authenticated = vnode.attrs.contact.challenges.length > 0;
     }
 
     if (this.authenticated) {

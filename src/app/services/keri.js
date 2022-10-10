@@ -186,6 +186,15 @@ class KERI {
     });
   }
 
+  static acceptChallengeMessage(alias, body) {
+    return m.request({
+      method: 'POST',
+      url: `${this.keriURL}/challenge/accept/${alias}`,
+      body: body,
+    });
+  }
+
+
   // NOTIFICATIONS
   static getNotifications() {
     return m.request({

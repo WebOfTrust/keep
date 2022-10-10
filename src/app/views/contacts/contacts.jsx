@@ -340,10 +340,16 @@ class Contacts {
                               <label class="contacts-detail-field-label">Authenticated:</label>
                               <div className="contacts-detail-field-input">
                                 <div>
-                                  {this.activeContact.verified === 'true' && (
+                                  {this.activeContact.challenges.length > 0 && (
                                     <span className="material-icons-outlined md-24 matched-label">done_outline</span>
                                   )}
-                                  {this.activeContact.verified !== 'true' && (
+                                  {this.activeContact.wellKnowns.length > 0 && (
+                                    <>
+                                      <span className="material-icons-outlined md-24 matched-label">hub</span>
+                                      ({this.activeContact.wellKnowns.length} Well Knowns Resolved)Up
+                                    </>
+                                  )}
+                                  {(this.activeContact.challenges.length < 1 && this.activeContact.wellKnowns.length < 1) && (
                                     <span className="material-icons-outlined md-24 missed-label">
                                       disabled_by_default
                                     </span>
