@@ -1,0 +1,18 @@
+.profile-picture {
+  background-color: grey;
+  border-radius: 50%;
+  color: white;
+  display: inline-block;
+  font-size: 24px;
+  line-height: 48px;
+  height: 48px;
+  text-align: center;
+  width: 48px;
+
+  &--small {
+    font-size: 16px;
+    height: 32px;
+    line-height: 32px;
+    width: 32px;
+  }
+}

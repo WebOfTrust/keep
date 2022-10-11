@@ -1,5 +1,6 @@
 import m from 'mithril';
 import githubLogo from '../../../assets/img/github-logo.svg';
+import './picture.scss';
 
 class ProfilePicture {
   constructor() {
@@ -21,21 +22,7 @@ class ProfilePicture {
         this.initials = parts[0].substring(0, 1) + parts[1].substring(0, 1);
       }
       return (
-        <div
-          style={{
-            display: 'inline-block',
-            fontSize: vnode.attrs.size === 's' ? '1rem' : '1.75rem',
-            width: vnode.attrs.size === 's' ? '2.3rem' : '3.85rem',
-            height: vnode.attrs.size === 's' ? '2.25rem' : '3.75rem',
-            lineHeight: vnode.attrs.size === 's' ? '2.55rem' : '4.2rem',
-            textAlign: 'center',
-            borderRadius: '50%',
-            background: 'grey',
-            verticalAlign: 'top',
-            color: 'white',
-            // visibility: (this.initials.length === 0 ? 'hidden' : 'visible')
-          }}
-        >
+        <div class={'profile-picture' + (vnode.attrs.size === 's' ? ' profile-picture--small' : '')}>
           <div>{this.initials}</div>
         </div>
       );
@@ -48,21 +35,7 @@ class ProfilePicture {
         this.initials = parts[0].substring(0, 1) + parts[1].substring(0, 1);
       }
       return (
-        <div
-          style={{
-            display: 'inline-block',
-            fontSize: vnode.attrs.size === 's' ? '1rem' : '1.75rem',
-            width: vnode.attrs.size === 's' ? '2.3rem' : '3.85rem',
-            height: vnode.attrs.size === 's' ? '2.25rem' : '3.75rem',
-            lineHeight: vnode.attrs.size === 's' ? '2.55rem' : '4.2rem',
-            textAlign: 'center',
-            borderRadius: '50%',
-            background: 'grey',
-            verticalAlign: 'top',
-            color: 'white',
-            // visibility: (this.initials.length === 0 ? 'hidden' : 'visible')
-          }}
-        >
+        <div class={'profile-picture' + (vnode.attrs.size === 's' ? ' profile-picture--small' : '')}>
           <div>{this.initials}</div>
         </div>
       );

@@ -205,20 +205,18 @@ class ListIdentifiers {
               return (
                 <Card style={{ margin: '10px 5px 10px 5px', padding: '0' }}>
                   <div class="flex flex-justify-between">
-                    <div class="flex">
+                    <div class="flex flex-align-center">
                       <ProfilePicture identifier={aid} />
-                      <div class="font-weight--medium" style={{ marginLeft: '1rem', marginTop: '1.25rem' }}>
+                      <div class="font-weight--medium" style={{ margin: '0 1rem' }}>
                         {aid.name}
                       </div>
-                      <span
-                        className="material-icons-outlined md-24"
-                        style={{ cursor: 'pointer', marginBottom: '1.5rem', marginLeft: '1rem' }}
+                      <IconButton
+                        icon="edit"
+                        iconOutlined
                         onclick={() => {
                           this.editAliasOpen = true;
                         }}
-                      >
-                        edit
-                      </span>
+                      />
                     </div>
 
                     <span className="material-icons-outlined md-24" style={{ marginTop: '1rem' }}>
