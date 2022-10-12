@@ -2,7 +2,7 @@ import m from 'mithril';
 
 import { Nav, ToastOutlet, Footer } from './components';
 import { Profile as ProfileSvc, Mail, Notify } from './services';
-import {Tasks} from './services/tasks';
+import { Tasks } from './services/tasks';
 import { Contacts, Dashboard, Error, Profile, Settings, Credentials } from './views';
 
 import tasks from '../../tasks';
@@ -11,17 +11,22 @@ import '../scss/defaults.scss';
 import '../scss/typography.scss';
 import '../scss/globals.scss';
 
+import '@fontsource/material-icons';
+import '@fontsource/material-icons-outlined';
+
 Tasks.impl = tasks[process.env.USER_TYPE];
 
-ProfileSvc.check().then(r => {
-  Notify.requestList();
-  Mail.initEventSource();
-}, () => {
-
-  if(m.route.get() !== "/dashboard") {
-    m.route.set("/dashboard")
+ProfileSvc.check().then(
+  (r) => {
+    Notify.requestList();
+    Mail.initEventSource();
+  },
+  () => {
+    if (m.route.get() !== '/dashboard') {
+      m.route.set('/dashboard');
+    }
   }
-});
+);
 
 let root = document.body;
 
