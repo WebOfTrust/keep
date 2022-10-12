@@ -244,7 +244,7 @@ class CreatePasscode {
               <Button
                 id="initialize"
                 raised
-                label="Login"
+                label="Continue"
                 disabled={!this.enterPasscode || this.submitting}
                 onclick={() => {
                   this.initializeAgent(vnode);
