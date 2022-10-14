@@ -447,7 +447,7 @@ class AcceptingIntroductionsPanel {
     return (
       <>
         <img class="task-img task-img--small" src={projectPlanning} alt="" />
-        <h4>Accep Out Of Band Introductions</h4>
+        <h4>Accept Out Of Band Introductions</h4>
         <p class="font-size--12 font-color--battleship">
           For each of the N people in your multisig group, create an alias for them and verify their OOBI URL copied
           from the video call chat using the right panel.
