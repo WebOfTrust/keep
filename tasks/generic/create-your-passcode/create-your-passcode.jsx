@@ -98,7 +98,7 @@ class CreatePasscode {
       <>
         {vnode.attrs.parent.currentState === 'welcome' && (
           <>
-            <h3 id="welcome">Welcome to KEEP</h3>
+            <h3 id="welcome">Welcome to Keep</h3>
             <img class="task-img task-img--center" src={createYourPasscode} />
             <p class="p-tag">To get started, you will need to generate a passcode.</p>
             <p class="p-tag">

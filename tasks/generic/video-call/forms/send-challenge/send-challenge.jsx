@@ -64,7 +64,7 @@ class SendChallengeForm {
             width: '512px',
           }}
         >
-          <h3>Paste the Challenge Message in the Video Call</h3>
+          <h3>Click the challenge message below to copy</h3>
           <div
             class="copy-value margin-bottom-1"
             onclick={() => {

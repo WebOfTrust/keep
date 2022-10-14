@@ -43,7 +43,7 @@ const MainLayout = {
   },
 };
 
-const documentTitle = 'KEEP';
+const documentTitle = 'Keep';
 m.route(root, '/dashboard', {
   '/dashboard': {
     oninit: () => {

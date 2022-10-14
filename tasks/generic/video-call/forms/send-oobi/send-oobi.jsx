@@ -63,7 +63,7 @@ class SendOOBIForm {
             width: '512px',
           }}
         >
-          <h3>Paste the URL below into the Video Call Chat</h3>
+          <h3>Click the URL below to copy</h3>
           <div
             class="copy-value margin-bottom-1"
             onclick={() => {
@@ -78,7 +78,7 @@ class SendOOBIForm {
               <p class="copied-label">
                 URL copied to clipboard.
                 <br />
-                Paste this into the video call chat!
+                <b>Paste this into the video call chat!</b>
               </p>
             </div>
           )}

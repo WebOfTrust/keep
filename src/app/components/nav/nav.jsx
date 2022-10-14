@@ -27,7 +27,7 @@ class Nav {
             <div class="nav__logo">
               <m.route.Link href="/" class="nav__logo__link">
                 <img src={gleifLogo} />
-                <h1>KEEP</h1>
+                <h1>Keep</h1>
               </m.route.Link>
             </div>
             <div class="nav__spacer"></div>
