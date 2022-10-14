@@ -92,7 +92,7 @@ class EnterPasscode {
             <Button
               id="login"
               raised
-              label="Login"
+              label="Unlock"
               disabled={!this.passcode || this.submitting}
               onclick={() => {
                 this.login(vnode);

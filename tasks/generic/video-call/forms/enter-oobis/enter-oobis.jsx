@@ -1,11 +1,12 @@
 import m, { vnode } from 'mithril';
 import { Button, Card, CarouselControls, TextField } from '../../../../../src/app/components';
-import { KERI } from '../../../../../src/app/services';
+import { KERI, Profile } from '../../../../../src/app/services';
 
 class EnterOOBIsForm {
   constructor(vnode) {
     this.complete = false;
     this.selectedOobiIndex = 0;
+    this.selfOOBI = false;
   }
 
   resolveOOBIPromise(oobi) {
@@ -13,7 +14,7 @@ class EnterOOBIsForm {
   }
 
   canVerify(vnode) {
-    if (!vnode.attrs.aid) {
+    if (!vnode.attrs.aid && vnode.attrs.participants.oobis[this.selectedOobiIndex].alias && !this.selfOOBI) {
       return true;
     }
 
@@ -40,6 +41,14 @@ class EnterOOBIsForm {
       .catch((err) => {
         console.log('resolveAllOOBIs', err);
       });
+  }
+
+  validateOOBI(aid) {
+    this.selfOOBI = Profile.getDefaultAID().prefix === aid;
+    if (this.selfOOBI) {
+      return "You cannot use your own OOBI";
+    }
+    return aid;
   }
 
   ensureOOBIsResolved(oobis) {
@@ -92,7 +101,9 @@ class EnterOOBIsForm {
             <>
               <p class="font-color--battleship font-size--12 font-weight--bold">OOBI AID:</p>
               <p class="mono-aid text--underline">
-                {KERI.parseAIDFromUrl(vnode.attrs.participants.oobis[this.selectedOobiIndex].url)}
+                {this.validateOOBI(
+                    KERI.parseAIDFromUrl(vnode.attrs.participants.oobis[this.selectedOobiIndex].url)
+                )}
               </p>
             </>
           )}

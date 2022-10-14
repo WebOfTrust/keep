@@ -1,9 +1,10 @@
 import m from 'mithril';
 import { Button, Card, CarouselControls, Checkbox, TextField } from '../../../../../src/app/components';
-import { KERI, Profile } from '../../../../../src/app/services';
+import {KERI, Participants, Profile} from '../../../../../src/app/services';
 
 class EnterChallengesForm {
   constructor(vnode) {
+    this.validChallenge = true;
     this.selectedOobiIndex = 0;
     this.alias = Profile.getDefaultAID(vnode.attrs.aidToSend).name;
     this.aliases = vnode.attrs.participants.oobis.map((oobi) => {
@@ -15,8 +16,16 @@ class EnterChallengesForm {
     return KERI.signChallengeMessage(this.alias, signer.id, signer.challengeMessage.trim().split(' '));
   }
 
+  validateChallenge(c) {
+    if (c === '') {
+      return true;
+    }
+    this.validChallenge = (c !== Participants.instance.words.join(' '));
+  }
+
   view(vnode) {
     const signer = vnode.attrs.participants.oobis[this.selectedOobiIndex];
+    this.myChallenge = signer.challengeMessage;
     return (
       <>
         <h4>Receive Challenge Messages</h4>
@@ -37,17 +46,26 @@ class EnterChallengesForm {
                 fluid
                 textarea
                 style={{ backgroundColor: 'rgba(0, 0, 0, 0.04)' }}
-                value={signer.challengeMessage}
+                value={this.myChallenge}
                 oninput={(e) => {
-                  signer.challengeMessage = e.target.value;
+                  this.myChallenge = e.target.value;
+                  this.validateChallenge(this.myChallenge);
                 }}
               />
+            </div>
+            <div style={{ marginTop: '1.5rem' }}>
+              {!this.validChallenge && (
+                  <>
+                    You cannot use your own challenge message
+                  </>
+              )}
             </div>
             {!signer.sent ? (
               <div class="flex flex-justify-end" style={{ marginTop: '1rem' }}>
                 <Button
                   outlined
                   label="Send"
+                  disabled={!this.validChallenge}
                   onclick={() => {
                     this.signChallengePromise(signer)
                       .then(() => {
