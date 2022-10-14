@@ -33,7 +33,7 @@ class NavRail {
               m.route.set('/credentials');
             }}
           >
-            <i class="material-icons md-40">lock</i>
+            <i class="material-icons md-40">badge</i>
             {/* <div class="nav-rail-item-text">My Credentials</div> */}
           </div>
         </div>
