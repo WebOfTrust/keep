@@ -45,7 +45,7 @@ class EnterChallengesForm {
                 fluid
                 textarea
                 style={{ backgroundColor: 'rgba(0, 0, 0, 0.04)' }}
-                value={this.myChallenge}
+                value={signer.challengeMessage}
                 oninput={(e) => {
                   signer.challengeMessage = e.target.value;
                   this.validateChallenge(signer.challengeMessage);
