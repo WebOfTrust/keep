@@ -17,7 +17,6 @@ class EnterChallengesForm {
   }
 
   validateChallenge(c) {
-    console.log("validate *", c, "*")
     if (c === '') {
       return true;
     }
