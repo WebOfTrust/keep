@@ -137,13 +137,13 @@ class TextField {
                 maxlength={this.options.maxlength}
                 disabled={this.options.disabled || !this.options.editable}
                 placeholder={this.options.placeholder}
+                value={this.options.value}
                 oninput={(e) => {
                   if (this.options.oninput) {
                     this.options.oninput(e);
                   }
                 }}
               >
-                {this.options.value}
               </textarea>
             </span>
           ) : (
