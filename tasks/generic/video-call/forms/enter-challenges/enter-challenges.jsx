@@ -17,6 +17,7 @@ class EnterChallengesForm {
   }
 
   validateChallenge(c) {
+    console.log("validate *", c, "*")
     if (c === '') {
       return true;
     }
@@ -25,7 +26,6 @@ class EnterChallengesForm {
 
   view(vnode) {
     const signer = vnode.attrs.participants.oobis[this.selectedOobiIndex];
-    this.myChallenge = signer.challengeMessage;
     return (
       <>
         <h4>Receive Challenge Messages</h4>
@@ -48,8 +48,8 @@ class EnterChallengesForm {
                 style={{ backgroundColor: 'rgba(0, 0, 0, 0.04)' }}
                 value={this.myChallenge}
                 oninput={(e) => {
-                  this.myChallenge = e.target.value;
-                  this.validateChallenge(this.myChallenge);
+                  signer.challengeMessage = e.target.value;
+                  this.validateChallenge(signer.challengeMessage);
                 }}
               />
             </div>
