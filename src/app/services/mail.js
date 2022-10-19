@@ -1,6 +1,5 @@
 import m from 'mithril';
 import Notify from './notify';
-import Participants from './oobis';
 import KERI from './keri';
 import Profile from './profile';
 import Registry from './registry';
@@ -18,24 +17,6 @@ class Mail {
     });
   };
 
-  static challengeHandler = (e) => {
-    let data = JSON.parse(e.data);
-    let aid = Profile.getDefaultAID();
-    let participantInstances = [Participants.instance];
-    participantInstances.forEach((instance) => {
-      const oobi = instance.oobis.find((oobi) => {
-        return data.a.signer === oobi.id;
-      });
-      if (oobi !== undefined) {
-        if (data.a.words.length === instance.words.length && data.a.words.every((v, i) => v === instance.words[i])) {
-          oobi.verified = true;
-          KERI.acceptChallengeMessage(aid.name, { aid: data.a.signer, said: data.a.said });
-          m.redraw();
-        }
-      }
-    });
-  };
-
   static multisigInceptHandler = () => {
     Profile.loadIdentifiers().then(() => {
       let aid = Profile.getDefaultAID();
@@ -50,13 +31,11 @@ class Mail {
     }
     this.source = new EventSource(`${KERI.keriURL}/mbx?`);
     this.source.addEventListener('/notification', this.notificationHandler, false);
-    this.source.addEventListener('/challenge', this.challengeHandler, false);
     this.source.addEventListener('/multisig/icp/complete', this.multisigInceptHandler, false);
   };
 
   static closeEventSource = () => {
     this.source.removeEventListener('/notification', this.notificationHandler, false);
-    this.source.removeEventListener('/challenge', this.challengeHandler, false);
     this.source.removeEventListener('/multisig/icp/complete', this.multisigInceptHandler, false);
     this.source.close();
     this.source = null;

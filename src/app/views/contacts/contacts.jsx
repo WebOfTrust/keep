@@ -29,7 +29,7 @@ class Contacts {
     this.activeContact = null;
     this.addFieldOpen = false;
     this.editDetailsOpen = false;
-    this.defaultKeys = ['id', 'alias', 'first_name', 'last_name', 'email', 'phone', 'organization', 'verified', 'oobi'];
+    this.defaultKeys = ['id', 'alias', 'first_name', 'last_name', 'email', 'phone', 'organization', 'verified', 'oobi', "challenges", "wellKnowns"];
   }
 
   oninit() {
