@@ -46,15 +46,15 @@ class MultiSig {
 
   static set rotation(value) {
     this._rotation = value;
-    console.log(this._rotation)
+    console.log(this._rotation);
     this.fractionallyWeighted = Array.isArray(this._rotation.isith);
   }
 
   static updateParticipantLength(num) {
-    if(num < this._participants.length) {
-      this._participants.length = num
+    if (num < this._participants.length) {
+      this._participants.length = num;
     } else if (num > this._participants.length) {
-      let toAdd = num - this._participants.length
+      let toAdd = num - this._participants.length;
       for (let i = 0; i < toAdd; i++) {
         this._participants.push({
           id: '',
@@ -67,18 +67,18 @@ class MultiSig {
   }
 
   static validThreshold(s) {
-    if (s === "") {
+    if (s === '') {
       return false;
     }
 
-    let t = Number(s)
+    let t = Number(s);
     if (!isNaN(t)) {
-      return true
+      return true;
     }
 
-    let p = s.split('/')
+    let p = s.split('/');
     if (p.length !== 2) {
-      return false
+      return false;
     }
 
     let num = Number(p[0]);
@@ -86,8 +86,6 @@ class MultiSig {
 
     return !isNaN(num) && !isNaN(dem) && 0 < num < dem && dem > 0;
   }
-
-
 }
 
 module.exports = MultiSig;

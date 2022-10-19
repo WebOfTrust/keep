@@ -1,5 +1,5 @@
 import Contacts from './contacts';
-import Delegation from './delegate'
+import Delegation from './delegate';
 import KERI from './keri';
 import Mail from './mail';
 import MultiSig from './multisig';

@@ -1,8 +1,7 @@
 class Delegation {
   static _aids = [];
-  static _ked = []
+  static _ked = [];
   static _delegator = '';
-
 
   static get aids() {
     return this._aids;
@@ -16,7 +15,6 @@ class Delegation {
     return this._delegator;
   }
 
-
   static set aids(value) {
     this._aids = value;
   }
@@ -28,7 +26,6 @@ class Delegation {
   static set delegator(value) {
     this._delegator = value;
   }
-
 }
 
 module.exports = Delegation;
