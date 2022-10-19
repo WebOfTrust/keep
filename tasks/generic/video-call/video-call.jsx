@@ -120,62 +120,14 @@ class VideoCall {
                 raised
                 label="No"
                 onclick={() => {
-                  vnode.attrs.parent.currentState = 'skip-identity-authentication';
-                }}
-              />
-              <Button
-                raised
-                label="Yes"
-                onclick={() => {
-                  vnode.attrs.parent.currentState = 'perform-identity-authentication';
-                }}
-              />
-            </div>
-          </>
-        )}
-        {vnode.attrs.parent.currentState === 'skip-identity-authentication' && (
-          <>
-            <img class="task-img task-img--small" src={toDoList} />
-            <h4>{vnode.attrs.parent.variables.skipTitle}</h4>
-            <p class="font-color--battleship">{vnode.attrs.parent.variables.skipIntro}</p>
-            <div class="task-actions">
-              <Button
-                raised
-                class="button--secondary margin-right-1"
-                label="Go Back"
-                onclick={() => {
-                  vnode.attrs.parent.currentState = 'skip';
-                }}
-              />
-              <Button
-                raised
-                label="Continue"
-                onclick={() => {
                   Participants.instance.oobis = [];
                   Tasks.active = vnode.attrs.parent.next;
                   vnode.attrs.parent.reset();
                 }}
               />
-            </div>
-          </>
-        )}
-        {vnode.attrs.parent.currentState === 'perform-identity-authentication' && (
-          <>
-            <img class="task-img task-img--small" src={addNewContacts} />
-            <h4>{vnode.attrs.parent.variables.performTitle}</h4>
-            <p class="font-color--battleship">{vnode.attrs.parent.variables.performIntro}</p>
-            <div class="task-actions">
               <Button
                 raised
-                class="button--secondary margin-right-1"
-                label="Go Back"
-                onclick={() => {
-                  vnode.attrs.parent.currentState = 'skip';
-                }}
-              />
-              <Button
-                raised
-                label="Continue"
+                label="Yes"
                 onclick={() => {
                   vnode.attrs.parent.currentState = 'intro';
                 }}
@@ -480,6 +432,52 @@ class CopyChallengePanel {
 }
 
 class ReceiveChallengePanel {
+  constructor(vnode) {
+    this.alias = Profile.getDefaultAID(vnode.attrs.aidToSend).name;
+    this.words = vnode.attrs.parent.participants.words;
+    this.aliases = vnode.attrs.parent.participants.oobis.map((oobi) => {
+      return oobi.alias;
+    });
+    this.ensureWordsSigned(vnode.attrs.parent.participants.oobis).then(() => {
+      console.log("all signed")
+    })
+  }
+
+  ensureWordsSigned(oobis) {
+    let task = this;
+    return new Promise(function (resolve, reject) {
+      setTimeout(function waitForWords() {
+        KERI.getContactsByAliases(task.aliases)
+          .then((contacts) => {
+            let done = oobis.every((oobi) => {
+              return contacts.some((contact) => {
+                let said = ""
+                if (contact.alias === oobi.alias && contact.challenges.some((cha) => {
+                  if(KERI.arrayEquals(cha.words, task.words)) {
+                    said = cha.said
+                    return true;
+                  }
+                  return false;
+                })) {
+                  oobi.verified = true;
+                  KERI.acceptChallengeMessage(task.alias, { aid: contact.id, said: said });
+                  m.redraw();
+                  return true
+                }
+                return false
+              });
+            });
+            if (done) return resolve();
+            setTimeout(waitForWords, 2000);
+          })
+          .catch((err) => {
+            reject();
+            console.log('getContacts', err);
+          });
+      }, 2000);
+    });
+  }
+
   view(vnode) {
     return (
       <>
