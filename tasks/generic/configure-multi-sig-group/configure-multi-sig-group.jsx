@@ -563,14 +563,14 @@ class ConfigureMultiSigGroup {
               <label class="task-form-label">Witness Pool:</label>
               <div class="uneditable-value">{Witnesses.witnessPools.find((p) => p.value === this.pool)?.label}</div>
             </div>
-            {/* {!MultiSig.fractionallyWeighted && ( */}
+             {!MultiSig.fractionallyWeighted && (
             <div class="task-form-group task-form-group--between">
               <label class="task-form-label">Number of Required Signers:</label>
               <div class="uneditable-value" style={{ width: '75px' }}>
                 {this.numSigners}
               </div>
             </div>
-            {/* )} */}
+             )}
             <p class="p-tag">Review signers to make sure the list is complete.</p>
             <label class="task-form-label">Signers (in order):</label>
             <div class="flex flex-align-center flex-justify-between margin-v-1">
