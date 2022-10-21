@@ -19,7 +19,7 @@ Tasks.impl = tasks[process.env.USER_TYPE];
 ProfileSvc.check().then(
   (r) => {
     Notify.requestList();
-    Mail.initEventSource();
+    Mail.launchEventSource();
   },
   () => {
     if (m.route.get() !== '/dashboard') {
