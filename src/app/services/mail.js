@@ -25,6 +25,18 @@ class Mail {
     });
   };
 
+  static launchEventSource = () => {
+    let mail = this;
+    setTimeout(function restartEventSource() {
+      if (mail.source !== null) {
+        mail.closeEventSource();
+      }
+      mail.initEventSource();
+
+      setTimeout(restartEventSource, 10000);
+    }, 100)
+  }
+
   static initEventSource = () => {
     if (this.source) {
       return;
@@ -47,10 +59,6 @@ class Mail {
 
   static set port(port) {
     this._port = port;
-    if (this.source) {
-      this.closeEventSource();
-      this.initEventSource();
-    }
   }
 }
 

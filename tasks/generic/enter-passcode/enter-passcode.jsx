@@ -50,7 +50,7 @@ class EnterPasscode {
     Profile.login(this.passcode)
       .then(() => {
         Notify.requestList();
-        Mail.initEventSource();
+        Mail.launchEventSource();
         vnode.attrs.end();
       })
       .catch(() => {
