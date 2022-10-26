@@ -8,7 +8,9 @@ class Footer {
   view(vnode) {
     return (
       <div class="footer">
-        <span class="footer-build">The Keep for {Profile.title()}, v0.1.1. Built on 06/21/2022</span>
+        <span class="footer-build">
+          The Keep for {Profile.title()}, v{process.env.BUILD_VERSION}. Built on {process.env.BUILD_DATE}
+        </span>
       </div>
     );
   }
