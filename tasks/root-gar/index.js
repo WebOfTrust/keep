@@ -93,11 +93,14 @@ const tasks = {
         delegatable: false, DnD: false,
         establishable: false, estOnly: true,
       }),
-      initialParticipants: 6,
+      initialParticipants : 1,
       canAddParticipants: false,
       variables: variables.createGLEIFRoot,
     }),
     new ManualKeyRotationTask({ label: 'Perform Manual Key Rotation' }),
+    new SpotCheckTask({
+      label: 'Perform Identity Authentication'
+    })
   ],
   'join-multisig': [new JoinMultiSigGroupTask({ label: 'Join Multi-Sig Group' })],
   'join-multisig-rotation': [new JoinManualKeyRotation({ label: 'Join Multi-Sig Group' })],

@@ -439,7 +439,7 @@ class ReceiveChallengePanel {
       return oobi.alias;
     });
     this.ensureWordsSigned(vnode.attrs.parent.participants.oobis).then(() => {
-      console.log("all signed")
+      console.log("all signed");
     })
   }
 
@@ -462,9 +462,9 @@ class ReceiveChallengePanel {
                   oobi.verified = true;
                   KERI.acceptChallengeMessage(task.alias, { aid: contact.id, said: said });
                   m.redraw();
-                  return true
+                  return true;
                 }
-                return false
+                return false;
               });
             });
             if (done) return resolve();
