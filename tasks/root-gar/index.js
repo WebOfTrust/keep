@@ -98,9 +98,6 @@ const tasks = {
       variables: variables.createGLEIFRoot,
     }),
     new ManualKeyRotationTask({ label: 'Perform Manual Key Rotation' }),
-    new SpotCheckTask({
-      label: 'Perform Identity Authentication'
-    })
   ],
   'join-multisig': [new JoinMultiSigGroupTask({ label: 'Join Multi-Sig Group' })],
   'join-multisig-rotation': [new JoinManualKeyRotation({ label: 'Join Multi-Sig Group' })],
