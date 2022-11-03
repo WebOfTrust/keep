@@ -1,6 +1,6 @@
 import m from 'mithril';
 import { Checkbox } from '../../../components';
-import { Notify, Delegation, MultiSig } from '../../../services';
+import { Notify, Delegation, MultiSig, Profile } from '../../../services';
 import { Tasks } from '../../../services/tasks';
 
 class Notifications {
