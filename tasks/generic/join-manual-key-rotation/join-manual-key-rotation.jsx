@@ -1,3 +1,4 @@
+import m from 'mithril';
 import approveRequest from '../../../src/assets/img/approve-request.svg';
 import { AID, Button } from '../../../src/app/components';
 import { Contacts, KERI, MultiSig, Profile, Tasks, Witnesses } from '../../../src/app/services';
