@@ -11,7 +11,10 @@ class AID {
     this.type = 'Local Identifier';
     this.authenticated = false;
     this.iconClass = 'aid__icon';
-    this.oobiURL = vnode.attrs.contact.oobi;
+    this.oobiURL = '';
+    if (Object.hasOwn(vnode.attrs, 'contact') && Object.hasOwn(vnode.attrs.contact, 'oobi')) {
+      this.oobiURL = vnode.attrs.contact.oobi;
+    }
     this.showPopover = false;
     this.aidCopied = false;
     this.urlCopied = false;
@@ -128,18 +131,20 @@ class AID {
                 }}
               />
             </div>
-            <div class="aid__popover__field">
-              <p class="aid__popover__label">URL:</p>
-              <code class="aid__popover__value" title={this.oobiURL}>
-                {this.oobiURL}
-              </code>
-              <IconButton
-                icon="content_copy"
-                onclick={() => {
-                  this.copyURL();
-                }}
-              />
-            </div>
+            { this.oobiURL !== '' && (
+                <div className="aid__popover__field">
+                  <p className="aid__popover__label">OOBI:</p>
+                  <code className="aid__popover__value" title={this.oobiURL}>
+                    {this.oobiURL}
+                  </code>
+                  <IconButton
+                      icon="content_copy"
+                      onclick={() => {
+                        this.copyURL();
+                      }}
+                  />
+                </div>
+            )}
             <div class="aid__popover__footer">
               <p class="aid__popover__footer__copied">
                 {this.aidCopied && 'AID copied!'}
