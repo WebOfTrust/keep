@@ -11,9 +11,7 @@ class AID {
     this.type = 'Local Identifier';
     this.authenticated = false;
     this.iconClass = 'aid__icon';
-    // TODO: We'll need to replace this with the actual oobi url when it is serialized on identifiers/contacts
-    this.oobiURL =
-      'http://127.0.0.1:5642/oobi/ENF33M-BiTJUMGVOX2pvYi2GlEYuUFjvYnHjL2oxFksP/witness/BBilc4-L3tFUnfM_wJr4S4OJanAv_VmF_dJNN6vkf2Ha';
+    this.oobiURL = vnode.attrs.contact.oobi;
     this.showPopover = false;
     this.aidCopied = false;
     this.urlCopied = false;
