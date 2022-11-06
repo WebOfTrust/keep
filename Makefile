@@ -10,10 +10,10 @@ ifdef debug
 else
 	echo "false" > app/debug.json;
 endif
-	python bump_build.py .env.root-gar $(VER)
+	python bump_build.py .env.root-gar-local $(VER)
 	yarn
 	yarn package:root-gar
-	python convert_env.py .env.root-gar > app/config.json
+	python convert_env.py .env.root-gar-local > app/config.json
 	cd $(DIR)/app; \
 	npx json -I -f package.json -e "this.sha=\"$(VER)\""; \
 	yarn;
