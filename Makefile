@@ -1,7 +1,8 @@
 DIR = $(shell pwd)
-
+VER = $(shell git rev-parse --short HEAD)
 clean:
 	rm -rf .cache/ .parcel-cache/ node_modules/ .webcache/ app/static app/dist
+
 
 root-gar: clean
 ifdef debug
@@ -9,10 +10,12 @@ ifdef debug
 else
 	echo "false" > app/debug.json;
 endif
+	python bump_build.py .env.root-gar $(VER)
 	yarn
 	yarn package:root-gar
 	python convert_env.py .env.root-gar > app/config.json
 	cd $(DIR)/app; \
+	npx json -I -f package.json -e "this.sha=\"$(VER)\""; \
 	yarn;
 
 run-root-gar: root-gar

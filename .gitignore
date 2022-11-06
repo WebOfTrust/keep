@@ -105,4 +105,5 @@ __pycache__
 .webcache
 code.txt
 scripts
-.vscode 
+.vscode
+venv
