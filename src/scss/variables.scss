@@ -29,17 +29,12 @@ $yellow: #fcc419;
 
 $background: #fefdff;
 
-$cyprus: #123235;
-$turquoise: #4d969b;
-$turquoise-light: #bcebe2;
-$hover-turquoise: rgba($turquoise-light, 0.29);
-
-$primary: $cyprus;
+$primary: $french-blue;
 $on-primary: white;
-$primary-006: $hover-turquoise;
-$primary-active: $hover-turquoise;
+$primary-006: rgba($primary, 0.06);
+$primary-active: #f1f8ff;
 
-$secondary: #51dac5;
-$on-secondary: $cyprus;
+$secondary: $battleship-grey;
+$on-secondary: white;
 
 $info-blue: #4ea2f8;

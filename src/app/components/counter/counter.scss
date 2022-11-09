@@ -7,11 +7,11 @@
 
   &-value {
     @include medium;
-    color: $cyprus;
+    color: $primary;
     margin: 0 1rem;
 
     &--disabled {
-      color: rgba($cyprus, 0.38);
+      color: rgba($primary, 0.38);
     }
   }
 }
