@@ -2,7 +2,7 @@
 @import '../../../scss/variables';
 
 .progress {
-  background-color: $turquoise-light;
+  background-color: $gray;
   border-radius: 10px;
   height: 16px;
   position: relative;
@@ -32,11 +32,11 @@
     left: 0;
 
     &--end {
-      background-color: $turquoise-light;
+      background-color: $gray;
       left: calc(100% - 12px);
 
       .progress-circle-text {
-        color: $battleship-grey;
+        color: $charcoal-grey;
       }
     }
 

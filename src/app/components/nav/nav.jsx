@@ -4,7 +4,7 @@ import Container from '../container/container.jsx';
 import IconButton from '../icon-button/icon-button.jsx';
 import ProfilePicture from '../profile/picture.jsx';
 
-import gleifLogo from '../../../assets/img/logo/gleif.svg';
+import keepLogo from '../../../assets/img/logo/keep.png';
 import './nav.scss';
 
 class Nav {
@@ -26,8 +26,7 @@ class Nav {
           <div class="nav__content">
             <div class="nav__logo">
               <m.route.Link href="/" class="nav__logo__link">
-                <img src={gleifLogo} />
-                <h1>Keep</h1>
+                <img src={keepLogo} />
               </m.route.Link>
             </div>
             <div class="nav__spacer"></div>

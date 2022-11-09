@@ -80,7 +80,7 @@ a:link {
 
     &-label {
       @include semi-bold;
-      color: $cyprus;
+      color: $charcoal-grey;
       display: block;
       font-size: 14px;
       margin-bottom: 0.5rem;
@@ -106,7 +106,7 @@ a:link {
 
       &-label {
         @include bold;
-        color: $cyprus;
+        color: $charcoal-grey;
         cursor: pointer;
         display: block;
       }
@@ -154,7 +154,7 @@ a:link {
 
     &::before {
       @include semi-bold;
-      background-color: $hover-turquoise;
+      background-color: $primary-active;
       border-radius: 50%;
       content: counter(li);
       font-size: 16px;

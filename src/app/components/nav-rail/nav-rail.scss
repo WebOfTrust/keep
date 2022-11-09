@@ -9,7 +9,7 @@
   &-item {
     align-items: center;
     border-radius: 4px;
-    color: $cyprus;
+    color: $battleship-grey;
     display: flex;
     height: 96px;
     flex-direction: column;
@@ -30,7 +30,7 @@
 
     &--selected {
       background-color: $primary-active;
-      color: $turquoise;
+      color: $primary;
     }
   }
 }

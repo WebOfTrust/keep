@@ -1,9 +1,9 @@
 // Theme
 @use '@material/theme/index' with (
   $primary: $primary,
-  $secondary: $secondary,
+  $secondary: $primary,
   $on-primary: $on-primary,
-  $on-secondary: $on-secondary
+  $on-secondary: $on-primary
 );
 
 @use '@material/typography/index' as typography with (
