@@ -50,7 +50,7 @@ class SignXBRLReportTask {
 
 class SignXBRLReport {
   constructor() {
-    this.schema = {};
+    this.schema = new Map();
     this.credentials = {};
     this.credential = null;
     this.vira = null;
