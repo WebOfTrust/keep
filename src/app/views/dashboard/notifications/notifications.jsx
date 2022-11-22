@@ -89,15 +89,12 @@ class Notifications {
     }
 
     // Credential
-    if (notification.type === 'credential') {
-      let rType = notification.data.r;
-      if (rType === '/credential/issue') {
-        meta.title = `Credential Received`;
-        meta.clickHandler = this.credentialReceivedClick;
-      } else if (rType === '/iss/complete') {
-        meta.title = 'Credential Issuance Complete';
-        meta.clickHandler = this.issueCompleteClick;
-      }
+    if (rType === '/credential/issue') {
+      meta.title = `Credential Received`;
+      meta.clickHandler = this.credentialReceivedClick;
+    } else if (rType === '/iss/complete') {
+      meta.title = 'Credential Issuance Complete';
+      meta.clickHandler = this.issueCompleteClick;
     }
 
     // Contacts
@@ -121,7 +118,7 @@ class Notifications {
   view() {
     return (
       <>
-        <div class="flex flex-row flex-align-left flex-justify-between">
+        <div class="flex flex-row flex-align-left flex-justify-between" style={{ paddingTop: '2rem ' }}>
           <h3>Notifications</h3>
           {this.selectedNotifications() && (
             <a
