@@ -10,6 +10,7 @@
   "license": "Apache-2.0",
   "scripts": {
     "package:root-gar": "NODE_ENV=root-gar-local parcel build src/index.html --public-url ./ --cache-dir ward/.parcel-cache-dev --dist-dir app/static",
+    "package:person": "NODE_ENV=person parcel build src/index.html --public-url ./ --cache-dir ward/.parcel-cache-dev --dist-dir app/static",
     "package:root-gar-zero": "NODE_ENV=root-gar-local-zero parcel build src/index.html --public-url ./ --cache-dir ward/.parcel-cache-dev --dist-dir app/static",
     "package:root-gar-one": "NODE_ENV=root-gar-local-one parcel build src/index.html --public-url ./ --cache-dir ward/.parcel-cache-dev --dist-dir app/static",
     "package:root-gar-two": "NODE_ENV=root-gar-local-two parcel build src/index.html --public-url ./ --cache-dir ward/.parcel-cache-dev --dist-dir app/static",

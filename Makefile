@@ -28,6 +28,25 @@ pkg-mac-root-gar: root-gar
 	yarn; \
 	APP_ID=$(APP_ID) APPLE_ID=$(APPLE_ID) APPLE_ID_PASSWORD=$(APPLE_APP_PASSWORD) yarn dist;
 
+person: clean
+ifdef debug
+	echo "true" > app/debug.json;
+else
+	echo "false" > app/debug.json;
+endif
+	python bump_build.py .env.person $(VER)
+	yarn
+	yarn package:person
+	python convert_env.py .env.person > app/config.json
+	cd $(DIR)/app; \
+	npx json -I -f package.json -e "this.sha=\"$(VER)\""; \
+	yarn;
+
+pkg-mac-person: person
+	cd $(DIR)/app; \
+	yarn; \
+	APP_ID=$(APP_ID) APPLE_ID=$(APPLE_ID) APPLE_ID_PASSWORD=$(APPLE_APP_PASSWORD) yarn dist;
+
 root-gar-zero: clean
 ifdef debug
 	echo "true" > app/debug.json;
