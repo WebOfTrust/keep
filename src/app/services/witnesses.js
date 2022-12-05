@@ -35,13 +35,13 @@ class Witnesses {
       "BDkq35LUU63xnFmfhljYYRY0ymkCg7goyeCxN30tsvmS",
       "BLmvLSt1mDShWS67aJNP4gBVBhtOc3YEu8SytqVSsyfw",
       "BHxz8CDS_mNxAhAxQe1qxdEIzS625HoYgEMgqjZH_g2X",
-      "BICY3-X3S3iEsKH73Q1fF_w1JrXJ41V0c4Dn9aQjOSQ-",
+      "BGYJwPAzjyJgsipO7GY9ZsBTeoUJrdzjI2w_5N-Nl6gG",
       "BFl6k3UznzmEVuMpBOtUUiR2RO2NZkR3mKrZkNRaZedo"
     ],
     'gleif-pool-2': [
       "BNfDO63ZpGc3xiFb0-jIOUnbr_bA-ixMva5cZb3s4BHB",
       "BDwydI_FJJ-tvAtCl1tIu_VQqYTI3Q0JyHDhO1v2hZBt",
-      "BGYJwPAzjyJgsipO7GY9ZsBTeoUJrdzjI2w_5N-Nl6gG",
+      "BICY3-X3S3iEsKH73Q1fF_w1JrXJ41V0c4Dn9aQjOSQ-",
       "BM4Ef3zlUzIAIx-VC8mXziIbtj-ZltM8Aor6TZzmTldj",
       "BLo6wQR73-eH5v90at_Wt8Ep_0xfz05qBjM3_B1UtKbC"
     ],
