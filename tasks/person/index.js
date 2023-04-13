@@ -22,6 +22,7 @@ const tasks = {
             label: 'Accept Credential',
             oneToOne: true,
             acceptCredential: true,
+            nextOptional: false,
             variables: variables.acceptCredential,
             next: new AcceptCredentialsTask({ label: 'Accept Credential' }),
         }),

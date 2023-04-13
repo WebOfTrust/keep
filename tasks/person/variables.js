@@ -6,7 +6,16 @@ import verifyCredentials from '../../src/assets/img/verify-credentials.svg';
 const PersonVariables = {
   aidToSend: "single",
   acceptCredential: {
-    title: "Accept Credential",
+    shouldSkipTitle: 'Do you need to perform identity authentication with the Issuer of your credential?',
+    shouldSkipIntro:
+      'If you have not yet exchanged OOBIs with participants of the new Issuer AID, you must perform identity authentication to add them to your contact list.' +
+      '  Will you be need to perform identity authentication?',
+    skipTitle: 'Proceed to Accept Credential step',
+    skipIntro: 'You can now proceed to accepting the credential from existing authenticated contacts.',
+    performTitle: 'Proceed to OOBI Exchange',
+    performIntro:
+      'Proceed to exchange OOBIs with the participants of the Issuer AID. You will also be sending them a challenge message that they will send back to you.',
+    title: 'Accept Credential',
     steps: (
       <ol className="styled-ol margin-v-2">
         <li>Join a Video Call with members of Issuing AID.</li>
@@ -17,11 +26,11 @@ const PersonVariables = {
         <li>Wait for credential issuance.</li>
       </ol>
     ),
-    joinCallIntro: "In order to receive your credential, you will need to initiate an real-time Out of Band Interaction (OOBI) session in which you and the other users are present, You will accept all their OOBIs (URL + AID) on a Video Call so that you can receive the credential.",
-    joinCallSubIntro: "",
-    howManyParticipantsPrompt: "How many participants will be in the Delegated AID?"
+    joinCallIntro:
+      'In order to start accepting credentials, you will need to initiate an real-time Out of Band Interaction (OOBI) session in which you and the other users are present, You will accept all their OOBIs (URL + AID) on a Video Call so that you can accept the credential.',
+    joinCallSubIntro: '',
+    howManyParticipantsPrompt: 'How many participants are in the Issuer AID?',
   },
-
   createYourAid: {
     welcome: {
       title: (

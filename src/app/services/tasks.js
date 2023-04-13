@@ -1,10 +1,10 @@
-import Profile from './profile'
+import Profile from './profile';
 
 class DefaultMapTask {
   _all = [];
 
   constructor(tasks) {
-    this._all = tasks
+    this._all = tasks;
   }
 
   find(name) {
@@ -38,7 +38,6 @@ class DefaultMapTask {
       return this._all['main'];
     }
   }
-
 }
 
 class Tasks {
@@ -55,11 +54,11 @@ class Tasks {
   }
 
   static get all() {
-    return this._impl.all
+    return this._impl.all;
   }
 
   static get tasksList() {
-    return this._impl.tasksList
+    return this._impl.tasksList;
   }
 
   static get active() {
@@ -71,8 +70,8 @@ class Tasks {
   }
 
   static find(name) {
-    return this._impl.find(name)
+    return this._impl.find(name);
   }
 }
 
-module.exports = {Tasks, DefaultMapTask};
+module.exports = { Tasks, DefaultMapTask };

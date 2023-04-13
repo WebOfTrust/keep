@@ -9,7 +9,7 @@ class Footer {
     return (
       <div class="footer">
         <span class="footer-build">
-          The Keep for {Profile.title()}, v{process.env.BUILD_VERSION}. Built on {process.env.BUILD_DATE}
+          The Keep for {Profile.title()}, v{process.env.BUILD_VERSION} ({process.env.BUILD_SHA}).
         </span>
       </div>
     );

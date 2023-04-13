@@ -11,9 +11,10 @@ class AID {
     this.type = 'Local Identifier';
     this.authenticated = false;
     this.iconClass = 'aid__icon';
-    // TODO: We'll need to replace this with the actual oobi url when it is serialized on identifiers/contacts
-    this.oobiURL =
-      'http://127.0.0.1:5642/oobi/ENF33M-BiTJUMGVOX2pvYi2GlEYuUFjvYnHjL2oxFksP/witness/BBilc4-L3tFUnfM_wJr4S4OJanAv_VmF_dJNN6vkf2Ha';
+    this.oobiURL = '';
+    if (Object.hasOwn(vnode.attrs, 'contact') && Object.hasOwn(vnode.attrs.contact, 'oobi')) {
+      this.oobiURL = vnode.attrs.contact.oobi;
+    }
     this.showPopover = false;
     this.aidCopied = false;
     this.urlCopied = false;
@@ -130,18 +131,20 @@ class AID {
                 }}
               />
             </div>
-            <div class="aid__popover__field">
-              <p class="aid__popover__label">URL:</p>
-              <code class="aid__popover__value" title={this.oobiURL}>
-                {this.oobiURL}
-              </code>
-              <IconButton
-                icon="content_copy"
-                onclick={() => {
-                  this.copyURL();
-                }}
-              />
-            </div>
+            { this.oobiURL !== '' && (
+                <div className="aid__popover__field">
+                  <p className="aid__popover__label">OOBI:</p>
+                  <code className="aid__popover__value" title={this.oobiURL}>
+                    {this.oobiURL}
+                  </code>
+                  <IconButton
+                      icon="content_copy"
+                      onclick={() => {
+                        this.copyURL();
+                      }}
+                  />
+                </div>
+            )}
             <div class="aid__popover__footer">
               <p class="aid__popover__footer__copied">
                 {this.aidCopied && 'AID copied!'}

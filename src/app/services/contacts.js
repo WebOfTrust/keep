@@ -29,7 +29,7 @@ class Contacts {
   }
 
   static get selected() {
-    return this._selected
+    return this._selected;
   }
 
   static set selected(_selected) {

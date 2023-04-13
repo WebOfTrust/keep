@@ -73,7 +73,7 @@ class KERI {
         wits,
         toad,
         estOnly,
-        DnD
+        DnD,
       },
     });
   }
@@ -100,7 +100,7 @@ class KERI {
       url: `${this.keriURL}/ids/${alias}/rot`,
       body: {
         wits,
-        toad
+        toad,
       },
     });
   }
@@ -158,7 +158,7 @@ class KERI {
 
   static sendOOBIs(alias, oobis) {
     let body = oobis.map((oobi) => {
-      return oobi.url + "?name=" + oobi.alias;
+      return oobi.url + '?name=' + oobi.alias;
     });
     return m.request({
       method: 'POST',
@@ -194,7 +194,6 @@ class KERI {
     });
   }
 
-
   // NOTIFICATIONS
   static getNotifications() {
     return m.request({
@@ -211,11 +210,12 @@ class KERI {
   }
 
   static putNotification(rid) {
-    return m.request({
-      method: 'PUT',
-      url: `${this.keriURL}/notifications/${rid}`,
-    }).catch((e) => {
-    });
+    return m
+      .request({
+        method: 'PUT',
+        url: `${this.keriURL}/notifications/${rid}`,
+      })
+      .catch((e) => {});
   }
 
   // CONTACTS
@@ -280,9 +280,9 @@ class KERI {
 
   static getKeyStateForIdentifier(prefix) {
     return m.request({
-      method: "GET",
-      url: `${this.keriURL}/keystate/${prefix}`
-    })
+      method: 'GET',
+      url: `${this.keriURL}/keystate/${prefix}`,
+    });
   }
 
   static getEvent(prefix, said) {
@@ -321,7 +321,7 @@ class KERI {
         toad,
         wits,
         delpre,
-        estOnly
+        estOnly,
       },
     });
   }
@@ -337,7 +337,7 @@ class KERI {
         toad,
         wits,
         delpre,
-        estOnly
+        estOnly,
       },
     });
   }
@@ -468,10 +468,12 @@ class KERI {
 
   // UTILITIES
   static arrayEquals(ar1, ar2) {
-    return Array.isArray(ar1) &&
+    return (
+      Array.isArray(ar1) &&
       Array.isArray(ar2) &&
       ar1.length === ar2.length &&
-      ar1.every((val, index) => val === ar2[index]);
+      ar1.every((val, index) => val === ar2[index])
+    );
   }
 
   static recommendedThold(numWits) {
@@ -504,8 +506,6 @@ class KERI {
     }
     return null;
   }
-
-
 }
 
 module.exports = KERI;

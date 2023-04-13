@@ -11,7 +11,7 @@ class Participants {
   }
 
   get length() {
-    return this.oobis.length
+    return this.oobis.length;
   }
 
   updateWords(words) {

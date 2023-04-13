@@ -1,6 +1,6 @@
 {
   "name": "Keep",
-  "version": "1.0.2",
+  "version": "1.0.0",
   "description": "Electron based application for managing KERI AIDs in the vLEI Ecosystem",
   "author": {
     "name": "Kevin Griffin",
@@ -41,5 +41,6 @@
       "target": "msi",
       "icon": "assets/icon.png"
     }
-  }
+  },
+  "sha": "55b3cc3"
 }
