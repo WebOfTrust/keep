@@ -93,7 +93,7 @@ const tasks = {
         delegatable: false, DnD: false,
         establishable: false, estOnly: true,
       }),
-      initialParticipants: 6,
+      initialParticipants : 1,
       canAddParticipants: false,
       variables: variables.createGLEIFRoot,
     }),

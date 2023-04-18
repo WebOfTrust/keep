@@ -1,5 +1,5 @@
 import KERI from './keri';
-import Keep from "./keep";
+import Keep from './keep';
 
 class Profile {
   static _locked = true;
@@ -9,8 +9,7 @@ class Profile {
   static _singleSigs = [];
   static _multiSigs = [];
 
-  constructor() {
-  }
+  constructor() {}
 
   static setAgent(name) {
     sessionStorage.setItem('agent', name);
@@ -21,11 +20,11 @@ class Profile {
   }
 
   static get isLoggedIn() {
-    return !this._locked
+    return !this._locked;
   }
 
   static get locked() {
-    return this._locked
+    return this._locked;
   }
 
   static set locked(_locked) {
@@ -54,16 +53,19 @@ class Profile {
 
   static check() {
     return new Promise((resolve, reject) => {
-      Profile.loadIdentifiers().then(() => {
-        if (Profile.isLoggedIn) {
-          resolve()
-        } else {
-          reject()
+      Profile.loadIdentifiers().then(
+        () => {
+          if (Profile.isLoggedIn) {
+            resolve();
+          } else {
+            reject();
+          }
+        },
+        () => {
+          reject();
         }
-      }, () => {
-        reject();
-      })
-    })
+      );
+    });
   }
 
   static login(passcode) {
@@ -119,9 +121,9 @@ class Profile {
         .then(() => {
           Profile.loadIdentifiers()
             .then((ids) => {
-              let aid = ids.find(id => {
-                return id.name === alias
-              })
+              let aid = ids.find((id) => {
+                return id.name === alias;
+              });
               resolve(aid);
             })
             .catch((err) => {
@@ -152,19 +154,22 @@ class Profile {
           });
 
           Profile._locked = false;
-          Profile.created = true
-          resolve(identifiers)
+          Profile.created = true;
+          resolve(identifiers);
         })
         .catch(() => {
-          KERI.status(Keep.getName()).then(() => {
-            Profile.created = true;
-          }).catch(() => {
-            Profile.created = false
-          }).finally(() => {
-            Profile._locked = true;
-            Profile._identifiers = undefined;
-            reject(undefined)
-          })
+          KERI.status(Keep.getName())
+            .then(() => {
+              Profile.created = true;
+            })
+            .catch(() => {
+              Profile.created = false;
+            })
+            .finally(() => {
+              Profile._locked = true;
+              Profile._identifiers = undefined;
+              reject(undefined);
+            });
         });
     });
   }
@@ -176,16 +181,16 @@ class Profile {
       if (Profile._default !== undefined) {
         KERI.updateIdentifierMetadata(Profile._default.name, {
           default: 'false',
-        }).then(Profile.loadIdentifiers)
+        }).then(Profile.loadIdentifiers);
       } else {
-        return Profile.loadIdentifiers()
+        return Profile.loadIdentifiers();
       }
       this._default = aid;
     });
   }
 
   static getDefaultAID() {
-    return this._default
+    return this._default;
   }
 
   static title() {
@@ -210,7 +215,6 @@ class Profile {
         return '';
     }
   }
-
 }
 
 module.exports = Profile;

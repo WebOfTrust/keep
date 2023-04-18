@@ -21,7 +21,8 @@
           }
         ]
       ]
-    },    "root-gar-local": {
+    },
+    "root-gar-local": {
       "plugins": [
         [
           "@babel/plugin-transform-react-jsx",
@@ -32,7 +33,29 @@
         ]
       ]
     },
-    "root-gar-local": {
+    "root-gar-local-zero": {
+      "plugins": [
+        [
+          "@babel/plugin-transform-react-jsx",
+          {
+            "pragma": "m",
+            "pragmaFrag": "'['"
+          }
+        ]
+      ]
+    },
+    "root-gar-local-one": {
+      "plugins": [
+        [
+          "@babel/plugin-transform-react-jsx",
+          {
+            "pragma": "m",
+            "pragmaFrag": "'['"
+          }
+        ]
+      ]
+    },
+    "root-gar-local-two": {
       "plugins": [
         [
           "@babel/plugin-transform-react-jsx",

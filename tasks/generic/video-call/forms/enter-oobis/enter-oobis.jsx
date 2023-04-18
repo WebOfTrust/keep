@@ -14,11 +14,11 @@ class EnterOOBIsForm {
   }
 
   canVerify(vnode) {
-    if (!vnode.attrs.aid && vnode.attrs.participants.oobis[this.selectedOobiIndex].alias && !this.selfOOBI) {
-      return true;
-    }
+    let all = vnode.attrs.participants.oobis.every((oobi) => {
+      return oobi.alias !== '' && oobi.url !== '';
+    });
 
-    return vnode.attrs.aid === KERI.parseAIDFromUrl(vnode.attrs.participants.oobis[this.selectedOobiIndex].url);
+    return all && !this.selfOOBI
   }
 
   resolveAllOOBIs(vnode) {

@@ -44,7 +44,9 @@ class VideoCallTask {
     };
     this.acceptingIntroductionsPanel = {
       view: (vnode) => {
-        return <AcceptingIntroductionsPanel parent={this} />;
+        return <AcceptingIntroductionsPanel parent={this}
+                                            aidToSend={Profile.getDefaultAID()}
+                                            initialParticipants={this.config.initialParticipants} />;
       },
     };
     this.copyChallengePanel = {
@@ -395,14 +397,18 @@ class StayInCallPanel {
 }
 
 class AcceptingIntroductionsPanel {
-  view() {
+  view(vnode) {
     return (
       <>
         <img class="task-img task-img--small" src={projectPlanning} alt="" />
         <h4>Accept Out Of Band Introductions</h4>
         <p class="font-size--12 font-color--battleship">
-          For each of the N people in your multisig group, create an alias for them and verify their OOBI URL copied
+          For each of the additional {vnode.attrs.initialParticipants} people in your multisig group, create an alias for them and verify their OOBI URL copied
           from the video call chat using the right panel.
+        </p>
+        <p className="font-size--12 font-color--battleship margin-v-2">
+          Other participants on the call might ask you to confirm your AID, this is:
+          <p className="mono-aid font-color--battleship">{vnode.attrs.aidToSend.prefix}</p>
         </p>
       </>
     );
@@ -439,7 +445,7 @@ class ReceiveChallengePanel {
       return oobi.alias;
     });
     this.ensureWordsSigned(vnode.attrs.parent.participants.oobis).then(() => {
-      console.log("all signed")
+      console.log("all signed");
     })
   }
 
@@ -462,9 +468,9 @@ class ReceiveChallengePanel {
                   oobi.verified = true;
                   KERI.acceptChallengeMessage(task.alias, { aid: contact.id, said: said });
                   m.redraw();
-                  return true
+                  return true;
                 }
-                return false
+                return false;
               });
             });
             if (done) return resolve();
@@ -479,6 +485,7 @@ class ReceiveChallengePanel {
   }
 
   view(vnode) {
+    console.log(vnode.attrs)
     return (
       <>
         <div class="flex flex-align-center flex-justify-between">
@@ -486,10 +493,13 @@ class ReceiveChallengePanel {
           <h3>Challenge Message Recipients</h3>
         </div>
         <p class="font-size--12 font-color--battleship margin-v-2">
-          Paste the message into the video chat so that your contact{vnode.attrs.parent.oneToOne ? '' : 's'} can be
-          verified
+          For each of the additional {vnode.attrs.initialParticipants} participants, copy their challenge phrase from
+          the video chat and paste into the corresponding box for the alias you gave them in the previous step.
           <br />
-          <br />
+          <p className="font-size--12 font-color--battleship margin-v-2">
+            Other participants on the call might ask you to confirm your challenge phrase, this is:
+            <p className="mono-aid font-color--battleship">{vnode.attrs.parent.participants.words.join(' ')}</p>
+          </p>
           <strong>
             Important! Don't use a challenge message from another session, it should be unique to this session taking
             place today.

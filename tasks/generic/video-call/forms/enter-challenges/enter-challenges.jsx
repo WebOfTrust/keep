@@ -16,11 +16,11 @@ class EnterChallengesForm {
     return KERI.signChallengeMessage(this.alias, signer.id, signer.challengeMessage.trim().split(' '));
   }
 
-  validateChallenge(c) {
+  validateChallenge(vnode, c) {
     if (c === '') {
       return true;
     }
-    this.validChallenge = (c !== Participants.instance.words.join(' '));
+    this.validChallenge = (c !== vnode.attrs.participants.words.join(' '));
   }
 
   view(vnode) {
@@ -48,7 +48,7 @@ class EnterChallengesForm {
                 value={signer.challengeMessage}
                 oninput={(e) => {
                   signer.challengeMessage = e.target.value;
-                  this.validateChallenge(signer.challengeMessage);
+                  this.validateChallenge(vnode, signer.challengeMessage);
                 }}
               />
             </div>

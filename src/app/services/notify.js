@@ -1,5 +1,5 @@
 import m from 'mithril';
-import KERI from "./keri";
+import KERI from './keri';
 
 class Notify {
   static isOpen = false;
@@ -15,17 +15,19 @@ class Notify {
   static deleteNotification(rid) {
     return KERI.deleteNotification(rid).then(() => {
       this.requestList();
-    })
+    });
   }
 
   static markNotificationRead(rid) {
     return KERI.putNotification(rid).then(() => {
       this.requestList();
-    })
+    });
   }
 
   static get unread() {
-    return this.notifications.filter((notification) => { return !notification.r});
+    return this.notifications.filter((notification) => {
+      return !notification.r;
+    });
   }
 
   static set selected(notification) {
@@ -50,7 +52,7 @@ class Notify {
     this.requestList().then(() => {
       m.route.set('/dashboard');
       this.isOpen = true;
-    })
+    });
   }
 }
 
